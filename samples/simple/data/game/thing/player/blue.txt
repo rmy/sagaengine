@@ -1,0 +1,6 @@
+XO04
+P player.blue
+R 0.6
+C default
+P Simple
+Q

@@ -1,0 +1,7 @@
+include ../../../../env/gcc/make_env
+include ../../../../env/gcc/project_config
+
+SE_CONFIG = -I$(SE_CORE) -I$(SE_CORE)/../src/ -I$(SE_CLIENT) -I$(SE_CLIENT)/../src/
+TARGET = libse_ncurs
+
+include ../../../../env/gcc/link_env

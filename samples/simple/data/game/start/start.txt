@@ -1,0 +1,8 @@
+EX01
+P player.blue
+E level1a 0
+V
+/
+C control.camera
+/
+Q

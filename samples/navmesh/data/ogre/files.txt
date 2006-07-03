@@ -1,0 +1,4 @@
+ogre/thing/player/blue.txt
+ogre/thing/enemy/acid_spitter.txt
+ogre/thing/enemy/seeker.txt
+ogre/thing/missile/acid.txt

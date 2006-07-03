@@ -1,0 +1,2 @@
+PROJECT = /home/rune/svn/projects/blue/
+PROJ_CONFIG = -DCUSTOM_CONFIG -I$(PROJECT)/src/ncurs_ui -I$(PROJECT)/src/game_core -DIS_OGRE

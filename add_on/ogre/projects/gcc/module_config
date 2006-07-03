@@ -1,0 +1,12 @@
+include ../../../../env/gcc/make_env
+include ../../../../env/gcc/project_config
+
+PRECOMPILE = ../../src/O3dPre.hh.gch
+
+MODULE_CONFIG = -I/usr/local/include/OGRE -I/usr/local/include/CEGUI
+SE_CONFIG = -I$(SE_CORE) -I$(SE_CORE)/../src/ -I$(SE_CLIENT) -I$(SE_CLIENT)/../src/
+TARGET = libse_ogre
+
+include ../../../../env/gcc/link_env
+
+

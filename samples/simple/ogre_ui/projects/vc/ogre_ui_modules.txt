@@ -1,0 +1,2 @@
+/home/rune/svn/sagaengine/samples/simple/ogre_ui/src
+/home/rune/svn/sagaengine/samples/simple/ogre_ui/include
