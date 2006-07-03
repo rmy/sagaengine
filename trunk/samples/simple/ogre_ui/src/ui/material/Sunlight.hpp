@@ -19,34 +19,21 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.H"
-#include "UiSchema.hpp"
-#include "../init/UiInitHandler.hpp"
-#include "../material/Sunlight.hpp"
+#ifndef ui_material_Sunlight_hpp
+#define ui_material_Sunlight_hpp
 
-using namespace se_ogre;
+#include "OgreUiPre.H"
 
 namespace ui {
+	class Sunlight : public se_ogre::RenderEventListener {
+	public:
+		Sunlight();
+		void init();
 
-	bool UiSchema
-	::init() {
-		if(!initSeModule_Ogre()) {
-			return false;
-		}
-
-		// Make sure that init calls to se_core::SimEngine is propagated
-		static UiInitHandler initHandler;
-		static Sunlight sunlight;
-
-		// Success
-		return true;
-	}
-
-
-	void UiSchema
-	::cleanup() {
-		//
-		cleanupSeModule_Ogre();
-	}
+	private:
+		Ogre::Light* light_;
+	};
 
 }
+
+#endif

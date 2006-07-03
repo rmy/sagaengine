@@ -40,15 +40,20 @@ namespace game {
 
 	bool Application
 	::init() {
+		WasHere();
 		if(!initModules())
 			return false;
+		WasHere();
 		if(!initSECore())
 			return false;
 
+		WasHere();
 		ui_ = new Ui();
+		WasHere();
 		if(!ui_->init())
 			return false;
 
+		WasHere();
 		return true;
 	}
 
