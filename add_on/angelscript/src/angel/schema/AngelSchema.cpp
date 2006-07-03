@@ -54,6 +54,7 @@ namespace se_core {
 			// Create and register file parser modules
 			static AngelScriptParserModule aspm(IoSchema::parser());
 
+			LogMsg(ANGELSCRIPT_VERSION_STRING);
 
 			// Create the script engine
 			scriptEngine = asCreateScriptEngine(ANGELSCRIPT_VERSION);

@@ -19,34 +19,29 @@ rune@skalden.com
 */
 
 
+#include "Sunlight.hpp"
 #include "OgreUiPre.H"
-#include "UiSchema.hpp"
-#include "../init/UiInitHandler.hpp"
-#include "../material/Sunlight.hpp"
 
+using namespace se_core;
 using namespace se_ogre;
 
 namespace ui {
 
-	bool UiSchema
-	::init() {
-		if(!initSeModule_Ogre()) {
-			return false;
-		}
-
-		// Make sure that init calls to se_core::SimEngine is propagated
-		static UiInitHandler initHandler;
-		static Sunlight sunlight;
-
-		// Success
-		return true;
+	Sunlight
+	::Sunlight() {
+		setActive(true);
 	}
 
 
-	void UiSchema
-	::cleanup() {
-		//
-		cleanupSeModule_Ogre();
+	void Sunlight
+	::init() {
+		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
+		light_ = O3dSchema::sceneManager->createLight("MainLight");
+		light_->setType(Ogre::Light::LT_DIRECTIONAL);
+		light_->setDiffuseColour(Ogre::ColourValue(1.0, 0.8, 0.5));
+		light_->setSpecularColour(Ogre::ColourValue(0.1, 0.1, 0.1));
+		light_->setCastShadows(true);
+		light_->setDirection(-1, -1, -1);
 	}
 
 }

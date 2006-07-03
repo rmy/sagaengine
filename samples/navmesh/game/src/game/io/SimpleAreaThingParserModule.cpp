@@ -40,6 +40,12 @@ namespace se_core {
 	void SimpleAreaThingParserModule
 	::parse(InputStream& in) {
 		Area* area = 0;
+		short MAX_SPAWN_POINTS = 20;
+		int spawnPointCount = 0;
+		SpawnPoint** spawnPoints = new SpawnPoint*[ MAX_SPAWN_POINTS ];
+		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
+			spawnPoints[i] = 0;
+		}
 
 		int code = in.readInfoCode();
 		Assert(code == 'N');
@@ -61,13 +67,22 @@ namespace se_core {
 
 			case 'E': // entrance
 				short id = in.readShort();
-				float x = in.readFloat();
-				float y = in.readFloat();
-				area->setEntrance(id, x, y);
+				coor_t x = CoorT::fromFloat(in.readFloat());
+				coor_t z = CoorT::fromFloat(in.readFloat());
+				LogMsg(area->name() << ": " << id);
+				Assert(id < MAX_SPAWN_POINTS);
+				SpawnPoint* sp = new SpawnPoint();
+				sp->displace_.set(x, 0, z);
+				sp->face_.set(0, 0, 0, 0);
+				spawnPoints[id] = sp;
+				if(id >= spawnPointCount) {
+					spawnPointCount = id + 1;
+				}
 				break;
 			}
 		}
 		Assert(area);
+		area->setSpawnPoints(spawnPointCount, spawnPoints);
 		area->flip();
 		LogMsg("Parsed things for: " << area->name());
 	}
@@ -129,3 +144,4 @@ namespace se_core {
 	}
 
 }
+

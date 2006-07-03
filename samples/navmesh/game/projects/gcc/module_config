@@ -3,13 +3,13 @@ include ../../../../../env/gcc/project_config
 
 GAME_PLATFORM_UI = $(SAGAENGINE)/samples/navmesh/ogre_ui/include
 
-LIBS = OGRE CEGUI
+LIBS = OGRE CEGUI angelscript
 CXXFLAGS = $(shell pkg-config --cflags $(LIBS))
 LDFLAGS = $(shell pkg-config --libs $(LIBS))
 
 PRECOMPILE = ../../src/GamePre.hh.gch
 
-MODULE_CONFIG = -I/usr/local/include/OGRE -I/usr/local/include/CEGUI
+MODULE_CONFIG = -I/usr/local/include/OGRE -I/usr/local/include/CEGUI -I/usr/local/include
 
 SE_CONFIG = -I$(SE_CORE) -I$(SE_CORE)/../src -I$(SE_OGRE) -I$(SE_OGRE)/../src -I$(SE_CLIENT) -I$(SE_CLIENT)/../src -I$(SE_ANGELSCRIPT) -I$(SE_ANGELSCRIPT)/../src -I$(GAME_PLATFORM_UI)
 SE_LINK = -L$(LIB_DIR)  -lgame_ogre_ui -lse_ogre -lse_angelscript -lse_client -lse_core
