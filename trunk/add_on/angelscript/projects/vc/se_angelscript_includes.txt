@@ -1,0 +1,4 @@
+/home/rune/svn/sagaengine/core/src
+/home/rune/svn/sagaengine/core/include
+/home/rune/svn/sagaengine/add_on/client/src
+/home/rune/svn/sagaengine/add_on/client/include

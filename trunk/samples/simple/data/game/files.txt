@@ -1,0 +1,5 @@
+game/thing/player/blue.txt
+game/thing/control/camera.txt
+game/start/start.txt
+game/area/movement/level1a.txt
+game/area/thing/level1a_things.txt

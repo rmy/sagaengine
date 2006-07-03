@@ -1,0 +1,10 @@
+game/thing/player/blue.txt
+game/thing/enemy/acid_spitter.txt
+game/thing/enemy/seeker.txt
+game/thing/missile/acid.txt
+game/thing/control/camera.txt
+game/start/start.txt
+game/area/movement/level_01_a.bin
+game/area/thing/level_01_a_things.txt
+game/script/AcidSpitter.as
+game/script/Seeker.as

@@ -1,0 +1,26 @@
+CXX = g++
+LD = g++
+
+COMPILE =   $(CXX) -c -g -O2  -I../../src $(DBG) $(PROJ_CONFIG) $(MODULE_CONFIG) $(SE_CONFIG) $(CXXFLAGS) $< -o $@
+COMPILE_H = $(CXX) -c -g -O2  -I../../src $(DBG) $(PROJ_CONFIG) $(MODULE_CONFIG) $(SE_CONFIG) $(CXXFLAGS) $< -o $@
+
+LINK_TARGET = $(TARGET).elf
+LINK = $(LD) -g -O2 -o $@ $^ $(SE_LINK) $(LDFLAGS) -lCEGUIOgreRenderer
+
+
+link: $(PRECOMPILE) $(LINK_TARGET)
+	cp $(LINK_TARGET) $(TARGET_DIR)/$(LINK_TARGET)
+
+
+%.hh.gch: %.H
+	$(COMPILE_H)
+
+debug: clean
+	echo "DBG = -DDEBUG_LEVEL_2 -g" > rel_type
+
+debug1: clean
+	echo "DBG = -DDEBUG_LEVEL_1 -g" > rel_type
+
+release: clean
+	rm -f rel_type
+

@@ -1,0 +1,3 @@
+LINK_TARGET = simple
+$(LINK_TARGET): $(LINK_TARGET).elf
+

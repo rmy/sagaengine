@@ -1,0 +1,140 @@
+/*
+SagaEngine library
+Copyright (c) 2002-2006 Skalden Studio AS
+
+This software is provided 'as-is', without any express or implied 
+warranty. In no event will the authors be held liable for any 
+damages arising from the use of this software.
+
+Permission is granted to distribute the library under the terms of the 
+Q Public License version 1.0. Be sure to read and understand the license
+before using the library. It should be included here, or you may read it
+at http://www.trolltech.com/products/qt/licenses/licensing/qpl
+
+The original version of this library can be located at:
+http://www.sagaengine.com/
+
+Rune Myrland
+rune@skalden.com
+*/
+
+
+#include "ClientEventBridge.hpp"
+#include "ClientListeners.hpp"
+#include "../schema/ClientSchema.hpp"
+#include "io/schema/IoSchema.hpp"
+#include "sim/SimListeners.hpp"
+#include "sim/InitListeners.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/stat/MultiSimObject.hpp"
+#include "sim/stat/ReportingMultiSimObject.hpp"
+#include "sim/SimObject.hpp"
+#include "sim/SimEngine.hpp"
+#include "sim/thing/Thing.hpp"
+#include "sim/thing/Actor.hpp"
+#include "sim/thing/Camera.hpp"
+#include "sim/thing/Player.hpp"
+#include "sim/area/Area.hpp"
+#include "sim/area/AreaManager.hpp"
+#include "util/error/Log.hpp"
+
+
+namespace se_core {
+
+	ClientEventBridge
+	::ClientEventBridge() {
+	}
+
+
+	ClientEventBridge
+	::~ClientEventBridge() {
+	}
+
+
+	void ClientEventBridge
+	::simObjectAddedEvent(MultiSimObject& owner, SimObject& value) {
+		Thing& thing = static_cast<Thing&>(value);
+		if(value.id() != ClientSchema::camera->id()) {
+			ClientSchema::clientListeners.castThingEnteredCameraAreaEvent(thing);
+		}
+	}
+
+
+	void ClientEventBridge
+	::simObjectRemovedEvent(MultiSimObject& owner, SimObject& value) {
+		Thing& thing = static_cast<Thing&>(value);
+		if(value.id() != ClientSchema::camera->id()) {
+			// If yes, cast thing left area event
+			ClientSchema::clientListeners.castThingLeftCameraAreaEvent(thing);
+		}
+	}
+
+
+	void ClientEventBridge
+	::cameraEnteredAreaEvent(Camera& caster, Area& area) {
+		// Cast camera entered area event
+		WasHere();
+		SimSchema::areaManager.setActive(&area);
+		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
+		area.reportingThings().setHandler(this);
+	}
+
+
+	void ClientEventBridge
+	::cameraLeftAreaEvent(Camera& caster, Area& area) {
+		// Cast camera left area event
+		ClientSchema::clientListeners.castCameraLeftAreaEvent(area);
+		area.reportingThings().setHandler(0);
+	}
+
+
+	void ClientEventBridge
+	::setCamera(Camera* newCamera) {
+		if(ClientSchema::camera == newCamera) return;
+		Camera* oldCamera = ClientSchema::camera;
+		ClientSchema::camera = newCamera;
+
+		if(oldCamera == 0 || newCamera->area() != oldCamera->area()) {
+			if(oldCamera != 0 && oldCamera->area() != 0) {
+				ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldCamera->area());
+			}
+			if(newCamera != 0 && newCamera->area() != 0) {
+				SimSchema::areaManager.setActive(newCamera->area());
+				ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newCamera->area());
+			}
+		}
+		if(oldCamera) {
+			if(oldCamera->area()) newCamera->area()->reportingThings().setHandler(0);
+			oldCamera->setCameraHandler(0);
+		}
+		if(newCamera) {
+			if(newCamera->area()) newCamera->area()->reportingThings().setHandler(this);
+			newCamera->setCameraHandler(this);
+		}
+	}
+
+
+	void ClientEventBridge
+	::initGameEvent() {
+		WasHere();
+		// Player and camera objects initialised from data file.
+	}
+
+
+	void ClientEventBridge
+	::cleanupGameEvent() {
+		if(ClientSchema::player) {
+			ClientSchema::player->leaveCurrentArea();
+			ClientSchema::player->reallyScheduleForDestruction();
+		}
+
+		if(ClientSchema::floatingCamera) {
+			ClientSchema::floatingCamera->leaveCurrentArea();
+			ClientSchema::floatingCamera->scheduleForDestruction();
+		}
+		ClientSchema::player = 0;
+		ClientSchema::floatingCamera = 0;
+		ClientSchema::camera = 0;
+	}
+
+}

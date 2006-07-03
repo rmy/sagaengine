@@ -1,0 +1,9 @@
+include ../../../../env/gcc/make_env
+include ../../../../env/gcc/project_config
+
+LIB_CXX = -I/usr/local/include/OGRE -I/usr/local/include/CEGUI
+LINK_TARGET = libse_ogre_simple_sm
+$(LINK_TARGET): $(LINK_TARGET).so
+	cp $(LINK_TARGET).so ../../../../lib/.
+	cp $(LINK_TARGET).a ../../../../lib/.
+

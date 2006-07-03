@@ -1,0 +1,7 @@
+XB01
+N level_01_a
+E 0 12.50 12.50
+E 1 28.00 10.00
+O enemy.acid_spitter 1.50 6.50 /
+O enemy.seeker 2.50 2.50 /
+Q

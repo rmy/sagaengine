@@ -1,0 +1,37 @@
+material Basic/VertexColor
+{
+	technique 
+	{
+		pass 
+		{
+			ambient vertexcolour
+		}
+	}
+}
+
+
+material Basic/White
+{
+	technique 
+	{
+		pass 
+		{
+			ambient 0.5 0.5 .5
+		}
+	}
+}
+
+
+material Basic/VertexColor2
+{
+	receive_shadows off
+
+	technique 
+	{
+		pass 
+		{
+			//ambient vertexcolour
+			ambient 0.75 0.75 .75
+		}
+	}
+}

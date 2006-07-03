@@ -1,0 +1,11 @@
+/Ogre/Dagon/ogrenew/OgreMain/include
+/Ogre/Dagon/ogrenew/Samples/Common/CEGUIRenderer/include
+/Ogre/Dagon/ogrenew/Dependencies/include
+/Ogre/Dagon/ogrenew/Dependencies/include/CEGUI
+/home/rune/svn/sagaengine/core/include
+/home/rune/svn/sagaengine/core/src
+/home/rune/svn/sagaengine/add_on/client/include
+/home/rune/svn/sagaengine/add_on/client/src
+/home/rune/svn/sagaengine/add_on/ogre/src
+/home/rune/svn/sagaengine/add_on/ogre/include
+

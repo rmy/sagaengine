@@ -1,0 +1,2 @@
+/home/rune/svn/sagaengine/core/src
+/home/rune/svn/sagaengine/core/include

@@ -1,0 +1,6 @@
+PROJECT = $(SAGAENGINE)/samples/navmesh/
+PROJ_CONFIG = -DIS_OGRE
+LIB_DIR = $(SAGAENGINE)/samples/navmesh/lib
+BIN_DIR = $(SAGAENGINE)/samples/navmesh/projects/gcc
+
+TARGET_DIR = $(LIB_DIR)

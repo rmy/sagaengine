@@ -1,0 +1,7 @@
+OO01
+N player.blue
+R
+M puck.mesh
+Q
+A STAND  wiggle
+G WALK   wiggle

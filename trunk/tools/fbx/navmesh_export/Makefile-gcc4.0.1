@@ -1,0 +1,42 @@
+SHELL       = /bin/sh
+FBXDIR      = /usr/local/src/FBXSDK2005.08
+
+LIBDIR      = $(FBXDIR)/lib
+INCDIR      = $(FBXDIR)/include
+
+TARGET      = fbx2navMesh
+OBJS  = \
+	./common.o\
+	./DisplayCommon.o\
+	./DisplayMesh.o\
+	./SaveNavMesh.o\
+	./SaveCommon.o\
+	./main.o
+
+LIBS        = -lm -lstdc++ -lpthread -ldl -lz -lfbxsdk_gcc32
+
+CC          = cc
+LD          = cc
+RM          = /bin/rm -f
+
+CXXFLAGS    = -DK_PLUGIN -DK_FBXSDK
+LDFLAGS     =  
+
+.SUFFIXES: .cpp
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS) -L$(LIBDIR) $(LIBS) 
+
+.cpp.o:
+	$(CC) $(CXXFLAGS) -I$(INCDIR) -c $< -o $*.o 
+
+clean:
+	$(RM) $(TARGET) *.o $(COMMONDIR)/*.o
+
+
+
+
+
+
