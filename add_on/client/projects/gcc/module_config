@@ -1,7 +1,0 @@
-include ../../../../env/gcc/make_env
-include ../../../../env/gcc/project_config
-
-SE_CONFIG = -I$(SE_CORE) -I$(SE_CORE)/../src/
-TARGET = libse_client
-
-include ../../../../env/gcc/link_env
