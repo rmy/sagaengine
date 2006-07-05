@@ -1,2 +1,0 @@
-PROJECT = /home/rune/svn/projects/blue/
-PROJ_CONFIG = -DCUSTOM_CONFIG -DIS_OGRE -I$(PROJECT)/src/ogre_ui -I$(PROJECT)/src/game_core

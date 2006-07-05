@@ -1,5 +1,0 @@
-
-SAGAENGINE = /home/rune/svn/sagaengine
-
-SE_CORE = $(SAGAENGINE)/core
-SE_SCRIPTS = $(SAGAENGINE)/scripts/python

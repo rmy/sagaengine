@@ -1,2 +1,0 @@
---show-below-main=yes --tool=memcheck --leak-check=full --num-callers=30 --error-limit=no --show-reachable=yes
-
