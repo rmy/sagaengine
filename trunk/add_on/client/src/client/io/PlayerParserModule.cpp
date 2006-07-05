@@ -101,7 +101,7 @@ namespace se_core {
 				camera->nextPos().setZ(CoorT::fromFloat(in.readFloat()));
 				break;
 
-			case 'E': // Entrance
+			case 'E': { // Entrance 
 				in.readString(tempString);
 				value = in.readShort();
 				LogMsg(tempString.get());
@@ -113,6 +113,7 @@ namespace se_core {
 				camera->nextPos().setArea(*area, *sp);
 				LogMsg("Pos - read:" << camera->nextPos().area()->name());
 				//LogMsg( (sprintf(log_msg(), "... %d=%d,%d", value, area->entrance(value)->xTile(), area->entrance(value)->zTile()), log_msg()) );
+				}
 				break;
 
 			case 'S': // Statistic

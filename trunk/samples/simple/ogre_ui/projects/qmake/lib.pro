@@ -1,9 +1,10 @@
-include( ../../../env/qmake/proj.pro )
+include( ../../../../../env/qmake/proj.pro )
 
-message( "[ core settings ]")
+message( "[ Application ogre_ui settings ]")
 
 CONFIG += staticlib
-TARGET = se_core
+TARGET = game_ogre_ui
+
 INCLUDEPATH += ../../src
 
 include( src.pro )
@@ -11,3 +12,4 @@ include( src.pro )
 message( Config: $$CONFIG )
 message( Target: $$TARGET )
 message( Template: $$TEMPLATE )
+

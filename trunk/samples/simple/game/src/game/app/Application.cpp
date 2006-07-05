@@ -86,9 +86,9 @@ namespace game {
 			return false;
 		}
 
-		if(!initSeModule_Angelscript()) {
-			return false;
-		}
+		//if(!initSeModule_Angelscript()) {
+		//	return false;
+		//}
 
 		if(!GameSchema::init()) {
 			WasHere();
@@ -107,7 +107,7 @@ namespace game {
 	::cleanupModules() {
 		cleanupGameModule_PlatformUI();
 		GameSchema::cleanup();
-		cleanupSeModule_Angelscript();
+		//cleanupSeModule_Angelscript();
 		cleanupSeModule_Client();
 		cleanupSeModule_Core();
 	}
