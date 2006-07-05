@@ -5,7 +5,7 @@ OGRE = /usr/local/include/OGRE
 CEGUI = /usr/local/include/CEGUI
 ANGELSCRIPT = /usr/local/src/angelscript/sdk/angelscript/include/
 
-CONFIG = release
+CONFIG = debug
 
 message( "core module included" )
 INCLUDEPATH += $${SAGAENGINE}/core/include
@@ -36,7 +36,7 @@ INCLUDEPATH += $${CEGUI}
 message( "OGRE included" )
 INCLUDEPATH += $${OGRE}
 
-DESTDIR = $${SAGAENGINE}/lib
+DESTDIR = $${SAGAENGINE}/samples/simple/lib
 
 DEFINES *= IS_OGRE
 

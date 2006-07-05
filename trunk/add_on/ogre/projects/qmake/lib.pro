@@ -1,7 +1,6 @@
-include( ../../../env/qmake/proj.pro )
+include( ../../../../env/qmake/proj.pro )
 
 message( "[ ogre add-on settings ]")
-
 
 CONFIG += staticlib
 TARGET = se_ogre
@@ -13,8 +12,6 @@ INCLUDEPATH += ../../../../core/src
 INCLUDEPATH += /usr/local/include/OGRE
 INCLUDEPATH += /usr/local/include/CEGUI
 DEFINES *= IS_OGRE
-
-
 
 include( src.pro )
 
