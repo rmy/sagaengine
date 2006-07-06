@@ -1,3 +1,6 @@
+!include( ../../../../env/qmake/env.pro ) {
+    include( ../../../../env/qmake/missing.pro )
+}
 !include( proj.pro ) {
     error( "You must link proj.pro to proj_debug.pro or proj_release.pro" )
 }
