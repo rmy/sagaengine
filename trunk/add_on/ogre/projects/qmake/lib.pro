@@ -1,16 +1,31 @@
-include( ../../../../env/qmake/proj.pro )
+!include( ../../../../env/qmake/env.pro ) {
+    include( ../../../../env/qmake/missing.pro )
+}
+!include( ../../../../env/qmake/proj.pro ) {
+    warning("(SAGAENGINE)/env/qmake/proj.pro is missing")
+}
 
 message( "[ ogre add-on settings ]")
 
 CONFIG += staticlib
+OBJECTS_DIR = .obj
 TARGET = se_ogre
+
 INCLUDEPATH += ../../src
-INCLUDEPATH += ../../../client/include
-INCLUDEPATH += ../../../client/src
+
+message( "core module included" )
 INCLUDEPATH += ../../../../core/include
 INCLUDEPATH += ../../../../core/src
-INCLUDEPATH += /usr/local/include/OGRE
-INCLUDEPATH += /usr/local/include/CEGUI
+
+message( "client add-on included" )
+INCLUDEPATH += ../../../client/include
+INCLUDEPATH += ../../../client/src
+
+message( "CEGUI included" )
+INCLUDEPATH += $${CEGUI}
+message( "OGRE included" )
+INCLUDEPATH += $${OGRE}
+
 DEFINES *= IS_OGRE
 
 include( src.pro )
