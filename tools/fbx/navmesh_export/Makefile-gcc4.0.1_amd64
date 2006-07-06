@@ -1,5 +1,5 @@
 SHELL       = /bin/sh
-FBXDIR      = /usr/local/src/FBXSDK2005.10
+FBXDIR      = /usr/local/src/FBXSDK2005.12
 
 LIBDIR      = $(FBXDIR)/lib
 INCDIR      = $(FBXDIR)/include
@@ -13,7 +13,7 @@ OBJS  = \
 	./SaveCommon.o\
 	./main.o
 
-LIBS        = -lm -lstdc++ -lpthread -ldl -lz -lfbxsdk_gcc32
+LIBS        = -lm -lstdc++ -lpthread -ldl -lz -lfbxsdk_gcc32_amd64
 
 CC          = cc
 LD          = cc
