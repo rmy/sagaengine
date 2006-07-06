@@ -49,8 +49,8 @@ namespace se_ogre {
 
 		static const int MAX_STACK_SIZE = 64;
 		static const int MAX_HANDLER_COUNT = 32;
-		int handlerStackPos_;
 		int handlerCount_;
+		int handlerStackPos_;
 		InputHandler* handlerStack_[ MAX_STACK_SIZE ];
 		InputHandler* handlers_[ MAX_HANDLER_COUNT ];
 	};

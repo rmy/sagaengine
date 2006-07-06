@@ -98,7 +98,7 @@ namespace se_ogre {
 
 	short ThingEntity
 	::anim() {
-		thing_->anim().movementMode();
+		return thing_->anim().movementMode();
 		//TODO: return anim();
 		//return 0;
 	}

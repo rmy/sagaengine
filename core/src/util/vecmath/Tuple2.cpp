@@ -13,7 +13,7 @@ namespace se_core {
 
 	char* Tuple2
 	::toString(char* buffer) const {
-		sprintf(buffer, "(%d,%d)", x_, y_);
+		sprintf(buffer, "(%f,%f)", x_ * 1.0, y_ * 1.0);
 		return buffer;
 	}
 
