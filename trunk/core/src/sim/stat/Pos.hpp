@@ -190,7 +190,7 @@ namespace se_core {
 		inline void setIndex(short i) { layer_ = (layer_ < 0) ? (-i - 1) : (i + 1); }
 		inline short index() const { return ((layer_ < 0) ? -layer_ : layer_) - 1; }
 		inline bool hasIndex() const { return layer_ != 0; }
-		inline bool setNoIndex() { layer_ = 0; }
+		inline void setNoIndex() { layer_ = 0; }
 
 
 		/**

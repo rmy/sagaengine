@@ -15,7 +15,7 @@ namespace se_core {
 
 	char* Tuple4
 	::toString(char* buffer) const {
-		sprintf(buffer, "(%d,%d,%d,%d)", x, y, z, w);
+		sprintf(buffer, "(%f,%f,%f,%f)", x * 1.0, y * 1.0, z * 1.0, w * 1.0);
 		return buffer;
 	}
 }

@@ -31,7 +31,7 @@ namespace se_ogre {
 	{
 	public:
 		ConsoleHandler();
-		~ConsoleHandler();
+		virtual ~ConsoleHandler();
 
 		virtual void parseCommand(char* s) = 0;
 
