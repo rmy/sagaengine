@@ -8,11 +8,6 @@ material Area/level1a.sbg.bin
 			ambient 0.9 0.9 0.9
 			diffuse 0.5 0.5 0.5
 
-			texture_unit 
-			{
-				texture level1a.png
-				filtering none
-			}
 		}
 	}
 }

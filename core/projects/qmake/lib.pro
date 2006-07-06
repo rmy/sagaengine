@@ -1,9 +1,13 @@
-include( ../../../env/qmake/proj.pro )
+!include( ../../../env/qmake/proj.pro ) {
+    warning("(SAGAENGINE)/env/qmake/proj.pro is missing")
+}
 
 message( "[ core settings ]")
 
 CONFIG += staticlib
+OBJECTS_DIR = .obj
 TARGET = se_core
+
 INCLUDEPATH += ../../src
 
 include( src.pro )
