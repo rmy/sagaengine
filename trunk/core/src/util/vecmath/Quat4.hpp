@@ -58,9 +58,9 @@ namespace se_core {
 		Quat4(const Tuple4& t1): Tuple4(t1) { }
 
 		/**
-		 * Constructs and initializes a Quat4 to (0,0,0,0).
+		 * Constructs and initializes a Quat4 to (0,0,0,1).
 		 */
-		Quat4(): Tuple4() { }
+		Quat4(): Tuple4(0, 0, 0, 1) { }
 
 		/**
 		 * Sets the value of this tuple to the value of tuple t1.
@@ -179,7 +179,7 @@ namespace se_core {
 		 * @param q1 the quaternion to be normalized.
 		 */
 		void normalize(const Quat4& q1) {
-			scale_t n = QuatT::oneOver( q1.norm() );
+			scale_t n = QuatT::oneOver( CoorT::sqrt( q1.norm() ) );
 			// zero-div may occur.
 			x = QuatT::scale(n, q1.x);
 			y = QuatT::scale(n, q1.y);
@@ -218,7 +218,7 @@ namespace se_core {
 		 * @param q1 the other quaternion
 		 * @param alpha the alpha interpolation parameter
 		 */
-		//void interpolate(scale_t alpha, const Quat4& q1);
+		void interpolate(scale_t alpha, const Quat4& q1);
 
 		/**
 		 * Performs a great circle interpolation between quaternion q1 and
@@ -227,7 +227,7 @@ namespace se_core {
 		 * @param q2 the second quaternion
 		 * @param alpha the alpha interpolation parameter
 		 */
-		//void interpolate(coor_t aplpha, const Quat4& q1, const Quat4& q2);
+		void interpolate(coor_t aplpha, const Quat4& q1, const Quat4& q2);
 
 		// copy constructor and operator = is made by complier
 

@@ -24,7 +24,11 @@ rune@skalden.com
 
 #include "util/config/util_config.hpp"
 
-#ifndef SE_OWN_MOVE
+#ifdef SE_OWN_MOVE
+
+#include "config/CustomMove.hpp"
+
+#else
 
 #include "../stat/sim_stat.hpp"
 #include "../stat/Force.hpp"

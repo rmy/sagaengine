@@ -691,7 +691,7 @@ namespace se_core {
 
 	Thing* Area
 	::spawn(const char* thingName, const Coor& coor, const Quat4& face) {
-		//LogMsg(thingName << ": " << coor.y_);
+		LogMsg(thingName << ": " << face.x << ", " << face.y << ", " << face.z << ", " << face.w);
 		// Create the thing
 		Thing* thing = SimSchema::thingManager().create(thingName);
 

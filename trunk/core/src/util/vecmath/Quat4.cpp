@@ -159,50 +159,65 @@ namespace se_core {
 		//LogMsg(yaw << " = (" << QuatT::toFloat(x) << ", " << QuatT::toFloat(y) << ", " << QuatT::toFloat(z) << ", " << QuatT::toFloat(w) << ")");
 	}
 	
-	/*
 	void Quat4
 	::interpolate(scale_t alpha, const Quat4& q1) {
+		#ifdef SE_FIXED_POINT
 		LogFatal("Not yet implemented");
+		#else
+
 		// From Hoggar.
 		normalize();
-		coor_t n1 = CoorT::sqrt(q1.norm());
+
+		scale_t n1 = QuatT::oneOver( q1.norm() );
 		// zero-div may occur.
-		coor_t x1 = q1.x/n1;
-		coor_t y1 = q1.y/n1;
-		coor_t z1 = q1.z/n1;
-		coor_t w1 = q1.w/n1;
+		coor_t x1 = QuatT::scale(n1, q1.x);
+		coor_t y1 = QuatT::scale(n1, q1.y);
+		coor_t z1 = QuatT::scale(n1, q1.z);
+		coor_t w1 = QuatT::scale(n1, q1.w);
+
+		//coor_t n1 = CoorT::sqrt(q1.norm());
+		// zero-div may occur.
+		//coor_t x1 = q1.x/n1;
+		//coor_t y1 = q1.y/n1;
+		//coor_t z1 = q1.z/n1;
+		//coor_t w1 = q1.w/n1;
 
 		// t is cosine (dot product)
-		coor_t t = x*x1 + y*y1 + z*z1 + w*w1;
-
+		scale_t t = x*x1 + y*y1 + z*z1 + w*w1;
 		// same quaternion (avoid domain error)
 		if (1.0 <= CoorT::abs(t))
 			return;
 
 		// t is now theta
-		bray_t theta = Trig::acos(t);
+		float theta = ::acos(t);
 
-		coor_t sin_t = Trig::sinQuat(theta);
+		float sin_t = ::sin(theta);
 
 		// same quaternion (avoid zero-div)
 		if (sin_t == 0)
 			return;
 
-		coor_t s = Trig::sinQuat((1.0-alpha)*t)/sin_t;
-		t = Trig::sinQuat(alpha*t)/sin_t;
+
+		scale_t s = ::sin((1.0-alpha)*t)/sin_t;
+		t = ::sin(alpha*t)/sin_t;
+
+		LogMsg(sin_t << ": " << s << " - " << t);
 
 		// set values
 		x = s*x + t*x1;
 		y = s*y + t*y1;
 		z = s*z + t*z1;
 		w = s*w + t*w1;
+
+		normalize();
+		#endif
 	}
+
 
 	void Quat4
 	::interpolate(scale_t alpha, const Quat4& q1, const Quat4& q2) {
 		set(q1);
 		interpolate(alpha, q2);
 	}
-	*/
 
 }
