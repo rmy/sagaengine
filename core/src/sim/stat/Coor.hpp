@@ -49,7 +49,7 @@ namespace se_core {
 		 */
 		Coor(coor_t x, coor_t y, coor_t z)
 				: Point3(x, y, z) {
-			face_.setEuler(0);
+			//face_.setEuler(0);
 		}
 
 		bool coorEquals(const Coor& c) const {
