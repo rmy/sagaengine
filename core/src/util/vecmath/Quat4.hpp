@@ -140,7 +140,7 @@ namespace se_core {
 		void mulInverse(const Quat4& q1);
 
 	protected:
-		coor_t norm() const {
+		coor_double_t norm() const {
 			return QuatT::pow2(x) + QuatT::pow2(y) + QuatT::pow2(z) + QuatT::pow2(w);
 		}
 
@@ -191,7 +191,7 @@ namespace se_core {
 		 * Normalizes the value of this quaternion in place.
 		 */
 		void normalize() {
-			scale_t n = QuatT::oneOver( norm() );
+			scale_t n = QuatT::oneOver( CoorT::sqrt( norm() ) );
 			// zero-div may occur.
 
 			x = QuatT::scale(n, x);
