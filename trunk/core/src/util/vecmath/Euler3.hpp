@@ -54,7 +54,10 @@ namespace se_core {
 		 * @param roll the roll angle
 		 */
 		Euler3(bray_t yaw, bray_t pitch, bray_t roll):
-				yaw_(yaw), pitch_(pitch), roll_(roll) { }
+				yaw_(yaw & BRAY_MASK), pitch_(pitch & BRAY_MASK), roll_(roll & BRAY_MASK) { 
+			LogMsg(roll);
+			set(yaw, pitch, roll);
+		}
 
 		/**
 		 * Constructs and initializes a Euler3 from the specified array.
@@ -63,7 +66,7 @@ namespace se_core {
 		Euler3(const bray_t t[]): yaw_(t[0]), pitch_(t[1]), roll_(t[2]) { }
 
 		/**
-		 * Constructs and initializes a Euler3 to (0,0,0,0).
+		 * Constructs and initializes a Euler3 to (0,0,0).
 		 */
 		Euler3(): yaw_(0), pitch_(0), roll_(0) { }
 
