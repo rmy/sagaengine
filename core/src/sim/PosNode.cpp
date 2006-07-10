@@ -61,7 +61,7 @@ namespace se_core {
 		if(position_.area() != nextPosition_.area()) {
 			changeArea();
 		}
-		position_.setViewPoint(nextPosition_);
+		position_.setPos(nextPosition_);
 		anim_ = nextAnim_;
 	}
 
