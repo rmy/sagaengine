@@ -89,10 +89,10 @@ namespace se_core {
 	::rotate(const Quat4& q) {
 		// nVidia SDK implementation
 		Vector3 uv, uuv; 
-		Vector3 qvec(q.x, q.y, q.z);
+		Vector3 qvec(q.x_, q.y_, q.z_);
 		uv.cross(qvec, *this); 
 		uuv.cross(qvec, uv);
-		uv.scale(2 * SCALE_RES * q.w); 
+		uv.scale(2 * SCALE_RES * q.w_); 
 		uuv.scale(2 * SCALE_RES);
 
 		add(uv);
@@ -103,10 +103,10 @@ namespace se_core {
 	::rotate(const Vector3& v, const Quat4& q) {
 		// nVidia SDK implementation
 		Vector3 uv, uuv; 
-		Vector3 qvec(q.x, q.y, q.z);
+		Vector3 qvec(q.x_, q.y_, q.z_);
 		uv.cross(qvec, v); 
 		uuv.cross(qvec, uv);
-		uv.scale(2 * SCALE_RES * q.w); 
+		uv.scale(2 * SCALE_RES * q.w_); 
 		uuv.scale(2 * SCALE_RES);
 
 		set(*this);

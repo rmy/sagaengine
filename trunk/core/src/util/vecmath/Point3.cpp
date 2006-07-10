@@ -24,9 +24,9 @@ namespace se_core {
 	void Point3
 	::project(const Point4& p1) {
 		// zero div may occur.
-		x_ = CoorT::div(p1.x, p1.w);
-		y_ = CoorT::div(p1.y, p1.w);
-		z_ = CoorT::div(p1.z, p1.w);
+		x_ = CoorT::div(p1.x_, p1.w_);
+		y_ = CoorT::div(p1.y_, p1.w_);
+		z_ = CoorT::div(p1.z_, p1.w_);
 	}
 
 }

@@ -53,22 +53,22 @@ namespace se_core {
 		/**
 		 * The x coordinate.
 		 */
-		coor_t x;
+		coor_t x_;
 
 		/**
 		 * The y coordinate.
 		 */
-		coor_t y;
+		coor_t y_;
 
 		/**
 		 * The z coordinate.
 		 */
-		coor_t z;
+		coor_t z_;
 
 		/**
 		 * The w coordinate.
 		 */
-		coor_t w;
+		coor_t w_;
 
 		/**
 		 * Constructs and initializes a Tuple4 from the specified xyzw coordinates.
@@ -78,18 +78,18 @@ namespace se_core {
 		 * @param wvalue the w coordinate
 		 */
 		Tuple4(coor_t xvalue, coor_t yvalue, coor_t zvalue, coor_t wvalue):
-			x(xvalue), y(yvalue), z(zvalue), w(wvalue) { }
+			x_(xvalue), y_(yvalue), z_(zvalue), w_(wvalue) { }
 
 		/**
 		 * Constructs and initializes a Tuple4 from the specified array.
 		 * @param t the array of length 4 containing xyzw in order
 		 */
-		Tuple4(const coor_t t[]): x(t[0]), y(t[1]), z(t[2]), w(t[3]) { }
+		Tuple4(const coor_t t[]): x_(t[0]), y_(t[1]), z_(t[2]), w_(t[3]) { }
 
 		/**
-		 * Constructs and initializes a Tuple4 to (0,0,0,0).
+		 * Constructs a Tuple4. Values are not initialized.
 		 */
-		Tuple4(): x(0), y(0), z(0), w(0) { }
+		Tuple4() { }
 
 		/**
 		 * Sets the value of this tuple to the specified xyzw coordinates.
@@ -99,10 +99,10 @@ namespace se_core {
 		 * @param wvalue the w coordinate
 		 */
 		void set(coor_t xvalue, coor_t yvalue, coor_t zvalue, coor_t wvalue) {
-			x = xvalue;
-			y = yvalue;
-			z = zvalue;
-			w = wvalue;
+			x_ = xvalue;
+			y_ = yvalue;
+			z_ = zvalue;
+			w_ = wvalue;
 		}
 
 		/**
@@ -110,10 +110,10 @@ namespace se_core {
 		 * @param t the array of length 4 containing xyzw in order
 		 */
 		void set(const coor_t t[]) {
-			x = t[0];
-			y = t[1];
-			z = t[2];
-			w = t[3];
+			x_ = t[0];
+			y_ = t[1];
+			z_ = t[2];
+			w_ = t[3];
 		}
 
 		/**
@@ -121,10 +121,10 @@ namespace se_core {
 		 * @param t1 the tuple to be copied
 		 */
 		void set(const Tuple4& t1) {
-			x = t1.x;
-			y = t1.y;
-			z = t1.z;
-			w = t1.w;
+			x_ = t1.x_;
+			y_ = t1.y_;
+			z_ = t1.z_;
+			w_ = t1.w_;
 		}
 
 		/**
@@ -132,10 +132,10 @@ namespace se_core {
 		 * @param t the array that will contain the values of the vector
 		 */
 		void get(coor_t t[]) const {
-			t[0] = x;
-			t[1] = y;
-			t[2] = z;
-			t[3] = w;
+			t[0] = x_;
+			t[1] = y_;
+			t[2] = z_;
+			t[3] = w_;
 		}
 
 		/**
@@ -144,10 +144,10 @@ namespace se_core {
 		 */
 		void get(Tuple4* t) const {
 			Assert(t);
-			t->x = x;
-			t->y = y;
-			t->z = z;
-			t->w = w;
+			t->x_ = x_;
+			t->y_ = y_;
+			t->z_ = z_;
+			t->w_ = w_;
 		}
 
 		/**
@@ -156,10 +156,10 @@ namespace se_core {
 		 * @param t2 the second tuple
 		 */
 		void add(const Tuple4& t1, const Tuple4& t2) {
-			x = t1.x + t2.x;
-			y = t1.y + t2.y;
-			z = t1.z + t2.z;
-			w = t1.w + t2.w;
+			x_ = t1.x_ + t2.x_;
+			y_ = t1.y_ + t2.y_;
+			z_ = t1.z_ + t2.z_;
+			w_ = t1.w_ + t2.w_;
 		}
 
 		/**
@@ -167,10 +167,10 @@ namespace se_core {
 		 * @param t1  the other tuple
 		 */
 		void add(const Tuple4& t1) {
-			x += t1.x;
-			y += t1.y;
-			z += t1.z;
-			w += t1.w;
+			x_ += t1.x_;
+			y_ += t1.y_;
+			z_ += t1.z_;
+			w_ += t1.w_;
 		}
 
 
@@ -180,10 +180,10 @@ namespace se_core {
 		 * @param t2 the second tuple
 		 */
 		void sub(const Tuple4& t1, const Tuple4& t2) {
-			x = t1.x - t2.x;
-			y = t1.y - t2.y;
-			z = t1.z - t2.z;
-			w = t1.w - t2.w;
+			x_ = t1.x_ - t2.x_;
+			y_ = t1.y_ - t2.y_;
+			z_ = t1.z_ - t2.z_;
+			w_ = t1.w_ - t2.w_;
 		}
 
 		/**
@@ -191,10 +191,10 @@ namespace se_core {
 		 * @param t1 the other tuple
 		 */
 		void sub(const Tuple4& t1) {
-			x -= t1.x;
-			y -= t1.y;
-			z -= t1.z;
-			w -= t1.w;
+			x_ -= t1.x_;
+			y_ -= t1.y_;
+			z_ -= t1.z_;
+			w_ -= t1.w_;
 		}
 
 		/**
@@ -202,20 +202,20 @@ namespace se_core {
 		 * @param t1 the source vector
 		 */
 		void negate(const Tuple4& t1) {
-			x = -t1.x;
-			y = -t1.y;
-			z = -t1.z;
-			w = -t1.w;
+			x_ = -t1.x_;
+			y_ = -t1.y_;
+			z_ = -t1.z_;
+			w_ = -t1.w_;
 		}
 
 		/**
 		 * Negates the value of this vector in place.
 		 */
 		void negate() {
-			x = -x;
-			y = -y;
-			z = -z;
-			w = -w;
+			x_ = -x_;
+			y_ = -y_;
+			z_ = -z_;
+			w_ = -w_;
 		}
 
 
@@ -225,10 +225,10 @@ namespace se_core {
 		 * @param t1 the source tuple
 		 */
 		void scale(scale_t s, const Tuple4& t1) {
-			x = CoorT::scale(s, t1.x);
-			y = CoorT::scale(s, t1.y);
-			z = CoorT::scale(s, t1.z);
-			w = CoorT::scale(s, t1.w);
+			x_ = CoorT::scale(s, t1.x_);
+			y_ = CoorT::scale(s, t1.y_);
+			z_ = CoorT::scale(s, t1.z_);
+			w_ = CoorT::scale(s, t1.w_);
 		}
 
 		/**
@@ -236,10 +236,10 @@ namespace se_core {
 		 * @param s the scalar value
 		 */
 		void scale(scale_t s) {
-			x = CoorT::scale(s, x);
-			y = CoorT::scale(s, y);
-			z = CoorT::scale(s, z);
-			w = CoorT::scale(s, w);
+			x_ = CoorT::scale(s, x_);
+			y_ = CoorT::scale(s, y_);
+			z_ = CoorT::scale(s, z_);
+			w_ = CoorT::scale(s, w_);
 		}
 
 		/**
@@ -250,10 +250,10 @@ namespace se_core {
 		 * @param t2 the tuple to be added
 		 */
 		void scaleAdd(scale_t s, const Tuple4& t1, const Tuple4& t2) {
-			x = CoorT::scale(s, t1.x) + t2.x;
-			y = CoorT::scale(s, t1.y) + t2.y;
-			z = CoorT::scale(s, t1.z) + t2.z;
-			w = CoorT::scale(s, t1.w) + t2.w;
+			x_ = CoorT::scale(s, t1.x_) + t2.x_;
+			y_ = CoorT::scale(s, t1.y_) + t2.y_;
+			z_ = CoorT::scale(s, t1.z_) + t2.z_;
+			w_ = CoorT::scale(s, t1.w_) + t2.w_;
 		}
 
 		/**
@@ -263,10 +263,10 @@ namespace se_core {
 		 * @param t1 the tuple to be added
 		 */
 		void scaleAdd(scale_t s, const Tuple4& t1) {
-			x = CoorT::scale(s, x) + t1.x;
-			y = CoorT::scale(s, y) + t1.y;
-			z = CoorT::scale(s, z) + t1.z;
-			w = CoorT::scale(s, w) + t1.w;
+			x_ = CoorT::scale(s, x_) + t1.x_;
+			y_ = CoorT::scale(s, y_) + t1.y_;
+			z_ = CoorT::scale(s, z_) + t1.z_;
+			w_ = CoorT::scale(s, w_) + t1.w_;
 		}
 
 
@@ -276,7 +276,7 @@ namespace se_core {
 		 * @param t1 the vector with which the comparison is made.
 		 */
 		bool equals(const Tuple4& t1) const {
-			return x == t1.x && y == t1.y && z == t1.z && w == t1.w;
+			return x_ == t1.x_ && y_ == t1.y_ && z_ == t1.z_ && w_ == t1.w_;
 		}
 
 		/**
@@ -347,14 +347,14 @@ namespace se_core {
 		 * @param min the lowest value in this tuple after clamping
 		 */
 		void clampMin(coor_t min) {
-			if (x < min)
-				x = min;
-			if (y < min)
-				y = min;
-			if (z < min)
-				z = min;
-			if (w < min)
-				w = min;
+			if (x_ < min)
+				x_ = min;
+			if (y_ < min)
+				y_ = min;
+			if (z_ < min)
+				z_ = min;
+			if (w_ < min)
+				w_ = min;
 		}
 
 		/**
@@ -362,28 +362,28 @@ namespace se_core {
 		 * @param max the highest value in the tuple after clamping
 		 */
 		void clampMax(coor_t max) {
-			if (x > max)
-				x = max;
-			if (y > max)
-				y = max;
-			if (z > max)
-				z = max;
-			if (w > max)
-				w = max;
+			if (x_ > max)
+				x_ = max;
+			if (y_ > max)
+				y_ = max;
+			if (z_ > max)
+				z_ = max;
+			if (w_ > max)
+				w_ = max;
 		}
 
 		/**
 		 * Sets each component of this tuple to its absolute value.
 		 */
 		void absolute() {
-			if (x < 0)
-				x = -x;
-			if (y < 0)
-				y = -y;
-			if (z < 0)
-				z = -z;
-			if (w < 0)
-				w = -w;
+			if (x_ < 0)
+				x_ = -x_;
+			if (y_ < 0)
+				y_ = -y_;
+			if (z_ < 0)
+				z_ = -z_;
+			if (w_ < 0)
+				w_ = -w_;
 		}
 
 		/**
@@ -406,10 +406,10 @@ namespace se_core {
 		 */
 		void interpolate(const Tuple4& t1, scale_t alpha) {
 			scale_t beta = SCALE_RES - alpha;
-			x = CoorT::fromScale(beta*x + alpha*t1.x);
-			y = CoorT::fromScale(beta*y + alpha*t1.y);
-			z = CoorT::fromScale(beta*z + alpha*t1.z);
-			w = CoorT::fromScale(beta*w + alpha*t1.w);
+			x_ = CoorT::fromScale(beta*x_ + alpha*t1.x_);
+			y_ = CoorT::fromScale(beta*y_ + alpha*t1.y_);
+			z_ = CoorT::fromScale(beta*z_ + alpha*t1.z_);
+			w_ = CoorT::fromScale(beta*w_ + alpha*t1.w_);
 		}
 
 		/**
@@ -428,13 +428,13 @@ namespace se_core {
 			Assert(index < (size_type)DIMENSION);
 			switch (index) {
 			case 0:
-				return x;
+				return x_;
 			case 1:
-				return y;
+				return y_;
 			case 2:
-				return z;
+				return z_;
 			case 3:
-				return w;
+				return w_;
 			default:
 				// error !
 				return 0;
@@ -445,13 +445,13 @@ namespace se_core {
 			Assert(index < (size_type)DIMENSION);
 			switch (index) {
 			case 0:
-				return x;
+				return x_;
 			case 1:
-				return y;
+				return y_;
 			case 2:
-				return z;
+				return z_;
 			case 3:
-				return w;
+				return w_;
 			default:
 				// error !
 				return dummy;

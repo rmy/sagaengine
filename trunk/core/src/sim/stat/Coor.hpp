@@ -56,10 +56,10 @@ namespace se_core {
 			return(c.x_ == x_
 					&& c.z_ == z_
 					&& c.y_ == y_
-					&& c.face_.x == face_.x
-					&& c.face_.y == face_.y
-					&& c.face_.z == face_.z
-					&& c.face_.w == face_.w
+					&& c.face_.x_ == face_.x_
+					&& c.face_.y_ == face_.y_
+					&& c.face_.z_ == face_.z_
+					&& c.face_.w_ == face_.w_
 					);
 		}
 

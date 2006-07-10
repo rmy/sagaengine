@@ -12,14 +12,14 @@ namespace se_core {
 
 	coor_t Point4
 	::distanceL1(const Point4& p1) const {
-		return CoorT::abs(x-p1.x) + CoorT::abs(y-p1.y)
-			+ CoorT::abs(z-p1.z) + CoorT::abs(w-p1.w);
+		return CoorT::abs(x_-p1.x_) + CoorT::abs(y_-p1.y_)
+			+ CoorT::abs(z_-p1.z_) + CoorT::abs(w_-p1.w_);
 	}
 
 
 	coor_t Point4
 	::distanceLinf(const Point4& p1) const {
-		return CoorT::max(CoorT::abs(x-p1.x), CoorT::abs(y-p1.y), CoorT::abs(z-p1.z), CoorT::abs(w-p1.w));
+		return CoorT::max(CoorT::abs(x_-p1.x_), CoorT::abs(y_-p1.y_), CoorT::abs(z_-p1.z_), CoorT::abs(w_-p1.w_));
 	}
 
 }
