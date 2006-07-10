@@ -42,7 +42,7 @@ namespace se_core {
 		performer.nextMove().resetSpeed();
 		Area* area = SimSchema::areaManager.area(name);
 		SpawnPoint* sp = area->spawnPoint(id);
-		performer.nextPos().setCoor( *sp );
+		performer.nextPos().setViewPoint( *sp );
 		if(area != performer.area()) {
 			performer.nextPos().setArea(*area);
 		}

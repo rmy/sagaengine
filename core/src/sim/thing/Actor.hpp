@@ -244,7 +244,7 @@ namespace se_core {
 			physics().calcNext(*this, pos(), nextPos(), nextAnim(), nextMove());
 
 			// Any change in render position?
-			didMove_ = !nextPos().coorEquals(position_);
+			didMove_ = !nextPos().viewPointEquals(position_);
 
 			// Colliding with area geometry?
 			// (TODO: Doing this test here optimises away one collision loop
@@ -341,7 +341,7 @@ namespace se_core {
 		 * Reset the next coordinate.
 		 * Sets the next coordinate to be the same as the present one.
 		 */
-		inline void resetFutureCoor() { didMove_ = false; nextPos().set(position_); }
+		inline void resetFutureCoor() { didMove_ = false; nextPos().setViewPoint(position_); }
 
 		bool isBlockedByTerrain() {
 			return physics().isBlocked(*this, pos(), nextPos());

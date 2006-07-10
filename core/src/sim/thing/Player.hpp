@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "Camera.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../stat/Coor.hpp"
+#include "../stat/ViewPoint.hpp"
 
 namespace se_core {
 	class Player : public Camera {
@@ -93,7 +93,7 @@ namespace se_core {
 
 	private:
 		ReportingMultiSimObject** reportingMultiSimObjects_;
-		Coor lastEntrance_;
+		ViewPoint lastEntrance_;
 
 
 		// TODO: Move to Player class

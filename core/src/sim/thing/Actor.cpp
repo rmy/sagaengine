@@ -32,6 +32,7 @@ rune@skalden.com
 #include "../script/Script.hpp"
 #include "../script/ShowingCutscene.hpp"
 #include "../script/Cutscene.hpp"
+#include "../stat/ViewPoint.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
@@ -449,7 +450,7 @@ namespace se_core {
 	Thing* Actor
 	::spawn(const char* thingName) {
 		// Create thing at same position and with same direction as spawner
-		Thing* t = area()->spawn(thingName, pos(), pos().face_);
+		Thing* t = area()->spawn(thingName, pos().coor_, pos().face_);
 
 		// Avoid collision with spawner
 		t->setSpawner(this);
@@ -461,10 +462,10 @@ namespace se_core {
 	Thing* Actor
 	::spawn(const char* thingName, Vector3& disp) {
 		// Create thing at same position and with same direction as spawner
-		Pos p(pos());
-		p.setNoLayer();
-		p.add(disp);
-		Thing* t = area()->spawn(thingName, p, p.face_);
+		ViewPoint vp(pos());
+		//p.setNoLayer();
+		vp.coor_.add(disp);
+		Thing* t = area()->spawn(thingName, vp.coor_, vp.face_);
 
 		// Avoid collision with spawner
 		t->setSpawner(this);

@@ -39,6 +39,8 @@ namespace se_core {
 			, radius_(COOR_RES / 5)
 			, layer_(0)
 	{
+		face_.setIdentity();
+		coor_.set(2.5, 0, 2.5);
 	}
 
 
@@ -46,14 +48,14 @@ namespace se_core {
 	::terrainStyle() const {
 		if(!hasArea())
 			return TS_VOID;
-		return area()->terrainStyle(*this, index());
+		return area()->terrainStyle(this->coor_, index());
 	}
 
 	long Pos
 	::touchedTerrain() const {
 		if(!hasArea())
 			return TSM_VOID;
-		return area()->touchedTerrain(*this, radius());
+		return area()->touchedTerrain(this->coor_, radius());
 	}
 
 
@@ -93,14 +95,14 @@ namespace se_core {
 			return NO_PATH;
 		}
 		coor_world_t fromX = (coor_world_t)p.area()->pagePosX()
-			+ (coor_world_t)p.x_;
+			+ (coor_world_t)p.coor_.x_;
 		coor_world_t toX = (coor_world_t)area()->pagePosX()
-			+ (coor_world_t)x_;
+			+ (coor_world_t)coor_.x_;
 
 		coor_world_t fromZ = ((coor_world_t)p.area()->pagePosZ()
-				+ (coor_world_t)p.z_);
+				+ (coor_world_t)p.coor_.z_);
 		coor_world_t toZ = ((coor_world_t)area()->pagePosZ()
-				+ (coor_world_t)z_);
+				+ (coor_world_t)coor_.z_);
 
 		coor_world_t xDist = fromX - toX;
 		coor_world_t zDist = fromZ - toZ;
@@ -134,8 +136,9 @@ namespace se_core {
 
 	void Pos
 	::setPos(const Pos& original) {
-		setCoor(original);
+		setViewPoint(original);
 		area_ = original.area_;
+		parent_ = original.parent_;
 		layer_ = original.layer_;
 		radius_ = original.radius_;
 	}
@@ -158,6 +161,7 @@ namespace se_core {
 	}
 
 
+	/*
 	void Pos
 	::setArea(Area& area, const Coor& c) {
 		//LogMsg(area.name());
@@ -167,6 +171,21 @@ namespace se_core {
 		}
 		area_ = &area;
 		setCoor(c);
+		face_.setIdentity();
+	}
+	*/
+
+
+	void Pos
+	::setArea(Area& area, const Coor& c, const Quat4& q) {
+		//LogMsg(area.name());
+		if(parent_ == area_) {
+			// Area is the root parent node
+			parent_ = &area;
+		}
+		area_ = &area;
+		setCoor(c);
+		setFace(q);
 	}
 
 
@@ -178,8 +197,7 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		set(sp.displace_);
-		setFace(sp.face_);
+		setViewPoint(sp);
 	}
 
 
@@ -211,14 +229,14 @@ namespace se_core {
 	bool Pos
 	::isInsideCollisionRange(const Pos& p) const {
 		coor_double_t collisionRange = p.radius() + radius();
-		return collisionRange * collisionRange >= distanceSquared(p);
+		return collisionRange * collisionRange >= coor_.distanceSquared(p.coor_);
 	}
 
 
 	bool Pos
 	::isInsideCollisionRangeLinf(const Pos& p) const {
 		coor_t collisionRange = p.radius() + radius();
-		return xzDistanceLinf(p) <= collisionRange;
+		return coor_.xzDistanceLinf(p.coor_) <= collisionRange;
 	}
 
 
@@ -243,7 +261,7 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(!hasOwnHeight() && area_) {
-			y_ = area_->groundHeight(*this);
+			coor_.y_ = area_->groundHeight(this->coor_);
 		}
 	}
 

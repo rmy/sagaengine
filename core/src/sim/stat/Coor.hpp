@@ -36,8 +36,7 @@ namespace se_core {
 		/**
 		 * Constructor setting default values for the coordinate.
 		 */
-		Coor() : Point3(0, 0, 0) {
-			face_.setEuler(0);
+		Coor() : Point3() {
 		}
 
 		/**
@@ -49,28 +48,6 @@ namespace se_core {
 		 */
 		Coor(coor_t x, coor_t y, coor_t z)
 				: Point3(x, y, z) {
-			//face_.setEuler(0);
-		}
-
-		bool coorEquals(const Coor& c) const {
-			return(c.x_ == x_
-					&& c.z_ == z_
-					&& c.y_ == y_
-					&& c.face_.x_ == face_.x_
-					&& c.face_.y_ == face_.y_
-					&& c.face_.z_ == face_.z_
-					&& c.face_.w_ == face_.w_
-					);
-		}
-
-		inline void setCoor(const Coor& original) {
-			x_ = original.x_; y_= original.y_; z_ = original.z_;
-			face_ = original.face_;
-		}
-
-		inline void setCoor(const SpawnPoint& sp) {
-			set(sp.displace_);
-			setFace(sp.face_);
 		}
 
 		/**
@@ -124,11 +101,6 @@ namespace se_core {
 		 * @see setZInt
 		 */
 		inline void setXZ(const coor_t x, const coor_t z) { x_ = x; z_ = z; }
-
-		/**
-		 * Layer is always 0 at the moment. For future use.
-		 */
-		inline short layer() const { return 0; }
 
 		/**
 		 * Get the x value of the coordinate as a short. See setXInt for details of
@@ -228,13 +200,6 @@ namespace se_core {
 		Quat4& face() { return face_; }
 
 		/**
-		 * Get the face direction as Braybrookians.
-		 *
-		 * @return Movement direction as Braybrookians (0-255)
-		 */
-		//inline bray_t faceDirection() const { return face_.yaw_; }
-
-		/**
 		 * Set the new face direction.
 		 * The new face direction is cached in a special variable that will be used
 		 * starting next step.
@@ -252,24 +217,6 @@ namespace se_core {
 		 * @return angle in braybrookians (0 - 255).
 		 */
 		bray_t xzAngleTowards(const Point3& c) const;
-
-		/*
-		short calcClockwise8DirectionTowards(const Point3& c) const;
-		short calcClockwise8DirectionAway(const Point3& c) const;
-
-		short calcDirectionTowards(const Point3& c) const;
-		short calcDirectionAway(const Point3& c) const;
-		*/
-		/**
-		 * The force needed to reach the ground this step.
-		 */
-		//void landForce(const Area* area, Force& dest) const;
-
-		/**
-		 * The y coordinate of the force needed to reach the ground this step.
-		 */
-		//coor_t landForce(const Area* area) const;
-
 
 	public: // Attributes
 		/** Faced direction */

@@ -150,9 +150,9 @@ namespace se_ogre {
 		///////
 		Ogre::Vector3 nextPos
 			(
-			 CoorT::toFloat(thing_->nextPos().x_) * WORLD_SCALE + pageDeltaX_,
-			 CoorT::toFloat(thing_->nextPos().y_) * WORLD_SCALE_Y,
-			 CoorT::toFloat(thing_->nextPos().z_) * WORLD_SCALE + pageDeltaZ_
+			 CoorT::toFloat(thing_->nextPos().coor().x_) * WORLD_SCALE + pageDeltaX_,
+			 CoorT::toFloat(thing_->nextPos().coor().y_) * WORLD_SCALE_Y,
+			 CoorT::toFloat(thing_->nextPos().coor().z_) * WORLD_SCALE + pageDeltaZ_
 			 );
 
 		Ogre::Real scale = scale_;
@@ -317,26 +317,25 @@ namespace se_ogre {
 
 
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		static Coor w;
-		thing_->worldCoor(alpha, w);
+		static ViewPoint w;
+		thing_->worldViewPoint(alpha, w);
+		LogMsg(thing_->name() << ": " << w.coor_.x_ << ", " << w.coor_.y_ << ", " << w.coor_.z_);
+
 		Ogre::Vector3 pos(
-				CoorT::toFloat(w.x_),
-				CoorT::toFloat(w.y_),
-				CoorT::toFloat(w.z_)
+				CoorT::toFloat(w.coor_.x_),
+				CoorT::toFloat(w.coor_.y_),
+				CoorT::toFloat(w.coor_.z_)
 				);
 
+		Ogre::Quaternion rot(
+				QuatT::toFloat(w.face_.w_),
+				QuatT::toFloat(w.face_.x_),
+				QuatT::toFloat(w.face_.y_),
+				QuatT::toFloat(w.face_.z_)
+				);
+							 
 		// Set the new position
 		node_->setPosition(pos);
-
-		Quat4 r;
-		r.slerp(thing_->pos().face(), thing_->nextPos().face(), stepDelta);
-		r.normalize();
-		Ogre::Quaternion rot(
-							 QuatT::toFloat(r.w_),
-							 QuatT::toFloat(r.x_),
-							 QuatT::toFloat(r.y_),
-							 QuatT::toFloat(r.z_)
-							 );
 
 		// Set new orientation
 		node_->setOrientation(rot);

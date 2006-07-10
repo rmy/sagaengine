@@ -39,8 +39,8 @@ namespace se_core {
 	::isGuilty(Actor& pusher
 						  , Thing& target) const {
 		// Is this thing's movement bringing it closer, or farther away?
-		coor_double_t beforeDistance = pusher.pos().xzDistanceSquared(target.pos());
-		coor_double_t distanceWithPusherMoving = pusher.nextPos().xzDistanceSquared(target.pos());
+		coor_double_t beforeDistance = pusher.pos().coor().xzDistanceSquared(target.pos().coor());
+		coor_double_t distanceWithPusherMoving = pusher.nextPos().coor().xzDistanceSquared(target.pos().coor());
 		if(distanceWithPusherMoving > beforeDistance) {
 			// Not closer, any collision is not caused by this thing
 			return false;

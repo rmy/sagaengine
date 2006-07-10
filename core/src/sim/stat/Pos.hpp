@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef Pos_hpp
 #define Pos_hpp
 
-#include "Coor.hpp"
+#include "ViewPoint.hpp"
 #include "../sim.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"
@@ -34,7 +34,7 @@ namespace se_core {
 	 * The Pos class maintains coordinates, volume and movement info for Thing
 	 * and subclasses.
 	 */
-	class Pos : public Coor {
+	class Pos : public ViewPoint {
 	public:
 		static const short TS_VOID = 0;
 		static const long TSM_VOID = (1 << TS_VOID);
@@ -59,11 +59,19 @@ namespace se_core {
 		 */
 		void setPos(const Pos& original);
 
+
+		inline void setCoor(const Coor& original) {
+			coor_.set(original);
+		}
+
+
+
 		/**
 		 * Area.
 		 */
 		void setArea(Area& area);
-		void setArea(Area& area, const Coor& c);
+		//void setArea(Area& area, const Coor& c);
+		void setArea(Area& area, const Coor& c, const Quat4& q);
 		void setArea(Area& area, const SpawnPoint& sp);
 		void resetArea();
 

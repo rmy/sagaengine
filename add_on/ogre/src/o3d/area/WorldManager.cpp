@@ -245,29 +245,20 @@ namespace se_ogre {
 		if(!ClientSchema::camera->pos().hasArea())
 			return;
 
-		// This ThingEntity is created while new area is
-		// is still nextPos(). (Not yet flipped over to pos())
-		float pageDeltaX = (ClientSchema::camera->pos().area()->pageX() - PAGE_DELTA) * 256.0f * WORLD_SCALE;
-		float pageDeltaZ = (ClientSchema::camera->pos().area()->pageZ() - PAGE_DELTA) * 256.0f * WORLD_SCALE;
 
 		// Interpolate current frame position
-		Ogre::Vector3 nextPos
+		Coor w;
+		ClientSchema::camera->worldCoor(stepDelta, w);
+
+		// Convert to ogre format
+		Ogre::Vector3 pos
 			(
-			 CoorT::toFloat(ClientSchema::player->nextPos().x_) * WORLD_SCALE + pageDeltaX,
-			 CoorT::toFloat(ClientSchema::player->nextPos().y_) * WORLD_SCALE_Y,
-			 CoorT::toFloat(ClientSchema::player->nextPos().z_) * WORLD_SCALE + pageDeltaZ
+			 CoorT::toFloat(w.x_),
+			 CoorT::toFloat(w.y_),
+			 CoorT::toFloat(w.z_)
 			 );
 
-		Ogre::Vector3 currentPos
-			(
-			 CoorT::toFloat(ClientSchema::player->pos().x_) * WORLD_SCALE + pageDeltaX,
-			 CoorT::toFloat(ClientSchema::player->pos().y_) * WORLD_SCALE_Y,
-			 CoorT::toFloat(ClientSchema::player->pos().z_) * WORLD_SCALE + pageDeltaZ
-			 );
-
-		Ogre::Vector3 pos = currentPos * (1.0f - stepDelta) + nextPos * stepDelta;
-
-		O3dSchema::playerCamera->setPosition(pos.x, pos.y + 10.0f * WORLD_SCALE, pos.z + 10.0f * WORLD_SCALE);
+		O3dSchema::playerCamera->setPosition(pos.x, pos.y + 10.0f, pos.z + 10.0f);
 		O3dSchema::playerCamera->lookAt(pos.x, pos.y, pos.z);
 	}
 
