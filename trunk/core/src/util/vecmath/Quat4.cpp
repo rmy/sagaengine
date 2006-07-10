@@ -5,16 +5,17 @@
 //#include <AxisAngle4_.h>
 
 namespace se_core {
+	const Quat4 Quat4::IDENTITY(0, 0, 0, 1);
 
 	void Quat4
 	::mul(const Quat4& q1, const Quat4& q2) {
 		// store on stack for aliasing-safty
 		set(
-				QuatT::fmul(q1.x_, q2.w_) + QuatT::fmul(q1.w_, q2.x_) + QuatT::fmul(q1.y_, q2.z_) - QuatT::fmul(q1.z_, q2.y_),
-				QuatT::fmul(q1.y_, q2.w_) + QuatT::fmul(q1.w_, q2.y_) + QuatT::fmul(q1.z_, q2.x_) - QuatT::fmul(q1.x_, q2.z_),
-				QuatT::fmul(q1.z_, q2.w_) + QuatT::fmul(q1.w_, q2.z_) + QuatT::fmul(q1.x_, q2.y_) - QuatT::fmul(q1.y_, q2.x_),
-				QuatT::fmul(q1.w_, q2.w_) - QuatT::fmul(q1.x_, q2.x_) - QuatT::fmul(q1.y_, q2.y_) - QuatT::fmul(q1.z_, q2.z_)
-				);
+			QuatT::fmul(q1.x_, q2.w_) + QuatT::fmul(q1.w_, q2.x_) + QuatT::fmul(q1.y_, q2.z_) - QuatT::fmul(q1.z_, q2.y_),
+			QuatT::fmul(q1.y_, q2.w_) + QuatT::fmul(q1.w_, q2.y_) + QuatT::fmul(q1.z_, q2.x_) - QuatT::fmul(q1.x_, q2.z_),
+			QuatT::fmul(q1.z_, q2.w_) + QuatT::fmul(q1.w_, q2.z_) + QuatT::fmul(q1.x_, q2.y_) - QuatT::fmul(q1.y_, q2.x_),
+			QuatT::fmul(q1.w_, q2.w_) - QuatT::fmul(q1.x_, q2.x_) - QuatT::fmul(q1.y_, q2.y_) - QuatT::fmul(q1.z_, q2.z_)
+		);
 	}
 
 
@@ -22,11 +23,11 @@ namespace se_core {
 	::mul(const Quat4& q1) {
 		// store on stack for aliasing-safty
 		set(
-				QuatT::fmul(x_, q1.w_) + QuatT::fmul(w_, q1.x_) + QuatT::fmul(y_, q1.z_) - QuatT::fmul(z_, q1.y_),
-				QuatT::fmul(y_, q1.w_) + QuatT::fmul(w_, q1.y_) + QuatT::fmul(z_, q1.x_) - QuatT::fmul(x_, q1.z_),
-				QuatT::fmul(z_, q1.w_) + QuatT::fmul(w_, q1.z_) + QuatT::fmul(x_, q1.y_) - QuatT::fmul(y_, q1.x_),
-				QuatT::fmul(w_, q1.w_) - QuatT::fmul(x_, q1.x_) - QuatT::fmul(y_, q1.y_) - QuatT::fmul(z_, q1.z_)
-				);
+			QuatT::fmul(x_, q1.w_) + QuatT::fmul(w_, q1.x_) + QuatT::fmul(y_, q1.z_) - QuatT::fmul(z_, q1.y_),
+			QuatT::fmul(y_, q1.w_) + QuatT::fmul(w_, q1.y_) + QuatT::fmul(z_, q1.x_) - QuatT::fmul(x_, q1.z_),
+			QuatT::fmul(z_, q1.w_) + QuatT::fmul(w_, q1.z_) + QuatT::fmul(x_, q1.y_) - QuatT::fmul(y_, q1.x_),
+			QuatT::fmul(w_, q1.w_) - QuatT::fmul(x_, q1.x_) - QuatT::fmul(y_, q1.y_) - QuatT::fmul(z_, q1.z_)
+		);
 	}
 
 
@@ -165,6 +166,10 @@ namespace se_core {
 		LogFatal("Not yet implemented");
 		#else
 
+		//LogMsg("Alpha " << alpha);
+		//LogMsg("this: " << x_ << ", " << y_ << ", " << z_ << ", " << w_);
+		//LogMsg("Q1  : " << q1.x_ << ", " << q1.y_ << ", " << q1.z_ << ", " << q1.w_);
+		// Both parameters must be pre-normalized
 		Assert(isNormalized());
 		Assert(q1.isNormalized());
 		/*
@@ -230,7 +235,7 @@ namespace se_core {
 	void Quat4
 	::slerp(const Quat4& q1, const Quat4& q2, scale_t alpha, bool findShortestPath) {
 		set(q1);
-		slerp(q1, alpha, findShortestPath);
+		slerp(q2, alpha, findShortestPath);
 	}
 
 }

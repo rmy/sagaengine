@@ -391,10 +391,9 @@ namespace se_core {
 		 * @param alpha the alpha interpolation parameter
 		 */
 		void interpolate(const Tuple3& t1, scale_t alpha) {
-			scale_t beta = SCALE_RES - alpha;
-			x_ = CoorT::scale(beta, x_) + CoorT::scale(alpha, t1.x_);
-			y_ = CoorT::scale(beta, y_) + CoorT::scale(alpha, t1.y_);
-			z_ = CoorT::scale(beta, z_) + CoorT::scale(alpha, t1.z_);
+			x_ += CoorT::scale(alpha, t1.x_ - x_);
+			y_ += CoorT::scale(alpha, t1.y_ - y_);
+			z_ += CoorT::scale(alpha, t1.z_ - z_);
 		}
 
 		/**

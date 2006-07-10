@@ -97,8 +97,9 @@ namespace se_core {
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
 				camera->nextPos().setArea(*area);
-				camera->nextPos().setX(CoorT::fromFloat(in.readFloat()));
-				camera->nextPos().setZ(CoorT::fromFloat(in.readFloat()));
+				camera->nextPos().coor_.setX(CoorT::fromFloat(in.readFloat()));
+				camera->nextPos().coor_.setZ(CoorT::fromFloat(in.readFloat()));
+				camera->nextPos().face_.setIdentity();
 				break;
 
 			case 'E': { // Entrance 

@@ -61,7 +61,7 @@ namespace se_core {
 		if(position_.area() != nextPosition_.area()) {
 			changeArea();
 		}
-		position_ = nextPosition_;
+		position_.setViewPoint(nextPosition_);
 		anim_ = nextAnim_;
 	}
 
@@ -145,10 +145,22 @@ namespace se_core {
 
 	void PosNode
 	::worldCoor(Coor& dest) const {
-		dest.setCoor(position_);
+		dest.set(position_.coor_);
 		const PosNode* node = position_.parent();
 		while(node != 0) {
-			dest.add(node->position_);
+			dest.add(node->position_.coor_);
+			node = node->position_.parent();
+		}
+	}
+
+
+	void PosNode
+	::worldViewPoint(ViewPoint& dest) const {
+		dest.setViewPoint(position_);
+		const PosNode* node = position_.parent();
+		while(node != 0) {
+			dest.coor_.add(node->position_.coor_);
+			dest.face_.mul(node->position_.face_);
 			node = node->position_.parent();
 		}
 	}
@@ -159,20 +171,41 @@ namespace se_core {
 		worldCoor(dest);
 		static Coor np;
 		nextWorldCoor(np);
-		dest.x_ += CoorT::scale(alpha, np.x_ - dest.x_);
-		dest.y_ += CoorT::scale(alpha, np.y_ - dest.y_);
-		dest.z_ += CoorT::scale(alpha, np.z_ - dest.z_);
+		dest.interpolate(np, alpha);
+	}
+
+
+	void PosNode
+	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
+		worldViewPoint(dest);
+		LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
+		static ViewPoint np;
+		nextWorldViewPoint(np);
+		LogMsg(": " << np.coor_.x_ << ", " << np.coor_.y_ << ", " << np.coor_.z_);
+		dest.coor_.interpolate(np.coor_, alpha);
+		dest.face_.slerp(np.face_, alpha, true);
+		LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
 	}
 
 
 	void PosNode
 	::nextWorldCoor(Coor& dest) const {
-		dest.setCoor(nextPosition_);
+		dest.set(nextPosition_.coor_);
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
-			// TODO: Should child rotation should be done in physics,
-			// and already be reflected in the coordinate??
-			dest.add(node->nextPosition_);
+			dest.add(node->nextPosition_.coor_);
+			node = node->nextPosition_.parent();
+		}
+	}
+
+
+	void PosNode
+	::nextWorldViewPoint(ViewPoint& dest) const {
+		dest.setViewPoint(nextPosition_);
+		const PosNode* node = nextPosition_.parent();
+		while(node != 0) {
+			dest.coor_.add(node->nextPosition_.coor_);
+			dest.face_.mul(node->nextPosition_.face_);
 			node = node->nextPosition_.parent();
 		}
 	}

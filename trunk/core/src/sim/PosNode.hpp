@@ -169,6 +169,10 @@ namespace se_core {
 		void worldCoor(Coor& dest) const;
 		void nextWorldCoor(Coor& dest) const;
 
+		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
+		void worldViewPoint(ViewPoint& dest) const;
+		void nextWorldViewPoint(ViewPoint& dest) const;
+
 		void setSpawnPoints(int count, SpawnPoint** spawnPoints);
 		SpawnPoint* spawnPoint(short id);
 

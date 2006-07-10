@@ -149,6 +149,10 @@ namespace se_core {
 			Tuple3::operator=(t);
 			return *this;
 		}
+
+		static const Vector3 ZERO;
+		static const Vector3 UNIT_FORWARD;
+
 	};
 
 } // Namespace

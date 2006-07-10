@@ -86,11 +86,11 @@ namespace se_core {
 
 		coor_world_t pagePosX() const {
 			//TODO: Owerflows possible
-			return pos().x_;
+			return pos().coor().x_;
 		}
 		coor_world_t pagePosZ() const {
 			//TODO: Owerflows possible
-			return pos().y_;
+			return pos().coor().y_;
 		}
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }

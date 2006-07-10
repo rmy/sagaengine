@@ -107,7 +107,7 @@ namespace se_core {
 		while(it != SimObjectList::NULL_NODE) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());
-			DebugExec(const Coor& c = t->pos());
+			DebugExec(const Coor& c = t->pos().coor_);
 			Dump((sprintf(log_msg(), "O %s %.2f %.2f", t->name(), CoorT::toFloat(c.x_), CoorT::toFloat(c.y_)), log_msg()));
 
 			// Statistics
@@ -222,7 +222,7 @@ namespace se_core {
 			if(isActive_) {
 				// TODO: Should use speed + radius
 				coor_t speedAndRadius = thing.nextPos().radius() + COOR_RES;
-				collisionGrid_->insert(thing.nextPos(), speedAndRadius, thing);
+				collisionGrid_->insert(thing.nextPos().coor_, speedAndRadius, thing);
 			}
 			multiSimObjects_[ MGOA_PUSHABLE_THINGS ].add(thing);
 		}
@@ -243,7 +243,7 @@ namespace se_core {
 			// TODO: Should use speed + radius
 			coor_t speedAndRadius = thing.nextPos().radius() + COOR_RES;
 			//bool didDelete =
-			collisionGrid_->remove(thing.pos(), speedAndRadius, thing);
+			collisionGrid_->remove(thing.pos().coor_, speedAndRadius, thing);
 			//LogMsg(thing.name());
 			// TODO: This assert fails?
 			//DbgAssert(didDelete);
@@ -260,7 +260,7 @@ namespace se_core {
 	Thing* Area
 	::findPickTarget(Player& actor) {
 		actor.setPickTarget(0);
-		const Coor& coor = actor.pos();
+		const Coor& coor = actor.pos().coor_;
 
 		// Default to maximum pick range
 		coor_t nearest = (3 * COOR_RES);
@@ -268,8 +268,8 @@ namespace se_core {
 		SimObjectList::iterator_type it = multiSimObject(MGOA_PICKABLE_THINGS).iterator();
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
-			if(coor.xzDistanceLinf(t->pos()) < nearest) {
-				nearest = coor.xzDistanceLinf(t->pos());
+			if(coor.xzDistanceLinf(t->pos().coor_) < nearest) {
+				nearest = coor.xzDistanceLinf(t->pos().coor_);
 				actor.setPickTarget(t);
 			}
 		}
@@ -287,6 +287,7 @@ namespace se_core {
 
 		actor.setTarget(0);
 		const Pos& pos = actor.pos();
+		const Coor& coor = pos.coor();
 
 		coor_double_t nearest = -1;
 
@@ -295,9 +296,9 @@ namespace se_core {
 			Actor* a = SimSchema::simObjectList.nextActor(it);
 			if(a == &actor) continue;
 			if(a->cutscenes().isEmpty()) continue;
-			if(nearest < 0 || pos.xzDistanceSquared(a->pos()) < nearest) {
-				if(pos.hasInFront(a->pos()) && actor.findRunnableCutscene(*a)) {
-					nearest = pos.xzDistanceSquared(a->pos());
+			if(nearest < 0 || coor.xzDistanceSquared(a->pos().coor_) < nearest) {
+				if(pos.hasInFront(a->pos().coor_) && actor.findRunnableCutscene(*a)) {
+					nearest = coor.xzDistanceSquared(a->pos().coor_);
 					actor.setTarget(a);
 					actor.setPickTarget(a);
 				}
@@ -328,7 +329,7 @@ namespace se_core {
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(t->isCollideable()) {
-				collisionGrid_->insert(t->nextPos(), t->nextPos().radius(), *t);
+				collisionGrid_->insert(t->nextPos().coor(), t->nextPos().radius(), *t);
 			}
 		}
 	}
@@ -467,8 +468,8 @@ namespace se_core {
 
 		// If not colliding when taking the movement of both things
 		// into account, then no collision
-		if((actor1.nextPos().xzDistanceSquared(thing2.nextPos()) > radSumSq)
-				|| (actor1.nextPos().yDistance(thing2.nextPos()) > radSum)
+		if((actor1.nextPos().coor_.xzDistanceSquared(thing2.nextPos().coor_) > radSumSq)
+				|| (actor1.nextPos().coor_.yDistance(thing2.nextPos().coor_) > radSum)
 				) {
 			return false;
 		}
@@ -490,7 +491,7 @@ namespace se_core {
 			Actor* a = movers[ outer ];
 
 			short innerCount = collisionGrid_->collisionCandidates
-				(a->nextPos(), a->pos().radius(), things, MAX_THINGS - 1);
+				(a->nextPos().coor(), a->pos().radius(), things, MAX_THINGS - 1);
 
 			// Test collision with all collision candidates
 			for(int inner = 0; inner < innerCount; ++inner) {
@@ -691,17 +692,15 @@ namespace se_core {
 
 	Thing* Area
 	::spawn(const char* thingName, const Coor& coor, const Quat4& face) {
-		LogMsg(thingName << ": " << face.x_ << ", " << face.y_ << ", " << face.z_ << ", " << face.w_);
+		//LogMsg(thingName << ": " << face.x_ << ", " << face.y_ << ", " << face.z_ << ", " << face.w_);
 		// Create the thing
 		Thing* thing = SimSchema::thingManager().create(thingName);
 
 		//LogMsg(thingName << ": " << coor.x_ << ", " << coor.y_ << ", " << coor.z_);
 		// Set position and direction
-		thing->nextPos().setArea(*this, coor);
+		thing->nextPos().setArea(*this, coor, face);
 		// TODO:
 		//thing->nextPos().changeDirection(dir);
-
-		thing->nextPos().face_.set(face);
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);

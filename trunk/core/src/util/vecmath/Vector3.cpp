@@ -6,6 +6,8 @@
 #include "../math/Trig.hpp"
 
 namespace se_core {
+	const Vector3 Vector3::ZERO(0, 0, 0);
+	const Vector3 Vector3::UNIT_FORWARD(0, 0, -1);
 
 	coor_t Vector3
 	::length() const {
