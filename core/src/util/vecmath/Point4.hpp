@@ -79,10 +79,10 @@ namespace se_core {
 		 * @since Java3D 1.2
 		 */
 		void set3(const Tuple3& t1) {
-			x = t1.x_;
-			y = t1.y_;
-			z = t1.z_;
-			w = 1;
+			x_ = t1.x_;
+			y_ = t1.y_;
+			z_ = t1.z_;
+			w_ = 1;
 		}
 
 		/**
@@ -91,10 +91,10 @@ namespace se_core {
 		 * @return the square of distance between this point and p1
 		 */
 		coor_double_t distanceSquared(const Point4& p1) const {
-			coor_double_t dx = x - p1.x;
-			coor_double_t dy = y - p1.y;
-			coor_double_t dz = z - p1.z;
-			coor_double_t dw = w - p1.w;
+			coor_double_t dx = x_ - p1.x_;
+			coor_double_t dy = y_ - p1.y_;
+			coor_double_t dz = z_ - p1.z_;
+			coor_double_t dw = w_ - p1.w_;
 			return dx*dx + dy*dy + dz*dz + dw*dw;
 		}
 
@@ -133,10 +133,10 @@ namespace se_core {
 		 */
 		void project(const Point4& p1) {
 			// zero div may occur.
-			x = CoorT::div(p1.x, p1.w);
-			y = CoorT::div(p1.y, p1.w);
-			z = CoorT::div(p1.z, p1.w);
-			w = 1;
+			x_ = CoorT::div(p1.x_, p1.w_);
+			y_ = CoorT::div(p1.y_, p1.w_);
+			z_ = CoorT::div(p1.z_, p1.w_);
+			w_ = 1;
 		}
 
 		// copy constructor and operator = is made by complier

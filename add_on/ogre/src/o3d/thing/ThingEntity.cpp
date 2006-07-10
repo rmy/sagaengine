@@ -328,21 +328,15 @@ namespace se_ogre {
 		// Set the new position
 		node_->setPosition(pos);
 
-		Ogre::Quaternion currentRot(
-				QuatT::toFloat(thing_->pos().face_.w),
-				QuatT::toFloat(thing_->pos().face_.x),
-				QuatT::toFloat(thing_->pos().face_.y),
-				QuatT::toFloat(thing_->pos().face_.z)
-				);
-
-		Ogre::Quaternion nextRot(
-				QuatT::toFloat(thing_->nextPos().face_.w),
-				QuatT::toFloat(thing_->nextPos().face_.x),
-				QuatT::toFloat(thing_->nextPos().face_.y),
-				QuatT::toFloat(thing_->nextPos().face_.z)
-				);
-
-		Ogre::Quaternion rot(Ogre::Quaternion::Slerp(stepDelta, currentRot, nextRot, true));
+		Quat4 r;
+		r.slerp(thing_->pos().face(), thing_->nextPos().face(), stepDelta);
+		r.normalize();
+		Ogre::Quaternion rot(
+							 QuatT::toFloat(r.w_),
+							 QuatT::toFloat(r.x_),
+							 QuatT::toFloat(r.y_),
+							 QuatT::toFloat(r.z_)
+							 );
 
 		// Set new orientation
 		node_->setOrientation(rot);

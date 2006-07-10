@@ -79,10 +79,10 @@ namespace se_core {
 		 * @since Java3D 1.2
 		 */
 		void set3(const Tuple3& t1) {
-			x = t1.x_;
-			y = t1.y_;
-			z = t1.z_;
-			w = 0;
+			x_ = t1.x_;
+			y_ = t1.y_;
+			z_ = t1.z_;
+			w_ = 0;
 		}
 
 		/**
@@ -90,10 +90,10 @@ namespace se_core {
 		 * @return the squared length of this vector
 		 */
 		coor_double_t lengthSquared() const {
-			return static_cast<coor_double_t>(x)*x
-				+ static_cast<coor_double_t>(y)*y
-				+ static_cast<coor_double_t>(z)*z
-				+ static_cast<coor_double_t>(w)*w;
+			return static_cast<coor_double_t>(x_)*x_
+				+ static_cast<coor_double_t>(y_)*y_
+				+ static_cast<coor_double_t>(z_)*z_
+				+ static_cast<coor_double_t>(w_)*w_;
 		}
 
 		/**
@@ -110,10 +110,10 @@ namespace se_core {
 		 */
 		coor_t dot(const Vector4& v1) const {
 			return CoorT::fromd
-				((static_cast<coor_double_t>(x) * v1.x)
-				+ (static_cast<coor_double_t>(y) * v1.y)
-				+ (static_cast<coor_double_t>(z) * v1.z)
-				+ (static_cast<coor_double_t>(w) * v1.w));
+				((static_cast<coor_double_t>(x_) * v1.x_)
+				+ (static_cast<coor_double_t>(y_) * v1.y_)
+				+ (static_cast<coor_double_t>(z_) * v1.z_)
+				+ (static_cast<coor_double_t>(w_) * v1.w_));
 		}
 
 		/**
@@ -132,10 +132,10 @@ namespace se_core {
 			coor_t d = length();
 
 			// zero-div may occur.
-			x = CoorT::fromd(static_cast<coor_double_t>(x)) / d;
-			y = CoorT::fromd(static_cast<coor_double_t>(y)) / d;
-			z = CoorT::fromd(static_cast<coor_double_t>(z)) / d;
-			w = CoorT::fromd(static_cast<coor_double_t>(w)) / d;
+			x_ = CoorT::fromd(static_cast<coor_double_t>(x_)) / d;
+			y_ = CoorT::fromd(static_cast<coor_double_t>(y_)) / d;
+			z_ = CoorT::fromd(static_cast<coor_double_t>(z_)) / d;
+			w_ = CoorT::fromd(static_cast<coor_double_t>(w_)) / d;
 		}
 
 		/**

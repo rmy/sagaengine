@@ -58,9 +58,9 @@ namespace se_core {
 		Quat4(const Tuple4& t1): Tuple4(t1) { }
 
 		/**
-		 * Constructs and initializes a Quat4 to (0,0,0,1).
+		 * Constructs uninitialized Quat4.
 		 */
-		Quat4(): Tuple4(0, 0, 0, 1) { }
+		Quat4(): Tuple4() { }
 
 		/**
 		 * Sets the value of this tuple to the value of tuple t1.
@@ -69,6 +69,11 @@ namespace se_core {
 		 */
 		void set(const Tuple4& t1) {
 			Tuple4::set(t1);
+		}
+
+
+		void setIdentity() {
+			set(0, 0, 0, 1);
 		}
 
 		/**
@@ -89,10 +94,10 @@ namespace se_core {
 		 * @param q1 the source vector
 		 */
 		void conjugate(const Quat4& q1) {
-			x = -q1.x;
-			y = -q1.y;
-			z = -q1.z;
-			w = q1.w;
+			x_ = -q1.x_;
+			y_ = -q1.y_;
+			z_ = -q1.z_;
+			w_ = q1.w_;
 		}
 
 		/**
@@ -100,9 +105,9 @@ namespace se_core {
 		 *  in place.
 		 */
 		void conjugate() {
-			x = -x;
-			y = -y;
-			z = -z;
+			x_ = -x_;
+			y_ = -y_;
+			z_ = -z_;
 		}
 
 		/**
@@ -141,7 +146,7 @@ namespace se_core {
 
 	protected:
 		coor_double_t norm() const {
-			return QuatT::pow2(x) + QuatT::pow2(y) + QuatT::pow2(z) + QuatT::pow2(w);
+			return QuatT::pow2(x_) + QuatT::pow2(y_) + QuatT::pow2(z_) + QuatT::pow2(w_);
 		}
 
 	public:
@@ -153,10 +158,10 @@ namespace se_core {
 		void inverse(const Quat4& q1) {
 			scale_t n = QuatT::oneOver( q1.norm() );
 			// zero-div may occur.
-			x = -QuatT::scale(n, q1.x);
-			y = -QuatT::scale(n, q1.y);
-			z = -QuatT::scale(n, q1.z);
-			w = QuatT::scale(n, q1.w);
+			x_ = -QuatT::scale(n, q1.x_);
+			y_ = -QuatT::scale(n, q1.y_);
+			z_ = -QuatT::scale(n, q1.z_);
+			w_ = QuatT::scale(n, q1.w_);
 		}
 
 		/**
@@ -167,10 +172,10 @@ namespace se_core {
 			scale_t n = QuatT::oneOver( norm() );
 			// zero-div may occur.
 
-			x = -QuatT::scale(n, x);
-			y = -QuatT::scale(n, y);
-			z = -QuatT::scale(n, z);
-			w = QuatT::scale(n, w);
+			x_ = -QuatT::scale(n, x_);
+			y_ = -QuatT::scale(n, y_);
+			z_ = -QuatT::scale(n, z_);
+			w_ = QuatT::scale(n, w_);
 		}
 
 		/**
@@ -181,10 +186,10 @@ namespace se_core {
 		void normalize(const Quat4& q1) {
 			scale_t n = QuatT::oneOver( CoorT::sqrt( q1.norm() ) );
 			// zero-div may occur.
-			x = QuatT::scale(n, q1.x);
-			y = QuatT::scale(n, q1.y);
-			z = QuatT::scale(n, q1.z);
-			w = QuatT::scale(n, q1.w);
+			x_ = QuatT::scale(n, q1.x_);
+			y_ = QuatT::scale(n, q1.y_);
+			z_ = QuatT::scale(n, q1.z_);
+			w_ = QuatT::scale(n, q1.w_);
 		}
 
 		/**
@@ -194,10 +199,22 @@ namespace se_core {
 			scale_t n = QuatT::oneOver( CoorT::sqrt( norm() ) );
 			// zero-div may occur.
 
-			x = QuatT::scale(n, x);
-			y = QuatT::scale(n, y);
-			z = QuatT::scale(n, z);
-			w = QuatT::scale(n, w);
+			x_ = QuatT::scale(n, x_);
+			y_ = QuatT::scale(n, y_);
+			z_ = QuatT::scale(n, z_);
+			w_ = QuatT::scale(n, w_);
+		}
+
+
+		bool isNormalized() const {
+            #ifdef SE_FIXED_POINT
+			LogFatal("Not yet implemented");
+			return true;
+            #else
+			coor_double_t n = norm();
+			const coor_double_t EPSILON = 0.00001;
+			return (n + EPSILON > 1 && n - EPSILON < 1);
+			#endif
 		}
 
 		/**
@@ -218,7 +235,7 @@ namespace se_core {
 		 * @param q1 the other quaternion
 		 * @param alpha the alpha interpolation parameter
 		 */
-		void interpolate(scale_t alpha, const Quat4& q1);
+		void slerp(const Quat4& q1, scale_t alpha, bool findShortestPath = false);
 
 		/**
 		 * Performs a great circle interpolation between quaternion q1 and
@@ -227,7 +244,7 @@ namespace se_core {
 		 * @param q2 the second quaternion
 		 * @param alpha the alpha interpolation parameter
 		 */
-		void interpolate(coor_t aplpha, const Quat4& q1, const Quat4& q2);
+		void slerp(const Quat4& q1, const Quat4& q2, coor_t alpha, bool findShortestPath = false);
 
 		// copy constructor and operator = is made by complier
 
