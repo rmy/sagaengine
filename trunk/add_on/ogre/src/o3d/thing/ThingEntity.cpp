@@ -319,7 +319,7 @@ namespace se_ogre {
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
 		static ViewPoint w;
 		thing_->worldViewPoint(alpha, w);
-		LogMsg(thing_->name() << ": " << w.coor_.x_ << ", " << w.coor_.y_ << ", " << w.coor_.z_);
+		//LogMsg(thing_->name() << ": " << w.coor_.x_ << ", " << w.coor_.y_ << ", " << w.coor_.z_);
 
 		Ogre::Vector3 pos(
 				CoorT::toFloat(w.coor_.x_),
@@ -327,11 +327,14 @@ namespace se_ogre {
 				CoorT::toFloat(w.coor_.z_)
 				);
 
+		// Translate from Euler3 if necessary
+		Quat4 face(w.face_);
+
 		Ogre::Quaternion rot(
-				QuatT::toFloat(w.face_.w_),
-				QuatT::toFloat(w.face_.x_),
-				QuatT::toFloat(w.face_.y_),
-				QuatT::toFloat(w.face_.z_)
+				QuatT::toFloat(face.w_),
+				QuatT::toFloat(face.x_),
+				QuatT::toFloat(face.y_),
+				QuatT::toFloat(face.z_)
 				);
 							 
 		// Set the new position

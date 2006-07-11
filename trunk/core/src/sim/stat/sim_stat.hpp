@@ -48,6 +48,7 @@ namespace se_core {
 	class Pos;
 	class Force;
 	class Speed;
+	class ViewPoint;
 
 	class HealthListener;
 	class HealthListeners;

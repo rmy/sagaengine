@@ -450,7 +450,7 @@ namespace se_core {
 	Thing* Actor
 	::spawn(const char* thingName) {
 		// Create thing at same position and with same direction as spawner
-		Thing* t = area()->spawn(thingName, pos().coor_, pos().face_);
+		Thing* t = area()->spawn(thingName, pos());
 
 		// Avoid collision with spawner
 		t->setSpawner(this);
@@ -465,7 +465,7 @@ namespace se_core {
 		ViewPoint vp(pos());
 		//p.setNoLayer();
 		vp.coor_.add(disp);
-		Thing* t = area()->spawn(thingName, vp.coor_, vp.face_);
+		Thing* t = area()->spawn(thingName, vp);
 
 		// Avoid collision with spawner
 		t->setSpawner(this);

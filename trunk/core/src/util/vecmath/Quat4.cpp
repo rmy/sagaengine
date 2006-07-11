@@ -128,6 +128,8 @@ namespace se_core {
 		x_ = c1c2*s3 + s1s2*c3;
 		y_ = s1*c2*c3 + c1*s2*s3;
 		z_ = c1*s2*c3 - s1*c2*s3;
+
+		normalize();
 	}
 
 	void Quat4
@@ -145,6 +147,8 @@ namespace se_core {
 		x_ = c1*s3;
 		y_ = s1*c3;
 		z_ = -s1*s3;
+
+		normalize();
 	}
 
 
@@ -158,6 +162,8 @@ namespace se_core {
 		y_ = Trig::sinQuat(yaw >> 1);
 		z_ = 0;
 		//LogMsg(yaw << " = (" << QuatT::toFloat(x_) << ", " << QuatT::toFloat(y) << ", " << QuatT::toFloat(z) << ", " << QuatT::toFloat(w) << ")");
+
+		normalize();
 	}
 	
 	void Quat4

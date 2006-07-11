@@ -167,7 +167,7 @@ namespace se_core {
 		 * this way, because a thing not belonging to an area will
 		 * never be flip()'ed.
 		 */
-		Thing* spawn(const char* thingName, const Coor& coor, const Quat4& face);
+		Thing* spawn(const char* thingName, const ViewPoint& coor);
 
 	protected:
 		friend class AreaManager;

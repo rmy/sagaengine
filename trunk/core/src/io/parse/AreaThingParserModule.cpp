@@ -86,7 +86,7 @@ namespace se_core {
 				Assert(id < MAX_SPAWN_POINTS);
 				SpawnPoint* sp = new SpawnPoint();
 				sp->displace_.set(x, 0, z);
-				sp->face_.set(0, 0, 0, 0);
+				sp->face_.setIdentity();
 				spawnPoints[id] = sp;
 				if(id > spawnPointCount) {
 					spawnPointCount = id;
@@ -107,8 +107,11 @@ namespace se_core {
 		in.readString(tempString);
 		float x = in.readFloat();
 		float y = in.readFloat();
-		Coor c(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
-		Thing* thing = area.spawn(tempString.get(), c, 0);
+
+		ViewPoint vp;
+		vp.coor_.set(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
+		vp.face_.setIdentity();
+		Thing* thing = area.spawn(tempString.get(), vp);
 
 		int value, id;
 		int code = 'X';

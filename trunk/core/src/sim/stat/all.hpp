@@ -42,5 +42,6 @@ rune@skalden.com
 #include "Property.hpp"
 #include "MultiSimObject.hpp"
 #include "SortedSimObjectList.hpp"
+#include "ViewPoint.hpp"
 
 #endif

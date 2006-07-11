@@ -70,8 +70,13 @@ namespace se_core {
 		 * Area.
 		 */
 		void setArea(Area& area);
-		//void setArea(Area& area, const Coor& c);
+		#ifndef SE_EULER
 		void setArea(Area& area, const Coor& c, const Quat4& q);
+		#endif
+
+		void setArea(Area& area, const Coor& c, const Euler3& a);
+
+		void setArea(Area& area, const ViewPoint& vp);
 		void setArea(Area& area, const SpawnPoint& sp);
 		void resetArea();
 

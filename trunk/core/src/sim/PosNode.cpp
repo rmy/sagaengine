@@ -160,7 +160,7 @@ namespace se_core {
 		const PosNode* node = position_.parent();
 		while(node != 0) {
 			dest.coor_.add(node->position_.coor_);
-			dest.face_.mul(node->position_.face_);
+			dest.face_.rotate(node->position_.face_);
 			node = node->position_.parent();
 		}
 	}
@@ -178,13 +178,13 @@ namespace se_core {
 	void PosNode
 	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
 		worldViewPoint(dest);
-		LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
+		//LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
 		static ViewPoint np;
 		nextWorldViewPoint(np);
-		LogMsg(": " << np.coor_.x_ << ", " << np.coor_.y_ << ", " << np.coor_.z_);
+		//LogMsg(": " << np.coor_.x_ << ", " << np.coor_.y_ << ", " << np.coor_.z_);
 		dest.coor_.interpolate(np.coor_, alpha);
-		dest.face_.slerp(np.face_, alpha, true);
-		LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
+		dest.face_.interpolate(np.face_, alpha);
+		//LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
 	}
 
 
@@ -205,7 +205,7 @@ namespace se_core {
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
 			dest.coor_.add(node->nextPosition_.coor_);
-			dest.face_.mul(node->nextPosition_.face_);
+			dest.face_.rotate(node->nextPosition_.face_);
 			node = node->nextPosition_.parent();
 		}
 	}

@@ -691,14 +691,14 @@ namespace se_core {
 
 
 	Thing* Area
-	::spawn(const char* thingName, const Coor& coor, const Quat4& face) {
+	::spawn(const char* thingName, const ViewPoint& vp) {
 		//LogMsg(thingName << ": " << face.x_ << ", " << face.y_ << ", " << face.z_ << ", " << face.w_);
 		// Create the thing
 		Thing* thing = SimSchema::thingManager().create(thingName);
 
 		//LogMsg(thingName << ": " << coor.x_ << ", " << coor.y_ << ", " << coor.z_);
 		// Set position and direction
-		thing->nextPos().setArea(*this, coor, face);
+		thing->nextPos().setArea(*this, vp);
 		// TODO:
 		//thing->nextPos().changeDirection(dir);
 

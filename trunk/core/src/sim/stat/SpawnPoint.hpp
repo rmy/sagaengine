@@ -24,18 +24,30 @@ rune@skalden.com
 
 #include "util/vecmath/Vector3.hpp"
 #include "util/vecmath/Quat4.hpp"
+#include "util/vecmath/Euler3.hpp"
 
 
 namespace se_core {
 	class SpawnPoint {
 	public:
 		SpawnPoint() {}
+		#ifndef SE_EULER
 		SpawnPoint(Quat4& face, Vector3& disp)
 				: face_(face), displace_(disp) {
 		}
 
 		/** Intitial facing direction of spawn */
 		Quat4 face_;
+		#else
+
+		SpawnPoint(Euler3& face, Vector3& disp)
+				: face_(face), displace_(disp) {
+		}
+
+		/** Intitial facing direction of spawn */
+		Euler3 face_;
+		#endif
+
 		/** The spawn's displacement relative to the parent */
 		Vector3 displace_;
 	};

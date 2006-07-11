@@ -26,6 +26,7 @@ rune@skalden.com
 #include "Coor.hpp"
 #include "SpawnPoint.hpp"
 #include "util/vecmath/Point3.hpp"
+#include "util/vecmath/Euler3.hpp"
 #include "util/vecmath/Quat4.hpp"
 #include "../area/sim_area.hpp"
 
@@ -34,11 +35,13 @@ namespace se_core {
 	class ViewPoint {
 	public:
 		ViewPoint() {}
-		ViewPoint(const ViewPoint& vp) : face_(vp.face_), coor_(vp.coor_) {
+		ViewPoint(const ViewPoint& vp) 
+			: face_(vp.face_), coor_(vp.coor_) {
 		}
 
 
 		bool viewPointEquals(const ViewPoint& c) const {
+			/*
 			return(c.coor_.x_ == coor_.x_
 					&& c.coor_.z_ == coor_.z_
 					&& c.coor_.y_ == coor_.y_
@@ -47,6 +50,8 @@ namespace se_core {
 					&& c.face_.z_ == face_.z_
 					&& c.face_.w_ == face_.w_
 					);
+			*/
+			return (c.coor_.equals(coor_) && c.face_.equals(face_));
 		}
 
 		inline void setViewPoint(const ViewPoint& original) {
@@ -59,8 +64,23 @@ namespace se_core {
 			face_.set(sp.face_);
 		}
 
+		#ifndef SE_EULER
 		const Quat4& face() const { return face_; }
 		Quat4& face() { return face_; }
+		inline void setFace(const Quat4& f) { face_.set(f); }
+		#else
+		const Euler3& face() const { return face_; }
+		Euler3& face() { return face_; }
+		inline void setFace(const Euler3& f) { face_.set(f); }
+		#endif
+
+		void face(Quat4& dest) {
+			#ifndef SE_EULER
+			dest.set(face_);
+			#else
+			dest.setEuler(face_);
+			#endif
+		}
 
 		const Coor& coor() const { return coor_; }
 		Coor& coor() { return coor_; }
@@ -73,10 +93,13 @@ namespace se_core {
 		 * @param d The new face direction
 		 */
 		inline void setFaceDirection(bray_t d) { face_.setEuler(d & BRAY_MASK); }
-		inline void setFace(const Quat4& f) { face_.set(f); }
 
 	public: // Attributes
+		#ifndef SE_EULER
 		Quat4 face_;
+		#else
+		Euler3 face_;
+		#endif
 		Coor coor_;
 	};
 
