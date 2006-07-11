@@ -57,6 +57,11 @@ namespace se_core {
 		 */
 		Quat4(const Tuple4& t1): Tuple4(t1) { }
 
+
+		Quat4(const Euler3& a1) { 
+			setEuler(a1);
+		}
+
 		/**
 		 * Constructs uninitialized Quat4.
 		 */
@@ -126,8 +131,16 @@ namespace se_core {
 		 */
 		void mul(const Quat4& q1);
 
+
 		/**
-		 *
+		 * Same as mul.
+		 */
+		inline void rotate(const Quat4& q1) {
+			mul(q1);
+		}
+
+
+		/**
 		 * Multiplies quaternion q1 by the inverse of quaternion q2 and places
 		 * the value into this quaternion.  The value of both argument quaternions
 		 * is preservered (this = q1 * q2^-1).
@@ -244,8 +257,24 @@ namespace se_core {
 		 * @param q2 the second quaternion
 		 * @param alpha the alpha interpolation parameter
 		 */
-		void slerp(const Quat4& q1, const Quat4& q2, coor_t alpha, bool findShortestPath = false);
+		void slerp(const Quat4& q1, const Quat4& q2, scale_t alpha, bool findShortestPath = false);
 
+		/**
+		 * Same as slerp( .... , true)
+		 */
+		void interpolate(const Quat4& q1, scale_t alpha) {
+			slerp(q1, alpha, true);
+		}
+
+
+		void interpolate(const Quat4& q1, const Quat4& q2, scale_t alpha) {
+			slerp(q1, q2, alpha, true);
+		}
+
+
+		void scale(scale_t alpha) {
+			slerp(Quat4::IDENTITY, 1 - alpha, true);
+		}
 		// copy constructor and operator = is made by complier
 
 		//Quat4& operator*=(const Quat4& m1);

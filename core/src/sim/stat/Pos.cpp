@@ -160,22 +160,7 @@ namespace se_core {
 		area_ = &area;
 	}
 
-
-	/*
-	void Pos
-	::setArea(Area& area, const Coor& c) {
-		//LogMsg(area.name());
-		if(parent_ == area_) {
-			// Area is the root parent node
-			parent_ = &area;
-		}
-		area_ = &area;
-		setCoor(c);
-		face_.setIdentity();
-	}
-	*/
-
-
+	#ifndef SE_EULER
 	void Pos
 	::setArea(Area& area, const Coor& c, const Quat4& q) {
 		//LogMsg(area.name());
@@ -187,11 +172,35 @@ namespace se_core {
 		setCoor(c);
 		setFace(q);
 	}
+	#endif
+
+
+	void Pos
+	::setArea(Area& area, const Coor& c, const Euler3& a) {
+		//LogMsg(area.name());
+		if(parent_ == area_) {
+			// Area is the root parent node
+			parent_ = &area;
+		}
+		area_ = &area;
+		setCoor(c);
+		face_.setEuler(a);
+	}
+
+
+	void Pos
+	::setArea(Area& area, const ViewPoint& vp) {
+		if(parent_ == area_) {
+			// Area is the root parent node
+			parent_ = &area;
+		}
+		area_ = &area;
+		setViewPoint(vp);
+	}
 
 
 	void Pos
 	::setArea(Area& area, const SpawnPoint& sp) {
-		//LogMsg(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
 			parent_ = &area;

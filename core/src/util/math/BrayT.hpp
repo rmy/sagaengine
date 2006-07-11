@@ -143,11 +143,21 @@ namespace se_core {
 
 		inline static scale_t abss(scale_t t) { return t > 0 ? t : -t; }
 		inline static bray_t fromScale(scale_t v) {
-			return static_cast<bray_t>(abss(v)) & BRAY_MASK;
+			//return static_cast<bray_t>(abss(v)) & BRAY_MASK;
+			return static_cast<bray_t>(v) & BRAY_MASK;
 		}
 
 		inline static bray_t scale(scale_t s, bray_t b) {
 			return fromScale(s * b);
+		}
+
+		inline static bray_t scaleNegative(scale_t s, bray_t b) {
+			if(mask(b) < DEG180) {
+				return fromScale(s * b);
+			}
+			else {
+				return negate(fromScale(s * negate(mask(b))));
+			}
 		}
 
 		inline static bray_t invert(bray_t b) {
@@ -157,6 +167,7 @@ namespace se_core {
 		inline static bray_t negate(bray_t b) {
 			return (DEG360 - b);
 		}
+
 	};
 
 }

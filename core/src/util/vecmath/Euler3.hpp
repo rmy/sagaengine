@@ -103,8 +103,29 @@ namespace se_core {
 		}
 
 
+		void setEuler(const Euler3& a1) {
+			set(a1);
+		}
+
+		void setEuler(bray_t yaw) {
+			yaw_ = yaw;
+			pitch_ = 0;
+			roll_ = 0;
+		}
+
+		void setEuler(bray_t yaw, bray_t pitch) {
+			yaw_ = yaw;
+			pitch_ = pitch;
+			roll_ = 0;
+		}
+
+
 		void reset() {
 			yaw_ = pitch_ = roll_ = 0;
+		}
+
+		void setIdentity() {
+			reset();
 		}
 
 		/**
@@ -149,6 +170,13 @@ namespace se_core {
 			roll_ = (roll_ + a1.roll_) & BRAY_MASK;
 		}
 
+
+		/**
+		 * Same as add.
+		 */
+		inline void rotate(const Euler3& a1) {
+			add(a1);
+		}
 
 		/**
 		 * Sets the value of this angle to the vector difference of angle a1 and a2 (this = a1 - a2).
@@ -197,9 +225,9 @@ namespace se_core {
 		 * @param a1 the source angle
 		 */
 		void scale(scale_t s, const Euler3& a1) {
-			yaw_ = BrayT::scale(s, a1.roll_);
-			pitch_ = BrayT::scale(s, a1.pitch_);
-			roll_ = BrayT::scale(s, a1.roll_);
+			yaw_ = BrayT::scaleNegative(s, a1.roll_);
+			pitch_ = BrayT::scaleNegative(s, a1.pitch_);
+			roll_ = BrayT::scaleNegative(s, a1.roll_);
 		}
 
 		/**
@@ -207,9 +235,15 @@ namespace se_core {
 		 * @param s the scalar value
 		 */
 		void scale(scale_t s) {
-			yaw_ = BrayT::scale(s, yaw_);
-			pitch_ = BrayT::scale(s, pitch_);
-			roll_ = BrayT::scale(s, roll_);
+			yaw_ = BrayT::scaleNegative(s, yaw_);
+			pitch_ = BrayT::scaleNegative(s, pitch_);
+			roll_ = BrayT::scaleNegative(s, roll_);
+		}
+
+		inline void normalize() {
+			yaw_ &= BRAY_MASK;
+			pitch_ &= BRAY_MASK;
+			roll_ &= BRAY_MASK;
 		}
 
 		/**
@@ -275,10 +309,10 @@ namespace se_core {
 		 * @param alpha the alpha interpolation parameter
 		 */
 		void interpolate(const Euler3& a1, scale_t alpha) {
-			scale_t beta = SCALE_RES - alpha;
-			yaw_ = BrayT::fromScale(beta*yaw_ + alpha*a1.roll_);
-			pitch_ = BrayT::fromScale(beta*pitch_ + alpha*a1.pitch_);
-			roll_ = BrayT::fromScale(beta*roll_ + alpha*a1.roll_);
+			if(a1.yaw_ > yaw_ && BrayT::mask(a1.yaw_ - yaw_) > BrayT::DEG180) yaw_ += BrayT::DEG360;
+			yaw_ += BrayT::scale(alpha, a1.yaw_ - yaw_);
+			pitch_ += BrayT::scale(alpha, a1.pitch_ - pitch_);
+			roll_ += BrayT::scale(alpha, a1.roll_ - roll_);
 		}
 
 		/**
