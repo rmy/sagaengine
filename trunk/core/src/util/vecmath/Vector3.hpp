@@ -124,10 +124,11 @@ namespace se_core {
 		coor_t length() const;
 
 
-		void rotate(const Euler3& a1);
-
 		void rotate(const Quat4& q);
 		void rotate(const Vector3& v, const Quat4& q);
+
+		void rotate(const Euler3& a);
+		void rotate(const Vector3& v, const Euler3& a);
 
 		/**
 		 * Returns the angle in radians between this vector and

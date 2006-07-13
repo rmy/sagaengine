@@ -317,6 +317,7 @@ namespace se_ogre {
 
 
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
+
 		static ViewPoint w;
 		thing_->worldViewPoint(alpha, w);
 		//LogMsg(thing_->name() << ": " << w.coor_.x_ << ", " << w.coor_.y_ << ", " << w.coor_.z_);

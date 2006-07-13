@@ -182,9 +182,12 @@ namespace se_core {
 		static ViewPoint np;
 		nextWorldViewPoint(np);
 		//LogMsg(": " << np.coor_.x_ << ", " << np.coor_.y_ << ", " << np.coor_.z_);
+
 		dest.coor_.interpolate(np.coor_, alpha);
 		dest.face_.interpolate(np.face_, alpha);
-		//LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
+		//LogMsg(np.face_.toLog());
+		//LogMsg(dest.face_.toLog());
+		//LogMsg(": " << dest.face_.pitch_ << ", " << dest.face_.yaw_ << ", " << dest.face_.roll_);
 	}
 
 

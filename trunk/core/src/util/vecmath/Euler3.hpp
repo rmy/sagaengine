@@ -66,9 +66,18 @@ namespace se_core {
 		Euler3(const bray_t t[]): yaw_(t[0]), pitch_(t[1]), roll_(t[2]) { }
 
 		/**
-		 * Constructs and initializes a Euler3 to (0,0,0).
+		 * Constructs an uninitialized a Euler3.
 		 */
-		Euler3(): yaw_(0), pitch_(0), roll_(0) { }
+		Euler3() { }
+
+
+
+		/**
+		 * Constructs an uninitialized a Euler3.
+		 */
+		Euler3(Quat4& q) { 
+			set(q);
+		}
 
 		/**
 		 * Sets the value of this angle to the specified xyzw coordinates.
@@ -91,6 +100,8 @@ namespace se_core {
 			pitch_ = t[1] & BRAY_MASK;
 			roll_ = t[2] & BRAY_MASK;
 		}
+
+		void set(Quat4& q1);
 
 		/**
 		 * Sets the value of this angle to the value of angle a1.
@@ -118,6 +129,14 @@ namespace se_core {
 			pitch_ = pitch;
 			roll_ = 0;
 		}
+
+
+		void setEuler(bray_t yaw, bray_t pitch, bray_t roll) {
+			yaw_ = yaw;
+			pitch_ = pitch;
+			roll_ = roll;
+		}
+
 
 
 		void reset() {
@@ -308,12 +327,8 @@ namespace se_core {
 		 * @param a1 the first angle
 		 * @param alpha the alpha interpolation parameter
 		 */
-		void interpolate(const Euler3& a1, scale_t alpha) {
-			if(a1.yaw_ > yaw_ && BrayT::mask(a1.yaw_ - yaw_) > BrayT::DEG180) yaw_ += BrayT::DEG360;
-			yaw_ += BrayT::scale(alpha, a1.yaw_ - yaw_);
-			pitch_ += BrayT::scale(alpha, a1.pitch_ - pitch_);
-			roll_ += BrayT::scale(alpha, a1.roll_ - roll_);
-		}
+		void interpolate(const Euler3& a1, scale_t alpha);
+
 
 		/**
 		 * Returns a string that contains the values of this Euler3. The form is (x,y,z,w).
@@ -383,6 +398,8 @@ namespace se_core {
 		Euler3 operator*(scale_t s) const {
 			return (Euler3(*this)).operator*=(s);
 		}
+
+		const char* toLog() const;
 	};
 
 } // Namespace

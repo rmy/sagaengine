@@ -101,6 +101,13 @@ namespace se_core {
 		add(uuv);
     }
 	
+
+    void Vector3
+	::rotate(const Euler3& a) {
+		rotate(Quat4(a));
+    }
+	
+
     void Vector3
 	::rotate(const Vector3& v, const Quat4& q) {
 		// nVidia SDK implementation
@@ -117,4 +124,8 @@ namespace se_core {
     }
 	
 
+    void Vector3
+	::rotate(const Vector3& v, const Euler3& a) {
+		rotate(v, Quat4(a));
+	}
 }
