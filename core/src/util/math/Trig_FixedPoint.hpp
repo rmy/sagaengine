@@ -54,11 +54,11 @@ namespace se_core {
 			return trigToQuat(sinAbs(bray)) * sinSign(bray);
 		}
 
-		inline static trig_t cosScale(coor_t scale, bray_t bray) {
+		inline static coor_t cosScale(coor_t scale, bray_t bray) {
 			return static_cast<coor_t>(((scale * Trig::cosAbs(bray)) >> Trig::TRIG_SHIFT) * Trig::cosSign(bray));
 		}
 
-		inline static trig_t sinScale(coor_t scale, bray_t bray) {
+		inline static coor_t sinScale(coor_t scale, bray_t bray) {
 			return static_cast<coor_t>(((scale * Trig::sinAbs(bray)) >> Trig::TRIG_SHIFT) * Trig::sinSign(bray));
 		}
 

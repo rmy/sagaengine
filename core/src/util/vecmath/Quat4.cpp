@@ -2,7 +2,7 @@
 #include "../math/QuatT.hpp"
 #include "Quat4.hpp"
 #include "Euler3.hpp"
-//#include <AxisAngle4_.h>
+#include "AxisAngle4.hpp"
 
 namespace se_core {
 	const Quat4 Quat4::IDENTITY(0, 0, 0, 1);
@@ -96,32 +96,54 @@ namespace se_core {
 	}
 
 
-	/*
 	void Quat4
 	::set(const AxisAngle4& a1) {
-		x = a1.x;
-		y = a1.y;
-		z = a1.z;
-		coor_t n = CoorT::sqrt(x*x + y*y + z*z);
+		x_ = a1.x_;
+		y_ = a1.y_;
+		z_ = a1.z_;
+
+		coor_t n = QuatT::oneOver( CoorT::sqrt( CoorT::pow2(x_) +  CoorT::pow2(y_) +  CoorT::pow2(z_)) );
+		//LogMsg(toLog() << ":n " << n);
+
+		#ifdef SE_FIXED_POINT
+		#error "Not implemented"
+		#endif
+
 		// zero-div may occur.
-		coor_t s = CoorT::sin(0.5*a1.angle)/n;
-		x *= s;
-		y *= s;
-		z *= s;
-		w = CoorT::cos(0.5*a1.angle);
+		//coor_t s = ::sin(0.5*a1.angle_)/n;
+		coor_t s = Trig::sinScale(n, a1.angle_ >> 1);
+		//LogMsg(toLog() << ":s " << s);
+
+		x_ *= s;
+		y_ *= s;
+		z_ *= s;
+		w_ = Trig::cosQuat(a1.angle_ >> 1);
+		//LogMsg(toLog());
 	}
-	*/
 
 	void Quat4
 	::setEuler(const Euler3& a1) {
+		//LogMsg(a1.toLog());
+
+		/*
+		Quat4 q;
+		q.set(AxisAngle4(1, a1));
+		setEuler(a1.yaw_, a1.pitch_);
+		mul(q);
+		*/
+
 		// Assuming the angles are in braybrookians (bray_t).
 		trig_t c1 = Trig::cosQuat(a1.yaw_ >> 1);
 		trig_t c2 = Trig::cosQuat(a1.roll_ >> 1);
+
 		trig_t c3 = Trig::cosQuat(a1.pitch_ >> 1);
 		trig_t s1 = Trig::sinQuat(a1.yaw_ >> 1);
 		trig_t s2 = Trig::sinQuat(a1.roll_ >> 1);
 		trig_t s3 = Trig::sinQuat(a1.pitch_ >> 1);
 		// TODO: fixed point mul
+		#ifdef SE_FIXED_POINT
+		LogFatal("Not implemented");
+		#endif
 		trig_t c1c2 = c1*c2;
 		trig_t s1s2 = s1*s2;
 		w_ = c1c2*c3 - s1s2*s3;
@@ -130,7 +152,16 @@ namespace se_core {
 		z_ = c1*s2*c3 - s1*c2*s3;
 
 		normalize();
+
+		
+		//LogMsg(Euler3(*this).toLog());
 	}
+
+	void Quat4
+	::setEuler(const bray_t yaw, const bray_t pitch, const bray_t roll) {
+		setEuler(Euler3(yaw, pitch, roll));
+	}
+
 
 	void Quat4
 	::setEuler(const bray_t yaw, const bray_t pitch) {
@@ -151,6 +182,30 @@ namespace se_core {
 		normalize();
 	}
 
+
+	void Quat4
+	::setPitch(const bray_t pitch) {
+	    Assert(pitch == (pitch & BRAY_MASK));
+
+		// Assuming the angles are in braybrookians (bray_t).
+		w_ = Trig::cosQuat(pitch >> 1);
+		x_ = Trig::sinQuat(pitch >> 1);
+		y_ = 0;
+		z_ = 0;
+
+		normalize();
+	}
+
+
+	void Quat4
+	::setRoll(const bray_t roll) {
+		w_ = Trig::cosQuat(roll >> 1);
+		x_ = 0;
+		y_ = 0;
+		z_ = Trig::sinQuat(roll >> 1);
+
+		normalize();
+	}
 
 	void Quat4
 	::setEuler(const bray_t yaw) {
@@ -242,6 +297,13 @@ namespace se_core {
 	::slerp(const Quat4& q1, const Quat4& q2, scale_t alpha, bool findShortestPath) {
 		set(q1);
 		slerp(q2, alpha, findShortestPath);
+	}
+
+
+	const char* Quat4
+	::toLog() const {
+		sprintf(log_msg(), "Quat4(%f, %f, %f, %f)", x_, y_, z_, w_);
+		return log_msg();
 	}
 
 }

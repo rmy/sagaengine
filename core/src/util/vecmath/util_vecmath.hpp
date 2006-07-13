@@ -26,6 +26,7 @@ namespace se_core {
 
 	class Bounds;
 
+	class AxisAngle4;
 	class Euler3;
 	class Quat4;
 }

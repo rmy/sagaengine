@@ -51,8 +51,6 @@ namespace se_core {
 			return mask(b1 - b2);
 		}
 
-
-
 		inline static float toRad(bray_t bray) {
 			return bray * PI * 2 / static_cast<float>(BRAY_RANGE);
 		}

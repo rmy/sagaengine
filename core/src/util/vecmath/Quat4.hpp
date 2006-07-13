@@ -62,6 +62,10 @@ namespace se_core {
 			setEuler(a1);
 		}
 
+		Quat4(const AxisAngle4& a1) { 
+			set(a1);
+		}
+
 		/**
 		 * Constructs uninitialized Quat4.
 		 */
@@ -235,11 +239,16 @@ namespace se_core {
 		 * AxisAngle argument.
 		 * @param a1 the axis-angle
 		 */
-		//void set(const AxisAngle4<coor_t>& a1);
+		void set(const AxisAngle4& a1);
 
 		void setEuler(const Euler3& a1);
+		void setEuler(const bray_t yaw, const bray_t pitch, const bray_t roll);
 		void setEuler(const bray_t yaw);
 		void setEuler(const bray_t yaw, const bray_t pitch);
+
+		void setYaw(const bray_t yaw) { setEuler(yaw); }
+		void setPitch(const bray_t pitch);
+		void setRoll(const bray_t roll);
 		
 		/**
 		 * Performs a great circle interpolation between this quaternion
@@ -280,6 +289,7 @@ namespace se_core {
 		//Quat4& operator*=(const Quat4& m1);
 		//Quat4 operator*(const Quat4& m1) const;
 
+		const char* toLog() const;
 
 		static const Quat4 IDENTITY;
 	};
