@@ -207,7 +207,7 @@ namespace se_core {
 		 * @param d The new face direction
 		 */
 		//inline void setFaceDirection(bray_t d) { face_.yaw_ = d & BRAY_MASK; }
-		inline void setFaceDirection(bray_t d) { face_.setEuler(d & BRAY_MASK); }
+		inline void setFaceDirection(bray_t d) { face_.setYaw(d & BRAY_MASK); }
 		inline void setFace(const Quat4& f) { face_.set(f); }
 
 

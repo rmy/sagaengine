@@ -95,7 +95,7 @@ namespace game {
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
-					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to)) {
+					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.coor_, to.coor_)) {
 						next = link;
 					}
 				}

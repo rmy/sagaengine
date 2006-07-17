@@ -90,27 +90,21 @@ namespace se_core {
 
 	void SimpleAreaThingParserModule
 	::readThing(InputStream& in, Area& area) {
-		WasHere();
 		String tempString;
-		WasHere();
 		in.readString(tempString);
-		WasHere();
 		float x = in.readFloat();
-		WasHere();
 		float y = in.readFloat();
-		WasHere();
-		Coor c(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
-		Quat4 q;
-		WasHere();
-		Thing* thing = area.spawn(tempString.get(), c, q);
-		WasHere();
+
+		ViewPoint vp;
+		vp.coor_.set(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
+		vp.face_.setIdentity();
+		Thing* thing = area.spawn(tempString.get(), vp);
 
 		int code = 'X';
 		while((code = in.readInfoCode()) != '/') {
 			switch(code) {
 			case 'R': // Radius
 				{
-					WasHere();
 					float radius = in.readFloat();
 					thing->nextPos().setRadius(CoorT::fromFloat(radius));
 				}

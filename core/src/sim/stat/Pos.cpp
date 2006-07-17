@@ -184,7 +184,7 @@ namespace se_core {
 		}
 		area_ = &area;
 		setCoor(c);
-		face_.setEuler(a);
+		face_.set(a);
 	}
 
 

@@ -63,33 +63,8 @@ namespace se_core {
 		Move();
 		void setMove(const Move& original);
 
-		/**
-		 * Calculate and store the next coordinate using the information
-		 * in the original Pos as a starting point. If the Pos has a layer,
-		 * the y coordinate will be updated to the height of the the xz coordinate
-		 * for this layer in the map.
-		 *
-		 * @param original The object containing the original position, speed, force modiefiers, etc.
-		 * @param area The area involving the heights.
-		 */
-		void calcNext(const Pos& original, Coor& dest);
-
 		coor_t speed() const { return speed_; }
 		bray_t yaw() const { return yaw_; }
-
-		/**
-		 * Interpolate the next coordinate for the next step.
-		 * Interpolate and store the coordinate at the next step
-		 * using the info in the Pos original object. Ignore any
-		 * area layer or height map info, thus only the x and z
-		 * coordinates are reliable.
-		 *
-		 * @param original The position and speed to interpolate from.
-		 */
-		void fastInterpolate(const Pos& original, Coor& dest);
-		void fastInterpolate(const Pos& original, const Force& force, Coor& dest);
-		void fastFutureInterpolate(const Pos& original, Coor& dest);
-		void fastFutureInterpolate(const Pos& original, const Force& force, Coor& dest);
 
 		/**
 		 * Get speed in the xz-plane.
@@ -105,7 +80,6 @@ namespace se_core {
 
 		void changeYaw(bray_t yaw);
 		void changeSpeed(coor_t speed);
-		void updateVelocity(const Quat4& q);
 
 		/**
 		 * Change movement direction and speed in the xz-plane.
@@ -115,7 +89,6 @@ namespace se_core {
 		 * @param speed The length of the new speed vector, coor_t units per step.
 		 */
 		void changeMovement(bray_t yaw, coor_t speed);
-		void changeMovement(Quat4& face, coor_t speed);
 
 		/**
 		 * Is this Pos trying to move this step?
@@ -123,16 +96,6 @@ namespace se_core {
 		 * @return true if is trying to move, false if not.
 		 */
 		inline bool isMoving() const { return (velocity_.isZero() || !force_.isZero()); }
-
-		/**
-		 * Gets the pushing force of this Position.
-		 * The pushing force presently consists of an x- and z-components
-		 * of the present speed.
-		 *
-		 * @param dest The force to store the speed into.
-		 * @return Refrecence to dest
-		 */
-		Force& pushForce(Force& dest) const;
 
 		/**
 		 * Flick to the next step.
@@ -168,17 +131,6 @@ namespace se_core {
 		 * @param force The force to subtract
 		 */
 		void subtractForce(const Force& force) { force_.sub(force); }
-
-		/**
-		 * Calculate and store the next coordinate using the information
-		 * in the original Pos as a starting point. If the Pos has a layer,
-		 * the y coordinate will be updated to the height of the the xz coordinate
-		 * for this layer in the map.
-		 *
-		 * @param original The object containing the original position, speed, force modiefiers, etc.
-		 * @param area The area involving the heights.
-		 */
-		void calcNext(const Pos& original, const Move& move);
 
 	};
 

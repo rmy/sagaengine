@@ -75,8 +75,15 @@ namespace se_core {
 		/**
 		 * Constructs an uninitialized a Euler3.
 		 */
-		Euler3(Quat4& q) { 
+		Euler3(const Quat4& q) { 
 			set(q);
+		}
+
+		/**
+		 * Constructs an uninitialized a Euler3.
+		 */
+		Euler3(const Euler3& a) { 
+			set(a);
 		}
 
 		/**
@@ -101,7 +108,7 @@ namespace se_core {
 			roll_ = t[2] & BRAY_MASK;
 		}
 
-		void set(Quat4& q1);
+		void set(const Quat4& q1);
 
 		/**
 		 * Sets the value of this angle to the value of angle a1.
@@ -118,19 +125,55 @@ namespace se_core {
 			set(a1);
 		}
 
-		void setEuler(bray_t yaw) {
+
+		/**
+		 * Set yaw and reset pitch and roll.
+		 */
+		void setYaw(bray_t yaw) {
 			yaw_ = yaw;
 			pitch_ = 0;
 			roll_ = 0;
 		}
 
-		void setEuler(bray_t yaw, bray_t pitch) {
+		/**
+		 * Set pitch and reset yaw and roll.
+		 * Included for method compatibility with Quat4.
+		 * Access member variables directly if you want manipulate
+		 * a yaw/pitch/roll indiviudally.
+		 */
+		void setPitch(bray_t yaw) {
+			yaw_ = yaw;
+			pitch_ = 0;
+			roll_ = 0;
+		}
+
+		/**
+		 * Set roll and reset yaw and pitch.
+		 * Included for method compatibility with Quat4.
+		 * Access member variables directly if you want manipulate
+		 * a yaw/pitch/roll indiviudally.
+		 */
+		void setRoll(bray_t roll) {
+			yaw_ = 0;
+			pitch_ = 0;
+			roll_ = roll;
+		}
+
+		/**
+		 * Set yaw and pitch, reset roll.
+		 * Included for method compatibility with Quat4.
+		 * Access member variables directly if you want manipulate
+		 * a yaw/pitch/roll indiviudally.
+		 */
+		void setYawAndPitch(bray_t yaw, bray_t pitch) {
 			yaw_ = yaw;
 			pitch_ = pitch;
 			roll_ = 0;
 		}
 
-
+		/**
+		 * Set yaw, pitch and roll.
+		 */
 		void setEuler(bray_t yaw, bray_t pitch, bray_t roll) {
 			yaw_ = yaw;
 			pitch_ = pitch;
@@ -192,6 +235,7 @@ namespace se_core {
 
 		/**
 		 * Same as add.
+		 * Included for method compatibility with Quat4.
 		 */
 		inline void rotate(const Euler3& a1) {
 			add(a1);
@@ -244,9 +288,9 @@ namespace se_core {
 		 * @param a1 the source angle
 		 */
 		void scale(scale_t s, const Euler3& a1) {
-			yaw_ = BrayT::scaleNegative(s, a1.roll_);
-			pitch_ = BrayT::scaleNegative(s, a1.pitch_);
-			roll_ = BrayT::scaleNegative(s, a1.roll_);
+			yaw_ = BrayT::scale(s, a1.roll_);
+			pitch_ = BrayT::scale(s, a1.pitch_);
+			roll_ = BrayT::scale(s, a1.roll_);
 		}
 
 		/**
@@ -254,9 +298,9 @@ namespace se_core {
 		 * @param s the scalar value
 		 */
 		void scale(scale_t s) {
-			yaw_ = BrayT::scaleNegative(s, yaw_);
-			pitch_ = BrayT::scaleNegative(s, pitch_);
-			roll_ = BrayT::scaleNegative(s, roll_);
+			yaw_ = BrayT::scale(s, yaw_);
+			pitch_ = BrayT::scale(s, pitch_);
+			roll_ = BrayT::scale(s, roll_);
 		}
 
 		inline void normalize() {

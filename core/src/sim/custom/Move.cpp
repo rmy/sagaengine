@@ -45,23 +45,14 @@ namespace se_core {
 	void Move
 	::changeSpeed(coor_t speed) {
 		speed_ = speed;
-		velocity_.setForward(speed_, yaw_);
+		velocity_.setForward(speed_, yaw_, 0);
 	}
 
 
 	void Move
 	::changeYaw(bray_t yaw) {
 		yaw_ = yaw;
-		velocity_.setForward(speed_, yaw_);
-	}
-
-
-	void Move
-	::updateVelocity(const Quat4& q) {
-		//yaw_ = yaw;
-		//velocity_.setForward(speed_, yaw_);
-		velocity_.set(0, 0, speed_);
-		velocity_.rotate(q);
+		velocity_.setForward(speed_, yaw_, 0);
 	}
 
 
@@ -69,21 +60,7 @@ namespace se_core {
 	::changeMovement(bray_t yaw, coor_t speed) {
 		yaw_ = yaw;
 		speed_ = speed;
-		velocity_.setForward(speed_, yaw_);
-	}
-
-
-	void Move
-	::changeMovement(Quat4& face, coor_t speed) {
-		velocity_.set(0, 0, speed);
-		velocity_.rotate(face);
-	}
-
-
-	Force& Move
-	::pushForce(Force& dest) const {
-		dest.set(velocity_.x_, 0, velocity_.z_);
-		return dest;
+		velocity_.setForward(speed_, yaw_, 0);
 	}
 
 
@@ -94,51 +71,6 @@ namespace se_core {
 		torque_.reset();
 	}
 
-
-	void Move
-	::calcNext(const Pos& original, Coor& dest) {
-		dest.x_ = original.x_ + velocity_.x_ + force_.x_;
-		dest.z_ = original.z_ + velocity_.z_ + force_.z_;
-		if(original.layer() >= 0 && original.hasArea())
-			dest.y_ = original.area()->groundHeight(dest);
-		else
-			dest.y_ = original.y_ + velocity_.y_ + force_.y_;
-
-		// TODO:
-		//dest.face_.add(original.face_, angularVelocity_);
-	}
-
-
-	void Move
-	::fastInterpolate(const Pos& original, Coor& dest) {
-		dest.x_ = original.x_ + velocity_.x_ + force_.x_;
-		dest.y_ = original.y_ + velocity_.y_ + force_.y_;
-		dest.z_ = original.z_ + velocity_.z_ + force_.z_;
-	}
-
-
-	void Move
-	::fastInterpolate(const Pos& original, const Force& force, Coor& dest) {
-		dest.x_ = original.x_ + velocity_.x_ + force.x_;
-		dest.y_ = original.y_ + velocity_.y_ + force.y_;
-		dest.z_ = original.z_ + velocity_.z_ + force.z_;
-	}
-
-
-	void Move
-	::fastFutureInterpolate(const Pos& original, Coor& dest) {
-		dest.x_ = original.x_ + velocity_.x_ + force_.x_;
-		dest.y_ = original.y_ + velocity_.y_ + force_.y_;
-		dest.z_ = original.z_ + velocity_.z_ + force_.z_;
-	}
-
-
-	void Move
-	::fastFutureInterpolate(const Pos& original, const Force& force, Coor& dest) {
-		dest.x_ = original.x_ + velocity_.x_ + force_.x_ + force.x_;
-		dest.y_ = original.y_ + velocity_.y_ + force_.y_ + force.y_;
-		dest.z_ = original.z_ + velocity_.z_ + force_.z_ + force.z_;
-	}
 
 }
 

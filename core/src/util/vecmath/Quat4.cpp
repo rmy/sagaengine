@@ -3,6 +3,7 @@
 #include "Quat4.hpp"
 #include "Euler3.hpp"
 #include "AxisAngle4.hpp"
+#include <cstdio>
 
 namespace se_core {
 	const Quat4 Quat4::IDENTITY(0, 0, 0, 1);
@@ -121,77 +122,77 @@ namespace se_core {
 		//LogMsg(toLog());
 	}
 
+
 	void Quat4
-	::setEuler(const Euler3& a1) {
-		//LogMsg(a1.toLog());
-
-		/*
-		Quat4 q;
-		q.set(AxisAngle4(1, a1));
-		setEuler(a1.yaw_, a1.pitch_);
-		mul(q);
-		*/
-
+	::set(const Euler3& a1) {
 		// Assuming the angles are in braybrookians (bray_t).
-		trig_t c1 = Trig::cosQuat(a1.yaw_ >> 1);
-		trig_t c2 = Trig::cosQuat(a1.roll_ >> 1);
+		quat_t c1 = -Trig::cosQuat(a1.yaw_ >> 1);
+		quat_t c2 = -Trig::cosQuat(a1.roll_ >> 1);
+		quat_t c3 = -Trig::cosQuat(a1.pitch_ >> 1);
 
-		trig_t c3 = Trig::cosQuat(a1.pitch_ >> 1);
-		trig_t s1 = Trig::sinQuat(a1.yaw_ >> 1);
-		trig_t s2 = Trig::sinQuat(a1.roll_ >> 1);
-		trig_t s3 = Trig::sinQuat(a1.pitch_ >> 1);
-		// TODO: fixed point mul
-		#ifdef SE_FIXED_POINT
-		LogFatal("Not implemented");
-		#endif
-		trig_t c1c2 = c1*c2;
-		trig_t s1s2 = s1*s2;
-		w_ = c1c2*c3 - s1s2*s3;
-		x_ = c1c2*s3 + s1s2*c3;
-		y_ = s1*c2*c3 + c1*s2*s3;
-		z_ = c1*s2*c3 - s1*c2*s3;
+		quat_t s1 = Trig::sinQuat(a1.yaw_ >> 1);
+		quat_t s2 = Trig::sinQuat(a1.roll_ >> 1);
+		quat_t s3 = Trig::sinQuat(a1.pitch_ >> 1);
 
-		normalize();
+		// Yaw and pitch
+		quat_t x = QuatT::fmul(c1, s3);
+		quat_t y = QuatT::fmul(s1, c3);
+		quat_t z = -QuatT::fmul(s1, s3);
+		quat_t w = QuatT::fmul(c1, c3);
 
-		
-		//LogMsg(Euler3(*this).toLog());
+		// Then roll
+		x_ = QuatT::fmul(x, c2) + QuatT::fmul(y, s2);
+		y_ = QuatT::fmul(y, c2) - QuatT::fmul(x, s2);
+		z_ = QuatT::fmul(z, c2) + QuatT::fmul(w, s2);
+		w_ = QuatT::fmul(w, c2) - QuatT::fmul(z, s2);
 	}
 
 	void Quat4
 	::setEuler(const bray_t yaw, const bray_t pitch, const bray_t roll) {
-		setEuler(Euler3(yaw, pitch, roll));
+		set(Euler3(yaw, pitch, roll));
 	}
 
 
 	void Quat4
-	::setEuler(const bray_t yaw, const bray_t pitch) {
+	::setYawAndPitch(const bray_t yaw, const bray_t pitch) {
 	    Assert(yaw == (yaw & BRAY_MASK));
 	    Assert(pitch == (pitch & BRAY_MASK));
 
-		// Assuming the angles are in braybrookians (bray_t).
-		trig_t c1 = Trig::cosQuat(yaw >> 1);
-		trig_t s1 = Trig::sinQuat(yaw >> 1);
-		trig_t c3 = Trig::cosQuat(pitch >> 1);
-		trig_t s3 = Trig::sinQuat(pitch >> 1);
-		// TODO: fixed point mul
-		w_ = c1*c3;
-		x_ = c1*s3;
-		y_ = s1*c3;
-		z_ = -s1*s3;
 
-		normalize();
+		trig_t c1 = -Trig::cosQuat(yaw >> 1);
+		trig_t c3 = -Trig::cosQuat(pitch >> 1);
+
+		trig_t s1 = Trig::sinQuat(yaw >> 1);
+		trig_t s3 = Trig::sinQuat(pitch >> 1);
+
+		x_ = QuatT::fmul(c1, s3);
+		y_ = QuatT::fmul(s1, c3);
+		z_ = -QuatT::fmul(s1, s3);
+		w_ = QuatT::fmul(c1, c3);
+	}
+
+
+	void Quat4
+	::setYaw(const bray_t yaw) {
+		// Assuming the angles are in braybrookians (bray_t).
+	    Assert(yaw == (yaw & BRAY_MASK));
+		
+		x_ = 0;
+		y_ = Trig::sinQuat(yaw >> 1);
+		z_ = 0;
+		w_ = -Trig::cosQuat(yaw >> 1);
 	}
 
 
 	void Quat4
 	::setPitch(const bray_t pitch) {
+		// Assuming the angles are in braybrookians (bray_t).
 	    Assert(pitch == (pitch & BRAY_MASK));
 
-		// Assuming the angles are in braybrookians (bray_t).
-		w_ = Trig::cosQuat(pitch >> 1);
 		x_ = Trig::sinQuat(pitch >> 1);
 		y_ = 0;
 		z_ = 0;
+		w_ = -Trig::cosQuat(pitch >> 1);
 
 		normalize();
 	}
@@ -199,37 +200,21 @@ namespace se_core {
 
 	void Quat4
 	::setRoll(const bray_t roll) {
-		w_ = Trig::cosQuat(roll >> 1);
+		// Assuming the angles are in braybrookians (bray_t).
+	    Assert(roll == (roll & BRAY_MASK));
+
 		x_ = 0;
 		y_ = 0;
 		z_ = Trig::sinQuat(roll >> 1);
-
-		normalize();
+		w_ = -Trig::cosQuat(roll >> 1);
 	}
 
-	void Quat4
-	::setEuler(const bray_t yaw) {
-		// Assuming the angles are in braybrookians (bray_t).
-	    Assert(yaw == (yaw & BRAY_MASK));
-		
-		w_ = Trig::cosQuat(yaw >> 1);
-		x_ = 0;
-		y_ = Trig::sinQuat(yaw >> 1);
-		z_ = 0;
-		//LogMsg(yaw << " = (" << QuatT::toFloat(x_) << ", " << QuatT::toFloat(y) << ", " << QuatT::toFloat(z) << ", " << QuatT::toFloat(w) << ")");
-
-		normalize();
-	}
-	
 	void Quat4
 	::slerp(const Quat4& q1, scale_t alpha, bool findShortestPath) {
 		#ifdef SE_FIXED_POINT
 		LogFatal("Not yet implemented");
 		#else
 
-		//LogMsg("Alpha " << alpha);
-		//LogMsg("this: " << x_ << ", " << y_ << ", " << z_ << ", " << w_);
-		//LogMsg("Q1  : " << q1.x_ << ", " << q1.y_ << ", " << q1.z_ << ", " << q1.w_);
 		// Both parameters must be pre-normalized
 		Assert(isNormalized());
 		Assert(q1.isNormalized());
@@ -258,7 +243,6 @@ namespace se_core {
 
 		// t is now theta
 		float theta = ::acos(cos_t);
-
 		float sin_t = ::sin(theta);
 
 		// same quaternion (avoid zero-div)
@@ -275,7 +259,6 @@ namespace se_core {
 			y_ = s*y_ + t*y1;
 			z_ = s*z_ + t*z1;
 			w_ = s*w_ + t*w1;
-
 			//normalize();
 		}
 		else {

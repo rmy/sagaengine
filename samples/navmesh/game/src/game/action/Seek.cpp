@@ -49,13 +49,13 @@ namespace game {
 		//LogMsg(tmp.x_ << ", " << tmp.z_);
 
 		Vector3 dir(tmp);
-		dir.sub(performer.pos());
+		dir.sub(performer.pos().coor_);
 
 		coor_t s1 = performer.walkSpeed() * 0.5;
 		coor_t s2 = dir.length();
 		coor_t s = (s1 < s2) ? s1 : s2;
 
-		bray_t d = performer.pos().xzAngleTowards(tmp);
+		bray_t d = performer.pos().coor_.xzAngleTowards(tmp);
 		performer.nextMove().changeMovement(BrayT::mask(d), s);
 	}
 

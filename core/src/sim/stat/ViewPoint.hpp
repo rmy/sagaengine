@@ -41,28 +41,21 @@ namespace se_core {
 
 
 		bool viewPointEquals(const ViewPoint& c) const {
-			/*
-			return(c.coor_.x_ == coor_.x_
-					&& c.coor_.z_ == coor_.z_
-					&& c.coor_.y_ == coor_.y_
-					&& c.face_.x_ == face_.x_
-					&& c.face_.y_ == face_.y_
-					&& c.face_.z_ == face_.z_
-					&& c.face_.w_ == face_.w_
-					);
-			*/
 			return (c.coor_.equals(coor_) && c.face_.equals(face_));
 		}
+
 
 		inline void setViewPoint(const ViewPoint& original) {
 			coor_.set(original.coor_);
 			face_.set(original.face_);
 		}
 
+
 		inline void setViewPoint(const SpawnPoint& sp) {
 			coor_.set(sp.displace_);
 			face_.set(sp.face_);
 		}
+
 
 		#ifndef SE_EULER
 		const Quat4& face() const { return face_; }
@@ -75,15 +68,16 @@ namespace se_core {
 		#endif
 
 		void face(Quat4& dest) {
-			#ifndef SE_EULER
 			dest.set(face_);
-			#else
-			dest.setEuler(face_);
-			#endif
 		}
 
 		const Coor& coor() const { return coor_; }
 		Coor& coor() { return coor_; }
+
+		void interpolate(ViewPoint& vp, scale_t alpha) {
+			coor_.interpolate(vp.coor_, alpha);
+			face_.interpolate(vp.face_, alpha);
+		}
 
 		/**
 		 * Set the new face direction.
@@ -92,7 +86,7 @@ namespace se_core {
 		 *
 		 * @param d The new face direction
 		 */
-		inline void setFaceDirection(bray_t d) { face_.setEuler(d & BRAY_MASK); }
+		inline void setFaceDirection(bray_t d) { face_.setYaw(d & BRAY_MASK); }
 
 	public: // Attributes
 		#ifndef SE_EULER

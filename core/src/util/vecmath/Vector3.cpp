@@ -32,7 +32,7 @@ namespace se_core {
 	void Vector3
 	::setForward(const coor_t len, const bray_t yaw) {
 		x_ = Trig::sinScale(len, yaw);
-		z_ = Trig::cosScale(len, yaw);
+		z_ = -Trig::cosScale(len, yaw);
 	}
 
 
@@ -40,9 +40,9 @@ namespace se_core {
 	::setForward(const coor_t len, const bray_t yaw, const bray_t pitch) {
 		setForward(len, yaw);
 
-		y_ = Trig::cosScale(len, pitch);
-		x_ = Trig::sinScale(x_, pitch);
-		z_ = Trig::sinScale(z_, pitch);
+		y_ = -Trig::sinScale(len, pitch);
+		x_ = Trig::cosScale(x_, pitch);
+		z_ = Trig::cosScale(z_, pitch);
 	}
 
 

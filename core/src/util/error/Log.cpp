@@ -33,13 +33,13 @@ namespace se_err {
 	}
 }
 
-
-#if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 char* log_msg() {
 	static char message[512] VAR_IN_EWRAM;
 	return message;
 }
 
+
+#if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 namespace se_err {
 	Log& log() {
 		static Log l OBJECT_IN_EWRAM;

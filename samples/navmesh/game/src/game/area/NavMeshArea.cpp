@@ -51,7 +51,7 @@ namespace game {
 	void NavMeshArea
 	::updateIndex(se_core::Pos& pos) const {
 		short index;
-		Point2 p(pos.x_, pos.z_);
+		Point2 p(pos.coor_.x_, pos.coor_.z_);
 
 		if(pos.hasIndex()) {
 			index = navMesh_->find(pos.index(), p);
@@ -118,11 +118,11 @@ namespace game {
 	::path(const Pos& from, const Pos& to, Point3& out) const {
 		// Already in same triangle
 		if(from.index() == to.index()) {
-			out.set(to);
+			out.set(to.coor_);
 			return;
 		}
 		if(navMesh_->isInLineOfSight(from, to)) {
-			out.set(to);
+			out.set(to.coor_);
 			return;
 		}
 		short via = navMesh_->path(from.index(), to.index());

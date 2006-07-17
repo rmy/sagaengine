@@ -24,6 +24,9 @@ rune@skalden.com
 
 #include <cstdlib>
 
+extern char* log_msg();
+
+
 #if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 
 namespace se_err {
@@ -93,8 +96,6 @@ void * operator new[](size_t size, char const * file, int line);
 #define Dump(msg) { se_err::dump(msg); se_err::dump("\n"); }
 #define DumpAllocs se_err::dumpAlloc();
 
-extern char* log_msg();
-
 namespace se_err {
 
 	extern short debug_state;
@@ -111,7 +112,6 @@ namespace se_err {
 #include <cstdio>
 #include <cstdlib>
 
-extern char* log_msg();
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
 #define LogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
