@@ -417,6 +417,8 @@ namespace se_core {
 		 * @return the String representation
 		 */
 		char* toString(char* buffer) const;
+		const char* toLog() const;
+
 
 		// copy constructor and operator = is made by complier
 

@@ -289,8 +289,6 @@ namespace se_core {
 		//Quat4& operator*=(const Quat4& m1);
 		//Quat4 operator*(const Quat4& m1) const;
 
-		const char* toLog() const;
-
 		static const Quat4 IDENTITY;
 	};
 

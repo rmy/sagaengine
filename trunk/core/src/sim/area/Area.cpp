@@ -42,9 +42,12 @@ namespace se_core {
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
 			: PosNode(got_AREA, name->get()), width_(w), height_(h)
-		//, entrances_(new Coor*[ MAX_ENTRANCES ])
 			  , multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			  , isActive_(false), pageX_(-1), pageZ_(-1), collisionGrid_(0) {
+
+		// Init to default position
+		position_.reset();
+		nextPosition_.reset();
 
 		// Singly linked list containing all things in area. Listeners
 		// my subscribe to get events when a members is removed
@@ -54,13 +57,6 @@ namespace se_core {
 		// Stored for destruction purposed.
 		// TODO: fix this mess?
 		nameString_ = name;
-
-		// Initialise entrances coordinates to none
-		//for(int i = 0; i < MAX_ENTRANCES; ++i) {
-		//	entrances_[i] = 0;
-		//}
-		// Add a default entrance at tile 8, 8
-		//entrances_[0] = new Coor(COOR_RES * 8, COOR_RES * 8, COOR_RES * 8);
 
 		// 3x3 array to hold self and neighbours
 		for(short i = 0; i < 9; ++i) {
@@ -76,10 +72,6 @@ namespace se_core {
 		delete[] multiSimObjects_;
 		delete allThings_;
 		delete nameString_;
-		//for(int i = 0; i < MAX_ENTRANCES; ++i) {
-		//	delete entrances_[i];
-		//}
-		//delete[] entrances_;
 	}
 
 
@@ -132,27 +124,6 @@ namespace se_core {
 		// End of file
 		Dump("Q");
 	}
-
-	/*
-	void Area
-	::setEntrance(short id, float x, float y) {
-		Assert((id >= 0 && id < MAX_ENTRANCES)
-			   && "Tried to add entrance with illegal id");
-		if(!entrances_[id]) {
-			entrances_[id] = new Coor();
-		}
-		entrances_[id]->set(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
-	}
-
-
-	Coor* Area
-	::entrance(short id) {
-		if(entrances_[id] == 0) {
-			return entrances_[0];
-		}
-		return entrances_[id];
-	}
-	*/
 
 
 	MultiSimObject& Area
@@ -692,20 +663,15 @@ namespace se_core {
 
 	Thing* Area
 	::spawn(const char* thingName, const ViewPoint& vp) {
-		//LogMsg(thingName << ": " << face.x_ << ", " << face.y_ << ", " << face.z_ << ", " << face.w_);
 		// Create the thing
 		Thing* thing = SimSchema::thingManager().create(thingName);
 
-		//LogMsg(thingName << ": " << coor.x_ << ", " << coor.y_ << ", " << coor.z_);
 		// Set position and direction
 		thing->nextPos().setArea(*this, vp);
-		// TODO:
-		//thing->nextPos().changeDirection(dir);
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
-		//LogMsg(thingName << ": " << coor.y_);
 		// Return the newly created thing
 		return thing;
 	}

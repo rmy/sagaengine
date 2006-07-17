@@ -18,4 +18,12 @@ namespace se_core {
 		sprintf(buffer, "(%f,%f,%f,%f)", x_ * 1.0, y_ * 1.0, z_ * 1.0, w_ * 1.0);
 		return buffer;
 	}
+
+
+	const char* Tuple4
+	::toLog() const {
+		sprintf(log_msg(), "(%f, %f, %f, %f)", x_, y_, z_, w_);
+		return log_msg();
+	}
+
 }

@@ -55,23 +55,53 @@ namespace se_core {
 			RMGOA_COUNT
 		};
 
-
+		/**
+		 * Create a new area of a given size.
+		 */
 		Area(String* name, coor_tile_t w, coor_tile_t h);
 		virtual ~Area();
 
+		/**
+		 * Return true if parameter is got_AREA.
+		 * Inherited from GameObject class.
+		 */
 		virtual bool isType(enum SimObjectType type) {
 			if(type == got_AREA) return true;
 			return false;
 		}
 
+		/**
+		 * Height of ground (y-coordinate) at given (coor.x_, coor.z_).
+		 */
 		virtual coor_t groundHeight(const Coor& coor, short index = -1) const = 0;
+
+		/**
+		 * Some area types maintain an index with positions.
+		 */
 		virtual void updateIndex(Pos& pos) const = 0;
+
+		/**
+		 * Sets the grid used to speed up the collisions detection.
+		 * Often there an area is inactive much of the time, and a fine grained grid
+		 * may take up quite a lot of memory. So the grid is passed around from
+		 * one active area to the next.
+		 */
 		void setCollisionGrid(CollisionGrid* grid);
+
+		/**
+		 * Resets collision grid.
+		 * @see setCollisionGrid
+		 */
 		CollisionGrid* resetCollisionGrid() {
 			CollisionGrid* g = collisionGrid_;
 			collisionGrid_ = 0;
 			return g;
 		}
+
+		/**
+		 * Save area to a stream.
+		 * @note: NOT YET IMPLEMENTED.
+		 */
 		void saveThings(/* stream */);
 
 
@@ -115,18 +145,11 @@ namespace se_core {
 		/// Line of sight utility method
 		virtual long touchedTerrain(const Coor& from, const Coor& to) const;
 
-		/*
-		void setEntrance(short id, float x, float y);
-		bool hasEntrance(short id) { return entrances_[id] != 0; }
-		Coor* entrance(short id);
-		*/
 		Thing* findPickTarget(Player& actor);
 		Thing* findDefaultActionTarget(Player& actor);
 		bool isActive() { return isActive_; }
 		void enter(Actor& performer);
 		void reset();
-
-		//static const int MAX_ENTRANCES = 10;
 
 		/**
 		 * Get neighbour.
@@ -178,7 +201,6 @@ namespace se_core {
 		coor_tile_t width_, height_;
 
 		String* nameString_; // For proper destruction of content only
-		//Coor** entrances_;
 
 		MultiSimObject* multiSimObjects_;
 		ReportingMultiSimObject* allThings_;

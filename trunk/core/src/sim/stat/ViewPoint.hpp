@@ -56,6 +56,10 @@ namespace se_core {
 			face_.set(sp.face_);
 		}
 
+		inline void reset() {
+			coor_.reset();
+			face_.setIdentity();
+		}
 
 		#ifndef SE_EULER
 		const Quat4& face() const { return face_; }

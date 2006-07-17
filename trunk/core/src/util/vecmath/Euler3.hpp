@@ -55,7 +55,6 @@ namespace se_core {
 		 */
 		Euler3(bray_t yaw, bray_t pitch, bray_t roll):
 				yaw_(yaw & BRAY_MASK), pitch_(pitch & BRAY_MASK), roll_(roll & BRAY_MASK) { 
-			LogMsg(roll);
 			set(yaw, pitch, roll);
 		}
 
