@@ -27,6 +27,7 @@
 #include "Quat4.hpp"
 #include "Euler3.hpp"
 #include <cmath>
+#include <cstdio>
 
 namespace se_core {
 
@@ -55,7 +56,7 @@ namespace se_core {
 	void AxisAngle4
 	::set(const coor_t len, const bray_t yaw) {
 		x_ = Trig::sinScale(len, yaw);
-		z_ = Trig::cosScale(len, yaw);
+		z_ = -Trig::cosScale(len, yaw);
 	}
 
 
@@ -63,7 +64,7 @@ namespace se_core {
 	::set(const coor_t len, const bray_t yaw, const bray_t pitch) {
 		set(len, yaw);
 
-		y_ = Trig::sinScale(len, pitch);
+		y_ = -Trig::sinScale(len, pitch);
 		x_ = Trig::cosScale(x_, pitch);
 		z_ = Trig::cosScale(z_, pitch);
 	}

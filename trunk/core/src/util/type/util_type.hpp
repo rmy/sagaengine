@@ -34,7 +34,7 @@ rune@skalden.com
 
 typedef unsigned short bray_t;
 
-static const short BRAY_SHIFT = 1;
+static const short BRAY_SHIFT = 6;
 static const short BRAY_RES = 1 << BRAY_SHIFT;
 static const short BRAY_RANGE_SHIFT = 8 + BRAY_SHIFT;
 static const short BRAY_RANGE = (1 << BRAY_RANGE_SHIFT);

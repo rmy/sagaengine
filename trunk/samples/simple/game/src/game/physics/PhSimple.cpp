@@ -54,23 +54,23 @@ namespace game {
 
 		// Calculate the next position from the present
 		// position and its change
-		nextPos.add(v);
+		nextPos.coor_.add(v);
 
 
 		if(isBlocked(actor, pos, nextPos)) {
-			nextPos.x_ = pos.x_;
-			nextPos.z_ = pos.z_;
+			nextPos.coor_.x_ = pos.coor_.x_;
+			nextPos.coor_.z_ = pos.coor_.z_;
 		}
 
 		// Ground height at present position
-		coor_t gh = nextPos.area()->groundHeight(nextPos);
+		coor_t gh = nextPos.area()->groundHeight(nextPos.coor_);
 		// If below ground, then make grounded
-		if(gh > nextPos.y_) {
+		if(gh > nextPos.coor_.y_) {
 			nextPos.setLayer();
 		}
 		// Clamp the character to the ground if grounded
 		if(!nextPos.hasOwnHeight()) {
-			nextPos.y_ = gh;
+			nextPos.coor_.y_ = gh;
 			nextMove.velocity_.y_ = 0;
 		}
 
@@ -78,7 +78,7 @@ namespace game {
 		// movement direction
 		//nextPos.face().add( nextMove.angularVelocity_ );
 		nextMove.changeYaw(BrayT::add(actor.move().yaw_, actor.move().angularVelocity_.yaw_));
-		nextPos.face().setEuler(actor.move().yaw_);
+		nextPos.face().setYaw(actor.move().yaw_);
 	}
 
 

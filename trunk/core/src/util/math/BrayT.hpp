@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef BrayT_hpp
 #define BrayT_hpp
 
+#include "util/error/Log.hpp"
 #include "util_math.hpp"
 #include "util/type/util_type.hpp"
 
@@ -37,6 +38,17 @@ namespace se_core {
 		const static bray_t DEG270 = BRAY_RANGE * 6 / 8;
 		const static bray_t DEG315 = BRAY_RANGE * 7 / 8;
 		const static bray_t DEG360 = BRAY_RANGE * 8 / 8;
+
+
+		inline static bool isLeftwise(bray_t bray) {
+			Assert(BrayT::mask(bray) == bray && "parameter must be normalized");
+			return (bray > DEG180);
+		}
+
+		inline static bool isRightwise(bray_t bray) {
+			Assert(BrayT::mask(bray) == bray && "parameter must be normalized");
+			return (bray < DEG180 && bray > 0);
+		}
 
 
 		inline static bray_t mask(bray_t bray) {
@@ -145,11 +157,11 @@ namespace se_core {
 			return static_cast<bray_t>(v) & BRAY_MASK;
 		}
 
-		inline static bray_t scale(scale_t s, bray_t b) {
-			return fromScale(s * b);
-		}
+		//inline static bray_t scaleAbs(scale_t s, bray_t b) {
+		//	return fromScale(s * b);
+		//}
 
-		inline static bray_t scaleNegative(scale_t s, bray_t b) {
+		inline static bray_t scale(scale_t s, bray_t b) {
 			if(mask(b) < DEG180) {
 				return fromScale(s * b);
 			}

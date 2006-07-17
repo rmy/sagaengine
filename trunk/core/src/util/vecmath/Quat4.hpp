@@ -59,7 +59,7 @@ namespace se_core {
 
 
 		Quat4(const Euler3& a1) { 
-			setEuler(a1);
+			set(a1);
 		}
 
 		Quat4(const AxisAngle4& a1) { 
@@ -138,6 +138,7 @@ namespace se_core {
 
 		/**
 		 * Same as mul.
+		 * Included for method compatibility with Euler3.
 		 */
 		inline void rotate(const Quat4& q1) {
 			mul(q1);
@@ -241,14 +242,13 @@ namespace se_core {
 		 */
 		void set(const AxisAngle4& a1);
 
-		void setEuler(const Euler3& a1);
-		void setEuler(const bray_t yaw, const bray_t pitch, const bray_t roll);
-		void setEuler(const bray_t yaw);
-		void setEuler(const bray_t yaw, const bray_t pitch);
+		void set(const Euler3& a1);
 
-		void setYaw(const bray_t yaw) { setEuler(yaw); }
+		void setYaw(const bray_t yaw);
 		void setPitch(const bray_t pitch);
 		void setRoll(const bray_t roll);
+		void setYawAndPitch(const bray_t yaw, const bray_t pitch);
+		void setEuler(const bray_t yaw, const bray_t pitch, const bray_t roll);
 		
 		/**
 		 * Performs a great circle interpolation between this quaternion
