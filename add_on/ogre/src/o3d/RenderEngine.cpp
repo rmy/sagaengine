@@ -218,7 +218,7 @@ namespace se_ogre {
 		O3dSchema::playerCamera->setPosition(Ogre::Vector3(128,25,128));
 		// Look back along -Z
 		O3dSchema::playerCamera->lookAt(Ogre::Vector3(0, 0, -300));
-		O3dSchema::playerCamera->setNearClipDistance( 1 );
+		O3dSchema::playerCamera->setNearClipDistance( 0.05 );
 		O3dSchema::playerCamera->setFarClipDistance( 9750 * WORLD_SCALE );
 		O3dSchema::playerCamera->setFOVy(Radian(Degree(45)));
 		/*

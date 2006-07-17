@@ -283,10 +283,4 @@ namespace se_core {
 	}
 
 
-	const char* Quat4
-	::toLog() const {
-		sprintf(log_msg(), "Quat4(%f, %f, %f, %f)", x_, y_, z_, w_);
-		return log_msg();
-	}
-
 }

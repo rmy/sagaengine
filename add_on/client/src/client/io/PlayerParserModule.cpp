@@ -77,6 +77,7 @@ namespace se_core {
 				//TODO: ClientSchema::floatingCamera->nextPos().changeMovement(0, 0);
 				SimSchema::simEngine.setSpecialMover(ClientSchema::floatingCamera);
 				readInfo(in, ClientSchema::floatingCamera);
+				ClientSchema::floatingCamera->flip();
 				break;
 			}
 		}
@@ -108,12 +109,10 @@ namespace se_core {
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
 				Assert(area);
-				//camera->pos().setCoor(*(area->entrance(value)));
 				SpawnPoint* sp = area->spawnPoint(value);
 				Assert(sp);
 				camera->nextPos().setArea(*area, *sp);
 				LogMsg("Pos - read:" << camera->nextPos().area()->name());
-				//LogMsg( (sprintf(log_msg(), "... %d=%d,%d", value, area->entrance(value)->xTile(), area->entrance(value)->zTile()), log_msg()) );
 				}
 				break;
 

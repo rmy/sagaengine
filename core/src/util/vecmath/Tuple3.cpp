@@ -39,4 +39,12 @@ namespace se_core {
 		z_ = CoorT::scale(s, z_);
 	}
 
+
+	const char* Tuple3
+	::toLog() const {
+		sprintf(log_msg(), "(%f, %f, %f)", x_, y_, z_);
+		return log_msg();
+	}
+
+
 }
