@@ -27,8 +27,18 @@ rune@skalden.com
 #include "../error/sim_error.hpp"
 #include "util/math/all.hpp"
 #include <cstdio>
+#include <cstring>
 
 
 namespace se_core {
+
+	const char* ViewPoint
+	::toLog() const {
+		static char buffer[256];
+
+		face_.toString(buffer);
+		coor_.toString(buffer + strlen(buffer) );
+		return buffer;
+	}
 
 }

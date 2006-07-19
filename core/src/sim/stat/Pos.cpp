@@ -37,7 +37,7 @@ namespace se_core {
 	::Pos()	: area_(0)
 			, parent_(0)
 			, radius_(COOR_RES / 5)
-			, layer_(0)
+			, layer_(1)
 	{
 		face_.setIdentity();
 		coor_.set(2.5, 0, 2.5);

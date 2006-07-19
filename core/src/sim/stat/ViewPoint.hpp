@@ -92,6 +92,7 @@ namespace se_core {
 		 * @param d The new face direction
 		 */
 		inline void setFaceDirection(bray_t d) { face_.setYaw(d & BRAY_MASK); }
+		const char* toLog() const;
 
 	public: // Attributes
 		#ifdef SE_QUAT
