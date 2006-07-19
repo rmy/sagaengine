@@ -160,7 +160,6 @@ namespace se_core {
 		area_ = &area;
 	}
 
-	#ifndef SE_EULER
 	void Pos
 	::setArea(Area& area, const Coor& c, const Quat4& q) {
 		//LogMsg(area.name());
@@ -172,8 +171,6 @@ namespace se_core {
 		setCoor(c);
 		setFace(q);
 	}
-	#endif
-
 
 	void Pos
 	::setArea(Area& area, const Coor& c, const Euler3& a) {

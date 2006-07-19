@@ -27,6 +27,11 @@ rune@skalden.com
 using namespace se_ogre;
 
 namespace ui {
+	namespace UiSchema {
+		float dirUp, dirDown, dirLeft, dirRight, dirRollLeft, dirRollRight;
+		float dirForward, dirBackward;
+	}
+
 
 	bool UiSchema
 	::init() {

@@ -24,6 +24,7 @@ rune@skalden.com
 
 namespace ui {
 	namespace UiSchema {
+
 		bool init();
 		void cleanup();
 	}

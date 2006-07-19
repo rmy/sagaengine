@@ -31,9 +31,18 @@ namespace game {
 
 		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
 		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
+		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return true; }
 		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
 
+		void param(float speed, se_core::Parameter& out) const;
+
+	private:
+		struct Param {
+			Param(scale_t s)
+				: speed_(s) {
+			}
+			scale_t speed_;
+		};
 	};
 
 

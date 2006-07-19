@@ -69,11 +69,11 @@ namespace se_core {
 				short id = in.readShort();
 				coor_t x = CoorT::fromFloat(in.readFloat());
 				coor_t z = CoorT::fromFloat(in.readFloat());
-				LogMsg(area->name() << ": " << id);
+
 				Assert(id < MAX_SPAWN_POINTS);
 				SpawnPoint* sp = new SpawnPoint();
 				sp->displace_.set(x, 0, z);
-				sp->face_.set(0, 0, 0, 0);
+				sp->face_.setIdentity();
 				spawnPoints[id] = sp;
 				if(id >= spawnPointCount) {
 					spawnPointCount = id + 1;

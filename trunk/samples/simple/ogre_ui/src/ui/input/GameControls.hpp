@@ -34,6 +34,15 @@ namespace ui {
 
 		void keyPressed(Ogre::KeyEvent* e);
 		void keyReleased(Ogre::KeyEvent* e);
+
+	private:
+		float dirUp_, dirDown_, dirLeft_, dirRight_, dirRollLeft_, dirRollRight_;
+		float dirForward_, dirBackward_;
+
+		inline float dirForward() { return dirForward_ - dirBackward_; }
+		inline float dirLR() { return dirRight_ - dirLeft_; }
+		inline float dirRoll() { return dirRollRight_ - dirRollLeft_; }
+		inline float dirUD() { return dirDown_ - dirUp_; }
 	};
 }
 
