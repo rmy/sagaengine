@@ -8,8 +8,15 @@ namespace se_core {
 
 	const char* Euler3
 	::toLog() const {
-		sprintf(log_msg(), "Euler3(%d, %d, %d)", yaw_, pitch_, roll_);
+		sprintf(log_msg(), "(%d, %d, %d)", yaw_, pitch_, roll_);
 		return log_msg();
+	}
+
+
+	char* Euler3
+	::toString(char* buffer) const {
+		sprintf(buffer, "(%d, %d, %d)", yaw_, pitch_, roll_);
+		return buffer;
 	}
 
 
