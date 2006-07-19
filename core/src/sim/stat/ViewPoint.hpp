@@ -61,15 +61,16 @@ namespace se_core {
 			face_.setIdentity();
 		}
 
-		#ifndef SE_EULER
+		#ifdef SE_QUAT
 		const Quat4& face() const { return face_; }
 		Quat4& face() { return face_; }
-		inline void setFace(const Quat4& f) { face_.set(f); }
 		#else
 		const Euler3& face() const { return face_; }
 		Euler3& face() { return face_; }
-		inline void setFace(const Euler3& f) { face_.set(f); }
 		#endif
+
+		inline void setFace(const Quat4& f) { face_.set(f); }
+		inline void setFace(const Euler3& f) { face_.set(f); }
 
 		void face(Quat4& dest) {
 			dest.set(face_);
@@ -85,15 +86,15 @@ namespace se_core {
 
 		/**
 		 * Set the new face direction.
-		 * The new face direction is cached in a special variable that will be used
-		 * starting next step.
+		 * The new face direction is cached in a special variable that will
+		 * be used starting next step.
 		 *
 		 * @param d The new face direction
 		 */
 		inline void setFaceDirection(bray_t d) { face_.setYaw(d & BRAY_MASK); }
 
 	public: // Attributes
-		#ifndef SE_EULER
+		#ifdef SE_QUAT
 		Quat4 face_;
 		#else
 		Euler3 face_;

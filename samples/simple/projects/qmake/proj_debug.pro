@@ -33,6 +33,6 @@ INCLUDEPATH += $${OGRE}
 
 DESTDIR = $${SAGAENGINE}/samples/simple/lib
 
-DEFINES *= IS_OGRE
+DEFINES *= IS_OGRE DEBUG_LEVEL_2
 
 message(Destdir: $$DESTDIR )

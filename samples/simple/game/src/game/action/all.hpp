@@ -23,11 +23,7 @@ rune@skalden.com
 #define game_action_all_hpp
 
 #include "Forward.hpp"
-#include "Backward.hpp"
-#include "RotateLeft.hpp"
-#include "RotateRight.hpp"
-#include "RotateNone.hpp"
-#include "Stop.hpp"
+#include "Rotate.hpp"
 #include "Jump.hpp"
 
 #endif

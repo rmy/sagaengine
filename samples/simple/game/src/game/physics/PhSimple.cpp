@@ -34,6 +34,14 @@ namespace game {
 			, Move& nextMove
 			) const {
 
+		// Are physics meaningful at all?
+		if(!pos.isKeyFramePath(nextPos)) {
+			// If not skip it
+			WasHere();
+			return;
+		}
+
+
 		const Move& move = actor.move();
 
 		// Calc nextMove
@@ -42,12 +50,6 @@ namespace game {
 		nextMove.velocity_.add( gravity );
 		nextMove.angularVelocity_.add( move.torque_ );
 
-		// Are physics meaningful at all?
-		if(!pos.isKeyFramePath(nextPos)) {
-			// If not skip it
-			return;
-		}
-
 		// Calculate the change in the coordinate
 		// that should affect the mover this tick
 		Vector3 v(nextMove.velocity_);
@@ -55,7 +57,6 @@ namespace game {
 		// Calculate the next position from the present
 		// position and its change
 		nextPos.coor_.add(v);
-
 
 		if(isBlocked(actor, pos, nextPos)) {
 			nextPos.coor_.x_ = pos.coor_.x_;
@@ -76,9 +77,13 @@ namespace game {
 
 		// Set the face direction to be equal to
 		// movement direction
-		//nextPos.face().add( nextMove.angularVelocity_ );
-		nextMove.changeYaw(BrayT::add(actor.move().yaw_, actor.move().angularVelocity_.yaw_));
-		nextPos.face().setYaw(actor.move().yaw_);
+		nextMove.angularVelocity_.rotate( move.torque_ );
+		nextPos.face().rotate( move.angularVelocity_ );
+		nextPos.face().normalize();
+
+		// Friction
+		nextMove.velocity_.scale(0.8);
+		nextMove.angularVelocity_.scale(0.8);
 	}
 
 

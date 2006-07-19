@@ -19,25 +19,42 @@ rune@skalden.com
 */
 
 
-#ifndef game_RotateLeft_hpp
-#define game_RotateLeft_hpp
+#ifndef game_Rotate_hpp
+#define game_Rotate_hpp
 
 #include "sim/action/Action.hpp"
+#include "util/vecmath/util_vecmath.hpp"
 
 namespace game {
-	class RotateLeft : public se_core::Action {
+	class Rotate : public se_core::Action {
 	public:
-		RotateLeft() : se_core::Action("RotateLeft") {}
+		Rotate() : se_core::Action("player_fly") {}
 
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
-		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
+		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { 
+			return 1;
+		}
+		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const { 
+			return false;
+		}
+		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const {
+			return true;
+		}
+
 		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
 
+		void param(float dirLR, float dirUD, float dirRoll, se_core::Parameter& out) const;
+
+	private:
+		struct Param {
+			Param(se_core::Euler3& t)
+				: torque_(t) {
+			}
+			se_core::Euler3 torque_;
+		};
 	};
 
 
-	extern const RotateLeft actionRotateLeft;
+	extern const Rotate actionRotate;
 }
 
 #endif

@@ -33,7 +33,9 @@ namespace ui {
 
 	GameControls
 	::GameControls()
-			:  InputHandler("GameControls") {
+		:  InputHandler("GameControls")
+		, dirUp_(0), dirDown_(0), dirLeft_(0), dirRight_(0), dirRollLeft_(0), dirRollRight_(0)
+		, dirForward_(0), dirBackward_(0) {
 	}
 
 
@@ -65,30 +67,37 @@ namespace ui {
 
 		case Ogre::KC_UP:
 		case Ogre::KC_W:
-			ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward);
-			ClientSchema::player->setDefaultMovementAction(actionForward);
+			dirForward_ = 1;
 			break;
 
 		case Ogre::KC_DOWN:
 		case Ogre::KC_S:
-			ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionBackward);
-			ClientSchema::player->setDefaultMovementAction(actionBackward);
+			dirBackward_ = 0.5;
 			break;
 
 		case Ogre::KC_LEFT:
 		case Ogre::KC_A:
-			ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotateLeft);
+			dirLeft_ = 1;
 			break;
 
 		case Ogre::KC_RIGHT:
 		case Ogre::KC_D:
-			ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotateRight);
+			dirRight_ = 1;
 			break;
 
 		case Ogre::KC_Q:
 			SimSchema::simEngine.setGameOver(true);
 			break;
 		}
+
+		static Parameter p;
+
+		actionForward.param(dirForward(), p);
+		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward, &p);
+		//ClientSchema::player->setDefaultMovementAction(actionForward, &p);
+
+		actionRotate.param(dirLR(), 0, 0, p);
+		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
 	}
 
 
@@ -97,24 +106,34 @@ namespace ui {
 		switch(e->getKey()) {
 		case Ogre::KC_UP:
 		case Ogre::KC_W:
-			ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionStop);
-			ClientSchema::player->setDefaultMovementAction(actionStop);
+			dirForward_ = 0;
 			break;
 
 		case Ogre::KC_LEFT:
 		case Ogre::KC_A:
+			dirLeft_ = 0;
+			break;
+
 		case Ogre::KC_RIGHT:
 		case Ogre::KC_D:
-			ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotateNone);
+			dirRight_ = 0;
 			break;
 
 		case Ogre::KC_DOWN:
 		case Ogre::KC_S:
-			ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionStop);
-			ClientSchema::player->setDefaultMovementAction(actionStop);
+			dirBackward_ = 0;
 			break;
-
 		}
+
+
+		static Parameter p;
+
+		actionForward.param(dirForward(), p);
+		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward, &p);
+		//ClientSchema::player->setDefaultMovementAction(actionForward, &p);
+
+		actionRotate.param(dirLR(), 0, 0, p);
+		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
 	}
 
 

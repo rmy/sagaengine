@@ -20,17 +20,36 @@ rune@skalden.com
 
 
 #include "GamePre.H"
-#include "Stop.hpp"
+#include "Rotate.hpp"
+#include "../schema/GameSchema.hpp"
 
 using namespace se_core;
 
 
 namespace game {
 
-	void Stop
-	::perform(long when, Actor& performer, Parameter& parameter) const {
-		performer.nextMove().resetSpeed();
+	void Rotate
+	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+		performer.nextMove().torque_.set(p->torque_);
+		/*
+		Force f(0, 0, -0.15);
+		f.rotate(performer.pos().face());
+		performer.nextMove().addForce(f);
+		*/
 	}
 
-	const Stop actionStop;
+
+	void Rotate
+	::param(float dirLR, float dirUD, float dirRoll, Parameter& out) const {
+		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
+		p->torque_.set(
+					BrayT::fromDeg(dirLR)
+					, BrayT::fromDeg(-dirUD)
+					, BrayT::fromDeg(dirRoll)
+					);
+	}
+
+
+	const Rotate actionRotate;
 }

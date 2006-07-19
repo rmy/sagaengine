@@ -29,8 +29,20 @@ namespace game {
 
 	void Forward
 	::perform(long when, Actor& performer, Parameter& parameter) const {
-		performer.nextMove().changeSpeed(performer.walkSpeed());
+		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+		Force f(0, 0, 0.05 * p->speed_);
+		f.rotate(performer.pos().face());
+		performer.nextMove().addForce(f);
 	}
+
+
+	void Forward
+	::param(float speed, Parameter& out) const {
+		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
+		p->speed_ = speed;
+	}
+
+
 
 	const Forward actionForward;
 }
