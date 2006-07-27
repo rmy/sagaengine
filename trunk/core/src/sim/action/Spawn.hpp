@@ -44,14 +44,15 @@ namespace se_core {
 
 		void perform(long when, Actor& performer, Parameter& parameter) const;
 
-		void param(const char* thingType, Parameter& out);
+		void param(const char* thingType, short spawnPoint, Parameter& out);
 
 	private:
 		struct Param {
-			Param(const char* thingType)
-				: thingType_() {
+			Param(const char* thingType, short spawnPoint)
+				: thingType_(thingType), spawnPoint_(spawnPoint) {
 			}
 			const char* thingType_;
+			short spawnPoint_;
 		};
 	};
 

@@ -37,7 +37,8 @@ namespace se_core {
 	::Pos()	: area_(0)
 			, parent_(0)
 			, radius_(COOR_RES / 5)
-			, layer_(1)
+			, index_(-1)
+			, isGrounded_(true)
 	{
 		face_.setIdentity();
 		coor_.set(2.5, 0, 2.5);
@@ -139,7 +140,8 @@ namespace se_core {
 		setViewPoint(original);
 		area_ = original.area_;
 		parent_ = original.parent_;
-		layer_ = original.layer_;
+		index_ = original.index_;
+		isGrounded_ = original.isGrounded_;
 		radius_ = original.radius_;
 	}
 
@@ -180,7 +182,7 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		setCoor(c);
+		coor_.set(c);
 		face_.set(a);
 	}
 
@@ -207,7 +209,6 @@ namespace se_core {
 	}
 
 
-
 	void Pos
 	::resetArea() {
 		if(parent_ == area_) {
@@ -218,9 +219,9 @@ namespace se_core {
 
 
 	void Pos
-	::freezeAtWorldCoor(const Coor& c) {
+	::freezeAtWorldViewPoint(const ViewPoint& vp) {
 		parent_ = 0;
-		setCoor(c);
+		setViewPoint(vp);
 	}
 
 	/*
@@ -230,6 +231,48 @@ namespace se_core {
 		return ((d & BRAY_MASK) / (BRAY_MASK / subdivisions));
 		}
 	*/
+
+	void Pos
+	::worldViewPoint(ViewPoint& dest, bool doCalcNext, const PosNode* stopAt) const {
+		dest.setViewPoint(*this);
+		const PosNode* node = parent();
+		while(node != 0 && node != stopAt) {
+			const Pos& nodePos = node->pos();
+
+			dest.coor_.rotate(nodePos.face_);
+			dest.coor_.add(nodePos.coor_);
+			dest.face_.rotate(nodePos.face_);
+			node = nodePos.parent();
+		}
+	}
+
+
+	/*
+	void Pos
+	::nextWorldViewPoint(ViewPoint& dest, const PosNode* stopAt) const {
+		dest.setViewPoint(*this);
+		const PosNode* node = parent();
+		while(node != 0 && node != stopAt) {
+			dest.coor_.rotate(node->nextPos().face_);
+			dest.coor_.add(node->nextPos().coor_);
+			dest.face_.rotate(node->nextPos().face_);
+			node = node->nextPos().parent();
+		}
+	}
+
+
+	void Pos
+	::worldCoor(Coor& dest, const PosNode* stopAt) const {
+		dest.set(this->coor_);
+		const PosNode* node = parent();
+		while(node != 0 && node != stopAt) {
+			dest.rotate(node->pos().face_);
+			dest.add(node->pos().coor_);
+			node = node->pos().parent();
+		}
+	}
+	*/
+
 
 
 	bool Pos
@@ -266,7 +309,7 @@ namespace se_core {
 
 	void Pos
 	::updateY() {
-		if(!hasOwnHeight() && area_) {
+		if(isGrounded() && area_) {
 			coor_.y_ = area_->groundHeight(this->coor_);
 		}
 	}

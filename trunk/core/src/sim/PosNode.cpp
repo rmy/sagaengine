@@ -63,6 +63,7 @@ namespace se_core {
 		}
 		position_.setPos(nextPosition_);
 		anim_ = nextAnim_;
+		//LogMsg(name() << ": " << nextPosition_.toLog() << " - " << position_.toLog());
 	}
 
 
@@ -103,7 +104,6 @@ namespace se_core {
 		}
 
 		if(nextPos().hasArea()) {
-			nextPos().updateY();
 			nextPos().area()->addPosNode(*this);
 		}
 		else {
@@ -130,9 +130,9 @@ namespace se_core {
 			// Might as well freeze their coordinates
 			// in world space, saving traversal overhead.
 
-			static Coor wc;
-			nextWorldCoor(wc);
-			nextPos().freezeAtWorldCoor(wc);
+			static ViewPoint vp;
+			nextWorldViewPoint(vp);
+			nextPos().freezeAtWorldViewPoint(vp);
 		}
 	}
 
@@ -144,10 +144,31 @@ namespace se_core {
 
 
 	void PosNode
+	::worldCoor(scale_t alpha, Coor& dest) const {
+		worldCoor(dest);
+		static Coor np; // WARNING: Not thread safe.
+		nextWorldCoor(np);
+		dest.interpolate(np, alpha);
+	}
+
+
+	void PosNode
+	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
+		worldViewPoint(dest);
+		static ViewPoint np; // WARNING: Not thread safe.
+		nextWorldViewPoint(np);
+
+		dest.coor_.interpolate(np.coor_, alpha);
+		dest.face_.interpolate(np.face_, alpha);
+	}
+
+
+	void PosNode
 	::worldCoor(Coor& dest) const {
 		dest.set(position_.coor_);
 		const PosNode* node = position_.parent();
 		while(node != 0) {
+			dest.rotate(node->position_.face_);
 			dest.add(node->position_.coor_);
 			node = node->position_.parent();
 		}
@@ -159,35 +180,16 @@ namespace se_core {
 		dest.setViewPoint(position_);
 		const PosNode* node = position_.parent();
 		while(node != 0) {
+
+			dest.coor_.rotate(node->position_.face_);
 			dest.coor_.add(node->position_.coor_);
 			dest.face_.rotate(node->position_.face_);
+
+			//LogMsg(name() << ": " << position_.toLog());
+			//LogMsg(node->name() << " - " << node->position_.toLog());
+			//LogMsg("Sum: " << dest.toLog());
 			node = node->position_.parent();
 		}
-	}
-
-
-	void PosNode
-	::worldCoor(scale_t alpha, Coor& dest) const {
-		worldCoor(dest);
-		static Coor np;
-		nextWorldCoor(np);
-		dest.interpolate(np, alpha);
-	}
-
-
-	void PosNode
-	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
-		worldViewPoint(dest);
-		//LogMsg(": " << dest.coor_.x_ << ", " << dest.coor_.y_ << ", " << dest.coor_.z_);
-		static ViewPoint np;
-		nextWorldViewPoint(np);
-		//LogMsg(": " << np.coor_.x_ << ", " << np.coor_.y_ << ", " << np.coor_.z_);
-
-		dest.coor_.interpolate(np.coor_, alpha);
-		dest.face_.interpolate(np.face_, alpha);
-		//LogMsg(np.face_.toLog());
-		//LogMsg(dest.face_.toLog());
-		//LogMsg(": " << dest.face_.pitch_ << ", " << dest.face_.yaw_ << ", " << dest.face_.roll_);
 	}
 
 
@@ -196,6 +198,7 @@ namespace se_core {
 		dest.set(nextPosition_.coor_);
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
+			dest.rotate(node->nextPosition_.face_);
 			dest.add(node->nextPosition_.coor_);
 			node = node->nextPosition_.parent();
 		}
@@ -207,6 +210,34 @@ namespace se_core {
 		dest.setViewPoint(nextPosition_);
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
+			dest.coor_.rotate(node->nextPosition_.face_);
+			dest.coor_.add(node->nextPosition_.coor_);
+			dest.face_.rotate(node->nextPosition_.face_);
+			node = node->nextPosition_.parent();
+		}
+	}
+
+
+
+	void PosNode
+	::childViewPoint(ViewPoint& dest, PosNode* stopAtParent) const {
+		dest.setViewPoint(position_);
+		const PosNode* node = position_.parent();
+		while(node != 0 && node != stopAtParent) {
+			dest.coor_.rotate(node->position_.face_);
+			dest.coor_.add(node->position_.coor_);
+			dest.face_.rotate(node->position_.face_);
+			node = node->position_.parent();
+		}
+	}
+
+
+	void PosNode
+	::nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent) const {
+		dest.setViewPoint(nextPosition_);
+		const PosNode* node = nextPosition_.parent();
+		while(node != 0 && node != stopAtParent) {
+			dest.coor_.rotate(node->nextPosition_.face_);
 			dest.coor_.add(node->nextPosition_.coor_);
 			dest.face_.rotate(node->nextPosition_.face_);
 			node = node->nextPosition_.parent();
@@ -215,16 +246,39 @@ namespace se_core {
 
 
 	void PosNode
-	::setSpawnPoints(int count, SpawnPoint** spawnPoints) {
-		LogMsg(name() << ": " << count);
+	::childCoor(Coor& dest, PosNode* stopAtParent) const {
+		dest.set(position_.coor_);
+		const PosNode* node = position_.parent();
+		while(node != 0 && node != stopAtParent) {
+			dest.rotate(node->position_.face_);
+			dest.add(node->position_.coor_);
+			node = node->position_.parent();
+		}
+	}
+
+
+	void PosNode
+	::nextChildCoor(Coor& dest, PosNode* stopAtParent) const {
+		dest.set(nextPosition_.coor_);
+		const PosNode* node = nextPosition_.parent();
+		while(node != 0 && node != stopAtParent) {
+			dest.rotate(node->nextPosition_.face_);
+			dest.add(node->nextPosition_.coor_);
+			node = node->nextPosition_.parent();
+		}
+	}
+
+
+	void PosNode
+	::setSpawnPoints(int count, const SpawnPoint* const* const spawnPoints) {
+		//LogMsg(name() << ": " << count);
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;
 	}
 
 
-	SpawnPoint* PosNode
-	::spawnPoint(short id) {
-		LogMsg(name() << ": " << id);
+	const SpawnPoint* PosNode
+	::spawnPoint(short id) const {
 		Assert(id >= 0 && id < spawnPointCount_);
 		Assert(spawnPoints_[id] != 0);
 		return spawnPoints_[id];

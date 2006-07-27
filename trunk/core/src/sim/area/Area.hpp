@@ -59,6 +59,10 @@ namespace se_core {
 		 * Create a new area of a given size.
 		 */
 		Area(String* name, coor_tile_t w, coor_tile_t h);
+
+		/**
+		 * Destructor.
+		 */
 		virtual ~Area();
 
 		/**
@@ -78,7 +82,7 @@ namespace se_core {
 		/**
 		 * Some area types maintain an index with positions.
 		 */
-		virtual void updateIndex(Pos& pos) const = 0;
+		virtual void updateIndex(const Coor& worldCoor, Pos& dest) const = 0;
 
 		/**
 		 * Sets the grid used to speed up the collisions detection.
@@ -104,23 +108,26 @@ namespace se_core {
 		 */
 		void saveThings(/* stream */);
 
+		const AreaFactory* factory() { return factory_; }
+		void setFactory(const AreaFactory* f) { factory_ = f; }
 
 	public:
 		virtual void force(const Coor& coor, Force& dest) const = 0;
 		coor_tile_t width() const { return width_; }
 		coor_tile_t height() const { return height_; }
 
-		void setPage(short x, short z) { pageX_ = x; pageZ_ = z; }
+		void setPage(short x, short y, short z) { pageX_ = x; pageY_ = y; pageZ_ = z; }
 		short pageX() const { if(pageX_ < 0) return 0; return pageX_; }
+		short pageY() const { if(pageY_ < 0) return 0; return pageY_; }
 		short pageZ() const { if(pageZ_ < 0) return 0; return pageZ_; }
 
 		coor_world_t pagePosX() const {
-			//TODO: Owerflows possible
+			//TODO: Fixed point overflows possible
 			return pos().coor().x_;
 		}
 		coor_world_t pagePosZ() const {
-			//TODO: Owerflows possible
-			return pos().coor().y_;
+			//TODO: Fixed point overflows possible
+			return pos().coor().z_;
 		}
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
@@ -134,7 +141,9 @@ namespace se_core {
 		void removeThing(Thing& thing);
 		void addPosNode(PosNode& thing);
 		void removePosNode(PosNode& thing);
-		bool isLegalCoor(int x, int y) const { return (x >= 0 && y >= 0 && x < width_ && y < height_); }
+		bool isLegalCoor(coor_tile_t x, coor_tile_t y) const {
+			return (x >= 0 && y >= 0 && x < width_ && y < height_);
+		}
 
 		virtual short terrainStyle(const Coor& coor, short index = -1) const = 0;
 		virtual short nextTerrainStyle(bray_t direction, const Coor& coor) = 0;
@@ -156,7 +165,7 @@ namespace se_core {
 		 * @param relX
 		 * @param relY
 		 */
-		Area* getNeighbour(short relX, short relZ);
+		Area* neighbour(short relX, short relY, short relZ);
 
 		/**
 		 * Check if the area passed in is a neighbour, and if so,
@@ -190,7 +199,7 @@ namespace se_core {
 		 * this way, because a thing not belonging to an area will
 		 * never be flip()'ed.
 		 */
-		Thing* spawn(const char* thingName, const ViewPoint& coor);
+		Thing* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosNode* parent = 0);
 
 	protected:
 		friend class AreaManager;
@@ -207,10 +216,12 @@ namespace se_core {
 		bool isActive_;
 
 
-		short pageX_, pageZ_;
+		short pageX_, pageY_, pageZ_;
 
-		Area* neighbours_[9];
+		Area* neighbours_[ 3 * 3 * 3 ];
 		CollisionGrid* collisionGrid_;
+
+		const AreaFactory* factory_;
 	};
 
 }

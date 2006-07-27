@@ -33,7 +33,7 @@ namespace se_core {
 
 // You may configure this with a compiler option
 #ifndef SE_MAX_GO
-#	define SE_MAX_GO 2048
+#	define SE_MAX_GO 4096
 #endif
 
 

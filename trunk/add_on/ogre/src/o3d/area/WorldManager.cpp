@@ -36,7 +36,9 @@ using namespace se_core;
 
 namespace se_ogre {
 	WorldManager
-	::WorldManager() : playerEntity_(0), shouldStop_(false), debugOverlay_(0), lastRenderClock_(0) {
+	::WorldManager() 
+			: playerEntity_(0), shouldStop_(false), debugOverlay_(0)
+			, lastRenderClock_(0), areaCount_(0) {
 		showDebugOverlay(false);
 	}
 
@@ -58,55 +60,109 @@ namespace se_ogre {
 		O3dSchema::thingEntityList.removeChain(O3dSchema::firstThingEntity);
 	}
 
+	int WorldManager
+	::findArea(int id) {
+		for(int i = 0; i < areaCount_; ++i) {
+			if(areas_[i].id_ == id)
+				return i;
+		}
+		return -1;
+	}
+
 
 	void WorldManager
 	::cameraEnteredAreaEvent(se_core::Area& area) {
-		// Build terrain
-		try {
-			O3dSchema::sceneManager->setWorldGeometry(Ogre::String(area.name()));
-		}
-		catch(...) {
-			LogMsg("Couldn't load geometry for area: " << area.name());
-			try {
-				Ogre::String name(area.name());
-				Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(name, name + ".mesh");
-				entity->setNormaliseNormals(true);
-				entity->setCastShadows(false);
-				O3dSchema::sceneManager->getRootSceneNode()->attachObject(entity);
-			}
-			catch(...) {
-				LogMsg("Couldn't load area mesh either: " << area.name() << ".mesh");
-			}
+		enum { AREA_RANGE = 1 };
+		for(int i = 0; i < areaCount_; ++i) {
+			areas_[i].shouldKeep_ = false;
 		}
 
+		// Build terrain
+		try {
+			const char* areaType = (area.factory() != 0) ? area.factory()->name() : area.name();
+			O3dSchema::sceneManager->setWorldGeometry(Ogre::String(areaType));
+		}
+		catch(...) {
+			//LogMsg("Couldn't load geometry for area");
+
+			for(short relZ = -AREA_RANGE; relZ <= AREA_RANGE; ++relZ) {
+				for(short relX = -AREA_RANGE; relX <= AREA_RANGE; ++relX) {
+					Area* a = area.neighbour(relX, 0, relZ);
+					if(!a) continue;
+					int index = findArea(a->id());
+					if(index >= 0) {
+						areas_[ index ].shouldKeep_ = true;
+						continue;
+					}
+
+					const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
+
+					Ogre::String type(areaType);
+					Ogre::String name(a->name());
+					
+					try {
+						static int pool = 0;
+						static char buffer[128];
+						sprintf(buffer, "%s.%d", a->name(), pool++);
+						Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(buffer, type + ".mesh");
+						entity->setNormaliseNormals(true);
+						entity->setCastShadows(false);
+
+						index = areaCount_++;
+						areas_[ index ].shouldKeep_ = true;
+						areas_[ index ].id_ = a->id();
+						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
+
+						areas_[ index ].node_->attachObject(entity);
+						areas_[ index ].node_->setPosition(a->pos().coor_.x_, a->pos().coor_.y_, a->pos().coor_.z_);
+
+						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
+					}
+					catch(...) {
+						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
+					}
+				}
+			}
+		}
 
 		for(short relZ = -3; relZ <= 3; ++relZ) {
 			for(short relX = -3; relX <= 3; ++relX) {
-				Area* a = area.getNeighbour(relX, relZ);
+				Area* a = area.neighbour(relX, 0, relZ);
 				if(!a) continue;
 
 				// Add things
 				se_core::ThingIterator nit(a->allThings());
 				while(nit.hasNext()) {
 					Thing& thing = nit.next();
-					LogMsg(thing.name());
-					if(!hasThingEntity(thing)) {
+					if(!hasMesh(thing)) {
 						continue;
 					}
 
-					LogMsg(thing.name());
 					ThingEntity* te = new ThingEntity(thing);
 					O3dSchema::thingEntityList.add(*te, O3dSchema::firstThingEntity);
 				}
 			}
 		}
+		
+		// Throw away areas that shouldn't be kept
+		for(int i = 0; i < areaCount_; ++i) {
+			if(!areas_[i].shouldKeep_) {
+				// Remove area from scene graph
+				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
+
+				// Move last area in array to here
+				areas_[i] = areas_[ --areaCount_];
+				// Do this index again (as it now contains a new area)
+				--i;
+			}
+		}
+
+
 	}
 
 
 	void WorldManager
 	::cameraLeftAreaEvent(se_core::Area& area) {
-		//O3dSchema::sceneManager->clearScene();
-		//O3dSchema::sceneManager->getSceneNode("AreaSceneNode")->removeAndDestroyAllChildren();
 		// Clear thinglist
 		ThingEntityList::iterator_type it = O3dSchema::firstThingEntity;
 		while(it != ThingEntityList::NULL_NODE) {
@@ -119,11 +175,9 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingEnteredCameraAreaEvent(se_core::Thing& thing) {
-		//LogMsg(thing.name());
-		if(!hasThingEntity(thing)) {
+		if(!hasMesh(thing)) {
 			return;
 		}
-		//LogMsg(thing.name());
 
 		// Add thing
 		ThingEntity* te = new ThingEntity(thing);
@@ -133,7 +187,7 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingLeftCameraAreaEvent(se_core::Thing& thing) {
-		if(!hasThingEntity(thing)) {
+		if(!hasMesh(thing)) {
 			return;
 		}
 
@@ -151,13 +205,12 @@ namespace se_ogre {
 
 
 	bool WorldManager
-	::hasThingEntity(se_core::Thing& thing) {
+	::hasMesh(se_core::Thing& thing) {
 		// Find which mesh this thing should use
 		short index = O3dSchema::meshOfThing.index(thing.name());
 		// Did find one?
 		return index >= 0;
 	}
-
 
 
 	bool WorldManager
@@ -241,25 +294,24 @@ namespace se_ogre {
 			}
 		}
 
-		// Don't try to move the camera it the camera is not in an area
-		if(!ClientSchema::camera->pos().hasArea())
+		// Don't try to move the camera if the camera is not in an area
+		if(!ClientSchema::camera->pos().hasArea()) {
+			WasHere();
 			return;
+		}
 
+		// Global coor
+		const scale_t alpha = ScaleT::fromFloat(stepDelta);
+		static ViewPoint camera;
+		ClientSchema::camera->worldViewPoint(alpha, camera);
 
-		// Interpolate current frame position
-		Coor w;
-		ClientSchema::camera->worldCoor(stepDelta, w);
+		// Convert from Euler3 if necessary
+		Quat4 face(camera.face_);
 
-		// Convert to ogre format
-		Ogre::Vector3 pos
-			(
-			 CoorT::toFloat(w.x_),
-			 CoorT::toFloat(w.y_),
-			 CoorT::toFloat(w.z_)
-			 );
-
-		O3dSchema::playerCamera->setPosition(pos.x, pos.y + 10.0f, pos.z + 10.0f);
-		O3dSchema::playerCamera->lookAt(pos.x, pos.y, pos.z);
+		// Feed Ogre
+		Ogre::Quaternion f(face.w_, face.x_, face.y_, face.z_);
+		O3dSchema::playerCamera->setOrientation(f);
+		O3dSchema::playerCamera->setPosition(camera.coor_.x_, camera.coor_.y_, camera.coor_.z_);
 	}
 
 

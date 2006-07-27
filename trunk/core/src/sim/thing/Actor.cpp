@@ -117,7 +117,7 @@ namespace se_core {
 	}
 
 
-    void Actor
+	void Actor
 	::planAction(short channel, const Action& action, const Parameter* parameter) const {
 		plannedAction_[channel].setAction(action);
 		if(parameter) {
@@ -448,6 +448,32 @@ namespace se_core {
 
 
 	Thing* Actor
+	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
+		// Get spawn point displace and face direction
+		const SpawnPoint* sp = spawnPoint(spawnPointId);
+		Assert(sp && "Spawn point does not exist");
+		ViewPoint vp(*sp);
+
+		// Calculate world coor of spawn point
+		const PosNode* node = this;
+		while(node != 0 && node != pos().area()) {
+			vp.coor_.rotate(node->pos().face_);
+			vp.coor_.add(node->pos().coor_);
+			vp.face_.rotate(node->pos().face_);
+			node = node->pos().parent();
+		}
+
+		// Spawn it in area (with area as parent)
+		Thing* t = area()->spawn(thingName, vp, deniedTsMask);
+
+		// Avoid collision with spawner
+		if(t) t->setSpawner(this);
+
+		return t;
+	}
+
+	/*
+	Thing* Actor
 	::spawn(const char* thingName) {
 		// Create thing at same position and with same direction as spawner
 		Thing* t = area()->spawn(thingName, pos());
@@ -458,7 +484,7 @@ namespace se_core {
 		return t;
 	}
 
-
+	
 	Thing* Actor
 	::spawn(const char* thingName, Vector3& disp) {
 		// Create thing at same position and with same direction as spawner
@@ -472,5 +498,6 @@ namespace se_core {
 
 		return t;
 	}
+	*/
 
 }

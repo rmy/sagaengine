@@ -173,8 +173,13 @@ namespace se_core {
 		void worldViewPoint(ViewPoint& dest) const;
 		void nextWorldViewPoint(ViewPoint& dest) const;
 
-		void setSpawnPoints(int count, SpawnPoint** spawnPoints);
-		SpawnPoint* spawnPoint(short id);
+		void childViewPoint(ViewPoint& dest, PosNode* stopAtParent = 0) const;
+		void nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent = 0) const;
+		void childCoor(Coor& dest, PosNode* stopAtParent = 0) const;
+		void nextChildCoor(Coor& dest, PosNode* stopAtParent = 0) const;
+
+		void setSpawnPoints(int count, const SpawnPoint* const* spawnPoints);
+		const SpawnPoint* spawnPoint(short id) const;
 
 	protected:
 		/** Position and volume info for the thing. */
@@ -186,7 +191,7 @@ namespace se_core {
 		/** The number of spawn points */
 		int spawnPointCount_;
 		/** Spawn points */
-		SpawnPoint** spawnPoints_;
+		const SpawnPoint* const* spawnPoints_;
 	};
 
 }

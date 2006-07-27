@@ -19,31 +19,30 @@ rune@skalden.com
 */
 
 
-#include "Spawn.hpp"
-#include "sim/schema/SimSchema.hpp"
-#include "sim/stat/Pos.hpp"
-#include "sim/thing/Thing.hpp"
-#include "sim/thing/Actor.hpp"
-#include "sim/thing/ThingManager.hpp"
+#ifndef AreaFactory_hpp
+#define AreaFactory_hpp
 
+#include "sim_area.hpp"
+#include "util/type/util_type.hpp"
+#include "../sim.hpp"
+#include "../config/sim_config.hpp"
+#include "../script/sim_script.hpp"
+#include "../stat/sim_stat.hpp"
 
 namespace se_core {
 
-	void Spawn
-	::perform(long when, Actor& performer, Parameter& parameter) const {
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		//Thing* child =
-		performer.spawn(p->thingType_, p->spawnPoint_);
-	}
+	class AreaFactory {
+	public:
+		AreaFactory(String* name);
+		virtual ~AreaFactory();
+		const char* name() const;
+		virtual Area* create(String* name, int pageX, int pageY, int pageZ) const = 0;
+		virtual void release(Area* a);
 
+	protected:
+		String* name_;
+	};
 
-	void Spawn
-	::param(const char* thingType, short spawnPoint, Parameter& out) {
-		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
-		*p = Param(thingType, spawnPoint);
-	}
-
-
-	const Spawn actionSpawn;
 }
 
+#endif

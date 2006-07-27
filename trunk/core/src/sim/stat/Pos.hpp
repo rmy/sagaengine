@@ -99,6 +99,7 @@ namespace se_core {
 		short terrainStyle() const;
 		long touchedTerrain() const;
 
+		void worldViewPoint(ViewPoint& dest, bool doCalcNext = false, const PosNode* stopAt = 0) const;
 
 		/**
 		 * Used to check if the positions
@@ -180,27 +181,30 @@ namespace se_core {
 		 *
 		 * @return true if floating, false if on ground
 		 */
-		inline bool hasOwnHeight() const { return layer_ < 0; }
+		//inline bool hasOwnHeight() const { return index_ < 0; }
 
 
 		/**
-		 * Indicates that the pos is somehow floating in air (climbin, falling, etc.)
+		 * Indicates that the pos is not somehow floating in air
+		 * (climbin, falling, etc.)
 		 */
-		inline void setNoLayer() { if(layer_ > 0) layer_ = -layer_; }
-
+		inline bool isGrounded() const { return isGrounded_; }
 
 		/**
-		 * Set layer to 1.
-		 * @TODO: Should be flexible when areas support more than one layer.
+		 * Set wether the character is grounded. It is up to the physics
+		 * object what they want to do with this state - typically they
+		 * set the things y identically to the ground height.
 		 */
-		inline void setLayer(/*short layer*/) { if(layer_ < 0) layer_ = -layer_; }
-		short layer() const { return layer_; }
+		inline void setGrounded(bool state) { 
+			isGrounded_ = state;
+			if(isGrounded_)
+				updateY();
+		}
 
-
-		inline void setIndex(short i) { layer_ = (layer_ < 0) ? (-i - 1) : (i + 1); }
-		inline short index() const { return ((layer_ < 0) ? -layer_ : layer_) - 1; }
-		inline bool hasIndex() const { return layer_ != 0; }
-		inline void setNoIndex() { layer_ = 0; }
+		inline void setIndex(short i) { index_ = i; }
+		inline short index() const { return index_; }
+		inline bool hasIndex() const { return index_ >= 0; }
+		inline void setNoIndex() { index_ = -1; }
 
 
 		/**
@@ -216,7 +220,7 @@ namespace se_core {
 		coor_world_t pageDistanceSquared(const Pos& p) const;
 
 
-		void freezeAtWorldCoor(const Coor& c);
+		void freezeAtWorldViewPoint(const ViewPoint& vp);
 
 	public:
 		/** The area this position is inside */
@@ -229,7 +233,9 @@ namespace se_core {
 		coor_t radius_;
 
 		/** Area's id of the layer that this position is resting on. */
-		short layer_;
+		short index_;
+
+		bool isGrounded_;
 	};
 
 }

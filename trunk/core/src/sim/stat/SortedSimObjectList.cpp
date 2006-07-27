@@ -146,7 +146,7 @@ namespace se_core {
 		DebugExec(if(!(simObjects_[ index ]->type() == type && strcmp(simObjects_[ index ]->name(), name) == 0))) {
 			LogMsg(index << ": " << type << ", " << name);
 			LogMsg(simObjects_[ index ]->type() << ", " << simObjects_[ index ]->name());
-			LogFatal("Not found");
+			LogFatal("Not found: " << name);
 		}
 
 		return simObjects_[ index ];

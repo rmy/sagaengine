@@ -52,7 +52,7 @@ namespace se_core {
 	::xzAngleTowards(const Point3& c) const {
 		coor_t xp = c.x_ - x_;
 		coor_t yp = c.z_ - z_;
-		return Trig::atan2(yp, xp);
+		return Trig::atan2(-yp, xp);
 	}
 
 

@@ -43,7 +43,7 @@ namespace se_core {
 		LogMsg(p->areaName_);
 
 		Area* area = SimSchema::areaManager.area(p->areaName_);
-		SpawnPoint* sp = area->spawnPoint(p->entranceId_);
+		const SpawnPoint* sp = area->spawnPoint(p->entranceId_);
 		performer.nextPos().setArea(*area, *sp);
 
 	}

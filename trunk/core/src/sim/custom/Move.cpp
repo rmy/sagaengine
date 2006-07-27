@@ -32,7 +32,9 @@ namespace se_core {
 
 	Move
 	::Move() : velocity_(0, 0, 0) {
-		changeMovement(0, 0);
+		angularVelocity_.setIdentity();
+		torque_.setIdentity();
+		force_.reset();
 	}
 
 	void Move

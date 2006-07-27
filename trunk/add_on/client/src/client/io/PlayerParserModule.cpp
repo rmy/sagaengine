@@ -109,7 +109,7 @@ namespace se_core {
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
 				Assert(area);
-				SpawnPoint* sp = area->spawnPoint(value);
+				const SpawnPoint* sp = area->spawnPoint(value);
 				Assert(sp);
 				camera->nextPos().setArea(*area, *sp);
 				LogMsg("Pos - read:" << camera->nextPos().area()->name());
@@ -132,6 +132,11 @@ namespace se_core {
 
 			case 'V': // ViewPort
 				ClientSchema::clientEventBridge.setCamera(camera);
+				break;
+
+			case 'T': // Camera tracking player
+				Assert(camera != ClientSchema::player && "Player cannot track player");
+				camera->nextPos().setParent(*ClientSchema::player);
 				break;
 			}
 		}

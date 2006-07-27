@@ -49,6 +49,7 @@ namespace se_err {
 		Log& operator << (float n);
 		Log& operator << (unsigned int n);
 		Log& operator << (int n);
+		Log& operator << (char c);
 		Log& operator << (unsigned long n);
 		Log& operator << (long long n);
 		Log& mem(int n);
@@ -64,6 +65,7 @@ namespace se_err {
 		static const short MAX_MSG_SIZE = 256;
 		short msgPos_;
 		char msg_[MAX_MSG_SIZE];
+		char tmp_[MAX_MSG_SIZE];
 
 		const char* file_;
 		int line_;
