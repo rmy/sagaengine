@@ -71,10 +71,8 @@ namespace se_core {
 	::changeArea() {
 		if(Actor::changeArea()) {
 			if(handler_) {
-				WasHere();
 				handler_->cameraEnteredAreaEvent(*this, *nextPos().area());
 			}
-			WasHere();
 			return true;
 		}
 		return false;

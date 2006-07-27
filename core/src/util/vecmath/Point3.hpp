@@ -23,14 +23,14 @@
 #define base_vecmath_Point3_hpp
 
 #include "util_vecmath.hpp"
-#include "Tuple3.hpp"
+#include "Vector3.hpp"
 
 namespace se_core {
 	/**
 	 * A 3 element point that is represented by x,y,z coordinates.
-	 * @author Kenji hiranabe, Rune Myrland
+	 * @author Kenji Hiranabe, Rune Myrland
 	 */
-	class Point3 : public Tuple3 {
+	class Point3 : public Vector3 {
 	public:
 		/**
 		 * Constructs and initializes a Point3 from the specified xyz coordinates.
@@ -38,24 +38,24 @@ namespace se_core {
 		 * @param y the y coordinate
 		 * @param z the z coordinate
 		 */
-		Point3(coor_t x, coor_t y, coor_t z): Tuple3(x, y, z) { }
+		Point3(coor_t x, coor_t y, coor_t z): Vector3(x, y, z) { }
 
 		/**
 		 * Constructs and initializes a Point3 from the specified array.
 		 * @param p the array of length 3 containing xyz in order
 		 */
-		Point3(const coor_t p[]): Tuple3(p) { }
+		Point3(const coor_t p[]): Vector3(p) { }
 
 		/*
 		 * Constructs and initializes a Point3 from the specified Tuple3d.
 		 * @param t1 the Tuple3d containing the initialization x y z data
 		 */
-		Point3(const Tuple3& t1): Tuple3(t1) { }
+		Point3(const Tuple3& t1): Vector3(t1) { }
 
 		/**
 		 * Constructs and initializes a Point3 to (0,0,0).
 		 */
-		Point3(): Tuple3() { }
+		Point3(): Vector3() { }
 
 		/**
 		 * Computes the square of the distance between this point and point p1.
@@ -107,10 +107,12 @@ namespace se_core {
 
 } // Namespace
 
+/*
 inline
 se_core::Point3 operator*(scale_t s, const se_core::Point3& t1) {
     return operator*(s, (const se_core::Tuple3&)t1);
 }
+*/
 
 
 #endif /* POINT3_H */

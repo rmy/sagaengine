@@ -19,15 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef AreaManager_hpp
-#define AreaManager_hpp
+#ifndef sim_area_AreaManager_hpp
+#define sim_area_AreaManager_hpp
 
 #include "sim_area.hpp"
+#include "util/type/util_type.hpp"
 
 namespace se_core {
 	class AreaManager {
 	public:
-		AreaManager() : areaCount_(0), active_(0), collisionGrid_(0) {}
+		AreaManager();
 		~AreaManager();
 		void addArea(Area* area);
 		bool hasArea(const char* name);
@@ -39,14 +40,26 @@ namespace se_core {
 		void dump();
 		void setActive(Area* area);
 
+		void addFactory(const AreaFactory* factory);
+		Area* createArea(const char* areaName, const char* factoryName, int pageX = -1, int pageY = -1, int pageZ = -1);
+
+
 	private:
 		CollisionGrid* collisionGrid();
 
-		static const int MAX_ELEMENTS = 256;
-		Area* areas_[MAX_ELEMENTS];
+		const AreaFactory* factory(const char* name) const;
+
+
+		static const int MAX_ELEMENTS = 1024;
+		static const int MAX_FACTORIES = 32;
+
 		int areaCount_;
+		int factoryCount_;
 		Area* active_;
 		CollisionGrid* collisionGrid_;
+
+		const AreaFactory** factories_;
+		Area** areas_;
 	};
 
 }

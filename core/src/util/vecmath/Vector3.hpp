@@ -124,12 +124,6 @@ namespace se_core {
 		coor_t length() const;
 
 
-		void rotate(const Quat4& q);
-		void rotate(const Vector3& v, const Quat4& q);
-
-		void rotate(const Euler3& a);
-		void rotate(const Vector3& v, const Euler3& a);
-
 		/**
 		 * Returns the angle in radians between this vector and
 		 * the vector parameter; the return value is constrained to the
@@ -138,6 +132,13 @@ namespace se_core {
 		 * @return the angle in radians in the range [0,PI]
 		 */
 		bray_t angle(const Vector3& v1) const;
+
+
+		void rotate(const Quat4& q);
+		void rotate(const Vector3& v, const Quat4& q);
+
+		void rotate(const Euler3& a);
+		void rotate(const Vector3& v, const Euler3& a);
 
 		void setForward(const coor_t len, const bray_t yaw);
 		void setForward(const coor_t len, const bray_t yaw, const bray_t pitch);

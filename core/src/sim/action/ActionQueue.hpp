@@ -28,15 +28,50 @@ rune@skalden.com
 
 namespace se_core {
 
+	/**
+	 * The action queue stores who is about to perform actions.
+	 * You will not access this class directly. You plan actions
+	 * using Actor::planAction(...), and disrupt them by calling
+	 * Actor::disrupt(...)
+	 */
 	class ActionQueue {
 	public:
 		ActionQueue();
 		~ActionQueue();
+		/**
+		 * Add and actor that plans to perform an action. The
+		 * ActionQueue does not store the Actions themselves, but
+		 * instead the actor that is to perform them. When the
+		 * action is performed, the Actor is requested by
+		 * the ActionQueue to perform the planned Action.
+		 */
 		unsigned short add(Actor &actor, short duration);
+
+		/**
+		 * Remove an Actor from the action queue.
+		 */
 		bool disrupt(Actor &actor);
+
+		/**
+		 * Request Actors that has just perfomed an action
+		 * to schedule their next action.
+		 */
 		void scheduleNextActions(long when);
+
+		/**
+		 * Ask actors that are scheduled to act this
+		 * timestep to perform their actions.
+		 */
 		void performScheduledActions(long when);
+
+		/**
+		 * Prepare for next timestep.
+		 */
 		void beginNextInitiative();
+
+		/**
+		 * Empty the action queue.
+		 */
 		void reset();
 
 

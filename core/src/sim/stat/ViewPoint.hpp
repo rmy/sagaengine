@@ -38,12 +38,14 @@ namespace se_core {
 		ViewPoint(const ViewPoint& vp) 
 			: face_(vp.face_), coor_(vp.coor_) {
 		}
+		ViewPoint(const SpawnPoint& sp) {
+			setViewPoint(sp);
+		}
 
 
 		bool viewPointEquals(const ViewPoint& c) const {
 			return (c.coor_.equals(coor_) && c.face_.equals(face_));
 		}
-
 
 		inline void setViewPoint(const ViewPoint& original) {
 			coor_.set(original.coor_);

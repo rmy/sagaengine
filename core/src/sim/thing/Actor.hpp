@@ -286,8 +286,9 @@ namespace se_core {
 
 		virtual bool isPlayer() { return false; }
 
-		Thing* spawn(const char* name);
-		Thing* spawn(const char* name, Vector3& disp);
+		//Thing* spawn(const char* name);
+		Thing* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
+		//Thing* spawn(const char* name, Vector3& disp);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() { return spawnCount_; }
@@ -341,7 +342,7 @@ namespace se_core {
 		 * Reset the next coordinate.
 		 * Sets the next coordinate to be the same as the present one.
 		 */
-		inline void resetFutureCoor() { didMove_ = false; nextPos().setViewPoint(position_); }
+		inline void resetFutureCoor() { didMove_ = false; nextPos().setPos(position_); }
 
 		bool isBlockedByTerrain() {
 			return physics().isBlocked(*this, pos(), nextPos());

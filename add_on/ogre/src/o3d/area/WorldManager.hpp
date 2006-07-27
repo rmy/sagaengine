@@ -49,8 +49,9 @@ namespace se_ogre {
 
 
 	protected: // Helper methods
-		bool hasThingEntity(se_core::Thing& thing);
+		bool hasMesh(se_core::Thing& thing);
 		void updateStats(void);
+		int findArea(int id);
 
 	private:
 		//
@@ -61,6 +62,15 @@ namespace se_ogre {
 		Ogre::Overlay* debugOverlay_;
 		//
 		long lastRenderClock_;
+
+		// 
+		enum { MAX_AREAS = 81 };
+		struct {
+			int id_;
+			bool shouldKeep_;
+			Ogre::SceneNode* node_;
+		} areas_[ MAX_AREAS ];
+		int areaCount_;
 	};
 }
 

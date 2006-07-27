@@ -79,49 +79,57 @@ namespace se_err {
 
 
 	Log& Log
+	::operator << (char c) {
+		sprintf(tmp_, "%c", c);
+		copy(tmp_);
+		return *this;
+	}
+
+
+	Log& Log
 	::operator << (float n) {
-		sprintf(log_msg(), "%f", n);
-		copy(log_msg());
+		sprintf(tmp_, "%f", n);
+		copy(tmp_);
 		return *this;
 	}
 
 
 	Log& Log
 	::operator << (int n) {
-		sprintf(log_msg(), "%d", n);
-		copy(log_msg());
+		sprintf(tmp_, "%d", n);
+		copy(tmp_);
 		return *this;
 	}
 
 
 	Log& Log
 	::operator << (unsigned int n) {
-		sprintf(log_msg(), "%d", n);
-		copy(log_msg());
+		sprintf(tmp_, "%d", n);
+		copy(tmp_);
 		return *this;
 	}
 
 
 	Log& Log
 	::operator << (unsigned long n) {
-		sprintf(log_msg(), "%d", n);
-		copy(log_msg());
+		sprintf(tmp_, "%d", n);
+		copy(tmp_);
 		return *this;
 	}
 
 
 	Log& Log
 	::operator << (long long n) {
-		sprintf(log_msg(), "%d", n);
-		copy(log_msg());
+		sprintf(tmp_, "%d", n);
+		copy(tmp_);
 		return *this;
 	}
 
 
 	Log& Log
 	::mem(int n) {
-		sprintf(log_msg(), "%x", n);
-		copy(log_msg());
+		sprintf(tmp_, "%x", n);
+		copy(tmp_);
 		return *this;
 	}
 

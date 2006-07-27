@@ -42,8 +42,9 @@ namespace se_core {
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
 			: PosNode(got_AREA, name->get()), width_(w), height_(h)
-			  , multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
-			  , isActive_(false), pageX_(-1), pageZ_(-1), collisionGrid_(0) {
+			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
+			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
+			, collisionGrid_(0), factory_(0) {
 
 		// Init to default position
 		position_.reset();
@@ -59,11 +60,14 @@ namespace se_core {
 		nameString_ = name;
 
 		// 3x3 array to hold self and neighbours
-		for(short i = 0; i < 9; ++i) {
+		for(short i = 0; i < 27; ++i) {
 			neighbours_[i] = 0;
 		}
 		// Add self in center
-		neighbours_[ 1 + 1 * 3 ] = this;
+		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
+
+		// Register with area manager
+		//SimSchema::areaManager.addArea(this);
 	}
 
 
@@ -212,7 +216,7 @@ namespace se_core {
 		//LogMsg(thing.name());
 		if(isActive_ && thing.isCollideable()) {
 			// TODO: Should use speed + radius
-			coor_t speedAndRadius = thing.nextPos().radius() + COOR_RES;
+			coor_t speedAndRadius = thing.pos().radius() + COOR_RES;
 			//bool didDelete =
 			collisionGrid_->remove(thing.pos().coor_, speedAndRadius, thing);
 			//LogMsg(thing.name());
@@ -382,14 +386,16 @@ namespace se_core {
 
 	bool Area
 	::isNeighbour(Area& area) {
-		if(pageX_ < 0 || pageZ_ < 0)
+		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
 			return false;
-		if(area.pageX_ < 0 || area.pageZ_ < 0)
+		if(area.pageX_ < 0 || pageY_ < 0 || area.pageZ_ < 0)
 			return false;
 
 		short relX = area.pageX_ - pageX_;
+		short relY = area.pageY_ - pageY_;
 		short relZ = area.pageZ_ - pageZ_;
 		if(relX < -1 || relX > 1) return false;
+		if(relY < -1 || relY > 1) return false;
 		if(relZ < -1 || relZ > 1) return false;
 
 		return true;
@@ -398,34 +404,39 @@ namespace se_core {
 
 	bool Area
 	::addNeighbour(Area* area) {
-		if(pageX_ < 0 || pageZ_ < 0)
+		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
 			return false;
-		if(area->pageX_ < 0 || area->pageZ_ < 0)
+		if(area->pageX_ < 0  || area->pageY_ < 0 || area->pageZ_ < 0)
 			return false;
 
 		short relX = area->pageX_ - pageX_;
+		short relY = area->pageY_ - pageY_;
 		short relZ = area->pageZ_ - pageZ_;
 		if(relX < -1 || relX > 1) return false;
+		if(relY < -1 || relY > 1) return false;
 		if(relZ < -1 || relZ > 1) return false;
 
-		Assert(neighbours_[(relX + 1) + 3 * (relZ + 1)] == 0);
+		Assert(neighbours_[(relX + 1) + 3 * (relY + 1) + 9 * (relZ + 1)] == 0);
 
-		neighbours_[ (relX + 1) + 3 * (relZ + 1) ] = area;
+		neighbours_[ (relX + 1) + 3 * (relY + 1) + 9 * (relZ + 1) ] = area;
 		return true;
 	}
 
 
 	Area* Area
-	::getNeighbour(short relX, short relZ) {
-		if(relX < -1 || relX > 1 || relZ < -1 || relZ > 1) {
+	::neighbour(short relX, short relY, short relZ) {
+		if(relX < -1 || relX > 1 || relY < -1 || relY > 1 || relZ < -1 || relZ > 1) {
+			// Not direct neighbour, recurse to correct area
 			short rx = (relX < 0) ? -1 : (relX > 0) ? 1 : 0;
+			short ry = (relY < 0) ? -1 : (relY > 0) ? 1 : 0;
 			short rz = (relZ < 0) ? -1 : (relZ > 0) ? 1 : 0;
 
-			Area* a = neighbours_[ (rx + 1) + (rz + 1) * 3 ];
+			Area* a = neighbours_[ (rx + 1) + (ry + 1) * 3 + (rz + 1) * 9 ];
 			if(!a) return 0;
-			return a->getNeighbour(relX - rx, relZ - rz);
+			return a->neighbour(relX - rx, relY - ry, relZ - rz);
 		}
-		return neighbours_[ (relX + 1) + (relZ + 1) * 3 ];
+		// Direct neighbour
+		return neighbours_[ (relX + 1) + (relY + 1) * 3 + (relZ + 1) * 9 ];
 	}
 
 
@@ -514,12 +525,12 @@ namespace se_core {
 				// TODO: Real speed instead of max speed...
 				static const coor_t speed = COOR_RES;
 				coor_t speedAndRadius = p->pos().radius() + speed;
-				p->worldCoor(wc);
+				p->childCoor(wc, this);
 
 				// TODO: Real speed instead of max speed...
 				static const coor_t nextSpeed =  COOR_RES;
 				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				p->nextWorldCoor(nextWC);
+				p->nextChildCoor(nextWC, this);
 
 				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
 			}
@@ -555,7 +566,6 @@ namespace se_core {
 		}
 		// New spawn are no longer new spawns once they are flipped
 		multiSimObjects_[ MGOA_SPAWNS ].clear();
-
 	}
 
 
@@ -662,12 +672,26 @@ namespace se_core {
 
 
 	Thing* Area
-	::spawn(const char* thingName, const ViewPoint& vp) {
+	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosNode* parent) {
+		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
+			// Tried to spawn on denied terrain type
+			return 0;
+		}
+
 		// Create the thing
 		Thing* thing = SimSchema::thingManager().create(thingName);
 
 		// Set position and direction
 		thing->nextPos().setArea(*this, vp);
+
+		if(parent) {
+			thing->nextPos().setParent(*parent);
+		}
+
+		// Initial index, if area type is using it
+		static Coor wc;
+		thing->nextChildCoor(wc, this);
+		updateIndex(wc, thing->nextPos());
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);

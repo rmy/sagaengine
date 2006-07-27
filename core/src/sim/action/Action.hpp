@@ -34,13 +34,72 @@ namespace se_core {
 	 * They define what a character can do.
 	 */
 	class Action : public SimObject {
-	public:
+	protected:
+		/** 
+		 * Constructor.
+		 * @param name unique identifier for each action
+		 */
 		Action(const char* name);
-		virtual short duration(Actor& performer, Parameter& parameter) const = 0;
-		virtual bool isRepeating(long when, Actor &performer, Parameter& parameter) const = 0;
-		virtual bool isContinuing(Actor &performer, Parameter& parameter) const { return false; }
+
+	public:
+		/**
+		 * Number of timesteps that should pass before the action is performed.
+		 * Returns 1 unless overridden.
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
+		virtual short duration(Actor& performer, Parameter& parameter) const {
+			return 1;
+		}
+
+		/**
+		 * Should the action auto-repeat unless it has another action planned
+		 * for this action channel?
+		 * Returns false unless overridden.
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
+		virtual bool isRepeating(long when, Actor &performer, Parameter& parameter) const { 
+			return false;
+		}
+
+		/**
+		 * Should perform be called again before the action is complete?
+		 * If true is returned, the action will continue even if other
+		 * actions are planned for this channel in the ActionQueue.
+		 * Returns false unless overridden.
+		 *
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
+		virtual bool isContinuing(Actor &performer, Parameter& parameter) const {
+			return false; 
+		}
+
+		/**
+		 * Called when the action is inserted into the ActionQueue.
+		 *
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
 		virtual void prepare(Actor &performer, Parameter& parameter) const {}
+
+		/**
+		 * Called if the action is disrupted, that is being removed
+		 * from the ActionQueue without being performed.
+		 *
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
 		virtual void disrupt(Actor &performer, Parameter& parameter) const {}
+
+		/**
+		 * Perform the action.
+		 * Abstract method that must be overridden by subclasses.
+		 *
+		 * @param performer the param that performs this action
+		 * @param parameter parameters specifying how this action should be performed
+		 */
 		virtual void perform(long when, Actor &performer, Parameter& parameter) const = 0;
 	};
 

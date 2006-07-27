@@ -97,8 +97,8 @@ namespace se_core {
 		 * @param x The new x value.
 		 * @param z The new z value.
 		 *
-		 * @see setXInt
-		 * @see setZInt
+		 * @see setX
+		 * @see setZ
 		 */
 		inline void setXZ(const coor_t x, const coor_t z) { x_ = x; z_ = z; }
 
@@ -110,7 +110,7 @@ namespace se_core {
 		 *
 		 * @see setXInt
 		 */
-		inline coor_t x() const { return x_; }
+		//inline coor_t x() const { return x_; }
 
 		/**
 		 * Get the y value of the coordinate as a short. See setYInt for details of
@@ -120,7 +120,7 @@ namespace se_core {
 		 *
 		 * @see setZInt
 		 */
-		inline coor_t y() const { return y_; }
+		//inline coor_t y() const { return y_; }
 
 		/**
 		 * Get the z value of the coordinate as a short. See setZInt for details of
@@ -130,7 +130,7 @@ namespace se_core {
 		 *
 		 * @see setYInt
 		 */
-		inline coor_t z() const { return z_; }
+		//inline coor_t z() const { return z_; }
 
 		/**
 		 * Get the area terrain tile x coordinate. Use this
@@ -195,33 +195,12 @@ namespace se_core {
 		 */
 		coor_t yDistance(const Coor& c) const;
 
-
-		const Quat4& face() const { return face_; }
-		Quat4& face() { return face_; }
-
-		/**
-		 * Set the new face direction.
-		 * The new face direction is cached in a special variable that will be used
-		 * starting next step.
-		 *
-		 * @param d The new face direction
-		 */
-		//inline void setFaceDirection(bray_t d) { face_.yaw_ = d & BRAY_MASK; }
-		inline void setFaceDirection(bray_t d) { face_.setYaw(d & BRAY_MASK); }
-		inline void setFace(const Quat4& f) { face_.set(f); }
-
-
 		/**
 		 * Calc angle between two coordinates in the xz-plane.
 		 *
 		 * @return angle in braybrookians (0 - 255).
 		 */
 		bray_t xzAngleTowards(const Point3& c) const;
-
-	public: // Attributes
-		/** Faced direction */
-		Quat4 face_;
-
 	};
 
 }
