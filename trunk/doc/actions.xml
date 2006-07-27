@@ -1,0 +1,110 @@
+<?xml version='1.0'>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"
+[
+<!ENTITY se "SagaEngine">
+<!ENTITY se-core "SagaEngine Core">
+<!ENTITY se-client "SagaEngine Client">
+<!ENTITY se-ogre "SagaEngine Ogre">
+<!ENTITY se-angel "SagaEngine Angelscript">
+
+<!ENTITY inc-se-core "#include &lt;se_core.hpp&gt;">
+]>
+
+<book>
+<chapter id="introduction">
+<title>Working with Actions</title>
+<sect1>
+<title>What is an Action</title>
+<para>Action is one of the central concepts in &se;. All state
+changes that are caused by the will of the Actor (as opposed to
+state changes that are caused by the physics that govern the
+Actor, or collisions with the environement), should be done by
+Action objects.
+</para>
+<para>Actions are stateless in &se;. All state data needed by the Action
+should be referencable through the performing Actor object, or
+contained in the passed Parameter object. This enables us to
+instantiate exactly one instance of each action and share it between
+all actors that wants to use it. A lot of construction and destruction
+of action objects is avoided this way. We can also safely make the
+instance <command>const</command>, which will put it in ROM on 
+cartridge based platforms.
+</para>
+</sect1>
+
+<sect1>
+<title>Creating a new action</title>
+<para>To create a new action you must subclass the
+Action class found in &se-core;. As a minimum you must
+override the constructor, passing a unique action name
+to Action, and implement your own version of
+<command>void perform(long when,
+				se_core::Actor& performer,
+				se_core::Parameter& parameter) const</command>.
+This is the mothod that is called when an Actor performs 
+the Action.
+</para>
+<para>Last you need an instance of our Action. I find it handy
+to instantiate it as a global variable in the actions 
+<filename>.cpp</filename> file, and create an announce it 
+through an external declaration in the <filename>.hpp</filename> 
+file. There are problems with this approach if you do it in statically
+linked libraries, however, so you may instead want to do it inside an
+initialization method.
+</para>
+<para>A header file <filename>Jump.hpp</filename> may look as follows.
+</para>
+<programlisting>
+&inc-se-core;
+
+namespace game {
+	class Jump : public se_core::Action {
+	public:
+		// We must pass on a unique name to Action
+		Jump() : se_core::Action("jump") {}
+
+		// Called when the Actor performs the Action
+		void perform(long when
+				, se_core::Actor& performer
+				, se_core::Parameter& parameter) const;
+	};
+
+	// Global reference to the action singleton
+	extern const Jump actionJump;
+}
+</programlisting>
+
+<para>And the corresponding <filename>Jump.cpp</filename> as below.
+</para>
+
+<programlisting>
+#include "Jump.hpp"
+
+using namespace se_core;
+
+namespace game {
+	// Static action object
+	const Jump actionJump;
+
+	void Jump
+	::perform(long when
+			, Actor& performer
+			, Parameter& parameter) const {
+
+		// Can only jump if not in free air.
+		if(performer.pos().isGrounded()) {
+
+			// Set upwards speed
+			performer.nextMove().force_.y_ += COOR_RES;
+
+			// Should no longer stick to the ground
+			performer.nextPos().setGrounded(false);
+		}
+
+	}
+
+}
+</programlisting>
+</sect1>
+</chapter>
+</book>
