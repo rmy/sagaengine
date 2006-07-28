@@ -1,26 +1,7 @@
-/*
-SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
-
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
-damages arising from the use of this software.
-
-Permission is granted to distribute the library under the terms of the 
-Q Public License version 1.0. Be sure to read and understand the license
-before using the library. It should be included here, or you may read it
-at http://www.trolltech.com/products/qt/licenses/licensing/qpl
-
-The original version of this library can be located at:
-http://www.sagaengine.com/
-
-Rune Myrland
-rune@skalden.com
-*/
-
-
 #include "GamePre.H"
 #include "SimpleActorParserModule.hpp"
+#include "../thing/SimplePlayerFactory.hpp"
+#include "../thing/SimpleCameraFactory.hpp"
 #include "../thing/SimpleActorFactory.hpp"
 
 using namespace se_core;
@@ -36,16 +17,36 @@ namespace game {
 
 	void SimpleActorParserModule
 	::parse(InputStream& in) {
-		int code = ' ';
 
-		code = in.readInfoCode();
-		Assert(code == 'A');
+		SimpleActorFactory* factory;
 
+
+		int code = in.readInfoCode();
 		String* name = new String();
 		in.readString(*name);
-		SimpleActorFactory* factory = new SimpleActorFactory(name);
 
+		switch(code) {
+		case 'A':
+			factory = new SimpleActorFactory(name);
+			break;
+		case 'C':
+			factory = new SimpleCameraFactory(name);
+			break;
+		case 'P':
+			factory = new SimplePlayerFactory(name);
+			break;
+		default:
+			LogFatal("Unknown thing type");
+		}
+		Assert(factory && "Forgot to create factory");
 		String collide("default"); // Default collide
+
+		short MAX_SPAWN_POINTS = 20;
+		int spawnPointCount = 0;
+		SpawnPoint* spawnPoints[ MAX_SPAWN_POINTS ];
+		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
+			spawnPoints[i] = 0;
+		}
 
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
@@ -84,14 +85,65 @@ namespace game {
 				factory->setCollideable(true);
 				break;
 
+			case 'E': // entrance
+				short id = in.readShort();
+				Assert(id < MAX_SPAWN_POINTS);
+				Assert(spawnPoints[id] == 0);
+
+				SpawnPoint* sp = new SpawnPoint();
+				readSpawnPoint(in, *sp);
+
+				spawnPoints[id] = sp;
+				if(id >= spawnPointCount) {
+					spawnPointCount = id + 1;
+				}
+				break;
+
 			default:
 				LogFatal("Unknown info code: " << code);
 			}
 
 		}
 
+		factory->setSpawnPoints(spawnPointCount, spawnPoints);
 		factory->setCollide(collide.get());
 		SimSchema::thingManager().addFactory(factory);
 	}
+
+
+	void SimpleActorParserModule
+	::readSpawnPoint(InputStream& in, SpawnPoint& sp) {
+		sp.displace_.reset();
+		sp.face_.setIdentity();
+
+		int code = 'X';
+		while((code = in.readInfoCode()) != '/') {
+			switch(code) {
+			case 'T': // Transform
+				{
+					float x = in.readFloat();
+					float y = in.readFloat();
+					float z = in.readFloat();
+					sp.displace_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
+				}
+				break;
+			case 'R': // Transform
+				{
+					float yaw = in.readFloat();
+					float pitch = in.readFloat();
+					float roll = in.readFloat();
+					sp.face_.setEuler(
+									  BrayT::fromDeg(yaw)
+									  , BrayT::fromDeg(pitch)
+									  , BrayT::fromDeg(roll)
+									  );
+				}
+				break;
+			default:
+				LogFatal("Illegal parameter to thing.");
+			}
+		}
+	}
+
 
 }

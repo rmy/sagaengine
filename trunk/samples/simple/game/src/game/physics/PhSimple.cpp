@@ -67,10 +67,10 @@ namespace game {
 		coor_t gh = nextPos.area()->groundHeight(nextPos.coor_);
 		// If below ground, then make grounded
 		if(gh > nextPos.coor_.y_) {
-			nextPos.setLayer();
+			nextPos.setGrounded(true);
 		}
 		// Clamp the character to the ground if grounded
-		if(!nextPos.hasOwnHeight()) {
+		if(!nextPos.isGrounded()) {
 			nextPos.coor_.y_ = gh;
 			nextMove.velocity_.y_ = 0;
 		}

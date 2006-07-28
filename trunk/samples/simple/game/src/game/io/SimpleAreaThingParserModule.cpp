@@ -1,24 +1,3 @@
-/*
-SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
-
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
-damages arising from the use of this software.
-
-Permission is granted to distribute the library under the terms of the 
-Q Public License version 1.0. Be sure to read and understand the license
-before using the library. It should be included here, or you may read it
-at http://www.trolltech.com/products/qt/licenses/licensing/qpl
-
-The original version of this library can be located at:
-http://www.sagaengine.com/
-
-Rune Myrland
-rune@skalden.com
-*/
-
-
 #include "SimpleAreaThingParserModule.hpp"
 #include <cstring>
 
@@ -40,6 +19,7 @@ namespace se_core {
 	void SimpleAreaThingParserModule
 	::parse(InputStream& in) {
 		Area* area = 0;
+
 		short MAX_SPAWN_POINTS = 20;
 		int spawnPointCount = 0;
 		SpawnPoint** spawnPoints = new SpawnPoint*[ MAX_SPAWN_POINTS ];
@@ -57,7 +37,7 @@ namespace se_core {
 
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
-			case 'O': // object (thing or actor)
+			case 'A': // object (thing or actor)
 				readThing(in, *area);
 				break;
 
@@ -67,13 +47,12 @@ namespace se_core {
 
 			case 'E': // entrance
 				short id = in.readShort();
-				coor_t x = CoorT::fromFloat(in.readFloat());
-				coor_t z = CoorT::fromFloat(in.readFloat());
-
 				Assert(id < MAX_SPAWN_POINTS);
+				Assert(spawnPoints[id] == 0);
+
 				SpawnPoint* sp = new SpawnPoint();
-				sp->displace_.set(x, 0, z);
-				sp->face_.setIdentity();
+				readSpawnPoint(in, *sp);
+
 				spawnPoints[id] = sp;
 				if(id >= spawnPointCount) {
 					spawnPointCount = id + 1;
@@ -89,31 +68,131 @@ namespace se_core {
 
 
 	void SimpleAreaThingParserModule
-	::readThing(InputStream& in, Area& area) {
-		String tempString;
-		in.readString(tempString);
-		float x = in.readFloat();
-		float y = in.readFloat();
+	::readThing(InputStream& in, se_core::Area& area, PosNode* parent) {
+		String thingName;
+		in.readString(thingName);
 
 		ViewPoint vp;
-		vp.coor_.set(CoorT::fromFloat(x), 0, CoorT::fromFloat(y));
-		vp.face_.setIdentity();
-		Thing* thing = area.spawn(tempString.get(), vp);
+		vp.reset();
+
+		bool isGrounded = false;
+		bool isScaled = false;
+		float radius = 1;
+
+		int code;
+		while((code = in.readInfoCode()) != '/') {
+			LogMsg("Code: " << (char)code);
+			// Start reading children
+			if(code == '[') break;
+
+			switch(code) {
+			case 'G': // Grounded
+				isGrounded = true;
+				break;
+			case 'S': // Scale
+				{
+					isScaled = true;
+					radius = in.readFloat();
+ 					LogMsg("S " << radius);
+				}
+				break;
+			case 'T': // Transform
+				{
+					float x = in.readFloat();
+					float y = in.readFloat();
+					float z = in.readFloat();
+					LogMsg("T " << x << " " << y << " " << z);
+					vp.coor_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
+				}
+				break;
+			case 'R': // Transform
+				{
+					float yaw = in.readFloat();
+					float pitch = in.readFloat();
+					float roll = in.readFloat();
+ 					LogMsg("R " << yaw << " " << pitch << " " << roll);
+					vp.face_.setEuler(
+									  BrayT::fromDeg(yaw)
+									  , BrayT::fromDeg(pitch)
+									  , BrayT::fromDeg(roll)
+									  );
+				}
+				break;
+
+			default:
+				LogFatal("Illegal parameter to thing: " << (char)(code));
+			}
+		}
+
+		Thing* thing = area.spawn(thingName.get(), vp, 0, parent);
+		if(isScaled) {
+			// Scale relative to the default raidus of the thing
+			float r = CoorT::toFloat(thing->nextPos().radius()) * radius;
+			thing->nextPos().setRadius(r);
+		}
+		thing->nextPos().setGrounded(isGrounded);
+
+		if(code == '[') {
+			LogMsg('[');
+			readChildren(in, area, *thing);
+
+			// End of thing ('/') should follow
+			code = in.readInfoCode();
+
+			LogMsg(']');
+		}
+		Assert(code == '/');
+		
+		LogMsg(thing->name() << ": " << vp.toLog());
+	}
+
+
+	void SimpleAreaThingParserModule
+	::readChildren(InputStream& in, Area& area, PosNode& parent) {
+		int code;
+		while((code = in.readInfoCode()) != ']') {
+			LogMsg("Code: " << (char)code);
+			switch(code) {
+			case 'A': // object (thing or actor)
+				readThing(in, area, &parent);
+				break;
+			}
+		}
+	}
+
+
+	void SimpleAreaThingParserModule
+	::readSpawnPoint(InputStream& in, SpawnPoint& sp) {
+		sp.displace_.reset();
+		sp.face_.setIdentity();
 
 		int code = 'X';
 		while((code = in.readInfoCode()) != '/') {
 			switch(code) {
-			case 'R': // Radius
+			case 'T': // Transform
 				{
-					float radius = in.readFloat();
-					thing->nextPos().setRadius(CoorT::fromFloat(radius));
+					float x = in.readFloat();
+					float y = in.readFloat();
+					float z = in.readFloat();
+					sp.displace_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
+				}
+				break;
+			case 'R': // Transform
+				{
+					float yaw = in.readFloat();
+					float pitch = in.readFloat();
+					float roll = in.readFloat();
+					sp.face_.setEuler(
+									  BrayT::fromDeg(yaw)
+									  , BrayT::fromDeg(pitch)
+									  , BrayT::fromDeg(roll)
+									  );
 				}
 				break;
 			default:
-				LogFatal("Illegal parameter to thing.");
+				LogFatal("Illegal parameter to thing: " << (char)(code));
 			}
 		}
-		WasHere();
 	}
 
 
@@ -138,4 +217,3 @@ namespace se_core {
 	}
 
 }
-
