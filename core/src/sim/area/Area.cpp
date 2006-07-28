@@ -41,7 +41,7 @@ rune@skalden.com
 namespace se_core {
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
-			: PosNode(got_AREA, name->get()), width_(w), height_(h)
+			: PosNode(got_AREA, name->get()), moverCount_(0), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
 			, collisionGrid_(0), factory_(0) {
@@ -315,6 +315,8 @@ namespace se_core {
 		if(state == isActive_) return;
 		isActive_ = state;
 
+		if(!isActive_) moverCount_ = 0;
+
 		SimObjectList::iterator_type it = allThings_->iterator();
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
@@ -461,7 +463,7 @@ namespace se_core {
 	}
 
 	void Area
-	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
+	::testActors2ThingsCollisions() { // Actor** movers, short moverCount) {
 		Assert(collisionGrid_);
 
 		// Create buffer to temporarily hold collision candidates
@@ -469,8 +471,8 @@ namespace se_core {
 		// PS! Not thread safe, but takes less space on GBA stack
 		static Thing* things[MAX_THINGS] VAR_IN_EWRAM;
 
-		for(int outer = 0; outer < moverCount; ++outer) {
-			Actor* a = movers[ outer ];
+		for(int outer = 0; outer < moverCount_; ++outer) {
+			Actor* a = movers_[ outer ];
 
 			short innerCount = collisionGrid_->collisionCandidates
 				(a->nextPos().coor(), a->pos().radius(), things, MAX_THINGS - 1);
@@ -572,12 +574,13 @@ namespace se_core {
 
 	int Area
 	::performChildPhysics(Actor** movers) {
+		movers_ = movers;
+		moverCount_ = 0;
+
 		static const int MAX_STACK_DEPTH = 10;
 		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
 
 		int movedDepth = 0;
-		int moverCount = 0;
-
 
 		int sp = 0;
 		itStack[ 0 ] = childPosNodes().iterator();
@@ -604,12 +607,12 @@ namespace se_core {
 			// Calc next position
 			if(a->calcNextCoor()) {
 				// Add to movers
-				movers[moverCount++] = a;
+				movers[moverCount_++] = a;
 				movedDepth = sp;
 			}
 			else if(movedDepth) {
 				// Everything below a moving node is moving as well
-				movers[moverCount++] = a;
+				movers[moverCount_++] = a;
 			}
 
 
@@ -631,7 +634,7 @@ namespace se_core {
 			// Continue if there are still incomplete chains
 		} while(sp >= 0);
 
-		return moverCount;
+		return moverCount_;
 	}
 
 

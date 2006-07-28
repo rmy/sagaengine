@@ -34,32 +34,43 @@ namespace se_core {
 		bool hasArea(const char* name);
 		Area* area(const char* name);
 		Area* area(int id);
-		Area* active();
+		int activeCount() { return activeCount_; }
+		Area* active(int index);
 		void resetThings();
 		void resetAll();
 		void dump();
+		void resetActive();
 		void setActive(Area* area);
+		void setActive(Area* area, int pages);
+		void setInactive(Area* area);
 
 		void addFactory(const AreaFactory* factory);
 		Area* createArea(const char* areaName, const char* factoryName, int pageX = -1, int pageY = -1, int pageZ = -1);
 
+		void integrity();
 
 	private:
-		CollisionGrid* collisionGrid();
+		CollisionGrid* grabCollisionGrid();
 
 		const AreaFactory* factory(const char* name) const;
 
 
-		static const int MAX_ELEMENTS = 1024;
+		static const int MAX_ELEMENTS = 1024 * 4;
 		static const int MAX_FACTORIES = 32;
+		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 
 		int areaCount_;
 		int factoryCount_;
-		Area* active_;
-		CollisionGrid* collisionGrid_;
+		int activeCount_;
+
+		int gridCount_, gridPoolCount_;
+		CollisionGrid** collisionGrids_;
+		CollisionGrid** gridPool_;
 
 		const AreaFactory** factories_;
 		Area** areas_;
+		Area** active_;
+		bool* shouldKeep_;
 	};
 
 }

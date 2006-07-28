@@ -245,16 +245,6 @@ namespace se_core {
 
 			// Any change in render position?
 			didMove_ = !nextPos().viewPointEquals(position_);
-
-			// Colliding with area geometry?
-			// (TODO: Doing this test here optimises away one collision loop
-			// but it should probably be moved into the physics object
-			// for greater flexibility, and even more speed.)
-			if(didMove_ && physics().isBlocked(*this, pos(), nextPos())) {
-				// No movement this step
-				resetFutureCoor();
-				return false;
-			}
 			return didMove_;
 		}
 

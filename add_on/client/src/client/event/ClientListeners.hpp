@@ -37,6 +37,11 @@ namespace se_core {
 		void castThingEnteredCameraAreaEvent(Thing& thing);
 		void castThingLeftCameraAreaEvent(Thing& thing);
 
+
+		void castThingEnteredActiveZoneEvent(Thing& thing);
+		void castThingLeftActiveZoneEvent(Thing& thing);
+		void castThingSwitchedActiveAreaEvent(Thing& thing);
+
 	private:
 		static const int MAX_LISTENERS = 10;
 		ClientListener* listeners[ MAX_LISTENERS ];

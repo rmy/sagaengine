@@ -36,8 +36,7 @@ namespace se_core {
 
 
 	bool ThingCollide
-	::isGuilty(Actor& pusher
-						  , Thing& target) const {
+	::isGuilty(Actor& pusher, Thing& target) const {
 		// Is this thing's movement bringing it closer, or farther away?
 		coor_double_t beforeDistance = pusher.pos().coor().xzDistanceSquared(target.pos().coor());
 		coor_double_t distanceWithPusherMoving = pusher.nextPos().coor().xzDistanceSquared(target.pos().coor());

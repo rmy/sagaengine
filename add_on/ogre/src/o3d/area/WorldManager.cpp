@@ -51,14 +51,16 @@ namespace se_ogre {
 
 	void WorldManager
 	::clearWorld() {
-		ClientSchema::clientListeners.removeListener(*this);
-		ThingEntityList::iterator_type it = O3dSchema::firstThingEntity;
-		while(it != ThingEntityList::NULL_NODE) {
-			ThingEntity* te = O3dSchema::thingEntityList.next(it);
-			delete te;
+		for(int i = 0; i < areaCount_; ++i) {
+			ThingEntityList::iterator_type it = areas_[i].firstThingEntity;
+			while(it != ThingEntityList::NULL_NODE) {
+				ThingEntity* te = O3dSchema::thingEntityList.next(it);
+				delete te;
+			}
+			O3dSchema::thingEntityList.removeChain(areas_[i].firstThingEntity);
 		}
-		O3dSchema::thingEntityList.removeChain(O3dSchema::firstThingEntity);
 	}
+
 
 	int WorldManager
 	::findArea(int id) {
@@ -72,7 +74,6 @@ namespace se_ogre {
 
 	void WorldManager
 	::cameraEnteredAreaEvent(se_core::Area& area) {
-		enum { AREA_RANGE = 1 };
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[i].shouldKeep_ = false;
 		}
@@ -99,7 +100,7 @@ namespace se_ogre {
 
 					Ogre::String type(areaType);
 					Ogre::String name(a->name());
-					
+
 					try {
 						static int pool = 0;
 						static char buffer[128];
@@ -110,6 +111,7 @@ namespace se_ogre {
 
 						index = areaCount_++;
 						areas_[ index ].shouldKeep_ = true;
+						areas_[ index ].firstThingEntity = ThingEntityList::NULL_NODE;
 						areas_[ index ].id_ = a->id();
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
@@ -117,6 +119,18 @@ namespace se_ogre {
 						areas_[ index ].node_->setPosition(a->pos().coor_.x_, a->pos().coor_.y_, a->pos().coor_.z_);
 
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
+
+						// Add things
+						se_core::ThingIterator nit(a->allThings());
+						while(nit.hasNext()) {
+							Thing& thing = nit.next();
+							if(!hasMesh(thing)) {
+								continue;
+							}
+
+							ThingEntity* te = new ThingEntity(thing);
+							O3dSchema::thingEntityList.add(*te, areas_[ index ].firstThingEntity);
+						}
 					}
 					catch(...) {
 						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
@@ -125,30 +139,20 @@ namespace se_ogre {
 			}
 		}
 
-		for(short relZ = -3; relZ <= 3; ++relZ) {
-			for(short relX = -3; relX <= 3; ++relX) {
-				Area* a = area.neighbour(relX, 0, relZ);
-				if(!a) continue;
 
-				// Add things
-				se_core::ThingIterator nit(a->allThings());
-				while(nit.hasNext()) {
-					Thing& thing = nit.next();
-					if(!hasMesh(thing)) {
-						continue;
-					}
-
-					ThingEntity* te = new ThingEntity(thing);
-					O3dSchema::thingEntityList.add(*te, O3dSchema::firstThingEntity);
-				}
-			}
-		}
-		
 		// Throw away areas that shouldn't be kept
 		for(int i = 0; i < areaCount_; ++i) {
 			if(!areas_[i].shouldKeep_) {
 				// Remove area from scene graph
 				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
+
+				// Remove things
+				ThingEntityList::iterator_type it = areas_[i].firstThingEntity;
+				while(it != ThingEntityList::NULL_NODE) {
+					ThingEntity* te = O3dSchema::thingEntityList.next(it);
+					delete te;
+				}
+				O3dSchema::thingEntityList.removeChain(areas_[i].firstThingEntity);
 
 				// Move last area in array to here
 				areas_[i] = areas_[ --areaCount_];
@@ -156,48 +160,96 @@ namespace se_ogre {
 				--i;
 			}
 		}
-
-
 	}
 
 
 	void WorldManager
 	::cameraLeftAreaEvent(se_core::Area& area) {
+		/*
 		// Clear thinglist
-		ThingEntityList::iterator_type it = O3dSchema::firstThingEntity;
+		ThingEntityList::iterator_type it = areas_[index].firstThingEntity;
 		while(it != ThingEntityList::NULL_NODE) {
 			ThingEntity* te = O3dSchema::thingEntityList.next(it);
 			delete te;
 		}
 		O3dSchema::thingEntityList.removeChain(O3dSchema::firstThingEntity);
+		*/
 	}
 
 
 	void WorldManager
-	::thingEnteredCameraAreaEvent(se_core::Thing& thing) {
+	::thingEnteredActiveZoneEvent(se_core::Thing& thing) {
 		if(!hasMesh(thing)) {
 			return;
 		}
 
+		// 
+		int index = findArea(thing.nextPos().area()->id());
+		LogMsg(thing.name() << ": " << index);
+		if(index < 0) return;
+
 		// Add thing
 		ThingEntity* te = new ThingEntity(thing);
-		O3dSchema::thingEntityList.add(*te, O3dSchema::firstThingEntity);
+		O3dSchema::thingEntityList.add(*te, areas_[index].firstThingEntity);
 	}
 
-
 	void WorldManager
-	::thingLeftCameraAreaEvent(se_core::Thing& thing) {
+	::thingLeftActiveZoneEvent(se_core::Thing& thing) {
+		LogMsg(thing.name());
 		if(!hasMesh(thing)) {
 			return;
 		}
 
 		// Remove thing
-		ThingEntityList::iterator_type it = O3dSchema::firstThingEntity;
+		WasHere();
+		int index = findArea(thing.pos().area()->id());
+		LogMsg(index);
+		if(index < 0) return;
+		WasHere();
+
+		ThingEntityList::iterator_type it = areas_[index].firstThingEntity;
+		while(it != ThingEntityList::NULL_NODE) {
+			WasHere();
+			ThingEntity* te = O3dSchema::thingEntityList.next(it);
+			if(te->hasThing(thing)) {
+				O3dSchema::thingEntityList.remove(*te, areas_[index].firstThingEntity);
+				delete te;
+				WasHere();
+				break;
+			}
+		}
+
+	}
+
+
+	void WorldManager
+	::thingSwitchedActiveAreaEvent(se_core::Thing& thing) {
+		if(!hasMesh(thing)) {
+			return;
+		}
+
+		// Remove thing
+		int index = findArea(thing.pos().area()->id());
+		if(index < 0) return;
+		int nextIndex = -1;
+		if(thing.nextPos().hasArea())
+			nextIndex = findArea(thing.nextPos().area()->id());
+
+		//LogMsg(thing.name() << ": " << index << ", " << nextIndex);
+
+		ThingEntityList::iterator_type it = areas_[index].firstThingEntity;
 		while(it != ThingEntityList::NULL_NODE) {
 			ThingEntity* te = O3dSchema::thingEntityList.next(it);
 			if(te->hasThing(thing)) {
-				O3dSchema::thingEntityList.remove(*te, O3dSchema::firstThingEntity);
-				delete te;
+				O3dSchema::thingEntityList.remove(*te, areas_[index].firstThingEntity);
+				if(nextIndex >= 0) {
+					// Add to new area if it is visible
+					O3dSchema::thingEntityList.add(*te, areas_[nextIndex].firstThingEntity);
+				}
+				else {
+					// ... or destroy
+					delete te;
+				}
 				break;
 			}
 		}
@@ -250,10 +302,12 @@ namespace se_ogre {
 		float timeSinceLastFrame = (renderClock - lastRenderClock_) / 1000.0f;
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
-		ThingEntityList::iterator_type it = O3dSchema::firstThingEntity;
-		while(it != ThingEntityList::NULL_NODE) {
-			ThingEntity* te = O3dSchema::thingEntityList.next(it);
-			te->move(stepDelta, timeSinceLastFrame);
+		for(int i = 0; i < areaCount_; ++i) {
+			ThingEntityList::iterator_type it = areas_[i].firstThingEntity;
+			while(it != ThingEntityList::NULL_NODE) {
+				ThingEntity* te = O3dSchema::thingEntityList.next(it);
+				te->move(stepDelta, timeSinceLastFrame);
+			}
 		}
 
 		// Store time
@@ -271,7 +325,6 @@ namespace se_ogre {
 			// Will cause renderloop to end
 			return false;
 		}
-
 
 		// Update debug info
 		if(debugOverlay_) updateStats();

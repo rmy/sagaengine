@@ -56,6 +56,13 @@ namespace se_core {
 		Thing& thing = static_cast<Thing&>(value);
 		if(value.id() != ClientSchema::camera->id()) {
 			ClientSchema::clientListeners.castThingEnteredCameraAreaEvent(thing);
+
+			if(thing.pos().hasArea() && thing.pos().area()->isActive()) {
+				ClientSchema::clientListeners.castThingSwitchedActiveAreaEvent(thing);
+			}
+			else {
+				ClientSchema::clientListeners.castThingEnteredActiveZoneEvent(thing);
+			}
 		}
 	}
 
@@ -66,25 +73,33 @@ namespace se_core {
 		if(value.id() != ClientSchema::camera->id()) {
 			// If yes, cast thing left area event
 			ClientSchema::clientListeners.castThingLeftCameraAreaEvent(thing);
+
+			if(!thing.nextPos().hasArea() || !thing.nextPos().area()->isActive()) {
+				ClientSchema::clientListeners.castThingLeftActiveZoneEvent(thing);
+			}
 		}
+
 	}
 
 
 	void ClientEventBridge
 	::cameraEnteredAreaEvent(Camera& caster, Area& area) {
 		// Cast camera entered area event
-		WasHere();
-		SimSchema::areaManager.setActive(&area);
+		SimSchema::areaManager.setActive(&area, 1);
 		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
-		area.reportingThings().setHandler(this);
+		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			SimSchema::areaManager.active(i)->reportingThings().setHandler(this);
+		}
 	}
 
 
 	void ClientEventBridge
 	::cameraLeftAreaEvent(Camera& caster, Area& area) {
+		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			SimSchema::areaManager.active(i)->reportingThings().setHandler(0);
+		}
 		// Cast camera left area event
 		ClientSchema::clientListeners.castCameraLeftAreaEvent(area);
-		area.reportingThings().setHandler(0);
 	}
 
 
@@ -117,7 +132,7 @@ namespace se_core {
 	void ClientEventBridge
 	::initGameEvent() {
 		WasHere();
-		// Player and camera objects initialised from data file.
+		// Player and camera objects are initialised from data file.
 	}
 
 

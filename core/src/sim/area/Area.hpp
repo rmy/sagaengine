@@ -156,7 +156,7 @@ namespace se_core {
 
 		Thing* findPickTarget(Player& actor);
 		Thing* findDefaultActionTarget(Player& actor);
-		bool isActive() { return isActive_; }
+		bool isActive() const { return isActive_; }
 		void enter(Actor& performer);
 		void reset();
 
@@ -175,7 +175,7 @@ namespace se_core {
 		bool addNeighbour(Area* area);
 		bool isNeighbour(Area& area);
 
-		void testActors2ThingsCollisions(Actor** movers, short moverCount);
+		void testActors2ThingsCollisions(); //Actor** movers, short moverCount);
 
 		/**
 		 * Flip all moving things in this area, making
@@ -201,6 +201,18 @@ namespace se_core {
 		 */
 		Thing* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosNode* parent = 0);
 
+
+	private:
+		/**
+		 * List of movers this step. Updated by the coordinate precalcer and
+		 * used by the collision detector.
+		 */
+		Actor** movers_;
+
+		/** Number of movers presently in the movers_ array */
+		short moverCount_;
+		
+
 	protected:
 		friend class AreaManager;
 
@@ -208,16 +220,13 @@ namespace se_core {
 
 	protected:
 		coor_tile_t width_, height_;
+		bool isActive_;
+		int pageX_, pageY_, pageZ_;
 
 		String* nameString_; // For proper destruction of content only
 
 		MultiSimObject* multiSimObjects_;
 		ReportingMultiSimObject* allThings_;
-		bool isActive_;
-
-
-		short pageX_, pageY_, pageZ_;
-
 		Area* neighbours_[ 3 * 3 * 3 ];
 		CollisionGrid* collisionGrid_;
 

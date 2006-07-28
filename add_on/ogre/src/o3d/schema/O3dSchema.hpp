@@ -43,9 +43,7 @@ namespace se_ogre {
 
 
 		extern Ogre::RaySceneQuery* raySceneQuery;
-		extern ThingEntityList::iterator_type firstThingEntity;
 		extern ThingEntityList thingEntityList;
-		extern ThingEntityList passiveThingEntityList;
 		extern Ogre::Root* root;
 		extern Ogre::SceneManager* sceneManager;
 		extern WorldManager* worldManager;

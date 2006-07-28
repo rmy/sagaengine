@@ -73,8 +73,8 @@ namespace se_core {
 
 	inline void SimEngine
 	::flip(long when) {
-		Area* area = SimSchema::areaManager.active();
-		if(area) {
+		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			Area* area = SimSchema::areaManager.active(i);
 			area->flipChildren();
 		}
 	}
@@ -186,21 +186,23 @@ namespace se_core {
 
 	void SimEngine
 	::performPhysics(long when) {
+		Actor** m = movers_;
 		moverCount_ = 0;
-		Area* area = SimSchema::areaManager.active();
-
-		if(area) {
-			moverCount_ = area->performChildPhysics(movers_);
+		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			Area* area = SimSchema::areaManager.active(i);
+			int c = area->performChildPhysics(movers_);
+			m += c;
+			moverCount_ += c;
 		}
 	}
 
 
 	void SimEngine
 	::testCollisions(long startWhen, long endWhen) {
-		Area* area = SimSchema::areaManager.active();
-		if(!area) return;
-
-		area->testActors2ThingsCollisions(movers_, moverCount_);
+		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			Area* area = SimSchema::areaManager.active(i);
+			area->testActors2ThingsCollisions(); //area->movers_, area->moverCount_);
+		}
 	}
 
 	bool SimEngine
