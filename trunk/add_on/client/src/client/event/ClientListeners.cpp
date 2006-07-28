@@ -74,4 +74,29 @@ namespace se_core {
 		}
 	}
 
+
+	void ClientListeners
+	::castThingEnteredActiveZoneEvent(Thing& thing) {
+		for(int i = 0; i < listenerCount; ++i) {
+			listeners[ i ]->thingEnteredActiveZoneEvent(thing);
+		}
+	}
+
+
+	void ClientListeners
+	::castThingLeftActiveZoneEvent(Thing& thing) {
+		for(int i = 0; i < listenerCount; ++i) {
+			listeners[ i ]->thingLeftActiveZoneEvent(thing);
+		}
+	}
+
+
+	void ClientListeners
+	::castThingSwitchedActiveAreaEvent(Thing& thing) {
+		for(int i = 0; i < listenerCount; ++i) {
+			listeners[ i ]->thingSwitchedActiveAreaEvent(thing);
+		}
+	}
+
+
 }

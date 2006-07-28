@@ -40,7 +40,6 @@ namespace se_ogre {
 		MeshOfThing meshOfThing;
 
 		RaySceneQuery* raySceneQuery = 0;
-		ThingEntityList::iterator_type firstThingEntity = ThingEntityList::NULL_NODE;
 		ThingEntityList thingEntityList(1);
 
 		Ogre::Root* root = 0;
@@ -51,9 +50,7 @@ namespace se_ogre {
 		Ogre::RenderWindow* window = 0;
 
 		SpeechBubble* speechBubble = 0;
-
 		RenderEngine* renderEngine = 0;
-
 
 		InputManager& inputManager() {
 			static InputManager im;
@@ -67,15 +64,10 @@ namespace se_ogre {
 		}
 
 		float gameClock = 0;
-
-
 		bool init() {
 			// Auto create and register instance of this parsers
 			static O3dThingParserModule o3dThingParserModule(se_core::IoSchema::parser());
 			static O3dInitHandler initHandler;
-
-
-
 			return true;
 		}
 

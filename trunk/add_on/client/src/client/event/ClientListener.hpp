@@ -32,8 +32,12 @@ namespace se_core {
 		virtual ~ClientListener() {} // Gets rid of warning
 		virtual void cameraEnteredAreaEvent(Area& area) = 0;
 		virtual void cameraLeftAreaEvent(Area& area) = 0;
-		virtual void thingEnteredCameraAreaEvent(Thing& thing) = 0;
-		virtual void thingLeftCameraAreaEvent(Thing& thing) = 0;
+		virtual void thingEnteredCameraAreaEvent(Thing& thing) {}
+		virtual void thingLeftCameraAreaEvent(Thing& thing) {}
+		//
+		virtual void thingEnteredActiveZoneEvent(Thing& thing) = 0;
+		virtual void thingLeftActiveZoneEvent(Thing& thing) = 0;
+		virtual void thingSwitchedActiveAreaEvent(Thing& thing) = 0;
 	};
 
 }

@@ -66,15 +66,14 @@ namespace se_core {
 		if(!hasArea() || !other.hasArea())
 			return false;
 
+
 		// Normal success case. Eliminate quickly.
 		if(area_ == other.area_)
 			return true;
 
-		if(area_ != other.area_)
+		// Are pages not neighbours?
+		if(!(area_->isNeighbour(*other.area_)))
 			return false;
-		// Are pages neighbours?
-		//if(!area_->isNeighbour(*other.area_))
-		//	return false;
 
 		// All negative cases eliminated
 		return true;

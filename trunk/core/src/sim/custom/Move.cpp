@@ -35,6 +35,8 @@ namespace se_core {
 		angularVelocity_.setIdentity();
 		torque_.setIdentity();
 		force_.reset();
+		yaw_ = 0;
+		speed_ = 0;
 	}
 
 	void Move

@@ -23,6 +23,7 @@ rune@skalden.com
 #define o3d_area_WorldManager_hpp
 
 #include "../thing/o3d_thing.hpp"
+#include "../thing/ThingEntityList.hpp"
 #include "O3dPre.H"
 
 namespace se_ogre {
@@ -36,8 +37,11 @@ namespace se_ogre {
 		// se_core::ClientListener
 		void cameraEnteredAreaEvent(se_core::Area& area);
 		void cameraLeftAreaEvent(se_core::Area& area);
-		void thingEnteredCameraAreaEvent(se_core::Thing& thing);
-		void thingLeftCameraAreaEvent(se_core::Thing& thing);
+		//void thingEnteredCameraAreaEvent(se_core::Thing& thing);
+		//void thingLeftCameraAreaEvent(se_core::Thing& thing);
+		void thingEnteredActiveZoneEvent(se_core::Thing& thing);
+		void thingLeftActiveZoneEvent(se_core::Thing& thing);
+		void thingSwitchedActiveAreaEvent(se_core::Thing& thing);
 
 		// Ogre::FrameListener
 		bool frameStarted(const Ogre::FrameEvent& evt);
@@ -64,11 +68,13 @@ namespace se_ogre {
 		long lastRenderClock_;
 
 		// 
-		enum { MAX_AREAS = 81 };
+		enum { AREA_RANGE = 2, AREA_SIDE = 2 * (AREA_RANGE + 1) };
+		enum { MAX_AREAS = 3 * AREA_SIDE * AREA_SIDE * AREA_SIDE };
 		struct {
 			int id_;
 			bool shouldKeep_;
 			Ogre::SceneNode* node_;
+			ThingEntityList::iterator_type firstThingEntity;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
 	};

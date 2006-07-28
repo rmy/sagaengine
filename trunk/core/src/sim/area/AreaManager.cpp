@@ -35,17 +35,24 @@ namespace se_core {
 
 	AreaManager
 	::AreaManager() 
-			: areaCount_(0), factoryCount_(0), active_(0), collisionGrid_(0) {
+			: areaCount_(0), factoryCount_(0), activeCount_(0), gridCount_(0), gridPoolCount_(0) {
 		areas_ = new Area*[ MAX_ELEMENTS ];
 		factories_ = new const AreaFactory*[ MAX_FACTORIES ];
+		active_ = new Area*[ MAX_ACTIVE ];
+		shouldKeep_ = new bool[ MAX_ACTIVE ];
+		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
+		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
 	}
 
 
 	AreaManager
 	::~AreaManager() {
 		resetAll();
-		delete areas_;
-		delete factories_;
+		delete[] areas_;
+		delete[] factories_;
+		delete[] collisionGrids_;
+		delete[] shouldKeep_;
+		delete[] gridPool_;
 	}
 
 
@@ -101,25 +108,127 @@ namespace se_core {
 	}
 
 
-	// TODO: This should return a list of active areas_...
 	Area* AreaManager
-	::active() {
-		return active_;
+	::active(int index) {
+		Assert(index >= 0 && index < areaCount_);
+		return active_[ index ];
 	}
 
 
 	void AreaManager
 	::setActive(Area* area) {
-		if(area == active_) return;
-		if(active()) {
-			active()->resetCollisionGrid();
-			active()->setActive(false);
+		for(int i = 0; i < activeCount_; ++i) {
+			if(area == active_[i]) return;
 		}
-		active_ = area;
-		active()->setCollisionGrid(collisionGrid());
-		active()->setActive(true);
+
+		active_[ activeCount_ ] = area;
+		active_[ activeCount_ ]->setCollisionGrid(grabCollisionGrid());
+		active_[ activeCount_ ]->setActive(true);
+		++activeCount_;
+
+		DebugExec(integrity());
 	}
 
+
+	void AreaManager
+	::setActive(Area* area, int pages) {
+		for(int i = 0; i < activeCount_; ++i)
+			shouldKeep_[i] = false;
+
+		for(short relZ = -pages; relZ <= pages; ++relZ) {
+			for(short relX = -pages; relX <= pages; ++relX) {
+				Area* a = area->neighbour(relX, 0, relZ);
+				if(!a) continue;
+				
+				// Already active?
+				int index = -1;
+				for(int i = 0; i < activeCount_; ++i) {
+					if(a == active_[i]) {
+						index = i;
+						break;
+					}
+				}
+
+
+				// Nope?
+				if(index < 0) {
+					// Make it active
+					index = activeCount_;
+					active_[ index ] = a;
+					CollisionGrid* g = grabCollisionGrid();
+					active_[ index ]->setCollisionGrid(g);
+					active_[ index ]->setActive(true);
+					++activeCount_;
+				}
+				
+				// Should keep it as active
+				shouldKeep_[ index ] = true;
+			}
+		}
+
+		DebugExec(integrity());
+
+		// Remove inactive
+		for(int i = 0; i < activeCount_; ++i) {
+			Assert(active_[i]);
+			if(!shouldKeep_[i]) {
+				// Get back collisionGrid to pool
+				LogMsg(i << " < " << activeCount_);
+				Area* a = active_[i];
+				Assert(a);
+				CollisionGrid* g = a->resetCollisionGrid();
+				Assert(g);
+				if(g) {
+					g->clear();
+					gridPool_[ gridPoolCount_++ ] = g;
+				}
+				a->setActive(false);
+
+				// Delete current by moving last to here
+				--activeCount_;
+				active_[ i ] = active_[ activeCount_ ];
+				shouldKeep_[ i ] = shouldKeep_[ activeCount_ ];
+				active_[ activeCount_ ] = 0;
+
+				// Do this index again, as it now contains new area
+				--i;
+			}
+		}
+
+		DebugExec(integrity());
+
+	}
+
+
+	void AreaManager
+	::setInactive(Area* area) {
+		for(int i = 0; i < activeCount_; ++i) {
+			if(area == active_[i]) {
+				CollisionGrid* g = area->resetCollisionGrid();
+				if(g) {
+					g->clear();
+					gridPool_[ gridPoolCount_++ ] = g;
+				}
+				area->setActive(false);
+
+				--activeCount_;
+				active_[ i ] = active_[ activeCount_ ];
+				active_[ activeCount_ ] = 0;
+			}
+		}
+
+		DebugExec(integrity());
+	}
+
+
+	void AreaManager
+	::resetActive() {
+		while(activeCount_ > 0) {
+			setInactive(active_[0]);
+		}
+
+		DebugExec(integrity());
+	}
 
 	void AreaManager
 	::addFactory(const AreaFactory* f) {
@@ -143,7 +252,7 @@ namespace se_core {
 	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ) {
 		char* name = new char[strlen(areaName) + 1];
 		strcpy(name, areaName);
-		LogMsg(name);
+		LogMsg("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
 		Area* a = f->create(new String(name), pageX, pageY, pageZ);
@@ -158,13 +267,14 @@ namespace se_core {
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[ i ]->reset();
 		}
+		/*
 		if(active()) {
 			active()->setActive(false);
 			active()->resetCollisionGrid();
 			if(collisionGrid_)
 				collisionGrid_->clear();
 		}
-		active_ = 0;
+		*/
 	}
 
 
@@ -173,20 +283,29 @@ namespace se_core {
 		resetThings();
 
 		for(int i = 0; i < areaCount_; ++i) {
-			//MultiSimObject& mbo = areas_[ i ]->allThings();
+			// TODO: release through factory
 			delete areas_[ i ];
 		}
+
+		for(int i = 0; i < factoryCount_; ++i) {
+			delete factories_[i];
+		}
+		factoryCount_ = 0;
+
 		areaCount_ = 0;
-		delete collisionGrid_;
-		collisionGrid_ = 0;
+		for(int i = 0; i < gridCount_; ++i) {
+			delete collisionGrids_[i];
+		}
 	}
 
 
 	CollisionGrid* AreaManager
-	::collisionGrid() {
+	::grabCollisionGrid() {
 		// Create grid object if necessary
 		coor_tile_t maxWidth = 1, maxHeight = 1;
-		if(!collisionGrid_) {
+		if(!gridPoolCount_) {
+			Assert(gridCount_ < MAX_ACTIVE);
+
 			for(int i = 0; i < areaCount_; ++i) {
 				coor_tile_t xs = areas_[i]->width();
 				coor_tile_t zs = areas_[i]->height();
@@ -197,9 +316,12 @@ namespace se_core {
 			while((1 << (d + 1)) < maxWidth / 4 && (1 << (d + 1)) < maxHeight / 4)
 				++d;
 
-			collisionGrid_ = new CollisionGrid(maxWidth, maxHeight, d);
+			CollisionGrid* g = new CollisionGrid(maxWidth, maxHeight, d);
+			gridPool_[ gridPoolCount_++ ] = g;
+			collisionGrids_[ gridCount_++ ] = g;
 		}
-		return collisionGrid_;
+
+		return gridPool_[ --gridPoolCount_ ];
 	}
 
 
@@ -210,4 +332,21 @@ namespace se_core {
 			printf("%d - %s\n", areas_[i]->id(), areas_[i]->name());
 		}
 	}
+
+
+	void AreaManager
+	::integrity() {
+		for(int i = 0; i < activeCount_; ++i) {
+			Assert(active_[i]->collisionGrid_);
+		}
+		for(int i = 0; i < activeCount_ - 1; ++i) {
+			for(int j = i + 1; j < activeCount_; ++j) {
+				if(active_[i] == active_[j]) {
+					LogFatal(i << " == " << j);
+				}
+			}
+		}
+	}
+
+
 }
