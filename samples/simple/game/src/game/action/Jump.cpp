@@ -42,10 +42,10 @@ namespace game {
 	void Jump
 	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
 		// Can only jump if not in free air.
-		if(!performer.pos().hasOwnHeight()) {
+		if(!performer.pos().isGrounded()) {
 			// Set upwards speed
 			performer.nextMove().force_.y_ += COOR_RES;
-			performer.nextPos().setNoLayer();
+			performer.nextPos().setGrounded(false);
 		}
 	}
 

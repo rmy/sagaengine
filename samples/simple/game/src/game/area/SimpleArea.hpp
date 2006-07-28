@@ -37,7 +37,7 @@ namespace game {
 		SimpleArea(se_core::String* name, coor_tile_t w, coor_tile_t h);
 		virtual ~SimpleArea();
 
-		void updateIndex(se_core::Pos&) const {}
+		void updateIndex(const se_core::Coor&, se_core::Pos&) const {}
 		coor_t groundHeight(const se_core::Coor& coor, short index = 0) const;
 		void force(const se_core::Coor& coor, se_core::Force& dest) const;
 
