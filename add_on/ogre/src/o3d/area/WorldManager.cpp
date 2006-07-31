@@ -84,7 +84,7 @@ namespace se_ogre {
 			O3dSchema::sceneManager->setWorldGeometry(Ogre::String(areaType));
 		}
 		catch(...) {
-			//LogMsg("Couldn't load geometry for area");
+			LogMsg("Couldn't load geometry for area");
 
 			for(short relZ = -AREA_RANGE; relZ <= AREA_RANGE; ++relZ) {
 				for(short relX = -AREA_RANGE; relX <= AREA_RANGE; ++relX) {
@@ -179,13 +179,13 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingEnteredActiveZoneEvent(se_core::Thing& thing) {
+		LogMsg("Thing entered active zone: " << thing.name());
 		if(!hasMesh(thing)) {
 			return;
 		}
 
 		// 
 		int index = findArea(thing.nextPos().area()->id());
-		LogMsg(thing.name() << ": " << index);
 		if(index < 0) return;
 
 		// Add thing
@@ -195,26 +195,21 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingLeftActiveZoneEvent(se_core::Thing& thing) {
-		LogMsg(thing.name());
+		LogMsg("Thing left active zone: " << thing.name());
 		if(!hasMesh(thing)) {
 			return;
 		}
 
 		// Remove thing
-		WasHere();
 		int index = findArea(thing.pos().area()->id());
-		LogMsg(index);
 		if(index < 0) return;
-		WasHere();
 
 		ThingEntityList::iterator_type it = areas_[index].firstThingEntity;
 		while(it != ThingEntityList::NULL_NODE) {
-			WasHere();
 			ThingEntity* te = O3dSchema::thingEntityList.next(it);
 			if(te->hasThing(thing)) {
 				O3dSchema::thingEntityList.remove(*te, areas_[index].firstThingEntity);
 				delete te;
-				WasHere();
 				break;
 			}
 		}
@@ -234,8 +229,6 @@ namespace se_ogre {
 		int nextIndex = -1;
 		if(thing.nextPos().hasArea())
 			nextIndex = findArea(thing.nextPos().area()->id());
-
-		//LogMsg(thing.name() << ": " << index << ", " << nextIndex);
 
 		ThingEntityList::iterator_type it = areas_[index].firstThingEntity;
 		while(it != ThingEntityList::NULL_NODE) {

@@ -38,12 +38,14 @@ namespace se_core {
 	bool ThingCollide
 	::isGuilty(Actor& pusher, Thing& target) const {
 		// Is this thing's movement bringing it closer, or farther away?
-		coor_double_t beforeDistance = pusher.pos().coor().xzDistanceSquared(target.pos().coor());
-		coor_double_t distanceWithPusherMoving = pusher.nextPos().coor().xzDistanceSquared(target.pos().coor());
+		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
+		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		if(distanceWithPusherMoving > beforeDistance) {
+			LogMsg("Not guilty: " << pusher.name());
 			// Not closer, any collision is not caused by this thing
 			return false;
 		}
+		LogMsg("Guilty: " << pusher.name());
 		return true;
 	}
 

@@ -82,7 +82,7 @@ namespace se_core {
 		/**
 		 * Some area types maintain an index with positions.
 		 */
-		virtual void updateIndex(const Coor& worldCoor, Pos& dest) const = 0;
+		virtual short index(const Coor& wc, short oldIndex = -1) const = 0;
 
 		/**
 		 * Sets the grid used to speed up the collisions detection.
@@ -145,6 +145,14 @@ namespace se_core {
 			return (x >= 0 && y >= 0 && x < width_ && y < height_);
 		}
 
+		bool isLegalCoor(const Coor& worldCoor) const {
+			return (worldCoor.x_ >= nextPosition_.coor_.x_
+					&& worldCoor.z_ >= nextPosition_.coor_.z_
+					&& worldCoor.xTile() < nextPosition_.coor_.xTile() + width_
+					&& worldCoor.zTile() < nextPosition_.coor_.zTile() + height_);
+
+		}
+
 		virtual short terrainStyle(const Coor& coor, short index = -1) const = 0;
 		virtual short nextTerrainStyle(bray_t direction, const Coor& coor) = 0;
 		static inline long tsMask(short ts) { return (1L << ts); }
@@ -166,6 +174,8 @@ namespace se_core {
 		 * @param relY
 		 */
 		Area* neighbour(short relX, short relY, short relZ);
+
+		Area* neighbour(const Coor& worldCoor);
 
 		/**
 		 * Check if the area passed in is a neighbour, and if so,
@@ -190,7 +200,7 @@ namespace se_core {
 		 * the new nextPos(). This new nextPos() should
 		 * later be tested for collisions and may be reverted.
 		 */
-		int performPhysics(Actor** movers);
+		//int performPhysics(Actor** movers);
 		int performChildPhysics(Actor** movers);
 
 

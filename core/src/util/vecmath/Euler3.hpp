@@ -240,6 +240,10 @@ namespace se_core {
 			add(a1);
 		}
 
+		inline void rotateInverse(const Euler3& a1) {
+			sub(a1);
+		}
+
 		/**
 		 * Sets the value of this angle to the vector difference of angle a1 and a2 (this = a1 - a2).
 		 * @param a1 the first angle
@@ -266,18 +270,28 @@ namespace se_core {
 		 * @param a1 the source vector
 		 */
 		void invert(const Euler3& a1) {
+			yaw_ = BrayT::negate(a1.yaw_);
+			yaw_ = BrayT::negate(a1.pitch_);
+			yaw_ = BrayT::negate(a1.roll_);
+			/*
 			yaw_ = (a1.yaw_ + BrayT::DEG180) & BRAY_MASK;
 			pitch_ = (a1.pitch_ + BrayT::DEG180) & BRAY_MASK;
 			roll_ = (a1.roll_ + BrayT::DEG180) & BRAY_MASK;
+			*/
 		}
 
 		/**
 		 * Negates the value of this vector in place.
 		 */
 		void invert() {
+			yaw_ = BrayT::negate(yaw_);
+			yaw_ = BrayT::negate(pitch_);
+			yaw_ = BrayT::negate(roll_);
+			/*
 			yaw_ = (yaw_ + BrayT::DEG180) & BRAY_MASK;
 			pitch_ = (pitch_ + BrayT::DEG180) & BRAY_MASK;
 			roll_ = (roll_ + BrayT::DEG180) & BRAY_MASK;
+			*/
 		}
 
 

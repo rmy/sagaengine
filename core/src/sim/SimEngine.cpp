@@ -190,7 +190,7 @@ namespace se_core {
 		moverCount_ = 0;
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			Area* area = SimSchema::areaManager.active(i);
-			int c = area->performChildPhysics(movers_);
+			int c = area->performChildPhysics(m);
 			m += c;
 			moverCount_ += c;
 		}

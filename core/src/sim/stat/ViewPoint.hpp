@@ -86,6 +86,19 @@ namespace se_core {
 			face_.interpolate(vp.face_, alpha);
 		}
 
+
+		void add(const ViewPoint& other) {
+			coor_.rotate(other.face_);
+			coor_.add(other.coor_);
+			face_.rotate(other.face_);
+		}
+
+		void sub(const ViewPoint& other) {
+			coor_.sub(other.coor_);
+			coor_.rotateInverse(other.face_);
+			face_.rotateInverse(other.face_);
+		}
+
 		/**
 		 * Set the new face direction.
 		 * The new face direction is cached in a special variable that will

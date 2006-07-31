@@ -40,34 +40,29 @@ namespace se_ogre {
 			  , scale_(WORLD_SCALE), meshOut_(20.0), billboardIn_(0)
 			  , thing_(&thing), prevAnim_(0), isEntityVisible_(false) {
 
-		// This ThingEntity is created while new area is
-		// is still nextPos(). (Not yet flipped over to pos())
-		pageDeltaX_ = (thing.nextPos().area()->pageX() - PAGE_DELTA) * 256.0f * WORLD_SCALE;
-		pageDeltaZ_ = (thing.nextPos().area()->pageZ() - PAGE_DELTA) * 256.0f * WORLD_SCALE;
-
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
 
 		// Find which mesh this thing should use
 		short index = O3dSchema::meshOfThing.index(thing_->name());
-		//LogMsg(index << ": " << thing_->name());
 		Assert(index >= 0);
-		const char* mesh = O3dSchema::meshOfThing.mesh(index);
+		const char* factory = O3dSchema::meshOfThing.factory(index);
+		Ogre::NameValuePairList* params = O3dSchema::meshOfThing.params(index);
 
 		// Get the scale of the mesh when used for this thing
-		scale_ = O3dSchema::meshOfThing.scale(index) * WORLD_SCALE;
+		scale_ = O3dSchema::meshOfThing.scale(index);
 		meshOut_ = O3dSchema::meshOfThing.meshOut(index);
 		billboardIn_ = O3dSchema::meshOfThing.billboardIn(index);
-		// If scale is 0, use radius as scale
+
+		// Should thing be scaled by radius?
 		doScaleByRadius_ = O3dSchema::meshOfThing.doScaleByRadius(index);
 
 		// Create a unique entity name
 		char name[128];
 		sprintf(name, "%d-%s", thing_->id(), thing_->name());
-		//LogMsg(name);
 
 		// Create and setentity
-		setEntity(name, mesh, scale_);
+		setEntity(name, factory, params, scale_);
 
 		// Get and set animation associated with this thing
 		short animId = anim();
@@ -96,13 +91,6 @@ namespace se_ogre {
 	}
 
 
-	short ThingEntity
-	::anim() {
-		return thing_->anim().movementMode();
-		//TODO: return anim();
-		//return 0;
-	}
-
 	ThingEntity
 	::~ThingEntity() {
 		if(node_) {
@@ -112,7 +100,7 @@ namespace se_ogre {
 				state_ = 0;
 				entity_ = 0;
 			}
-			if(movableObject_) {
+			else if(movableObject_) {
 				O3dSchema::sceneManager->destroyMovableObject(movableObject_);
 				movableObject_ = 0;
 			}
@@ -123,12 +111,17 @@ namespace se_ogre {
 				billboard_ = 0;
 			}
 
-
 			node_->removeAndDestroyAllChildren();
 			O3dSchema::sceneManager->destroySceneNode(node_->getName());
 
 			node_ = 0;
 		}
+	}
+
+
+	short ThingEntity
+	::anim() {
+		return thing_->anim().movementMode();
 	}
 
 
@@ -150,9 +143,9 @@ namespace se_ogre {
 		///////
 		Ogre::Vector3 nextPos
 			(
-			 CoorT::toFloat(thing_->nextPos().coor().x_) * WORLD_SCALE + pageDeltaX_,
-			 CoorT::toFloat(thing_->nextPos().coor().y_) * WORLD_SCALE_Y,
-			 CoorT::toFloat(thing_->nextPos().coor().z_) * WORLD_SCALE + pageDeltaZ_
+			 CoorT::toFloat(thing_->nextPos().coor().x_),
+			 CoorT::toFloat(thing_->nextPos().coor().y_),
+			 CoorT::toFloat(thing_->nextPos().coor().z_)
 			 );
 
 		Ogre::Real scale = scale_;
@@ -188,29 +181,19 @@ namespace se_ogre {
 
 
 	void ThingEntity
-	::setEntity(const char* name, const char* mesh, float scale) {
+	::setEntity(const char* name, const char* factory, Ogre::NameValuePairList* params, float scale) {
 		// Set the mesh
-		if(mesh) {
-			if(endsWith(mesh, ".mesh")) {
-				entity_ = O3dSchema::sceneManager->createEntity(name, mesh);
-				entity_->setNormaliseNormals(true);
-				entity_->setCastShadows(true);
-				node_->attachObject(entity_);
+		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, factory, params);
+		node_->attachObject(movableObject_);
 
-			}
-			#ifdef SPEEDTREE
-			if(endsWith(mesh, ".spt")) {
-				Ogre::NameValuePairList params;
-				params["mesh"] = mesh;
-				movableObject_ = O3dSchema::sceneManager->createMovableObject(name, "SpeedTreeEntity", &params);
-				node_->attachObject(movableObject_);
-			}
-			#endif
+		if(strcmp(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str(), factory) == 0) {
+			entity_ = static_cast<Ogre::Entity*>(movableObject_);
+			entity_->setNormaliseNormals(true);
+			entity_->setCastShadows(true);
 		}
 
 		// Scale all children of this node
 		node_->setScale(scale, scale, scale);
-
 
 		// Move to initial position
 		move(0, 0);

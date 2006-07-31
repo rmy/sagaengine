@@ -197,7 +197,7 @@ namespace se_core {
 			if(isActive_) {
 				// TODO: Should use speed + radius
 				coor_t speedAndRadius = thing.nextPos().radius() + COOR_RES;
-				collisionGrid_->insert(thing.nextPos().coor_, speedAndRadius, thing);
+				collisionGrid_->insert(thing.nextPos().worldCoor(), speedAndRadius, thing);
 			}
 			multiSimObjects_[ MGOA_PUSHABLE_THINGS ].add(thing);
 		}
@@ -218,7 +218,7 @@ namespace se_core {
 			// TODO: Should use speed + radius
 			coor_t speedAndRadius = thing.pos().radius() + COOR_RES;
 			//bool didDelete =
-			collisionGrid_->remove(thing.pos().coor_, speedAndRadius, thing);
+			collisionGrid_->remove(thing.pos().worldCoor(), speedAndRadius, thing);
 			//LogMsg(thing.name());
 			// TODO: This assert fails?
 			//DbgAssert(didDelete);
@@ -299,12 +299,15 @@ namespace se_core {
 		// this areas coordinate system
 		collisionGrid_->setSize(width_, height_);
 
+		collisionGrid_->setOffset(position_.world_.coor_);
+
 		// Add moving elements to grid
 		SimObjectList::iterator_type it = allThings_->iterator();
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(t->isCollideable()) {
-				collisionGrid_->insert(t->nextPos().coor(), t->nextPos().radius(), *t);
+				LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
+				collisionGrid_->insert(t->nextPos().worldCoor(), t->nextPos().radius(), *t);
 			}
 		}
 	}
@@ -442,6 +445,28 @@ namespace se_core {
 	}
 
 
+	Area* Area
+	::neighbour(const Coor& worldCoor) {
+		coor_t x = worldCoor.x_ - nextPos().worldCoor().x_;
+		coor_t y = worldCoor.y_ - nextPos().worldCoor().y_;
+		coor_t z = worldCoor.z_ - nextPos().worldCoor().z_;
+
+		int relX = 0;
+		if(x < 0) relX = -1;
+		if(CoorT::tile(x) >= width()) relX = 1;
+
+		int relY = 0;
+		//if(y < 0) relY = -1;
+		//if(CoorT::tile(y) >= width()) relY = 1;
+	
+		int relZ = 0;
+		if(z < 0) relZ = -1;
+		if(CoorT::tile(z) >= height()) relZ = 1;
+	
+		return neighbour(relX, relY, relZ);
+	}
+
+
 	inline bool _testActor2ThingCollision(Actor& actor1,
 							  Thing& thing2) {
 		// How close must the things be before colliding?
@@ -452,8 +477,8 @@ namespace se_core {
 
 		// If not colliding when taking the movement of both things
 		// into account, then no collision
-		if((actor1.nextPos().coor_.xzDistanceSquared(thing2.nextPos().coor_) > radSumSq)
-				|| (actor1.nextPos().coor_.yDistance(thing2.nextPos().coor_) > radSum)
+		if((actor1.nextPos().worldCoor().xzDistanceSquared(thing2.nextPos().worldCoor()) > radSumSq)
+				|| (actor1.nextPos().worldCoor().yDistance(thing2.nextPos().worldCoor()) > radSum)
 				) {
 			return false;
 		}
@@ -475,7 +500,7 @@ namespace se_core {
 			Actor* a = movers_[ outer ];
 
 			short innerCount = collisionGrid_->collisionCandidates
-				(a->nextPos().coor(), a->pos().radius(), things, MAX_THINGS - 1);
+				(a->nextPos().worldCoor(), a->nextPos().radius() + COOR_RES, things, MAX_THINGS - 1);
 
 			// Test collision with all collision candidates
 			for(int inner = 0; inner < innerCount; ++inner) {
@@ -487,6 +512,7 @@ namespace se_core {
 				// Test for collision
 				if(_testActor2ThingCollision(*a, *things[ inner ])) {
 					a->resetFutureCoor();
+					//LogMsg("Collision: " << a->name() << ", " << things[ inner ]->name());
 					break;
 				}
 			}
@@ -500,8 +526,6 @@ namespace se_core {
 		static const int MAX_STACK_DEPTH = 10;
 		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
 
-		Coor wc;
-		Coor nextWC;
 		Thing* t;
 
 		int sp = 0;
@@ -527,12 +551,12 @@ namespace se_core {
 				// TODO: Real speed instead of max speed...
 				static const coor_t speed = COOR_RES;
 				coor_t speedAndRadius = p->pos().radius() + speed;
-				p->childCoor(wc, this);
+				const Coor& wc = pos().world_.coor_;
 
 				// TODO: Real speed instead of max speed...
 				static const coor_t nextSpeed =  COOR_RES;
 				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				p->nextChildCoor(nextWC, this);
+				const Coor& nextWC = nextPos().world_.coor_;
 
 				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
 			}
@@ -580,8 +604,6 @@ namespace se_core {
 		static const int MAX_STACK_DEPTH = 10;
 		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
 
-		int movedDepth = 0;
-
 		int sp = 0;
 		itStack[ 0 ] = childPosNodes().iterator();
 		if(itStack[ 0 ] == SimObjectList::NULL_NODE)
@@ -608,11 +630,6 @@ namespace se_core {
 			if(a->calcNextCoor()) {
 				// Add to movers
 				movers[moverCount_++] = a;
-				movedDepth = sp;
-			}
-			else if(movedDepth) {
-				// Everything below a moving node is moving as well
-				movers[moverCount_++] = a;
 			}
 
 
@@ -627,10 +644,6 @@ namespace se_core {
 				--sp;
 			}
 
-			// Did we just move above the deepest moving node?
-			if(movedDepth < sp)
-				movedDepth = 0;
-
 			// Continue if there are still incomplete chains
 		} while(sp >= 0);
 
@@ -638,7 +651,7 @@ namespace se_core {
 	}
 
 
-
+	/*
 	int Area
 	::performPhysics(Actor** movers) {
 		int moverCount = 0;
@@ -666,12 +679,13 @@ namespace se_core {
 				// Add to movers
 				movers[moverCount++] = a;
 			}
-			movers[moverCount++] = a;
+			//movers[moverCount++] = a;
 		}
 
 		// Return number of movers
 		return moverCount;
 	}
+	*/
 
 
 	Thing* Area
@@ -692,9 +706,8 @@ namespace se_core {
 		}
 
 		// Initial index, if area type is using it
-		static Coor wc;
-		thing->nextChildCoor(wc, this);
-		updateIndex(wc, thing->nextPos());
+		thing->nextPos().updateWorldViewPoint();
+		thing->nextPos().setIndex( index(thing->nextPos().world_.coor_) );
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);

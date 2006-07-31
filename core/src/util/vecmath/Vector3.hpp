@@ -136,9 +136,11 @@ namespace se_core {
 
 		void rotate(const Quat4& q);
 		void rotate(const Vector3& v, const Quat4& q);
+		void rotateInverse(const Quat4& q);
 
 		void rotate(const Euler3& a);
 		void rotate(const Vector3& v, const Euler3& a);
+		void rotateInverse(const Euler3& a);
 
 		void setForward(const coor_t len, const bray_t yaw);
 		void setForward(const coor_t len, const bray_t yaw, const bray_t pitch);

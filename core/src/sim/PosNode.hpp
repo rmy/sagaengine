@@ -80,6 +80,21 @@ namespace se_core {
 			return anim_;
 		}
 
+		bool didMove() const {
+			return didMove_;
+		}
+
+		/**
+		 * Reset the next coordinate.
+		 * Sets the next coordinate to be the same as the present one.
+		 */
+		inline void resetFutureCoor() { didMove_ = false; nextPos().setPos(position_); }
+
+		inline void resetFutureXZCoor() {
+			// Revert back to original area if necessary
+			nextPosition_.setXZ(position_);
+		}
+
 
 		/** Returns false, signifying that a PosNode is not a mover.
 		 *
@@ -130,7 +145,7 @@ namespace se_core {
 		 */
 		void flip();
 
-		PosNode *parent() {
+		const PosNode *parent() const {
 			return position_.parent();
 		}
 
@@ -163,20 +178,26 @@ namespace se_core {
 			return childPosNodes_;
 		}
 
+
 		/** World coor interpolated between now and next.
 		 */
+		void updateWorldViewPoint();
+		void calcWorldViewPoint(ViewPoint& dest) const;
+
 		void worldCoor(scale_t alpha, Coor& dest) const;
+		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
+		/*
 		void worldCoor(Coor& dest) const;
 		void nextWorldCoor(Coor& dest) const;
 
-		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
 		void worldViewPoint(ViewPoint& dest) const;
 		void nextWorldViewPoint(ViewPoint& dest) const;
 
-		void childViewPoint(ViewPoint& dest, PosNode* stopAtParent = 0) const;
-		void nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent = 0) const;
-		void childCoor(Coor& dest, PosNode* stopAtParent = 0) const;
-		void nextChildCoor(Coor& dest, PosNode* stopAtParent = 0) const;
+		void childViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
+		void nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
+		void childCoor(Coor& dest, PosNode* stopAtParent) const;
+		void nextChildCoor(Coor& dest, PosNode* stopAtParent) const;
+		*/
 
 		void setSpawnPoints(int count, const SpawnPoint* const* spawnPoints);
 		const SpawnPoint* spawnPoint(short id) const;
@@ -185,6 +206,7 @@ namespace se_core {
 		/** Position and volume info for the thing. */
 		Pos position_, nextPosition_;
 		Anim anim_, nextAnim_;
+		bool didMove_;
 		bool isCollideable_;
 		MultiSimObject childPosNodes_;
 

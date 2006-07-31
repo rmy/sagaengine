@@ -175,7 +175,7 @@ namespace se_core {
 		}
 
 		inline static bray_t negate(bray_t b) {
-			return (DEG360 - b);
+			return mask(DEG360 - b);
 		}
 
 	};

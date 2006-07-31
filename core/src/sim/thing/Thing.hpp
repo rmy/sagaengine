@@ -70,10 +70,6 @@ namespace se_core {
 			return (type == got_THING);
 		}
 
-		bool didMove() const {
-			return didMove_;
-		}
-
 
 		/** Returns pointer to the spawner of a thing, or null for no spawner.
 		 *
@@ -155,7 +151,6 @@ namespace se_core {
 		bool isPickable_;
 		bool isCollideable_;
 		bool isDead_;
-		bool didMove_;
 
 	public:
 		DebugExec(static int refCount);

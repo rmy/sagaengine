@@ -259,7 +259,8 @@ namespace se_ogre {
 	}
 
 
-	/** Configures the application - returns false if the user chooses to abandon configuration. */
+	/** Configures the application - returns false if the user chooses
+	 * to abandon configuration. */
 	bool RenderEngine
 	::configure(void) {
 		// Show the configuration dialog and initialise the system

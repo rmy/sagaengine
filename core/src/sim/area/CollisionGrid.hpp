@@ -55,6 +55,8 @@ namespace se_core {
 		 */
 		void setSize(int width, int height);
 
+		void setOffset(const Coor& c);
+
 		/**
 		 * How wide a the node array is at a given
 		 * level. Level 0 is an 1x1 array, level 1
@@ -152,6 +154,9 @@ namespace se_core {
 			return value << shift;
 			//return value * (1L << shift);
 		}
+
+		/// Tile offset of collsision grid
+		coor_tile_t xOffset_, zOffset_;
 
 		/// A node has the same size in both directions (infinite height)
 		coor_tile_t rootNodeSize_;

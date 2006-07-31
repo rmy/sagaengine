@@ -58,18 +58,32 @@ namespace se_core {
 		 * Copy all values of original into this.
 		 */
 		void setPos(const Pos& original);
+		void setXZ(const Pos& original);
 
 
 		inline void setCoor(const Coor& original) {
 			coor_.set(original);
 		}
 
+		inline const Coor& worldCoor() const { return world_.coor_; }
+		inline Coor& worldCoor() { return world_.coor_; }
+		inline const ViewPoint& worldViewPoint() const { return world_; }
+		inline ViewPoint& worldViewPoint() { return world_; }
+
+		#ifdef SE_QUAT
+		const Quat4& worldFace() const { return world_.face_; }
+		Quat4& worldFace() { return world_.face_; }
+		#else
+		const Euler3& worldFace() const { return world_.face_; }
+		Euler3& worldFace() { return world_.face_; }
+		#endif
+
 
 
 		/**
 		 * Area.
 		 */
-		void setArea(Area& area);
+		void setArea(Area& area, bool doKeepWorldCoor = false);
 		void setArea(Area& area, const Coor& c, const Quat4& q);
 		void setArea(Area& area, const Coor& c, const Euler3& a);
 
@@ -78,11 +92,21 @@ namespace se_core {
 		void resetArea();
 
 		void setParent(PosNode& p) { parent_ = &p; }
+		void setParent(PosNode& p, bool doKeepWorldCoor);
 		void resetParent();
 
 		bool hasParent() const { return parent_ != 0; }
+		bool didParentMove() const;
 		PosNode* parent() { return parent_; }
 		const PosNode* parent() const { return parent_; }
+
+		/**
+		 * Update the world_ viewpoint according to the 
+		 * parents nextPos(). The parents nextPos().world_
+		 * must already be updated.
+		 */
+		void updateWorldViewPoint();
+
 
 		/**
 		 * The area we are presently in.
@@ -228,6 +252,9 @@ namespace se_core {
 
 		/** The parent of this position */
 		PosNode* parent_;
+
+		/** The position in world coordinates */
+		ViewPoint world_;
 
 		/** The radius of the position in coor_t units. */
 		coor_t radius_;
