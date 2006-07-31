@@ -137,12 +137,24 @@ namespace se_core {
 	void Pos
 	::setPos(const Pos& original) {
 		setViewPoint(original);
+		world_.setViewPoint(original.world_);
 		area_ = original.area_;
 		parent_ = original.parent_;
 		index_ = original.index_;
 		isGrounded_ = original.isGrounded_;
 		radius_ = original.radius_;
 	}
+
+	void Pos
+	::setXZ(const Pos& original) {
+		// Revert coordinates in xz plane. (Can still fall.)
+		coor_.x_ = original.coor_.x_;
+		coor_.z_ = original.coor_.z_;
+		world_.coor_.x_ = original.world_.coor_.x_;
+		world_.coor_.z_ = original.world_.coor_.z_;
+		area_ = original.area_;
+	}
+
 
 
 	void Pos
@@ -151,12 +163,30 @@ namespace se_core {
 	}
 
 
+	bool Pos
+	::didParentMove() const {
+		return parent_ != 0 && parent_->didMove();
+	}
+
 	void Pos
-	::setArea(Area& area) {
+	::setParent(PosNode& p, bool doKeepWorldCoor) {
+		parent_ = &p;
+		if(!doKeepWorldCoor) {
+			return;
+		}
+
+		setViewPoint(world_);
+		sub(p.nextPos());
+	}
+
+
+	void Pos
+	::setArea(Area& area, bool doKeepWorldCoor) {
 		//LogMsg(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
-			parent_ = &area;
+			setParent(area, doKeepWorldCoor);
+			//parent_ = &area;
 		}
 		area_ = &area;
 	}
@@ -171,6 +201,7 @@ namespace se_core {
 		area_ = &area;
 		setCoor(c);
 		setFace(q);
+		updateWorldViewPoint();
 	}
 
 	void Pos
@@ -183,6 +214,7 @@ namespace se_core {
 		area_ = &area;
 		coor_.set(c);
 		face_.set(a);
+		updateWorldViewPoint();
 	}
 
 
@@ -194,6 +226,7 @@ namespace se_core {
 		}
 		area_ = &area;
 		setViewPoint(vp);
+		updateWorldViewPoint();
 	}
 
 
@@ -205,6 +238,7 @@ namespace se_core {
 		}
 		area_ = &area;
 		setViewPoint(sp);
+		updateWorldViewPoint();
 	}
 
 
@@ -221,6 +255,15 @@ namespace se_core {
 	::freezeAtWorldViewPoint(const ViewPoint& vp) {
 		parent_ = 0;
 		setViewPoint(vp);
+	}
+
+	void Pos
+	::updateWorldViewPoint() {
+		world_.setViewPoint(*this);
+		if(hasParent()) {
+			// Parent should already have updated their worldViewPoint
+			world_.add( parent()->nextPos().world_ );
+		}
 	}
 
 	/*

@@ -244,7 +244,8 @@ namespace se_core {
 			physics().calcNext(*this, pos(), nextPos(), nextAnim(), nextMove());
 
 			// Any change in render position?
-			didMove_ = !nextPos().viewPointEquals(position_);
+			didMove_ = nextPos().didParentMove() || !nextPos().viewPointEquals(position_);
+			if(didMove_) { updateWorldViewPoint(); }
 			return didMove_;
 		}
 
@@ -327,12 +328,6 @@ namespace se_core {
 	protected:
 		friend class SimEngine;
 		friend class Area;
-
-		/**
-		 * Reset the next coordinate.
-		 * Sets the next coordinate to be the same as the present one.
-		 */
-		inline void resetFutureCoor() { didMove_ = false; nextPos().setPos(position_); }
 
 		bool isBlockedByTerrain() {
 			return physics().isBlocked(*this, pos(), nextPos());

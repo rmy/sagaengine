@@ -144,6 +144,10 @@ namespace se_core {
 			mul(q1);
 		}
 
+		inline void rotateInverse(const Quat4& q1) {
+			mulInverse(q1);
+		}
+
 
 		/**
 		 * Multiplies quaternion q1 by the inverse of quaternion q2 and places

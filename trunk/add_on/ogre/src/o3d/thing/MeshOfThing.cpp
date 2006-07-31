@@ -34,7 +34,8 @@ namespace se_ogre {
 		while(meshCount_ > 0) {
 			--meshCount_;
 			delete thingNames_[ meshCount_ ];
-			delete meshes_[ meshCount_ ];
+			delete factories_[ meshCount_ ];
+			delete params_[ meshCount_ ];
 			for(int i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
 				delete animations_[ meshCount_ ][ i ];
 				delete materials_[ meshCount_ ][ i ];
@@ -47,7 +48,8 @@ namespace se_ogre {
 
 	void MeshOfThing
 	::add(String* thingName
-		  , String* meshName
+		  , se_core::String* factoryName
+		  , Ogre::NameValuePairList* params
 		  , String* defaultMaterialName
 		  , bool doScaleByRadius
 		  , float scale
@@ -58,10 +60,11 @@ namespace se_ogre {
 		  , float billboardIn) {
 		Assert(meshCount_ < MAX_MESH_COUNT);
 		Assert(thingName);
-		Assert(meshName);
+		Assert(factoryName);
 		// TODO: Should sort...
 		thingNames_[ meshCount_ ] = thingName;
-		meshes_[ meshCount_ ] = meshName;
+		factories_[ meshCount_ ] = factoryName;
+		params_[ meshCount_ ] = params;
 		defaultMaterials_[ meshCount_ ] = defaultMaterialName;
 		scales_[ meshCount_ ] = scale;
 		doScaleByRadius_[ meshCount_ ] = doScaleByRadius;
@@ -86,11 +89,18 @@ namespace se_ogre {
 
 
 	const char* MeshOfThing
-	::mesh(short index) {
+	::factory(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		if(meshes_[index])
-			return meshes_[index]->get();
+		if(factories_[index])
+			return factories_[index]->get();
 		return 0;
+	}
+
+
+	Ogre::NameValuePairList* MeshOfThing
+	::params(short index) {
+		Assert(index >= 0 && index < meshCount_);
+		return params_[index];
 	}
 
 

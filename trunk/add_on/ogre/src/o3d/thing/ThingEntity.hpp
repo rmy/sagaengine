@@ -62,7 +62,8 @@ namespace se_ogre {
 		/**
 		 * Set the mesh entity.
 		 */
-		void setEntity(const char* name, const char* mesh, float scale);
+		//void setEntity(const char* name, const char* mesh, float scale);
+		void setEntity(const char* name, const char* factory, Ogre::NameValuePairList* params, float scale);
 
 		void setEntityVisible(bool state);
 
@@ -90,7 +91,6 @@ namespace se_ogre {
 		se_core::Thing* thing_;
 		//EntityMaterial* tempMaterial_;
 		short prevAnim_;
-		float pageDeltaX_, pageDeltaZ_;
 		bool isEntityVisible_;
 	};
 

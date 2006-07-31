@@ -50,6 +50,8 @@ namespace se_ogre {
 		WasHere();
 		String* name = 0;
 		String* mesh = 0;
+		String* factory = 0;
+		Ogre::NameValuePairList& params = *(new Ogre::NameValuePairList());
 		String* material = 0;
 		String** animations = new String*[ Anim::MOVEMENT_MODE_COUNT ];
 		float* animationSpeeds = new float[ Anim::MOVEMENT_MODE_COUNT ];
@@ -84,6 +86,22 @@ namespace se_ogre {
 
 			case 'R': // Scale is radius
 				doScaleByRadius = true;
+				break;
+
+			case 'O':
+				{
+					factory = new String();
+					in.readString(*factory);
+				}
+				break;
+
+			case 'P':
+				{
+					String n, v;
+					in.readString(n);
+					in.readString(v);
+					params[ n.get() ] = v.get();
+				}
 				break;
 
 			case 'A': // Animation
@@ -132,8 +150,13 @@ namespace se_ogre {
 		WasHere();
 
 		Assert(name);
-		Assert(mesh);
-		O3dSchema::meshOfThing.add(name, mesh, material, doScaleByRadius, scale, animations, animationSpeeds, materials, meshOut, billboardIn);
+		Assert(mesh || factory && !(mesh && factory) && "You must define exactly one of mesh name or factory");
+
+		if(mesh) {
+			factory = new String(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
+			params["mesh"] = mesh->get();
+		}
+		O3dSchema::meshOfThing.add(name, factory, &params, material, doScaleByRadius, scale, animations, animationSpeeds, materials, meshOut, billboardIn);
 	}
 
 }

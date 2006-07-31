@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef o3d_thing_MeshOfThing_hpp
 #define o3d_thing_MeshOfThing_hpp
 
+#include "O3dPre.H"
 #include "util/type/util_type.hpp"
 
 namespace se_ogre {
@@ -30,7 +31,8 @@ namespace se_ogre {
 		MeshOfThing() : meshCount_(0) {}
 		~MeshOfThing();
 		void add(se_core::String* thingName
-				 , se_core::String* meshName
+				 , se_core::String* factoryName
+				 , Ogre::NameValuePairList* params
 				 , se_core::String* defaultMaterialName
 				 , bool doScaleByRadius
 				 , float scale
@@ -40,7 +42,8 @@ namespace se_ogre {
 				 , float meshOut
 				 , float billboardIn);
 		short index(const char* thingName);
-		const char* mesh(short index);
+		const char* factory(short index);
+		Ogre::NameValuePairList* params(short index);
 		float scale(short index);
 		float billboardIn(short index);
 		float meshOut(short index);
@@ -53,7 +56,8 @@ namespace se_ogre {
 	private:
 		static const short MAX_MESH_COUNT = 100;
 		se_core::String* thingNames_[ MAX_MESH_COUNT ];
-		se_core::String* meshes_[ MAX_MESH_COUNT ];
+		se_core::String* factories_[ MAX_MESH_COUNT ];
+		Ogre::NameValuePairList* params_ [ MAX_MESH_COUNT ];
 		se_core::String* defaultMaterials_[ MAX_MESH_COUNT ];
 		float scales_[ MAX_MESH_COUNT ];
 		float meshOut_[ MAX_MESH_COUNT ];
@@ -62,7 +66,10 @@ namespace se_ogre {
 		se_core::String** animations_[ MAX_MESH_COUNT ];
 		float* animationSpeeds_[ MAX_MESH_COUNT ];
 		se_core::String** materials_[ MAX_MESH_COUNT ];
+
+		
 		short meshCount_;
+
 	};
 }
 

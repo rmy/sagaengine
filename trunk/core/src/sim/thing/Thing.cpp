@@ -41,7 +41,7 @@ namespace se_core {
 	Thing
 	::Thing(const char* name)
 			: PosNode(got_THING, name), spawner_(0)
-			  , isPickable_(false), isCollideable_(false), isDead_(false), didMove_(false) {
+			  , isPickable_(false), isCollideable_(false), isDead_(false) {
 		DebugExec(++refCount);
 	}
 
@@ -49,7 +49,7 @@ namespace se_core {
 	Thing
 	::Thing(enum SimObjectType type, const char* name)
 			: PosNode(type, name), spawner_(0)
-			  , isPickable_(false), isCollideable_(false), isDead_(false), didMove_(false) {
+			  , isPickable_(false), isCollideable_(false), isDead_(false) {
 		DebugExec(++refCount);
 	}
 

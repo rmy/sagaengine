@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 	CollisionGrid
 	::CollisionGrid(coor_tile_t width, coor_tile_t height, short depth)
-			: depth_(depth) {
+			: xOffset_(0), zOffset_(0), depth_(depth) {
 
 		// root node size is whichever is greatest of width and height
 		rootNodeSize_ = (width > height) ? width : height;
@@ -85,15 +85,27 @@ namespace se_core {
 
 
 	void CollisionGrid
+	::setOffset(const Coor& c) {
+		xOffset_ = c.xTile();
+		zOffset_ = c.zTile();
+	}
+
+
+	void CollisionGrid
 	::insert(const Coor& c, coor_t size, Thing& thing) {
-		const coor_tile_t x = c.xTile();
-		const coor_tile_t z = c.zTile();
+		const coor_tile_t x = c.xTile() - xOffset_;
+		const coor_tile_t z = c.zTile() - zOffset_;
+		short level = calcLevel(CoorT::tile(size) + 1);
+
+		if(indexAtLevel(x, z, level) < 0) LogFatal(thing.name());
+		if(indexAtLevel(x, z, level) >= totalNodeCount_) LogFatal(thing.name());
+		if(x < 0 || x >= rootNodeSize_) LogFatal(thing.name());
+		if(z < 0 || z >= rootNodeSize_) LogFatal(thing.name()); 
 
 		Assert(x < rootNodeSize_);
 		Assert(z < rootNodeSize_);
 
 		// Find the right level
-		short level = calcLevel(CoorT::tile(size) + 1);
 
 		// Reference to first element pointer. Element pointer may change.
 		Assert(indexAtLevel(x, z, level) >= 0);
@@ -121,8 +133,8 @@ namespace se_core {
 
 	bool CollisionGrid
 	::remove(const Coor& c, coor_t size, Thing& thing) {
-		const coor_tile_t x = c.xTile();
-		const coor_tile_t z = c.zTile();
+		const coor_tile_t x = c.xTile() - xOffset_;
+		const coor_tile_t z = c.zTile() - zOffset_;
 
 		// Find the right level
 		short level = calcLevel(CoorT::tile(size) + 1);
@@ -146,9 +158,9 @@ namespace se_core {
 		coor_tile_t ns = CoorT::tile(newSize) + 1;
 
 		int oldLevel = calcLevel(os);
-		int oldIndex = indexAtLevel(from.xTile(), from.zTile(), oldLevel);
+		int oldIndex = indexAtLevel(from.xTile() - xOffset_, from.zTile() - zOffset_, oldLevel);
 		int newLevel = (os != ns) ? calcLevel(ns) : oldLevel;
-		int newIndex = indexAtLevel(to.xTile(), to.zTile(), newLevel);
+		int newIndex = indexAtLevel(to.xTile() - xOffset_, to.zTile() - zOffset_, newLevel);
 
 		// If still in same cell, don't move
 		if(oldLevel == newLevel && oldIndex == newIndex)
@@ -167,10 +179,10 @@ namespace se_core {
 	short CollisionGrid
 	::collisionCandidates(const Coor& c, coor_t size, Thing* things[], short max) {
 		// Calculate bounds to check inside
-		coor_tile_t xFrom = CoorT::tile(c.x_ - size);
-		coor_tile_t zFrom = CoorT::tile(c.z_ - size);
-		coor_tile_t xTo = CoorT::tile(c.x_ + size) + 1;
-		coor_tile_t zTo = CoorT::tile(c.z_ + size) + 1;
+		coor_tile_t xFrom = CoorT::tile(c.x_ - size) - xOffset_;
+		coor_tile_t zFrom = CoorT::tile(c.z_ - size) - zOffset_;
+		coor_tile_t xTo = CoorT::tile(c.x_ + size) + 1 - xOffset_;
+		coor_tile_t zTo = CoorT::tile(c.z_ + size) + 1 - zOffset_;
 
 		// Number of candidates in array
 		short count = 0;

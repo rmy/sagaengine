@@ -36,7 +36,10 @@ namespace se_core {
 	::collide(Actor& pusher, Thing& target) const {
 		if(target.spawner() == &pusher)
 			return false;
-		return isGuilty(pusher, target);
+		if(isGuilty(pusher, target)) {
+			return true;
+		}
+		return false;
 	}
 
 	const DefaultTC tcDefault;

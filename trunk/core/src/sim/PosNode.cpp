@@ -37,7 +37,8 @@ namespace se_core {
 	PosNode
 	::PosNode(enum SimObjectType type, const char* name)
 			: SimObject(type, name)
-			, isCollideable_(false) {
+			, isCollideable_(false)
+			, didMove_(false) {
 	}
 
 
@@ -116,7 +117,6 @@ namespace se_core {
 
 	void PosNode
 	::addChildPosNode(PosNode& node) {
-		// Only movers should be in the child pos tree.
 		// Static pos nodes should have the area as
 		// parent.
 		if(node.isMover()) {
@@ -130,9 +130,11 @@ namespace se_core {
 			// Might as well freeze their coordinates
 			// in world space, saving traversal overhead.
 
-			static ViewPoint vp;
-			nextWorldViewPoint(vp);
-			nextPos().freezeAtWorldViewPoint(vp);
+			LogFatal("Not implemented");
+			// CODE BELOW IS BUGGED! CALCULATES POS OF THIS INSTEAD OF CHILD
+			//static ViewPoint vp;
+			//nextWorldViewPoint(vp);
+			//nextPos().freezeAtWorldViewPoint(vp);
 		}
 	}
 
@@ -144,25 +146,61 @@ namespace se_core {
 
 
 	void PosNode
-	::worldCoor(scale_t alpha, Coor& dest) const {
-		worldCoor(dest);
-		static Coor np; // WARNING: Not thread safe.
-		nextWorldCoor(np);
-		dest.interpolate(np, alpha);
+	::updateWorldViewPoint() {
+		ViewPoint& dest = nextPosition_.world_;
+		dest.setViewPoint(nextPosition_);
+		if(nextPos().hasParent()) {
+			// Parent should already have updated their worldViewPoint
+			PosNode* p = nextPos().parent();
+			const ViewPoint& src = p->nextPos().worldViewPoint();
+			dest.coor_.rotate(src.face_);
+			dest.coor_.add(src.coor_);
+			dest.face_.rotate(src.face_);
+		}
 	}
 
 
 	void PosNode
-	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
-		worldViewPoint(dest);
-		static ViewPoint np; // WARNING: Not thread safe.
-		nextWorldViewPoint(np);
-
-		dest.coor_.interpolate(np.coor_, alpha);
-		dest.face_.interpolate(np.face_, alpha);
+	::calcWorldViewPoint(ViewPoint& dest) const {
+		dest.setViewPoint(nextPosition_);
+		if(nextPosition_.hasParent()) {
+			// Parent should already have updated their worldViewPoint
+			const PosNode* p = nextPosition_.parent();
+			const ViewPoint& src = p->nextPosition_.world_;
+			dest.coor_.rotate(src.face_);
+			dest.coor_.add(src.coor_);
+			dest.face_.rotate(src.face_);
+		}
 	}
 
 
+	void PosNode
+	::worldCoor(scale_t alpha, Coor& dest) const {
+		/*
+		worldCoor(dest);
+		static Coor np; // WARNING: Not thread safe.
+		nextWorldCoor(np);
+		dest.interpolate(np, alpha);
+		*/
+		dest.set(position_.world_.coor_);
+		dest.interpolate(nextPosition_.world_.coor_, alpha);
+	}
+
+
+
+	void PosNode
+	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
+		/*
+		worldViewPoint(dest);
+		static ViewPoint np; // WARNING: Not thread safe.
+		nextWorldViewPoint(np);
+		*/
+		dest.setViewPoint(position_.world_);
+		dest.coor_.interpolate(nextPosition_.world_.coor_, alpha);
+		dest.face_.interpolate(nextPosition_.world_.face_, alpha);
+	}
+
+	/*
 	void PosNode
 	::worldCoor(Coor& dest) const {
 		dest.set(position_.coor_);
@@ -267,6 +305,7 @@ namespace se_core {
 			node = node->nextPosition_.parent();
 		}
 	}
+	*/
 
 
 	void PosNode

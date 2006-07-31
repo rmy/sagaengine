@@ -256,8 +256,19 @@ namespace se_core {
 
 		const AreaFactory* f = factory(factoryName);
 		Area* a = f->create(new String(name), pageX, pageY, pageZ);
+
+		// Update world coordinate
+		a->updateWorldViewPoint();
+
+		// Make sure both nextPos() and pos() are good
+		a->flip();
+
+		// Needed for proper destruction
 		a->setFactory(f);
+
+		// Store it away
 		addArea(a);
+
 		return a;
 	}
 
