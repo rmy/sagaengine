@@ -1,8 +1,10 @@
 EX01
 P player.blue
 E level1a 0
-V
 /
 C control.camera
+E level1a 0
+V
+T
 /
 Q
