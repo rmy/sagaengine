@@ -1,6 +1,13 @@
-XO04
+XO02
 P player.blue
-R 0.6
+# Radius
+R 0.50
+# Bubbles
+E 0 T 0 0.9 0.5 R 180 0 0 /
+# Camera
+E 1 T 0 5 -5 R 180 35 0 /
 C default
+O
 P Simple
 Q
+
