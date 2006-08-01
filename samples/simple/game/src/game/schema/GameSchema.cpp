@@ -37,8 +37,6 @@ namespace game {
 		static SimpleAreaParserModule sAreaPM(IoSchema::parser());
 		static SimpleAreaThingParserModule sAreaThingPM(IoSchema::parser());
 		static SimpleActorParserModule sActorPM(IoSchema::parser());
-		static SimpleCameraParserModule sCameraPM(IoSchema::parser());
-		static SimplePlayerParserModule sPlayerPM(IoSchema::parser());
 
 		// Create and register physics objects
 		static const PhSimple phSimple;

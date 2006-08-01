@@ -85,17 +85,19 @@ namespace game {
 				factory->setCollideable(true);
 				break;
 
-			case 'E': // entrance
-				short id = in.readShort();
-				Assert(id < MAX_SPAWN_POINTS);
-				Assert(spawnPoints[id] == 0);
+			case 'E': 
+				{ // entrance
+					short id = in.readShort();
+					Assert(id < MAX_SPAWN_POINTS);
+					Assert(spawnPoints[id] == 0);
 
-				SpawnPoint* sp = new SpawnPoint();
-				readSpawnPoint(in, *sp);
+					SpawnPoint* sp = new SpawnPoint();
+					readSpawnPoint(in, *sp);
 
-				spawnPoints[id] = sp;
-				if(id >= spawnPointCount) {
-					spawnPointCount = id + 1;
+					spawnPoints[id] = sp;
+					if(id >= spawnPointCount) {
+						spawnPointCount = id + 1;
+					}
 				}
 				break;
 

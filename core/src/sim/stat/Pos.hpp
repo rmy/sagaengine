@@ -244,7 +244,7 @@ namespace se_core {
 		coor_world_t pageDistanceSquared(const Pos& p) const;
 
 
-		void freezeAtWorldViewPoint(const ViewPoint& vp);
+		void freezeAtWorldViewPoint();
 
 	public:
 		/** The area this position is inside */
