@@ -252,9 +252,10 @@ namespace se_core {
 
 
 	void Pos
-	::freezeAtWorldViewPoint(const ViewPoint& vp) {
+	::freezeAtWorldViewPoint() {
+		updateWorldViewPoint();
 		parent_ = 0;
-		setViewPoint(vp);
+		setViewPoint(world_);
 	}
 
 	void Pos

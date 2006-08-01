@@ -120,7 +120,7 @@ void DisplayContent(KFbxNode* pNode)
 			return;
 		}
 
-		fprintf(OUTFILE, "\nO %s\n", name.Mid(from + 2, to - from - 2).GetBuffer());
+		fprintf(OUTFILE, "\nA %s\n", name.Mid(from + 2, to - from - 2).GetBuffer());
 
 		//DisplayUserProperties(pNode);
 
@@ -167,10 +167,10 @@ void DisplayMyChannels(KFbxNode* pNode, KFbxTakeNode* pTakeNode)
 	DisplayMyCurve(lCurve);
 
 	fprintf(OUTFILE, "\n# rotate\nR ");
-	lCurve = pTakeNode->GetEulerRotationX();
+	lCurve = pTakeNode->GetEulerRotationY();
 	DisplayMyCurve(lCurve);
 
-	lCurve = pTakeNode->GetEulerRotationY();
+	lCurve = pTakeNode->GetEulerRotationX();
 	DisplayMyCurve(lCurve);
 
 	lCurve = pTakeNode->GetEulerRotationZ();

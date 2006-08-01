@@ -130,11 +130,11 @@ namespace se_core {
 			// Might as well freeze their coordinates
 			// in world space, saving traversal overhead.
 
-			LogFatal("Not implemented");
+			//LogFatal("Not implemented");
 			// CODE BELOW IS BUGGED! CALCULATES POS OF THIS INSTEAD OF CHILD
 			//static ViewPoint vp;
 			//nextWorldViewPoint(vp);
-			//nextPos().freezeAtWorldViewPoint(vp);
+			node.nextPos().freezeAtWorldViewPoint();
 		}
 	}
 

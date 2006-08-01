@@ -23,8 +23,6 @@ rune@skalden.com
 #define game_io_all_hpp
 
 #include "SimpleActorParserModule.hpp"
-#include "SimpleCameraParserModule.hpp"
-#include "SimplePlayerParserModule.hpp"
 #include "SimpleAreaParserModule.hpp"
 #include "SimpleAreaThingParserModule.hpp"
 
