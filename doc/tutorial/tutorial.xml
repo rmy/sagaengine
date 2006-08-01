@@ -1,0 +1,243 @@
+<?xml version='1.0'>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN" [
+<!ENTITY se "SagaEngine">
+<!ENTITY se-core "SagaEngine Core">
+<!ENTITY se-client "SagaEngine Client">
+<!ENTITY se-ogre "SagaEngine Ogre">
+<!ENTITY se-angelscript "SagaEngine Angelscript">
+<!ENTITY skalden "Skalden Studio AS">
+<!ENTITY dir "/usr/local/src/sagaengine">
+]>
+
+<book>
+<bookinfo>
+  <title>SagaEngine Tutorial</title>
+  <!-- author><firstname>Rune</firstname><surname>Myrland</surname></author -->
+  <copyright><year>2006</year><holder>&skalden;</holder></copyright>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Chapter 1: Introduction</title>
+<sect1>
+<title>What is &se;?</title>
+<para>
+&se; is a game logic engine. It is centered around the concepts Actor, Action and Area.
+An Actor may exist and perform Actions inside an Area. This is the simple view, though.
+The library is a quite large object oriented architecture for resolving game situations.
+You are expected to subclass heavily for the purposes of your own game.
+</para>
+</sect1>
+
+<sect1>
+<title>Who is behind &se;?</title>
+<para>
+&se; is the in-house game engine and copyright of &skalden;.
+</para>
+</sect1>
+
+<sect1>
+<title>Terms of use</title>
+<para>
+Permission is granted to distribute the library under the terms of the 
+Q Public License version 1.0. Be sure to read and understand the license
+before using the library. It should be included with &se;, or you may read it
+at http://www.trolltech.com/products/qt/licenses/licensing/qpl
+</para>
+<para>
+The software is provided 'as-is', without any express or implied warranty. 
+In no event will the authors be held liable for any damages arising from 
+the use of this software.
+</para>
+<para>
+The choice of license is made because game consoles typically have NDAs and linking requirements that are incompatible with GPL or LGPL. We chose the QPL license because it enables us to accept contributions without making it impossible for us to deploy SagaEngine on consoles.
+</para>
+</sect1>
+
+<sect1>
+<title>Key Features</title>
+<para>
+<itemizedlist>
+<listitem><para>Keyframe based: The simulation is stepped a fixed number of 
+times each second. To position of game entities may be interpolated between 
+steps.
+</para></listitem>
+<listitem><para>ActionQueue: Actions are stored in a an ActionQueue and 
+performed after a set preparation time - called duration. While an Action 
+is still in preparation it may be disrupted, and another one may be planned 
+instead. The ActionQueue has three channels, enabling the engine to have up 
+to three Actions (i.e. turn, accelerate and shoot) under preparation at the 
+same time.
+</para></listitem>
+<listitem><para>Repeatable multistage actions: Actions may autorepeat 
+until the actor plans to do something else, or they can be multistage, as 
+in a jump with take-off, fly and land.
+</para></listitem>
+<listitem><para>Hierarchy of game entities: Game entities like Area, Thing
+and Actor are stored in a hierarchy, where a child moves relative to its
+parent. An Area is usually at the root. A rider Actor would be the child 
+of a horse Actor while saddled.
+</para></listitem>
+<listitem><para>Scripting: Subclasses of the Script class can be assigned
+an Actor to automatically plan the next action when a previous one is complete.
+This architecture makes it simple to integrate scripting languages as well.
+</para></listitem>
+<listitem><para>Custom physics: Sublclasses of Physics are assigned to
+an Actor to control movement. This means that a ground walker and a bird
+may be controlled by different physics algorithms.
+</para></listitem>
+<listitem><para>Render engine integration: 
+&se-core; contains co render logic in itself, but is build with the intention
+that you program add-on modules that serves as a glue between &se-core; and
+a render engine. &se-ogre; is such a gluing layer between &se-core; and the
+opensource Ogre engine (http://www.ogre3d.org/).
+</para></listitem>
+</itemizedlist>
+<para>
+</sect1>
+
+<sect1>
+<title>Directory structure</title>
+<para>
+The main directory structure of the project is as below. Main directories to
+note is:
+
+<itemizedlist>
+<listitem><para>core: this is where the code of &se-core; is placed.
+</para></listitem>
+<listitem><para>add_on: add-on modules that work that adds more application specific
+functionality to &se;, or works as glue between &se; and libraries for graphics, sound,
+scripting, etc.
+</para></listitem>
+<listitem><para>doc: documentation. Docbook sources of this document is in doc/tutorial
+</para></listitem>
+<listitem><para>projects: contains project build files.
+</para></listitem>
+
+<para>Source code is laid out in a java-inspired way, with one directory per package,
+and nested subpackages.
+</para>
+
+<para>
+<screen>
+    .
+    |-- add_on
+    |   |-- angelscript
+    |   |   |-- include
+    |   |   |-- projects
+    |   |   `-- src
+    |   |-- client
+    |   |   |-- include
+    |   |   |-- projects
+    |   |   `-- src
+    |   `-- ogre
+    |       |-- include
+    |       |-- projects
+    |       `-- src
+    |-- core
+    |   |-- include
+    |   |-- projects
+    |   `-- src
+    |       |-- io
+    |       |-- sim
+    |       `-- util
+    |-- doc
+    |   `-- tutorial
+    |-- env
+    |   |-- qmake
+    |   `-- vc
+    |-- samples
+    |   `-- simple
+    |       |-- data
+    |       |   |-- game
+    |       |   `-- ogre
+    |       |-- game
+    |       |   `-- src
+    |       |-- ogre_ui
+    |       |   |-- include
+    |       |   `-- src
+    |       `-- projects
+    |           `-- qmake
+    `-- tools
+        |-- fbx
+        |-- python
+        `-- qmake
+</screen>
+</para>
+</sect1>
+
+</chapter>
+
+<chapter id="environment">
+<title>Chapter 2: Setting up &se;</title>
+
+<sect1>
+<title>&se; under Linux</title>
+
+<sect2>
+<title>Dependencies</title>
+<para>&se; has the following dependencies:
+
+<itemizedlist>
+<listitem><para>Ogre 1.2 (Dagon) - http://www.ogre3d.org/ - with CEGUI 0.4
+- http://www.cegui.org.uk/. Used by the ogre add-on module.
+</para></listitem>
+<listitem><para>AngelScript 2.6 - http://www.angelcode.com/ - used by 
+the angelscript add-on module.
+</para></listitem>
+<listitem><para>qmake - part of the OpenSource edition of Qt 
+- http://www.trolltech.com/developer/downloads/qt/index. Shipped with 
+qt-devel.rpm on Fedora, and probably available on your Linux distribution
+of choice as well. Used for autogenerating makefiles.
+</para></listitem>
+</itemizedlist>
+</para>
+<para>You must install these libraries following their instructions.
+</para>
+</sect2>
+
+<sect2>
+<title>Downloading and Installing &se;</title>
+<para>
+&se; is available from the subversion repositories at sourceforge.net.
+For this example we will assume that you want to check SagaEngine out
+in <filename>&dir;</filename>, but you may replace this with a location
+of your choice.
+</para>
+<para>Check out sagaengine using the command:
+<programlisting>svn co https://svn.sourceforge.net/svnroot/sagaengine/trunk &dir;</programlisting>
+<para>Then set up your enviroment by creating an <filename>&dir;/env/qmake/env.pro</filename>,
+using <filename>&dir;/env/qmake/default_env.pro</filename> as your model.</para>
+</sect2>
+
+<sect2>
+<title>Compiling the Simple Sample App</title>
+<para>When you have installed Ogre, CEGUI and SagaEngine you are reaty to builde simple sample app.
+You do not need AngelScript for this, as it does not use the angelscript add-on module.
+</para>
+
+<programlisting>
+cd &dir;
+cd samples/simple/projects/qmake
+sh bootstrap.sh
+make
+</programlisting>
+
+<para>Then you can run the application using: <programlisting>./simple</programlisting>
+</para>
+</sect2>
+</sect1>
+
+</chapter>
+
+
+
+
+<chapter id="first-app">
+<title>Chapter 3: Your first application</title>
+<para>
+Coming...
+</para>
+</chapter>
+
+
+</book>
