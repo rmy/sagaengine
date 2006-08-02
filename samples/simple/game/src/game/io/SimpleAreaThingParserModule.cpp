@@ -73,7 +73,7 @@ namespace se_core {
 		in.readString(thingName);
 
 		ViewPoint vp;
-		vp.reset();
+		vp.setIdentity();
 
 		bool isGrounded = false;
 		bool isScaled = false;
