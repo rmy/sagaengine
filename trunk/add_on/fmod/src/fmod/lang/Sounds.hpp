@@ -1,0 +1,60 @@
+/*
+SagaEngine library
+Copyright (c) 2002-2006 Skalden Studio AS
+
+This software is provided 'as-is', without any express or implied 
+warranty. In no event will the authors be held liable for any 
+damages arising from the use of this software.
+
+Permission is granted to distribute the library under the terms of the 
+Q Public License version 1.0. Be sure to read and understand the license
+before using the library. It should be included here, or you may read it
+at http://www.trolltech.com/products/qt/licenses/licensing/qpl
+
+The original version of this library can be located at:
+http://www.sagaengine.com/
+
+Rune Myrland
+rune@skalden.com
+*/
+
+
+#ifndef Sounds_hpp
+#define Sounds_hpp
+
+#include "util/type/util_type.hpp"
+#include <fmod.h>
+
+namespace se_core {
+	class Sounds {
+	public:
+		Sounds();
+		virtual ~Sounds();
+		enum SoundType { UNDEFINED, SOUND, MUSIC, SPEECH, TYPE_COUNT };
+		static const unsigned short ALL = '-' * 256 + '-';
+		static const unsigned short ENGLISH = 'U' * 256 + 'K';
+		static const unsigned short NORWEGIAN = 'N' * 256 + 'O';
+		static const unsigned short FRENCH = 'F' * 256 + 'R';
+
+		void add(unsigned short language, SoundType type, String* name, String* filename);
+		short find(SoundType type, const char* name, unsigned short lang);
+		FMOD_SOUND* get(SoundType type, const char* name);
+		void setLanguage(unsigned short language);
+		static unsigned short languageId(const char* language);
+		bool isFound(short index, SoundType type, const char* name, unsigned short lang);
+
+	private:
+		unsigned short currentLanguage_;
+		static const int MAX_SOUNDS = 300;
+		unsigned short languages_[ MAX_SOUNDS ];
+		SoundType types_[ MAX_SOUNDS ];
+		String* namesC_[ MAX_SOUNDS ];
+		String* soundsC_[ MAX_SOUNDS ];
+		const char* names_[ MAX_SOUNDS ];
+		FMOD_SOUND *sounds_[ MAX_SOUNDS ];
+		short soundCount_;
+	};
+
+}
+
+#endif
