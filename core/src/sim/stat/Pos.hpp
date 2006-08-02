@@ -60,7 +60,6 @@ namespace se_core {
 		void setPos(const Pos& original);
 		void setXZ(const Pos& original);
 
-
 		inline void setCoor(const Coor& original) {
 			coor_.set(original);
 		}
@@ -243,6 +242,15 @@ namespace se_core {
 
 		coor_world_t pageDistanceSquared(const Pos& p) const;
 
+		void reset() {
+			area_ = 0;
+			parent_ = 0;
+			setIdentity();
+			world_.setIdentity();
+			radius_ = 0;
+			index_ = -1;
+			isGrounded_ = false;
+		}
 
 		void freezeAtWorldViewPoint();
 

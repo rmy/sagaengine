@@ -58,7 +58,7 @@ namespace se_core {
 			face_.set(sp.face_);
 		}
 
-		inline void reset() {
+		inline void setIdentity() {
 			coor_.reset();
 			face_.setIdentity();
 		}

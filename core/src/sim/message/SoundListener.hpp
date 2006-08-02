@@ -19,13 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef sim_message_all_hpp
-#define sim_message_all_hpp
+#ifndef SoundListener_hpp
+#define SoundListener_hpp
 
-#include "sim_message.hpp"
-#include "MessageListener.hpp"
-#include "MessageCentral.hpp"
-#include "SoundListener.hpp"
-#include "SoundCentral.hpp"
+#include "../thing/sim_thing.hpp"
+
+namespace se_core {
+	class SoundListener {
+	public:
+		virtual ~SoundListener() {} // Gets rid of warning
+		virtual void ambienceEvent(char* snd) = 0;
+		virtual void soundEvent(Actor& speaker, const char* snd) = 0;
+	};
+}
 
 #endif

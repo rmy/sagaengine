@@ -28,7 +28,7 @@ rune@skalden.com
 #include "../script/ShowingCutscene.hpp"
 #include "../error/StopWatch.hpp"
 #include "../message/MessageCentral.hpp"
-#include "../stat/Dictionary.hpp"
+#include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
@@ -39,6 +39,7 @@ rune@skalden.com
 #include "util/system/RealClock.hpp"
 #include "../physics/all.hpp"
 #include "../action/all.hpp"
+#include "../stat/Dictionary.hpp"
 #include "../stat/DictionaryEntry.hpp"
 #include <cstring>
 
@@ -71,6 +72,7 @@ namespace se_core {
 		StopWatch* stopWatch = &defaultStopWatch;
 
 		MessageCentral messageCentral;
+		SoundCentral soundCentral;
 
 		SimObjectList simObjectList;
 		Dictionary& dictionary() {

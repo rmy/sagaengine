@@ -36,7 +36,7 @@ rune@skalden.com
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../message/MessageCentral.hpp"
+#include "../message/all.hpp"
 #include "util/error/Log.hpp"
 #include "util/math/Math.hpp"
 #include "util/config/all.hpp"
@@ -224,6 +224,12 @@ namespace se_core {
 	void Actor
 	::say(const char* message) {
 		SimSchema::messageCentral.speech(*this, message);
+	}
+
+
+	void Actor
+	::sound(const char* snd) {
+		SimSchema::soundCentral.sound(*this, snd);
 	}
 
 

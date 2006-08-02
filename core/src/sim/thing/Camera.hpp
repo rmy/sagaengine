@@ -36,7 +36,7 @@ namespace se_core {
 			if(type == got_CAMERA) return true;
 			return Actor::isType(type);
 		}
-		virtual void setActive(bool state);
+		void setActive(bool state);
 		bool isMover() { return false; }
 		void setCameraHandler(CameraHandler* handler) { handler_ = handler; }
 		void leaveCurrentArea();

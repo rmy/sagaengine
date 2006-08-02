@@ -148,6 +148,7 @@ namespace se_core {
 		 * @param message The message name as occurring in a speech bubble.
 		 */
 		void say(const char* message);
+		void sound(const char* snd);
 
 		///////////////////////////////////////
 
