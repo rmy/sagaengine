@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 	Phrase
-	::Phrase() : currentLanguage_(NORWEGIAN) {
+	::Phrase() : currentLanguage_(NORWEGIAN), phraseCount_(0) {
 		//setLanguage(ENGLISH);
 	}
 
