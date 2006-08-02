@@ -40,8 +40,8 @@ namespace se_core {
 			, index_(-1)
 			, isGrounded_(true)
 	{
-		face_.setIdentity();
-		coor_.set(2.5, 0, 2.5);
+		setIdentity();
+		world_.setIdentity();
 	}
 
 

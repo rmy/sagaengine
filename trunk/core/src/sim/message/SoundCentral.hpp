@@ -19,13 +19,33 @@ rune@skalden.com
 */
 
 
-#ifndef sim_message_all_hpp
-#define sim_message_all_hpp
+#ifndef SoundCentral_hpp
+#define SoundCentral_hpp
 
 #include "sim_message.hpp"
-#include "MessageListener.hpp"
-#include "MessageCentral.hpp"
-#include "SoundListener.hpp"
-#include "SoundCentral.hpp"
+#include "../thing/sim_thing.hpp"
+
+
+namespace se_core {
+
+	class SoundCentral {
+	public:
+
+		SoundCentral();
+		virtual ~SoundCentral();
+
+		void addListener(SoundListener& l);
+		void removeListener(SoundListener& l);
+
+		void sound(Actor& speaker, const char* snd);
+		void ambience(char* snd);
+
+	private:
+		static const int MAX_LISTENERS = 10;
+		SoundListener* listeners[ MAX_LISTENERS ];
+		short listenerCount;
+	};
+
+}
 
 #endif

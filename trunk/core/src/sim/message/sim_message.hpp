@@ -23,4 +23,6 @@ rune@skalden.com
 namespace se_core {
 	class MessageListener;
 	class MessageCentral;
+	class SoundListener;
+	class SoundCentral;
 }

@@ -40,22 +40,24 @@ namespace se_core {
 	::~Camera() {
 	}
 
-
 	void Camera
 	::setActive(bool state) {
+		if(state == true) return;
 		isActive_ = true;
-		/*
-		if(state == false) return;
-		isActive_ = state;
+
+		// Setting to active??
 		if(isActive_) {
-			if(script_) {
+			// Start script
+			if(script()) {
+				// Init (or reinit) scripts data block
+				script()->reinit(*this, scriptData());
+				//scriptData_ = script()->init(*this);
+				// Start script in all action channels
 				for(int i = 0; i < CHANNEL_COUNT; ++i) {
-					const Action* a = const_cast<Script*>(script_)->nextAction(*this, i);
-					if(a) planActionWithoutSideEffects(a);
+					nextScriptAction(i);
 				}
 			}
 		}
-		*/
 	}
 
 

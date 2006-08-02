@@ -30,7 +30,7 @@ namespace se_core {
 	public:
 		enum ModuleCode { AREA = 'A', HEIGHTMAP_AREA = 'H', MENU = 'M', RANDOM_AREA = 'R', AREA_THINGS = 'B', RANDOM_AREA_THINGS = 'C', TERRAIN = 'T', THING = 'O', LANGUAGE = 'L', SPEECH_POSITION = 'P', CUTSCENE = 'S', PLAYER = 'X' };
 
-		enum ModuleGroup { ENGINE = 'E', CLIENT = 'C', SDL = 'S', GBA = 'G', OGRE = 'O', UI = 'U', GAME = 'X' };
+		enum ModuleGroup { ENGINE = 'E', CLIENT = 'C', SDL = 'S', GBA = 'G', OGRE = 'O', UI = 'U', GAME = 'X', FMOD = 'F' };
 
 		ParserModule(Parser &parser, unsigned char group, unsigned char code, int version);
 		virtual ~ParserModule() {}

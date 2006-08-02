@@ -45,6 +45,7 @@ namespace se_core {
 		extern ActionQueue actionQueue[];
 
 		extern MessageCentral messageCentral;
+		extern SoundCentral soundCentral;
 		extern SimObjectList simObjectList;
 		//extern AllPropertyLists allPropertyLists;
 		extern short firstNodeSlidingActors;
