@@ -46,12 +46,16 @@ namespace se_core {
 	private:
 		unsigned short currentLanguage_;
 		static const int MAX_SOUNDS = 300;
-		unsigned short languages_[ MAX_SOUNDS ];
-		SoundType types_[ MAX_SOUNDS ];
-		String* namesC_[ MAX_SOUNDS ];
-		String* soundsC_[ MAX_SOUNDS ];
-		const char* names_[ MAX_SOUNDS ];
-		FMOD_SOUND *sounds_[ MAX_SOUNDS ];
+		struct Sound {
+			unsigned short language_;
+			SoundType type_;
+			String* nameC_;
+			const char* name_;
+			String* soundC_;
+			String* filename_;
+			FMOD_SOUND *sound_;
+		} *sounds_;
+
 		short soundCount_;
 	};
 

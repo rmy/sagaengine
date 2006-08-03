@@ -48,23 +48,6 @@ namespace se_core {
 		result = FMOD_System_Init(system_, 32, FMOD_INIT_NORMAL, NULL);
 		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
-
-		/*
-		result = FMOD_System_CreateSound(system_, "../../data/fmod/media/Bamboo Music - Drums.mp3", FMOD_HARDWARE, 0, &music_);
-		//result = FMOD_System_CreateSound(system_, "../../data/fmod/media/Nailway - Forgive me (perdoname).mp3", FMOD_HARDWARE, 0, &music_);
-		//result = FMOD_System_CreateSound(system_, "../../data/fmod/media/Ian Steil - Hymn to the Fallen.mp3", FMOD_HARDWARE, 0, &music_);
-
-
-
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
-
-		//result = FMOD_Sound_SetMode(music_, FMOD_LOOP_OFF);
-		//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
-
-		result = FMOD_System_CreateSound(system_, "../../data/fmod/media/jaguar.wav", FMOD_SOFTWARE, 0, &sound_);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
-		*/
-
 		SimSchema::soundCentral.addListener(*this);
 		
 	}
@@ -80,7 +63,7 @@ namespace se_core {
 		*/
 
 		result = FMOD_System_Close(system_);
-		ERRCHECK(result);
+		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -93,7 +76,7 @@ namespace se_core {
 			return;
 		}
 		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
-		ERRCHECK(result);
+		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -106,7 +89,7 @@ namespace se_core {
 			return;
 		}
 		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
-		ERRCHECK(result);
+		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -121,7 +104,7 @@ namespace se_core {
 		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
 		result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE, 0, &snd);
 		if (result != FMOD_OK) {
-			LogFatal("FMOD error! (" << result << ") " << FMOD_ErrorString(result) << ": " << buffer);
+			LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 			snd = 0;
 		}
 

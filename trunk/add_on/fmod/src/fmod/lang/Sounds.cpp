@@ -33,6 +33,7 @@ rune@skalden.com
 namespace se_core {
 	Sounds
 	::Sounds() : currentLanguage_(NORWEGIAN), soundCount_(0) {
+		sounds_ = new Sound[ MAX_SOUNDS ];
 	}
 
 	Sounds
@@ -41,11 +42,12 @@ namespace se_core {
 
 		while(soundCount_ > 0) {
 			--soundCount_;
-			delete namesC_[ soundCount_ ];
-			delete soundsC_[ soundCount_ ];
-			result = FMOD_Sound_Release(sounds_[ soundCount_ ]);
+			delete sounds_[ soundCount_ ].nameC_;
+			delete sounds_[ soundCount_ ].soundC_;
+			result = FMOD_Sound_Release(sounds_[ soundCount_ ].sound_);
 			//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 		}
+		delete sounds_;
 	}
 
 
@@ -59,39 +61,35 @@ namespace se_core {
 		Assert(soundCount_ < MAX_SOUNDS);
 
 		const char* name = nameC->get();
-		const char* sound = soundC->get();
+		FMOD_SOUND *sound = FmodSchema::soundPlayer->loadSound(soundC->get());
+		if(!sound) {
+			LogMsg("Couldn't load sound: " << soundC->get());
+			return;
+		}
 		short index = find(type, name, language);
 		if(index < soundCount_
-		   && (languages_[ index ] != language
-			   || types_[ index ] != type || strcmp(names_[ index ], name) != 0)
+		   && (sounds_[ index ].language_ != language
+			   || sounds_[ index ].type_ != type || strcmp(sounds_[ index ].name_, name) != 0)
 			) {
 			for(int i = soundCount_; i > index; --i) {
-				languages_[ i ] = languages_[ i - 1 ];
-				types_[ i ] = types_[ i - 1 ];
-				names_[ i ] = names_[ i - 1 ];
 				sounds_[ i ] = sounds_[ i - 1 ];
-
-				namesC_[ i ] = namesC_[ i - 1 ];
-				soundsC_[ i ] = soundsC_[ i - 1 ];
 			}
 		}
-		languages_[ index ] = language;
-		types_[ index ] = type;
-		namesC_[ index ] = nameC;
-		soundsC_[ index ] = soundC;
-		names_[ index ] = name;
+		sounds_[ index ].language_ = language;
+		sounds_[ index ].type_ = type;
+		sounds_[ index ].nameC_ = nameC;
+		sounds_[ index ].soundC_ = soundC;
+		sounds_[ index ].name_ = name;
 
-		LogMsg(languages_[index] << " " << type << " " << name);
-		LogMsg(index << ": " << names_[index]);
-		//sounds_[ index ] = sound;
 		Assert(FmodSchema::soundPlayer && "Sound player object not created");
-		sounds_[ index ] = FmodSchema::soundPlayer->loadSound(sound);
+		sounds_[ index ].sound_ = sound;
 		++soundCount_;
 	}
 
+
 	bool Sounds
 	::isFound(short index, SoundType type, const char* name, unsigned short lang) {
-		return (languages_[ index ] == lang && types_[ index ] == type && strcmp(names_[index], name) == 0);
+		return (sounds_[ index ].language_ == lang && sounds_[ index ].type_ == type && strcmp(sounds_[index].name_, name) == 0);
 	}
 
 
@@ -103,9 +101,10 @@ namespace se_core {
 
 		while(max > min) {
 			middle = (max + min) / 2;
-			if(languages_[ middle ] < lang
-			   || (languages_[ middle ] == lang && types_[ middle ] < type)
-			   || (languages_[ middle ] == lang && types_[ middle ] == type && strcmp(names_[middle], name) < 0)) {
+			Sound& s = sounds_[ middle ];
+			if(s.language_ < lang
+			   || (s.language_ == lang && s.type_ < type)
+			   || (s.language_ == lang && s.type_ == type && strcmp(sounds_[middle].name_, name) < 0)) {
 				min = middle + 1;
 			}
 			else {
@@ -120,17 +119,18 @@ namespace se_core {
 
 	FMOD_SOUND* Sounds
 	::get(SoundType type, const char* name) {
+		// Is there a language specific sound?
 		short index = find(type, name, currentLanguage_);
 		if(!isFound(index, type, name, currentLanguage_)) {
+			// Some sounds are not language specific
 			index = find(type, name, ALL);
-			Assert(isFound(index, type, name, ALL) && "Searched for non-existing sound");
-			//return 0;
+			if(!isFound(index, type, name, ALL)) {
+				LogMsg("Searched for non-existing sound");
+				return 0;
+			}
 		}
-		LogMsg(languages_[index] << " " << type << " " << name);
-		Assert((languages_[index] == ALL || languages_[index] == currentLanguage_));
-		Assert(types_[ index ] == type);
-		Assert(strcmp(names_[index], name) == 0);
-		return sounds_[ index ];
+		LogMsg(sounds_[index].language_ << " " << type << " " << name);
+		return sounds_[ index ].sound_;
 	}
 
 
