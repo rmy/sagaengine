@@ -173,7 +173,7 @@ namespace se_core {
 			Assert(active_[i]);
 			if(!shouldKeep_[i]) {
 				// Get back collisionGrid to pool
-				LogMsg(i << " < " << activeCount_);
+				//LogMsg(i << " < " << activeCount_);
 				Area* a = active_[i];
 				Assert(a);
 				CollisionGrid* g = a->resetCollisionGrid();
@@ -252,7 +252,7 @@ namespace se_core {
 	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ) {
 		char* name = new char[strlen(areaName) + 1];
 		strcpy(name, areaName);
-		LogMsg("Created area: " << name);
+		//LogMsg("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
 		Area* a = f->create(new String(name), pageX, pageY, pageZ);

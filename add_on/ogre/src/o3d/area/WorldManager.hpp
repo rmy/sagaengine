@@ -68,7 +68,7 @@ namespace se_ogre {
 		long lastRenderClock_;
 
 		// 
-		enum { AREA_RANGE = 2, AREA_SIDE = 2 * (AREA_RANGE + 1) };
+		enum { AREA_RANGE = 3, AREA_SIDE = 2 * (AREA_RANGE + 1) };
 		enum { MAX_AREAS = 3 * AREA_SIDE * AREA_SIDE * AREA_SIDE };
 		struct {
 			int id_;

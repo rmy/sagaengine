@@ -139,7 +139,6 @@ namespace se_ogre {
 			}
 		}
 
-
 		// Throw away areas that shouldn't be kept
 		for(int i = 0; i < areaCount_; ++i) {
 			if(!areas_[i].shouldKeep_) {

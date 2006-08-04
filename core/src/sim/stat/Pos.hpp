@@ -105,6 +105,7 @@ namespace se_core {
 		 * must already be updated.
 		 */
 		void updateWorldViewPoint();
+		void updateLocalViewPoint();
 
 
 		/**

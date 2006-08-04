@@ -267,6 +267,16 @@ namespace se_core {
 		}
 	}
 
+
+	void Pos
+	::updateLocalViewPoint() {
+		setViewPoint(world_);
+		if(hasParent()) {
+			// Parent should already have updated their worldViewPoint
+			world_.sub( parent()->nextPos().world_ );
+		}
+	}
+
 	/*
 	short Pos
 	::clockwiseFaceDirection(short subdivisions) const {

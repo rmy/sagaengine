@@ -37,7 +37,7 @@ namespace se_ogre {
 	::ThingEntity(Thing& thing)
 			: node_(0), entity_(0), billboard_(0), movableObject_(0)
 			  , state_(0), speed_(0), doScaleByRadius_(false), currentScale_(0)
-			  , scale_(WORLD_SCALE), meshOut_(20.0), billboardIn_(0)
+			  , scale_(1), meshOut_(20.0), billboardIn_(0)
 			  , thing_(&thing), prevAnim_(0), isEntityVisible_(false) {
 
 		// Create things node, and add it to scene manager
