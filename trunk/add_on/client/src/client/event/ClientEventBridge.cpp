@@ -85,7 +85,7 @@ namespace se_core {
 	void ClientEventBridge
 	::cameraEnteredAreaEvent(Camera& caster, Area& area) {
 		// Cast camera entered area event
-		SimSchema::areaManager.setActive(&area, 2);
+		SimSchema::areaManager.setActive(&area, 3);
 		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			SimSchema::areaManager.active(i)->reportingThings().setHandler(this);

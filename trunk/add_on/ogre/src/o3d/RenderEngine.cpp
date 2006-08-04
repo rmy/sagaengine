@@ -165,30 +165,23 @@ namespace se_ogre {
 			LogMsg("Your card does not support vertex programs, Trees wont work!");
 		}
 
-		WasHere();
 		// Create the scene
 		createScene();
-		WasHere();
 		if(IS_CONSOLE_ENABLED) {
 			O3dSchema::console->setupGuiSystem();
 			WasHere();
 		}
-		WasHere();
 
 		O3dSchema::renderEventListeners().castInit();
-		WasHere();
-
 		if(IS_CONSOLE_ENABLED) {
 			// Give application chance to create gui from
 			// xml in a renderEventListener before creating
 			// console window
 			O3dSchema::console->createConsoleWindow();
 		}
-		WasHere();
 
 		createInputBridge();
 
-		WasHere();
 		return true;
 	}
 
@@ -200,7 +193,7 @@ namespace se_ogre {
 
         // Create the SceneManager, in this case a generic one
         O3dSchema::sceneManager = O3dSchema::root->createSceneManager(ST_GENERIC, "gameSM");
-		// My laptop Nvidia Mobility Radeon 9200 needs this initial ambient light
+		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 		Ogre::SceneNode* node = O3dSchema::sceneManager->getRootSceneNode()->createChildSceneNode("MainSceneNode");
@@ -219,7 +212,7 @@ namespace se_ogre {
 		// Look back along -Z
 		O3dSchema::playerCamera->lookAt(Ogre::Vector3(0, 0, -300));
 		O3dSchema::playerCamera->setNearClipDistance( 0.05 );
-		O3dSchema::playerCamera->setFarClipDistance( 9750 * WORLD_SCALE );
+		O3dSchema::playerCamera->setFarClipDistance( 9750 );
 		O3dSchema::playerCamera->setFOVy(Radian(Degree(45)));
 		/*
 		O3dSchema::playerCamera->setPolygonMode(PM_WIREFRAME);
@@ -234,15 +227,13 @@ namespace se_ogre {
 
 	void RenderEngine
 	::createScene(void) {
-		WasHere();
+		LogMsg("Creating scene");
 		// Fog and background colour
 		ColourValue fadeColour(0.56, 0.56, 0.75);
 
-		WasHere();
         // Setup animation default
         Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
         Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
-		WasHere();
 	}
 
 

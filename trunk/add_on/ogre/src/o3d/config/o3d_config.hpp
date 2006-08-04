@@ -27,14 +27,9 @@ rune@skalden.com
 #ifndef SE_CONFIG_CUSTOM_O3D
 
 namespace se_ogre {
-	const float WORLD_SCALE = 1.0f;
-	const float WORLD_SCALE_Y = 1.0f;
-
 	const int PAGE_DELTA = 0;
-
 	const float TICKS_PER_SECOND = 1024.0;
-
-	const bool IS_CONSOLE_ENABLED = false;
+	const bool IS_CONSOLE_ENABLED = true;
 }
 #endif
 
