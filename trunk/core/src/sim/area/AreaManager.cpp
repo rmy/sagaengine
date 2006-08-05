@@ -42,6 +42,7 @@ namespace se_core {
 		shouldKeep_ = new bool[ MAX_ACTIVE ];
 		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
 		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
+		LogMsg("Creating AreaManager");
 	}
 
 
@@ -49,10 +50,12 @@ namespace se_core {
 	::~AreaManager() {
 		resetAll();
 		delete[] areas_;
+		delete[] active_;
 		delete[] factories_;
 		delete[] collisionGrids_;
 		delete[] shouldKeep_;
 		delete[] gridPool_;
+		LogMsg("Destroying AreaManager");
 	}
 
 

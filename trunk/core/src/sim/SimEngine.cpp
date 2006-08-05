@@ -55,6 +55,7 @@ namespace se_core {
 		, movers_(new Actor*[MAX_MOVER_COUNT])
 		, moverCount_(0)
 		, specialMover_(0) {
+		LogMsg("Creating SimEngine");
 	}
 
 
@@ -62,6 +63,7 @@ namespace se_core {
 	::~SimEngine() {
 		delete[] movers_;
 		resetAll();
+		LogMsg("Destroying SimEngine");
 	}
 
 

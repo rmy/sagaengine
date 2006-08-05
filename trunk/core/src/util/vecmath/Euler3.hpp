@@ -48,7 +48,8 @@ namespace se_core {
 
 
 		/**
-		 * Constructs and initializes a Euler3 from the specified xyzw coordinates.
+		 * Constructs and initializes a Euler3 from the specified xyzw
+		 * coordinates.
 		 * @param yaw the yaw angle
 		 * @param pitch the pitch angle
 		 * @param roll the roll angle
@@ -271,13 +272,8 @@ namespace se_core {
 		 */
 		void invert(const Euler3& a1) {
 			yaw_ = BrayT::negate(a1.yaw_);
-			yaw_ = BrayT::negate(a1.pitch_);
-			yaw_ = BrayT::negate(a1.roll_);
-			/*
-			yaw_ = (a1.yaw_ + BrayT::DEG180) & BRAY_MASK;
-			pitch_ = (a1.pitch_ + BrayT::DEG180) & BRAY_MASK;
-			roll_ = (a1.roll_ + BrayT::DEG180) & BRAY_MASK;
-			*/
+			pitch_ = BrayT::negate(a1.pitch_);
+			roll_ = BrayT::negate(a1.roll_);
 		}
 
 		/**
@@ -285,13 +281,8 @@ namespace se_core {
 		 */
 		void invert() {
 			yaw_ = BrayT::negate(yaw_);
-			yaw_ = BrayT::negate(pitch_);
-			yaw_ = BrayT::negate(roll_);
-			/*
-			yaw_ = (yaw_ + BrayT::DEG180) & BRAY_MASK;
-			pitch_ = (pitch_ + BrayT::DEG180) & BRAY_MASK;
-			roll_ = (roll_ + BrayT::DEG180) & BRAY_MASK;
-			*/
+			pitch_ = BrayT::negate(pitch_);
+			roll_ = BrayT::negate(roll_);
 		}
 
 
