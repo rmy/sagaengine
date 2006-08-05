@@ -48,21 +48,20 @@ namespace se_ogre {
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
 			: inputBridge_(0) {
-		WasHere();
-
 		O3dSchema::root = new Root();
+		LogMsg("Created Ogre root");
 
 		// Create speech listener object
 		O3dSchema::speechBubble = new SpeechBubble();
+		LogMsg("Created speech bubble handler");
 
 		if(IS_CONSOLE_ENABLED) {
 			O3dSchema::console = new Console();
 			if(consoleHandler) {
 				O3dSchema::console->setConsoleHandler(consoleHandler);
 			}
+			LogMsg("Created console");
 		}
-
-		WasHere();
 	}
 
 
@@ -71,22 +70,28 @@ namespace se_ogre {
 		if(O3dSchema::playerCamera) {
 			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
 			O3dSchema::playerCamera = 0;
+			LogMsg("Destroyed camera");
 		}
 		delete inputBridge_;
 		inputBridge_ = 0;
+		LogMsg("Destroyed input bridge");
 
 		delete O3dSchema::console;
 		O3dSchema::console = 0;
-
-		delete O3dSchema::root;
-		O3dSchema::root = 0;
+		LogMsg("Destroyed console");
 
 		delete O3dSchema::worldManager;
 		O3dSchema::worldManager = 0;
 		O3dSchema::sceneManager = 0;
+		LogMsg("Destroyed world manager and scene manager");
 
 		delete O3dSchema::raySceneQuery;
 		O3dSchema::raySceneQuery = 0;
+		LogMsg("Destroyed ray scene query");
+
+		delete O3dSchema::root;
+		O3dSchema::root = 0;
+		LogMsg("Destroyed ogre root");
 	}
 
 
@@ -101,9 +106,11 @@ namespace se_ogre {
 
 		// Make WorldManager listen to sagaengine core events
 		ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
+		LogMsg("Added SagaEngine client listener");
 
 		// Make WorldManager listen to Ogre render events
 		Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
+		LogMsg("Added Ogre frame listener");
 
 		return true;
 	}
@@ -113,9 +120,11 @@ namespace se_ogre {
 	::cleanup() {
 		// Make WorldManager listen to sagaengine core events
 		ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
+		LogMsg("Removed SagaEngine client listener");
 
 		// Make WorldManager listen to Ogre render events
 		Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
+		LogMsg("Removed Ogre frame listener");
 	}
 
 
@@ -162,22 +171,32 @@ namespace se_ogre {
 
 		const Ogre::RenderSystemCapabilities* caps = O3dSchema::root->getRenderSystem()->getCapabilities();
 		if (!caps->hasCapability(RSC_VERTEX_PROGRAM)) {
-			LogMsg("Your card does not support vertex programs, Trees wont work!");
+			LogMsg("Your card does not support vertex programs.");
 		}
 
 		// Create the scene
 		createScene();
 		if(IS_CONSOLE_ENABLED) {
-			O3dSchema::console->setupGuiSystem();
-			WasHere();
+			try {
+				O3dSchema::console->setupGuiSystem();
+				LogMsg("Setup GUI system");
+			}
+			catch(...) {
+				LogMsg("Failed initializeing console window. Console unavailable.");
+				delete O3dSchema::console;
+				O3dSchema::console = 0;
+			}
 		}
 
 		O3dSchema::renderEventListeners().castInit();
-		if(IS_CONSOLE_ENABLED) {
+		LogMsg("Cast init event to render event listeners");
+
+		if(O3dSchema::console) {
 			// Give application chance to create gui from
 			// xml in a renderEventListener before creating
 			// console window
 			O3dSchema::console->createConsoleWindow();
+			LogMsg("Created applications CEGUI.");
 		}
 
 		createInputBridge();
@@ -188,15 +207,17 @@ namespace se_ogre {
 
 	void RenderEngine
 	::chooseSceneManager(void) {
-		// Get the SceneManager, in this case a generic one
 		O3dSchema::worldManager = new WorldManager();
+		LogMsg("Created world manager");
 
         // Create the SceneManager, in this case a generic one
         O3dSchema::sceneManager = O3dSchema::root->createSceneManager(ST_GENERIC, "gameSM");
+		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getName().c_str());
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 		Ogre::SceneNode* node = O3dSchema::sceneManager->getRootSceneNode()->createChildSceneNode("MainSceneNode");
+		// LogMsg("Create 
 		node->createChildSceneNode("ThingSceneNode");
 		//node->createChildSceneNode("AreaSceneNode");
 	}
@@ -206,6 +227,7 @@ namespace se_ogre {
 	::createCamera(void) {
 		// Create the camera
 		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
+		LogMsg("Created player camera");
 
 		// Position it at 500 in Z direction
 		O3dSchema::playerCamera->setPosition(Ogre::Vector3(128,25,128));
@@ -229,11 +251,13 @@ namespace se_ogre {
 	::createScene(void) {
 		LogMsg("Creating scene");
 		// Fog and background colour
-		ColourValue fadeColour(0.56, 0.56, 0.75);
+		//ColourValue fadeColour(0.56, 0.56, 0.75);
 
         // Setup animation default
         Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
         Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
+
+		LogMsg("Initialized interpolation of animations.");
 	}
 
 
@@ -247,6 +271,7 @@ namespace se_ogre {
 	void RenderEngine
 	::createInputBridge(void) {
 		inputBridge_= new O3dInputBridge(O3dSchema::window);
+		LogMsg("Created input bridge");
 	}
 
 
@@ -259,6 +284,7 @@ namespace se_ogre {
 		// settings if you were sure there are valid ones saved in ogre.cfg
 		if(O3dSchema::root->restoreConfig()) {
 			O3dSchema::window = O3dSchema::root->initialise(true, "Game Render Window");
+			LogMsg("Loaded config");
 			return true;
 		}
 		else if(O3dSchema::root->showConfigDialog()) {
@@ -267,9 +293,11 @@ namespace se_ogre {
 			// passing 'true'
 			O3dSchema::root->saveConfig();
 			O3dSchema::window = O3dSchema::root->initialise(true);
+			LogMsg("Got requested config");
 			return true;
 		}
 		else {
+			LogMsg("Config canceled by user");
 			return false;
 		}
 	}
@@ -284,6 +312,8 @@ namespace se_ogre {
 
 		// Alter the camera aspect ratio to match the viewport
 		O3dSchema::playerCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
+
+		LogMsg("Created Ogre viewport");
 	}
 
 
@@ -309,6 +339,7 @@ namespace se_ogre {
 					.addResourceLocation(archName, typeName, secName);
 			}
 		}
+		LogMsg("Initialised resources.");
 	}
 
 
