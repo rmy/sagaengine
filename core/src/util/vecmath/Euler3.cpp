@@ -20,6 +20,15 @@ namespace se_core {
 	}
 
 
+	bool Euler3
+	::epsilonEquals(const Euler3& a1, bray_t epsilon) const {
+		bool t = BrayT::abs(BrayT::sub(yaw_, a1.yaw_) <= epsilon);
+		t &= (BrayT::abs(BrayT::sub(pitch_, a1.pitch_)) <= epsilon);
+		t &= (BrayT::abs(BrayT::sub(roll_, a1.roll_)) <= epsilon);
+
+		return t;
+	}
+
 
 	void Euler3
 	::set(const Quat4& q1) {

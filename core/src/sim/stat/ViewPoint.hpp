@@ -47,6 +47,12 @@ namespace se_core {
 			return (c.coor_.equals(coor_) && c.face_.equals(face_));
 		}
 
+		bool viewPointEquals(const ViewPoint& c
+							 , coor_t coorEpsilon, bray_t faceEpsilon) const {
+			return (c.coor_.epsilonEquals(coor_, coorEpsilon) 
+					&& c.face_.epsilonEquals(face_, faceEpsilon));
+		}
+
 		inline void setViewPoint(const ViewPoint& original) {
 			coor_.set(original.coor_);
 			face_.set(original.face_);
@@ -94,9 +100,9 @@ namespace se_core {
 		}
 
 		void sub(const ViewPoint& other) {
+			face_.rotateInverse(other.face_);
 			coor_.sub(other.coor_);
 			coor_.rotateInverse(other.face_);
-			face_.rotateInverse(other.face_);
 		}
 
 		/**

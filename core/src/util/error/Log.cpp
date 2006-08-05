@@ -208,7 +208,8 @@ namespace se_err {
 	}
 
 	void addP(const char* file, int line, void* p, unsigned short size) {
-		if(!m2a) m2a = (Mem2Alloc*)malloc(sizeof(Mem2Alloc) * 2000);
+		static Mem2Alloc pool[ 2000 ];
+		if(!m2a) m2a = pool; //(Mem2Alloc*)malloc(sizeof(Mem2Alloc) * 2000);
 		Alloc& a = findAlloc(file, line);
 		++a.count;
 		a.totalSize += size;

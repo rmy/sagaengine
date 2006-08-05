@@ -118,9 +118,10 @@ namespace se_core {
 	
     void Vector3
 	::rotateInverse(const Euler3& a) {
-		Euler3 inv(a);
-		inv.invert();
-		rotate(Quat4(inv));
+		rotateInverse(Quat4(a));
+		//Euler3 inv(a);
+		//inv.invert();
+		//rotate(Quat4(inv));
     }
 	
 
