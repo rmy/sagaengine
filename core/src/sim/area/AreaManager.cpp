@@ -278,6 +278,7 @@ namespace se_core {
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[ i ]->reset();
 		}
+		LogMsg("Destoryed things");
 		/*
 		if(active()) {
 			active()->setActive(false);
@@ -295,18 +296,25 @@ namespace se_core {
 
 		for(int i = 0; i < areaCount_; ++i) {
 			// TODO: release through factory
-			delete areas_[ i ];
+			if(areas_[i]->factory())
+				areas_[i]->factory()->release(areas_[i]);
+			else
+				delete areas_[ i ];
 		}
+		areaCount_ = 0;
+		LogMsg("Destroyed areas");
 
 		for(int i = 0; i < factoryCount_; ++i) {
 			delete factories_[i];
 		}
 		factoryCount_ = 0;
+		LogMsg("Destroyed area factories");
 
-		areaCount_ = 0;
 		for(int i = 0; i < gridCount_; ++i) {
 			delete collisionGrids_[i];
 		}
+		gridCount_ = 0;
+		LogMsg("Destroyed area grids");
 	}
 
 

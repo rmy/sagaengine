@@ -45,7 +45,7 @@ namespace se_core {
 
 
 	void AreaFactory
-	::release(Area* a) {
+	::release(Area* a) const {
 		delete a;
 	}
 

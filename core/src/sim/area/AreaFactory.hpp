@@ -37,7 +37,7 @@ namespace se_core {
 		virtual ~AreaFactory();
 		const char* name() const;
 		virtual Area* create(String* name, int pageX, int pageY, int pageZ) const = 0;
-		virtual void release(Area* a);
+		virtual void release(Area* a) const;
 
 	protected:
 		String* name_;
