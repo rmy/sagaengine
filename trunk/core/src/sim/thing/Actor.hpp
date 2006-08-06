@@ -245,7 +245,7 @@ namespace se_core {
 			physics().calcNext(*this, pos(), nextPos(), nextAnim(), nextMove());
 
 			// Any change in render position?
-			didMove_ = nextPos().didParentMove() || !nextPos().viewPointEquals(position_);
+			didMove_ = nextPos().didParentMove() || !nextPos().localEquals(position_.local_);
 			if(didMove_) { updateWorldViewPoint(); }
 			return didMove_;
 		}

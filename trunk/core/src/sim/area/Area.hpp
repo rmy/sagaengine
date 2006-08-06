@@ -123,11 +123,11 @@ namespace se_core {
 
 		coor_world_t pagePosX() const {
 			//TODO: Fixed point overflows possible
-			return pos().coor().x_;
+			return pos().localCoor().x_;
 		}
 		coor_world_t pagePosZ() const {
 			//TODO: Fixed point overflows possible
-			return pos().coor().z_;
+			return pos().localCoor().z_;
 		}
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
@@ -146,10 +146,10 @@ namespace se_core {
 		}
 
 		bool isLegalCoor(const Coor& worldCoor) const {
-			return (worldCoor.x_ >= nextPosition_.coor_.x_
-					&& worldCoor.z_ >= nextPosition_.coor_.z_
-					&& worldCoor.xTile() < nextPosition_.coor_.xTile() + width_
-					&& worldCoor.zTile() < nextPosition_.coor_.zTile() + height_);
+			return (worldCoor.x_ >= nextPosition_.localCoor().x_
+					&& worldCoor.z_ >= nextPosition_.localCoor().z_
+					&& worldCoor.xTile() < nextPosition_.localCoor().xTile() + width_
+					&& worldCoor.zTile() < nextPosition_.localCoor().zTile() + height_);
 
 		}
 

@@ -116,7 +116,7 @@ namespace se_ogre {
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
 						areas_[ index ].node_->attachObject(entity);
-						areas_[ index ].node_->setPosition(a->pos().coor_.x_, a->pos().coor_.y_, a->pos().coor_.z_);
+						areas_[ index ].node_->setPosition(a->pos().localCoor().x_, a->pos().localCoor().y_, a->pos().localCoor().z_);
 
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
 

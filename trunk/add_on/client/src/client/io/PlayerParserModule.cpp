@@ -97,9 +97,9 @@ namespace se_core {
 				in.readString(tempString);
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
-				camera->nextPos().coor_.setX(CoorT::fromFloat(in.readFloat()));
-				camera->nextPos().coor_.setZ(CoorT::fromFloat(in.readFloat()));
-				camera->nextPos().face_.setIdentity();
+				camera->nextPos().localCoor().x_ = CoorT::fromFloat(in.readFloat());
+				camera->nextPos().localCoor().z_ = CoorT::fromFloat(in.readFloat());
+				camera->nextPos().localFace().setIdentity();
 				camera->nextPos().setArea(*area);
 				break;
 

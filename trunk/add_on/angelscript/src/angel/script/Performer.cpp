@@ -61,7 +61,7 @@ namespace se_core {
 	::dir8() {
 		LogFatal("TODO:");
 		//TODO:
-		//return BrayT::toClockwise8(actor_.pos().face().yaw_);
+		//return BrayT::toClockwise8(actor_.pos().localFace().yaw_);
 		return 0;
 	}
 

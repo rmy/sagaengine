@@ -1,6 +1,7 @@
 #include "Point3.hpp"
 #include "Point4.hpp"
 #include "../math/CoorT.hpp"
+#include "../math/Trig.hpp"
 
 namespace se_core {
 
@@ -28,5 +29,30 @@ namespace se_core {
 		y_ = CoorT::div(p1.y_, p1.w_);
 		z_ = CoorT::div(p1.z_, p1.w_);
 	}
+
+
+	coor_t Point3
+	::xzDistanceLinf(const Point3& c) const {
+		coor_t xDist = CoorT::abs(c.x_ - x_);
+		coor_t yDist = CoorT::abs(c.z_ - z_);
+
+		return (xDist > yDist) ? xDist : yDist;
+	}
+
+
+	coor_t Point3
+	::yDistance(const Point3& c) const {
+		coor_t dist = CoorT::abs(c.y_ - y_);
+		return dist;
+	}
+
+
+	bray_t Point3
+	::yawTowards(const Point3& c) const {
+		coor_t xp = c.x_ - x_;
+		coor_t yp = c.z_ - z_;
+		return Trig::atan2(-yp, xp);
+	}
+
 
 }

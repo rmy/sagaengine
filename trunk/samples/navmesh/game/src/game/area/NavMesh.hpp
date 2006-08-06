@@ -1,24 +1,3 @@
-/*
-SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
-
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
-damages arising from the use of this software.
-
-Permission is granted to distribute the library under the terms of the 
-Q Public License version 1.0. Be sure to read and understand the license
-before using the library. It should be included here, or you may read it
-at http://www.trolltech.com/products/qt/licenses/licensing/qpl
-
-The original version of this library can be located at:
-http://www.sagaengine.com/
-
-Rune Myrland
-rune@skalden.com
-*/
-
-
 #ifndef game_area_NavMesh_hpp
 #define game_area_NavMesh_hpp
 
@@ -107,7 +86,7 @@ namespace game {
 
 		/**
 		 * Returns the size of the char array that holds
-		 * the navigation matrix.
+		 * the navigation matrix. 
 		 */
 		int dataSize() {
 			return (triangleCount_ * triangleCount_ + 3) >> 2;
@@ -169,8 +148,8 @@ namespace game {
 			out.x_ = ((c1 - c2) * det_inv);
 			//out.y_ = ((a2 * c1 - a1 * c2) * det_inv);
 			out.y_ = m1 * ( (c2 - c1) / (m1 - m2) ) + c1;
-		} // end Intersect_Lines
-
+		} // end Intersect_Lines		
+		
 
 
 
@@ -281,7 +260,7 @@ namespace game {
 			out.z_ = 1 - out.x_ - out.y_;
 		}
 
-
+		
 		coor_t height(short tri, const se_core::Tuple3& barycentric) const {
 			const se_core::Point3& c1 = controlPoints_[ triangles_[tri].controlPoints_[0] ];
 			const se_core::Point3& c2 = controlPoints_[ triangles_[tri].controlPoints_[1] ];
@@ -298,7 +277,7 @@ namespace game {
 		bool isInsideTriangle(se_core::Tuple3& barycentric) const {
 			return (barycentric.x_ >= 0 && barycentric.y_ >= 0 & barycentric.z_ >= 0);
 		}
-
+		
 		/** Barycentric test */
 		bool isInsideTriangle(se_core::Point2& q, se_core::Point3& c1, se_core::Point3& c2, se_core::Point3& c3) const {
 			se_core::Tuple3 b;
@@ -334,13 +313,13 @@ namespace game {
 		short find(const se_core::Point2& q) const {
 			// TODO: Should organize triangles in a tree or grid structure
 			se_core::Tuple3 b;
-			se_core::Point3 c[3];
 			for(int i = 0; i < triangleCount_; ++i) {
 				barycentric(i, q, b);
 				if(isInsideTriangle(b)) {
 					return i;
 				}
 			}
+			//LogMsg(q.x_ << ", " << q.y_);
 			return -1;
 		}
 
@@ -386,7 +365,7 @@ namespace game {
 			}
 			return tri;
 		}
-
+		
 	protected:
 		short controlPointCount_;
 		short triangleCount_;

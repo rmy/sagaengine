@@ -54,36 +54,35 @@ namespace game {
 
 		// Calculate the next position from the present
 		// position and its change
-		nextPos.coor_.add(v);
+		nextPos.localCoor().add(v);
 
 
 		// Calc navigation mesh triangle id
-		nextPos.area()->updateIndex(nextPos);
+		short newIndex = nextPos.area()->index(nextPos.worldCoor(), nextPos.index());
+		nextPos.setIndex(newIndex);
 
 		if(isBlocked(actor, pos, nextPos)) {
-			nextPos.coor_.x_ = pos.coor_.x_;
-			nextPos.coor_.z_ = pos.coor_.z_;
-			nextPos.layer_ = pos.layer_;
+			nextPos.localCoor().x_ = pos.localCoor().x_;
+			nextPos.localCoor().z_ = pos.localCoor().z_;
+			nextPos.index_ = pos.index_;
 		}
 
 		// Ground height at present position
-		coor_t gh = nextPos.area()->groundHeight(nextPos.coor_, nextPos.index());
+		coor_t gh = nextPos.area()->groundHeight(nextPos.localCoor(), nextPos.index());
 		// If below ground, then make grounded
-		if(gh > nextPos.coor_.y_) {
-			nextPos.setLayer();
-		}
+		nextPos.setGrounded(gh > nextPos.localCoor().y_);
 		// Clamp the character to the ground if grounded
-		if(!nextPos.hasOwnHeight()) {
-			nextPos.coor_.y_ = gh;
+		if(nextPos.isGrounded()) {
+			nextPos.localCoor().y_ = gh;
 			nextMove.velocity_.y_ = 0;
 		}
 
 
 		// Set the face direction to be equal to
 		// movement direction
-		//nextPos.face().add( nextMove.angularVelocity_ );
+		//nextPos.localFace().add( nextMove.angularVelocity_ );
 		nextMove.changeYaw(BrayT::add(actor.move().yaw_, actor.move().angularVelocity_.yaw_));
-		nextPos.face().setYaw(actor.move().yaw_);
+		nextPos.localFace().setYaw(actor.move().yaw_);
 	}
 
 

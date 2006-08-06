@@ -143,9 +143,9 @@ namespace se_ogre {
 		///////
 		Ogre::Vector3 nextPos
 			(
-			 CoorT::toFloat(thing_->nextPos().coor().x_),
-			 CoorT::toFloat(thing_->nextPos().coor().y_),
-			 CoorT::toFloat(thing_->nextPos().coor().z_)
+			 CoorT::toFloat(thing_->nextPos().localCoor().x_),
+			 CoorT::toFloat(thing_->nextPos().localCoor().y_),
+			 CoorT::toFloat(thing_->nextPos().localCoor().z_)
 			 );
 
 		Ogre::Real scale = scale_;
@@ -303,7 +303,7 @@ namespace se_ogre {
 
 		static ViewPoint w;
 		thing_->worldViewPoint(alpha, w);
-		//LogMsg(thing_->name() << ": " << w.coor_.x_ << ", " << w.coor_.y_ << ", " << w.coor_.z_);
+		//LogMsg(thing_->name() << ": " << w.localCoor().x_ << ", " << w.localCoor().y_ << ", " << w.localCoor().z_);
 
 		Ogre::Vector3 pos(
 				CoorT::toFloat(w.coor_.x_),

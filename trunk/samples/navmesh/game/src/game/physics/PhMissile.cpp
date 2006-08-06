@@ -44,16 +44,17 @@ namespace game {
 
 		// Calculate the change in the coordinate
 		// that should affect the mover this tick
-		nextPos.coor_.add(nextMove.velocity_);
+		nextPos.localCoor().add(nextMove.velocity_);
 
 
 		// Calc navigation mesh triangle id
-		nextPos.area()->updateIndex(nextPos);
+		short newIndex = nextPos.area()->index(nextPos.worldCoor(), nextPos.index());
+		nextPos.setIndex(newIndex);
 
 		// If below ground, then destroy missile
 		static const coor_t epsilon = 0.000001;
-		coor_t gh = nextPos.area()->groundHeight(nextPos.coor_, nextPos.index());
-		if(gh + epsilon < nextPos.coor_.y_) {
+		coor_t gh = nextPos.area()->groundHeight(nextPos.localCoor(), nextPos.index());
+		if(gh + epsilon < nextPos.localCoor().y_) {
 			// Cant destroy it before affect, so just leave area here
 			nextPos.resetArea();
 		}

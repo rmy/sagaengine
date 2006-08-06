@@ -125,7 +125,7 @@ namespace se_core {
 			case 'F': // face direction
 				value = in.readInt();
 				//thing->nextPos().changeDirection(value * BRAY_RES / 2);
-				thing->nextPos().setFaceDirection(value * BRAY_RES / 2);
+				thing->nextPos().local_.setFaceDirection(value * BRAY_RES / 2);
 				break;
 			case 'A': // attribute value
 				id = in.readDictionaryWord(DE_ATTRIBUTE);
