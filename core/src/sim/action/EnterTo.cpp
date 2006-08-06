@@ -42,7 +42,7 @@ namespace se_core {
 		performer.nextMove().resetSpeed();
 		Area* area = SimSchema::areaManager.area(name);
 		const SpawnPoint* sp = area->spawnPoint(id);
-		performer.nextPos().setViewPoint( *sp );
+		performer.nextPos().local_.setViewPoint( *sp );
 		if(area != performer.area()) {
 			performer.nextPos().setArea(*area);
 		}

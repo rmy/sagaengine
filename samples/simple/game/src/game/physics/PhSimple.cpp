@@ -56,30 +56,30 @@ namespace game {
 
 		// Calculate the next position from the present
 		// position and its change
-		nextPos.coor_.add(v);
+		nextPos.localCoor().add(v);
 
 		if(isBlocked(actor, pos, nextPos)) {
-			nextPos.coor_.x_ = pos.coor_.x_;
-			nextPos.coor_.z_ = pos.coor_.z_;
+			nextPos.localCoor().x_ = pos.localCoor().x_;
+			nextPos.localCoor().z_ = pos.localCoor().z_;
 		}
 
 		// Ground height at present position
-		coor_t gh = nextPos.area()->groundHeight(nextPos.coor_);
+		coor_t gh = nextPos.area()->groundHeight(nextPos.localCoor());
 		// If below ground, then make grounded
-		if(gh > nextPos.coor_.y_) {
+		if(gh > nextPos.localCoor().y_) {
 			nextPos.setGrounded(true);
 		}
 		// Clamp the character to the ground if grounded
 		if(!nextPos.isGrounded()) {
-			nextPos.coor_.y_ = gh;
+			nextPos.localCoor().y_ = gh;
 			nextMove.velocity_.y_ = 0;
 		}
 
 		// Set the face direction to be equal to
 		// movement direction
 		nextMove.angularVelocity_.rotate( move.torque_ );
-		nextPos.face().rotate( move.angularVelocity_ );
-		nextPos.face().normalize();
+		nextPos.localFace().rotate( move.angularVelocity_ );
+		nextPos.localFace().normalize();
 
 		// Friction
 		nextMove.velocity_.scale(0.8);

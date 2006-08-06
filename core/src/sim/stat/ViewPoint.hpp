@@ -77,6 +77,8 @@ namespace se_core {
 		Euler3& face() { return face_; }
 		#endif
 
+		inline void setCoor(const Coor& c) { coor_.set(c); }
+
 		inline void setFace(const Quat4& f) { face_.set(f); }
 		inline void setFace(const Euler3& f) { face_.set(f); }
 

@@ -148,7 +148,7 @@ namespace se_core {
 	void PosNode
 	::updateWorldViewPoint() {
 		ViewPoint& dest = nextPosition_.world_;
-		dest.setViewPoint(nextPosition_);
+		dest.setViewPoint(nextPosition_.local_);
 		if(nextPos().hasParent()) {
 			// Parent should already have updated their worldViewPoint
 			PosNode* p = nextPos().parent();
@@ -162,7 +162,7 @@ namespace se_core {
 
 	void PosNode
 	::calcWorldViewPoint(ViewPoint& dest) const {
-		dest.setViewPoint(nextPosition_);
+		dest.setViewPoint(nextPosition_.local_);
 		if(nextPosition_.hasParent()) {
 			// Parent should already have updated their worldViewPoint
 			const PosNode* p = nextPosition_.parent();
@@ -182,8 +182,8 @@ namespace se_core {
 		nextWorldCoor(np);
 		dest.interpolate(np, alpha);
 		*/
-		dest.set(position_.world_.coor_);
-		dest.interpolate(nextPosition_.world_.coor_, alpha);
+		dest.set(position_.worldCoor());
+		dest.interpolate(nextPosition_.worldCoor(), alpha);
 	}
 
 
@@ -196,18 +196,18 @@ namespace se_core {
 		nextWorldViewPoint(np);
 		*/
 		dest.setViewPoint(position_.world_);
-		dest.coor_.interpolate(nextPosition_.world_.coor_, alpha);
-		dest.face_.interpolate(nextPosition_.world_.face_, alpha);
+		dest.coor_.interpolate(nextPosition_.worldCoor(), alpha);
+		dest.face_.interpolate(nextPosition_.worldFace(), alpha);
 	}
 
 	/*
 	void PosNode
 	::worldCoor(Coor& dest) const {
-		dest.set(position_.coor_);
+		dest.set(position_.localCoor());
 		const PosNode* node = position_.parent();
 		while(node != 0) {
-			dest.rotate(node->position_.face_);
-			dest.add(node->position_.coor_);
+			dest.rotate(node->position_.localFace());
+			dest.add(node->position_.localCoor());
 			node = node->position_.parent();
 		}
 	}
@@ -219,9 +219,9 @@ namespace se_core {
 		const PosNode* node = position_.parent();
 		while(node != 0) {
 
-			dest.coor_.rotate(node->position_.face_);
-			dest.coor_.add(node->position_.coor_);
-			dest.face_.rotate(node->position_.face_);
+			dest.localCoor().rotate(node->position_.localFace());
+			dest.localCoor().add(node->position_.localCoor());
+			dest.localFace().rotate(node->position_.localFace());
 
 			//LogMsg(name() << ": " << position_.toLog());
 			//LogMsg(node->name() << " - " << node->position_.toLog());
@@ -233,11 +233,11 @@ namespace se_core {
 
 	void PosNode
 	::nextWorldCoor(Coor& dest) const {
-		dest.set(nextPosition_.coor_);
+		dest.set(nextPosition_.localCoor());
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
-			dest.rotate(node->nextPosition_.face_);
-			dest.add(node->nextPosition_.coor_);
+			dest.rotate(node->nextPosition_.localFace());
+			dest.add(node->nextPosition_.localCoor());
 			node = node->nextPosition_.parent();
 		}
 	}
@@ -248,9 +248,9 @@ namespace se_core {
 		dest.setViewPoint(nextPosition_);
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0) {
-			dest.coor_.rotate(node->nextPosition_.face_);
-			dest.coor_.add(node->nextPosition_.coor_);
-			dest.face_.rotate(node->nextPosition_.face_);
+			dest.localCoor().rotate(node->nextPosition_.localFace());
+			dest.localCoor().add(node->nextPosition_.localCoor());
+			dest.localFace().rotate(node->nextPosition_.localFace());
 			node = node->nextPosition_.parent();
 		}
 	}
@@ -262,9 +262,9 @@ namespace se_core {
 		dest.setViewPoint(position_);
 		const PosNode* node = position_.parent();
 		while(node != 0 && node != stopAtParent) {
-			dest.coor_.rotate(node->position_.face_);
-			dest.coor_.add(node->position_.coor_);
-			dest.face_.rotate(node->position_.face_);
+			dest.localCoor().rotate(node->position_.localFace());
+			dest.localCoor().add(node->position_.localCoor());
+			dest.localFace().rotate(node->position_.localFace());
 			node = node->position_.parent();
 		}
 	}
@@ -275,9 +275,9 @@ namespace se_core {
 		dest.setViewPoint(nextPosition_);
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0 && node != stopAtParent) {
-			dest.coor_.rotate(node->nextPosition_.face_);
-			dest.coor_.add(node->nextPosition_.coor_);
-			dest.face_.rotate(node->nextPosition_.face_);
+			dest.localCoor().rotate(node->nextPosition_.localFace());
+			dest.localCoor().add(node->nextPosition_.localCoor());
+			dest.localFace().rotate(node->nextPosition_.localFace());
 			node = node->nextPosition_.parent();
 		}
 	}
@@ -285,11 +285,11 @@ namespace se_core {
 
 	void PosNode
 	::childCoor(Coor& dest, PosNode* stopAtParent) const {
-		dest.set(position_.coor_);
+		dest.set(position_.localCoor());
 		const PosNode* node = position_.parent();
 		while(node != 0 && node != stopAtParent) {
-			dest.rotate(node->position_.face_);
-			dest.add(node->position_.coor_);
+			dest.rotate(node->position_.localFace());
+			dest.add(node->position_.localCoor());
 			node = node->position_.parent();
 		}
 	}
@@ -297,11 +297,11 @@ namespace se_core {
 
 	void PosNode
 	::nextChildCoor(Coor& dest, PosNode* stopAtParent) const {
-		dest.set(nextPosition_.coor_);
+		dest.set(nextPosition_.localCoor());
 		const PosNode* node = nextPosition_.parent();
 		while(node != 0 && node != stopAtParent) {
-			dest.rotate(node->nextPosition_.face_);
-			dest.add(node->nextPosition_.coor_);
+			dest.rotate(node->nextPosition_.localFace());
+			dest.add(node->nextPosition_.localCoor());
 			node = node->nextPosition_.parent();
 		}
 	}

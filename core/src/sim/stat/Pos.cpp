@@ -40,7 +40,7 @@ namespace se_core {
 			, index_(-1)
 			, isGrounded_(true)
 	{
-		setIdentity();
+		local_.setIdentity();
 		world_.setIdentity();
 	}
 
@@ -49,14 +49,14 @@ namespace se_core {
 	::terrainStyle() const {
 		if(!hasArea())
 			return TS_VOID;
-		return area()->terrainStyle(this->coor_, index());
+		return area()->terrainStyle(this->localCoor(), index());
 	}
 
 	long Pos
 	::touchedTerrain() const {
 		if(!hasArea())
 			return TSM_VOID;
-		return area()->touchedTerrain(this->coor_, radius());
+		return area()->touchedTerrain(this->localCoor(), radius());
 	}
 
 
@@ -95,14 +95,14 @@ namespace se_core {
 			return NO_PATH;
 		}
 		coor_world_t fromX = (coor_world_t)p.area()->pagePosX()
-			+ (coor_world_t)p.coor_.x_;
+			+ (coor_world_t)p.localCoor().x_;
 		coor_world_t toX = (coor_world_t)area()->pagePosX()
-			+ (coor_world_t)coor_.x_;
+			+ (coor_world_t)localCoor().x_;
 
 		coor_world_t fromZ = ((coor_world_t)p.area()->pagePosZ()
-				+ (coor_world_t)p.coor_.z_);
+				+ (coor_world_t)p.localCoor().z_);
 		coor_world_t toZ = ((coor_world_t)area()->pagePosZ()
-				+ (coor_world_t)coor_.z_);
+				+ (coor_world_t)localCoor().z_);
 
 		coor_world_t xDist = fromX - toX;
 		coor_world_t zDist = fromZ - toZ;
@@ -136,7 +136,7 @@ namespace se_core {
 
 	void Pos
 	::setPos(const Pos& original) {
-		setViewPoint(original);
+		local_.setViewPoint(original.local_);
 		world_.setViewPoint(original.world_);
 		area_ = original.area_;
 		parent_ = original.parent_;
@@ -148,10 +148,10 @@ namespace se_core {
 	void Pos
 	::setXZ(const Pos& original) {
 		// Revert coordinates in xz plane. (Can still fall.)
-		coor_.x_ = original.coor_.x_;
-		coor_.z_ = original.coor_.z_;
-		world_.coor_.x_ = original.world_.coor_.x_;
-		world_.coor_.z_ = original.world_.coor_.z_;
+		localCoor().x_ = original.localCoor().x_;
+		localCoor().z_ = original.localCoor().z_;
+		worldCoor().x_ = original.worldCoor().x_;
+		worldCoor().z_ = original.worldCoor().z_;
 		area_ = original.area_;
 	}
 
@@ -175,8 +175,8 @@ namespace se_core {
 			return;
 		}
 
-		setViewPoint(world_);
-		sub(p.nextPos());
+		local_.setViewPoint(world_);
+		local_.sub(p.nextPos().world_);
 	}
 
 
@@ -199,8 +199,8 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		setCoor(c);
-		setFace(q);
+		local_.setCoor(c);
+		local_.setFace(q);
 		updateWorldViewPoint();
 	}
 
@@ -212,8 +212,8 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		coor_.set(c);
-		face_.set(a);
+		localCoor().set(c);
+		localFace().set(a);
 		updateWorldViewPoint();
 	}
 
@@ -225,7 +225,7 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		setViewPoint(vp);
+		local_.setViewPoint(vp);
 		updateWorldViewPoint();
 	}
 
@@ -237,7 +237,7 @@ namespace se_core {
 			parent_ = &area;
 		}
 		area_ = &area;
-		setViewPoint(sp);
+		local_.setViewPoint(sp);
 		updateWorldViewPoint();
 	}
 
@@ -255,12 +255,12 @@ namespace se_core {
 	::freezeAtWorldViewPoint() {
 		updateWorldViewPoint();
 		parent_ = 0;
-		setViewPoint(world_);
+		local_.setViewPoint(world_);
 	}
 
 	void Pos
 	::updateWorldViewPoint() {
-		world_.setViewPoint(*this);
+		world_.setViewPoint(local_);
 		if(hasParent()) {
 			// Parent should already have updated their worldViewPoint
 			world_.add( parent()->nextPos().world_ );
@@ -270,10 +270,10 @@ namespace se_core {
 
 	void Pos
 	::updateLocalViewPoint() {
-		setViewPoint(world_);
+		local_.setViewPoint(world_);
 		if(hasParent()) {
 			// Parent should already have updated their worldViewPoint
-			world_.sub( parent()->nextPos().world_ );
+			local_.sub( parent()->nextPos().world_ );
 		}
 	}
 
@@ -285,60 +285,19 @@ namespace se_core {
 		}
 	*/
 
-	void Pos
-	::worldViewPoint(ViewPoint& dest, bool doCalcNext, const PosNode* stopAt) const {
-		dest.setViewPoint(*this);
-		const PosNode* node = parent();
-		while(node != 0 && node != stopAt) {
-			const Pos& nodePos = node->pos();
-
-			dest.coor_.rotate(nodePos.face_);
-			dest.coor_.add(nodePos.coor_);
-			dest.face_.rotate(nodePos.face_);
-			node = nodePos.parent();
-		}
-	}
-
-
-	/*
-	void Pos
-	::nextWorldViewPoint(ViewPoint& dest, const PosNode* stopAt) const {
-		dest.setViewPoint(*this);
-		const PosNode* node = parent();
-		while(node != 0 && node != stopAt) {
-			dest.coor_.rotate(node->nextPos().face_);
-			dest.coor_.add(node->nextPos().coor_);
-			dest.face_.rotate(node->nextPos().face_);
-			node = node->nextPos().parent();
-		}
-	}
-
-
-	void Pos
-	::worldCoor(Coor& dest, const PosNode* stopAt) const {
-		dest.set(this->coor_);
-		const PosNode* node = parent();
-		while(node != 0 && node != stopAt) {
-			dest.rotate(node->pos().face_);
-			dest.add(node->pos().coor_);
-			node = node->pos().parent();
-		}
-	}
-	*/
-
 
 
 	bool Pos
 	::isInsideCollisionRange(const Pos& p) const {
 		coor_double_t collisionRange = p.radius() + radius();
-		return collisionRange * collisionRange >= coor_.distanceSquared(p.coor_);
+		return collisionRange * collisionRange >= localCoor().distanceSquared(p.localCoor());
 	}
 
 
 	bool Pos
 	::isInsideCollisionRangeLinf(const Pos& p) const {
 		coor_t collisionRange = p.radius() + radius();
-		return coor_.xzDistanceLinf(p.coor_) <= collisionRange;
+		return localCoor().xzDistanceLinf(p.localCoor()) <= collisionRange;
 	}
 
 
@@ -363,7 +322,7 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(isGrounded() && area_) {
-			coor_.y_ = area_->groundHeight(this->coor_);
+			localCoor().y_ = area_->groundHeight(this->localCoor());
 		}
 	}
 

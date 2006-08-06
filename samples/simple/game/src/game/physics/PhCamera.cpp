@@ -27,7 +27,7 @@ namespace game {
 		if(a != 0 && a != nextPos.area()) {
 			nextPos.setArea(*a);
 		}
-		nextPos.setViewPoint(*sp);
+		nextPos.local_.setViewPoint(*sp);
 	}
 
 

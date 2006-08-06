@@ -12,9 +12,9 @@ namespace test {
 
 		bool success = true;
 		for(int i = -360; i < 360; i += 10) {
-			vp1.coor_.set(i, i, i);
-			vp1.face_.setEuler(BRAY_RES * i, BRAY_RES * i, BRAY_RES * i);
-			vp1.face_.normalize();
+			vp1.localCoor().set(i, i, i);
+			vp1.localFace().setEuler(BRAY_RES * i, BRAY_RES * i, BRAY_RES * i);
+			vp1.localFace().normalize();
 
 			vp2 = vp1;
 			vp2.add(vp1);

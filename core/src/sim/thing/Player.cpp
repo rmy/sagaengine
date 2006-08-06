@@ -109,7 +109,7 @@ namespace se_core {
 
 	bool Player
 	::changeArea() {
-		lastEntrance_.setViewPoint(nextPos());
+		lastEntrance_.setViewPoint(nextPos().local_);
 		return Camera::changeArea();
 	}
 

@@ -1,24 +1,3 @@
-/*
-SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
-
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
-damages arising from the use of this software.
-
-Permission is granted to distribute the library under the terms of the 
-Q Public License version 1.0. Be sure to read and understand the license
-before using the library. It should be included here, or you may read it
-at http://www.trolltech.com/products/qt/licenses/licensing/qpl
-
-The original version of this library can be located at:
-http://www.sagaengine.com/
-
-Rune Myrland
-rune@skalden.com
-*/
-
-
 #include "NavMesh.hpp"
 
 using namespace se_core;
@@ -95,7 +74,7 @@ namespace game {
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
-					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.coor_, to.coor_)) {
+					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to.localCoor())) {
 						next = link;
 					}
 				}
@@ -103,7 +82,7 @@ namespace game {
 			if(next < 0) {
 				return false;
 			}
-
+			
 			prev = via;
 			via = next;
 		}

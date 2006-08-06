@@ -34,7 +34,7 @@ namespace se_core {
 	 * The Pos class maintains coordinates, volume and movement info for Thing
 	 * and subclasses.
 	 */
-	class Pos : public ViewPoint {
+	class Pos {
 	public:
 		static const short TS_VOID = 0;
 		static const long TSM_VOID = (1 << TS_VOID);
@@ -60,8 +60,8 @@ namespace se_core {
 		void setPos(const Pos& original);
 		void setXZ(const Pos& original);
 
-		inline void setCoor(const Coor& original) {
-			coor_.set(original);
+		inline void setLocalCoor(Coor& original) {
+			localCoor().set(original);
 		}
 
 		inline const Coor& worldCoor() const { return world_.coor_; }
@@ -77,6 +77,36 @@ namespace se_core {
 		Euler3& worldFace() { return world_.face_; }
 		#endif
 
+
+		inline const Coor& localCoor() const { return local_.coor_; }
+		inline Coor& localCoor() { return local_.coor_; }
+		inline const ViewPoint& localViewPoint() const { return local_; }
+		inline ViewPoint& localViewPoint() { return local_; }
+
+		#ifdef SE_QUAT
+		const Quat4& localFace() const { return local_.face_; }
+		Quat4& localFace() { return local_.face_; }
+		#else
+		const Euler3& localFace() const { return local_.face_; }
+		Euler3& localFace() { return local_.face_; }
+		#endif
+
+
+		inline bool localEquals(ViewPoint& vp) {
+			return local_.viewPointEquals(vp);
+		}
+
+		inline bool localEquals(Pos& p) {
+			return local_.viewPointEquals(p.local_);
+		}
+
+		inline bool worldEquals(ViewPoint& vp) {
+			return world_.viewPointEquals(vp);
+		}
+
+		inline bool worldEquals(Pos& p) {
+			return world_.viewPointEquals(p.world_);
+		}
 
 
 		/**
@@ -122,8 +152,6 @@ namespace se_core {
 
 		short terrainStyle() const;
 		long touchedTerrain() const;
-
-		void worldViewPoint(ViewPoint& dest, bool doCalcNext = false, const PosNode* stopAt = 0) const;
 
 		/**
 		 * Used to check if the positions
@@ -246,7 +274,7 @@ namespace se_core {
 		void reset() {
 			area_ = 0;
 			parent_ = 0;
-			setIdentity();
+			local_.setIdentity();
 			world_.setIdentity();
 			radius_ = 0;
 			index_ = -1;
@@ -261,6 +289,9 @@ namespace se_core {
 
 		/** The parent of this position */
 		PosNode* parent_;
+
+		/** The position in local coordinates */
+		ViewPoint local_;
 
 		/** The position in world coordinates */
 		ViewPoint world_;

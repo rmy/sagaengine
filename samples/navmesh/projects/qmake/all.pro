@@ -10,7 +10,7 @@ message( "[ Application ogre_ui settings ]")
 CONFIG += app
 TARGET = navmesh
 
-LIBS = -lgame_ogre_ui -lse_ogre -lse_client -lse_core -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase -langelscript
+LIBS = -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase -langelscript
 
 DESTDIR = .
 OBJECTS_DIR = .obj

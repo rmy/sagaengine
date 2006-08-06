@@ -34,7 +34,7 @@ namespace game {
 		performer.nextMove().torque_.set(p->torque_);
 		/*
 		Force f(0, 0, -0.15);
-		f.rotate(performer.pos().face());
+		f.rotate(performer.pos().localFace());
 		performer.nextMove().addForce(f);
 		*/
 	}

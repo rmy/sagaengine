@@ -103,7 +103,7 @@ namespace se_core {
 		while(it != SimObjectList::NULL_NODE) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());
-			DebugExec(const Coor& c = t->pos().coor_);
+			DebugExec(const Coor& c = t->pos().localCoor());
 			Dump((sprintf(log_msg(), "O %s %.2f %.2f", t->name(), CoorT::toFloat(c.x_), CoorT::toFloat(c.y_)), log_msg()));
 
 			// Statistics
@@ -235,7 +235,7 @@ namespace se_core {
 	Thing* Area
 	::findPickTarget(Player& actor) {
 		actor.setPickTarget(0);
-		const Coor& coor = actor.pos().coor_;
+		const Coor& coor = actor.pos().localCoor();
 
 		// Default to maximum pick range
 		coor_t nearest = (3 * COOR_RES);
@@ -243,8 +243,8 @@ namespace se_core {
 		SimObjectList::iterator_type it = multiSimObject(MGOA_PICKABLE_THINGS).iterator();
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
-			if(coor.xzDistanceLinf(t->pos().coor_) < nearest) {
-				nearest = coor.xzDistanceLinf(t->pos().coor_);
+			if(coor.xzDistanceLinf(t->pos().localCoor()) < nearest) {
+				nearest = coor.xzDistanceLinf(t->pos().localCoor());
 				actor.setPickTarget(t);
 			}
 		}
@@ -262,7 +262,7 @@ namespace se_core {
 
 		actor.setTarget(0);
 		const Pos& pos = actor.pos();
-		const Coor& coor = pos.coor();
+		const Coor& coor = pos.localCoor();
 
 		coor_double_t nearest = -1;
 
@@ -271,9 +271,9 @@ namespace se_core {
 			Actor* a = SimSchema::simObjectList.nextActor(it);
 			if(a == &actor) continue;
 			if(a->cutscenes().isEmpty()) continue;
-			if(nearest < 0 || coor.xzDistanceSquared(a->pos().coor_) < nearest) {
-				if(pos.hasInFront(a->pos().coor_) && actor.findRunnableCutscene(*a)) {
-					nearest = coor.xzDistanceSquared(a->pos().coor_);
+			if(nearest < 0 || coor.xzDistanceSquared(a->pos().localCoor()) < nearest) {
+				if(pos.hasInFront(a->pos().localCoor()) && actor.findRunnableCutscene(*a)) {
+					nearest = coor.xzDistanceSquared(a->pos().localCoor());
 					actor.setTarget(a);
 					actor.setPickTarget(a);
 				}
@@ -299,7 +299,7 @@ namespace se_core {
 		// this areas coordinate system
 		collisionGrid_->setSize(width_, height_);
 
-		collisionGrid_->setOffset(position_.world_.coor_);
+		collisionGrid_->setOffset(position_.worldCoor());
 
 		// Add moving elements to grid
 		SimObjectList::iterator_type it = allThings_->iterator();
@@ -551,12 +551,12 @@ namespace se_core {
 				// TODO: Real speed instead of max speed...
 				static const coor_t speed = COOR_RES;
 				coor_t speedAndRadius = p->pos().radius() + speed;
-				const Coor& wc = pos().world_.coor_;
+				const Coor& wc = pos().worldCoor();
 
 				// TODO: Real speed instead of max speed...
 				static const coor_t nextSpeed =  COOR_RES;
 				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				const Coor& nextWC = nextPos().world_.coor_;
+				const Coor& nextWC = nextPos().worldCoor();
 
 				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
 			}
@@ -707,7 +707,7 @@ namespace se_core {
 
 		// Initial index, if area type is using it
 		thing->nextPos().updateWorldViewPoint();
-		thing->nextPos().setIndex( index(thing->nextPos().world_.coor_) );
+		thing->nextPos().setIndex( index(thing->nextPos().worldCoor()) );
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);

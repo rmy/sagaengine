@@ -1,24 +1,3 @@
-/*
-SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
-
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
-damages arising from the use of this software.
-
-Permission is granted to distribute the library under the terms of the 
-Q Public License version 1.0. Be sure to read and understand the license
-before using the library. It should be included here, or you may read it
-at http://www.trolltech.com/products/qt/licenses/licensing/qpl
-
-The original version of this library can be located at:
-http://www.sagaengine.com/
-
-Rune Myrland
-rune@skalden.com
-*/
-
-
 #include "GamePre.H"
 #include "NavMeshArea.hpp"
 #include "NavMesh.hpp"
@@ -27,9 +6,8 @@ using namespace se_core;
 
 namespace game {
 	NavMeshArea
-	::NavMeshArea(String* name, coor_tile_t w, coor_tile_t h, ByteArray* data)
-			: Area (name, w, h), data_(data) {
-		navMesh_ = new const NavMesh(data_->get());
+	::NavMeshArea(String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
+			: Area (name, w, h), navMesh_(navMesh) {
 	}
 
 
@@ -48,26 +26,26 @@ namespace game {
 	}
 
 
-	void NavMeshArea
-	::updateIndex(se_core::Pos& pos) const {
-		short index;
-		Point2 p(pos.coor_.x_, pos.coor_.z_);
+	short NavMeshArea
+	::index(const se_core::Coor& worldCoor, short oldIndex) const {
+		//Assert(nextPosition_.face().isIdentity() 
+		//	   && "Rotation of area not supported");
 
-		if(pos.hasIndex()) {
-			index = navMesh_->find(pos.index(), p);
-			//LogMsg(index);
+		Point2 p(worldCoor.x_ - nextPosition_.world_.coor_.x_
+				 , worldCoor.z_ - nextPosition_.world_.coor_.z_);
+
+		//LogMsg(p.x_ << ", " << p.y_);
+
+		short index;
+		if(oldIndex >= 0) {
+			index = navMesh_->find(oldIndex, p);
 		}
 		else {
 			index = navMesh_->find(p);
-			//LogMsg(index);
 		}
 
-		if(index >= 0) {
-			pos.setIndex(index);
-		}
-		else {
-			pos.setNoIndex();
-		}
+		//LogMsg(index);
+		return index;
 	}
 
 
@@ -91,7 +69,7 @@ namespace game {
 		//Point2(coor.x_, coor.z_);
 		short tri = (index >= 0) ? index : navMesh_->find(Point2(coor.x_, coor.z_));
 		//short tri = navMesh_->find(p);
-		//LogMsg(tri << ": " << coor.x_ << ", " << coor.z_);
+		//LogMsg(tri << ": " << coor.x_ << ", " << coor.z_);	
 
 		if(tri < 0) {
 			return TS_VOID;
@@ -114,15 +92,16 @@ namespace game {
 		navMesh_->isInLineOfSight(from, to);
 	}
 
+
 	void NavMeshArea
 	::path(const Pos& from, const Pos& to, Point3& out) const {
 		// Already in same triangle
 		if(from.index() == to.index()) {
-			out.set(to.coor_);
+			out.set(to.localCoor());
 			return;
 		}
 		if(navMesh_->isInLineOfSight(from, to)) {
-			out.set(to.coor_);
+			out.set(to.localCoor());
 			return;
 		}
 		short via = navMesh_->path(from.index(), to.index());

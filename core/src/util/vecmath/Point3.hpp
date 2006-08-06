@@ -97,6 +97,40 @@ namespace se_core {
 		 */
 		void project(const Point4& p1);
 
+
+		/**
+		 * Get the distance between the coordinates to the second power.
+		 * Used for fast collision detecion between objects. The distance
+		 * is in the format described int setXInt and setZInt (before
+		 * it is squared).
+		 *
+		 * @returns The squared distance between two coordinates.
+		 */
+		inline coor_double_t xzDistanceSquared(const Point3& c) const {
+			coor_double_t xDist = c.x_ - x_;
+			coor_double_t zDist = c.z_ - z_;
+			return ((xDist * xDist) + (zDist * zDist));
+		}
+
+		/**
+		 * Gets the distance between two coordinates along the x or
+		 * the z axis, whichever is longest.
+		 */
+		coor_t xzDistanceLinf(const Point3& c) const;
+
+		/**
+		 * Gets the distance between two coordinates along the y axis.
+		 */
+		coor_t yDistance(const Point3& c) const;
+
+		/**
+		 * Calc angle between two coordinates in the xz-plane.
+		 *
+		 * @return angle in braybrookians (0 - 255).
+		 */
+		bray_t yawTowards(const Point3& c) const;
+
+
 		// copy constructor and operator = is made by complier
 
 		Point3& operator=(const Tuple3& t) {

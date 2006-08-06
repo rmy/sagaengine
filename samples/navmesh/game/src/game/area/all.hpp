@@ -22,7 +22,9 @@ rune@skalden.com
 #ifndef game_area_all_hpp
 #define game_area_all_hpp
 
+#include "NavMesh.hpp"
 #include "NavMeshArea.hpp"
+#include "NavMeshAreaFactory.hpp"
 #include "game_area.hpp"
 
 #endif
