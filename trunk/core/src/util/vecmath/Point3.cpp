@@ -1,5 +1,6 @@
 #include "Point3.hpp"
 #include "Point4.hpp"
+#include "Euler3.hpp"
 #include "../math/CoorT.hpp"
 #include "../math/Trig.hpp"
 
@@ -53,6 +54,20 @@ namespace se_core {
 		coor_t yp = c.z_ - z_;
 		return Trig::atan2(-yp, xp);
 	}
+
+
+	void Point3
+	::eulerTowards(const Point3& c, Euler3& dest) const {
+		coor_t xp = c.x_ - x_;
+		coor_t zp = c.z_ - z_;
+		dest.yaw_ = Trig::atan2(-zp, xp);
+
+
+		coor_t xzp = CoorT::sqrt(xp * xp + zp * zp);
+		coor_t yp = c.y_ - y_;
+		dest.pitch_ = Trig::atan2(xzp, -yp);
+	}
+
 
 
 }

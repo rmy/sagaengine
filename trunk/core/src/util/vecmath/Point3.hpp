@@ -130,6 +130,8 @@ namespace se_core {
 		 */
 		bray_t yawTowards(const Point3& c) const;
 
+		void eulerTowards(const Point3& c, Euler3& dest) const;
+
 
 		// copy constructor and operator = is made by complier
 
