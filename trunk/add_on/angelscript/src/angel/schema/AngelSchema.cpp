@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include <angelscript.h>
+#include "scriptstring.h"
 #include "AngelSchema.hpp"
 #include "../io/AngelScriptParserModule.hpp"
 #include "../script/ScriptFunctions.hpp"
@@ -32,13 +33,25 @@ rune@skalden.com
 
 
 namespace se_core {
+	void AngelMessageCallback(const asSMessageInfo *msg, void *param) {
+		const char *type = "ERR ";
+		if( msg->type == asMSGTYPE_WARNING ) 
+			type = "WARN";
+		else if( msg->type == asMSGTYPE_INFORMATION ) 
+			type = "INFO";
+
+		LogMsg(msg->section << " (" << msg->row << ", " << msg->col << ") " << type << " " << msg->message);
+		//printf("%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+	}
+
+	/*
 	class AngelOutputStream : public asIOutputStream {
 	public:
 		void Write(const char *text) {
 			LogMsg("Angelscript message:\n" << text << "--------");
 		}
 	};
-
+	*/
 
 
 	namespace AngelSchema {
@@ -54,7 +67,7 @@ namespace se_core {
 			// Create and register file parser modules
 			static AngelScriptParserModule aspm(IoSchema::parser());
 
-			LogMsg(ANGELSCRIPT_VERSION_STRING);
+			LogMsg("Initializing angelscript version " << ANGELSCRIPT_VERSION_STRING);
 
 			// Create the script engine
 			scriptEngine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
@@ -63,13 +76,20 @@ namespace se_core {
 				LogFatal("Failed to create script engine.");
 				return false;
 			}
-			LogMsg("angelscript engine created.");
+			LogMsg("Angelscript engine created.");
 
 			// The script compiler will send any compiler messages to
 			// the outstream
-			static AngelOutputStream out;
-			scriptEngine->SetCommonMessageStream(&out);
-			LogMsg("angelscript log initialised.");
+			// The script compiler will send any compiler messages to the callback function
+			scriptEngine->SetMessageCallback(asFUNCTION(AngelMessageCallback), 0, asCALL_CDECL);
+
+			RegisterScriptString(scriptEngine);
+
+
+
+			//static AngelOutputStream out;
+			//scriptEngine->SetCommonMessageStream(&out);
+			LogMsg("Angelscript log initialised.");
 
 			// Register the script string type
 			// Look at the implementation for this function for more information
