@@ -1,18 +1,7 @@
 <?xml version='1.0'>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"
-[
-<!ENTITY se "SagaEngine">
-<!ENTITY se-core "SagaEngine Core">
-<!ENTITY se-client "SagaEngine Client">
-<!ENTITY se-ogre "SagaEngine Ogre">
-<!ENTITY se-angel "SagaEngine Angelscript">
 
-<!ENTITY inc-se-core "#include &lt;se_core.hpp&gt;">
-]>
-
-<book>
-<chapter id="introduction">
-<title>Working with Actions</title>
+<chapter id="actions">
+<title>Chapter 4: Working with Actions</title>
 <sect1>
 <title>What is an Action</title>
 <para>Action is one of the central concepts in &se;. All state
@@ -107,4 +96,3 @@ namespace game {
 </programlisting>
 </sect1>
 </chapter>
-</book>

@@ -6,7 +6,9 @@
 <!ENTITY se-ogre "SagaEngine Ogre">
 <!ENTITY se-angelscript "SagaEngine Angelscript">
 <!ENTITY skalden "Skalden Studio AS">
+<!ENTITY actions SYSTEM "actions.xml">
 <!ENTITY dir "/usr/local/src/sagaengine">
+<!ENTITY inc-se-core "#include &lt;se_core.hpp&gt;">
 ]>
 
 <book>
@@ -19,6 +21,9 @@
 <chapter id="introduction">
 <title>Chapter 1: Introduction</title>
 <sect1>
+<title>Background</title>
+
+<sect2>
 <title>What is &se;?</title>
 <para>
 &se; is a game logic engine. It is centered around the concepts Actor, Action and Area.
@@ -26,16 +31,16 @@ An Actor may exist and perform Actions inside an Area. This is the simple view, 
 The library is a quite large object oriented architecture for resolving game situations.
 You are expected to subclass heavily for the purposes of your own game.
 </para>
-</sect1>
+</sect2>
 
-<sect1>
+<sect2>
 <title>Who is behind &se;?</title>
 <para>
 &se; is the in-house game engine and copyright of &skalden;.
 </para>
-</sect1>
+</sect2>
 
-<sect1>
+<sect2>
 <title>Terms of use</title>
 <para>
 Permission is granted to distribute the library under the terms of the 
@@ -51,6 +56,7 @@ the use of this software.
 <para>
 The choice of license is made because game consoles typically have NDAs and linking requirements that are incompatible with GPL or LGPL. We chose the QPL license because it enables us to accept contributions without making it impossible for us to deploy SagaEngine on consoles.
 </para>
+</sect2>
 </sect1>
 
 <sect1>
@@ -239,5 +245,6 @@ Coming...
 </para>
 </chapter>
 
+&actions;
 
 </book>
