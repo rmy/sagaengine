@@ -22,13 +22,9 @@ rune@skalden.com
 #ifndef sim_stat_ViewPoint_hpp
 #define sim_stat_ViewPoint_hpp
 
-#include "sim_stat.hpp"
-#include "Coor.hpp"
-#include "SpawnPoint.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/Euler3.hpp"
 #include "util/vecmath/Quat4.hpp"
-#include "../area/sim_area.hpp"
 
 namespace se_core {
 
@@ -38,10 +34,6 @@ namespace se_core {
 		ViewPoint(const ViewPoint& vp) 
 			: face_(vp.face_), coor_(vp.coor_) {
 		}
-		ViewPoint(const SpawnPoint& sp) {
-			setViewPoint(sp);
-		}
-
 
 		bool viewPointEquals(const ViewPoint& c) const {
 			return (c.coor_.equals(coor_) && c.face_.equals(face_));
@@ -59,11 +51,6 @@ namespace se_core {
 		}
 
 
-		inline void setViewPoint(const SpawnPoint& sp) {
-			coor_.set(sp.displace_);
-			face_.set(sp.face_);
-		}
-
 		inline void setIdentity() {
 			coor_.reset();
 			face_.setIdentity();
@@ -77,7 +64,7 @@ namespace se_core {
 		Euler3& face() { return face_; }
 		#endif
 
-		inline void setCoor(const Coor& c) { coor_.set(c); }
+		inline void setCoor(const Point3& c) { coor_.set(c); }
 
 		inline void setFace(const Quat4& f) { face_.set(f); }
 		inline void setFace(const Euler3& f) { face_.set(f); }
@@ -86,8 +73,8 @@ namespace se_core {
 			dest.set(face_);
 		}
 
-		const Coor& coor() const { return coor_; }
-		Coor& coor() { return coor_; }
+		const Point3& coor() const { return coor_; }
+		Point3& coor() { return coor_; }
 
 		void interpolate(ViewPoint& vp, scale_t alpha) {
 			coor_.interpolate(vp.coor_, alpha);
@@ -123,7 +110,7 @@ namespace se_core {
 		#else
 		Euler3 face_;
 		#endif
-		Coor coor_;
+		Point3 coor_;
 	};
 
 }

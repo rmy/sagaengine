@@ -37,12 +37,12 @@ namespace game {
 		SimpleArea(se_core::String* name, coor_tile_t w, coor_tile_t h);
 		virtual ~SimpleArea();
 
-		short index(const se_core::Coor&, short oldIndex = -1) const { return -1; }
-		coor_t groundHeight(const se_core::Coor& coor, short index = 0) const;
-		void force(const se_core::Coor& coor, se_core::Force& dest) const;
+		short index(const se_core::Point3&, short oldIndex = -1) const { return -1; }
+		coor_t groundHeight(const se_core::Point3& coor, short index = 0) const;
+		void force(const se_core::Point3& coor, se_core::Force& dest) const;
 
-		short terrainStyle(const se_core::Coor& coor, short index = 0) const;
-		short nextTerrainStyle(bray_t direction, const se_core::Coor& coor);
+		short terrainStyle(const se_core::Point3& coor, short index = 0) const;
+		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);
 
 	private:
 	};

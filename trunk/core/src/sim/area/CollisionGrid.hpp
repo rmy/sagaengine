@@ -27,6 +27,7 @@ rune@skalden.com
 #include "sim/config/sim_config.hpp"
 #include "sim/thing/sim_thing.hpp"
 #include "sim/stat/sim_stat.hpp"
+#include "util/vecmath/util_vecmath.hpp"
 #include "util/template/SinglyLinkedList.hpp"
 
 
@@ -55,7 +56,7 @@ namespace se_core {
 		 */
 		void setSize(int width, int height);
 
-		void setOffset(const Coor& c);
+		void setOffset(const Point3& c);
 
 		/**
 		 * How wide a the node array is at a given
@@ -116,25 +117,25 @@ namespace se_core {
 		/**
 		 * Insert a thing in the collision grid.
 		 */
-		void insert(const Coor& c, coor_t size, Thing& thing);
+		void insert(const Point3& c, coor_t size, Thing& thing);
 
 		/**
 		 * Remove a thing from the collision grid.
 		 */
-		bool remove(const Coor& c, coor_t size, Thing& thing);
+		bool remove(const Point3& c, coor_t size, Thing& thing);
 
 		/**
 		 * Move a thing in the collision grid.
 		 */
-		void move(const Coor& from, coor_t oldSize
-				  , const Coor& to, coor_t newSize, Thing& thing);
+		void move(const Point3& from, coor_t oldSize
+				  , const Point3& to, coor_t newSize, Thing& thing);
 
 		/**
 		 * Return all things in grid that a thing with the given Coor and
 		 * size may collide with in the things array. The max must
 		 * be (n^2) - 1.
 		 */
-		short collisionCandidates(const Coor& c, coor_t size
+		short collisionCandidates(const Point3& c, coor_t size
 									, Thing* things[], short max);
 
 		bool find(Thing& thing);

@@ -24,9 +24,9 @@ rune@skalden.com
 #include "sim/config/sim_config.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/Pos.hpp"
-#include "sim/stat/Coor.hpp"
 #include "sim/thing/Thing.hpp"
 #include "sim/thing/Actor.hpp"
+#include "util/vecmath/Point3.hpp"
 
 
 namespace se_core {

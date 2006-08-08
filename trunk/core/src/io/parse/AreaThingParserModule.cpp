@@ -24,7 +24,7 @@ rune@skalden.com
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/script/Cutscene.hpp"
-#include "sim/stat/SpawnPoint.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 #include "sim/stat/MultiSimObject.hpp"
 #include "sim/stat/SortedSimObjectList.hpp"
 #include "sim/area/Area.hpp"
@@ -57,7 +57,7 @@ namespace se_core {
 		Area* area = 0;
 		short MAX_SPAWN_POINTS = 20;
 		int spawnPointCount = 0;
-		SpawnPoint** spawnPoints = new SpawnPoint*[ MAX_SPAWN_POINTS ];
+		ViewPoint** spawnPoints = new ViewPoint*[ MAX_SPAWN_POINTS ];
 		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
 			spawnPoints[i] = 0;
 		}
@@ -84,8 +84,8 @@ namespace se_core {
 				coor_t x = CoorT::fromFloat(in.readFloat());
 				coor_t z = CoorT::fromFloat(in.readFloat());
 				Assert(id < MAX_SPAWN_POINTS);
-				SpawnPoint* sp = new SpawnPoint();
-				sp->displace_.set(x, 0, z);
+				ViewPoint* sp = new ViewPoint();
+				sp->coor_.set(x, 0, z);
 				sp->face_.setIdentity();
 				spawnPoints[id] = sp;
 				if(id > spawnPointCount) {

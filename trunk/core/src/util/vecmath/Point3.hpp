@@ -124,6 +124,46 @@ namespace se_core {
 		coor_t yDistance(const Point3& c) const;
 
 		/**
+		 * Get the area terrain tile x coordinate. Use this
+		 * to get the terrain tile from Area.
+		 *
+		 * @return the area terrain tile x coordinate
+		 */
+		inline coor_tile_t xTile() const { return CoorT::tile(x_); }
+
+		/**
+		 * Get the area terrain tile z coordinate. Use this
+		 * to get the terrain tile from Area.
+		 *
+		 * @return the area terrain tile z coordinate
+		 */
+		inline coor_tile_t zTile() const { return CoorT::tile(z_); }
+
+		/**
+		 * Get the x coordinate inside the terrain tile. Use this
+		 * when you have already gotten the correct terrain tile
+		 * from Area, and wants to know where you
+		 * are inside the tile. The value is between 0 (left)
+		 * and (COOR_RES - 1) (right).
+		 *
+		 * @returns z coordinate inside the terrain tile.
+		 */
+		coor_in_t xInsideTile() const { return CoorT::inTile(x_); }
+
+		/**
+		 * Get the z coordinate inside the terrain tile. Use this
+		 * when you have already gotten the correct terrain tile
+		 * from Area, and wants to know where you
+		 * are inside the tile. The value is between 0 (top)
+		 * and (COOR_RES - 1) (bottom).
+		 *
+		 * @returns z coordinate inside the terrain tile.
+		 */
+		coor_in_t zInsideTile() const { return CoorT::inTile(z_); }
+
+
+
+		/**
 		 * Calc angle between two coordinates in the xz-plane.
 		 *
 		 * @return angle in braybrookians (0 - 255).

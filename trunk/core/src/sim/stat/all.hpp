@@ -32,7 +32,6 @@ rune@skalden.com
 #include "SimObjectList.hpp"
 #include "ActorIterator.hpp"
 #include "Anim.hpp"
-#include "Coor.hpp"
 #include "MultiValue.hpp"
 #include "ThingIterator.hpp"
 #include "sim_stat.hpp"
@@ -42,6 +41,5 @@ rune@skalden.com
 #include "Property.hpp"
 #include "MultiSimObject.hpp"
 #include "SortedSimObjectList.hpp"
-#include "ViewPoint.hpp"
 
 #endif

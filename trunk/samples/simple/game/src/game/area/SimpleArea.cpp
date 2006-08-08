@@ -37,21 +37,21 @@ namespace game {
 
 
 	coor_t SimpleArea
-	::groundHeight(const Coor& coor, short index) const {
+	::groundHeight(const Point3& coor, short index) const {
 		// Simple areas area flat
 		return 0;
 	}
 
 
 	void SimpleArea
-	::force(const Coor& coor, Force& dest) const {
+	::force(const Point3& coor, Force& dest) const {
 		// No up or down in SimpleArea
 		dest.set(0, 0, 0);
 	}
 
 
 	short SimpleArea
-	::terrainStyle(const Coor& coor, short index) const {
+	::terrainStyle(const Point3& coor, short index) const {
 		// Only one rule - don't walk outside the area.
 
 		coor_tile_t x = coor.xTile();
@@ -65,7 +65,7 @@ namespace game {
 	}
 
 	short SimpleArea
-	::nextTerrainStyle(bray_t direction, const Coor& coor) {
+	::nextTerrainStyle(bray_t direction, const Point3& coor) {
 		// May be deprecated soon??
 		LogFatal("Not implemented");
 		return 0;

@@ -27,7 +27,7 @@ rune@skalden.com
 #include "./stat/sim_stat.hpp"
 #include "./thing/sim_thing.hpp"
 #include "./area/sim_area.hpp"
-#include "./stat/Coor.hpp"
+#include "util/vecmath/Point3.hpp"
 #include "./stat/Force.hpp"
 
 
@@ -232,7 +232,7 @@ namespace se_core {
 		/**
 		 * Test for and resolve collsisions with terrain.
 		 */
-		inline bool fastCalcWhenLimitTerrain(long startWhen, long endWhen, Actor& thing, Coor& coor);
+		inline bool fastCalcWhenLimitTerrain(long startWhen, long endWhen, Actor& thing, Point3& coor);
 
 		/**
 		 * Test if a slide is possible.
@@ -250,7 +250,7 @@ namespace se_core {
 		bool isGameOver_;
 
 		/** Often used tmp values. */
-		Coor c1_, c2_;
+		Point3 c1_, c2_;
 
 		/** Often used tmp values. */
 		Force force0_, force_;

@@ -77,12 +77,12 @@ namespace se_core {
 		/**
 		 * Height of ground (y-coordinate) at given (coor.x_, coor.z_).
 		 */
-		virtual coor_t groundHeight(const Coor& coor, short index = -1) const = 0;
+		virtual coor_t groundHeight(const Point3& coor, short index = -1) const = 0;
 
 		/**
 		 * Some area types maintain an index with positions.
 		 */
-		virtual short index(const Coor& wc, short oldIndex = -1) const = 0;
+		virtual short index(const Point3& wc, short oldIndex = -1) const = 0;
 
 		/**
 		 * Sets the grid used to speed up the collisions detection.
@@ -112,7 +112,7 @@ namespace se_core {
 		void setFactory(const AreaFactory* f) { factory_ = f; }
 
 	public:
-		virtual void force(const Coor& coor, Force& dest) const = 0;
+		virtual void force(const Point3& coor, Force& dest) const = 0;
 		coor_tile_t width() const { return width_; }
 		coor_tile_t height() const { return height_; }
 
@@ -145,7 +145,7 @@ namespace se_core {
 			return (x >= 0 && y >= 0 && x < width_ && y < height_);
 		}
 
-		bool isLegalCoor(const Coor& worldCoor) const {
+		bool isLegalCoor(const Point3& worldCoor) const {
 			return (worldCoor.x_ >= nextPosition_.localCoor().x_
 					&& worldCoor.z_ >= nextPosition_.localCoor().z_
 					&& worldCoor.xTile() < nextPosition_.localCoor().xTile() + width_
@@ -153,14 +153,14 @@ namespace se_core {
 
 		}
 
-		virtual short terrainStyle(const Coor& coor, short index = -1) const = 0;
-		virtual short nextTerrainStyle(bray_t direction, const Coor& coor) = 0;
+		virtual short terrainStyle(const Point3& coor, short index = -1) const = 0;
+		virtual short nextTerrainStyle(bray_t direction, const Point3& coor) = 0;
 		static inline long tsMask(short ts) { return (1L << ts); }
 
 		/// Wall collision utility method
-		virtual long touchedTerrain(const Coor& centre, coor_t radius) const;
+		virtual long touchedTerrain(const Point3& centre, coor_t radius) const;
 		/// Line of sight utility method
-		virtual long touchedTerrain(const Coor& from, const Coor& to) const;
+		virtual long touchedTerrain(const Point3& from, const Point3& to) const;
 
 		Thing* findPickTarget(Player& actor);
 		Thing* findDefaultActionTarget(Player& actor);
@@ -175,7 +175,7 @@ namespace se_core {
 		 */
 		Area* neighbour(short relX, short relY, short relZ);
 
-		Area* neighbour(const Coor& worldCoor);
+		Area* neighbour(const Point3& worldCoor);
 
 		/**
 		 * Check if the area passed in is a neighbour, and if so,

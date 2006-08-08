@@ -19,37 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef sim_stat_SpawnPoint_hpp
-#define sim_stat_SpawnPoint_hpp
-
-#include "util/vecmath/Vector3.hpp"
-#include "util/vecmath/Quat4.hpp"
-#include "util/vecmath/Euler3.hpp"
+#include "ViewPoint.hpp"
+#include "util/math/all.hpp"
+#include <cstdio>
+#include <cstring>
 
 
 namespace se_core {
-	class SpawnPoint {
-	public:
-		SpawnPoint() {}
-		SpawnPoint(Quat4& face, Vector3& disp)
-				: face_(face), displace_(disp) {
-		}
 
-		SpawnPoint(Euler3& face, Vector3& disp)
-				: face_(face), displace_(disp) {
-		}
+	const char* ViewPoint
+	::toLog() const {
+		static char buffer[256];
 
-		/** Intitial facing direction of spawn */
-		#ifdef SE_QUAT
-		Quat4 face_;
-		#else
-		/** Intitial facing direction of spawn */
-		Euler3 face_;
-		#endif
+		face_.toString(buffer);
+		coor_.toString(buffer + strlen(buffer) );
+		return buffer;
+	}
 
-		/** The spawn's displacement relative to the parent */
-		Vector3 displace_;
-	};
 }
-
-#endif

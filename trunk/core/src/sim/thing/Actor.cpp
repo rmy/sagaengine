@@ -32,7 +32,7 @@ rune@skalden.com
 #include "../script/Script.hpp"
 #include "../script/ShowingCutscene.hpp"
 #include "../script/Cutscene.hpp"
-#include "../stat/ViewPoint.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
@@ -456,7 +456,7 @@ namespace se_core {
 	Thing* Actor
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
 		// Get spawn point displace and face direction
-		const SpawnPoint* sp = spawnPoint(spawnPointId);
+		const ViewPoint* sp = spawnPoint(spawnPointId);
 		Assert(sp && "Spawn point does not exist");
 		ViewPoint vp(*sp);
 

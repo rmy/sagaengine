@@ -35,8 +35,8 @@ rune@skalden.com
 #include "../script/Script.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../stat/Anim.hpp"
-#include "../stat/Coor.hpp"
 #include "../stat/Pos.hpp"
+#include "util/vecmath/Point3.hpp"
 #include "util/type/String.hpp"
 
 

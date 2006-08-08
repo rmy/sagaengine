@@ -13,7 +13,7 @@ namespace se_core {
 	private:
 		void readThing(se_core::InputStream& in, se_core::Area& area, se_core::PosNode* parent = 0);
 		void readChildren(se_core::InputStream& in, se_core::Area& area, se_core::PosNode& parent);
-		void readSpawnPoint(InputStream& in, SpawnPoint& sp);
+		void readSpawnPoint(InputStream& in, ViewPoint& sp);
 		void readMultiCutscene(se_core::InputStream& in, se_core::MultiSimObject& mgo);
 	};
 

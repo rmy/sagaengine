@@ -11,7 +11,7 @@ namespace game {
 		void parse(se_core::InputStream& in);
 		void readMultiCutscene(se_core::InputStream& in, se_core::MultiSimObject& mgo);
 		void readMultiQuest(se_core::InputStream& in, se_core::MultiSimObject& mgo);
-		void readSpawnPoint(se_core::InputStream& in, se_core::SpawnPoint& sp);
+		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
 	};
 
 };

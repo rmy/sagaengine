@@ -29,6 +29,8 @@ namespace se_core {
 	class AxisAngle4;
 	class Euler3;
 	class Quat4;
+
+	class ViewPoint;
 }
 
 

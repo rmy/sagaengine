@@ -109,7 +109,7 @@ namespace se_core {
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
 				Assert(area);
-				const SpawnPoint* sp = area->spawnPoint(value);
+				const ViewPoint* sp = area->spawnPoint(value);
 				Assert(sp);
 				camera->nextPos().setArea(*area, *sp);
 				LogMsg("Pos - read:" << camera->nextPos().area()->name());
