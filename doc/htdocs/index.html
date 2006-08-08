@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<meta name="description" content="your description goes here" />
+<meta name="keywords" content="your,keywords,goes,here" />
+<meta name="author" content="Rune Myrland"/>
+<link rel="stylesheet" type="text/css" href="andreas05.css" />
+<title>SagaEngine</title>
+</head>
+
+<body>
+<div id="title"><h1>SagaEngine</h1></div>
+<div id="container">
+<div id="sidebar"><h2>Main menu</h2>
+<a class="menu" href="http://sourceforge.net/projects/sagaengine">Summary</a>
+<a class="menu" href="http://sourceforge.net/forum/?group_id=165943">Forum</a>
+<!-- a class="menu" href="http://sourceforge.net/project/showfiles.php?group_id=165943">Download</a -->
+
+<br/>
+<h2>Documentation</h2>
+<a class="menu" href="book1.html">Tutorial</a>
+<a class="menu" href="api/html/index.html">API reference</a>
+
+<br/>
+<h2>Resources</h2>
+<a class="menu" href="http://sourceforge.net/tracker/?group_id=165943&atid=837393">Bug tracker</a>
+
+<br/>
+
+</div>
+
+
+<div id="main">
+<h2>What is SagaEngine?</h2>
+<p>SagaEngine is a game logic engine. It is centered around the concepts Actor, Action 
+and Area. An Actor may exist and perform Actions inside an Area. This is the simple view, 
+though. The library is a quite large object oriented architecture for resolving game 
+situations. You are expected to subclass heavily for the purposes of your own game.</p>
+
+<h2>Feature highlights</h2>
+<UL>
+<LI><P>Hierarchy of game entities: Game entities like Area, Thing
+and Actor are stored in a hierarchy, where a child moves relative to its
+parent. An Area is usually at the root. A rider Actor would be the child 
+of a horse Actor while saddled.</P></LI>
+<LI><P>Scripting: Subclasses of the Script class can be assigned
+an Actor to automatically plan the next action when a previous one is complete.
+This architecture makes it simple to integrate scripting languages.</P></LI>
+<LI><P>Custom physics: Sublclasses of Physics are assigned to
+an Actor to control movement. This means that a ground walker and a bird
+may be controlled by different physics algorithms.</P></LI>
+<LI><P>Ogre integration: 
+SagaEngine Core contains co render logic in itself, but is build with the intention
+that you program add-on modules that serves as a glue between SagaEngine Core and
+a render engine. SagaEngine Ogre is such a gluing layer between SagaEngine Core and the
+opensource Ogre engine (http://www.ogre3d.org/).</P>
+</LI>
+</UL>
+
+<h2>License</h2>
+<p>Permission is granted to distribute the library under the terms of the Q Public License version 1.0.</p>
+
+<p class="credits"><strong>&copy; 2006 <a href="http://www.skalden.com/">Skalden Studio AS</a></strong> | Design by <a href="http://andreasviklund.com/">Andreas Viklund</a><br />
+
+</div>
+
+<div id="footer">
+<a href="http://sourceforge.net"><img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=165943&amp;type=1"
+width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
+
+</div>
+</div>
+</body>
+</html>
