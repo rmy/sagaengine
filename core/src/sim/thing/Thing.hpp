@@ -28,7 +28,6 @@ rune@skalden.com
 #include "../custom/ThingData.hpp"
 #include "../action/sim_action.hpp"
 #include "../config/sim_config.hpp"
-#include "../stat/Coor.hpp"
 #include "../stat/Anim.hpp"
 #include "../stat/Pos.hpp"
 #include "../stat/MultiSimObject.hpp"

@@ -192,7 +192,7 @@ namespace se_core {
 	}
 
 	void Pos
-	::setArea(Area& area, const Coor& c, const Quat4& q) {
+	::setArea(Area& area, const Point3& c, const Quat4& q) {
 		//LogMsg(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
@@ -205,7 +205,7 @@ namespace se_core {
 	}
 
 	void Pos
-	::setArea(Area& area, const Coor& c, const Euler3& a) {
+	::setArea(Area& area, const Point3& c, const Euler3& a) {
 		//LogMsg(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
@@ -226,18 +226,6 @@ namespace se_core {
 		}
 		area_ = &area;
 		local_.setViewPoint(vp);
-		updateWorldViewPoint();
-	}
-
-
-	void Pos
-	::setArea(Area& area, const SpawnPoint& sp) {
-		if(parent_ == area_) {
-			// Area is the root parent node
-			parent_ = &area;
-		}
-		area_ = &area;
-		local_.setViewPoint(sp);
 		updateWorldViewPoint();
 	}
 

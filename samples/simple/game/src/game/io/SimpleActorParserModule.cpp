@@ -43,7 +43,7 @@ namespace game {
 
 		short MAX_SPAWN_POINTS = 20;
 		int spawnPointCount = 0;
-		SpawnPoint* spawnPoints[ MAX_SPAWN_POINTS ];
+		ViewPoint* spawnPoints[ MAX_SPAWN_POINTS ];
 		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
 			spawnPoints[i] = 0;
 		}
@@ -91,7 +91,7 @@ namespace game {
 					Assert(id < MAX_SPAWN_POINTS);
 					Assert(spawnPoints[id] == 0);
 
-					SpawnPoint* sp = new SpawnPoint();
+					ViewPoint* sp = new ViewPoint();
 					readSpawnPoint(in, *sp);
 
 					spawnPoints[id] = sp;
@@ -114,8 +114,8 @@ namespace game {
 
 
 	void SimpleActorParserModule
-	::readSpawnPoint(InputStream& in, SpawnPoint& sp) {
-		sp.displace_.reset();
+	::readSpawnPoint(InputStream& in, ViewPoint& sp) {
+		sp.coor_.reset();
 		sp.face_.setIdentity();
 
 		int code = 'X';
@@ -126,7 +126,7 @@ namespace game {
 					float x = in.readFloat();
 					float y = in.readFloat();
 					float z = in.readFloat();
-					sp.displace_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
+					sp.coor_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
 				}
 				break;
 			case 'R': // Transform

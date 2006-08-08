@@ -23,10 +23,11 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/area/Area.hpp"
 #include "sim/area/AreaManager.hpp"
-#include "sim/stat/SpawnPoint.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/thing/Thing.hpp"
 #include "util/error/Log.hpp"
+#include "util/vecmath/Point3.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 
 
@@ -43,7 +44,7 @@ namespace se_core {
 		LogMsg(p->areaName_);
 
 		Area* area = SimSchema::areaManager.area(p->areaName_);
-		const SpawnPoint* sp = area->spawnPoint(p->entranceId_);
+		const ViewPoint* sp = area->spawnPoint(p->entranceId_);
 		performer.nextPos().setArea(*area, *sp);
 
 	}

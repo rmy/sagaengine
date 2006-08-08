@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 #include "Math.hpp"
-#include "sim/stat/Coor.hpp"
 #include <cmath>
 
 namespace se_core {

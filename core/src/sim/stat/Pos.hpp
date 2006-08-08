@@ -22,7 +22,8 @@ rune@skalden.com
 #ifndef Pos_hpp
 #define Pos_hpp
 
-#include "ViewPoint.hpp"
+#include "util/vecmath/ViewPoint.hpp"
+#include "util/vecmath/Point3.hpp"
 #include "../sim.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"
@@ -60,12 +61,12 @@ namespace se_core {
 		void setPos(const Pos& original);
 		void setXZ(const Pos& original);
 
-		inline void setLocalCoor(Coor& original) {
+		inline void setLocalCoor(Point3& original) {
 			localCoor().set(original);
 		}
 
-		inline const Coor& worldCoor() const { return world_.coor_; }
-		inline Coor& worldCoor() { return world_.coor_; }
+		inline const Point3& worldCoor() const { return world_.coor_; }
+		inline Point3& worldCoor() { return world_.coor_; }
 		inline const ViewPoint& worldViewPoint() const { return world_; }
 		inline ViewPoint& worldViewPoint() { return world_; }
 
@@ -78,8 +79,8 @@ namespace se_core {
 		#endif
 
 
-		inline const Coor& localCoor() const { return local_.coor_; }
-		inline Coor& localCoor() { return local_.coor_; }
+		inline const Point3& localCoor() const { return local_.coor_; }
+		inline Point3& localCoor() { return local_.coor_; }
 		inline const ViewPoint& localViewPoint() const { return local_; }
 		inline ViewPoint& localViewPoint() { return local_; }
 
@@ -113,11 +114,10 @@ namespace se_core {
 		 * Area.
 		 */
 		void setArea(Area& area, bool doKeepWorldCoor = false);
-		void setArea(Area& area, const Coor& c, const Quat4& q);
-		void setArea(Area& area, const Coor& c, const Euler3& a);
+		void setArea(Area& area, const Point3& c, const Quat4& q);
+		void setArea(Area& area, const Point3& c, const Euler3& a);
 
 		void setArea(Area& area, const ViewPoint& vp);
-		void setArea(Area& area, const SpawnPoint& sp);
 		void resetArea();
 
 		void setParent(PosNode& p) { parent_ = &p; }

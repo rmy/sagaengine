@@ -80,8 +80,8 @@ namespace game {
 
 
 	void SimpleActorFactory
-	::setSpawnPoints(int count, SpawnPoint* const* spawnPoints) {
-		spawnPoints_ = new SpawnPoint*[ count ];
+	::setSpawnPoints(int count, ViewPoint* const* spawnPoints) {
+		spawnPoints_ = new ViewPoint*[ count ];
 
 		spawnPointCount_ = count;
 		for(int i = 0; i < count; ++i) {

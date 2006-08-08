@@ -44,7 +44,6 @@ namespace se_core {
 	class Dictionary;
 
 	class Anim;
-	class Coor;
 	class Pos;
 	class Force;
 	class Speed;

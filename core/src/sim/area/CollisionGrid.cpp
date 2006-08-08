@@ -22,6 +22,7 @@ rune@skalden.com
 #include "CollisionGrid.hpp"
 #include "sim/thing/Thing.hpp"
 #include "util/error/Log.hpp"
+#include "util/vecmath/Point3.hpp"
 #include <cstdio>
 
 
@@ -85,14 +86,14 @@ namespace se_core {
 
 
 	void CollisionGrid
-	::setOffset(const Coor& c) {
+	::setOffset(const Point3& c) {
 		xOffset_ = c.xTile();
 		zOffset_ = c.zTile();
 	}
 
 
 	void CollisionGrid
-	::insert(const Coor& c, coor_t size, Thing& thing) {
+	::insert(const Point3& c, coor_t size, Thing& thing) {
 		const coor_tile_t x = c.xTile() - xOffset_;
 		const coor_tile_t z = c.zTile() - zOffset_;
 		short level = calcLevel(CoorT::tile(size) + 1);
@@ -132,7 +133,7 @@ namespace se_core {
 
 
 	bool CollisionGrid
-	::remove(const Coor& c, coor_t size, Thing& thing) {
+	::remove(const Point3& c, coor_t size, Thing& thing) {
 		const coor_tile_t x = c.xTile() - xOffset_;
 		const coor_tile_t z = c.zTile() - zOffset_;
 
@@ -150,8 +151,8 @@ namespace se_core {
 
 
 	void CollisionGrid
-	::move(const Coor& from, coor_t oldSize
-		   , const Coor& to, coor_t newSize
+	::move(const Point3& from, coor_t oldSize
+		   , const Point3& to, coor_t newSize
 		   , Thing& thing) {
 
 		coor_tile_t os = CoorT::tile(oldSize) + 1;
@@ -177,7 +178,7 @@ namespace se_core {
 
 
 	short CollisionGrid
-	::collisionCandidates(const Coor& c, coor_t size, Thing* things[], short max) {
+	::collisionCandidates(const Point3& c, coor_t size, Thing* things[], short max) {
 		// Calculate bounds to check inside
 		coor_tile_t xFrom = CoorT::tile(c.x_ - size) - xOffset_;
 		coor_tile_t zFrom = CoorT::tile(c.z_ - size) - zOffset_;

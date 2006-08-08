@@ -22,7 +22,7 @@ namespace game {
 			return;
 		}
 
-		const SpawnPoint* sp = ClientSchema::player->spawnPoint(1);
+		const ViewPoint* sp = ClientSchema::player->spawnPoint(1);
 		Area* a = ClientSchema::player->nextPos().area();
 		if(a != 0 && a != nextPos.area()) {
 			nextPos.setArea(*a);

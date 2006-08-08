@@ -91,7 +91,7 @@ namespace se_core {
 		for(int i = 0; i < MAX_ENTRANCES; ++i) {
 			if(!this->entrances_[i])
 				continue;
-			DebugExec(Coor& e = *this->entrances_[i]);
+			DebugExec(Point3& e = *this->entrances_[i]);
 			Dump((sprintf(log_msg(), "E %d %.2f %.2f", i, CoorT::toFloat(e.x_), CoorT::toFloat(e.y_)), log_msg()));
 		}
 		*/
@@ -103,7 +103,7 @@ namespace se_core {
 		while(it != SimObjectList::NULL_NODE) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());
-			DebugExec(const Coor& c = t->pos().localCoor());
+			DebugExec(const Point3& c = t->pos().localCoor());
 			Dump((sprintf(log_msg(), "O %s %.2f %.2f", t->name(), CoorT::toFloat(c.x_), CoorT::toFloat(c.y_)), log_msg()));
 
 			// Statistics
@@ -235,7 +235,7 @@ namespace se_core {
 	Thing* Area
 	::findPickTarget(Player& actor) {
 		actor.setPickTarget(0);
-		const Coor& coor = actor.pos().localCoor();
+		const Point3& coor = actor.pos().localCoor();
 
 		// Default to maximum pick range
 		coor_t nearest = (3 * COOR_RES);
@@ -262,7 +262,7 @@ namespace se_core {
 
 		actor.setTarget(0);
 		const Pos& pos = actor.pos();
-		const Coor& coor = pos.localCoor();
+		const Point3& coor = pos.localCoor();
 
 		coor_double_t nearest = -1;
 
@@ -446,7 +446,7 @@ namespace se_core {
 
 
 	Area* Area
-	::neighbour(const Coor& worldCoor) {
+	::neighbour(const Point3& worldCoor) {
 		coor_t x = worldCoor.x_ - nextPos().worldCoor().x_;
 		coor_t y = worldCoor.y_ - nextPos().worldCoor().y_;
 		coor_t z = worldCoor.z_ - nextPos().worldCoor().z_;
@@ -551,12 +551,12 @@ namespace se_core {
 				// TODO: Real speed instead of max speed...
 				static const coor_t speed = COOR_RES;
 				coor_t speedAndRadius = p->pos().radius() + speed;
-				const Coor& wc = pos().worldCoor();
+				const Point3& wc = pos().worldCoor();
 
 				// TODO: Real speed instead of max speed...
 				static const coor_t nextSpeed =  COOR_RES;
 				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				const Coor& nextWC = nextPos().worldCoor();
+				const Point3& nextWC = nextPos().worldCoor();
 
 				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
 			}
@@ -718,12 +718,12 @@ namespace se_core {
 
 
 	long Area
-	::touchedTerrain(const Coor& centre, coor_t radius) const {
+	::touchedTerrain(const Point3& centre, coor_t radius) const {
 		long touched = 0;
 		Vector3 v(radius, 0, radius);
 		for(coor_t dx = radius; dx > 0; dx -= COOR_RES) {
 			for(coor_t dz = radius; dz > 0; dz -= COOR_RES) {
-				Coor c;
+				Point3 c;
 				c.set(centre);
 				c.add(dx, 0, dz);
 				touched |= tsMask(terrainStyle(c));
@@ -747,7 +747,7 @@ namespace se_core {
 
 
 	long Area
-	::touchedTerrain(const Coor& from, const Coor& to) const {
+	::touchedTerrain(const Point3& from, const Point3& to) const {
 		long touched = 0;
 
 		// Bresenham
@@ -811,7 +811,7 @@ namespace se_core {
 
 		for (int curpixel = 0; curpixel <= numpixels; curpixel++) {
 			// "Draw" the current pixel
-			touched |= tsMask(terrainStyle(Coor(CoorT::fromInt(x), 0, CoorT::fromInt(y))));
+			touched |= tsMask(terrainStyle(Point3(CoorT::fromInt(x), 0, CoorT::fromInt(y))));
 			// Increase the numerator by the top of the fraction
 			num += numadd;
 			// Check if numerator >= denominator

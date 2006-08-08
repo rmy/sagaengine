@@ -13,5 +13,6 @@
 #include "Tuple4.hpp"
 #include "Point2.hpp"
 #include "Vector3.hpp"
+#include "ViewPoint.hpp"
 
 #endif

@@ -25,13 +25,13 @@ rune@skalden.com
 #include "./SimObject.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
-#include "./stat/Coor.hpp"
 #include "./stat/Anim.hpp"
 #include "./stat/Pos.hpp"
-#include "./stat/SpawnPoint.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
+#include "util/vecmath/Point3.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 
@@ -184,23 +184,23 @@ namespace se_core {
 		void updateWorldViewPoint();
 		void calcWorldViewPoint(ViewPoint& dest) const;
 
-		void worldCoor(scale_t alpha, Coor& dest) const;
+		void worldCoor(scale_t alpha, Point3& dest) const;
 		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
 		/*
-		void worldCoor(Coor& dest) const;
-		void nextWorldCoor(Coor& dest) const;
+		void worldCoor(Point3& dest) const;
+		void nextWorldCoor(Point3& dest) const;
 
 		void worldViewPoint(ViewPoint& dest) const;
 		void nextWorldViewPoint(ViewPoint& dest) const;
 
 		void childViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
 		void nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
-		void childCoor(Coor& dest, PosNode* stopAtParent) const;
-		void nextChildCoor(Coor& dest, PosNode* stopAtParent) const;
+		void childCoor(Point3& dest, PosNode* stopAtParent) const;
+		void nextChildCoor(Point3& dest, PosNode* stopAtParent) const;
 		*/
 
-		void setSpawnPoints(int count, const SpawnPoint* const* spawnPoints);
-		const SpawnPoint* spawnPoint(short id) const;
+		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints);
+		const ViewPoint* spawnPoint(short id) const;
 
 	protected:
 		/** Position and volume info for the thing. */
@@ -213,7 +213,7 @@ namespace se_core {
 		/** The number of spawn points */
 		int spawnPointCount_;
 		/** Spawn points */
-		const SpawnPoint* const* spawnPoints_;
+		const ViewPoint* const* spawnPoints_;
 	};
 
 }

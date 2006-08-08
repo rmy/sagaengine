@@ -175,7 +175,7 @@ namespace se_core {
 
 
 	void PosNode
-	::worldCoor(scale_t alpha, Coor& dest) const {
+	::worldCoor(scale_t alpha, Point3& dest) const {
 		/*
 		worldCoor(dest);
 		static Coor np; // WARNING: Not thread safe.
@@ -200,123 +200,16 @@ namespace se_core {
 		dest.face_.interpolate(nextPosition_.worldFace(), alpha);
 	}
 
-	/*
-	void PosNode
-	::worldCoor(Coor& dest) const {
-		dest.set(position_.localCoor());
-		const PosNode* node = position_.parent();
-		while(node != 0) {
-			dest.rotate(node->position_.localFace());
-			dest.add(node->position_.localCoor());
-			node = node->position_.parent();
-		}
-	}
-
 
 	void PosNode
-	::worldViewPoint(ViewPoint& dest) const {
-		dest.setViewPoint(position_);
-		const PosNode* node = position_.parent();
-		while(node != 0) {
-
-			dest.localCoor().rotate(node->position_.localFace());
-			dest.localCoor().add(node->position_.localCoor());
-			dest.localFace().rotate(node->position_.localFace());
-
-			//LogMsg(name() << ": " << position_.toLog());
-			//LogMsg(node->name() << " - " << node->position_.toLog());
-			//LogMsg("Sum: " << dest.toLog());
-			node = node->position_.parent();
-		}
-	}
-
-
-	void PosNode
-	::nextWorldCoor(Coor& dest) const {
-		dest.set(nextPosition_.localCoor());
-		const PosNode* node = nextPosition_.parent();
-		while(node != 0) {
-			dest.rotate(node->nextPosition_.localFace());
-			dest.add(node->nextPosition_.localCoor());
-			node = node->nextPosition_.parent();
-		}
-	}
-
-
-	void PosNode
-	::nextWorldViewPoint(ViewPoint& dest) const {
-		dest.setViewPoint(nextPosition_);
-		const PosNode* node = nextPosition_.parent();
-		while(node != 0) {
-			dest.localCoor().rotate(node->nextPosition_.localFace());
-			dest.localCoor().add(node->nextPosition_.localCoor());
-			dest.localFace().rotate(node->nextPosition_.localFace());
-			node = node->nextPosition_.parent();
-		}
-	}
-
-
-
-	void PosNode
-	::childViewPoint(ViewPoint& dest, PosNode* stopAtParent) const {
-		dest.setViewPoint(position_);
-		const PosNode* node = position_.parent();
-		while(node != 0 && node != stopAtParent) {
-			dest.localCoor().rotate(node->position_.localFace());
-			dest.localCoor().add(node->position_.localCoor());
-			dest.localFace().rotate(node->position_.localFace());
-			node = node->position_.parent();
-		}
-	}
-
-
-	void PosNode
-	::nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent) const {
-		dest.setViewPoint(nextPosition_);
-		const PosNode* node = nextPosition_.parent();
-		while(node != 0 && node != stopAtParent) {
-			dest.localCoor().rotate(node->nextPosition_.localFace());
-			dest.localCoor().add(node->nextPosition_.localCoor());
-			dest.localFace().rotate(node->nextPosition_.localFace());
-			node = node->nextPosition_.parent();
-		}
-	}
-
-
-	void PosNode
-	::childCoor(Coor& dest, PosNode* stopAtParent) const {
-		dest.set(position_.localCoor());
-		const PosNode* node = position_.parent();
-		while(node != 0 && node != stopAtParent) {
-			dest.rotate(node->position_.localFace());
-			dest.add(node->position_.localCoor());
-			node = node->position_.parent();
-		}
-	}
-
-
-	void PosNode
-	::nextChildCoor(Coor& dest, PosNode* stopAtParent) const {
-		dest.set(nextPosition_.localCoor());
-		const PosNode* node = nextPosition_.parent();
-		while(node != 0 && node != stopAtParent) {
-			dest.rotate(node->nextPosition_.localFace());
-			dest.add(node->nextPosition_.localCoor());
-			node = node->nextPosition_.parent();
-		}
-	}
-	*/
-
-
-	void PosNode
-	::setSpawnPoints(int count, const SpawnPoint* const* const spawnPoints) {
+	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
 		//LogMsg(name() << ": " << count);
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;
 	}
 
 
-	const SpawnPoint* PosNode
+	const ViewPoint* PosNode
 	::spawnPoint(short id) const {
 		Assert(id >= 0 && id < spawnPointCount_);
 		Assert(spawnPoints_[id] != 0);

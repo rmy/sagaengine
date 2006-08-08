@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "Camera.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../stat/ViewPoint.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 namespace se_core {
 	class Player : public Camera {
