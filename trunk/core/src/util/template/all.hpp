@@ -24,7 +24,6 @@ rune@skalden.com
 
 #include "SinglyLinkedList.hpp"
 #include "util_template.hpp"
-#include "QuadTreeNode.hpp"
 #include "HashTable.hpp"
 
 #endif
