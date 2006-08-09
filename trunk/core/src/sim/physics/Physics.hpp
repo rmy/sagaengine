@@ -53,6 +53,13 @@ namespace se_core {
 		 *
 		 * It is the responsibility of this method to check for
 		 * collisions with static terrain.
+		 *
+		 * @param actor the Actor that is moved
+		 * @param pos the position of the actor is at the beginning of this simulation step
+		 * @param nextPos output var - where the actor should be the beginning of the next simulation step
+		 * @param move work vars for movement, as they where at the beginning if this simulation step
+		 * @param nextMove output var - values are the same as move when the method is first called, but changes
+		 *   will be passed on to the next simulation step
 		 */
 		virtual void calcNext(const Actor& actor
 							  , const Pos& pos

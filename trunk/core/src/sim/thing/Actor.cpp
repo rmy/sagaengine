@@ -473,15 +473,10 @@ namespace se_core {
 
 		// Calculate world coor of spawn point
 		const PosNode* node = this;
-		while(node != 0 && node != pos().area()) {
-			vp.coor_.rotate(node->pos().localFace());
-			vp.coor_.add(node->pos().localCoor());
-			vp.face_.rotate(node->pos().localFace());
-			node = node->pos().parent();
-		}
+		vp.add(pos().world_);
 
 		// Spawn it in area (with area as parent)
-		Thing* t = area()->spawn(thingName, vp, deniedTsMask);
+		Thing* t = position_.area()->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
 		if(t) t->setSpawner(this);
@@ -489,32 +484,5 @@ namespace se_core {
 		return t;
 	}
 
-	/*
-	Thing* Actor
-	::spawn(const char* thingName) {
-		// Create thing at same position and with same direction as spawner
-		Thing* t = area()->spawn(thingName, pos());
-
-		// Avoid collision with spawner
-		t->setSpawner(this);
-
-		return t;
-	}
-
-	
-	Thing* Actor
-	::spawn(const char* thingName, Vector3& disp) {
-		// Create thing at same position and with same direction as spawner
-		ViewPoint vp(pos());
-		//p.setNoLayer();
-		vp.localCoor().add(disp);
-		Thing* t = area()->spawn(thingName, vp);
-
-		// Avoid collision with spawner
-		t->setSpawner(this);
-
-		return t;
-	}
-	*/
 
 }

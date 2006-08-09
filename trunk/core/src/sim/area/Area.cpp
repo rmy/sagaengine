@@ -233,7 +233,7 @@ namespace se_core {
 
 
 	Thing* Area
-	::findPickTarget(Player& actor) {
+	::findPickTarget(Player& actor) const {
 		actor.setPickTarget(0);
 		const Point3& coor = actor.pos().localCoor();
 
@@ -256,7 +256,7 @@ namespace se_core {
 
 
 	Thing* Area
-	::findDefaultActionTarget(Player& actor) {
+	::findDefaultActionTarget(Player& actor) const {
 		actor.resetDefaultAction();
 		if(findPickTarget(actor)) return actor.pickTarget();
 

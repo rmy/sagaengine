@@ -225,15 +225,6 @@ namespace se_core {
 	}
 
 
-	/*
-	void Pos
-	::freezeAtWorldViewPoint() {
-		updateWorldViewPoint();
-		parent_ = 0;
-		local_.setViewPoint(world_);
-	}
-	*/
-
 	void Pos
 	::updateWorldViewPoint() {
 		world_.setViewPoint(local_);

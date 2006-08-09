@@ -41,7 +41,7 @@ namespace se_core {
 		virtual ~Cutscene();
 		void setQuestGoal(QuestGoal* questGoal) { questGoal_ = questGoal; }
 		QuestGoal* questGoal() { return questGoal_; }
-		void setScripts(Area& area, Actor& performer, Actor* scriptTarget = 0);
+		void setScripts(const Area& area, Actor& performer, Actor* scriptTarget = 0);
 		void setSingleScript(ShowingCutscene* showingCutscene, Actor& actor);
 		MultiSimObject& beforeTheseGoals() { return before_; }
 		MultiSimObject& afterTheseGoals() { return after_; }

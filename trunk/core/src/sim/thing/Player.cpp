@@ -140,9 +140,8 @@ namespace se_core {
 
 	bool Player
 	::findDefaultActionTarget() {
-		// Asser(!isDead_);
-		if(area()) {
-			return (area()->findDefaultActionTarget(*this) != 0);
+		if(pos().hasArea()) {
+			return (pos().area()->findDefaultActionTarget(*this) != 0);
 		}
 		return false;
 	}
@@ -150,8 +149,7 @@ namespace se_core {
 
 	void Player
 	::findPickTarget() {
-		// Asser(!isDead_);
-		if(area()) area()->findPickTarget(*this);
+		if(pos().hasArea()) pos().area()->findPickTarget(*this);
 	}
 
 

@@ -44,7 +44,7 @@ namespace se_core {
 		Area* area = SimSchema::areaManager.area(name);
 		const ViewPoint* sp = area->spawnPoint(id);
 		performer.nextPos().local_.setViewPoint( *sp );
-		if(area != performer.area()) {
+		if(area != performer.pos().area()) {
 			performer.nextPos().setArea(*area);
 		}
 	}

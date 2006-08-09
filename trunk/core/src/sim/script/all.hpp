@@ -23,7 +23,6 @@ rune@skalden.com
 #define sim_script_all_hpp
 
 #include "TimelineScript.hpp"
-#include "WalkTowardsTarget.hpp"
 #include "ShowingCutscene.hpp"
 #include "Script.hpp"
 #include "CustomScript.hpp"

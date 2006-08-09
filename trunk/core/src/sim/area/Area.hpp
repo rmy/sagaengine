@@ -104,7 +104,7 @@ namespace se_core {
 
 		/**
 		 * Save area to a stream.
-		 * @note: NOT YET IMPLEMENTED.
+		 * @todo: NOT YET IMPLEMENTED.
 		 */
 		void saveThings(/* stream */);
 
@@ -131,6 +131,7 @@ namespace se_core {
 		}
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
+		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
 		MultiSimObject& allThings();
 		ReportingMultiSimObject& reportingThings();
 		MultiSimObject& movingThings();
@@ -162,8 +163,8 @@ namespace se_core {
 		/// Line of sight utility method
 		virtual long touchedTerrain(const Point3& from, const Point3& to) const;
 
-		Thing* findPickTarget(Player& actor);
-		Thing* findDefaultActionTarget(Player& actor);
+		Thing* findPickTarget(Player& actor) const;
+		Thing* findDefaultActionTarget(Player& actor) const;
 		bool isActive() const { return isActive_; }
 		void enter(Actor& performer);
 		void reset();
