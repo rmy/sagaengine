@@ -32,7 +32,7 @@ namespace se_core {
 	::calcNext(const Actor& actor
 			, const Pos& pos
 			, Pos& nextPos
-			, Anim& nextAnim
+			, const Move& move
 			, Move& nextMove
 			) const {
 		// Are physics meaningful at all?

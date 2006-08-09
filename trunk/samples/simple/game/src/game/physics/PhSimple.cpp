@@ -30,19 +30,17 @@ namespace game {
 	::calcNext(const Actor& actor
 			, const Pos& pos
 			, Pos& nextPos
-			, Anim& nextAnim
+			, const Move& move
 			, Move& nextMove
 			) const {
 
 		// Are physics meaningful at all?
 		if(!pos.isKeyFramePath(nextPos)) {
 			// If not skip it
-			WasHere();
+			LogMsg("Did not find keyframe path for " << actor.name());
 			return;
 		}
 
-
-		const Move& move = actor.move();
 
 		// Calc nextMove
 		Vector3 gravity(0, -4 * (COOR_RES / TIMESTEP_INTERVAL), 0);

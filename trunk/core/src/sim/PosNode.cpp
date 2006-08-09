@@ -63,7 +63,6 @@ namespace se_core {
 			changeArea();
 		}
 		position_.setPos(nextPosition_);
-		anim_ = nextAnim_;
 		//LogMsg(name() << ": " << nextPosition_.toLog() << " - " << position_.toLog());
 	}
 
