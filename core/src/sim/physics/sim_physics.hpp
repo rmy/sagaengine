@@ -25,7 +25,7 @@ rune@skalden.com
 /** Movement formulas for different types of movement. */
 namespace se_core {
 	class Physics;
-	class PhWalker;
+	class PhDefault;
 }
 
 

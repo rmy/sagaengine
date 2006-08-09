@@ -31,7 +31,6 @@ rune@skalden.com
 #include "ActionQueue.hpp"
 #include "StartCutscene.hpp"
 #include "ActionAndParameter.hpp"
-#include "ActionHelperMethods.hpp"
 #include "Spawn.hpp"
 #include "LeaveToAndStopScript.hpp"
 #include "sim_action.hpp"
