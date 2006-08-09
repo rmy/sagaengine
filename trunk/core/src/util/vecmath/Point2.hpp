@@ -22,7 +22,7 @@
 #define base_vecmath_Point2_hpp
 
 #include "util_vecmath.hpp"
-#include "Tuple2.hpp"
+#include "Vector2.hpp"
 
 namespace se_core {
 	/**
@@ -30,31 +30,31 @@ namespace se_core {
 	 * @version specification 1.1, implementation $Revision: 1.4 $, $Date: 1999/10/06 02:52:46 $
 	 * @author Kenji hiranabe
 	 */
-	class Point2 : public Tuple2 {
+	class Point2 : public Vector2 {
 	public:
 		/**
 		 * Constructs and initializes a Point2 from the specified xy coordinates.
 		 * @param x the x coordinate
 		 * @param y the y coordinate
 		 */
-		Point2(coor_t x, coor_t y): Tuple2(x, y) { }
+		Point2(coor_t x, coor_t y): Vector2(x, y) { }
 
 		/**
 		 * Constructs and initializes a Point2 from the specified array.
 		 * @param p the array of length 2 containing xy in order
 		 */
-		Point2(const coor_t p[]): Tuple2(p) { }
+		Point2(const coor_t p[]): Vector2(p) { }
 
 		/**
 		 * Constructs and initializes a Point2 from the specified Tuple2.
 		 * @param t1 the Tuple2 containing the initialization x y data
 		 */
-		Point2(const Tuple2& t1): Tuple2(t1) { }
+		Point2(const Tuple2& t1): Vector2(t1) { }
 
 		/**
 		 * Constructs and initializes a Point2 to (0,0).
 		 */
-		Point2(): Tuple2() { }
+		Point2(): Vector2() { }
 
 		/**
 		 * Computes the square of the distance between this point and point p1.
