@@ -23,6 +23,7 @@
 
 #include "util_vecmath.hpp"
 #include "Vector2.hpp"
+#include "Point3.hpp"
 
 namespace se_core {
 	/**
@@ -55,6 +56,25 @@ namespace se_core {
 		 * Constructs and initializes a Point2 to (0,0).
 		 */
 		Point2(): Vector2() { }
+
+
+		/**
+		 * Project 3d point into isometric 2d coordinates.
+		 */
+		inline void projectIsometric(Point3& p1) {
+			x_ = p1.x_;
+			y_ = CoorT::half(p1.z_) + CoorT::half(p1.y_);
+		}
+
+
+		/**
+		 * Project 3d point into top down 2d coordinates.
+		 */
+		inline void projectTopDown(Point3& p1) {
+			x_ = p1.x_;
+			y_ = p1.z_;
+		}
+
 
 		/**
 		 * Computes the square of the distance between this point and point p1.
