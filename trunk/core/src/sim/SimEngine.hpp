@@ -27,8 +27,8 @@ rune@skalden.com
 #include "./stat/sim_stat.hpp"
 #include "./thing/sim_thing.hpp"
 #include "./area/sim_area.hpp"
+#include "util/vecmath/Vector3.hpp"
 #include "util/vecmath/Point3.hpp"
-#include "./stat/Force.hpp"
 
 
 namespace se_core {
@@ -237,7 +237,7 @@ namespace se_core {
 		/**
 		 * Test if a slide is possible.
 		 */
-		inline bool tryToSlide(long when, Actor& actor, Force& force, short faceDirection);
+		inline bool tryToSlide(long when, Actor& actor, Vector3& force, short faceDirection);
 
 		/**
 		 * Tick counter.
@@ -253,7 +253,7 @@ namespace se_core {
 		Point3 c1_, c2_;
 
 		/** Often used tmp values. */
-		Force force0_, force_;
+		Vector3 force0_, force_;
 
 		/**
 		 * If true, the step() method will never perform

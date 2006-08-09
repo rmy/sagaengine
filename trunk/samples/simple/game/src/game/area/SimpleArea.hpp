@@ -39,7 +39,7 @@ namespace game {
 
 		short index(const se_core::Point3&, short oldIndex = -1) const { return -1; }
 		coor_t groundHeight(const se_core::Point3& coor, short index = 0) const;
-		void force(const se_core::Point3& coor, se_core::Force& dest) const;
+		void force(const se_core::Point3& coor, se_core::Vector3& dest) const;
 
 		short terrainStyle(const se_core::Point3& coor, short index = 0) const;
 		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);

@@ -112,7 +112,7 @@ namespace se_core {
 		void setFactory(const AreaFactory* f) { factory_ = f; }
 
 	public:
-		virtual void force(const Point3& coor, Force& dest) const = 0;
+		virtual void force(const Point3& coor, Vector3& dest) const = 0;
 		coor_tile_t width() const { return width_; }
 		coor_tile_t height() const { return height_; }
 

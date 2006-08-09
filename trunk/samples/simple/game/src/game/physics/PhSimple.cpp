@@ -45,7 +45,7 @@ namespace game {
 		const Move& move = actor.move();
 
 		// Calc nextMove
-		Force gravity(0, -4 * (COOR_RES / TIMESTEP_INTERVAL), 0);
+		Vector3 gravity(0, -4 * (COOR_RES / TIMESTEP_INTERVAL), 0);
 		nextMove.velocity_.add( move.force_ );
 		nextMove.velocity_.add( gravity );
 		nextMove.angularVelocity_.add( move.torque_ );

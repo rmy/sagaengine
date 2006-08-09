@@ -22,11 +22,9 @@ rune@skalden.com
 #ifndef sim_stat_all_hpp
 #define sim_stat_all_hpp
 
-#include "Force.hpp"
 #include "HealthListeners.hpp"
 #include "Dictionary.hpp"
 #include "DictionaryEntry.hpp"
-#include "Speed.hpp"
 #include "ReportingMultiSimObject.hpp"
 #include "MultiSimObjectListener.hpp"
 #include "SimObjectList.hpp"
