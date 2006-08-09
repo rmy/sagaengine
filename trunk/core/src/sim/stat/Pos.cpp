@@ -78,7 +78,7 @@ namespace se_core {
 		return true;
 	}
 
-
+	/*
 	coor_world_t Pos
 	::pageDistanceSquared(const Pos& p) const {
 		// Value returned if no legal path exists
@@ -131,6 +131,7 @@ namespace se_core {
 
 		return distSquared;
 	}
+	*/
 
 
 	void Pos
@@ -157,8 +158,15 @@ namespace se_core {
 
 
 	void Pos
-	::resetParent() {
+	::resetParent(bool doKeepWorldCoor) {
 		parent_ = area_;
+
+		if(doKeepWorldCoor) {
+			local_.setViewPoint(world_);
+		}
+		else {
+			world_.setViewPoint(local_);
+		}
 	}
 
 
@@ -170,12 +178,10 @@ namespace se_core {
 	void Pos
 	::setParent(PosNode& p, bool doKeepWorldCoor) {
 		parent_ = &p;
-		if(!doKeepWorldCoor) {
-			return;
+		if(doKeepWorldCoor) {
+			local_.setViewPoint(world_);
+			local_.sub(p.nextPos().world_);
 		}
-
-		local_.setViewPoint(world_);
-		local_.sub(p.nextPos().world_);
 	}
 
 
@@ -191,41 +197,20 @@ namespace se_core {
 	}
 
 	void Pos
-	::setArea(Area& area, const Point3& c, const Quat4& q) {
-		//LogMsg(area.name());
+	::setArea(Area& area, const ViewPoint& vp, bool isLocalViewPoint) {
 		if(parent_ == area_) {
 			// Area is the root parent node
 			parent_ = &area;
 		}
 		area_ = &area;
-		local_.setCoor(c);
-		local_.setFace(q);
-		updateWorldViewPoint();
-	}
-
-	void Pos
-	::setArea(Area& area, const Point3& c, const Euler3& a) {
-		//LogMsg(area.name());
-		if(parent_ == area_) {
-			// Area is the root parent node
-			parent_ = &area;
+		if(isLocalViewPoint) {
+			local_.setViewPoint(vp);
+			updateWorldViewPoint();
 		}
-		area_ = &area;
-		localCoor().set(c);
-		localFace().set(a);
-		updateWorldViewPoint();
-	}
-
-
-	void Pos
-	::setArea(Area& area, const ViewPoint& vp) {
-		if(parent_ == area_) {
-			// Area is the root parent node
-			parent_ = &area;
+		else {
+			world_.setViewPoint(vp);
+			updateLocalViewPoint();
 		}
-		area_ = &area;
-		local_.setViewPoint(vp);
-		updateWorldViewPoint();
 	}
 
 
@@ -238,12 +223,14 @@ namespace se_core {
 	}
 
 
+	/*
 	void Pos
 	::freezeAtWorldViewPoint() {
 		updateWorldViewPoint();
 		parent_ = 0;
 		local_.setViewPoint(world_);
 	}
+	*/
 
 	void Pos
 	::updateWorldViewPoint() {
@@ -264,38 +251,19 @@ namespace se_core {
 		}
 	}
 
-	/*
-	short Pos
-	::clockwiseFaceDirection(short subdivisions) const {
-		bray_t d = faceDirection() - (BrayT::DEG270 - (BrayT::DEG180 / subdivisions));
-		return ((d & BRAY_MASK) / (BRAY_MASK / subdivisions));
-		}
-	*/
-
-
 
 	bool Pos
 	::isInsideCollisionRange(const Pos& p) const {
 		coor_double_t collisionRange = p.radius() + radius();
-		return collisionRange * collisionRange >= localCoor().distanceSquared(p.localCoor());
+		return collisionRange * collisionRange >= worldCoor().distanceSquared(p.worldCoor());
 	}
 
 
 	bool Pos
 	::isInsideCollisionRangeLinf(const Pos& p) const {
 		coor_t collisionRange = p.radius() + radius();
-		return localCoor().xzDistanceLinf(p.localCoor()) <= collisionRange;
+		return worldCoor().xzDistanceLinf(p.worldCoor()) <= collisionRange;
 	}
-
-
-	/*
-	bray_t Pos
-	::xzFaceAwayAngle(const Point3& coor) const {
-		bray_t a = ((xzAngleTowards(coor) - faceDirection()) & BRAY_MASK);
-		if(a >= BrayT::DEG180) a = BRAY_RANGE - a;
-		return a;
-		}
-	*/
 
 
 	bool Pos
