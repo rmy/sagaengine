@@ -17,7 +17,7 @@
 #ifndef base_vecmath_Point4_hpp
 #define base_vecmath_Point4_hpp
 
-#include "Tuple4.hpp"
+#include "Vector4.hpp"
 #include "Tuple3.hpp"
 
 namespace se_core {
@@ -27,7 +27,7 @@ namespace se_core {
 	 * @version specification 1.1, implementation $Revision: 1.3 $, $Date: 1999/10/06 02:52:46 $
 	 * @author Kenji hiranabe
 	 */
-	class Point4 : public Tuple4 {
+	class Point4 : public Vector4 {
 	public:
 		/**
 		 * Constructs and initializes a Point4 from the specified xyzw coordinates.
@@ -36,24 +36,24 @@ namespace se_core {
 		 * @param z the z coordinate
 		 * @param w the w coordinate
 		 */
-		Point4(coor_t x, coor_t y, coor_t z, coor_t w): Tuple4(x, y, z, w) { }
+		Point4(coor_t x, coor_t y, coor_t z, coor_t w): Vector4(x, y, z, w) { }
 
 		/**
 		 * Constructs and initializes a Point4 from the specified array.
 		 * @param p the array of length 4 containing xyzw in order
 		 */
-		Point4(const coor_t p[]): Tuple4(p) { }
+		Point4(const coor_t p[]): Vector4(p) { }
 
 		/**
 		 * Constructs and initializes a Point4 from the specified Tuple4d.
 		 * @param t1 the Tuple4d containing the initialization x y z w data
 		 */
-		Point4(const Tuple4& t1): Tuple4(t1) { }
+		Point4(const Tuple4& t1): Vector4(t1) { }
 
 		/**
 		 * Constructs and initializes a Point4 to (0,0,0,0).
 		 */
-		Point4(): Tuple4() { }
+		Point4(): Vector4() { }
 
 		/**
 		 * Constructs and initializes a Point4 from the specified Tuple3.
@@ -64,7 +64,7 @@ namespace se_core {
 		 * @param t1 the tuple to be copied
 		 * @since Java3D 1.2
 		 */
-		Point4(const Tuple3& t1): Tuple4(t1.x_, t1.y_, t1.z_, 1) { }
+		Point4(const Tuple3& t1): Vector4(t1.x_, t1.y_, t1.z_, 1) { }
 
 		/**
 		 * Sets the x,y,z components of this point to the corresponding
