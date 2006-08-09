@@ -44,7 +44,7 @@ namespace game {
 
 
 	void SimpleArea
-	::force(const Point3& coor, Force& dest) const {
+	::force(const Point3& coor, Vector3& dest) const {
 		// No up or down in SimpleArea
 		dest.set(0, 0, 0);
 	}

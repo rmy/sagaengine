@@ -24,8 +24,8 @@ rune@skalden.com
 
 #include "util/type/util_type.hpp"
 #include "util/math/CoorT.hpp"
-#include "sim/stat/Force.hpp"
-#include "sim/stat/Speed.hpp"
+#include "util/vecmath/Vector3.hpp"
+
 
 namespace se_core {
 	class PhysicsUtil {
@@ -39,7 +39,7 @@ namespace se_core {
 		 * @tmp a tmp speed, supplied so that this method (which is called often)
 		 *      does not have to create this tmp value on the stack inside loops
 		 */
-		inline static scale_t heightXZScaler(Force& f, bray_t dir, Vector3& tmp) {
+		inline static scale_t heightXZScaler(Vector3& f, bray_t dir, Vector3& tmp) {
 
 			// Calc unit vector (in xz plane) with direction
 			tmp.setForward(COOR_RES, dir);

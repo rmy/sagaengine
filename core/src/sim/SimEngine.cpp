@@ -27,7 +27,6 @@ rune@skalden.com
 #include "./error/StopWatch.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./stat/Pos.hpp"
-#include "./stat/Force.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/SimObjectIterator.hpp"
 #include "./stat/SimObjectList.hpp"
@@ -42,6 +41,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "util/math/Trig.hpp"
 #include "util/math/CoorT.hpp"
+#include "util/vecmath/Vector3.hpp"
 #include <cstdio>
 #include <cmath>
 

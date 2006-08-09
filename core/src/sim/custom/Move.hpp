@@ -31,7 +31,6 @@ rune@skalden.com
 #else
 
 #include "../stat/sim_stat.hpp"
-#include "../stat/Force.hpp"
 #include "util/vecmath/Quat4.hpp"
 #include "util/vecmath/Euler3.hpp"
 #include "util/vecmath/Point3.hpp"
@@ -52,7 +51,7 @@ namespace se_core {
 		//Matrix3 inertia_; // How the mass is distributed around the center of mass
 
 		// The sum of forces working on this body.
-		Force force_; // Forces applied (acceleration)
+		Vector3 force_; // Forces applied (acceleration)
 		Euler3 torque_; // Torque - forces changing rotation
 
 		// work vars
@@ -111,7 +110,7 @@ namespace se_core {
 		 *
 		 * @return The sum of the forces presently working on this Pos.
 		 */
-		const Force& resultantForce() const { return force_; }
+		const Vector3& resultantForce() const { return force_; }
 
 		/**
 		 * Resets the forces that will work on this Pos the next step.
@@ -123,14 +122,14 @@ namespace se_core {
 		 *
 		 * @param force The force to add
 		 */
-		void addForce(const Force& force) { force_.add(force); }
+		void addForce(const Vector3& force) { force_.add(force); }
 
 		/**
 		 * Subtracs a force that will work on this Pos the next step.
 		 *
 		 * @param force The force to subtract
 		 */
-		void subtractForce(const Force& force) { force_.sub(force); }
+		void subtractForce(const Vector3& force) { force_.sub(force); }
 
 	};
 

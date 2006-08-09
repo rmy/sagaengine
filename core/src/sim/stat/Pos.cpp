@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 #include "Pos.hpp"
-#include "Force.hpp"
 #include "../PosNode.hpp"
 #include "../area/Area.hpp"
 #include "../sim.hpp"
