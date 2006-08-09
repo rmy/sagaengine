@@ -112,11 +112,11 @@ namespace se_core {
 		Area* oldArea = (oldCamera) ? const_cast<Area*>(oldCamera->pos().area()) : 0;
 		Area* newArea = (newCamera) ? newCamera->nextPos().area() : 0;
 
-		if(oldCamera == 0 || newArea != oldArea) {
-			if(oldCamera != 0 && oldArea != 0) {
+		if(newArea != oldArea) {
+			if(oldArea != 0) {
 				ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldArea);
 			}
-			if(newCamera != 0 && newArea != 0) {
+			if(newArea != 0) {
 				SimSchema::areaManager.setActive(newArea);
 				ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newArea);
 			}
