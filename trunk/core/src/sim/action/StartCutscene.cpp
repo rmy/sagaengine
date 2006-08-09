@@ -28,7 +28,7 @@ rune@skalden.com
 #include "../script/QuestGoal.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../stat/MultiSimObjectIterator.hpp"
+#include "../stat/SimObjectIterator.hpp"
 #include "../thing/Actor.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstdio>

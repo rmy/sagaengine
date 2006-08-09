@@ -19,28 +19,35 @@ rune@skalden.com
 */
 
 
-#ifndef ActorIterator_hpp
-#define ActorIterator_hpp
+#ifndef SimObjectIterator_hpp
+#define SimObjectIterator_hpp
 
 #include "sim_stat.hpp"
+#include "../sim.hpp"
 #include "../thing/sim_thing.hpp"
-
+#include "../script/sim_script.hpp"
+#include "SimObjectList.hpp"
 
 namespace se_core {
-	class ActorIterator {
+
+	class SimObjectIterator {
 	public:
-		ActorIterator();
-		~ActorIterator();
-		ActorIterator(MultiSimObject& mgo);
+		SimObjectIterator();
+		SimObjectIterator(MultiSimObject& mgo);
 		void init(MultiSimObject& mgo);
-		void init(short& iterator);
+		void init(short firstMode);
 		bool hasNext();
-		Actor& next();
+		SimObject& next();
+		Actor& nextActor();
+		Thing& nextThing();
+		Cutscene& nextCutscene();
+		QuestGoal& nextQuestGoal();
 
 	private:
-		MultiSimObjectIterator* iterator;
+		SimObjectList::iterator_type it_;
 	};
 
 }
+
 
 #endif

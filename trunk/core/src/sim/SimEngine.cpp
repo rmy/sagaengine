@@ -29,7 +29,7 @@ rune@skalden.com
 #include "./stat/Pos.hpp"
 #include "./stat/Force.hpp"
 #include "./stat/MultiSimObject.hpp"
-#include "./stat/MultiSimObjectIterator.hpp"
+#include "./stat/SimObjectIterator.hpp"
 #include "./stat/SimObjectList.hpp"
 #include "./area/Area.hpp"
 #include "./area/AreaManager.hpp"

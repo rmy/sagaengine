@@ -121,9 +121,9 @@ namespace se_ogre {
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
 
 						// Add things
-						se_core::ThingIterator nit(a->allThings());
+						se_core::SimObjectIterator nit(a->allThings());
 						while(nit.hasNext()) {
-							Thing& thing = nit.next();
+							Thing& thing = nit.nextThing();
 							if(!hasMesh(thing)) {
 								continue;
 							}
