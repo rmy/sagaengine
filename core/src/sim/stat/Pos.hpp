@@ -59,13 +59,32 @@ namespace se_core {
 		 * Copy all values of original into this.
 		 */
 		void setPos(const Pos& original);
+
+		/**
+		 * Copy x and z coordinates from a source.
+		 * Both local and world coordinates are copied. This is useful
+		 * for resetting movement in the xz-plane.
+		 */
 		void setXZ(const Pos& original);
 
+		/**
+		 * Set local coordinate.
+		 * @param original the new coordinate.
+		 */
 		inline void setLocalCoor(Point3& original) {
 			localCoor().set(original);
 		}
 
+		/**
+		 * Return world coordinate.
+		 * @return a reference to the world coordinate of the position
+		 */
 		inline const Point3& worldCoor() const { return world_.coor_; }
+
+		/**
+		 * Return world coordinate.
+		 * @return a reference to the world coordinate of the position
+		 */
 		inline Point3& worldCoor() { return world_.coor_; }
 		inline const ViewPoint& worldViewPoint() const { return world_; }
 		inline ViewPoint& worldViewPoint() { return world_; }
@@ -111,22 +130,62 @@ namespace se_core {
 
 
 		/**
-		 * Area.
+		 * Set new area.
+		 * @param area new area of position.
+		 * @param doKeepWorldCoor wether the local viewpoint should be updated
+		 *   to maintain the world coordinate
 		 */
 		void setArea(Area& area, bool doKeepWorldCoor = false);
-		void setArea(Area& area, const Point3& c, const Quat4& q);
-		void setArea(Area& area, const Point3& c, const Euler3& a);
 
-		void setArea(Area& area, const ViewPoint& vp);
+		/**
+		 * Set area and viewpoint.
+		 * @param area new area
+		 * @param vp new viewpoint
+		 * @param isLocalViewPoint wether vp is a viewpoint in local space or world space
+		 */
+		void setArea(Area& area, const ViewPoint& vp, bool isLocalViewPoint = true);
+
+		/**
+		 * Leave any area.
+		 */
 		void resetArea();
 
-		void setParent(PosNode& p) { parent_ = &p; }
-		void setParent(PosNode& p, bool doKeepWorldCoor);
-		void resetParent();
+		/**
+		 * Set parent.
+		 * @param p the new parent.
+		 * @param doKeepWorldCoor wether the local viewpoint should be updated
+		 *   to maintain the world viewpoint
+		 */
+		void setParent(PosNode& p, bool doKeepWorldCoor = false);
 
+		/**
+		 * Set parent to none.
+		 * @param doKeepWorldCoor wether the local viewpoint should be updated
+		 *   to maintain the world viewpoint
+		 */
+		void resetParent(bool doKeepWorldCoor = true);
+
+		/**
+		 * Does the Pos have a parent?
+		 */
 		bool hasParent() const { return parent_ != 0; }
+
+		/**
+		 * Did the parent move last tick?
+		 * If the parent moved, the world coordinate of this
+		 * position has changed. The engine uses this method
+		 * to check wether it needs to update the world viewpoint.
+		 */
 		bool didParentMove() const;
+
+		/**
+		 * Get parent.
+		 */
 		PosNode* parent() { return parent_; }
+		/**
+		 * Get parent.
+		 * const version.
+		 */
 		const PosNode* parent() const { return parent_; }
 
 		/**
@@ -135,22 +194,42 @@ namespace se_core {
 		 * must already be updated.
 		 */
 		void updateWorldViewPoint();
+
+		/**
+		 * Update the local_ viewpoint according to
+		 * the world_ viewpoint and the parents nextPos().
+		 */
 		void updateLocalViewPoint();
 
-
 		/**
-		 * The area we are presently in.
+		 * The area the Pos is presently in.
 		 */
-		const Area* area() const { return area_; }
 		Area* area() { return area_; }
 
+		/**
+		 * The area the Pos is presently in.
+		 * const version.
+		 */
+		const Area* area() const { return area_; }
+
 
 		/**
-		 *
+		 * Does the Pos have an area?
 		 */
 		bool hasArea() const { return area_ != 0; }
 
+		/**
+		 * The terrain style at the present position.
+		 * The request is passed on to the area the Pos is within.
+		 * If the Pos does not have an area, TS_VOID is returned.
+		 */
 		short terrainStyle() const;
+
+		/**
+		 * The terrain styles at the present position and nearby.
+		 * The request is passed on to the area the Pos is within.
+		 * If the Pos does not have an area, TSM_VOID is returned.
+		 */
 		long touchedTerrain() const;
 
 		/**
@@ -229,14 +308,6 @@ namespace se_core {
 
 
 		/**
-		 * Is the Pos following the ground or is it floating in air?
-		 *
-		 * @return true if floating, false if on ground
-		 */
-		//inline bool hasOwnHeight() const { return index_ < 0; }
-
-
-		/**
 		 * Indicates that the pos is not somehow floating in air
 		 * (climbin, falling, etc.)
 		 */
@@ -253,9 +324,29 @@ namespace se_core {
 				updateY();
 		}
 
+		/**
+		 * Set index of the position.
+		 * The meaning of this value is at the discretion of the Area
+		 * the Pos is inside.
+		 */
 		inline void setIndex(short i) { index_ = i; }
+		
+		/**
+		 * Get the index of the Pos.
+		 * The meaning of this value is at the discretion of the Area
+		 * the Pos is inside. -1 does mean that the index is not in
+		 * in use.
+		 */
 		inline short index() const { return index_; }
+
+		/**
+		 * Does the Pos have an index?
+		 */
 		inline bool hasIndex() const { return index_ >= 0; }
+
+		/**
+		 * Set index to none (-1).
+		 */
 		inline void setNoIndex() { index_ = -1; }
 
 
@@ -269,7 +360,8 @@ namespace se_core {
 		 */
 		void updateY();
 
-		coor_world_t pageDistanceSquared(const Pos& p) const;
+		// Deprecated as the result of world_
+		//coor_world_t pageDistanceSquared(const Pos& p) const;
 
 		void reset() {
 			area_ = 0;
@@ -281,7 +373,10 @@ namespace se_core {
 			isGrounded_ = false;
 		}
 
-		void freezeAtWorldViewPoint();
+		/**
+		 * Reset parent while maintaining world viewpoint.
+		 */
+		//void freezeAtWorldViewPoint();
 
 	public:
 		/** The area this position is inside */

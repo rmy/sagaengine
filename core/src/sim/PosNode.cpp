@@ -125,16 +125,14 @@ namespace se_core {
 			childPosNodes_.add(node);
 		}
 		else {
-			// None movers are probably static
+			// Non-movers are probably static
 			// things or actors added to area.
 			// Might as well freeze their coordinates
 			// in world space, saving traversal overhead.
 
-			//LogFatal("Not implemented");
-			// CODE BELOW IS BUGGED! CALCULATES POS OF THIS INSTEAD OF CHILD
-			//static ViewPoint vp;
-			//nextWorldViewPoint(vp);
-			node.nextPos().freezeAtWorldViewPoint();
+			node.nextPos().updateWorldViewPoint();
+			// Freeze at world viewpoint
+			node.nextPos().resetParent(true);
 		}
 	}
 
