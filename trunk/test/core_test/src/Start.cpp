@@ -1,4 +1,6 @@
 #include "UtilVecmath.hpp"
+#include "UtilTemplate.hpp"
+#include "UtilMath.hpp"
 #include "SimStat.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
@@ -32,9 +34,21 @@ namespace se_err {
 
 int main() {
 	LogMsg("------------- Entered main ----------------");
+	{ // Test util_math
+		LogMsg("Testing sim_stat");
+		test::UtilMath test;
+		test.run();
+	}
+
 	{ // Test util_vecmath
 		LogMsg("Testing util_vecmath");
 		test::UtilVecmath test;
+		test.run();
+	}
+
+	{ // Test util_template
+		LogMsg("Testing util_template");
+		test::UtilTemplate test;
 		test.run();
 	}
 

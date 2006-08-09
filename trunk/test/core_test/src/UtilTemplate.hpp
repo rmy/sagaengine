@@ -19,9 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef util_error_all_hpp
-#define util_error_all_hpp
+#ifndef UtilTemplate_hpp
+#define UtilTemplate_hpp
 
-#include "Log.hpp"
+namespace test {
+	class UtilTemplate {
+	public:
+		UtilTemplate();
+		virtual ~UtilTemplate();
+		void run();
+
+	private:
+		void util_template_HashTable();
+		void util_template_QuadTreeNode();
+	};
+}
 
 #endif
