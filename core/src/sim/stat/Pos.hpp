@@ -22,6 +22,8 @@ rune@skalden.com
 #ifndef Pos_hpp
 #define Pos_hpp
 
+#include "Anim.hpp"
+#include "sim_stat.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "../sim.hpp"
@@ -351,6 +353,23 @@ namespace se_core {
 
 
 		/**
+		 * Animation state.
+		 */
+		inline Anim& anim() {
+			return anim_;
+		}
+
+
+		/**
+		 * Animation state.
+		 * const version.
+		 */
+		inline const Anim& anim() const {
+			return anim_;
+		}
+
+
+		/**
 		 * Update y coordinate to reflect Area height and present Pos layer.
 		 * Does nothing if the coordinate has no layer.
 		 * If the Pos has a layer, updates the y coordinate to reflect the height of the area
@@ -371,12 +390,9 @@ namespace se_core {
 			radius_ = 0;
 			index_ = -1;
 			isGrounded_ = false;
+			anim_.setMovementMode(0, 0);
 		}
 
-		/**
-		 * Reset parent while maintaining world viewpoint.
-		 */
-		//void freezeAtWorldViewPoint();
 
 	public:
 		/** The area this position is inside */
@@ -390,6 +406,9 @@ namespace se_core {
 
 		/** The position in world coordinates */
 		ViewPoint world_;
+
+		/** Animation state */
+		Anim anim_;
 
 		/** The radius of the position in coor_t units. */
 		coor_t radius_;

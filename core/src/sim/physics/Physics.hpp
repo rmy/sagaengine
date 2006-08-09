@@ -31,6 +31,12 @@ rune@skalden.com
 namespace se_core {
 	class Physics : public SimObject {
 	public:
+		/**
+		 * Constructor.
+		 * The child will automatically be registeret
+		 * with SimSchema::sortedSimObjectsList on
+		 * constructions.
+		 */
 		Physics(const char* name);
 
 		/**
@@ -44,40 +50,16 @@ namespace se_core {
 		 * nextPos should happen in calcNext, because the results
 		 * of this method should be reversible on collision,
 		 * and be usable for prediction.
+		 *
+		 * It is the responsibility of this method to check for
+		 * collisions with static terrain.
 		 */
 		virtual void calcNext(const Actor& actor
 							  , const Pos& pos
 							  , Pos& nextPos
-							  , Anim& nextAnim
+							  , const Move& move
 							  , Move& nextMove
-				) const {
-			calcNext(actor, pos, nextPos);
-		}
-
-		virtual void calcNext(const Actor& actor
-							  , const Pos& pos
-							  , Pos& nextPos
-				) const {};
-
-		/**
-		 * Check if the mover is blocked by terrain when it is moving
-		 * from this position to the next position.
-		 *
-		 * No state changes should happen inside the the actor, pos
-		 * or nextPos object should happen because of this. It should
-		 * just return true if the mover is blocked, false if not.
-		 *
-		 * The collision handler will use this method, and reset nextPos
-		 * itself it true is returned.
-		 *
-		 * More advanced collisions should be handled within the calcNext
-		 * method.
-		 */
-		virtual bool isBlocked(const Actor& actor
-							   , const Pos& pos
-							   , const Pos& nextPos
-							   ) const = 0;
-
+							  ) const = 0;
 
 		/**
 		 * State changes to actor as a result of its position

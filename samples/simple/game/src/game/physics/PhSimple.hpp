@@ -33,7 +33,7 @@ namespace game {
 		void calcNext(const se_core::Actor& actor
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos
-				, se_core::Anim& nextAnim
+				, const se_core::Move& move
 				, se_core::Move& nextMove
 				) const;
 

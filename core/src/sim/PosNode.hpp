@@ -25,7 +25,6 @@ rune@skalden.com
 #include "./SimObject.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
-#include "./stat/Anim.hpp"
 #include "./stat/Pos.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/sim_stat.hpp"
@@ -75,10 +74,6 @@ namespace se_core {
 			return position_;
 		}
 
-
-		inline const Anim& anim() const {
-			return anim_;
-		}
 
 		bool didMove() const {
 			return didMove_;
@@ -131,11 +126,6 @@ namespace se_core {
 		inline Pos& nextPos() {
 			return nextPosition_;
 		}
-
-		inline Anim& nextAnim() {
-			return nextAnim_;
-		}
-
 
 		/** Flip from Pos() to nextPos()
 		 *
@@ -205,7 +195,6 @@ namespace se_core {
 	protected:
 		/** Position and volume info for the thing. */
 		Pos position_, nextPosition_;
-		Anim anim_, nextAnim_;
 		bool didMove_;
 		bool isCollideable_;
 		MultiSimObject childPosNodes_;

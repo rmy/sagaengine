@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "Pos.hpp"
+#include "Anim.hpp"
 #include "../PosNode.hpp"
 #include "../area/Area.hpp"
 #include "../sim.hpp"
@@ -143,6 +144,7 @@ namespace se_core {
 		index_ = original.index_;
 		isGrounded_ = original.isGrounded_;
 		radius_ = original.radius_;
+		anim_.setAnim(original.anim_);
 	}
 
 	void Pos

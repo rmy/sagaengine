@@ -243,7 +243,7 @@ namespace se_core {
 		bool calcNextCoor() {
 			move_ = nextMove_;
 			nextMove_.flick();
-			physics().calcNext(*this, pos(), nextPos(), nextAnim(), nextMove());
+			physics().calcNext(*this, pos(), nextPos(), move(), nextMove());
 
 			// Any change in render position?
 			didMove_ = nextPos().didParentMove() || !nextPos().localEquals(position_.local_);
@@ -331,9 +331,9 @@ namespace se_core {
 		friend class SimEngine;
 		friend class Area;
 
-		bool isBlockedByTerrain() {
-			return physics().isBlocked(*this, pos(), nextPos());
-		}
+		//bool isBlockedByTerrain() {
+		//	return physics().isBlocked(*this, pos(), nextPos());
+		//}
 
 	protected:
 		friend class ThingFactory;
