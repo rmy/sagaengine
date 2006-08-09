@@ -50,6 +50,11 @@ namespace se_core {
 		~ActionAndParameter() {
 		}
 
+
+		inline void set(const ActionAndParameter& orig) {
+			*this = orig;
+		}
+
 		inline bool hasAction() const {
 			return action_ != 0;
 		}
