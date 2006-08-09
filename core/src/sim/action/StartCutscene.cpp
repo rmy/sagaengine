@@ -49,7 +49,7 @@ namespace se_core {
 			performer.questGoals().add(*(c->questGoal()));
 		}
 
-		if(c) c->setScripts(*performer.area(), performer, a);
+		if(c) c->setScripts(*performer.nextPos().area(), performer, a);
 	}
 
 

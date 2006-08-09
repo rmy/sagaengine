@@ -109,21 +109,24 @@ namespace se_core {
 		Camera* oldCamera = ClientSchema::camera;
 		ClientSchema::camera = newCamera;
 
-		if(oldCamera == 0 || newCamera->area() != oldCamera->area()) {
-			if(oldCamera != 0 && oldCamera->area() != 0) {
-				ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldCamera->area());
+		Area* oldArea = (oldCamera) ? const_cast<Area*>(oldCamera->pos().area()) : 0;
+		Area* newArea = (newCamera) ? newCamera->nextPos().area() : 0;
+
+		if(oldCamera == 0 || newArea != oldArea) {
+			if(oldCamera != 0 && oldArea != 0) {
+				ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldArea);
 			}
-			if(newCamera != 0 && newCamera->area() != 0) {
-				SimSchema::areaManager.setActive(newCamera->area());
-				ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newCamera->area());
+			if(newCamera != 0 && newArea != 0) {
+				SimSchema::areaManager.setActive(newArea);
+				ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newArea);
 			}
 		}
 		if(oldCamera) {
-			if(oldCamera->area()) newCamera->area()->reportingThings().setHandler(0);
+			if(oldArea) oldArea->reportingThings().setHandler(0);
 			oldCamera->setCameraHandler(0);
 		}
 		if(newCamera) {
-			if(newCamera->area()) newCamera->area()->reportingThings().setHandler(this);
+			if(newArea) newArea->reportingThings().setHandler(this);
 			newCamera->setCameraHandler(this);
 		}
 	}

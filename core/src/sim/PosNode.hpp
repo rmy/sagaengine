@@ -36,7 +36,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	/** A static thing.
+	/** Parent class for entities that exists in and has a position in the game world.
 	 *
 	 * PosNode is the base class for all world entities, including
 	 * the Area, Thing and Actor classes. It maintains information
@@ -49,6 +49,10 @@ namespace se_core {
 	public:
 		PosNode(enum SimObjectType type, const char* name);
 		virtual ~PosNode();
+
+		/** Cleanup this PosNode.
+		 * Resets the parent, and removes it from child lists.
+		 */
 		virtual void cleanup();
 
 
@@ -74,7 +78,8 @@ namespace se_core {
 			return position_;
 		}
 
-
+		/** Does the PosNode move during this simulation step?
+		 */
 		bool didMove() const {
 			return didMove_;
 		}
@@ -109,7 +114,7 @@ namespace se_core {
 			return false;
 		}
 
-		/**
+		/** Can other PosNodes collide with this PosNode?
 		 */
 		bool isCollideable() const {
 			return isCollideable_;
@@ -135,27 +140,56 @@ namespace se_core {
 		 */
 		void flip();
 
-		const PosNode *parent() const {
-			return position_.parent();
+		/**
+		 * Add a PosNode as a child.
+		 */
+		void addChildPosNode(PosNode& node);
+
+		/**
+		 * Add a PosNode from the child list.
+		 */
+		void removeChildPosNode(PosNode& node);
+
+		/**
+		 * Get the list of child PosNodes.
+		 */
+		MultiSimObject& childPosNodes() {
+			return childPosNodes_;
 		}
 
+		/**
+		 * Remove the PosNode from the child list of its parent.
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
 		virtual void leaveCurrentParent();
+
+		/**
+		 * Move this PosNode from the child list of the old parent, to the child list of the new.
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
 		virtual bool changeParent();
 
 
-		Area *area() {
-			return position_.area();
-		}
-
+		/** Remove the PosNode from its area.
+		 *
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
 		virtual void leaveCurrentArea();
+
+		/** Move the PosNode from one area to another.
+		 *
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
 		virtual bool changeArea();
 
-		void addChildPosNode(PosNode& node);
-		void removeChildPosNode(PosNode& node);
 
-
-		/** Set wether this thing can be collided with. This
-		 * is a hint to the engine that this should be included
+		/** Set wether this thing can be collided with.
+		 * 
+		 * This is a hint to the engine that this should be included
 		 * in the collison space.
 		 */
 		void setCollideable(bool isCollideable) {
@@ -164,44 +198,61 @@ namespace se_core {
 
 		////////////////////////////////////////
 
-		MultiSimObject& childPosNodes() {
-			return childPosNodes_;
-		}
-
-
-		/** World coor interpolated between now and next.
+		/** Update the world viewpoint.
+		 *
+		 * Updates the world_ attribute in nextPos() make it harmonize with local_.
 		 */
 		void updateWorldViewPoint();
-		void calcWorldViewPoint(ViewPoint& dest) const;
 
+		/** World coor interpolated between now and next.
+		 *
+		 * @param alpha Interpolation value. 0 gets the coordinate at pos(), 1 at nextPos()
+		 * @param dest output value
+		 */
 		void worldCoor(scale_t alpha, Point3& dest) const;
+
+		/** World viewpoint interpolated between now and next.
+		 *
+		 * @param alpha Interpolation value. 0 gets the coordinate at pos(), 1 at nextPos()
+		 * @param dest output value
+		 */
 		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
-		/*
-		void worldCoor(Point3& dest) const;
-		void nextWorldCoor(Point3& dest) const;
 
-		void worldViewPoint(ViewPoint& dest) const;
-		void nextWorldViewPoint(ViewPoint& dest) const;
-
-		void childViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
-		void nextChildViewPoint(ViewPoint& dest, PosNode* stopAtParent) const;
-		void childCoor(Point3& dest, PosNode* stopAtParent) const;
-		void nextChildCoor(Point3& dest, PosNode* stopAtParent) const;
-		*/
-
+		/** Set the list of spawn points associated with this PosNode.
+		 *
+		 * @param count the number of spawn points
+		 * @param spawnPoints the list of spawn points
+		 */
 		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints);
+
+		/** Get the reference to a spawn point
+		 *
+		 * @param id the id of the sapwn points
+		 */
 		const ViewPoint* spawnPoint(short id) const;
 
 	protected:
-		/** Position and volume info for the thing. */
-		Pos position_, nextPosition_;
+		/** Position of the PosNode at the beginning of the current simulation step */
+		Pos position_;
+
+		/** Position of the PosNode at the beginning of the next simulation step */
+		Pos nextPosition_;
+
+		/** Flag which indicates that the PosNode moves between the current and the next simulation step. */
 		bool didMove_;
+
+		/** Flag that indicated wether other PosNodes can collide with this PosNode.
+		 * Used by the Area class to decide wether the PosNode should be inserted into a collision grid. 
+		 */
 		bool isCollideable_;
+
+		/** List of child PosNodes  */
 		MultiSimObject childPosNodes_;
 
 		/** The number of spawn points */
 		int spawnPointCount_;
-		/** Spawn points */
+
+		/** List of spawn points associated this this PosNode */
 		const ViewPoint* const* spawnPoints_;
 	};
 

@@ -55,12 +55,11 @@ namespace se_core {
 
 
 	void Cutscene
-	::setScripts(Area& area, Actor& performer, Actor* scriptTarget) {
+	::setScripts(const Area& area, Actor& performer, Actor* scriptTarget) {
 		static ShowingCutscene showingCutscene;
 		showingCutscene.freeMembers();
 		showingCutscene.setCutscene(this);
 		SimSchema::scriptTracker = 0;
-		WasHere();
 		SimSchema::didTrack = true;
 
 		int scriptTarid = -1;

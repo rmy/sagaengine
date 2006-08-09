@@ -128,7 +128,7 @@ namespace se_core {
 		 *
 		 * If false, the AI will just skip the AI performs it
 		 * is lagged behind ignoring the fact that it has lagged behind.
-		 * This may make in game movements become jerky, but will make it
+		 * This may make game movements jerky, but will make it
 		 * easier to have a consistent number of screen updates per AI
 		 * perform().
 		 *

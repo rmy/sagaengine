@@ -63,7 +63,6 @@ namespace se_core {
 			changeArea();
 		}
 		position_.setPos(nextPosition_);
-		//LogMsg(name() << ": " << nextPosition_.toLog() << " - " << position_.toLog());
 	}
 
 
@@ -144,41 +143,15 @@ namespace se_core {
 
 	void PosNode
 	::updateWorldViewPoint() {
-		ViewPoint& dest = nextPosition_.world_;
-		dest.setViewPoint(nextPosition_.local_);
+		nextPosition_.world_.setViewPoint(nextPosition_.local_);
 		if(nextPos().hasParent()) {
-			// Parent should already have updated their worldViewPoint
-			PosNode* p = nextPos().parent();
-			const ViewPoint& src = p->nextPos().worldViewPoint();
-			dest.coor_.rotate(src.face_);
-			dest.coor_.add(src.coor_);
-			dest.face_.rotate(src.face_);
-		}
-	}
-
-
-	void PosNode
-	::calcWorldViewPoint(ViewPoint& dest) const {
-		dest.setViewPoint(nextPosition_.local_);
-		if(nextPosition_.hasParent()) {
-			// Parent should already have updated their worldViewPoint
-			const PosNode* p = nextPosition_.parent();
-			const ViewPoint& src = p->nextPosition_.world_;
-			dest.coor_.rotate(src.face_);
-			dest.coor_.add(src.coor_);
-			dest.face_.rotate(src.face_);
+			nextPosition_.world_.add( nextPos().parent()->nextPos().world_ );
 		}
 	}
 
 
 	void PosNode
 	::worldCoor(scale_t alpha, Point3& dest) const {
-		/*
-		worldCoor(dest);
-		static Coor np; // WARNING: Not thread safe.
-		nextWorldCoor(np);
-		dest.interpolate(np, alpha);
-		*/
 		dest.set(position_.worldCoor());
 		dest.interpolate(nextPosition_.worldCoor(), alpha);
 	}
@@ -187,11 +160,6 @@ namespace se_core {
 
 	void PosNode
 	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
-		/*
-		worldViewPoint(dest);
-		static ViewPoint np; // WARNING: Not thread safe.
-		nextWorldViewPoint(np);
-		*/
 		dest.setViewPoint(position_.world_);
 		dest.coor_.interpolate(nextPosition_.worldCoor(), alpha);
 		dest.face_.interpolate(nextPosition_.worldFace(), alpha);
@@ -200,7 +168,6 @@ namespace se_core {
 
 	void PosNode
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
-		//LogMsg(name() << ": " << count);
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;
 	}
