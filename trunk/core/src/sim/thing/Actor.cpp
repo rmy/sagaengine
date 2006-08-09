@@ -130,6 +130,17 @@ namespace se_core {
 
 
 	void Actor
+	::planAction(short channel, const ActionAndParameter& action) const {
+		if(!action.hasAction())
+			return;
+		plannedAction_[channel].set(action);
+		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
+			const_cast<Actor&>(*this).scheduleNextAction(channel);
+		}
+	}
+
+
+	void Actor
 	::clearPlannedAction(short channel) const {
 		plannedAction_[channel].resetAction();
 	}

@@ -52,14 +52,29 @@ namespace se_core {
 		bool changeArea();
 
 
-		const Action* defaultAction() const { return defaultAction_; }
-		void setDefaultAction(const Action& action) { defaultAction_ = &action; }
-		void resetDefaultAction() { defaultAction_ = 0; }
+		const ActionAndParameter& defaultAction() const { return defaultAction_; }
+		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 
+			defaultAction_.setAction(action);
+			if(parameter) {
+				defaultAction_.copyParameter(*parameter);
+			}
+		}
+		void resetDefaultAction() { defaultAction_.resetAction(); }
 
-		const Action* defaultMovementAction() const { return defaultMovementAction_; }
-		void setDefaultMovementAction(const Action& action) const { defaultMovementAction_ = &action; }
-		const Action* defaultTurnAction() const { return defaultTurnAction_; }
-		void setDefaultTurnAction(const Action& action) const { defaultTurnAction_ = &action; }
+		const ActionAndParameter& defaultMovementAction() const { return defaultMovementAction_; }
+		void setDefaultMovementAction(const Action& action, const Parameter* parameter = 0) const { 
+			defaultMovementAction_.setAction(action);
+			if(parameter) {
+				defaultMovementAction_.copyParameter(*parameter);
+			}
+		}
+		const ActionAndParameter& defaultTurnAction() const { return defaultTurnAction_; }
+		void setDefaultTurnAction(const Action& action, const Parameter* parameter = 0) const {
+			defaultTurnAction_.setAction(action);
+			if(parameter) {
+				defaultTurnAction_.copyParameter(*parameter);
+			}
+		}
 
 		/**
 		 *
@@ -97,9 +112,10 @@ namespace se_core {
 
 
 		// TODO: Move to Player class
-		mutable const Action* defaultAction_;
-		mutable const Action* defaultMovementAction_;
-		mutable const Action* defaultTurnAction_;
+		mutable ActionAndParameter defaultAction_;
+		mutable ActionAndParameter defaultMovementAction_;
+		mutable ActionAndParameter defaultTurnAction_;
+
 
 		Thing* pickTarget_;
 		mutable Thing* defaultActionTarget_;

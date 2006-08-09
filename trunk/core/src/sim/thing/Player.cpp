@@ -23,6 +23,7 @@ rune@skalden.com
 #include "ThingManager.hpp"
 #include "../SimEngine.hpp"
 #include "../action/ActionQueue.hpp"
+#include "../action/ActionAndParameter.hpp"
 #include "../action/Idle.hpp"
 #include "../area/Area.hpp"
 #include "../config/all.hpp"
@@ -40,12 +41,11 @@ namespace se_core {
 	Player
 	::Player(const char* name)
 		: Camera(name)
-		  , defaultAction_(0), defaultMovementAction_(&actionIdle)
-		  , defaultTurnAction_(0)
 		  , pickTarget_(0), defaultActionTarget_(0) {
 		reportingMultiSimObjects_ = new ReportingMultiSimObject*[ MGO_COUNT ];
 		for(int i = 0; i < MGO_COUNT; ++i)
 			reportingMultiSimObjects_[i] = new ReportingMultiSimObject(*this, i);
+		defaultMovementAction_.setAction(actionIdle);
 	}
 
 
@@ -117,22 +117,22 @@ namespace se_core {
 
 	void Player
 	::planDefaultAction() const {
-		if(!defaultAction_) return;
-		planAction(CHANNEL_EXTRA, *defaultAction_);
+		if(!defaultAction_.hasAction()) return;
+		planAction(CHANNEL_EXTRA, defaultAction_);
 	}
 
 
 	void Player
 	::planDefaultMovementAction() const {
-		if(defaultMovementAction_) {
+		if(defaultMovementAction_.hasAction()) {
 			if(!plannedAction_[ CHANNEL_MOVEMENT ].hasAction()) {
-				planAction(CHANNEL_MOVEMENT, *defaultMovementAction_);
+				planAction(CHANNEL_MOVEMENT, defaultMovementAction_);
 			}
 		}
 
-		if(defaultTurnAction_) {
+		if(defaultTurnAction_.hasAction()) {
 			if(!plannedAction_[ CHANNEL_DIRECTION ].hasAction()) {
-				planAction(CHANNEL_DIRECTION, *defaultTurnAction_);
+				planAction(CHANNEL_DIRECTION, defaultTurnAction_);
 			}
 		}
 	}

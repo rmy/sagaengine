@@ -77,6 +77,7 @@ namespace se_core {
 		 * but not yet in the ActionQueue.
 		 */
 		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const;
+		void planAction(short channel, const ActionAndParameter& action) const;
 
 		/**
 		 * Clear planned action.
