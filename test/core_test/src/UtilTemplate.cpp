@@ -19,91 +19,40 @@ rune@skalden.com
 */
 
 
-#include "BaseUnitTest.hpp"
+#include "UtilTemplate.hpp"
 #include "util/error/Log.hpp"
-#include "util/math/FixedPoint.hpp"
 #include "util/template/all.hpp"
 #include "util/template/SinglyLinkedList.hpp"
 #include "util/template/QuadTreeNode.hpp"
 
+using namespace se_core;
 
-namespace se_core {
+namespace test {
 	struct Element {
 		int key;
 		int value;
 	};
 
 
-	BaseUnitTest
-	::BaseUnitTest() {
-		DebugExec(go());
+	UtilTemplate
+	::UtilTemplate() {
 	}
 
 
-	BaseUnitTest
-	::~BaseUnitTest() {
+	UtilTemplate
+	::~UtilTemplate() {
 	}
 
 
-	void BaseUnitTest
-	::go() {
-		base_math_FixedPoint();
-		base_template_HashTable();
+	void UtilTemplate
+	::run() {
+		util_template_QuadTreeNode();
+		util_template_HashTable();
 	}
 
 
-	void BaseUnitTest
-	::base_math_FixedPoint() {
-
-		FixedPoint v1, v2, v3, res1, res2;
-
-		v1 = 0.0f;
-		Assert(!v1); // Is zero
-		v1 = 2.0f;
-		Assert(v1); // Not zero
-		v1 = 2.0f;
-		v2 = 2.0f;
-		v3 = 4.0f;
-
-		Assert(FixedPoint::fromFloat(FixedPoint::toFloat(256)) == 256);
-
-		res1 = v1 * v2;
-		res2 = v1 + v2;
-		Assert(v1 == v2);
-		Assert(res1 == res2);
-		Assert(res1 == v3);
-
-		res1 /= v2;
-		Assert(res1 == v1);
-		res1 = (v1 * v2) / v1;
-		Assert(res1 == v2);
-
-		res1 = 0.0f;
-		res2 = 0.0f;
-
-		res1 = v1 + v2 + v3;
-		res2 += v1;
-		res2 += v2;
-		res2 += v3;
-		Assert(res1 == res2);
-
-		res1 = v1 + v2 + v3;
-		res1 -= v2;
-		res1 -= v3;
-		Assert(res1 == v1);
-
-		float f1 = 2.0f;
-		//float f2 = 0.0f;
-		v1 = f1;
-		//f2 = v1;
-		//Assert(f1 == f2);
-
-		LogMsg("UNIT TEST PASSED: base_math_FixedPoint");
-	}
-
-
-	void BaseUnitTest
-	::base_template_HashTable() {
+	void UtilTemplate
+	::util_template_HashTable() {
 		/*
 		WasHere();
 		HashTable<struct Element, 512> elementHash;
@@ -131,7 +80,7 @@ namespace se_core {
 		e = elementHash.lookup(50);
 		Assert(e == 0);
 
-		LogMsg("UNIT TEST PASSED: base_template_HashTable");
+		LogMsg("UNIT TEST PASSED: util_template_HashTable");
 		*/
 	}
 
@@ -172,16 +121,13 @@ namespace se_core {
 	};
 
 
-	void BaseUnitTest
-	::base_template_QuadTreeNode() {
+	void UtilTemplate
+	::util_template_QuadTreeNode() {
 		ElementQuadTreeNode rootNode;
-		WasHere();
 		rootNode.setDepth(8);
-		WasHere();
 		rootNode.setBounds(0, 0, 256, 256);
-		WasHere();
 
-		LogMsg("UNIT TEST PASSED: base_template_QuadTreeNode");
+		LogMsg("UNIT TEST PASSED: util_template_QuadTreeNode");
 	}
 
 }

@@ -7,12 +7,8 @@ namespace test {
 		SimStat() {}
 
 		void run() {
-			bool success = testViewPoint();
-			Assert(success && "sim_stat::ViewPoint test failed");
 		}
 
-		bool testViewPoint();
-	
 	};
 
 }

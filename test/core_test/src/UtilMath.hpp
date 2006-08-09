@@ -19,20 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef base_error_BaseUnitTest_hpp
-#define base_error_BaseUnitTest_hpp
+#ifndef UtilMath_hpp
+#define UtilMath_hpp
 
-namespace se_core {
-	class BaseUnitTest {
+namespace test {
+	class UtilMath {
 	public:
-		BaseUnitTest();
-		virtual ~BaseUnitTest();
+		UtilMath();
+		virtual ~UtilMath();
+		void run();
 
 	private:
-		void go();
-		void base_math_FixedPoint();
-		void base_template_HashTable();
-		void base_template_QuadTreeNode();
+		void util_math_FixedPoint();
 	};
 }
 
