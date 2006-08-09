@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "MultiSimObjectIterator.hpp"
+#include "SimObjectIterator.hpp"
 #include "MultiSimObject.hpp"
 
 #include "SimObjectList.hpp"
@@ -33,58 +33,58 @@ rune@skalden.com
 namespace se_core {
 
 
-	MultiSimObjectIterator
-	::MultiSimObjectIterator()
+	SimObjectIterator
+	::SimObjectIterator()
 		: it_(SimObjectList::NULL_NODE) {
 	}
 
 
-	MultiSimObjectIterator
-	::MultiSimObjectIterator(MultiSimObject& mgo) {
+	SimObjectIterator
+	::SimObjectIterator(MultiSimObject& mgo) {
 		(*this).init(mgo);
 	}
 
-	void MultiSimObjectIterator
+	void SimObjectIterator
 	::init(MultiSimObject& mgo) {
 		mgo.initIterator(it_);
 	}
 
 
-	void MultiSimObjectIterator
+	void SimObjectIterator
 	::init(short firstNode) {
 		it_ = firstNode;
 	}
 
-	bool MultiSimObjectIterator
+	bool SimObjectIterator
 	::hasNext() {
 		return it_ != SimObjectList::NULL_NODE;
 	}
 
-	SimObject& MultiSimObjectIterator
+	SimObject& SimObjectIterator
 	::next() {
 		return *(SimSchema::simObjectList.next(it_));
 	}
 
 
-	Thing& MultiSimObjectIterator
+	Thing& SimObjectIterator
 	::nextThing() {
 		return static_cast<Thing&>(*SimSchema::simObjectList.next(it_));
 	}
 
 
-	Actor& MultiSimObjectIterator
+	Actor& SimObjectIterator
 	::nextActor() {
 		return static_cast<Actor&>(*SimSchema::simObjectList.next(it_));
 	}
 
 
-	Cutscene& MultiSimObjectIterator
+	Cutscene& SimObjectIterator
 	::nextCutscene() {
 		return static_cast<Cutscene&>(*SimSchema::simObjectList.next(it_));
 	}
 
 
-	QuestGoal& MultiSimObjectIterator
+	QuestGoal& SimObjectIterator
 	::nextQuestGoal() {
 		return static_cast<QuestGoal&>(*SimSchema::simObjectList.next(it_));
 	}

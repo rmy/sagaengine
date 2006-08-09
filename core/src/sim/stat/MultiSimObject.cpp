@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "MultiSimObject.hpp"
 #include "SimObjectList.hpp"
-#include "MultiSimObjectIterator.hpp"
+#include "SimObjectIterator.hpp"
 #include "../SimObject.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../error/sim_error.hpp"

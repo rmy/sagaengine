@@ -24,7 +24,6 @@ rune@skalden.com
 #include "AreaFactory.hpp"
 #include "CollisionGrid.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../stat/ThingIterator.hpp"
 #include "../thing/Thing.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstring>

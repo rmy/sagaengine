@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../script/Script.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../stat/MultiSimObjectIterator.hpp"
+#include "../stat/SimObjectIterator.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../area/Area.hpp"
 #include "../thing/Actor.hpp"

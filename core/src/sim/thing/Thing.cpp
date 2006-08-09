@@ -26,7 +26,6 @@ rune@skalden.com
 #include "../schema/SimSchema.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../stat/ThingIterator.hpp"
 #include "../area/Area.hpp"
 #include "../area/sim_area.hpp"
 #include "util/error/Log.hpp"

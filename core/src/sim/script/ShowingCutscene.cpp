@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "ShowingCutscene.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../stat/MultiSimObjectIterator.hpp"
+#include "../stat/SimObjectIterator.hpp"
 #include "../thing/Actor.hpp"
 #include "../../util/error/Log.hpp"
 
@@ -54,10 +54,8 @@ namespace se_core {
 
 	void ShowingCutscene
 	::freeMembers() {
-		MultiSimObjectIterator it(*members_);
-		WasHere();
+		SimObjectIterator it(*members_);
 		while(it.hasNext()) {
-			WasHere();
 			it.nextActor().setNoCutsceneShowing();
 		}
 		members_->clear();
