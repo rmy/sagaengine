@@ -499,8 +499,17 @@ namespace se_core {
 		for(int outer = 0; outer < moverCount_; ++outer) {
 			Actor* a = movers_[ outer ];
 
-			short innerCount = collisionGrid_->collisionCandidates
-				(a->nextPos().worldCoor(), a->nextPos().radius() + COOR_RES, things, MAX_THINGS - 1);
+			// Get collision candidates in this and all
+			// neighbouring areas
+			short innerCount = 0;
+			for(int n = 0; n < MAX_NEIGHBOURS; ++n) {
+				Area* area = neighbours_[ n ];
+				if(!area || !area->collisionGrid_) continue;
+
+				innerCount += area->collisionGrid_->collisionCandidates
+					(a->nextPos().worldCoor(), a->nextPos().radius() + COOR_RES
+					 , &things[innerCount], MAX_THINGS - innerCount);
+			}
 
 			// Test collision with all collision candidates
 			for(int inner = 0; inner < innerCount; ++inner) {
