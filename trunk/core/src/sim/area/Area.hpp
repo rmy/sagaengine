@@ -238,7 +238,9 @@ namespace se_core {
 
 		MultiSimObject* multiSimObjects_;
 		ReportingMultiSimObject* allThings_;
-		Area* neighbours_[ 3 * 3 * 3 ];
+
+		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
+		Area* neighbours_[ MAX_NEIGHBOURS ];
 		CollisionGrid* collisionGrid_;
 
 		const AreaFactory* factory_;
