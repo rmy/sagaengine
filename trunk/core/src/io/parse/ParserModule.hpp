@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../stream/io_stream.hpp"
 
 namespace se_core {
-	class ParserModule {
+	class _SeCoreExport ParserModule {
 	public:
 		enum ModuleCode { AREA = 'A', HEIGHTMAP_AREA = 'H', MENU = 'M', RANDOM_AREA = 'R', AREA_THINGS = 'B', RANDOM_AREA_THINGS = 'C', TERRAIN = 'T', THING = 'O', LANGUAGE = 'L', SPEECH_POSITION = 'P', CUTSCENE = 'S', PLAYER = 'X', PLUGIN = 'Z' };
 

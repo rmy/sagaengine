@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../config/sim_config.hpp"
 
 namespace se_core {
-	class Anim {
+	class _SeCoreExport Anim {
 	public:
 		typedef short MovementMode;
 

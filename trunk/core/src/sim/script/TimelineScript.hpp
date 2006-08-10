@@ -28,7 +28,7 @@ rune@skalden.com
 #include "../../util/type/util_type.hpp"
 
 namespace se_core {
-	class TimelineScript : public Script {
+	class _SeCoreExport TimelineScript : public Script {
 	public:
 		TimelineScript(String* name, int trackerPosCount = 40);
 		virtual ~TimelineScript();

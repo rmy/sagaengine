@@ -27,7 +27,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class BrayT {
+	class _SeCoreExport BrayT {
 	public:
 		const static bray_t DEG0 = 0;
 		const static bray_t DEG45 = BRAY_RANGE * 1 / 8;

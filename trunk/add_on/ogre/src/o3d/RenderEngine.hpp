@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_ogre {
 	extern Ogre::RaySceneQuery* raySceneQuery;
 
-	class RenderEngine : public se_core::SimListener {
+	class _SeOgreExport RenderEngine : public se_core::SimListener {
 	public:
 		RenderEngine(se_ogre::ConsoleHandler* consoleHandler = 0);
 		virtual ~RenderEngine();

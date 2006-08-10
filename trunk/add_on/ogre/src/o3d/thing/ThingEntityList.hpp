@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_ogre {
 	typedef se_core::SinglyLinkedList<class se_ogre::ThingEntity, se_core::MAX_GAME_OBJECTS, 2> TEL;
 
-	class ThingEntityList : public TEL {
+	class _SeOgreExport ThingEntityList : public TEL {
 	public:
 		ThingEntityList(short i) : TEL(__FILE__) { ++i; }
 	};

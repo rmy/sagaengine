@@ -26,7 +26,7 @@ rune@skalden.com
 #include "sim_stat.hpp"
 
 namespace se_core {
-	class ReportingMultiSimObject : public MultiSimObject {
+	class _SeCoreExport ReportingMultiSimObject : public MultiSimObject {
 	public:
 		ReportingMultiSimObject(SimObject& owner, short type);
 		ReportingMultiSimObject(short type);

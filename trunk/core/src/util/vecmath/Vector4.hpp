@@ -27,7 +27,7 @@ namespace se_core {
 	 * @version specification 1.1, implementation $Revision: 1.3 $, $Date: 1999/10/06 02:52:46 $
 	 * @author Kenji hiranabe
 	 */
-	class Vector4 : public Tuple4 {
+	class _SeCoreExport Vector4 : public Tuple4 {
 	public:
 		/**
 		 * Constructs and initializes a Vector4 from the specified xyzw coordinates.

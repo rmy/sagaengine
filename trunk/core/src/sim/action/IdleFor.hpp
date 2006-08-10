@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class IdleFor : public Action {
+	class _SeCoreExport IdleFor : public Action {
 	public:
 		IdleFor() : Action("idle_for") {}
 		short duration(Actor& performer, Parameter& parameter) const;
@@ -42,7 +42,7 @@ namespace se_core {
 	};
 
 
-	extern const IdleFor actionIdleFor;
+	extern _SeCoreExport const IdleFor actionIdleFor;
 }
 
 #endif

@@ -30,7 +30,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class Property {
+	class _SeCoreExport Property {
 	public:
 		enum Type {
 			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_ACTOR, PT_ACTION, PT_AREA, PT_STRING

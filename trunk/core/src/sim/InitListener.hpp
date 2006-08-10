@@ -32,7 +32,7 @@ namespace se_core {
 	 * subclass the InitListener class and register themselves as listeners
 	 * in the InitSchema.
 	 */
-	class InitListener {
+	class _SeCoreExport InitListener {
 	public:
 		virtual ~InitListener() {} // Gets rid of warning
 

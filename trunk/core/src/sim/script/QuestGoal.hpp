@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../../util/type/util_type.hpp"
 
 namespace se_core {
-	class QuestGoal : public SimObject {
+	class _SeCoreExport QuestGoal : public SimObject {
 	public:
 		QuestGoal(String* name);
 		virtual ~QuestGoal();

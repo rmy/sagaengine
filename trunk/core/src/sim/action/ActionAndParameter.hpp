@@ -28,7 +28,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 
 namespace se_core {
-	class Parameter {
+	class _SeCoreExport Parameter {
 	public:
 		inline void* data(short size) {
 			Assert(size < MAX_DATA_SIZE);
@@ -46,7 +46,7 @@ namespace se_core {
 	};
 
 
-	class ActionAndParameter {
+	class _SeCoreExport ActionAndParameter {
 	public:
 		ActionAndParameter()
 			: action_(0) {

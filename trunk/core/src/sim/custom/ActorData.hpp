@@ -33,7 +33,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class ActorData {
+	class _SeCoreExport ActorData {
 	public:
 		ActorData();
 		void setAbilities(short* abilities);

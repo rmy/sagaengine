@@ -31,7 +31,7 @@ rune@skalden.com
 
 namespace se_core {
 	typedef SinglyLinkedList<class SimObject, MAX_GAME_OBJECTS, 2> GOL;
-	class SimObjectList : public GOL {
+	class _SeCoreExport SimObjectList : public GOL {
 	public:
 		SimObjectList() : GOL(__FILE__) {}
 		inline Actor* nextActor(iterator_type& iterator) {

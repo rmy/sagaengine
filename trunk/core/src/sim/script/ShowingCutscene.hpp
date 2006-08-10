@@ -27,7 +27,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class ShowingCutscene {
+	class _SeCoreExport ShowingCutscene {
 	public:
 		ShowingCutscene();
 		virtual ~ShowingCutscene();

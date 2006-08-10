@@ -25,7 +25,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class RealClock {
+	class _SeCoreExport RealClock {
 	public:
 		virtual ~RealClock() {} // Gets rid of warning
 		virtual void reset() = 0;

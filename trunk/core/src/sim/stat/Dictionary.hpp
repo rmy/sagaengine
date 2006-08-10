@@ -25,7 +25,7 @@ rune@skalden.com
 #include "DictionaryEntry.hpp"
 
 namespace se_core {
-	class Dictionary {
+	class _SeCoreExport Dictionary {
 	public:
 		Dictionary();
 		~Dictionary();

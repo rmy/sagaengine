@@ -29,7 +29,7 @@ rune@skalden.com
 
 namespace se_core {
 	/** Base class for script data. */
-	class ScriptData {
+	class _SeCoreExport ScriptData {
 	public:
 		ScriptData();
 		virtual ~ScriptData();
@@ -44,7 +44,7 @@ namespace se_core {
 	 * action. A script does not change the state of the performer in any
 	 * way, except for what is needed to communicate with actions.
 	 */
-	class Script : public SimObject {
+	class _SeCoreExport Script : public SimObject {
 	public:
 		Script(String* name);
 		virtual ~Script();

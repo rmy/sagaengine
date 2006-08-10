@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class StopCutscene : public Action {
+	class _SeCoreExport StopCutscene : public Action {
 	public:
 		StopCutscene() : Action("stop_cutscene") {}
 
@@ -40,7 +40,7 @@ namespace se_core {
 	private:
 	};
 
-	extern const StopCutscene actionStopCutscene;
+	extern _SeCoreExport const StopCutscene actionStopCutscene;
 }
 
 #endif

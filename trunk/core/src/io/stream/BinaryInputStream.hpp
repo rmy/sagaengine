@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class BinaryInputStream : public InputStream {
+	class _SeCoreExport BinaryInputStream : public InputStream {
 	public:
 		int readThingType() { return readShort(); }
 		unsigned short readDictionaryWord(short dictionaryId) { return readShort(); }

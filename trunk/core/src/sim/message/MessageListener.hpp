@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class MessageListener {
+	class _SeCoreExport MessageListener {
 	public:
 		virtual ~MessageListener() {} // Gets rid of warning
 		virtual void infoEvent(char* text) = 0;

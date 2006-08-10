@@ -1,2 +1,2 @@
-/home/rune/svn/sagaengine/core/src
-/home/rune/svn/sagaengine/core/include
+../../../../core/src
+../../../../core/include

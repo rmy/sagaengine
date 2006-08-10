@@ -27,7 +27,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class LanguageParserModule : public ParserModule {
+	class _SeClientExport LanguageParserModule : public ParserModule {
 	public:
 		LanguageParserModule(Parser& parser);
 		void parse(InputStream& in);

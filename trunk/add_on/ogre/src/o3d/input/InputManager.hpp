@@ -25,7 +25,7 @@ rune@skalden.com
 #include "o3d_input.hpp"
 
 namespace se_ogre {
-	class InputManager {
+	class _SeOgreExport InputManager {
 	public:
 		InputManager();
 		~InputManager();

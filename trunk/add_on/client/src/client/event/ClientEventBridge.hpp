@@ -34,7 +34,7 @@ namespace se_core {
 	/**
 	 * Translates MultiSimObject events for Areas into ClientEvents.
 	 */
-	class ClientEventBridge : public MultiSimObjectListener, public CameraHandler, public InitListener {
+	class _SeClientExport ClientEventBridge : public MultiSimObjectListener, public CameraHandler, public InitListener {
 	public:
 		ClientEventBridge();
 		~ClientEventBridge();

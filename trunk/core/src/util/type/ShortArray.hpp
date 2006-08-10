@@ -33,7 +33,7 @@ namespace se_core {
 	 * arrays, arrays located in ROM and dynamically created arrays
 	 * for the same purpose.
 	 */
-	class ShortArray {
+	class _SeCoreExport ShortArray {
 	public:
 		ShortArray();
 		~ShortArray();

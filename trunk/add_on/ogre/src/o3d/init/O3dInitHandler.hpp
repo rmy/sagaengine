@@ -25,7 +25,7 @@ rune@skalden.com
 #include "O3dPre.H"
 
 namespace se_ogre {
-	class O3dInitHandler : public se_core::InitListener {
+	class _SeOgreExport O3dInitHandler : public se_core::InitListener {
 	public:
 		O3dInitHandler();
 		~O3dInitHandler();

@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class CustomScript : public Script {
+	class _SeCoreExport CustomScript : public Script {
 	public:
 		CustomScript(String* name);
 		ScriptData* init(const Actor& performer) const;

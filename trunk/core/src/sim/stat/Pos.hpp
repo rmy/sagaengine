@@ -37,7 +37,7 @@ namespace se_core {
 	 * The Pos class maintains coordinates, volume and movement info for Thing
 	 * and subclasses.
 	 */
-	class Pos {
+	class _SeCoreExport Pos {
 	public:
 		static const short TS_VOID = 0;
 		static const long TSM_VOID = (1 << TS_VOID);

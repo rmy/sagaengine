@@ -1,2 +1,2 @@
-/home/rune/svn/sagaengine/add_on/client/src
+../../src
 

@@ -32,7 +32,7 @@ namespace se_core {
 	 * the SimListener class and register themselves as listeners
 	 * in the SimSchema.
 	 */
-	class SimListener {
+	class _SeCoreExport SimListener {
 	public:
 		virtual ~SimListener() {} // Gets rid of warning
 

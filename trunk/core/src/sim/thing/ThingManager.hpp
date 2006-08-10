@@ -29,7 +29,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class ThingManager {
+	class _SeCoreExport ThingManager {
 	public:
 		ThingManager() : factoryCount_(0), destructionCount_(0)
 					   , nextDestructionCount_(0) {}

@@ -39,7 +39,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class Move {
+	class _SeCoreExport Move {
 	public:
 		//
 		Vector3 velocity_; // Velocity - the speed and direction at which the position changes

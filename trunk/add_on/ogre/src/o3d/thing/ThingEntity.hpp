@@ -32,7 +32,7 @@ namespace se_ogre {
 	 * An entity visually representing a se_core::Thing
 	 * in 3D.
 	 */
-	class ThingEntity {
+	class _SeOgreExport ThingEntity {
 	public:
 		/**
 		 * @param thing The thing that this entity is visually representing.

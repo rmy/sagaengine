@@ -8,6 +8,8 @@ CONFIG += lib
 OBJECTS_DIR = .obj
 TARGET = se_client
 
+DEFINES *= _SeOgreExport _SeClientExport _SeCoreExport
+
 INCLUDEPATH += ../../src
 INCLUDEPATH += ../../../../core/src
 

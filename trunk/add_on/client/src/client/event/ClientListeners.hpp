@@ -27,7 +27,7 @@ rune@skalden.com
 #include "sim/thing/sim_thing.hpp"
 
 namespace se_core {
-	class ClientListeners {
+	class _SeClientExport ClientListeners {
 	public:
 		ClientListeners() : listenerCount(0) {}
 		void addListener(ClientListener& l);

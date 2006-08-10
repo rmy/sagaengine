@@ -33,7 +33,7 @@ namespace se_core {
 	 * Actions are the atoms of game-character behaviour in SagaEngine.
 	 * They define what a character can do.
 	 */
-	class Action : public SimObject {
+	class _SeCoreExport Action : public SimObject {
 	protected:
 		/** 
 		 * Constructor.

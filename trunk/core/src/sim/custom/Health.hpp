@@ -29,7 +29,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class Health {
+	class _SeCoreExport Health {
 	public:
 		Health();
 		short maxHitpoints() const;

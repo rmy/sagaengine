@@ -33,32 +33,32 @@ rune@skalden.com
 
 namespace se_core {
 	namespace SimSchema {
-		bool init();
-		void cleanup();
+		_SeCoreExport bool init();
+		_SeCoreExport void cleanup();
 
 
-		SimListeners& engineListeners();
-		InitListeners& initListeners();
-		HealthListeners& healthListeners();
-		SortedSimObjectList& sortedSimObjectList();
+		_SeCoreExport SimListeners& engineListeners();
+		_SeCoreExport InitListeners& initListeners();
+		_SeCoreExport HealthListeners& healthListeners();
+		_SeCoreExport SortedSimObjectList& sortedSimObjectList();
 
-		extern ActionQueue actionQueue[];
+		extern _SeCoreExport ActionQueue actionQueue[];
 
-		extern MessageCentral messageCentral;
-		extern SoundCentral soundCentral;
-		extern SimObjectList simObjectList;
+		extern _SeCoreExport MessageCentral messageCentral;
+		extern _SeCoreExport SoundCentral soundCentral;
+		extern _SeCoreExport SimObjectList simObjectList;
 		//extern AllPropertyLists allPropertyLists;
-		extern short firstNodeSlidingActors;
-		extern AreaManager areaManager;
-		extern ThingManager& thingManager();
-		extern Dictionary& dictionary();
-		extern ShowingCutscene showingCutscene;
-		extern StopWatch* stopWatch;
-		extern RealClock* realClock;
-		extern SimEngine simEngine;
+		extern _SeCoreExport short firstNodeSlidingActors;
+		extern _SeCoreExport AreaManager areaManager;
+		extern _SeCoreExport ThingManager& thingManager();
+		extern _SeCoreExport Dictionary& dictionary();
+		extern _SeCoreExport ShowingCutscene showingCutscene;
+		extern _SeCoreExport StopWatch* stopWatch;
+		extern _SeCoreExport RealClock* realClock;
+		extern _SeCoreExport SimEngine simEngine;
 
-		extern int scriptTracker;
-		extern bool didTrack;
+		extern _SeCoreExport int scriptTracker;
+		extern _SeCoreExport bool didTrack;
 	}
 }
 

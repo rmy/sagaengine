@@ -25,7 +25,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class Perlin {
+	class _SeCoreExport Perlin {
 	public:
 		Perlin();
 		Perlin(const unsigned int seed);

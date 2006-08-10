@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class Idle : public Action {
+	class _SeCoreExport Idle : public Action {
 	public:
 		Idle() : Action("idle") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -36,7 +36,7 @@ namespace se_core {
 		void perform(long when, Actor& performer, Parameter& parameter) const {}
 	};
 
-	extern const Idle actionIdle;
+	extern _SeCoreExport const Idle actionIdle;
 
 }
 

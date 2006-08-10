@@ -32,15 +32,11 @@ namespace se_core {
 
 
 	inline bool initSeModule_Client() {
-		if(!ClientSchema::init()) {
-			return false;
-		}
 		return true;
 	}
 
 
 	inline void cleanupSeModule_Client() {
-		ClientSchema::cleanup();
 	}
 }
 

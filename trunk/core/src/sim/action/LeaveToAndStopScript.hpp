@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class LeaveToAndStopScript : public Action {
+	class _SeCoreExport LeaveToAndStopScript : public Action {
 	public:
 		LeaveToAndStopScript()  : Action("leave_to") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -42,7 +42,7 @@ namespace se_core {
 	};
 
 
-	extern const LeaveToAndStopScript actionLeaveTo;
+	extern _SeCoreExport const LeaveToAndStopScript actionLeaveTo;
 }
 
 #endif

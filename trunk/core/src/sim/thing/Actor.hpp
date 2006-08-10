@@ -45,7 +45,7 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class Actor : public Thing, public ActorData {
+	class _SeCoreExport Actor : public Thing, public ActorData {
 	public:
 		/** Constructor.
 		 */

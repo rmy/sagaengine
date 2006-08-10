@@ -26,7 +26,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class InputHandler {
+	class _SeOgreExport InputHandler {
 	public:
 		InputHandler(const char* name);
 		virtual ~InputHandler();

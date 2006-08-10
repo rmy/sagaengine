@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../SimObject.hpp"
 
 namespace se_core {
-	class ThingCollide : public SimObject {
+	class _SeCoreExport ThingCollide : public SimObject {
 	public:
 		ThingCollide(const char* name);
 

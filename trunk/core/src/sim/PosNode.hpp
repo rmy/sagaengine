@@ -45,7 +45,7 @@ namespace se_core {
 	 * for traversing the parents to calculate the world coordinates
 	 * of the entity.
 	 */
-	class PosNode : public SimObject {
+	class _SeCoreExport PosNode : public SimObject {
 	public:
 		PosNode(enum SimObjectType type, const char* name);
 		virtual ~PosNode();

@@ -26,9 +26,9 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class QuatT {
+	class _SeCoreExport QuatT {
 	public:
-		inline static quat_t sign(coor_t t) { return t > 0 ? 1 : -1; }
+		inline static quat_t sign(coor_t t) { return t > 0 ? (quat_t)1 : (quat_t)(-1); }
 		inline static quat_t abs(quat_t t) { return t > 0 ? t : -t; }
 		inline static quat_t max(quat_t a, quat_t b) { return a < b ? b : a; }
 		inline static quat_t max(quat_t a, quat_t b, quat_t c) { return max(max(a, b), c); }

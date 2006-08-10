@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../area/sim_area.hpp"
 
 namespace se_core {
-	class CameraHandler {
+	class _SeCoreExport CameraHandler {
 	public:
 		virtual ~CameraHandler() {} // Gets rid of warning
 		virtual void cameraLeftAreaEvent(Camera& caster, Area& area) {;}

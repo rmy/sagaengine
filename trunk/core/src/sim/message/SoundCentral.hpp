@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class SoundCentral {
+	class _SeCoreExport SoundCentral {
 	public:
 
 		SoundCentral();

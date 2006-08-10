@@ -27,7 +27,7 @@ rune@skalden.com
 #ifndef SE_OWN_ABILITIES
 
 namespace se_core {
-	class Abilities {
+	class _SeCoreExport Abilities {
 	public:
 		enum AbilityType { ATTACK, DEFENSE, SPEED, XP_LEVEL, ABILITY_COUNT };
 

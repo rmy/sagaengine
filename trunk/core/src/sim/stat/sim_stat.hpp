@@ -30,7 +30,7 @@ namespace se_core {
 	class MultiSimObject;
 	class ReportingMultiSimObject;
 	class ReportingMGOHandler;
-	class MultiSimObjectListener;
+	class _SeCoreExport MultiSimObjectListener;
 
 	class MultiSimObjectIterator;
 	class ThingIterator;

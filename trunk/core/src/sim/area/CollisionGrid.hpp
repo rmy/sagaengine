@@ -42,7 +42,7 @@ namespace se_core {
 		CollisionGridThingList(const char* name) : CGTL(name) {}
 	};
 
-	class CollisionGrid {
+	class _SeCoreExport CollisionGrid {
 	public:
 		CollisionGrid(coor_tile_t width, coor_tile_t height, short depth);
 		virtual ~CollisionGrid();

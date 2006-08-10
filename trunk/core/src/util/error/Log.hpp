@@ -25,19 +25,19 @@ rune@skalden.com
 #include <cstdlib>
 #include "../type/String.hpp"
 
-extern char* log_msg();
+extern _SeCoreExport char* log_msg();
 
 
 #if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 
 namespace se_err {
 	/** Must be defined in platform dependent module */
-	extern void scream3(const char* file, int line, const char* msg2);
-	extern void say3(const char* file, int line, const char* msg2);
-	extern void dump(const char *s);
+	extern _SeCoreExport void scream3(const char* file, int line, const char* msg2);
+	extern _SeCoreExport void say3(const char* file, int line, const char* msg2);
+	extern _SeCoreExport void dump(const char *s);
 	/** Must be defined stop **/
 
-	class Log {
+	class _SeCoreExport Log {
 	public:
 		Log() : msgPos_(0), file_(0), line_(0) {
 			msg_[0] = 0;
@@ -74,7 +74,7 @@ namespace se_err {
 		int line_;
 	};
 
-	extern Log& log();
+	extern _SeCoreExport Log& log();
 }
 #endif
 
@@ -103,11 +103,11 @@ void * operator new[](size_t size, char const * file, int line);
 
 namespace se_err {
 
-	extern short debug_state;
-	extern void dumpAlloc();
-	extern void debugStop();
+	extern _SeCoreExport short debug_state;
+	extern _SeCoreExport void dumpAlloc();
+	extern _SeCoreExport void debugStop();
 
-	extern int usedMem, maxUsedMem, objects, arrays, m2aCount, maxM2aCount;
+	extern _SeCoreExport int usedMem, maxUsedMem, objects, arrays, m2aCount, maxM2aCount;
 }
 #endif
 
@@ -135,7 +135,7 @@ namespace se_err {
 #endif
 
 namespace se_err {
-	extern void hello();
+	extern _SeCoreExport void hello();
 }
 #ifndef Assert
 #define Assert(b)

@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class AreaManager {
+	class _SeCoreExport AreaManager {
 	public:
 		AreaManager();
 		~AreaManager();

@@ -22,6 +22,12 @@ for line in fd.readlines():
 	includes.append( line.strip() )
 fd.close()
 
+defines = ""
+fd = open(basefile + "_defines.txt", "r")
+for line in fd.readlines():
+	defines += line.strip() + ";"
+fd.close()
+
 # The root path which all other directories are relative to
 SRC_DIR = os.curdir
 
@@ -119,5 +125,5 @@ if __name__ == '__main__':
 	# If you get an error here, it is probably because
 	# there is something wrong with the vctmpl file.
 	# There must be 5 places with %s in it
-	print base % (basefile, basefile, inc, inc, res)
+	print base % (basefile, basefile, inc, defines, inc, defines, res)
 	

@@ -31,7 +31,7 @@ namespace se_core {
 	 * @version specification 1.1, implementation $Revision: 1.4 $, $Date: 1999/10/06 02:52:46 $
 	 * @author Kenji hiranabe
 	 */
-	class Point2 : public Vector2 {
+	class _SeCoreExport Point2 : public Vector2 {
 	public:
 		/**
 		 * Constructs and initializes a Point2 from the specified xy coordinates.

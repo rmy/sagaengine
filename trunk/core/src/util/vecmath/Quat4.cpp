@@ -249,8 +249,8 @@ namespace se_core {
 		if (sin_t == 0)
 			return;
 
-		scale_t s = ::sin((1.0-alpha)* cos_t)/sin_t;
-		scale_t t = ::sin(alpha* cos_t)/sin_t;
+		scale_t s = static_cast<scale_t>(::sin((1.0-alpha)* cos_t)/sin_t);
+		scale_t t = static_cast<scale_t>(::sin(alpha* cos_t)/sin_t);
 
 		if(findShortestPath && t < 0) {
 			s = -s;

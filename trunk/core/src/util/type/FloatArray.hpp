@@ -33,7 +33,7 @@ namespace se_core {
 	 * arrays, arrays located in ROM and dynamically created arrays
 	 * for the same purpose.
 	 */
-	class FloatArray {
+	class _SeCoreExport FloatArray {
 	public:
 		FloatArray();
 		~FloatArray();

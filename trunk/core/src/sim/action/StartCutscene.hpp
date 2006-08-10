@@ -25,7 +25,7 @@ rune@skalden.com
 #include "Action.hpp"
 
 namespace se_core {
-	class StartCutscene : public Action {
+	class _SeCoreExport StartCutscene : public Action {
 	public:
 		StartCutscene() : Action("start_script") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -35,7 +35,7 @@ namespace se_core {
 	private:
 	};
 
-	extern const StartCutscene actionStartCutscene;
+	extern _SeCoreExport const StartCutscene actionStartCutscene;
 }
 
 #endif

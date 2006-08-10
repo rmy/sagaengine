@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class ClientListener {
+	class _SeClientExport ClientListener {
 	public:
 		virtual ~ClientListener() {} // Gets rid of warning
 		virtual void cameraEnteredAreaEvent(Area& area) = 0;

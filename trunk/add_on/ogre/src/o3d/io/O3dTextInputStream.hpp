@@ -27,7 +27,7 @@ rune@skalden.com
 #include "O3dFile.hpp"
 
 namespace se_ogre {
-	class O3dTextInputStream : public se_core::TextInputStream {
+	class _SeOgreExport O3dTextInputStream : public se_core::TextInputStream {
 	public:
 		O3dTextInputStream();
 		O3dTextInputStream(const char* directory, const char* filename);

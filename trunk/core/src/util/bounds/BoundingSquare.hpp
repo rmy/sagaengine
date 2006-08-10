@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/math/CoorT.hpp"
 
 namespace se_core {
-	class BoundingSquare {
+	class _SeCoreExport BoundingSquare {
  	public:
 		/**
 		 * Constructor for uninitialised BoundingSquare.

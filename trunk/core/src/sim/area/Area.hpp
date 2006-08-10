@@ -37,7 +37,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class Area : public PosNode {
+	class _SeCoreExport Area : public PosNode {
 	public:
 		enum MultiSimObjectType {
 			MGOA_PICKABLE_THINGS = 0,

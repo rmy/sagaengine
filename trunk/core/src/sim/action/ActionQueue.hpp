@@ -34,7 +34,7 @@ namespace se_core {
 	 * using Actor::planAction(...), and disrupt them by calling
 	 * Actor::disrupt(...)
 	 */
-	class ActionQueue {
+	class _SeCoreExport ActionQueue {
 	public:
 		ActionQueue();
 		~ActionQueue();

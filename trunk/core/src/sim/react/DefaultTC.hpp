@@ -25,7 +25,7 @@ rune@skalden.com
 #include "ThingCollide.hpp"
 
 namespace se_core {
-	class DefaultTC : public ThingCollide {
+	class _SeCoreExport DefaultTC : public ThingCollide {
 	public:
 		DefaultTC();
 		bool collide(Actor& pusher
@@ -34,7 +34,7 @@ namespace se_core {
 	private:
 	};
 
-	extern const DefaultTC tcDefault;
+	extern _SeCoreExport const DefaultTC tcDefault;
 }
 
 #endif

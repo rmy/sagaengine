@@ -29,7 +29,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_core {
-	class ThingData {
+	class _SeCoreExport ThingData {
 	public:
 		ThingData();
 		virtual ~ThingData() {}

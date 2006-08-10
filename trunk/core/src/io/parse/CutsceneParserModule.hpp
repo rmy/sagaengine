@@ -29,7 +29,7 @@ rune@skalden.com
 #include "../../sim/thing/sim_thing.hpp"
 
 namespace se_core {
-	class CutsceneParserModule : public ParserModule {
+	class _SeCoreExport CutsceneParserModule : public ParserModule {
 	public:
 		CutsceneParserModule(Parser& parser);
 		void parse(InputStream& in);

@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../thing/Actor.hpp"
 
 namespace se_core {
-	class HealthListeners {
+	class _SeCoreExport HealthListeners {
 	public:
 		HealthListeners();
 		virtual ~HealthListeners();

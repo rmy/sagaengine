@@ -30,7 +30,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class SimObjectIterator {
+	class _SeCoreExport SimObjectIterator {
 	public:
 		SimObjectIterator();
 		SimObjectIterator(MultiSimObject& mgo);

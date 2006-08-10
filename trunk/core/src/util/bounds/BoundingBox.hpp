@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../type/util_type.hpp"
 
 namespace se_core {
-	class BoundingBox {
+	class _SeCoreExport BoundingBox {
 	public:
 		BoundingBox() : minX_(0), minY_(0), minZ_(0), maxX_(0), maxY_(0), maxZ_(0) {}
 

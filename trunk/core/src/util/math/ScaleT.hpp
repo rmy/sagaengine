@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class ScaleT {
+	class _SeCoreExport ScaleT {
 	public:
 		inline static float toFloat(scale_t value) {
 #ifdef SE_FIXED_POINT

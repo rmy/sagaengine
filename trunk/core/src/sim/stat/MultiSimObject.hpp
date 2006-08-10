@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class MultiSimObject {
+	class _SeCoreExport MultiSimObject {
 		friend class MultiSimObjectIterator;
 
 	public:

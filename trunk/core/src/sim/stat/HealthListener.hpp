@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../thing/Actor.hpp"
 
 namespace se_core {
-	class HealthListener {
+	class _SeCoreExport HealthListener {
 	public:
 		virtual ~HealthListener() {} // Gets rid of warning
 		virtual void healthChangedEvent(Actor& actor, long when, short change) = 0;

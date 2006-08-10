@@ -25,7 +25,7 @@ rune@skalden.com
 #include "io_stream.hpp"
 
 namespace se_core {
-	class FileManager {
+	class _SeCoreExport FileManager {
 	public:
 		FileManager();
 		virtual ~FileManager();

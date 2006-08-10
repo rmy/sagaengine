@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class PopScript : public Action {
+	class _SeCoreExport PopScript : public Action {
 	public:
 		PopScript() : Action("pop_script") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -38,7 +38,7 @@ namespace se_core {
 	};
 
 
-	extern const PopScript actionPopScript;
+	extern _SeCoreExport const PopScript actionPopScript;
 }
 
 #endif

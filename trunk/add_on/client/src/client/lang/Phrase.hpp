@@ -25,7 +25,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class Phrase {
+	class _SeClientExport Phrase {
 	public:
 		Phrase();
 		virtual ~Phrase();

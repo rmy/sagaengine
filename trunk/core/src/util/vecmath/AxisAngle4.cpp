@@ -46,7 +46,7 @@ namespace se_core {
 		coor_t sin_a2 = CoorT::sqrt(CoorT::pow2(x) + CoorT::pow2(y) + CoorT::pow2(z));  
 
 		// 0 <= angle <= PI , because 0 < sin_a2
-		angle_ = BrayT::fromRad(2.0*::atan2(sin_a2, w)); 
+		angle_ = BrayT::fromRad(2.0f * ::atan2(sin_a2, w)); 
 		x_ = x;
 		y_ = y;
 		z_ = z;

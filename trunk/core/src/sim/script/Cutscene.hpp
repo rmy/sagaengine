@@ -31,7 +31,7 @@ rune@skalden.com
 #include "../../util/type/util_type.hpp"
 
 namespace se_core {
-	class Cutscene : public SimObject {
+	class _SeCoreExport Cutscene : public SimObject {
 	public:
 		enum MultiSimObjectType {
 			MGO_BEFORE = 0, MGO_AFTER, MGO_COUNT

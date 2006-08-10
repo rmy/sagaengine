@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class PortableClock : public RealClock {
+	class _SeCoreExport PortableClock : public RealClock {
 	public:
 		virtual void reset();
 		virtual unsigned long millis();
