@@ -61,6 +61,17 @@ namespace se_core {
 		}
 
 		/**
+		 * Cast a pre step event. Done by the Engine class from inside
+		 * the step() method.
+		 */
+		void castRenderEvent(long when) {
+			for(int i = 0; i < listenerCount; ++i) {
+				listeners[ i ]->renderEvent(when);
+			}
+		}
+
+
+		/**
 		 * Cast a post step event. Done by the Engine class from inside
 		 * the step() method.
 		 */

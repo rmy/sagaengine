@@ -19,22 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef ui_Game_hpp
-#define ui_Game_hpp
+#include "../include/game_ui.hpp"
+#include "ui/schema/UiSchema.hpp"
+
 
 namespace ui {
-	class Game {
-	public:
-		Game();
-		~Game();
 
-		void go();
+	bool initGameModule_PlatformUI() {
+		return UiSchema::init();
+	}
 
-		void init();
-		void cleanup();
-	};
+
+	void cleanupGameModule_PlatformUI() {
+		UiSchema::cleanup();
+	}
+
 
 }
-
-
-#endif

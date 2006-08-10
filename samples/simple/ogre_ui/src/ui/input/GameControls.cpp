@@ -94,7 +94,7 @@ namespace ui {
 
 		actionForward.param(dirForward(), p);
 		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward, &p);
-		//ClientSchema::player->setDefaultMovementAction(actionForward, &p);
+		ClientSchema::player->setDefaultMovementAction(actionForward, &p);
 
 		actionRotate.param(dirLR(), 0, 0, p);
 		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);

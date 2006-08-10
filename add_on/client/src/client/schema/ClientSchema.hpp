@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../event/client_event.hpp"
 #include "../lang/client_lang.hpp"
 #include "sim/thing/sim_thing.hpp"
+#include "util/system/util_system.hpp"
 
 namespace se_core {
 	namespace ClientSchema {
@@ -37,8 +38,8 @@ namespace se_core {
 		extern Camera* camera;
 
 
-		bool init();
-		void cleanup();
+		bool SE_AUTO_INIT init();
+		void SE_AUTO_CLEANUP cleanup();
 
 	};
 

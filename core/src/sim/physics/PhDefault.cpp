@@ -28,6 +28,8 @@ rune@skalden.com
 
 
 namespace se_core {
+	const PhDefault physicsDefault;
+
 	void PhDefault
 	::calcNext(const Actor& actor
 			, const Pos& pos
@@ -55,5 +57,6 @@ namespace se_core {
 
 		return false;
 	}
+
 
 }

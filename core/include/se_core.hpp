@@ -50,7 +50,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	inline bool initSeModule_Core() {
+	inline bool initSagaEngine() {
 		if(!SimSchema::init()) {
 			return false;
 		}
@@ -61,7 +61,7 @@ namespace se_core {
 	}
 
 
-	inline void cleanupSeModule_Core() {
+	inline void cleanupSagaEngine() {
 		IoSchema::cleanup();
 		SimSchema::cleanup();
 	}

@@ -52,12 +52,15 @@ namespace se_core {
 			// Client event bridge should listen to init events.
 			SimSchema::initListeners().addListener(clientEventBridge);
 
+			LogMsg("Registered Client add-on");
+
 			// return success
 			return true;
 		}
 
 		void cleanup() {
 			SimSchema::initListeners().removeListener(clientEventBridge);
+			LogMsg("Cleaned up add-on");
 		}
 	}
 }

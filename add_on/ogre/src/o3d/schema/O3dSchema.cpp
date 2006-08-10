@@ -68,10 +68,13 @@ namespace se_ogre {
 			// Auto create and register instance of this parsers
 			static O3dThingParserModule o3dThingParserModule(se_core::IoSchema::parser());
 			static O3dInitHandler initHandler;
+
+			LogMsg("Registered Ogre add-on");
 			return true;
 		}
 
 		void cleanup() {
+			LogMsg("Cleaned up Ogre add-on");
 		}
 	}
 }

@@ -29,6 +29,9 @@ rune@skalden.com
 #define VAR_IN_EWRAM
 #endif
 
+#define SE_AUTO_INIT __attribute__((constructor)) 
+#define SE_AUTO_CLEANUP __attribute__((destructor)) 
+
 namespace se_core {
 	class RealClock;
 }

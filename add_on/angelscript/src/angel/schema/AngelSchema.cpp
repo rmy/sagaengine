@@ -104,17 +104,18 @@ namespace se_core {
 			if(!ScriptFunctions::init())
 				return false;
 			LogMsg("angelscript functions initalised");
+
+			LogMsg("Registered Angelscript add-on");
 			return true;
 		}
 
 
 		void cleanup() {
-			WasHere();
 			Performer::cleanup();
-			WasHere();
 			ScriptFunctions::cleanup();
-			WasHere();
 			scriptEngine->Release();
+
+			LogMsg("Cleaned up Angelscript add-on");
 		}
 
 	}

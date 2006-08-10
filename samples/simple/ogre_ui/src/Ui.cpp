@@ -20,8 +20,7 @@ rune@skalden.com
 
 
 #include "OgreUiPre.H"
-#include "../include/platform_ui.hpp"
-#include "ui/Game.hpp"
+#include "../include/game_ui.hpp"
 #include "ui/input/GameControls.hpp"
 
 using namespace se_core;
@@ -29,8 +28,7 @@ using namespace se_ogre;
 
 namespace ui {
 	Ui
-	::Ui()
-			: doContinue_(true) {
+	::Ui() {
 	}
 
 
@@ -39,56 +37,22 @@ namespace ui {
 		// Load all files mentioned in "ogre/init_startup"
 		//IoSchema::fileManager->loadBatch("ogre/init_startup.txt");
 		// Setup ogre before initialising SagaEngine
-		if(!RenderEngine::init()) {
+		//if(!RenderEngine::init()) {
 			// Failure
-			return false;
-		}
-
-		// Create a game controller object
-		//gameControls_ = new DirectControl3rdP();
-		static GameControls gameControls;
-
-		// Give focus to the game controller
-		gameControls.grabFocus();
+		//	return false;
+		//}
 
 		// Load bindings between (ogre) 3d models and (core) things
 		IoSchema::fileManager->loadDirectory("ogre/thing/");
 
-		// Load 3d models
 		return true;
 	}
 
 
 	void Ui
 	::cleanup() {
-		RenderEngine::singleton()->cleanup();
 	}
 
 
-	void Ui
-	::go() {
-		doContinue_ = true;
-		menu();
-		while(doContinue_) {
-			game();
-			menu();
-		}
-	}
 
-
-	bool Ui
-	::menu() {
-		return true;
-	}
-
-	void Ui
-	::game() {
-		Game game;
-
-		game.init();
-		game.go();
-		game.cleanup();
-
-		doContinue_ = false;
-	}
 }

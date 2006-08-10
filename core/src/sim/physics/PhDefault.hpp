@@ -25,6 +25,7 @@ rune@skalden.com
 #include "Physics.hpp"
 
 namespace se_core {
+
 	class PhDefault : public Physics {
 	public:
 		PhDefault() : Physics("Default") {}
@@ -45,6 +46,10 @@ namespace se_core {
 
 	private:
 	};
+
+
+	extern const PhDefault physicsDefault;
+
 
 }
 

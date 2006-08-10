@@ -4,7 +4,7 @@
 
 message( "[ client add-on settings ]")
 
-CONFIG += staticlib
+CONFIG += lib
 OBJECTS_DIR = .obj
 TARGET = se_client
 

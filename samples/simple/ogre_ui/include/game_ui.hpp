@@ -19,15 +19,30 @@ rune@skalden.com
 */
 
 
-#ifndef game_app_Scripting_hpp
-#define game_app_Scripting_hpp
+#ifndef platform_ui_hpp
+#define platform_ui_hpp
 
-namespace game {
-	namespace Scripting {
+namespace ui {
+	bool initGameModule_PlatformUI();
+	void cleanupGameModule_PlatformUI();
+
+
+	/**
+	 * This is a small class that the game logic module
+	 * uses to start the user interface. This is all
+	 * that the game logic module should need to include
+	 * for ui, to speed up compilation when compiling
+	 * game logic.
+	 */
+	class Ui {
+	public:
+		Ui();
 		bool init();
 		void cleanup();
-	};
 
+	};
 }
+
+
 
 #endif

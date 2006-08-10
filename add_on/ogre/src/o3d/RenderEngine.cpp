@@ -95,39 +95,6 @@ namespace se_ogre {
 	}
 
 
-	bool RenderEngine
-	::init() {
-		// Setup scene
-		if(!singleton()->setup()) {
-			// Failure
-			LogMsg("Setup failed");
-			return false;
-		}
-
-		// Make WorldManager listen to sagaengine core events
-		ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
-		LogMsg("Added SagaEngine client listener");
-
-		// Make WorldManager listen to Ogre render events
-		Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
-		LogMsg("Added Ogre frame listener");
-
-		return true;
-	}
-
-
-	void RenderEngine
-	::cleanup() {
-		// Make WorldManager listen to sagaengine core events
-		ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
-		LogMsg("Removed SagaEngine client listener");
-
-		// Make WorldManager listen to Ogre render events
-		Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
-		LogMsg("Removed Ogre frame listener");
-	}
-
-
 
 	void RenderEngine
 	::renderFrame() {

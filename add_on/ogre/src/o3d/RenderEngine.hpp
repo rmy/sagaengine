@@ -30,22 +30,23 @@ rune@skalden.com
 namespace se_ogre {
 	extern Ogre::RaySceneQuery* raySceneQuery;
 
-	class RenderEngine {
+	class RenderEngine : public se_core::SimListener {
 	public:
 		RenderEngine(se_ogre::ConsoleHandler* consoleHandler = 0);
 		virtual ~RenderEngine();
 
+		void renderEvent(long when) { renderFrame(); }
+		void preSimTickEvent(long when) {}
+		void postSimTickEvent(long when) {}
+
+
 		static RenderEngine* singleton();
-		static bool init();
-		static void cleanup();
-		bool initGame();
-		void cleanupGame();
+		bool setup(void);
 
 		void renderFrame();
 		void screenshot(int screenShotId);
 
 	protected:
-		bool setup(void);
 		void createScene(void);
 		void destroyScene(void);
 

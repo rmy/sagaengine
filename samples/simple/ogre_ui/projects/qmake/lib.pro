@@ -2,7 +2,7 @@ include( ../../../../../env/qmake/proj.pro )
 
 message( "[ Application ogre_ui settings ]")
 
-CONFIG += staticlib
+CONFIG += lib
 TARGET = game_ogre_ui
 
 INCLUDEPATH += ../../src

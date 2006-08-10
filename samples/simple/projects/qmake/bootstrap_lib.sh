@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cp lib_makefile makefile
+cp lib_makefile Makefile
 make bootstrap

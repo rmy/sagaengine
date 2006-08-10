@@ -31,8 +31,8 @@ namespace se_core {
 		extern Sounds sounds;
 		extern SoundPlayer* soundPlayer;
 
-		bool init();
-		void cleanup();
+		bool SE_AUTO_INIT init();
+		void SE_AUTO_CLEANUP cleanup();
 
 	};
 

@@ -59,7 +59,6 @@ namespace se_core {
 		scriptStack_[currentScript_] = 0;
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
-			actionStage_[i] = 0;
 		}
 	}
 
@@ -95,11 +94,11 @@ namespace se_core {
 		//presentAction_[channel].swapParameters(plannedAction_[channel]);
 		presentAction_[channel] = plannedAction_[channel];
 		plannedAction_[channel].resetAction();
-		actionStage_[ channel ] = 0;
 
 		// Add to action queue
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
+		p.resetActionStage();
 		presentActionScheduledComplete_[channel]
 			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
 		a->prepare(*this, p);
@@ -111,6 +110,7 @@ namespace se_core {
 		// Add to action queue
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
+		p.incrActionStage();
 		presentActionScheduledComplete_[channel]
 			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
 		a->prepare(*this, p);

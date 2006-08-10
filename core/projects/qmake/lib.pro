@@ -4,11 +4,11 @@
 
 message( "[ core settings ]")
 
-CONFIG += staticlib
+CONFIG += lib
 OBJECTS_DIR = .obj
 TARGET = se_core
 
-INCLUDEPATH += ../../src
+INCLUDEPATH = ../../src
 
 include( src.pro )
 

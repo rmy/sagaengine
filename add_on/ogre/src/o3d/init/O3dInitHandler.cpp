@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../system/O3dClock.hpp"
 #include "../RenderEngine.hpp"
 #include "../io/O3dFileManager.hpp"
+#include "../area/WorldManager.hpp"
 
 using namespace se_core;
 
@@ -44,9 +45,6 @@ namespace se_ogre {
 
 	void O3dInitHandler
 	::initEngineEvent() {
-		// Create RenderEngine object
-		O3dSchema::renderEngine = new RenderEngine();
-
 		//
 		SimSchema::realClock = new O3dClock();
 
@@ -54,11 +52,39 @@ namespace se_ogre {
 		// (Could have been a network loader, or anything else.)
 		IoSchema::fileManager = new se_ogre::O3dFileManager("datapath.txt");
 		IoSchema::fileManager->init();
+
+		// Create RenderEngine object
+		O3dSchema::renderEngine = new RenderEngine();
+
+		// Setup scene
+		if(!O3dSchema::renderEngine->setup()) {
+			// Failure
+			LogFatal("RenderEngine setup failed");
+			return; // false;
+		}
+
+		// Make WorldManager listen to sagaengine core events
+		ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
+		LogMsg("Added world manager as SagaEngine client listener");
+
+		// Make WorldManager listen to Ogre render events
+		Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
+		LogMsg("Added world manager as Ogre frame listener");
+
+		
 	}
 
 
 	void O3dInitHandler
 	::cleanupEngineEvent() {
+		// Make WorldManager listen to sagaengine core events
+		ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
+		LogMsg("Removed SagaEngine client listener");
+
+		// Make WorldManager listen to Ogre render events
+		Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
+		LogMsg("Removed Ogre frame listener");
+
 		delete O3dSchema::renderEngine;
 		O3dSchema::renderEngine = 0;
 
@@ -73,11 +99,15 @@ namespace se_ogre {
 
 	void O3dInitHandler
 	::initGameEvent() {
+		Assert(O3dSchema::renderEngine);
+		SimSchema::engineListeners().addListener(*O3dSchema::renderEngine);
 	}
 
 
 	void O3dInitHandler
 	::cleanupGameEvent() {
+		Assert(O3dSchema::renderEngine);
+		SimSchema::engineListeners().removeListener(*O3dSchema::renderEngine);
 	}
 
 }
