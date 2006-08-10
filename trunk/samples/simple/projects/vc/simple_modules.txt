@@ -1,0 +1,7 @@
+../../../../samples/simple/game/src
+../../../../samples/simple/ogre_ui/src
+../../../../add_on/client/src
+../../../../add_on/angelscript/src
+../../../../add_on/ogre/src
+../../../../core/src
+
