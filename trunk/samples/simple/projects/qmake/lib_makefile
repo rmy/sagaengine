@@ -9,6 +9,7 @@ run:
 
 
 clean:
+	rm -f simple lib*.so*
 	cd $(SAGAENGINE)/core/projects/qmake && make clean
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && make clean
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && make clean

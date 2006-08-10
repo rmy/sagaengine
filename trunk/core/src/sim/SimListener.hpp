@@ -37,6 +37,12 @@ namespace se_core {
 		virtual ~SimListener() {} // Gets rid of warning
 
 		/**
+		 * This callback will be activated at least once
+		 * every time the AI has caught up.
+		 */
+		virtual void renderEvent(long when) = 0;
+
+		/**
 		 * This callback will be activated before step() actions are
 		 * perform()ed. This may be a good place for reading input
 		 * devices and such.

@@ -23,6 +23,7 @@ rune@skalden.com
 #define angel_script_AngelSchema_hpp
 
 #include "sim/action/sim_action.hpp"
+#include "util/system/util_system.hpp"
 #include <angelscript.h>
 
 
@@ -35,8 +36,8 @@ namespace se_core {
 		extern ActionAndParameter& nextAction();
 
 		//
-		bool init();
-		void cleanup();
+		bool SE_AUTO_INIT init();
+		void SE_AUTO_CLEANUP cleanup();
 	}
 }
 

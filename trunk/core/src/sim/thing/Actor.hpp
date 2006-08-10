@@ -235,9 +235,6 @@ namespace se_core {
 		void stopShowingCutscene();
 
 
-		inline unsigned short actionStage(short channel) { return actionStage_[channel]; }
-		void incrActionStage(short channel) { ++actionStage_[channel]; }
-		void setActionStage(short channel, short s) { ++actionStage_[channel] = s; }
 		virtual void setActive(bool state);
 
 		bool calcNextCoor() {
@@ -366,7 +363,6 @@ namespace se_core {
 		mutable ActionAndParameter plannedAction_[CHANNEL_COUNT];
 
 		mutable unsigned short presentActionScheduledComplete_[CHANNEL_COUNT];
-		mutable unsigned short actionStage_[CHANNEL_COUNT];
 
 		// Group shorts for compiler
 		short currentScript_;

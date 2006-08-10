@@ -41,9 +41,11 @@ namespace se_core {
 		~String();
 		void set(const char* data);
 		void set(char* data);
+		void copy(const char* data);
 		inline const char* get() const { return data_; }
 		char* copyValue() const;
 		bool isEmpty() const;
+		void append(const char* s);
 
 	private:
 		const char* data_;

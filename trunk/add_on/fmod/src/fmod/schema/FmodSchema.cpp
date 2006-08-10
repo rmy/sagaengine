@@ -50,6 +50,7 @@ namespace se_core {
 			static SoundParserModule soundParserModule(se_core::IoSchema::parser());
 
 			soundPlayer = new SoundPlayer();
+			LogMsg("Registered Fmod add-on");
 
 			// return success
 			return true;
@@ -57,6 +58,7 @@ namespace se_core {
 
 		void cleanup() {
 			delete soundPlayer;
+			LogMsg("Cleaned up Fmod add-on");
 		}
 	}
 }

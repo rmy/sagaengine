@@ -23,25 +23,29 @@ rune@skalden.com
 #include "UiSchema.hpp"
 #include "../init/UiInitHandler.hpp"
 #include "../material/Sunlight.hpp"
+#include "../input/GameControls.hpp"
 
 using namespace se_ogre;
 
 namespace ui {
 	namespace UiSchema {
-		float dirUp, dirDown, dirLeft, dirRight, dirRollLeft, dirRollRight;
-		float dirForward, dirBackward;
+		// Create a game controller object
+		GameControls gameControls;
 	}
 
 
 	bool UiSchema
 	::init() {
-		if(!initSeModule_Ogre()) {
-			return false;
-		}
+		WasHere();
+		//if(!initSeModule_Ogre()) {
+		//	return false;
+		//}
 
 		// Make sure that init calls to se_core::SimEngine is propagated
 		static UiInitHandler initHandler;
 		static Sunlight sunlight;
+
+		LogMsg("Registered UiSchema game module");
 
 		// Success
 		return true;
@@ -51,7 +55,8 @@ namespace ui {
 	void UiSchema
 	::cleanup() {
 		//
-		cleanupSeModule_Ogre();
+		//cleanupSeModule_Ogre();
+		LogMsg("Cleaned up UiSchema game module");
 	}
 
 }

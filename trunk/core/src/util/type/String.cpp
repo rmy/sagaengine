@@ -46,6 +46,15 @@ namespace se_core {
 	}
 
 
+	void String
+	::copy(const char* s) {
+		if(doDestroy_) delete[] data_;
+		char* data_ = new char[strlen(data_) + 1];
+		strcpy(data_, s);
+		doDestroy_ = true;
+	}
+
+
 	char* String
 	::copyValue() const {
 		char* v = new char[strlen(data_) + 1];
@@ -57,5 +66,14 @@ namespace se_core {
 	bool String
 	::isEmpty() const {
 		return (data_ == 0 || data_[0] == 0);
+	}
+
+
+	void String
+	::append(const char* s) {
+		char* v = new char[strlen(data_) + strlen(s) + 1];
+		strcpy(v, data_);
+		strcat(v, s);
+		set(v);
 	}
 }

@@ -108,6 +108,14 @@ namespace se_core {
 
 
 		/**
+		 * Game loop.
+		 *
+		 * @param when The present clock (milliseconds)
+		 */
+		void go();
+
+
+		/**
 		 * Reset the engine. After this, everything has to be loaded again.
 		 */
 		void resetAll();

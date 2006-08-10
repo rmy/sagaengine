@@ -31,35 +31,34 @@ namespace game {
 		Application();
 		~Application();
 
-		bool init();
+		/**
+		 * Initialise things that need to be initialised only once
+		 * during the lifetime of the application.
+		 */
+		bool initEngine();
+
+		/**
+		 * Initialise things that need to be reinitialised every
+		 * time a new game is started.
+		 */
+		bool initGame();
+
+		/**
+		 * Execute the game.
+		 */
 		void go();
-		void cleanup();
+
+		/**
+		 * Cleanup the after game.
+		 */
+		void cleanupGame();
+
+		/**
+		 * Cleanup before shutting down the application.
+		 */
+		void cleanupEngine();
 
 	private: // Helper methods
-
-		/**
-		 * Basic initialisation of the SagaEngine modules
-		 * that we want to use.
-		 */
-		bool initModules();
-		void cleanupModules();
-
-		/**
-		 * Initialisation of SagaEngine core
-		 * which is done only once after the application
-		 * is started up.
-		 */
-		bool initSECore();
-
-
-		/**
-		 * Cleanup of SagaEngine core that is done when appliaction
-		 * exits.
-		 */
-		void cleanupSECore();
-
-
-		class ui::Ui* ui_;
 	};
 }
 

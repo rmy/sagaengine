@@ -96,43 +96,11 @@ namespace se_core {
 
 
 		bool init() {
-			static const PhDefault physicsDefault;
-
-			/* TODO: Move these out.
-#ifndef SE_CONFIG_CUSTOM_MOVEMENT
-			static const DictionaryEntry mmBlocked(DE_MOVEMENT_MODE, BLOCKED, "BLOCKED");
-			static const DictionaryEntry mmStand(DE_MOVEMENT_MODE, STAND, "STAND");
-			static const DictionaryEntry mmWalk(DE_MOVEMENT_MODE, WALK, "WALK");
-#endif
-
-			static const DictionaryEntry svUndefined(DE_SINGLE_VALUE, SV_UNDEFINED, "UNDEFINED");
-			static const DictionaryEntry svEntranceId(DE_SINGLE_VALUE, SV_ENTRANCE_ID, "ENTRANCE_ID");
-			static const DictionaryEntry svTag(DE_SINGLE_VALUE, SV_TAG, "TAG");
-			static const DictionaryEntry svPusherType(DE_SINGLE_VALUE, SV_PUSHER_TYPE, "PUSHER_TYPE");
-			static const DictionaryEntry svPushedType(DE_SINGLE_VALUE, SV_PUSHED_TYPE, "PUSHED_TYPE");
-			static const DictionaryEntry svSpawnCount(DE_SINGLE_VALUE, SV_SPAWN_COUNT, "SPAWN_COUNT");
-			static const DictionaryEntry svDirection(DE_SINGLE_VALUE, SV_DIRECTION, "DIRECTION");
-			static const DictionaryEntry svRotate(DE_SINGLE_VALUE, SV_ROTATE, "ROTATE");
-			static const DictionaryEntry svSoundSchema(DE_SINGLE_VALUE, SV_SOUND_SCHEMA, "SOUND_SCHEMA");
-			static const DictionaryEntry svMusic(DE_SINGLE_VALUE, SV_MUSIC, "MUSIC");
-			static const DictionaryEntry svDynamicFloor(DE_SINGLE_VALUE, SV_DYNAMIC_FLOOR, "DYNAMIC_FLOOR");
-
-			static const DictionaryEntry attUndefined(DE_ATTRIBUTE, ATT_UNDEFINED, "UNDEFINED");
-			static const DictionaryEntry attEnterTo(DE_ATTRIBUTE, ATT_ENTER_TO, "ENTER_TO");
-			static const DictionaryEntry attScript(DE_ATTRIBUTE, ATT_SCRIPT, "SCRIPT");
-
-
-			static const DictionaryEntry fsDefault(DE_FIGHTING_STYLE, 0, "DEFAULT");
-			static const DictionaryEntry fsOffGuard(DE_FIGHTING_STYLE, 0, "OFF_GUARD");
-			static const DictionaryEntry fsShortRange(DE_FIGHTING_STYLE, 1, "SHORT_RANGE");
-			static const DictionaryEntry fsMediumRange(DE_FIGHTING_STYLE, 2, "MEDIUM_RANGE");
-			static const DictionaryEntry fsLongRange(DE_FIGHTING_STYLE, 3, "LONG_RANGE");
-			*/
-
-			return true;
+			return simEngine.init();
 		}
 
 		void cleanup() {
+			return simEngine.cleanup();
 		}
 	}
 }

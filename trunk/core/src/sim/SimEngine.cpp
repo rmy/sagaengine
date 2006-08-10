@@ -87,6 +87,26 @@ namespace se_core {
 		multiplePerformsPerStepEnabled_ = state;
 	}
 
+	void SimEngine
+	::go() {
+		while(true) {
+			// Any in game events caused the game to end?
+			if(SimSchema::simEngine.isGameOver()) {
+				// Will cause renderloop to end
+				return;
+			}
+
+			// Translate game clock to SagaEngine format
+			long when = SimSchema::realClock->millis();
+
+			// Perform next AI steps if any is waiting
+			SimSchema::simEngine.step(when);
+
+			// Tell registered render modules to render
+			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
+		}
+	}
+
 
 	bool SimEngine
 	::step(long when) {
@@ -217,7 +237,6 @@ namespace se_core {
 
 	void SimEngine
 	::cleanup() {
-		SimSchema::cleanup();
 		SimSchema::initListeners().castCleanupEngineEvent();
 		resetAll();
 	}

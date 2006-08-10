@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "GamePre.H"
 #include "Application.hpp"
-#include "Scripting.hpp"
 #include "../schema/GameSchema.hpp"
 
 using namespace se_core;
@@ -30,107 +29,30 @@ using namespace ui;
 namespace game {
 	Application
 	::Application() {
+		if(!initEngine()) {
+			LogFatal("Engine init failed");
+		}
 	}
 
 
 	Application
 	::~Application() {
+		cleanupEngine();
 	}
 
 
 	bool Application
-	::init() {
-		WasHere();
-		if(!initModules())
-			return false;
-		WasHere();
-		if(!initSECore())
-			return false;
-
-		WasHere();
-		ui_ = new Ui();
-		WasHere();
-		if(!ui_->init())
-			return false;
-
-		WasHere();
-		return true;
-	}
-
-
-	void Application
-	::go() {
-		WasHere();
-		ui_->go();
-		WasHere();
-	}
-
-
-	void Application
-	::cleanup() {
-		ui_->cleanup();
-		delete ui_;
-		cleanupSECore();
-		cleanupModules();
-	}
-
-
-	bool Application
-	::initModules() {
-		if(!initSeModule_Core()) {
-			// Failure
+	::initEngine() {
+		if(!initSagaEngine()) {
 			return false;
 		}
-
-		if(!initSeModule_Client()) {
-			return false;
-		}
-
-		//if(!initSeModule_Angelscript()) {
-		//	return false;
-		//}
 
 		if(!GameSchema::init()) {
-			WasHere();
 			return false;
 		}
 
-		if(!initGameModule_PlatformUI()) {
-			return false;
-		}
-
-		return true;
-	}
-
-
-	void Application
-	::cleanupModules() {
-		cleanupGameModule_PlatformUI();
-		GameSchema::cleanup();
-		//cleanupSeModule_Angelscript();
-		cleanupSeModule_Client();
-		cleanupSeModule_Core();
-	}
-
-
-	bool Application
-	::initSECore() {
-		if(!SimSchema::init()) {
-			return false;
-		}
-
-		if(!Scripting::init()) {
-			WasHere();
-			return false;
-		}
-
-		if(!SimEngine::init()) {
-			WasHere();
-			return false;
-		}
 		Assert(IoSchema::fileManager);
 
-		WasHere();
 		// Load language files
 		IoSchema::fileManager->loadDirectory("game/lang");
 
@@ -146,14 +68,56 @@ namespace game {
 		// Load cutscenes
 		IoSchema::fileManager->loadDirectory("game/cutscene/");
 
+		// Load bindings between (ogre) 3d models and (core) things
+		IoSchema::fileManager->loadDirectory("ogre/thing/");
+
+		return true;
+	}
+
+
+	bool Application
+	::initGame() {
+		// Allow catch-up of AI to hardware clock
+		SimSchema::simEngine.setMultiplePerformsPerStepEnabled(true);
+
+		// Init simulation engine for new game
+		SimSchema::simEngine.initGame();
+
+		// Place creatures in areas
+		IoSchema::fileManager->loadDirectory("game/area/thing/");
+
+		//
+		IoSchema::fileManager->loadBatch("game/init.txt");
+
 		return true;
 	}
 
 
 	void Application
-	::cleanupSECore() {
-		Scripting::cleanup();
-		SimEngine::singleton()->cleanup();
+	::go() {
+		if(!initGame()) {
+			LogFatal("Initializing game failed");
+		}
+
+		// Enter game loop
+		SimSchema::simEngine.go();
+
+		cleanupGame();
+	}
+
+
+	void Application
+	::cleanupGame() {
+		// Hide game frame
+		SimSchema::simEngine.cleanupGame();
+	}
+
+
+	void Application
+	::cleanupEngine() {
+		GameSchema::cleanup();
+
+		cleanupSagaEngine();
 	}
 
 }

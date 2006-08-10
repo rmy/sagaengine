@@ -23,6 +23,7 @@ rune@skalden.com
 #define Log_hpp
 
 #include <cstdlib>
+#include "../type/String.hpp"
 
 extern char* log_msg();
 
@@ -52,6 +53,8 @@ namespace se_err {
 		Log& operator << (char c);
 		Log& operator << (unsigned long n);
 		Log& operator << (long long n);
+		Log& operator << (se_core::String& s);
+		Log& operator << (se_core::String* s);
 		Log& mem(int n);
 
 	private:

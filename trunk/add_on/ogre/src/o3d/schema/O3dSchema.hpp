@@ -36,8 +36,8 @@ rune@skalden.com
 
 namespace se_ogre {
 	namespace O3dSchema {
-		bool init();
-		void cleanup();
+		bool SE_AUTO_INIT init();
+		void SE_AUTO_CLEANUP cleanup();
 
 		extern se_ogre::MeshOfThing meshOfThing;
 

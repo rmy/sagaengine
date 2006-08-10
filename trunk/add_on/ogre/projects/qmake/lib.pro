@@ -7,7 +7,7 @@
 
 message( "[ ogre add-on settings ]")
 
-CONFIG += staticlib
+CONFIG += lib
 OBJECTS_DIR = .obj
 TARGET = se_ogre
 

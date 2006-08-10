@@ -42,11 +42,7 @@ int main(int argc, char *argv[])
 	try {
 		// Create application object
 		game::Application app;
-		if(!app.init()) {
-			throw "Init failed";
-		}
 		app.go();
-		app.cleanup();
 
 	} catch( char* msg ) {
 		std::cerr << "An exception has occured: " <<
