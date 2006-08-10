@@ -31,7 +31,7 @@ INCLUDEPATH += $${CEGUI}
 message( "OGRE included" )
 INCLUDEPATH += $${OGRE}
 
-DESTDIR = $${SAGAENGINE}/samples/simple/lib
+DESTDIR = $${SAGAENGINE}/samples/simple/projects/qmake
 
 DEFINES *= IS_OGRE DEBUG_LEVEL_2
 
