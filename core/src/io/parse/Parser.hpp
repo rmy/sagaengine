@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class Parser {
+	class _SeCoreExport Parser {
 	public:
 		Parser();
 		~Parser();

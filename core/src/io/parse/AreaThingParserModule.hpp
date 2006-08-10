@@ -28,7 +28,7 @@ rune@skalden.com
 #include "ParserModule.hpp"
 
 namespace se_core {
-	class AreaThingParserModule  : public ParserModule {
+	class _SeCoreExport AreaThingParserModule  : public ParserModule {
 	public:
 		AreaThingParserModule(Parser& parser);
 		virtual ~AreaThingParserModule();

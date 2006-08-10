@@ -33,7 +33,7 @@ namespace se_core {
 	 * @author Rune Myrland
 	 */
 
-	class Vector2 : public Tuple2 {
+	class _SeCoreExport Vector2 : public Tuple2 {
 	public:
 		/**
 		 * Constructs and initializes a Vector2 from the specified xy coordinates.

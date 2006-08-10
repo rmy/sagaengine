@@ -24,8 +24,12 @@ rune@skalden.com
 #include <malloc.h>
 
 
-
 namespace se_err {
+	void scream3(const char* file, int line, const char* msg2) {}
+	void say3(const char* file, int line, const char* msg2) {}
+	void dump(const char *s) {}
+
+
 	void debugStop() {
 		static int count = 0;
 		//say3(__FILE__, __LINE__, s);

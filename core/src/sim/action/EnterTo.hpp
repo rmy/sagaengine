@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class EnterTo : public Action {
+	class _SeCoreExport EnterTo : public Action {
 	public:
 		EnterTo() : Action("enter_to") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -45,7 +45,7 @@ namespace se_core {
 		};
 	};
 
-	extern const EnterTo actionEnterTo;
+	extern _SeCoreExport const EnterTo actionEnterTo;
 }
 
 #endif

@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class TextInputStream : public InputStream {
+	class _SeCoreExport TextInputStream : public InputStream {
 	public:
 		unsigned short readShort() { return readInt(); }
 		unsigned short readDictionaryWord(short dictionaryId);

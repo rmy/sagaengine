@@ -28,7 +28,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_ogre {
-	class O3dBinaryInputStream : public se_core::BinaryInputStream {
+	class _SeOgreExport O3dBinaryInputStream : public se_core::BinaryInputStream {
 	public:
 		O3dBinaryInputStream();
 		O3dBinaryInputStream(const char* directory, const char* filename);

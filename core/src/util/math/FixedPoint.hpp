@@ -23,7 +23,7 @@ rune@skalden.com
 #define base_math_FixedPoint_hpp
 
 namespace se_core {
-	class FixedPoint {
+	class _SeCoreExport FixedPoint {
 	public:
 		typedef short value_t;
 		typedef int dvalue_t;

@@ -34,7 +34,7 @@ rune@skalden.com
 #ifndef SE_FIXED_POINT
 
 namespace se_core {
-	class Trig {
+	class _SeCoreExport Trig {
 	public:
 		inline static float trigToFloat(trig_t value) {
 			return value;

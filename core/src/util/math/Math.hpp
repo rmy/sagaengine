@@ -23,7 +23,7 @@ rune@skalden.com
 #define Math_hpp
 
 namespace se_core {
-	class Math {
+	class _SeCoreExport Math {
 	public:
 		static short random(short max) {
 			static short seed = 1025;

@@ -30,7 +30,7 @@ rune@skalden.com
 #include "../script/sim_script.hpp"
 
 namespace se_core {
-	class SortedSimObjectList {
+	class _SeCoreExport SortedSimObjectList {
 	public:
 		SortedSimObjectList();
 		virtual ~SortedSimObjectList();

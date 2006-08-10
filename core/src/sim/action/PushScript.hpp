@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class PushScript : public Action {
+	class _SeCoreExport PushScript : public Action {
 	public:
 		PushScript() : Action("push_script") {}
 		short duration(Actor& performer, Parameter& parameter) const { return 1; }
@@ -46,7 +46,7 @@ namespace se_core {
 	};
 
 
-	extern const PushScript actionPushScript;
+	extern _SeCoreExport const PushScript actionPushScript;
 }
 
 #endif

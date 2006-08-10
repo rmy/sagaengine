@@ -30,7 +30,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class PlayerParserModule : public ParserModule {
+	class _SeClientExport PlayerParserModule : public ParserModule {
 	public:
 		PlayerParserModule(Parser& parser);
 		virtual ~PlayerParserModule();

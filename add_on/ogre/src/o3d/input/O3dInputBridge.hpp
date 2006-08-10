@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace se_ogre {
 	// Event handler to add ability to alter curvature
-	class O3dInputBridge : public Ogre::KeyListener
+	class _SeOgreExport O3dInputBridge : public Ogre::KeyListener
 						 , public Ogre::MouseListener
 						 , public Ogre::MouseMotionListener {
 	public:

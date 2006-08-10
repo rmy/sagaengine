@@ -28,7 +28,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class PhysicsUtil {
+	class _SeCoreExport PhysicsUtil {
 	public:
 		/**
 		 * Calculate how much speed should be scaled along the

@@ -33,7 +33,7 @@ namespace se_core {
 	 * strings, strings located in ROM and dynamically created strings
 	 * for the same purpose.
 	 */
-	class String {
+	class _SeCoreExport String {
 	public:
 		inline String() : data_(0), doDestroy_(false) {}
 		inline String(const char* data) : data_(data), doDestroy_(false) {}

@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class MultiSimObjectListener {
+	class _SeCoreExport MultiSimObjectListener {
 	public:
 		virtual ~MultiSimObjectListener() {} // Gets rid of warning
 		virtual void simObjectAddedEvent(MultiSimObject& owner, SimObject& value) = 0;

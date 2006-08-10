@@ -33,7 +33,7 @@ namespace se_core {
 	 * @author Kenji hiranabe
 	 */
 
-	class Quat4 : public Tuple4 {
+	class _SeCoreExport Quat4 : public Tuple4 {
 	public:
 		/**
 		 * Constructs and initializes a Quat4 from the specified xyzw coordinates.
@@ -234,7 +234,7 @@ namespace se_core {
 			return true;
             #else
 			coor_double_t n = norm();
-			const coor_double_t EPSILON = 0.00001;
+			const coor_double_t EPSILON = 0.00001f;
 			return (n + EPSILON > 1 && n - EPSILON < 1);
 			#endif
 		}

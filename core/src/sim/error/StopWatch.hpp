@@ -23,7 +23,7 @@ rune@skalden.com
 #define StopWatch_hpp
 
 namespace se_core {
-	class StopWatch {
+	class _SeCoreExport StopWatch {
 	public:
 		StopWatch();
 		virtual ~StopWatch() {}

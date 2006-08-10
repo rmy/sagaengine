@@ -64,18 +64,19 @@ namespace se_ogre {
 		}
 
 		float gameClock = 0;
-		bool init() {
-			// Auto create and register instance of this parsers
-			static O3dThingParserModule o3dThingParserModule(se_core::IoSchema::parser());
-			static O3dInitHandler initHandler;
+		struct AutoInit {
+			AutoInit() {
+				// Auto create and register instance of this parsers
+				static O3dThingParserModule o3dThingParserModule(se_core::IoSchema::parser());
+				static O3dInitHandler initHandler;
 
-			LogMsg("Registered Ogre add-on");
-			return true;
-		}
+				LogMsg("Registered Ogre add-on");
+			}
 
-		void cleanup() {
-			LogMsg("Cleaned up Ogre add-on");
-		}
+			~AutoInit() {
+				LogMsg("Cleaned up Ogre add-on");
+			}
+		} autoInit;
 	}
 }
 

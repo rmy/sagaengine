@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_ogre {
-	class MeshOfThing {
+	class _SeOgreExport MeshOfThing {
 	public:
 		MeshOfThing() : meshCount_(0) {}
 		~MeshOfThing();

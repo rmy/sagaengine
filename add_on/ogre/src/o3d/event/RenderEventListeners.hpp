@@ -26,7 +26,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class RenderEventListeners {
+	class _SeOgreExport RenderEventListeners {
 	public:
 		void castInit();
 		void castCleanup();

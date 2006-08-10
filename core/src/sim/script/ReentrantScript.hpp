@@ -27,14 +27,14 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class ReentrantData : public ScriptData {
+	class _SeCoreExport ReentrantData : public ScriptData {
 	public:
 		ReentrantData() : rp(0) {}
 		long rp; // Reentrance pointer
 	};
 
 
-	class ReentrantScript : public Script {
+	class _SeCoreExport ReentrantScript : public Script {
 	public:
 		ReentrantScript(const char* name);
 		const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const;

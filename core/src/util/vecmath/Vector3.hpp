@@ -32,7 +32,7 @@ namespace se_core {
 	 * normalized.
 	 * @author Kenji hiranabe, Rune Myrland
 	 */
-	class Vector3 : public Tuple3 {
+	class _SeCoreExport Vector3 : public Tuple3 {
 	public:
 		/**
 		 * Constructs and initializes a Vector3 from the specified xyz coordinates.

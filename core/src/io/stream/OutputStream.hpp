@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../../util/type/util_type.hpp"
 
 namespace se_core {
-	class OutputStream {
+	class _SeCoreExport OutputStream {
 	public:
 		virtual ~OutputStream() {}
 		virtual void writeHeaderCode(unsigned int code) = 0;

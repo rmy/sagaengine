@@ -35,7 +35,7 @@ namespace se_core {
 	 *    TmpString is used after a former
 	 *    is destroyed, it will probably cause trouble.
 	 */
-	class TmpString {
+	class _SeCoreExport TmpString {
 	public:
 		TmpString();
 		~TmpString() { --usedCount_; }

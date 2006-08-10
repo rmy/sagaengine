@@ -31,7 +31,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class ThingFactory {
+	class _SeCoreExport ThingFactory {
 	public:
 		ThingFactory(short type, String* name);
 		virtual ~ThingFactory();

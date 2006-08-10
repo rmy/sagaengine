@@ -23,7 +23,7 @@ rune@skalden.com
 #define engine_stat_DictionaryEntry_hpp
 
 namespace se_core {
-	class DictionaryEntry {
+	class _SeCoreExport DictionaryEntry {
 	public:
 		DictionaryEntry(short type, short id, const char* name, bool doCopyName = false);
 		DictionaryEntry(short type, short id, char* name, bool doCopyName);

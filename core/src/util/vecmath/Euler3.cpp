@@ -22,9 +22,9 @@ namespace se_core {
 
 	bool Euler3
 	::epsilonEquals(const Euler3& a1, bray_t epsilon) const {
-		bool t = BrayT::abs(BrayT::sub(yaw_, a1.yaw_) <= epsilon);
-		t &= (BrayT::abs(BrayT::sub(pitch_, a1.pitch_)) <= epsilon);
-		t &= (BrayT::abs(BrayT::sub(roll_, a1.roll_)) <= epsilon);
+		bool t = BrayT::abs(BrayT::sub(yaw_, a1.yaw_)) <= epsilon;
+		t = t && (BrayT::abs(BrayT::sub(pitch_, a1.pitch_)) <= epsilon);
+		t = t && (BrayT::abs(BrayT::sub(roll_, a1.roll_)) <= epsilon);
 
 		return t;
 	}
@@ -47,13 +47,13 @@ namespace se_core {
 			return;
 		}
 
-		double sqx = q1.x_*q1.x_;
-		double sqy = q1.y_*q1.y_;
-		double sqz = q1.z_*q1.z_;
+		float sqx = q1.x_*q1.x_;
+		float sqy = q1.y_*q1.y_;
+		float sqz = q1.z_*q1.z_;
 
-		yaw_ = BrayT::fromRad(-atan2(2*q1.y_*q1.w_-2*q1.x_*q1.z_ , 1 - 2*sqy - 2*sqz));
-		roll_ = BrayT::fromRad(asin(2*test));
-		pitch_ = BrayT::fromRad(atan2(2*q1.x_*q1.w_-2*q1.y_*q1.z_ , 1 - 2*sqx - 2*sqz));
+		yaw_ = BrayT::fromRad(-::atan2(2*q1.y_*q1.w_-2*q1.x_*q1.z_ , 1 - 2*sqy - 2*sqz));
+		roll_ = BrayT::fromRad(::asin(2*test));
+		pitch_ = BrayT::fromRad(::atan2(2*q1.x_*q1.w_-2*q1.y_*q1.z_ , 1 - 2*sqx - 2*sqz));
 
 		normalize();
 	}

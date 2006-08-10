@@ -30,7 +30,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class ActorFactory : public ThingFactory {
+	class _SeCoreExport ActorFactory : public ThingFactory {
 	public:
 		ActorFactory(String* name);
 		~ActorFactory();

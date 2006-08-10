@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_ogre {
 
-	class ConsoleHandler
+	class _SeOgreExport ConsoleHandler
 	{
 	public:
 		ConsoleHandler();

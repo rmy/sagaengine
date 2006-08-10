@@ -36,27 +36,24 @@ rune@skalden.com
 
 namespace se_ogre {
 	namespace O3dSchema {
-		bool SE_AUTO_INIT init();
-		void SE_AUTO_CLEANUP cleanup();
-
-		extern se_ogre::MeshOfThing meshOfThing;
+		extern _SeOgreExport se_ogre::MeshOfThing meshOfThing;
 
 
-		extern Ogre::RaySceneQuery* raySceneQuery;
-		extern ThingEntityList thingEntityList;
-		extern Ogre::Root* root;
-		extern Ogre::SceneManager* sceneManager;
-		extern WorldManager* worldManager;
-		extern Ogre::Camera* playerCamera;
-		extern Ogre::RenderWindow* window;
-		extern SpeechBubble* speechBubble;
-		extern InputManager& inputManager();
-		extern Console* console;
-		extern RenderEventListeners& renderEventListeners();
+		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
+		extern _SeOgreExport ThingEntityList thingEntityList;
+		extern _SeOgreExport Ogre::Root* root;
+		extern _SeOgreExport Ogre::SceneManager* sceneManager;
+		extern _SeOgreExport WorldManager* worldManager;
+		extern _SeOgreExport Ogre::Camera* playerCamera;
+		extern _SeOgreExport Ogre::RenderWindow* window;
+		extern _SeOgreExport SpeechBubble* speechBubble;
+		extern _SeOgreExport InputManager& inputManager();
+		extern _SeOgreExport Console* console;
+		extern _SeOgreExport RenderEventListeners& renderEventListeners();
 
-		extern RenderEngine* renderEngine;
+		extern _SeOgreExport RenderEngine* renderEngine;
 
-		extern float gameClock;
+		extern _SeOgreExport float gameClock;
 	}
 }
 

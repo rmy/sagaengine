@@ -27,7 +27,7 @@ rune@skalden.com
 #include "util/vecmath/ViewPoint.hpp"
 
 namespace se_core {
-	class Player : public Camera {
+	class _SeCoreExport Player : public Camera {
 	public:
 		Player(const char* name);
 		virtual ~Player();

@@ -29,17 +29,13 @@ rune@skalden.com
 
 namespace se_core {
 	namespace ClientSchema {
-		extern ClientListeners clientListeners;
-		extern ClientEventBridge clientEventBridge;
-		extern Phrase phrases;
+		extern _SeClientExport ClientListeners clientListeners;
+		extern _SeClientExport ClientEventBridge clientEventBridge;
+		extern _SeClientExport Phrase phrases;
 
-		extern Player* player;
-		extern Camera* floatingCamera;
-		extern Camera* camera;
-
-
-		bool SE_AUTO_INIT init();
-		void SE_AUTO_CLEANUP cleanup();
+		extern _SeClientExport Player* player;
+		extern _SeClientExport Camera* floatingCamera;
+		extern _SeClientExport Camera* camera;
 
 	};
 

@@ -27,7 +27,7 @@ rune@skalden.com
 #include "O3dPre.H"
 
 namespace se_ogre {
-	class WorldManager : public se_core::ClientListener, public Ogre::FrameListener {
+	class _SeOgreExport WorldManager : public se_core::ClientListener, public Ogre::FrameListener {
 	public:
 		WorldManager();
 		virtual ~WorldManager();

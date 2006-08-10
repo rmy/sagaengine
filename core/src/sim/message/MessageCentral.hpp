@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class MessageCentral {
+	class _SeCoreExport MessageCentral {
 	public:
 
 		MessageCentral();

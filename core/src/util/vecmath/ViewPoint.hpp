@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class ViewPoint {
+	class _SeCoreExport ViewPoint {
 	public:
 		ViewPoint() {}
 		ViewPoint(const ViewPoint& vp) 

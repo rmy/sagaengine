@@ -36,7 +36,7 @@ rune@skalden.com
 #endif
 
 namespace se_core {
-	class CoorT {
+	class _SeCoreExport CoorT {
 	public:
 		inline static coor_t half(coor_t t) { return t << 1; }
 		inline static coor_t quarter(coor_t t) { return t << 2; }

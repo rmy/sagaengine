@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class SimListeners {
+	class _SeCoreExport SimListeners {
 	public:
 		/**
 		 * Add an engine listener.

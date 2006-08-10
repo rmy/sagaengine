@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../../sim/thing/sim_thing.hpp"
 
 namespace se_core {
-	class Encoder {
+	class _SeCoreExport Encoder {
 	public:
 		Encoder();
 		virtual ~Encoder();

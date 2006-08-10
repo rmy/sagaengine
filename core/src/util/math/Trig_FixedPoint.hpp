@@ -33,7 +33,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class Trig {
+	class _SeCoreExport Trig {
 	public:
 		static const short TRIG_SHIFT = 13;
 

@@ -1,154 +1,112 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="7.10"
 	Name="se_client"
-	ProjectGUID="{ABE4419F-CA95-48D1-BF19-B2DB1BD6A0B7}"
+	ProjectGUID="{665FEB1D-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_client"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="/home/rune/svn/sagaengine/add_on/client/src;;/home/rune/svn/sagaengine/core/src;/home/rune/svn/sagaengine/core/include;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;"
-				MinimalRebuild="true"
+				AdditionalIncludeDirectories="../../src;;../../../../core/src;../../../../core/include;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllimport);_SeClientExport=__declspec(dllexport);"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				EnableFunctionLevelLinking="true"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCLinkerTool"
+				AdditionalDependencies="se_core.lib"
+				AdditionalLibraryDirectories="C:\home\rune\svn\sf\core\projects\vc\Debug"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
+				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				AdditionalIncludeDirectories="/home/rune/svn/sagaengine/add_on/client/src;;/home/rune/svn/sagaengine/core/src;/home/rune/svn/sagaengine/core/include;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;"
-				StringPooling="true"
-				RuntimeLibrary="0"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="true"
+				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="../../src;;../../../../core/src;../../../../core/include;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllimport);_SeClientExport=__declspec(dllexport);"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCLinkerTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -156,118 +114,90 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
-			>
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
 			<Filter
 				Name="client"
-				Filter="cpp;hpp"
-				>
+				Filter="cpp;hpp">
 				<File
-					RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\all.hpp"
-					>
+					RelativePath="..\..\src\client\all.hpp">
 				</File>
 				<File
-					RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\client.hpp"
-					>
+					RelativePath="..\..\src\client\client.hpp">
 				</File>
 				<Filter
 					Name="event"
-					Filter="cpp;hpp"
-					>
+					Filter="cpp;hpp">
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\all.hpp"
-						>
+						RelativePath="..\..\src\client\event\all.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\client_event.hpp"
-						>
+						RelativePath="..\..\src\client\event\client_event.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\ClientEventBridge.cpp"
-						>
+						RelativePath="..\..\src\client\event\ClientEventBridge.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\ClientEventBridge.hpp"
-						>
+						RelativePath="..\..\src\client\event\ClientEventBridge.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\ClientListener.hpp"
-						>
+						RelativePath="..\..\src\client\event\ClientListener.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\ClientListeners.cpp"
-						>
+						RelativePath="..\..\src\client\event\ClientListeners.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\event\ClientListeners.hpp"
-						>
+						RelativePath="..\..\src\client\event\ClientListeners.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="io"
-					Filter="cpp;hpp"
-					>
+					Filter="cpp;hpp">
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\all.hpp"
-						>
+						RelativePath="..\..\src\client\io\all.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\client_io.hpp"
-						>
+						RelativePath="..\..\src\client\io\client_io.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\LanguageParserModule.cpp"
-						>
+						RelativePath="..\..\src\client\io\LanguageParserModule.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\LanguageParserModule.hpp"
-						>
+						RelativePath="..\..\src\client\io\LanguageParserModule.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\PlayerParserModule.cpp"
-						>
+						RelativePath="..\..\src\client\io\PlayerParserModule.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\io\PlayerParserModule.hpp"
-						>
+						RelativePath="..\..\src\client\io\PlayerParserModule.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="lang"
-					Filter="cpp;hpp"
-					>
+					Filter="cpp;hpp">
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\lang\all.hpp"
-						>
+						RelativePath="..\..\src\client\lang\all.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\lang\client_lang.hpp"
-						>
+						RelativePath="..\..\src\client\lang\client_lang.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\lang\Phrase.cpp"
-						>
+						RelativePath="..\..\src\client\lang\Phrase.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\lang\Phrase.hpp"
-						>
+						RelativePath="..\..\src\client\lang\Phrase.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="schema"
-					Filter="cpp;hpp"
-					>
+					Filter="cpp;hpp">
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\schema\all.hpp"
-						>
+						RelativePath="..\..\src\client\schema\all.hpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\schema\ClientSchema.cpp"
-						>
+						RelativePath="..\..\src\client\schema\ClientSchema.cpp">
 					</File>
 					<File
-						RelativePath="\home\rune\svn\sagaengine\add_on\client\src\client\schema\ClientSchema.hpp"
-						>
+						RelativePath="..\..\src\client\schema\ClientSchema.hpp">
 					</File>
 				</Filter>
 			</Filter>

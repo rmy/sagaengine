@@ -79,7 +79,7 @@ namespace se_core {
 			static Dictionary d;
 			return d;
 		}
-		//extern AllPropertyLists allPropertyLists;
+		//AllPropertyLists allPropertyLists;
 
 		AreaManager areaManager OBJECT_IN_EWRAM;
 		ThingManager& thingManager() {

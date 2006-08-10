@@ -35,7 +35,7 @@ namespace se_core {
 	 * SagaEngine adaption
 	 * @author Rune Myrland
 	 */
-	class Tuple4 {
+	class _SeCoreExport Tuple4 {
 	public:
 		/**
 		 * the type for values

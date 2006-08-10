@@ -28,7 +28,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	class Camera : public Actor {
+	class _SeCoreExport Camera : public Actor {
 	public:
 		Camera(const char* name);
 		virtual ~Camera();

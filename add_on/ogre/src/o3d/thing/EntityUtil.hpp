@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_ogre {
 
-	class EntityMaterial {
+	class _SeOgreExport EntityMaterial {
 	private:
 		Ogre::MaterialPtr* originals_;
 		Ogre::MaterialPtr* temporaries_;

@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 	typedef SinglyLinkedList<class Actor, 200, 1> AL;
-	class ActorList : public AL {
+	class _SeCoreExport ActorList : public AL {
 	public:
 		ActorList() : AL(__FILE__) {}
 	};

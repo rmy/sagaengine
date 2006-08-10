@@ -35,7 +35,7 @@ namespace se_core {
 	 * SagaEngine adaption
 	 * @author Rune Myrland
 	 */
-	class Tuple2 {
+	class _SeCoreExport Tuple2 {
 	public:
 		/**
 		 * dimension

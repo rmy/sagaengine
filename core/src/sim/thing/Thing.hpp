@@ -44,7 +44,7 @@ namespace se_core {
 	 * this is the behaviour wanted), but it does not have the ability to act
 	 * on its own.
 	 */
-	class Thing : public PosNode, public ThingData {
+	class _SeCoreExport Thing : public PosNode, public ThingData {
 	protected:
 		Thing(enum SimObjectType type, const char* name);
 	public:

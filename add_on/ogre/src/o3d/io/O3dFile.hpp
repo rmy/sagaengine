@@ -26,7 +26,7 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_ogre {
-	class O3dFile {
+	class _SeOgreExport O3dFile {
 	public:
 		O3dFile();
 		O3dFile(const char* directory, const char* filename);

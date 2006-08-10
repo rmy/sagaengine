@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class PhDefault : public Physics {
+	class _SeCoreExport PhDefault : public Physics {
 	public:
 		PhDefault() : Physics("Default") {}
 		void calcNext(const Actor& actor
@@ -48,7 +48,7 @@ namespace se_core {
 	};
 
 
-	extern const PhDefault physicsDefault;
+	extern _SeCoreExport const PhDefault physicsDefault;
 
 
 }

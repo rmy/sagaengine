@@ -26,7 +26,7 @@ rune@skalden.com
 #include "io/stream/io_stream.hpp"
 
 namespace se_ogre {
-	class O3dThingParserModule  : public se_core::ParserModule {
+	class _SeOgreExport O3dThingParserModule  : public se_core::ParserModule {
 	public:
 		O3dThingParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);

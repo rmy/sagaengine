@@ -27,7 +27,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class O3dFileManager : public se_core::FileManager {
+	class _SeOgreExport O3dFileManager : public se_core::FileManager {
 	public:
 		O3dFileManager(const char* dataPath);
 		~O3dFileManager();

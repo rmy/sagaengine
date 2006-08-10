@@ -16,7 +16,7 @@ namespace se_core {
 	 * yaw_, pitch_ and roll_ angles.
 	 * @author Rune Myrland
 	 */
-	class Euler3 {
+	class _SeCoreExport Euler3 {
 	public:
 		/**
 		 * the type for values

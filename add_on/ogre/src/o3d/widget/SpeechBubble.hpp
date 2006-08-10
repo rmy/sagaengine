@@ -25,7 +25,7 @@ rune@skalden.com
 #include "O3dPre.H"
 
 namespace se_ogre {
-	class SpeechBubble : public se_core::MessageListener  {
+	class _SeOgreExport SpeechBubble : public se_core::MessageListener  {
 	public:
 		SpeechBubble();
 		virtual ~SpeechBubble();

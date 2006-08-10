@@ -30,7 +30,7 @@ namespace se_core {
 	 * A 3 element point that is represented by x,y,z coordinates.
 	 * @author Kenji Hiranabe, Rune Myrland
 	 */
-	class Point3 : public Vector3 {
+	class _SeCoreExport Point3 : public Vector3 {
 	public:
 		/**
 		 * Constructs and initializes a Point3 from the specified xyz coordinates.

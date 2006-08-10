@@ -33,7 +33,7 @@ namespace se_core {
 	 * arrays, arrays located in ROM and dynamically created arrays
 	 * for the same purpose.
 	 */
-	class ByteArray {
+	class _SeCoreExport ByteArray {
 	public:
 		inline ByteArray() : data_(0), doDestroy_(false) {};
 		virtual ~ByteArray();

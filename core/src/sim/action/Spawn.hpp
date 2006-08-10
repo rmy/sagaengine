@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class Spawn : public Action {
+	class _SeCoreExport Spawn : public Action {
 	public:
 		Spawn() : Action("Spawn") {
 		}
@@ -57,7 +57,7 @@ namespace se_core {
 	};
 
 
-	extern const Spawn actionSpawn;
+	extern _SeCoreExport const Spawn actionSpawn;
 }
 
 #endif

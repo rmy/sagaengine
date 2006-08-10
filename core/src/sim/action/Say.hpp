@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class Say : public Action {
+	class _SeCoreExport Say : public Action {
 	public:
 		Say() : Action("say") {}
 
@@ -50,7 +50,7 @@ namespace se_core {
 		};
 	};
 
-	extern const Say actionSay;
+	extern _SeCoreExport const Say actionSay;
 }
 
 #endif

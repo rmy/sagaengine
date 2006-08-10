@@ -38,7 +38,7 @@ namespace se_core {
 	 * You call the SimSchema::simEngine->step() method to step
 	 * the simulation engine.
 	 */
-	class SimEngine {
+	class _SeCoreExport SimEngine {
 	public:
 		/**
 		 * Constructor.

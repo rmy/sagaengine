@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="7.10"
 	Name="se_core"
-	ProjectGUID="{98F1B0BD-8BCB-4622-B40B-6A47CC496134}"
+	ProjectGUID="{665FEB1D-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_core"
 	Keyword="Win32Proj"
 	>
@@ -19,7 +18,7 @@
 			Name="Debug|Win32"
 			OutputDirectory=".\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
 			>
@@ -42,11 +41,11 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="/home/rune/svn/sagaengine/core/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;"
+				AdditionalIncludeDirectories="../../src;../../src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -85,7 +84,7 @@
 			Name="Release|Win32"
 			OutputDirectory=".\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
 			>
@@ -111,10 +110,11 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="/home/rune/svn/sagaengine/core/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;"
+				AdditionalIncludeDirectories="../../src;../../src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);"
 				StringPooling="true"
-				RuntimeLibrary="0"
+				MintimalRebuild="true"
+				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -158,1276 +158,285 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
 			>
-			<Filter
-				Name="io"
-				Filter="cpp;hpp"
-				>
-				<Filter
-					Name="encode"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\Encoder.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\Encoder.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\EncoderModule.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\EncoderModule.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\encode\io_encode.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="parse"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\AreaThingParserModule.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\AreaThingParserModule.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\CutsceneParserModule.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\CutsceneParserModule.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\io_parse.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\Parser.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\Parser.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\ParserModule.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\parse\ParserModule.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="schema"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\schema\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\schema\IoSchema.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\schema\IoSchema.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="stream"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\BinaryInputStream.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\FileManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\FileManager.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\InputStream.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\io_stream.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\OutputStream.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\TextInputStream.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\io\stream\TextInputStream.hpp"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="sim"
-				Filter="cpp;hpp"
-				>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\all.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\InitListener.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\InitListeners.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\PosNode.cpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\PosNode.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\sim.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimEngine.cpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimEngine.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimListener.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimListeners.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimObject.cpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\sim\SimObject.hpp"
-					>
-				</File>
-				<Filter
-					Name="action"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Action.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Action.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionAndParameter.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionAndParameter.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionHelperMethods.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionHelperMethods.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionQueue.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActionQueue.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActorList.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\ActorList.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\EnterTo.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\EnterTo.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Idle.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Idle.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\IdleFor.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\IdleFor.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\LeaveToAndStopScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\LeaveToAndStopScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\PopScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\PopScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\PushScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\PushScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Say.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Say.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\sim_action.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Spawn.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\Spawn.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StartCutscene.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StartCutscene.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StopCutscene.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StopCutscene.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StopScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\action\StopScript.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="area"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\Area.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\Area.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\AreaManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\AreaManager.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\CollisionGrid.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\CollisionGrid.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\area\sim_area.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="config"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\config\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\config\Default.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\config\Default.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\config\sim_config.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="custom"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Abilities.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Abilities.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\ActorData.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\ActorData.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Health.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Health.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Move.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\Move.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\sim_custom.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\ThingData.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\custom\ThingData.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="error"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\error\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\error\sim_error.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\error\StopWatch.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\error\StopWatch.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="message"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\message\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\message\MessageCentral.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\message\MessageCentral.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\message\MessageListener.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\message\sim_message.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="physics"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\PhDefault.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\PhDefault.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\Physics.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\Physics.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\PhysicsUtil.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\physics\sim_physics.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="react"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\DefaultTC.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\DefaultTC.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\sim_react.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\ThingCollide.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\react\ThingCollide.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="schema"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\schema\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\schema\SimSchema.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\schema\SimSchema.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="script"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\CustomScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\CustomScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\Cutscene.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\Cutscene.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\QuestGoal.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\QuestGoal.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\ReentrantScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\ReentrantScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\Script.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\Script.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\ShowingCutscene.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\ShowingCutscene.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\sim_script.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\TimelineScript.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\TimelineScript.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\WalkTowardsTarget.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\script\WalkTowardsTarget.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="stat"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ActorIterator.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ActorIterator.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Anim.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Anim.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Coor.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Coor.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Dictionary.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Dictionary.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\DictionaryEntry.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\DictionaryEntry.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Force.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Force.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\HealthListener.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\HealthListener.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\HealthListeners.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\HealthListeners.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiSimObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiSimObject.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiSimObjectIterator.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiSimObjectIterator.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiSimObjectListener.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\MultiValue.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Pos.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Pos.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Property.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Property.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ReportingMultiSimObject.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ReportingMultiSimObject.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\sim_stat.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\SimObjectList.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\SimObjectList.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\SortedSimObjectList.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\SortedSimObjectList.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Speed.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\Speed.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ThingIterator.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\stat\ThingIterator.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="thing"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Actor.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Actor.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ActorFactory.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ActorFactory.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Camera.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Camera.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\CameraHandler.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\CameraHandler.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Player.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Player.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\sim_thing.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Thing.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\Thing.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ThingFactory.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ThingFactory.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ThingManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\sim\thing\ThingManager.hpp"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="util"
-				Filter="cpp;hpp"
-				>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\util\all.hpp"
-					>
-				</File>
-				<File
-					RelativePath="\home\rune\svn\sagaengine\core\src\util\util.hpp"
-					>
-				</File>
-				<Filter
-					Name="bounds"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\BoundingBox.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\BoundingBox.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\BoundingSquare.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\BoundingSquare.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\bounds\util_bounds.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="config"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\config\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\config\util_config.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="error"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\error\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\error\BaseUnitTest.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\error\BaseUnitTest.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\error\Log.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\error\Log.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="math"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\BrayT.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\BrayT.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\CoorT.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\CoorT.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\CoorT_FixedPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\CoorT_FloatingPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\FixedPoint.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\FixedPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Math.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Math.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\QuatT.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Trig.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Trig.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Trig_FixedPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\Trig_FloatingPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\math\util_math.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="noise"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\noise\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\noise\Perlin.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\noise\Perlin.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="system"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\PortableClock.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\PortableClock.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\RealClock.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\RealClock.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\system\util_system.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="template"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\HashTable.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\HashTable.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\QuadTreeNode.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\QuadTreeNode.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\SinglyLinkedList.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\template\util_template.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="type"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\ByteArray.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\ByteArray.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\FixedPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\FloatArray.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\FloatArray.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\FloatingPoint.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\ShortArray.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\ShortArray.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\String.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\String.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\TmpString.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\TmpString.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\type\util_type.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="vecmath"
-					Filter="cpp;hpp"
-					>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\all.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Euler3.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point2.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point2.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point3.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point3.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point4.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Point4.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Quat4.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Quat4.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple2.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple2.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple3.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple3.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple4.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Tuple4.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\util_vecmath.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector2.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector2.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector3.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector3.hpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector4.cpp"
-						>
-					</File>
-					<File
-						RelativePath="\home\rune\svn\sagaengine\core\src\util\vecmath\Vector4.hpp"
-						>
-					</File>
-				</Filter>
-			</Filter>
+			<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\src\io\encode\Encoder.cpp"> </File>
+<File RelativePath="..\..\src\io\encode\Encoder.hpp"> </File>
+<File RelativePath="..\..\src\io\encode\EncoderModule.cpp"> </File>
+<File RelativePath="..\..\src\io\encode\EncoderModule.hpp"> </File>
+<File RelativePath="..\..\src\io\encode\all.hpp"> </File>
+<File RelativePath="..\..\src\io\encode\io_encode.hpp"> </File>
+</Filter><Filter Name="parse" Filter="cpp;hpp"><File RelativePath="..\..\src\io\parse\AreaThingParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\AreaThingParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\CutsceneParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\CutsceneParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\Parser.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\Parser.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\ParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\ParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\all.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\io_parse.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\io\schema\IoSchema.cpp"> </File>
+<File RelativePath="..\..\src\io\schema\IoSchema.hpp"> </File>
+<File RelativePath="..\..\src\io\schema\all.hpp"> </File>
+</Filter><Filter Name="stream" Filter="cpp;hpp"><File RelativePath="..\..\src\io\stream\BinaryInputStream.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\FileManager.cpp"> </File>
+<File RelativePath="..\..\src\io\stream\FileManager.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\InputStream.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\OutputStream.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\TextInputStream.cpp"> </File>
+<File RelativePath="..\..\src\io\stream\TextInputStream.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\all.hpp"> </File>
+<File RelativePath="..\..\src\io\stream\io_stream.hpp"> </File>
+</Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\InitListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\InitListeners.hpp"> </File>
+<File RelativePath="..\..\src\sim\PosNode.cpp"> </File>
+<File RelativePath="..\..\src\sim\PosNode.hpp"> </File>
+<File RelativePath="..\..\src\sim\SimEngine.cpp"> </File>
+<File RelativePath="..\..\src\sim\SimEngine.hpp"> </File>
+<File RelativePath="..\..\src\sim\SimListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\SimListeners.hpp"> </File>
+<File RelativePath="..\..\src\sim\SimObject.cpp"> </File>
+<File RelativePath="..\..\src\sim\SimObject.hpp"> </File>
+<File RelativePath="..\..\src\sim\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\sim.hpp"> </File>
+<Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\action\Action.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\Action.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionAndParameter.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionAndParameter.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionQueue.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionQueue.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActorList.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActorList.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\EnterTo.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\EnterTo.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\Idle.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\Idle.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\IdleFor.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\IdleFor.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\LeaveToAndStopScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\LeaveToAndStopScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\PopScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\PopScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\PushScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\PushScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\Say.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\Say.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\Spawn.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\Spawn.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\StartCutscene.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\StartCutscene.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\StopCutscene.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\StopCutscene.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\StopScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\StopScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\sim_action.hpp"> </File>
+</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\area\Area.cpp"> </File>
+<File RelativePath="..\..\src\sim\area\Area.hpp"> </File>
+<File RelativePath="..\..\src\sim\area\AreaFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\area\AreaFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\area\AreaManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\area\AreaManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\area\CollisionGrid.cpp"> </File>
+<File RelativePath="..\..\src\sim\area\CollisionGrid.hpp"> </File>
+<File RelativePath="..\..\src\sim\area\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\area\sim_area.hpp"> </File>
+</Filter><Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\config\Default.cpp"> </File>
+<File RelativePath="..\..\src\sim\config\Default.hpp"> </File>
+<File RelativePath="..\..\src\sim\config\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\config\sim_config.hpp"> </File>
+</Filter><Filter Name="custom" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\custom\Abilities.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\Abilities.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\ActorData.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\ActorData.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\Health.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\Health.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\Move.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\Move.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\ThingData.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\ThingData.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\sim_custom.hpp"> </File>
+</Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\error\StopWatch.cpp"> </File>
+<File RelativePath="..\..\src\sim\error\StopWatch.hpp"> </File>
+<File RelativePath="..\..\src\sim\error\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\error\sim_error.hpp"> </File>
+</Filter><Filter Name="message" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\message\MessageCentral.cpp"> </File>
+<File RelativePath="..\..\src\sim\message\MessageCentral.hpp"> </File>
+<File RelativePath="..\..\src\sim\message\MessageListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\message\SoundCentral.cpp"> </File>
+<File RelativePath="..\..\src\sim\message\SoundCentral.hpp"> </File>
+<File RelativePath="..\..\src\sim\message\SoundListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\message\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\message\sim_message.hpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\physics\PhDefault.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhDefault.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\Physics.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\Physics.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsUtil.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\sim_physics.hpp"> </File>
+</Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\react\DefaultTC.cpp"> </File>
+<File RelativePath="..\..\src\sim\react\DefaultTC.hpp"> </File>
+<File RelativePath="..\..\src\sim\react\ThingCollide.cpp"> </File>
+<File RelativePath="..\..\src\sim\react\ThingCollide.hpp"> </File>
+<File RelativePath="..\..\src\sim\react\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\react\sim_react.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\schema\SimSchema.cpp"> </File>
+<File RelativePath="..\..\src\sim\schema\SimSchema.hpp"> </File>
+<File RelativePath="..\..\src\sim\schema\all.hpp"> </File>
+</Filter><Filter Name="script" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\script\CustomScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\CustomScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\Cutscene.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\Cutscene.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\QuestGoal.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\QuestGoal.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\ReentrantScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\ReentrantScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\Script.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\Script.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\ShowingCutscene.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\ShowingCutscene.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\TimelineScript.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\TimelineScript.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\sim_script.hpp"> </File>
+</Filter><Filter Name="stat" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\stat\Anim.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Anim.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Dictionary.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Dictionary.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\DictionaryEntry.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\DictionaryEntry.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\HealthListener.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\HealthListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\HealthListeners.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\HealthListeners.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\MultiSimObject.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\MultiSimObject.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\MultiSimObjectListener.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\MultiValue.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Pos.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Pos.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Property.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\Property.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\ReportingMultiSimObject.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\ReportingMultiSimObject.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SimObjectIterator.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SimObjectIterator.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SimObjectList.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SimObjectList.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SortedSimObjectList.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\SortedSimObjectList.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\sim_stat.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\thing\Actor.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Actor.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ActorFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ActorFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Camera.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Camera.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\CameraHandler.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\CameraHandler.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Player.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Player.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Thing.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\Thing.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ThingFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ThingFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ThingManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\thing\ThingManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\thing\sim_thing.hpp"> </File>
+</Filter></Filter><Filter Name="util" Filter="cpp;hpp"><File RelativePath="..\..\src\util\all.hpp"> </File>
+<File RelativePath="..\..\src\util\util.hpp"> </File>
+<Filter Name="bounds" Filter="cpp;hpp"><File RelativePath="..\..\src\util\bounds\BoundingBox.cpp"> </File>
+<File RelativePath="..\..\src\util\bounds\BoundingBox.hpp"> </File>
+<File RelativePath="..\..\src\util\bounds\BoundingSquare.cpp"> </File>
+<File RelativePath="..\..\src\util\bounds\BoundingSquare.hpp"> </File>
+<File RelativePath="..\..\src\util\bounds\all.hpp"> </File>
+<File RelativePath="..\..\src\util\bounds\util_bounds.hpp"> </File>
+</Filter><Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\src\util\config\all.hpp"> </File>
+<File RelativePath="..\..\src\util\config\util_config.hpp"> </File>
+</Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\src\util\error\Log.cpp"> </File>
+<File RelativePath="..\..\src\util\error\Log.hpp"> </File>
+<File RelativePath="..\..\src\util\error\all.hpp"> </File>
+</Filter><Filter Name="math" Filter="cpp;hpp"><File RelativePath="..\..\src\util\math\BrayT.cpp"> </File>
+<File RelativePath="..\..\src\util\math\BrayT.hpp"> </File>
+<File RelativePath="..\..\src\util\math\CoorT.cpp"> </File>
+<File RelativePath="..\..\src\util\math\CoorT.hpp"> </File>
+<File RelativePath="..\..\src\util\math\CoorT_FixedPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\math\CoorT_FloatingPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\math\FixedPoint.cpp"> </File>
+<File RelativePath="..\..\src\util\math\FixedPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\math\Math.cpp"> </File>
+<File RelativePath="..\..\src\util\math\Math.hpp"> </File>
+<File RelativePath="..\..\src\util\math\QuatT.hpp"> </File>
+<File RelativePath="..\..\src\util\math\ScaleT.hpp"> </File>
+<File RelativePath="..\..\src\util\math\Trig.cpp"> </File>
+<File RelativePath="..\..\src\util\math\Trig.hpp"> </File>
+<File RelativePath="..\..\src\util\math\Trig_FixedPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\math\Trig_FloatingPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\math\all.hpp"> </File>
+<File RelativePath="..\..\src\util\math\util_math.hpp"> </File>
+</Filter><Filter Name="noise" Filter="cpp;hpp"><File RelativePath="..\..\src\util\noise\Perlin.cpp"> </File>
+<File RelativePath="..\..\src\util\noise\Perlin.hpp"> </File>
+<File RelativePath="..\..\src\util\noise\all.hpp"> </File>
+</Filter><Filter Name="system" Filter="cpp;hpp"><File RelativePath="..\..\src\util\system\PortableClock.cpp"> </File>
+<File RelativePath="..\..\src\util\system\PortableClock.hpp"> </File>
+<File RelativePath="..\..\src\util\system\RealClock.cpp"> </File>
+<File RelativePath="..\..\src\util\system\RealClock.hpp"> </File>
+<File RelativePath="..\..\src\util\system\all.hpp"> </File>
+<File RelativePath="..\..\src\util\system\util_system.hpp"> </File>
+</Filter><Filter Name="template" Filter="cpp;hpp"><File RelativePath="..\..\src\util\template\HashTable.cpp"> </File>
+<File RelativePath="..\..\src\util\template\HashTable.hpp"> </File>
+<File RelativePath="..\..\src\util\template\SinglyLinkedList.hpp"> </File>
+<File RelativePath="..\..\src\util\template\all.hpp"> </File>
+<File RelativePath="..\..\src\util\template\util_template.hpp"> </File>
+</Filter><Filter Name="type" Filter="cpp;hpp"><File RelativePath="..\..\src\util\type\ByteArray.cpp"> </File>
+<File RelativePath="..\..\src\util\type\ByteArray.hpp"> </File>
+<File RelativePath="..\..\src\util\type\FixedPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\type\FloatArray.cpp"> </File>
+<File RelativePath="..\..\src\util\type\FloatArray.hpp"> </File>
+<File RelativePath="..\..\src\util\type\FloatingPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\type\ShortArray.cpp"> </File>
+<File RelativePath="..\..\src\util\type\ShortArray.hpp"> </File>
+<File RelativePath="..\..\src\util\type\String.cpp"> </File>
+<File RelativePath="..\..\src\util\type\String.hpp"> </File>
+<File RelativePath="..\..\src\util\type\TmpString.cpp"> </File>
+<File RelativePath="..\..\src\util\type\TmpString.hpp"> </File>
+<File RelativePath="..\..\src\util\type\all.hpp"> </File>
+<File RelativePath="..\..\src\util\type\util_type.hpp"> </File>
+</Filter><Filter Name="vecmath" Filter="cpp;hpp"><File RelativePath="..\..\src\util\vecmath\AxisAngle4.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\AxisAngle4.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Euler3.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Euler3.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point2.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point2.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point3.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point3.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point4.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Point4.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Quat4.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Quat4.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple2.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple2.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple3.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple3.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple4.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Tuple4.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector2.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector2.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector3.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector3.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector4.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\Vector4.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\ViewPoint.cpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\ViewPoint.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\all.hpp"> </File>
+<File RelativePath="..\..\src\util\vecmath\util_vecmath.hpp"> </File>
+</Filter></Filter>
 		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+

@@ -37,7 +37,7 @@ namespace se_core {
 	 *
 	 * Maintains name, id and type identifiers.
 	 */
-	class SimObject {
+	class _SeCoreExport SimObject {
 	public:
 		/**
 		 * Construct unnamed SimObject.

@@ -29,7 +29,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class Physics : public SimObject {
+	class _SeCoreExport Physics : public SimObject {
 	public:
 		/**
 		 * Constructor.

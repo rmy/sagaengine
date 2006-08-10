@@ -24,7 +24,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class RenderEventListener {
+	class _SeOgreExport RenderEventListener {
 	public:
 		void setActive(bool state);
 		virtual void init() {}

@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace se_core {
-	class StopScript : public Action {
+	class _SeCoreExport StopScript : public Action {
 	public:
 		StopScript() : Action("stop_script") {}
 
@@ -40,7 +40,7 @@ namespace se_core {
 	private:
 	};
 
-	extern const StopScript actionStopScript;
+	extern _SeCoreExport const StopScript actionStopScript;
 }
 
 #endif

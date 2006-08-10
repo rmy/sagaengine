@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class SoundListener {
+	class _SeCoreExport SoundListener {
 	public:
 		virtual ~SoundListener() {} // Gets rid of warning
 		virtual void ambienceEvent(char* snd) = 0;

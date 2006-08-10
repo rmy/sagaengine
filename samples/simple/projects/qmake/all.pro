@@ -22,6 +22,8 @@ include( ogre.pro )
 include( ogre_ui.pro )
 include( game.pro )
 
+DEFINES *= _SeOgreExport _SeClientExport _SeCoreExport
+
 message( Config: $$CONFIG )
 message( DestDir: $$DESTDIR )
 message( Target: $$TARGET )

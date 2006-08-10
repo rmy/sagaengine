@@ -32,7 +32,7 @@ namespace se_core {
 	 * Coordinates are fixed point decimal.
 	 * @author Kenji hiranabe, Rune Myrland
 	 */
-	class Tuple3 {
+	class _SeCoreExport Tuple3 {
 	public:
 		/**
 		 * dimension

@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class O3dClock : public RealClock {
+	class _SeOgreExport O3dClock : public RealClock {
 	public:
 		virtual void reset();
 		virtual unsigned long millis();

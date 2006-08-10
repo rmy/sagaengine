@@ -31,7 +31,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class AreaFactory {
+	class _SeCoreExport AreaFactory {
 	public:
 		AreaFactory(String* name);
 		virtual ~AreaFactory();

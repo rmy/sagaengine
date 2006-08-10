@@ -28,9 +28,9 @@ rune@skalden.com
 
 namespace se_core {
 	namespace IoSchema {
-		extern Parser& parser();
+		extern _SeCoreExport Parser& parser();
 		Encoder& encoder();
-		extern FileManager* fileManager;
+		extern _SeCoreExport FileManager* fileManager;
 
 		bool init();
 		void cleanup();
