@@ -41,7 +41,7 @@ namespace game {
 		Assert(factory && "Forgot to create factory");
 		String collide("default"); // Default collide
 
-		short MAX_SPAWN_POINTS = 20;
+		enum { MAX_SPAWN_POINTS = 20 };
 		int spawnPointCount = 0;
 		ViewPoint* spawnPoints[ MAX_SPAWN_POINTS ];
 		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {

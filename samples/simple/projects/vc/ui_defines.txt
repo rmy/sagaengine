@@ -1,0 +1,4 @@
+_SeOgreExport=__declspec(dllimport)
+_SeClientExport=__declspec(dllimport)
+_SeCoreExport=__declspec(dllimport)
+_GameUiExport=__declspec(dllexport)

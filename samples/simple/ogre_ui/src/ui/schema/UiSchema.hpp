@@ -28,12 +28,8 @@ rune@skalden.com
 namespace ui {
 	namespace UiSchema {
 		// Create a game controller object
-		extern GameControls gameControls;
+		extern _GameUiExport GameControls gameControls;
 
-
-
-		bool SE_AUTO_INIT init();
-		void SE_AUTO_CLEANUP cleanup();
 	}
 
 }

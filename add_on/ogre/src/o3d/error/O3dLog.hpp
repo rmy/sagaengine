@@ -21,8 +21,10 @@ rune@skalden.com
 
 /** Must be defined in platform dependent module */
 namespace se_err {
+	/*
 	extern _SeOgreExport void say3(const char* file, int line, const char* msg2);
 	extern _SeOgreExport void dump3(const char* file, int line, const char* msg2);
 	extern _SeOgreExport void dump(const char *s);
+	*/
 }
 

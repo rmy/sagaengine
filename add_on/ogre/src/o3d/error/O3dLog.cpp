@@ -34,6 +34,7 @@ rune@skalden.com
 
 namespace se_err {
 	/** Must be defined in platform dependent module */
+	/*
 	void scream3(const char* file, int line, const char* msg) {
 		// Fatal
 		char* buffer = new char[512];
@@ -71,4 +72,5 @@ namespace se_err {
 		else
 			std::cerr << msg << std::endl;
 	}
+	*/
 }

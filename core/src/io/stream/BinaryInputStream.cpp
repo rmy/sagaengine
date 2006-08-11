@@ -19,22 +19,22 @@ rune@skalden.com
 */
 
 
-#include "../include/game_ui.hpp"
-#include "ui/schema/UiSchema.hpp"
+#include "BinaryInputStream.hpp"
+#include "util/error/Log.hpp"
+#include "util/type/String.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/stat/Dictionary.hpp"
 
-
-namespace ui {
-
-	bool initGameModule_PlatformUI() {
-		//return UiSchema::init();
-		LogMsg("Var her");
-		return true;
+namespace se_core {
+	int BinaryInputStream
+	::readThingType() {
+		return readShort(); 
 	}
 
 
-	void cleanupGameModule_PlatformUI() {
-		//UiSchema::cleanup();
+	unsigned short BinaryInputStream
+	::readDictionaryWord(short dictionaryId) {
+		return readShort(); 
 	}
-
 
 }

@@ -22,14 +22,33 @@ rune@skalden.com
 #include "Log.hpp"
 #include "../system/util_system.hpp"
 #include <malloc.h>
-
+#ifdef _WINDOWS
+#include <windows.h>
+#endif
 
 namespace se_err {
-	/*
-	void scream3(const char* file, int line, const char* msg2) {}
-	void say3(const char* file, int line, const char* msg2) {}
-	void dump(const char *s) {}
-	*/
+	void scream3(const char* file, int line, const char* msg) {
+		char* buffer = new char[512];
+		sprintf(buffer, "Fat: \"%s\" (%s-%d)", msg, file, line);
+		dump(buffer);
+
+		// Unhandled exception throws to debugger in Visual C++.
+		throw 0.0f;
+	}
+	void say3(const char* file, int line, const char* msg) {
+		char* buffer = new char[512];
+		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
+		dump(buffer);
+	}
+
+	void dump(const char *s) {
+#	ifdef _WINDOWS
+		OutputDebugString(s);
+		OutputDebugString("\n");
+#	endif
+		fputs(s, stderr);
+		fputs("\n", stderr);
+	}
 
 
 	void debugStop() {

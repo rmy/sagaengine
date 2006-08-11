@@ -28,6 +28,12 @@ for line in fd.readlines():
 	defines += line.strip() + ";"
 fd.close()
 
+libraries = ""
+fd = open(basefile + "_libraries.txt", "r")
+for line in fd.readlines():
+	libraries += line.strip() + ".lib "
+fd.close()
+
 # The root path which all other directories are relative to
 SRC_DIR = os.curdir
 
@@ -125,5 +131,9 @@ if __name__ == '__main__':
 	# If you get an error here, it is probably because
 	# there is something wrong with the vctmpl file.
 	# There must be 5 places with %s in it
-	print base % (basefile, basefile, inc, defines, inc, defines, res)
+	h = int(hash(basefile))
+	if(h < 0):
+		h = -h
+
+	print base % (basefile, h, basefile, libraries, inc, defines, libraries, inc, defines, res)
 	
