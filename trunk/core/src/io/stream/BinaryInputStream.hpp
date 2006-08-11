@@ -29,8 +29,8 @@ namespace se_core {
 
 	class _SeCoreExport BinaryInputStream : public InputStream {
 	public:
-		int readThingType() { return readShort(); }
-		unsigned short readDictionaryWord(short dictionaryId) { return readShort(); }
+		int readThingType();
+		unsigned short readDictionaryWord(short dictionaryId);
 	};
 
 }

@@ -25,7 +25,7 @@ rune@skalden.com
 #include "OgreUiPre.H"
 
 namespace ui {
-	class UiInitHandler : public se_core::InitListener {
+	class _GameUiExport UiInitHandler : public se_core::InitListener {
 	public:
 		UiInitHandler();
 		~UiInitHandler();

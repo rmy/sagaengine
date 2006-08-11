@@ -47,6 +47,12 @@ namespace game {
 			return false;
 		}
 
+		//
+		if(!initGameModule_PlatformUI()) {
+			return false;
+		}
+
+
 		if(!GameSchema::init()) {
 			return false;
 		}

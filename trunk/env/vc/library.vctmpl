@@ -1,8 +1,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="7.00"
 	Name="%s"
-	ProjectGUID="{665FEB1D-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{%08X-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="%s"
 	Keyword="Win32Proj"
 	>
@@ -28,6 +28,10 @@
 			<Tool
 				Name="VCCustomBuildTool"
 			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="%s"
+				AdditionalLibraryDirectories="Debug"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
@@ -95,6 +99,10 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="%s"
+				AdditionalLibraryDirectories="Release"/>
+			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
 			<Tool
@@ -111,7 +119,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				AdditionalIncludeDirectories="%s"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;%s"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;%s"
 				StringPooling="true"
 				MintimalRebuild="true"
 				RuntimeLibrary="2"

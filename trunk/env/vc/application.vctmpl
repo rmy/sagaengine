@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="7.00"
 	Name="%s"
-	ProjectGUID="{0F83CA41-4364-49FF-A230-613B08B5CF82}"
+	ProjectGUID="{%08X-4364-49FF-A230-613B08B5CF82}"
 	RootNamespace="%s"
 	Keyword="Win32Proj"
 	>
@@ -28,6 +28,20 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="%s"
+				OutputFile="$(OutDir)/simple.exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="./$(ConfigurationName)"
+				GenerateManifest="false"
+				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)/simple.pdb"
+				SubSystem="2"
+				OptimizeForWindows98="1"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -61,20 +75,6 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib CEGUIBase_d.lib OgreGUIRenderer_d.lib"
-				OutputFile="$(OutDir)/simple.exe"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;c:\Ogre\Dagon\ogrenew\OgreMain\lib\$(ConfigurationName)&quot;;&quot;c:\Ogre\Dagon\ogrenew\Dependencies\lib\$(ConfigurationName)&quot;;&quot;C:\Ogre\Dagon\ogrenew\Samples\Common\CEGUIRenderer\lib&quot;;$(SolutionDir)$(ConfigurationName)"
-				GenerateManifest="false"
-				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/simple.pdb"
-				SubSystem="2"
-				OptimizeForWindows98="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -117,6 +117,21 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="%s"
+				OutputFile="$(OutDir)/simple.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="./$(ConfigurationName)"
+				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
+				GenerateManifest="false"
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				OptimizeForWindows98="1"
+				TargetMachine="1"
+			/>
+			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
 			<Tool
@@ -152,21 +167,6 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib CEGUIBase.lib OgreGUIRenderer.lib"
-				OutputFile="$(OutDir)/simple.exe"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;c:\Ogre\Dagon\ogrenew\OgreMain\lib\$(ConfigurationName)&quot;;&quot;c:\Ogre\Dagon\ogrenew\Dependencies\lib\$(ConfigurationName)&quot;;&quot;C:\Ogre\Dagon\ogrenew\Samples\Common\CEGUIRenderer\lib&quot;;$(SolutionDir)$(ConfigurationName)"
-				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
-				GenerateManifest="false"
-				GenerateDebugInformation="false"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"

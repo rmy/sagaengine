@@ -32,8 +32,8 @@ namespace se_core {
 		Encoder& encoder();
 		extern _SeCoreExport FileManager* fileManager;
 
-		bool init();
-		void cleanup();
+		bool _SeCoreExport init();
+		void _SeCoreExport cleanup();
 	}
 }
 

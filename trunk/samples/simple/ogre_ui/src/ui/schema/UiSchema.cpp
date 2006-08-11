@@ -31,32 +31,21 @@ namespace ui {
 	namespace UiSchema {
 		// Create a game controller object
 		GameControls gameControls;
+
+		const struct AutoInit {
+			AutoInit() {
+				static UiInitHandler initHandler;
+				static Sunlight sunlight;
+
+				LogMsg("Registered UiSchema game module");
+			}
+
+			~AutoInit() {
+				LogMsg("Cleaned up UiSchema game module");
+			}
+		} autoInit;
 	}
 
 
-	bool UiSchema
-	::init() {
-		WasHere();
-		//if(!initSeModule_Ogre()) {
-		//	return false;
-		//}
-
-		// Make sure that init calls to se_core::SimEngine is propagated
-		static UiInitHandler initHandler;
-		static Sunlight sunlight;
-
-		LogMsg("Registered UiSchema game module");
-
-		// Success
-		return true;
-	}
-
-
-	void UiSchema
-	::cleanup() {
-		//
-		//cleanupSeModule_Ogre();
-		LogMsg("Cleaned up UiSchema game module");
-	}
 
 }

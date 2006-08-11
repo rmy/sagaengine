@@ -44,7 +44,7 @@ namespace se_core {
 		Camera* camera = 0; // VAR_IN_EWRAM;
 
 
-		struct AutoInit {
+		const struct AutoInit {
 			AutoInit() {
 				// Register some file loaders
 				static PlayerParserModule playerParserModule(se_core::IoSchema::parser());
@@ -58,7 +58,7 @@ namespace se_core {
 
 			~AutoInit() {
 				SimSchema::initListeners().removeListener(clientEventBridge);
-				LogMsg("Cleaned up add-on");
+				LogMsg("Cleaned up Client add-on");
 			}
 		} autoInit;
 	}
