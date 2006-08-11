@@ -15,7 +15,7 @@ include( core.pro )
 include( client.pro )
 include( ogre.pro )
 include( ogre_ui.pro )
-include( game.pro )
+include( logic.pro )
 
 LIBS = -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
 INCLUDEPATH = 

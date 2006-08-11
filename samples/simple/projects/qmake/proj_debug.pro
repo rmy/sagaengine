@@ -1,4 +1,4 @@
-message( "[ Project settings ]")
+ message( "[ Project settings ]")
 
 CONFIG = debug
 
@@ -22,9 +22,9 @@ message( "game ogre_ui included" )
 INCLUDEPATH += $${SAGAENGINE}/samples/simple/ogre_ui/include
 INCLUDEPATH += $${SAGAENGINE}/samples/simple/ogre_ui/src
 
-message( "game core included" )
-INCLUDEPATH += $${SAGAENGINE}/samples/simple/game/include
-INCLUDEPATH += $${SAGAENGINE}/samples/simple/game/src
+message( "game logic included" )
+INCLUDEPATH += $${SAGAENGINE}/samples/simple/logic/include
+INCLUDEPATH += $${SAGAENGINE}/samples/simple/logic/src
 
 message( "CEGUI included" )
 INCLUDEPATH += $${CEGUI}
@@ -34,6 +34,6 @@ INCLUDEPATH += $${OGRE}
 DESTDIR = $${SAGAENGINE}/samples/simple/projects/qmake
 
 DEFINES *= IS_OGRE DEBUG_LEVEL_2
-DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport=
+DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport= _GameUiExport=
 
 message(Destdir: $$DESTDIR )
