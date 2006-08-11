@@ -52,4 +52,3 @@ namespace logic {
 
 	const Jump actionJump;
 }
-

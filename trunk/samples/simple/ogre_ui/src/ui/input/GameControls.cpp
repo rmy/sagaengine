@@ -24,7 +24,7 @@ rune@skalden.com
 #include "logic/action/all.hpp"
 
 
-using namespace game;
+using namespace logic;
 using namespace se_core;
 using namespace se_ogre;
 

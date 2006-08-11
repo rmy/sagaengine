@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef game_Jump_hpp
-#define game_Jump_hpp
+#ifndef logic_Jump_hpp
+#define logic_Jump_hpp
 
 #include "sim/action/Action.hpp"
 
