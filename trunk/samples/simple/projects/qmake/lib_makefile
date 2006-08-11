@@ -5,7 +5,7 @@ run:
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && make
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && make
 	cd $(SAGAENGINE)/samples/simple/ogre_ui/projects/qmake && make
-	cd $(SAGAENGINE)/samples/simple/game/projects/qmake && make
+	cd $(SAGAENGINE)/samples/simple/logic/projects/qmake && make
 
 
 clean:
@@ -14,7 +14,7 @@ clean:
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && make clean
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && make clean
 	cd $(SAGAENGINE)/samples/simple/ogre_ui/projects/qmake && make clean
-	cd $(SAGAENGINE)/samples/simple/game/projects/qmake && make clean
+	cd $(SAGAENGINE)/samples/simple/logic/projects/qmake && make clean
 
 
 
@@ -24,7 +24,7 @@ debug: clean
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/samples/simple/ogre_ui/projects/qmake && sh bootstrap.sh
-	cd $(SAGAENGINE)/samples/simple/game/projects/qmake && sh bootstrap.sh
+	cd $(SAGAENGINE)/samples/simple/logic/projects/qmake && sh bootstrap.sh
 
 release: clean
 	cp proj_release.pro ../../../../env/qmake/
@@ -32,7 +32,7 @@ release: clean
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/samples/simple/ogre_ui/projects/qmake && sh bootstrap.sh
-	cd $(SAGAENGINE)/samples/simple/game/projects/qmake && sh bootstrap.sh
+	cd $(SAGAENGINE)/samples/simple/logic/projects/qmake && sh bootstrap.sh
 
 bootstrap:
 	cp lib_proj.pro ../../../../env/qmake/proj.pro
@@ -40,5 +40,5 @@ bootstrap:
 	cd $(SAGAENGINE)/add_on/client/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/add_on/ogre/projects/qmake && sh bootstrap.sh
 	cd $(SAGAENGINE)/samples/simple/ogre_ui/projects/qmake && sh bootstrap.sh
-	cd $(SAGAENGINE)/samples/simple/game/projects/qmake && sh bootstrap.sh
+	cd $(SAGAENGINE)/samples/simple/logic/projects/qmake && sh bootstrap.sh
 
