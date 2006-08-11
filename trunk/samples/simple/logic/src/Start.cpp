@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "game/app/Application.hpp"
+#include "logic/app/Application.hpp"
 #include <exception>
 #include <stdexcept>
 #include <iostream>
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 {
 	try {
 		// Create application object
-		game::Application app;
+		logic::Application app;
 		app.go();
 
 	} catch( char* msg ) {

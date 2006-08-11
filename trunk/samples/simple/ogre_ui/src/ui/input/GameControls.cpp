@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "GameControls.hpp"
 #include "OgreUiPre.H"
-#include "game/action/all.hpp"
+#include "logic/action/all.hpp"
 
 
 using namespace game;
