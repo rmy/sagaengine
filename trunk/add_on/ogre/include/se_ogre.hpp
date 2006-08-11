@@ -39,12 +39,13 @@ rune@skalden.com
 namespace se_ogre {
 
 	inline bool initSeModule_Ogre() {
-		return O3dSchema::init();
+		//return O3dSchema::init();
+		return true;
 	}
 
 
 	inline void cleanupSeModule_Ogre() {
-		O3dSchema::cleanup();
+		//O3dSchema::cleanup();
 	}
 
 }

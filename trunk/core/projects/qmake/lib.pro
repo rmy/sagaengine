@@ -10,9 +10,9 @@ TARGET = se_core
 
 DEFINES *= _SeOgreExport _SeClientExport _SeCoreExport
 
-INCLUDEPATH = ../../src
-
 include( src.pro )
+
+INCLUDEPATH = ../../src
 
 message( Config: $$CONFIG )
 message( Target: $$TARGET )
