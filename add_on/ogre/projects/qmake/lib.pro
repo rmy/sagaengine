@@ -26,7 +26,7 @@ INCLUDEPATH += $${CEGUI}
 message( "OGRE included" )
 INCLUDEPATH += $${OGRE}
 
-DEFINES *= IS_OGRE _SeOgreExport _SeClientExport _SeCoreExport
+DEFINES *= IS_OGRE _SeOgreExport= _SeClientExport= _SeCoreExport=
 
 include( src.pro )
 
