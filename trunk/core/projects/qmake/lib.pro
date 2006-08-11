@@ -8,7 +8,7 @@ CONFIG += lib
 OBJECTS_DIR = .obj
 TARGET = se_core
 
-DEFINES *= _SeOgreExport _SeClientExport _SeCoreExport
+DEFINES *= _SeClientExport=
 
 include( src.pro )
 
