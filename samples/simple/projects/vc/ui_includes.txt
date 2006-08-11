@@ -10,5 +10,5 @@
 ../../../../add_on/ogre/src
 ../../ogre_ui/include
 ../../ogre_ui/src
-../../game/include
-../../game/src
+../../logic/include
+../../logic/src
