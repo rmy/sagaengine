@@ -25,9 +25,11 @@ rune@skalden.com
 
 
 namespace se_err {
+	/*
 	void scream3(const char* file, int line, const char* msg2) {}
 	void say3(const char* file, int line, const char* msg2) {}
 	void dump(const char *s) {}
+	*/
 
 
 	void debugStop() {
