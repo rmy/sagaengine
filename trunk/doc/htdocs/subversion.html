@@ -35,34 +35,11 @@
 
 
 <div id="main">
-<h2>What is SagaEngine?</h2>
-<p>SagaEngine is a game logic engine. It is centered around the concepts Actor, Action 
-and Area. An Actor may exist and perform Actions inside an Area. This is the simple view, 
-though. The library is a quite large object oriented architecture for resolving game 
-situations. You are expected to subclass heavily for the purposes of your own game.</p>
+<h2>Accessing the subversion repository</h2>
 
-<h2>Feature highlights</h2>
-<UL>
-<LI><P>Hierarchy of game entities: Game entities like Area, Thing
-and Actor are stored in a hierarchy, where a child moves relative to its
-parent. An Area is usually at the root. A rider Actor would be the child 
-of a horse Actor while saddled.</P></LI>
-<LI><P>Scripting: Subclasses of the Script class can be assigned
-an Actor to automatically plan the next action when a previous one is complete.
-This architecture makes it simple to integrate scripting languages.</P></LI>
-<LI><P>Custom physics: Sublclasses of Physics are assigned to
-an Actor to control movement. This means that a ground walker and a bird
-may be controlled by different physics algorithms.</P></LI>
-<LI><P>Ogre integration: 
-SagaEngine Core contains co render logic in itself, but is build with the intention
-that you program add-on modules that serves as a glue between SagaEngine Core and
-a render engine. SagaEngine Ogre is such a gluing layer between SagaEngine Core and the
-opensource Ogre engine (http://www.ogre3d.org/).</P>
-</LI>
-</UL>
+<p>You can check out the trunk, which is the branch in active development, with:</p>
 
-<h2>License</h2>
-<p>Permission is granted to distribute the library under the terms of the Q Public License version 1.0.</p>
+<p> svn co https://svn.sourceforge.net/svnroot/sagaengine/trunk sagaengine</p>
 
 <p class="credits"><strong>&copy; 2006 <a href="http://www.skalden.com/">Skalden Studio AS</a></strong> | Design by <a href="http://andreasviklund.com/">Andreas Viklund</a><br />
 
