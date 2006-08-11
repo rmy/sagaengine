@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="7.00"
 	Name="ui"
 	ProjectGUID="{5506E88C-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="ui"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
@@ -17,47 +20,69 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="FALSE">
+			WholeProgramOptimization="0"
+			>
 			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/Zm150"
-				Optimization="0"
-				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../game/include;../../game/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
-				MinimalRebuild="TRUE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				AdditionalLibraryDirectories="Debug"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCMIDLTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm150"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCLibrarianTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -65,50 +90,73 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="FALSE">
+			WholeProgramOptimization="0"
+			>
 			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="TRUE"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../game/include;../../game/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
-				StringPooling="TRUE"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="FALSE"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				AdditionalLibraryDirectories="Release"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCMIDLTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				OmitFramePointers="true"
+				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
+				StringPooling="true"
+				MintimalRebuild="true"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCLibrarianTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -116,59 +164,23 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
-			<File
-				RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp">
-			</File>
-			<Filter
-				Name="ui"
-				Filter="cpp;hpp">
-				<Filter
-					Name="init"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.cpp">
-					</File>
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="input"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.cpp">
-					</File>
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="material"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.cpp">
-					</File>
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="schema"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.cpp">
-					</File>
-					<File
-						RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.hpp">
-					</File>
-				</Filter>
-			</Filter>
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
+			>
+			<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp"> </File>
+<Filter Name="ui" Filter="cpp;hpp"><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.hpp"> </File>
+</Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.hpp"> </File>
+</Filter><Filter Name="material" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.hpp"> </File>
+</Filter></Filter>
 		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+
