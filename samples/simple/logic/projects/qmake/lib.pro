@@ -1,15 +1,11 @@
 include( ../../../../../env/qmake/proj.pro )
 
-message( "[ Application ogre_ui settings ]")
+message( "[ Application logic settings ]")
 
-CONFIG += app
-TARGET = simple
-
-LIBS = -lgame_ogre_ui -lse_ogre -lse_client -lse_core -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
+CONFIG += lib
+TARGET = game_logic
 
 INCLUDEPATH += ../../src
-DESTDIR = ../../../projects/qmake
-
 
 include( src.pro )
 

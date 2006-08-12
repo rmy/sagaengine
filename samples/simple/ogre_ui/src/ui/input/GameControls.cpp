@@ -89,7 +89,6 @@ namespace ui {
 			break;
 		}
 
-		/*
 		static Parameter p;
 
 		actionForward.param(dirForward(), p);
@@ -99,8 +98,7 @@ namespace ui {
 		actionRotate.param(dirLR(), 0, 0, p);
 		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
 
-		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionJump);
-		*/
+		//ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionJump);
 	}
 
 
@@ -128,7 +126,6 @@ namespace ui {
 			break;
 		}
 
-		/*
 		static Parameter p;
 
 		actionForward.param(dirForward(), p);
@@ -137,7 +134,6 @@ namespace ui {
 
 		actionRotate.param(dirLR(), 0, 0, p);
 		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
-		*/
 	}
 
 

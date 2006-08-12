@@ -26,6 +26,9 @@ message( "game logic included" )
 INCLUDEPATH += $${SAGAENGINE}/samples/simple/logic/include
 INCLUDEPATH += $${SAGAENGINE}/samples/simple/logic/src
 
+message( "start included" )
+INCLUDEPATH += $${SAGAENGINE}/samples/simple/start/src
+
 message( "CEGUI included" )
 INCLUDEPATH += $${CEGUI}
 message( "OGRE included" )

@@ -1,2 +1,2 @@
-../../../../samples/simple/logic/src
+../../../../samples/simple/start/src
 
