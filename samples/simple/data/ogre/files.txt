@@ -1,1 +1,1 @@
-ogre/thing/player/blue.txt
+ogre/thing/player/puck.txt

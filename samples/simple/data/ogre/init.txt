@@ -1,2 +1,0 @@
-game/start/start.txt
-Q

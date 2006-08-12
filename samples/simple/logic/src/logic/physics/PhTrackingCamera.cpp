@@ -1,14 +1,14 @@
-#include "PhCamera.hpp"
+#include "PhTrackingCamera.hpp"
 #include "../area/SimpleArea.hpp"
 
 using namespace se_core;
 
 namespace logic {
 
-	const PhCamera physicsCamera;	
+	const PhTrackingCamera physicsCamera;	
 
 
-	void PhCamera
+	void PhTrackingCamera
 	::calcNext(const Actor& actor
 			, const Pos& pos
 			, Pos& nextPos
@@ -22,21 +22,19 @@ namespace logic {
 			return;
 		}
 
-		const ViewPoint* sp = ClientSchema::player->spawnPoint(1);
+		// Always stay in the same area as the player
 		Area* a = ClientSchema::player->nextPos().area();
 		if(a != 0 && a != nextPos.area()) {
 			nextPos.setArea(*a);
 		}
+
+		// Stay glued to the players spawn point 0
+		const ViewPoint* sp = ClientSchema::player->spawnPoint(0);
 		nextPos.local_.setViewPoint(*sp);
 	}
 
 
-	bool PhCamera
-	::isBlocked(const Actor& actor, const Pos& pos, const Pos& nextPos) const {
-		return false;
-	}
-
-	void PhCamera
+	void PhTrackingCamera
 	::affect(Actor& actor) const {
 		Pos& nextPos = actor.nextPos();
 		if(!nextPos.hasArea()) {

@@ -1,0 +1,15 @@
+XO02
+# Player name
+P player.puck
+# Radius
+R 0.50
+# Camera spawn point 
+E 0 T 0 5 -5 R 180 35 0 /
+# Collision handler
+C default
+# cOllidable
+O
+# Physics handler
+P Simple
+# Quit (stop parsing)
+Q

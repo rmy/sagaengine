@@ -61,19 +61,19 @@ namespace logic {
 		Assert(IoSchema::fileManager);
 
 		// Load language files
-		IoSchema::fileManager->loadDirectory("game/lang");
+		IoSchema::fileManager->loadDirectory("logic/lang");
 
 		// Load scripts
-		IoSchema::fileManager->loadDirectory("game/script");
+		IoSchema::fileManager->loadDirectory("logic/script");
 
 		// Load thing definitions
-		IoSchema::fileManager->loadDirectory("game/thing");
+		IoSchema::fileManager->loadDirectory("logic/thing");
 
 		// Load movement data
-		IoSchema::fileManager->loadDirectory("game/area/movement/");
+		IoSchema::fileManager->loadDirectory("logic/area/movement/");
 
 		// Load cutscenes
-		IoSchema::fileManager->loadDirectory("game/cutscene/");
+		IoSchema::fileManager->loadDirectory("logic/cutscene/");
 
 		// Load bindings between (ogre) 3d models and (core) things
 		IoSchema::fileManager->loadDirectory("ogre/thing/");
@@ -91,10 +91,10 @@ namespace logic {
 		SimSchema::simEngine.initGame();
 
 		// Place creatures in areas
-		IoSchema::fileManager->loadDirectory("game/area/thing/");
+		IoSchema::fileManager->loadDirectory("logic/area/thing/");
 
 		//
-		IoSchema::fileManager->loadBatch("game/init.txt");
+		IoSchema::fileManager->loadBatch("logic/init.txt");
 
 		return true;
 	}

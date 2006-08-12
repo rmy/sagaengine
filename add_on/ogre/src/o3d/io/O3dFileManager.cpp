@@ -66,7 +66,7 @@ namespace se_ogre {
 		InputStream* is;
 		String* s = new String();
 
-		const char* files[] = { "game/files.txt", "ogre/files.txt", 0 };
+		const char* files[] = { "logic/files.txt", "ogre/files.txt", 0 };
 
 		for(const char** f = files; *f != 0; ++f) {
 			is = open(*f);

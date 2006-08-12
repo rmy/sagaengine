@@ -11,25 +11,25 @@ basefile = sys.argv[1].strip(" /\\.")
 template = sys.argv[2].strip("")
 
 modules = list()
-fd = open(basefile + "_modules.txt", "r")
+fd = open(".template/" + basefile + "_modules.txt", "r")
 for line in fd.readlines():
 	modules.append( line.strip() )
 fd.close()
 
 includes = list()
-fd = open(basefile + "_includes.txt", "r")
+fd = open(".template/" + basefile + "_includes.txt", "r")
 for line in fd.readlines():
 	includes.append( line.strip() )
 fd.close()
 
 defines = ""
-fd = open(basefile + "_defines.txt", "r")
+fd = open(".template/" + basefile + "_defines.txt", "r")
 for line in fd.readlines():
 	defines += line.strip() + ";"
 fd.close()
 
 libraries = ""
-fd = open(basefile + "_libraries.txt", "r")
+fd = open(".template/" + basefile + "_libraries.txt", "r")
 for line in fd.readlines():
 	libraries += line.strip() + ".lib "
 fd.close()

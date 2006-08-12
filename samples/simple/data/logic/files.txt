@@ -1,0 +1,5 @@
+logic/thing/player/puck.txt
+logic/thing/control/camera.txt
+logic/start/start.txt
+logic/area/movement/level1a.txt
+logic/area/thing/level1a_things.txt

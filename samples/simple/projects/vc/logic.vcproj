@@ -185,10 +185,10 @@
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\all.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhCamera.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhCamera.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhTrackingCamera.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhTrackingCamera.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\all.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.hpp"> </File>

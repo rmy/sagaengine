@@ -1,0 +1,12 @@
+XB01
+
+# Which level:
+# N (level name)
+N level1a
+
+# Spawn points:
+# Entrance (id) Translate (x y z) Rotate (yaw pitch roll)
+E 0 T 2.50 0 2.50 R 90 0 0 /
+E 1 T 28.00 0 10.00 R 90 0 0 /
+
+Q
