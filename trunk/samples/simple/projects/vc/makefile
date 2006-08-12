@@ -1,16 +1,25 @@
 
 rel:
-	vcbuild -r se_core Release
-	vcbuild -r se_client Release
-	vcbuild -r se_ogre Release
-	vcbuild -r logic Release
-	vcbuild -r ui Release
-	vcbuild -r simple Release
+	vcbuild se_core Release
+	vcbuild se_client Release
+	vcbuild se_ogre Release
+	vcbuild logic Release
+	vcbuild ui Release
+	vcbuild simple Release
 
 dbg:
-	vcbuild -r se_core Debug
-	vcbuild -r se_client Debug
-	vcbuild -r se_ogre Debug
-	vcbuild -r logic Debug
-	vcbuild -r ui Debug
-	vcbuild -r simple Debug
+	vcbuild se_core Debug
+	vcbuild se_client Debug
+	vcbuild se_ogre Debug
+	vcbuild logic Debug
+	vcbuild ui Debug
+	vcbuild simple Debug
+
+clean:
+	vcbuild -c se_core Release
+	vcbuild -c se_client Release
+	vcbuild -c se_ogre Release
+	vcbuild -c logic Release
+	vcbuild -c ui Release
+	vcbuild -c simple Release
+

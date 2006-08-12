@@ -1,0 +1,9 @@
+OO01
+# Name
+N player.puck
+# Scale with radius
+R
+# Mesh name
+M puck.mesh
+# Quit (end of parsing)
+Q

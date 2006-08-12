@@ -1,0 +1,6 @@
+XO02
+# Camera (name)
+C control.camera
+# Physics (physics name)
+P TrackingCamera
+Q

@@ -1,0 +1,10 @@
+EX01
+P player.puck
+E level1a 0
+/
+C control.camera
+E level1a 0
+V
+T
+/
+Q
