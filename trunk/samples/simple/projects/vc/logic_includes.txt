@@ -1,2 +1,6 @@
-se_client
-se_core
+../../../../core/include
+../../../../core/src
+../../../../add_on/client/include
+../../../../add_on/client/src
+../../logic/include
+../../logic/src

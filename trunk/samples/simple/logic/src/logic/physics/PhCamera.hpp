@@ -5,7 +5,7 @@
 
 namespace logic {
 
-	class PhCamera : public se_core::Physics {
+	class _GameLogicExport PhCamera : public se_core::Physics {
 	public:
 		PhCamera() : se_core::Physics("Camera") {}
 
@@ -27,7 +27,7 @@ namespace logic {
 	};
 
 
-	extern const PhCamera physicsCamera;	
+	extern _GameLogicExport const PhCamera physicsCamera;	
 }
 
 #endif

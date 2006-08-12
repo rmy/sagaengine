@@ -4,7 +4,7 @@
 #include "LogicPre.hpp"
 
 namespace logic {
-	class SimpleAreaThingParserModule  : public se_core::ParserModule {
+	class _GameLogicExport SimpleAreaThingParserModule  : public se_core::ParserModule {
 	public:
 		SimpleAreaThingParserModule(se_core::Parser& parser);
 		virtual ~SimpleAreaThingParserModule();
