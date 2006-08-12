@@ -166,13 +166,14 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
 			>
-			<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
+			<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\OgreUiPre.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp"> </File>
 <Filter Name="ui" Filter="cpp;hpp"><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.hpp"> </File>
-</Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\GameControls.hpp"> </File>
+</Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\SimpleControls.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\SimpleControls.hpp"> </File>
 </Filter><Filter Name="material" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.cpp"> </File>

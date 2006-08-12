@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#include "GameControls.hpp"
-#include "OgreUiPre.H"
+#include "SimpleControls.hpp"
+#include "OgreUiPre.hpp"
 #include "logic/action/all.hpp"
 
 
@@ -31,20 +31,20 @@ using namespace se_ogre;
 
 namespace ui {
 
-	GameControls
-	::GameControls()
-		:  InputHandler("GameControls")
+	SimpleControls
+	::SimpleControls()
+		:  InputHandler("SimpleControls")
 		, dirUp_(0), dirDown_(0), dirLeft_(0), dirRight_(0), dirRollLeft_(0), dirRollRight_(0)
 		, dirForward_(0), dirBackward_(0) {
 	}
 
 
-	GameControls
-	::~GameControls() {
+	SimpleControls
+	::~SimpleControls() {
 	}
 
 
-	void GameControls
+	void SimpleControls
 	::keyPressed(Ogre::KeyEvent* e) {
 		if(ClientSchema::player->hasActiveScript()) {
 			if(O3dSchema::speechBubble)
@@ -102,7 +102,7 @@ namespace ui {
 	}
 
 
-	void GameControls
+	void SimpleControls
 	::keyReleased(Ogre::KeyEvent* e) {
 		switch(e->getKey()) {
 		case Ogre::KC_UP:

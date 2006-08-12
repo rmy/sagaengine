@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef ui_material_Sunlight_hpp
 #define ui_material_Sunlight_hpp
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 
 namespace ui {
 	class _GameUiExport Sunlight : public se_ogre::RenderEventListener {

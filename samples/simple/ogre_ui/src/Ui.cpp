@@ -19,9 +19,9 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 #include "../include/game_ui.hpp"
-#include "ui/input/GameControls.hpp"
+#include "ui/input/SimpleControls.hpp"
 
 using namespace se_core;
 using namespace se_ogre;

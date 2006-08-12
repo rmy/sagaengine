@@ -19,18 +19,18 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 #include "UiSchema.hpp"
 #include "../init/UiInitHandler.hpp"
 #include "../material/Sunlight.hpp"
-#include "../input/GameControls.hpp"
+#include "../input/SimpleControls.hpp"
 
 using namespace se_ogre;
 
 namespace ui {
 	namespace UiSchema {
 		// Create a game controller object
-		GameControls gameControls;
+		SimpleControls simpleControls;
 
 		const struct AutoInit {
 			AutoInit() {
