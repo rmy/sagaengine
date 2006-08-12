@@ -30,7 +30,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ui.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="se_client.lib se_core.lib "
 				AdditionalLibraryDirectories="Debug"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -100,7 +100,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ui.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="se_client.lib se_core.lib "
 				AdditionalLibraryDirectories="Release"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
