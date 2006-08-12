@@ -23,12 +23,12 @@ rune@skalden.com
 #define ui_schema_UiSchema_hpp
 
 #include "util/system/util_system.hpp"
-#include "ui/input/GameControls.hpp"
+#include "ui/input/SimpleControls.hpp"
 
 namespace ui {
 	namespace UiSchema {
 		// Create a game controller object
-		extern _GameUiExport GameControls gameControls;
+		extern _GameUiExport SimpleControls simpleControls;
 
 	}
 

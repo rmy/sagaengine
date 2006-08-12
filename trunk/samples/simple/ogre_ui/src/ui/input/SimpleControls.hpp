@@ -19,18 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef game_GameControls_hpp
-#define game_GameControls_hpp
+#ifndef ui_SimpleControls_hpp
+#define ui_SimpleControls_hpp
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 
 
 namespace ui {
 	// Event handler to add ability to alter curvature
-	class _GameUiExport GameControls : public se_ogre::InputHandler {
+	class _GameUiExport SimpleControls : public se_ogre::InputHandler {
 	public:
-		GameControls();
-		virtual ~GameControls();
+		SimpleControls();
+		virtual ~SimpleControls();
 
 		void keyPressed(Ogre::KeyEvent* e);
 		void keyReleased(Ogre::KeyEvent* e);

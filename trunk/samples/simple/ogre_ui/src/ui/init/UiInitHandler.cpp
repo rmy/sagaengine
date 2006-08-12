@@ -19,10 +19,10 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 #include "UiInitHandler.hpp"
 #include "../schema/UiSchema.hpp"
-#include "../input/GameControls.hpp"
+#include "../input/SimpleControls.hpp"
 
 
 using namespace se_core;
@@ -54,7 +54,7 @@ namespace ui {
 	void UiInitHandler
 	::initGameEvent() {
 		// Give focus to the game controller
-		UiSchema::gameControls.grabFocus();
+		UiSchema::simpleControls.grabFocus();
 	}
 
 

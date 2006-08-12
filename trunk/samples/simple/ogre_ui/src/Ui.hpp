@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef Ui_hpp
 #define Ui_hpp
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 
 namespace ui {
 
