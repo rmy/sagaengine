@@ -12,3 +12,4 @@
 ../../ogre_ui/src
 ../../logic/include
 ../../logic/src
+../../start/src

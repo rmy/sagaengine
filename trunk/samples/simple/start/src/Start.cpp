@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "logic/app/Application.hpp"
+#include "Application.hpp"
 #include <exception>
 #include <stdexcept>
 #include <iostream>

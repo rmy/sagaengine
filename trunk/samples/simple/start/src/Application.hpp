@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef game_app_Application_hpp
-#define game_app_Application_hpp
+#ifndef Application_hpp
+#define Application_hpp
 
 
 namespace logic {
