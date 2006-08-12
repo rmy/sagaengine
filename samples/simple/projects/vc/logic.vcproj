@@ -1,0 +1,209 @@
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.00"
+	Name="logic"
+	ProjectGUID="{4CA704F7-C81E-451B-839E-2FDDB823B7F1}"
+	RootNamespace="logic"
+	Keyword="Win32Proj"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\$(ConfigurationName)"
+			IntermediateDirectory=".\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="ui.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalLibraryDirectories="Debug"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm150"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../../samples/simple/logic/src;;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../logic/include;../../logic/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllimport);_GameLogicExport=__declspec(dllexport);"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\$(ConfigurationName)"
+			IntermediateDirectory=".\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="ui.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalLibraryDirectories="Release"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				OmitFramePointers="true"
+				AdditionalIncludeDirectories="../../../../samples/simple/logic/src;;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../logic/include;../../logic/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameUiExport=__declspec(dllimport);_GameLogicExport=__declspec(dllexport);"
+				StringPooling="true"
+				MintimalRebuild="true"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
+			>
+			<File RelativePath="..\..\..\..\samples\simple\logic\src\LogicPre.hpp"> </File>
+<Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Forward.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Forward.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Jump.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Jump.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\all.hpp"> </File>
+</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\SimpleArea.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\SimpleArea.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\all.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\logic_area.hpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleActorParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleActorParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\all.hpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhCamera.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhCamera.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\all.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\all.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleActorFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleActorFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleCameraFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleCameraFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimplePlayerFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimplePlayerFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\all.hpp"> </File>
+</Filter></Filter>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
+

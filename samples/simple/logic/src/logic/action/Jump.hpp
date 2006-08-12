@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace logic {
-	class Jump : public se_core::Action {
+	class _GameLogicExport Jump : public se_core::Action {
 	public:
 		Jump() : se_core::Action("jump") {}
 
@@ -40,7 +40,7 @@ namespace logic {
 	};
 
 
-	extern const Jump actionJump;
+	extern _GameLogicExport const Jump actionJump;
 }
 
 #endif

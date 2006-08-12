@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/vecmath/util_vecmath.hpp"
 
 namespace logic {
-	class Rotate : public se_core::Action {
+	class _GameLogicExport Rotate : public se_core::Action {
 	public:
 		Rotate() : se_core::Action("player_fly") {}
 
@@ -54,7 +54,7 @@ namespace logic {
 	};
 
 
-	extern const Rotate actionRotate;
+	extern _GameLogicExport const Rotate actionRotate;
 }
 
 #endif

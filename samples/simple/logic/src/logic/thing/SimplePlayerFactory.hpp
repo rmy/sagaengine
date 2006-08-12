@@ -6,7 +6,7 @@
 
 namespace logic {
 
-	class SimplePlayerFactory : public SimpleActorFactory {
+	class _GameLogicExport SimplePlayerFactory : public SimpleActorFactory {
 	public:
 		SimplePlayerFactory(se_core::String* name);
 		~SimplePlayerFactory();
