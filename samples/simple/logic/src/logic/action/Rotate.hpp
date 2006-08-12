@@ -28,7 +28,7 @@ rune@skalden.com
 namespace logic {
 	class _GameLogicExport Rotate : public se_core::Action {
 	public:
-		Rotate() : se_core::Action("player_fly") {}
+		Rotate() : se_core::Action("rotate") {}
 
 		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { 
 			return 1;

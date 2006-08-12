@@ -1,7 +1,2 @@
-ui
-se_ogre
 se_client
 se_core
-OgreGUIRenderer
-OgreMain
-CEGUIBase
