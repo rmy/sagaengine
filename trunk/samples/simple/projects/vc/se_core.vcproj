@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
-				AdditionalLibraryDirectories="Debug"/>
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
@@ -101,7 +101,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies=""
-				AdditionalLibraryDirectories="Release"/>
+				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>

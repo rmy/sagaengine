@@ -30,8 +30,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				AdditionalLibraryDirectories="Debug"/>
+				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
+				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameLogicExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -101,7 +101,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				AdditionalLibraryDirectories="Release"/>
+				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
@@ -118,7 +118,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;/ogre-win32-v1-2-1/ogrenew/OgreMain/include;/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include;/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
+				AdditionalIncludeDirectories="../../../../samples/simple/ogre_ui/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_GameLogicExport=__declspec(dllimport);_GameUiExport=__declspec(dllexport);"
 				StringPooling="true"
 				MintimalRebuild="true"

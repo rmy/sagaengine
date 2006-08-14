@@ -34,6 +34,17 @@ for line in fd.readlines():
 	libraries += line.strip() + ".lib "
 fd.close()
 
+
+libraries_d = ""
+try:
+	fd = open(".template/" + basefile + "_libraries_d.txt", "r")
+	for line in fd.readlines():
+		libraries_d += line.strip() + ".lib "
+	fd.close()
+except:
+	libraries_d = libraries
+
+
 # The root path which all other directories are relative to
 SRC_DIR = os.curdir
 
@@ -135,5 +146,5 @@ if __name__ == '__main__':
 	if(h < 0):
 		h = -h
 
-	print base % (basefile, h, basefile, libraries, inc, defines, libraries, inc, defines, res)
+	print base % (basefile, h, basefile, libraries_d, inc, defines, libraries, inc, defines, res)
 	
