@@ -24,8 +24,8 @@ rune@skalden.com
 
 namespace logic {
 	namespace LogicSchema {
-		_GameLogicExport bool init();
-		_GameLogicExport void cleanup();
+		_SimpleLogicExport bool init();
+		_SimpleLogicExport void cleanup();
 
 	}
 }

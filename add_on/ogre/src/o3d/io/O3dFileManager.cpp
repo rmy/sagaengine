@@ -70,6 +70,7 @@ namespace se_ogre {
 
 		for(const char** f = files; *f != 0; ++f) {
 			is = open(*f);
+			Assert(is);
 			while(!is->eof()) {
 				is->readLine(*s);
 				if(s->isEmpty()) {

@@ -49,7 +49,7 @@ namespace se_core {
 	void String
 	::copy(const char* s) {
 		if(doDestroy_) delete[] data_;
-		char* buffer = new char[strlen(data_) + 1];
+		char* buffer = new char[strlen(s) + 1];
 		strcpy(buffer, s);
 		data_ = buffer;
 		doDestroy_ = true;

@@ -5,7 +5,7 @@
 
 namespace logic {
 
-	class _GameLogicExport SimpleActorParserModule : public se_core::ParserModule {
+	class _SimpleLogicExport SimpleActorParserModule : public se_core::ParserModule {
 	public:
 		SimpleActorParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);
