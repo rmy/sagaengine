@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace ui {
 	// Event handler to add ability to alter curvature
-	class _GameUiExport SimpleControls : public se_ogre::InputHandler {
+	class _SimpleUiExport SimpleControls : public se_ogre::InputHandler {
 	public:
 		SimpleControls();
 		virtual ~SimpleControls();

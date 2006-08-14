@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 
 namespace logic {
-	class _GameLogicExport Forward : public se_core::Action {
+	class _SimpleLogicExport Forward : public se_core::Action {
 	public:
 		Forward() : se_core::Action("Forward") {}
 
@@ -46,7 +46,7 @@ namespace logic {
 	};
 
 
-	extern _GameLogicExport const Forward actionForward;
+	extern _SimpleLogicExport const Forward actionForward;
 }
 
 #endif

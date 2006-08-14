@@ -25,8 +25,8 @@ rune@skalden.com
 #include "Ui.hpp"
 
 namespace ui {
-	bool _GameUiExport initGameModule_PlatformUI();
-	void _GameUiExport cleanupGameModule_PlatformUI();
+	bool _SimpleUiExport initGameModule_PlatformUI();
+	void _SimpleUiExport cleanupGameModule_PlatformUI();
 
 
 }

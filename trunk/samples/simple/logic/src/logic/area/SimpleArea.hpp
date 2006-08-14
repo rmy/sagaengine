@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace logic {
 
-	class _GameLogicExport SimpleArea : public se_core::Area {
+	class _SimpleLogicExport SimpleArea : public se_core::Area {
 	public:
 		enum TerrainStyle {
 			TS_VOID = se_core::Pos::TS_VOID,

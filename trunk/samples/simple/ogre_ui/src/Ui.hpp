@@ -33,7 +33,7 @@ namespace ui {
 	 * for ui, to speed up compilation when compiling
 	 * game logic.
 	 */
-	class _GameUiExport Ui {
+	class _SimpleUiExport Ui {
 	public:
 		Ui();
 		bool init();

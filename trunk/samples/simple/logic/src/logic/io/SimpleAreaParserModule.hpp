@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace logic {
 
-	class _GameLogicExport SimpleAreaParserModule : public se_core::ParserModule {
+	class _SimpleLogicExport SimpleAreaParserModule : public se_core::ParserModule {
 	public:
 		SimpleAreaParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);

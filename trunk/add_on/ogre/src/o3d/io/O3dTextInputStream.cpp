@@ -127,7 +127,6 @@ namespace se_ogre {
 
 	void O3dTextInputStream
 	::readLine(String& dest) {
-		char *tmp;
 		int i=0;
 		while(bufferIndex_<=contentsLength_ && fileContents_[bufferIndex_]!='\n' && fileContents_[bufferIndex_]!='\r') {
 			tmpBuffer_[i++]=fileContents_[bufferIndex_++];
@@ -136,9 +135,7 @@ namespace se_ogre {
 		for (i=0;tmpBuffer_[i];i++) {
 			if(tmpBuffer_[i]=='#') {tmpBuffer_[i]=0; break;}
 		}
-		tmp=new char[ strlen(tmpBuffer_) + 1 ];
-		strcpy(tmp,tmpBuffer_);
-		dest.set(tmp);
+		dest.copy(tmpBuffer_);
 		nextToken();
 	}
 
@@ -190,9 +187,7 @@ namespace se_ogre {
 	void O3dTextInputStream
 	::readString(String& dest) {
 		char *r = readString();
-		char* result = new char[ strlen(r) + 1 ];
-		strcpy(result, r);
-		dest.set(result);
+		dest.copy(r);
 	}
 
 

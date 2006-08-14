@@ -28,7 +28,7 @@ rune@skalden.com
 namespace ui {
 	namespace UiSchema {
 		// Create a game controller object
-		extern _GameUiExport SimpleControls simpleControls;
+		extern _SimpleUiExport SimpleControls simpleControls;
 
 	}
 

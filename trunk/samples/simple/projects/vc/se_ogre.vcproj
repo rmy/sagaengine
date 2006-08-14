@@ -1,6 +1,6 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="se_ogre"
 	ProjectGUID="{02C89403-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_ogre"

@@ -25,8 +25,19 @@ rune@skalden.com
 #ifdef _WINDOWS
 #include <windows.h>
 #endif
+#include <cstdio>
 
 namespace se_err {
+	void dump(const char *s) {
+#	ifdef _WINDOWS
+		OutputDebugString(s);
+		OutputDebugString("\n");
+#	endif
+		fputs(s, stderr);
+		fputs("\n", stderr);
+	}
+
+
 	void scream3(const char* file, int line, const char* msg) {
 		char* buffer = new char[512];
 		sprintf(buffer, "Fat: \"%s\" (%s-%d)", msg, file, line);
@@ -40,16 +51,6 @@ namespace se_err {
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}
-
-	void dump(const char *s) {
-#	ifdef _WINDOWS
-		OutputDebugString(s);
-		OutputDebugString("\n");
-#	endif
-		fputs(s, stderr);
-		fputs("\n", stderr);
-	}
-
 
 	void debugStop() {
 		static int count = 0;
