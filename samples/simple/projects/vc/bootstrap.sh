@@ -10,13 +10,16 @@ python ../../../../tools/python/createVCProjFile.py simple ../../../../env/vc/ap
 
 mkdir Debug
 mkdir Release
-cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/bin/Release/*.dll ./Debug
-cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/bin/Release/*.dll ./Release
 
-cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/lib/*.lib ./Debug
-cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/lib/*.lib ./Release
+cp ../../../../dependencies/bin/release/* Release/
+cp ../../../../dependencies/bin/debug/* Debug/
+#cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/bin/Release/*.dll ./Debug
+#cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/bin/Release/*.dll ./Release
 
-cp /c/ogre-win32-v1-2-1/ogrenew/Dependencies/lib/Release/*.lib ./Debug
-cp /c/ogre-win32-v1-2-1/ogrenew/Dependencies/lib/Release/*.lib ./Release
-cp /c/ogre-win32-v1-2-1/ogrenew/OgreMain/lib/Release/*.lib ./Debug
-cp /c/ogre-win32-v1-2-1/ogrenew/OgreMain/lib/Release/*.lib ./Release
+#cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/lib/*.lib ./Debug
+#cp /c/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/lib/*.lib ./Release
+
+#cp /c/ogre-win32-v1-2-1/ogrenew/Dependencies/lib/Release/*.lib ./Debug
+#cp /c/ogre-win32-v1-2-1/ogrenew/Dependencies/lib/Release/*.lib ./Release
+#cp /c/ogre-win32-v1-2-1/ogrenew/OgreMain/lib/Release/*.lib ./Debug
+#cp /c/ogre-win32-v1-2-1/ogrenew/OgreMain/lib/Release/*.lib ./Release

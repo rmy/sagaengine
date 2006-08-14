@@ -1,7 +1,7 @@
-/ogre-win32-v1-2-1/ogrenew/OgreMain/include
-/ogre-win32-v1-2-1/ogrenew/Samples/Common/CEGUIRenderer/include
-/ogre-win32-v1-2-1/ogrenew/Dependencies/include
-/ogre-win32-v1-2-1/ogrenew/Dependencies/include/CEGUI
+../../../../dependencies/include/ogre
+../../../../dependencies/include/ogre/opt
+../../../../dependencies/include/ogre/CEGUI
+../../../../dependencies/include/ogre/samples
 ../../../../core/include
 ../../../../core/src
 ../../../../add_on/client/include
