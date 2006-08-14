@@ -31,7 +31,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ui.lib logic.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="ui.lib logic.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
