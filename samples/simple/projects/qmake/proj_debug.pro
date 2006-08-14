@@ -37,6 +37,6 @@ INCLUDEPATH += $${OGRE}
 DESTDIR = $${SAGAENGINE}/samples/simple/projects/qmake
 
 DEFINES *= IS_OGRE DEBUG_LEVEL_2
-DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport= _GameUiExport=
+DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport= _GameUiExport= _GameLogicExport=
 
 message(Destdir: $$DESTDIR )
