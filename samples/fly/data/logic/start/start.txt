@@ -1,0 +1,10 @@
+EX01
+P player.puck
+E 3.3 0
+/
+C control.camera
+E 3.3 0
+V
+T
+/
+Q

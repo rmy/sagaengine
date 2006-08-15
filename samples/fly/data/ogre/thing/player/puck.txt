@@ -1,0 +1,6 @@
+OO01
+N player.puck
+R
+M puck.mesh
+S 0.2
+Q
