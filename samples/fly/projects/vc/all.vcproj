@@ -56,7 +56,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -147,7 +147,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;"
 				StringPooling="true"
 				MintimalRebuild="true"
@@ -201,8 +201,11 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc"
 			>
-			<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
+			<File RelativePath="..\..\start\src\Application.cpp"> </File>
+<File RelativePath="..\..\start\src\Application.hpp"> </File>
+<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\OgreUiPre.hpp"> </File>
+<File RelativePath="..\..\start\src\Start.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.hpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\game_ui.cpp"> </File>
