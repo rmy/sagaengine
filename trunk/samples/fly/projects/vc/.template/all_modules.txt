@@ -3,3 +3,4 @@
 ../../../../add_on/ogre/src
 ../../ogre_ui/src
 ../../logic/src
+../../start/src
