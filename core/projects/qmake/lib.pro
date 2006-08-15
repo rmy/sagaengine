@@ -1,7 +1,3 @@
-!include( ../../../env/qmake/proj.pro ) {
-    warning("(SAGAENGINE)/env/qmake/proj.pro is missing")
-}
-
 message( "[ core settings ]")
 
 CONFIG += lib
@@ -13,6 +9,12 @@ DEFINES *= _SeClientExport=
 include( src.pro )
 
 INCLUDEPATH = ../../src
+
+!include( ../../../env/qmake/proj.pro ) {
+    warning("(SAGAENGINE)/env/qmake/proj.pro is missing")
+}
+
+
 
 message( Config: $$CONFIG )
 message( Target: $$TARGET )

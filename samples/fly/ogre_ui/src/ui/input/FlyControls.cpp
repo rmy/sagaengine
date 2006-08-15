@@ -120,6 +120,13 @@ namespace ui {
 		case Ogre::KC_ESCAPE:
 			SimSchema::simEngine.setGameOver(true);
 			break;
+
+		case Ogre::KC_INSERT:
+			{
+				static int shot = 0;
+				O3dSchema::renderEngine->screenshot(shot++);
+			}
+			break;
 		}
 
 		static Parameter p;
