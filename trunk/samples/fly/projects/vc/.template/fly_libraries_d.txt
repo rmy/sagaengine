@@ -1,0 +1,8 @@
+ui
+logic
+se_ogre
+se_client
+se_core
+OgreGUIRenderer_d
+OgreMain_d
+CEGUIBase_d

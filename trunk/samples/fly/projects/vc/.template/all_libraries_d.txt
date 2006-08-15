@@ -1,0 +1,3 @@
+OgreGUIRenderer_d
+OgreMain_d
+CEGUIBase_d
