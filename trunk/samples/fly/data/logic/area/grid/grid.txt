@@ -1,0 +1,11 @@
+XA02
+64 64
+T tile00 RYGB
+T tile01 GBGB
+T tile02 RYRY
+T tile03 GBRY
+T tile04 RBGY
+T tile05 GYGY
+T tile06 RBRB
+T tile07 GYRB
+Q

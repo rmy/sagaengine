@@ -1,0 +1,138 @@
+material tile00
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile00.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+material tile01
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile01.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+material tile02
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile02.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+material tile03
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile03.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+material tile04
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile04.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+
+material tile05
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile05.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+
+material tile06
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile06.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}
+
+
+material tile07
+{
+	technique
+	{
+		ligthing off
+
+		pass
+		{
+			texture_unit
+			{
+				texture tile07.jpg
+				tex_coord_set 0
+			}
+		}
+	}
+}

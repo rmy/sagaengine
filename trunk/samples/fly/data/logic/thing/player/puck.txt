@@ -1,0 +1,10 @@
+XO02
+P player.puck
+R 0.6
+C default
+P Simple
+# Camera
+E 0 T 0 .2 1 R 0 15 0 /
+# Stones
+E 1 T 0 0.9 0.5 R 180 0 0 /
+Q
