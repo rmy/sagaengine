@@ -1,0 +1,5 @@
+_SeOgreExport=__declspec(dllimport)
+_SeClientExport=__declspec(dllimport)
+_SeCoreExport=__declspec(dllimport)
+_SimpleUiExport=__declspec(dllimport)
+_SimpleLogicExport=__declspec(dllexport)

@@ -1,0 +1,2 @@
+../../../../add_on/client/src
+
