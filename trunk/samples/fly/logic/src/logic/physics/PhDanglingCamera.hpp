@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace logic {
 
-	class PhDanglingCamera : public se_core::Physics {
+	class _FlyLogicExport PhDanglingCamera : public se_core::Physics {
 	public:
 		PhDanglingCamera() : se_core::Physics("DanglingCamera") {}
 

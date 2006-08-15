@@ -27,10 +27,10 @@ rune@skalden.com
 namespace logic {
 	namespace LogicSchema {
 
-		extern AreaWangGrid* areaGrid;
+		extern _FlyLogicExport AreaWangGrid* areaGrid;
 
-		bool init();
-		void cleanup();
+		_FlyLogicExport bool init();
+		_FlyLogicExport void cleanup();
 
 	}
 }

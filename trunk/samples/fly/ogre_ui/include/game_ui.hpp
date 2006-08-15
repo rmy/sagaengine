@@ -23,18 +23,18 @@ rune@skalden.com
 #define platform_ui_hpp
 
 namespace ui {
-	bool initGameModule_PlatformUI();
-	void cleanupGameModule_PlatformUI();
+	_FlyUiExport bool initGameModule_PlatformUI();
+	_FlyUiExport void cleanupGameModule_PlatformUI();
 
 
 	/**
-	 * This is a small class that the game logic module
+	 * This is a small class _FlyUiExport that the game logic module
 	 * uses to start the user interface. This is all
 	 * that the game logic module should need to include
 	 * for ui, to speed up compilation when compiling
 	 * game logic.
 	 */
-	class Ui {
+	class _FlyUiExport Ui {
 	public:
 		Ui();
 		bool init();

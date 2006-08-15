@@ -1,2 +1,4 @@
 ../../../../core/include
 ../../../../core/src
+../../logic/include
+../../logic/src

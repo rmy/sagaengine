@@ -44,11 +44,11 @@ namespace logic {
 		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
 		float r = ::sqrt(speed);
 		p->torque_.set(
-					BrayT::fromDeg(dirLR * .5  / r)
-					, BrayT::fromDeg(-dirUD * .5 / r)
+					BrayT::fromDeg(dirLR * .5f  / r)
+					, BrayT::fromDeg(-dirUD * .5f / r)
 					, BrayT::fromDeg(dirRoll * 1 / r)
 					);
-		p->speed_ = 0.15 * speed;
+		p->speed_ = 0.15f * speed;
 	}
 
 

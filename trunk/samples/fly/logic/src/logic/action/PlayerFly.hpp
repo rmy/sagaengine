@@ -27,7 +27,7 @@ rune@skalden.com
 #include "util/vecmath/Euler3.hpp"
 
 namespace logic {
-	class PlayerFly : public se_core::Action {
+	class _FlyLogicExport PlayerFly : public se_core::Action {
 	public:
 		PlayerFly() : se_core::Action("player_fly") {}
 
@@ -56,7 +56,7 @@ namespace logic {
 	};
 
 
-	extern const PlayerFly actionPlayerFly;
+	extern _FlyLogicExport const PlayerFly actionPlayerFly;
 }
 
 #endif

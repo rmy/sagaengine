@@ -5,7 +5,7 @@
 
 
 namespace logic {
-	extern const class ScCamera : public se_core::ReentrantScript {
+	extern _FlyLogicExport const class _FlyLogicExport ScCamera : public se_core::ReentrantScript {
 	public:
 		ScCamera();
 

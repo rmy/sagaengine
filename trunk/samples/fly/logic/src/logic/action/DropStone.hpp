@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/vecmath/util_vecmath.hpp"
 
 namespace logic {
-	class DropStone : public se_core::Action {
+	class _FlyLogicExport DropStone : public se_core::Action {
 	public:
 		DropStone() : se_core::Action("player_fly") {}
 
@@ -44,7 +44,7 @@ namespace logic {
 	};
 
 
-	extern const DropStone actionDropStone;
+	extern _FlyLogicExport const DropStone actionDropStone;
 }
 
 #endif

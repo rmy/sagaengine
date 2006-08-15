@@ -6,7 +6,7 @@
 
 namespace logic {
 
-	class AreaWangGrid {
+	class _FlyLogicExport AreaWangGrid {
 	public:
 		AreaWangGrid(int xSize, int zSize);
 		~AreaWangGrid();

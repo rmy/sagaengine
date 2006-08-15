@@ -28,7 +28,7 @@ rune@skalden.com
 
 namespace logic {
 
-	class SimpleAreaFactory : public se_core::AreaFactory {
+	class _FlyLogicExport SimpleAreaFactory : public se_core::AreaFactory {
 	public:
 		SimpleAreaFactory(se_core::String* name, coor_tile_t w, coor_tile_t h, se_core::ByteArray* data = 0);
 		~SimpleAreaFactory();

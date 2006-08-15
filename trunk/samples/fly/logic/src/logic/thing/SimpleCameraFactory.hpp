@@ -6,7 +6,7 @@
 
 namespace logic {
 
-	class _SimpleLogicExport SimpleCameraFactory : public SimpleActorFactory {
+	class _FlyLogicExport SimpleCameraFactory : public SimpleActorFactory {
 	public:
 		SimpleCameraFactory(se_core::String* name);
 		~SimpleCameraFactory();
