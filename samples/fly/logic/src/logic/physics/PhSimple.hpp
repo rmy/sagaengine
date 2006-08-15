@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace logic {
 
-	class PhSimple : public se_core::Physics {
+	class _FlyLogicExport PhSimple : public se_core::Physics {
 	public:
 		PhSimple() : se_core::Physics("Simple") {}
 

@@ -25,6 +25,8 @@ rune@skalden.com
 #include "sim/stat/all.hpp"
 #include "sim/area/Area.hpp"
 
+#ifdef SE_OWN_MOVE
+
 namespace se_core {
 
 	Move
@@ -57,3 +59,5 @@ namespace se_core {
 
 
 }
+
+#endif

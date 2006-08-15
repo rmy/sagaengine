@@ -19,7 +19,6 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.hpp"
 #include "PhSimple.hpp"
 #include "../area/SimpleArea.hpp"
 
@@ -55,7 +54,7 @@ namespace logic {
 		nextPos.localCoor().add(v);
 
 		// Friction
-		nextMove.velocity_.scale(0.8);
+		nextMove.velocity_.scale(0.8f);
 
 		// Update world viewpoint
 		nextPos.updateWorldViewPoint();
@@ -93,18 +92,18 @@ namespace logic {
 		nextPos.localFace().normalize();
 
 		// Friction
-		nextMove.angularVelocity_.scale(0.9);
-		nextPos.localFace().roll_ = BrayT::scale(0.8, nextPos.localFace().roll_);
-		nextPos.localFace().pitch_ = BrayT::scale(0.85, nextPos.localFace().pitch_);
+		nextMove.angularVelocity_.scale(0.9f);
+		nextPos.localFace().roll_ = BrayT::scale(0.8f, nextPos.localFace().roll_);
+		nextPos.localFace().pitch_ = BrayT::scale(0.85f, nextPos.localFace().pitch_);
 
 		// Some steering noise
 		static Perlin p;
 
-		float s = p.noise(pos.localCoor().x_ * 0.025, pos.localCoor().y_ * 0.025, pos.localCoor().y_ * 0.025, 9, 9, 9, true, true, true) * 2;
+		float s = p.noise(pos.localCoor().x_ * 0.025f, pos.localCoor().y_ * 0.025f, pos.localCoor().y_ * 0.025f, 9, 9, 9, true, true, true) * 2;
 		Euler3 noise(
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().x_, pos.localCoor().y_, 1, 1, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().y_, pos.localCoor().z_, 1, 1, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().z_, pos.localCoor().x_, 1, 1, true, true)))
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().x_, pos.localCoor().y_, 1, 1, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().y_, pos.localCoor().z_, 1, 1, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().z_, pos.localCoor().x_, 1, 1, true, true)))
 				   );
 		noise.scale(s);
 		nextPos.localFace().add(noise);

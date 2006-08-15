@@ -30,10 +30,10 @@ rune@skalden.com
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/Vector3.hpp"
 
-
+#ifdef SE_OWN_MOVE
 namespace se_core {
 
-	class Move {
+	class _FlyLogicExport Move {
 	public:
 		//
 		Vector3 velocity_; // Velocity - the speed and direction at which the position changes
@@ -138,5 +138,7 @@ namespace se_core {
 
 
 }
+
+#endif
 
 #endif

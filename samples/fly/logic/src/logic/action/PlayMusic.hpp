@@ -26,7 +26,7 @@ rune@skalden.com
 #include "util/vecmath/util_vecmath.hpp"
 
 namespace logic {
-	class PlayMusic : public se_core::Action {
+	class _FlyLogicExport PlayMusic : public se_core::Action {
 	public:
 		PlayMusic() : se_core::Action("player_fly") {}
 
@@ -44,7 +44,7 @@ namespace logic {
 	};
 
 
-	extern const PlayMusic actionPlayMusic;
+	extern _FlyLogicExport const PlayMusic actionPlayMusic;
 }
 
 #endif

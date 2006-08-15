@@ -29,9 +29,9 @@ namespace logic {
 		REENTRANT(data) {
 			START;
 
-			PERFORM(actionPlayMusic, __LINE__);
+			PERFORM(actionPlayMusic, 1);
 
-			PERFORM(actionPopScript, __LINE__);
+			PERFORM(actionPopScript, 2);
 		}
 		LogFatal("Shouldn't happen");
 		return 0;

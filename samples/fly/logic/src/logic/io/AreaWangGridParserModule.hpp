@@ -5,7 +5,7 @@
 
 namespace logic {
 
-	class AreaWangGridParserModule : public se_core::ParserModule {
+	class _FlyLogicExport AreaWangGridParserModule : public se_core::ParserModule {
 	public:
 		AreaWangGridParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);

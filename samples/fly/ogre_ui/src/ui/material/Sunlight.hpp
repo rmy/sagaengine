@@ -25,7 +25,7 @@ rune@skalden.com
 #include "OgreUiPre.hpp"
 
 namespace ui {
-	class Sunlight : public se_ogre::RenderEventListener {
+	class _FlyUiExport Sunlight : public se_ogre::RenderEventListener {
 	public:
 		Sunlight();
 		void init();

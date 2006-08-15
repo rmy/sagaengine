@@ -18,7 +18,7 @@ rel: Release/OgreMain.dll
 	vcbuild se_ogre Release
 	vcbuild logic Release
 	vcbuild ui Release
-	vcbuild simple Release
+	vcbuild fly Release
 
 dbg: Debug/OgreMain_d.dll
 	vcbuild se_core Debug
@@ -26,7 +26,7 @@ dbg: Debug/OgreMain_d.dll
 	vcbuild se_ogre Debug
 	vcbuild logic Debug
 	vcbuild ui Debug
-	vcbuild simple Debug
+	vcbuild fly Debug
 
 clean:
 	vcbuild -c se_core
@@ -34,7 +34,7 @@ clean:
 	vcbuild -c se_ogre
 	vcbuild -c logic
 	vcbuild -c ui
-	vcbuild -c simple
+	vcbuild -c fly
 
 Release/OgreMain.dll:
 	xcopy ..\..\..\..\dependencies\bin\release\* Release\

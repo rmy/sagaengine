@@ -19,7 +19,6 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.hpp"
 #include "PhDanglingCamera.hpp"
 #include "../area/SimpleArea.hpp"
 
