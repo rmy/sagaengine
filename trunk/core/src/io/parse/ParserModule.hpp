@@ -28,9 +28,34 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport ParserModule {
 	public:
-		enum ModuleCode { AREA = 'A', HEIGHTMAP_AREA = 'H', MENU = 'M', RANDOM_AREA = 'R', AREA_THINGS = 'B', RANDOM_AREA_THINGS = 'C', TERRAIN = 'T', THING = 'O', LANGUAGE = 'L', SPEECH_POSITION = 'P', CUTSCENE = 'S', PLAYER = 'X', PLUGIN = 'Z' };
+		enum ModuleCode { 
+			AREA = 'A'
+			, AREA_THINGS = 'B'
+			, RANDOM_AREA_THINGS = 'C'
+			, CONFIG = 'F'
+			, HEIGHTMAP_AREA = 'H'
+			, LANGUAGE = 'L'
+			, MENU = 'M'
+			, THING = 'O'
+			, SPEECH_POSITION = 'P'
+			, RANDOM_AREA = 'R'
+			, CUTSCENE = 'S'
+			, TERRAIN = 'T'
+			, PLAYER = 'X'
+			, PLUGIN = 'Z'
+		};
 
-		enum ModuleGroup { ENGINE = 'E', CLIENT = 'C', SDL = 'S', GBA = 'G', OGRE = 'O', UI = 'U', GAME = 'X', FMOD = 'F' };
+		enum ModuleGroup { 
+			ENGINE = 'E'
+			, CLIENT = 'C'
+			, SDL = 'S'
+			, GBA = 'G'
+			, OGRE = 'O'
+			, LOGIC = 'L'
+			, UI = 'U'
+			, GAME = 'X'
+			, FMOD = 'F' 
+		};
 
 		ParserModule(Parser &parser, unsigned char group, unsigned char code, int version);
 		virtual ~ParserModule() {}
