@@ -28,6 +28,14 @@ for line in fd.readlines():
 	defines += line.strip() + ";"
 fd.close()
 
+try:
+	fd = open(".template/" + basefile + "defines.txt", "r")
+	for line in fd.readlines():
+		defines += line.strip() + ";"
+		fd.close()
+except:
+	pass
+
 libraries = ""
 fd = open(".template/" + basefile + "_libraries.txt", "r")
 for line in fd.readlines():
