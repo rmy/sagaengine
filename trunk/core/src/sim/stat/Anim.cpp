@@ -22,40 +22,35 @@ rune@skalden.com
 #include "Anim.hpp"
 
 namespace se_core {
-
 	int Anim::MOVEMENT_MODE_COUNT = 12;
 
-
 	Anim
-	::Anim() : movementMode_(0)
-			   , movementStartedWhen_(0)
-	{
+	::Anim() {
 	}
 
 
 	void Anim
 	::setAnim(const Anim& original) {
-		movementMode_ = original.movementMode_;
+		states_[0] = original.states_[0];
 	}
 
 
 	void Anim
 	::setMovementMode(short mode) {
-		movementMode_ = mode;
+		states_[0].movementMode_ = mode;
 	}
 
 
 	void Anim
 	::setMovementMode(long when, short mode) {
-		movementStartedWhen_ = when;
-		movementMode_ = mode;
+		states_[0].movementStartedWhen_ = when;
+		states_[0].movementMode_ = mode;
 	}
 
 
 	short Anim
 	::movementMode() const {
-		return movementMode_;
+		return states_[0].movementMode_;
 	}
-
 
 }

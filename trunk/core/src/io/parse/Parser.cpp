@@ -28,7 +28,8 @@ rune@skalden.com
 namespace se_core {
 
 	Parser
-	::Parser() : moduleCount_(0) {
+	::Parser()
+		: moduleCount_(0) {
 	}
 
 

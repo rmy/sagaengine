@@ -36,7 +36,7 @@ INCLUDEPATH += $${OGRE}
 
 DESTDIR = $${SAGAENGINE}/samples/fly/projects/qmake
 
-DEFINES *= SE_OWN_MOVE
+DEFINES *= SE_DOUBLE
 DEFINES *= IS_OGRE DEBUG_LEVEL_2
 DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport=
 DEFINES *= _SimpleUiExport= _SimpleLogicExport=

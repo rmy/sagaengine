@@ -244,7 +244,7 @@ namespace se_core {
 
 			// Any change in render position?
 			didMove_ = nextPos().didParentMove() || !nextPos().localEquals(position_.local_);
-			if(didMove_) { updateWorldViewPoint(); }
+			//if(didMove_) { updateWorldViewPoint(); }
 			return didMove_;
 		}
 

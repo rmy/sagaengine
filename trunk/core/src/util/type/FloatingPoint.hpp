@@ -24,16 +24,22 @@ rune@skalden.com
 
 #ifndef SE_FIXED_POINT
 
+#ifdef SE_DOUBLE
+typedef double coor_t;
+typedef double coor_double_t;
+typedef double trig_t;
+#else
 typedef float coor_t;
+typedef float coor_double_t;
+typedef float trig_t;
+#endif
+
 typedef int coor_tile_t;
 typedef coor_t coor_in_t;
 typedef coor_t quat_t;
 
-typedef float coor_double_t;
 typedef coor_double_t scale_t;
 typedef coor_double_t coor_world_t;
-
-typedef float trig_t;
 
 //static const coor_double_t COOR_T_MAX = 0x7fffffff;
 //static const coor_double_t COOR_T_MIN = -COOR_T_MAX - 1;

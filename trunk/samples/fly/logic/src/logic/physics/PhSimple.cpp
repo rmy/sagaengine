@@ -101,16 +101,25 @@ namespace logic {
 
 		float s = p.noise(pos.localCoor().x_ * 0.025f, pos.localCoor().y_ * 0.025f, pos.localCoor().y_ * 0.025f, 9, 9, 9, true, true, true) * 2;
 		Euler3 noise(
-					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().x_, pos.localCoor().y_, 1, 1, true, true))),
-					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().y_, pos.localCoor().z_, 1, 1, true, true))),
-					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().z_, pos.localCoor().x_, 1, 1, true, true)))
+					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().x_ * 0.125, pos.localCoor().y_ * 0.125, 9, 9, true, true))),
+					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().y_ * 0.125, pos.localCoor().z_ * 0.125, 9, 9, true, true))),
+					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().z_ * 0.125, pos.localCoor().x_ * 0.125, 9, 9, true, true)))
 				   );
+		/*
+		Euler3 noise(
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().x_, pos.localCoor().y_, 72, 72, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().y_, pos.localCoor().z_, 72, 72, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().z_, pos.localCoor().x_, 72, 72, true, true)))
+				   );
+		*/
 		noise.scale(s);
 		nextPos.localFace().add(noise);
 
 
 		// Calc navigation mesh triangle id
 		nextPos.updateWorldViewPoint();
+
+		//LogMsg(nextPos.world_.toLog());
 
 	}
 

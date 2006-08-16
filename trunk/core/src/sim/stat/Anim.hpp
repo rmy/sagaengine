@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef sim_stat_Anim_hpp
 #define sim_stat_Anim_hpp
 
+#include "util/type/util_type.hpp"
 #include "../config/sim_config.hpp"
 
 namespace se_core {
@@ -72,18 +73,38 @@ namespace se_core {
 		 * @param when The present adjusted game clock (milliseconds).
 		 * @return The present gameClock - when the movement mode started
 		 */
-		long movementWhen(long when) const { return when - movementStartedWhen_; }
+		long movementWhen(long when) const { return when - states_[0].movementStartedWhen_; }
+		long movementWhen(int index, long when) const { return when - states_[0].movementStartedWhen_; }
 
 		static void setMovementModeCount(int c) { MOVEMENT_MODE_COUNT = c; }
 		static int MOVEMENT_MODE_COUNT;
 
 	private:
-		/** The movement mode. Signifies which animation should be shown. */
-		short movementMode_;
+		enum { MAX_ANIMS = 4 };
 
-		/** The time when the movement mode (animation) started. */
-		long movementStartedWhen_;
+		struct State {
+			State() :
+				movementMode_(0),
+				movementStartedWhen_(0),
+				weight_(0),
+				isFrozen_(false),
+				isActive_(false) {				
+			}
 
+			/** The movement mode. Signifies which animation should be shown. */
+			short movementMode_;
+
+			/** The time when the movement mode (animation) started. */
+			long movementStartedWhen_;
+
+			scale_t weight_;
+
+			bool isFrozen_;
+
+			bool isActive_;
+		} states_[ MAX_ANIMS ];
+
+		
 	};
 
 }
