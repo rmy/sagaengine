@@ -19,16 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_O3dConfigParserModule_hpp
-#define o3d_io_O3dConfigParserModule_hpp
+#ifndef o3d_io_O3dAreaParserModule_hpp
+#define o3d_io_O3dAreaParserModule_hpp
 
 #include "io/parse/ParserModule.hpp"
 #include "io/stream/io_stream.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dConfigParserModule  : public se_core::ParserModule {
+	class _SeOgreExport O3dAreaParserModule  : public se_core::ParserModule {
 	public:
-		O3dConfigParserModule(se_core::Parser& parser);
+		O3dAreaParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);
 
 	private:
