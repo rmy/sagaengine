@@ -41,7 +41,7 @@ using namespace se_core;
 namespace se_ogre {
 	O3dAreaParserModule
 	::O3dAreaParserModule(Parser& parser)
-		: ParserModule(parser, ParserModule::OGRE, ParserModule::CONFIG, 1) {
+		: ParserModule(parser, ParserModule::OGRE, ParserModule::AREA, 1) {
 	}
 
 
@@ -53,7 +53,7 @@ namespace se_ogre {
 			case 'D': 
 				{ // Dome
 					String material;
-					in.readString(name);
+					in.readString(material);
 				}
 				break;
 				

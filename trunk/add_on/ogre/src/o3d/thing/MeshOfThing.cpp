@@ -29,61 +29,75 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_ogre {
-	MeshOfThing
-	::~MeshOfThing() {
-		while(meshCount_ > 0) {
-			--meshCount_;
-			delete thingNames_[ meshCount_ ];
-			delete factories_[ meshCount_ ];
-			delete params_[ meshCount_ ];
-			for(int i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
-				delete animations_[ meshCount_ ][ i ];
-				delete materials_[ meshCount_ ][ i ];
-			}
-			delete[] animations_[ meshCount_ ];
-			delete[] materials_[ meshCount_ ];
+
+	MeshInfo
+	::MeshInfo() : scale_(1.0f), billboardIn_(0), meshOut_(200.0) {
+		animations_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
+		animationSpeeds_ = new float[ Anim::MOVEMENT_MODE_COUNT ];
+		materials_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
+		for(int i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
+			animationSpeeds_[i] = 0;
 		}
 	}
 
 
+	MeshInfo
+	::~MeshInfo() {
+		delete[] animations_;
+		delete[] animationSpeeds_;
+		delete[] materials_;
+	}
+
+
+	MeshOfThing
+	::MeshOfThing() : meshCount_(0) {
+		meshInfo_ = new MeshInfo*[100];
+	}
+
+
+	MeshOfThing
+	::~MeshOfThing() {
+		while(meshCount_ > 0) {
+			--meshCount_;
+			delete meshInfo_[ meshCount_ ];
+		}
+		delete meshInfo_;
+	}
+
+
 	void MeshOfThing
-	::add(String* thingName
-		  , se_core::String* factoryName
-		  , Ogre::NameValuePairList* params
-		  , String* defaultMaterialName
-		  , bool doScaleByRadius
-		  , float scale
-		  , String** animations
-		  , float* animationSpeeds
-		  , String** animationMaterials
-		  , float meshOut
-		  , float billboardIn) {
-		Assert(meshCount_ < MAX_MESH_COUNT);
-		Assert(thingName);
-		Assert(factoryName);
-		// TODO: Should sort...
-		thingNames_[ meshCount_ ] = thingName;
-		factories_[ meshCount_ ] = factoryName;
-		params_[ meshCount_ ] = params;
-		defaultMaterials_[ meshCount_ ] = defaultMaterialName;
-		scales_[ meshCount_ ] = scale;
-		doScaleByRadius_[ meshCount_ ] = doScaleByRadius;
-		animations_[ meshCount_ ] = animations;
-		animationSpeeds_[ meshCount_ ] = animationSpeeds;
-		materials_[ meshCount_ ] = animationMaterials;
-		meshOut_[ meshCount_ ] = meshOut;
-		billboardIn_[ meshCount_ ] = billboardIn;
+	::add(MeshInfo* meshInfo) {
+		// Insert - keep sorted
+		int i = meshCount_;
+		while(i > 0 && meshInfo->thingName_.compare(meshInfo_[--i]->thingName_) < 0) {
+			meshInfo_[ i + 1 ] = meshInfo_[i];
+		}
+		meshInfo_[i] = meshInfo;
 		++meshCount_;
+		LogMsg("Added meshinfo for: " << meshInfo->thingName_);
 	}
 
 
 	short MeshOfThing
 	::index(const char* thingName) {
-		for(int i = 0; i < meshCount_; ++i) {
-			if(strcmp(thingName, thingNames_[i]->get()) == 0) {
-				return i;
+		int min = 0;
+		int max = meshCount_ - 1;
+
+		// Binary search
+		while(max >= min) {
+			int middle = (min + max) << 1;
+			int cmp = meshInfo_[ middle ]->thingName_.compare( thingName );
+			if(cmp < 0) {
+				min = middle + 1;
+			}
+			else if(cmp > 0) {
+				max = middle - 1;
+			}
+			else {
+				return middle;
 			}
 		}
+
 		return -1;
 	}
 
@@ -91,8 +105,8 @@ namespace se_ogre {
 	const char* MeshOfThing
 	::factory(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		if(factories_[index])
-			return factories_[index]->get();
+		if(!meshInfo_[index]->factory_.isEmpty())
+			return meshInfo_[index]->factory_.get();
 		return 0;
 	}
 
@@ -100,14 +114,14 @@ namespace se_ogre {
 	Ogre::NameValuePairList* MeshOfThing
 	::params(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		return params_[index];
+		return &meshInfo_[index]->params_;
 	}
 
 
 	float MeshOfThing
 	::animationSpeed(short index, short animId) {
 		Assert(index >= 0 && index < meshCount_);
-		return animationSpeeds_[index][animId];
+		return meshInfo_[index]->animationSpeeds_[animId];
 	}
 
 
@@ -115,8 +129,8 @@ namespace se_ogre {
 	::defaultMaterial(short index) {
 		Assert(index >= 0 && index < meshCount_);
 
-		if(defaultMaterials_[index])
-			return defaultMaterials_[index]->get();
+		if(!meshInfo_[index]->defaultMaterial_.isEmpty())
+			return meshInfo_[index]->defaultMaterial_.get();
 		return 0;
 	}
 
@@ -124,8 +138,8 @@ namespace se_ogre {
 	const char* MeshOfThing
 	::material(short index, short animId) {
 		Assert(index >= 0 && index < meshCount_);
-		if(materials_[index][animId])
-			return materials_[index][animId]->get();
+		if(!meshInfo_[index]->materials_[animId].isEmpty())
+			return meshInfo_[index]->materials_[animId].get();
 		return 0;
 	}
 
@@ -133,36 +147,36 @@ namespace se_ogre {
 	float MeshOfThing
 	::scale(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		return scales_[index];
+		return meshInfo_[index]->scale_;
 	}
 
 
 	float MeshOfThing
 	::meshOut(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		return meshOut_[index];
+		return meshInfo_[index]->meshOut_;
 	}
 
 
 	float MeshOfThing
 	::billboardIn(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		return billboardIn_[index];
+		return meshInfo_[index]->billboardIn_;
 	}
 
 
 	bool MeshOfThing
 	::doScaleByRadius(short index) {
 		Assert(index >= 0 && index < meshCount_);
-		return doScaleByRadius_[index];
+		return meshInfo_[index]->doScaleByRadius_;
 	}
 
 
 	const char* MeshOfThing
 	::animation(short index, short animId) {
 		Assert(index >= 0 && index < meshCount_);
-		if(animations_[index][animId]) {
-			return animations_[index][animId]->get();
+		if(!meshInfo_[index]->animations_[animId].isEmpty()) {
+			return meshInfo_[index]->animations_[animId].get();
 		}
 		return 0;
 	}

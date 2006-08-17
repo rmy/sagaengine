@@ -45,6 +45,7 @@ namespace se_ogre {
 
 		// Find which mesh this thing should use
 		short index = O3dSchema::meshOfThing.index(thing_->name());
+
 		Assert(index >= 0);
 		const char* factory = O3dSchema::meshOfThing.factory(index);
 		Ogre::NameValuePairList* params = O3dSchema::meshOfThing.params(index);
@@ -61,7 +62,7 @@ namespace se_ogre {
 		char name[128];
 		sprintf(name, "%d-%s", thing_->id(), thing_->name());
 
-		// Create and setentity
+		// Create and set entity
 		setEntity(name, factory, params, scale_);
 
 		// Get and set animation associated with this thing
@@ -386,6 +387,7 @@ namespace se_ogre {
 										   , bbs->getDefaultHeight() * scale);
 			}
 		}
+
 		// Add passed time to the animation state
 		if(state_) state_->addTime(timeSinceLastFrame * speed_);
 	}

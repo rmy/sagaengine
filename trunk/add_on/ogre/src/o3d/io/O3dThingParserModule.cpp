@@ -47,52 +47,38 @@ namespace se_ogre {
 
 	void O3dThingParserModule
 	::parse(InputStream& in) {
-		WasHere();
-		String* name = 0;
-		String* mesh = 0;
-		String* factory = 0;
-		Ogre::NameValuePairList& params = *(new Ogre::NameValuePairList());
-		String* material = 0;
-		String** animations = new String*[ Anim::MOVEMENT_MODE_COUNT ];
-		float* animationSpeeds = new float[ Anim::MOVEMENT_MODE_COUNT ];
-		String** materials = new String*[ Anim::MOVEMENT_MODE_COUNT ];
-		bool doScaleByRadius = false;
-		float scale = 1.0f, billboardIn = 0.0f, meshOut = 20.0f;
+		MeshInfo* info = new MeshInfo();
 
-		WasHere();
-		for(short i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
-			animations[ i ] = 0;
-			animationSpeeds[ i ] = 0;
-			materials[ i ] = 0;
-		}
-
-		WasHere();
 		int code;
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'N': // Name
-				name = new String();
-				in.readString(*name);
+				in.readString(info->thingName_);
 				break;
 
 			case 'M': // Mesh
-				mesh = new String();
-				in.readString(*mesh);
+				{
+					String mesh;
+					in.readString(mesh);
+					info->factory_.set(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
+					info->params_["mesh"] = mesh.get();
+				}
+				break;
+
+			case 'B': // BillboardSet
+				info->meshOut_ = in.readFloat();
 				break;
 
 			case 'S': // Scale
-				scale = in.readFloat();
+				info->scale_ = in.readFloat();
 				break;
 
 			case 'R': // Scale is radius
-				doScaleByRadius = true;
+				info->doScaleByRadius_ = true;
 				break;
 
 			case 'O':
-				{
-					factory = new String();
-					in.readString(*factory);
-				}
+				in.readString(info->factory_);
 				break;
 
 			case 'P':
@@ -100,63 +86,49 @@ namespace se_ogre {
 					String n, v;
 					in.readString(n);
 					in.readString(v);
-					params[ n.get() ] = v.get();
+					info->params_[ n.get() ] = v.get();
 				}
 				break;
 
 			case 'A': // Animation
 				{
 					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
-					Assert(!animations[ animId ]);
-					animations[ animId ] = new String();
-					animationSpeeds[ animId ] = in.readFloat();
-					in.readString(*animations[ animId ]);
+					Assert(info->animations_[ animId ].isEmpty());
+					in.readString(info->animations_[ animId ]);
+					info->animationSpeeds_[ animId ] = in.readFloat();
 				}
 				break;
 
 			case 'D': // Default material / texture
 				{
-					WasHere();
-					material = new String();
-					in.readString(*material);
+					in.readString(info->defaultMaterial_);
 				}
 				break;
 
 			case 'T': // Material / texture
 				{
 					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
-					Assert(!materials[ animId ]);
-					materials[ animId ] = new String();
-					in.readString(*materials[ animId ]);
+					Assert(info->materials_[ animId ].isEmpty());
+					in.readString(info->materials_[ animId ]);
 				}
 				break;
 
-			case 'B': // Billboard
+			case 'L': // Level of detail
 				{
-					billboardIn = in.readFloat();
-					meshOut = in.readFloat();
+					info->billboardIn_ = in.readFloat();
+					info->meshOut_ = in.readFloat();
 				}
 				break;
 
-			case 'F': //
-				{
-					meshOut = in.readFloat();
-				}
-				break;
 			default:
 				LogFatal("Unsupported code!");
 			}
 		}
-		WasHere();
 
-		Assert(name);
-		Assert(mesh || factory && !(mesh && factory) && "You must define exactly one of mesh name or factory");
+		Assert(!info->thingName_.isEmpty());
+		Assert(!info->factory_.isEmpty() && "You must define exactly one of mesh name or factory");
 
-		if(mesh) {
-			factory = new String(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
-			params["mesh"] = mesh->get();
-		}
-		O3dSchema::meshOfThing.add(name, factory, &params, material, doScaleByRadius, scale, animations, animationSpeeds, materials, meshOut, billboardIn);
+		O3dSchema::meshOfThing.add(info);
 	}
 
 }

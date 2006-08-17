@@ -1,1 +1,2 @@
 ogre/thing/player/puck.txt
+ogre/config/config.txt

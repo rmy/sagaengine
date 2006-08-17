@@ -145,14 +145,14 @@ namespace se_err {
 
 
 	Log& Log
-	::operator << (se_core::String& s) {
+	::operator << (const se_core::String& s) {
 		copy(s.get());
 		return *this;
 	}
 
 
 	Log& Log
-	::operator << (se_core::String* s) {
+	::operator << (const se_core::String* s) {
 		copy(s->get());
 		return *this;
 	}

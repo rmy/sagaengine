@@ -19,16 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_all_hpp
-#define o3d_io_all_hpp
+#ifndef o3d_thing_MeshOfThing_hpp
+#define o3d_thing_MeshOfThing_hpp
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
-#include "O3dThingParserModule.hpp"
-#include "O3dAreaParserModule.hpp"
-#include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
-#include "o3d_io.hpp"
+#include "O3dPre.H"
+#include "o3d_thing.hpp"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+
+namespace se_ogre {
+	class ThingMOFactory {
+	public:
+		ThingMOFactory(const char* type);
+		virtual ~ThingMOFactory();
+
+		const se_core::String& type() const;
+		virtual ThingMO* create(ThingMOInfo& info) const = 0;
+		virtual void release(ThingMO* tmo) const;
+
+	private:
+		se_core::String type_;
+	};
+
+}
 
 #endif

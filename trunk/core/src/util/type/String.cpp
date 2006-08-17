@@ -77,4 +77,41 @@ namespace se_core {
 		strcat(v, s);
 		set(v);
 	}
+
+
+	int String
+	::compare(const String& s) const {
+		if(get() == s.get())
+			return 0;
+		if(get() == 0)
+			return -1;
+		if(s.get() == 0)
+			return 1;
+		return strcmp(get(), s.get());
+	}
+
+
+	int String
+	::compare(const char* s) const {
+		if(get() == s)
+			return 0;
+		if(get() == 0)
+			return -1;
+		if(s == 0)
+			return 1;
+		return strcmp(get(), s);
+	}
+
+
+	bool String
+	::equals(const String& s) const {
+		return (compare(s) == 0);
+	}
+
+
+	bool String
+	::equals(const char* s) const {
+		return (compare(s) == 0);
+	}
+
 }

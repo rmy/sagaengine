@@ -46,7 +46,6 @@ namespace se_core {
 			const char* filename = IoSchema::fileManager->filename(i);
 			if(strncmp(filename, directory, len) == 0) {
 				InputStream* is = 0;
-				LogMsg(filename);
 				if((is = IoSchema::fileManager->open(filename)) != 0) {
 					IoSchema::parser().parse(*is, filename);
 					close(is);
@@ -78,7 +77,7 @@ namespace se_core {
 				continue;
 			}
 
-			LogFatal(filename);
+			LogFatal("Couldn't open file: " << filename);
 		}
 		close(initIs);
 	}

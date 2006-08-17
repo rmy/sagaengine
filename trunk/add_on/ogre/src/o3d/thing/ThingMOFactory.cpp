@@ -19,16 +19,33 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_all_hpp
-#define o3d_io_all_hpp
+#include "ThingMOFactory.hpp"
+#include "ThingMO.hpp"
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
-#include "O3dThingParserModule.hpp"
-#include "O3dAreaParserModule.hpp"
-#include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
-#include "o3d_io.hpp"
+using namespace se_core;
 
-#endif
+namespace se_ogre {
+
+	ThingMOFactory
+	::ThingMOFactory(const char* moType) {
+		type_.copy(moType);
+	}
+
+
+	ThingMOFactory
+	::~ThingMOFactory() {
+	}
+
+	void ThingMOFactory
+	::release(ThingMO* tmo) const {
+		delete tmo;
+	}
+
+
+	const String& ThingMOFactory
+	::type() const {
+		return type_;
+	}
+
+
+}

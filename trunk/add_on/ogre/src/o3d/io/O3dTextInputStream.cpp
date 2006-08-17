@@ -43,8 +43,9 @@ namespace se_ogre {
 		sprintf(sourceFilename_, "%s/%s", directory, filename);
 
 		FILE* fd = fopen(sourceFilename_, "rb");
-		LogMsg(sourceFilename_);
-		Assert(fd);
+		if(!fd) {
+			LogFatal("Couldn't open file: " << sourceFilename_);
+		}
 		fseek(fd, 0, SEEK_END);
 		contentsLength_ = ftell(fd);
 		rewind(fd);
