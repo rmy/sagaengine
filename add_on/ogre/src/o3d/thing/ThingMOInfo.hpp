@@ -19,16 +19,36 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_all_hpp
-#define o3d_io_all_hpp
+#ifndef o3d_thing_ThingMOInfo_hpp
+#define o3d_thing_ThingMOInfo_hpp
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
-#include "O3dThingParserModule.hpp"
-#include "O3dAreaParserModule.hpp"
-#include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
-#include "o3d_io.hpp"
+#include "O3dPre.H"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+
+namespace se_ogre {
+	struct ThingMOInfo {
+		ThingMOInfo();
+		~ThingMOInfo();
+
+		se_core::String thingType_;
+		se_core::String movableObjectType_;
+		Ogre::NameValuePairList params_;
+		se_core::String defaultMaterial_;
+		float scale_;
+		bool doScaleByRadius_;
+
+		// Level of Detail
+		float meshOut_;
+		// Level of Detail
+		float billboardIn_;
+
+		se_core::String* animations_;
+		float* animationSpeeds_;
+		se_core::String* materials_;
+	};
+
+}
 
 #endif
+

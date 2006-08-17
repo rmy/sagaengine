@@ -46,6 +46,11 @@ namespace se_core {
 		char* copyValue() const;
 		bool isEmpty() const;
 		void append(const char* s);
+		int compare(const String& s) const;
+		int compare(const char* s) const;
+
+		bool equals(const String& s) const;
+		bool equals(const char* s) const;
 
 	private:
 		const char* data_;

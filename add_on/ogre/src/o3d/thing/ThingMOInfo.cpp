@@ -19,16 +19,30 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_all_hpp
-#define o3d_io_all_hpp
+#include "ThingMOInfo.hpp"
+#include "util/error/Log.hpp"
+#include "sim/stat/Anim.hpp"
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
-#include "O3dThingParserModule.hpp"
-#include "O3dAreaParserModule.hpp"
-#include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
-#include "o3d_io.hpp"
+using namespace se_core;
 
-#endif
+namespace se_ogre {
+
+	ThingMOInfo
+	::ThingMOInfo() : scale_(1.0f), billboardIn_(0), meshOut_(200.0) {
+		animations_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
+		animationSpeeds_ = new float[ Anim::MOVEMENT_MODE_COUNT ];
+		materials_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
+		for(int i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
+			animationSpeeds_[i] = 0;
+		}
+	}
+
+
+	ThingMOInfo
+	::~ThingMOInfo() {
+		delete[] animations_;
+		delete[] animationSpeeds_;
+		delete[] materials_;
+	}
+
+}

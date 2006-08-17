@@ -19,16 +19,30 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_all_hpp
-#define o3d_io_all_hpp
+#ifndef o3d_thing_ThingMovableObject_hpp
+#define o3d_thing_ThingMovableObject_hpp
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
-#include "O3dThingParserModule.hpp"
-#include "O3dAreaParserModule.hpp"
-#include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
-#include "o3d_io.hpp"
+#include "ThingMO.hpp"
+#include "O3dPre.H"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+#include "o3d_thing.hpp"
+
+namespace se_ogre {
+	class ThingMovableObject : public ThingMO {
+	public:
+		void animate() {}
+		
+
+	protected:
+		friend class ThingMovableObjectFactory;
+		ThingMovableObject(const ThingMOFactory& factory, const ThingMOInfo& info);
+		~ThingMovableObject();
+
+	private:
+		Ogre::MovableObject* movableObject_;
+	};
+
+}
 
 #endif

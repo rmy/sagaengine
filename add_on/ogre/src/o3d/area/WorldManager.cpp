@@ -252,6 +252,7 @@ namespace se_ogre {
 	::hasMesh(se_core::Thing& thing) {
 		// Find which mesh this thing should use
 		short index = O3dSchema::meshOfThing.index(thing.name());
+
 		// Did find one?
 		return index >= 0;
 	}

@@ -40,10 +40,10 @@ namespace se_core {
 
 	void Parser
 	::add(ParserModule *module) {
-		LogMsg("Added header code: " << module->headerCodeString());
+		LogMsg("Added file parser for header code: " << module->headerCodeString());
 		for(int i = 0; i < moduleCount_; ++i) {
 			if(module->headerCode() == modules_[ i ]->headerCode()) {
-				LogFatal("Adding module with existing header code.");
+				LogFatal("Module with header code " << module->headerCodeString() << " already exists");
 				return;
 			}
 		}
@@ -53,12 +53,9 @@ namespace se_core {
 
 	void Parser
 	::parse(InputStream& in, const char* msgOnError) {
-		LogMsg(in.name());
+		LogMsg("Loading file: " << in.name());
 
 		int headerCode = in.readHeaderCode();
-
-		//printf("Header code: %d %x\n", headerCode, headerCode);
-		LogMsg(msgOnError);
 
 		for(int i = 0; i < moduleCount_; ++i) {
 			if(modules_[i]->headerCode() == headerCode) {
@@ -66,8 +63,7 @@ namespace se_core {
 				return;
 			}
 		}
-		LogFatal(msgOnError);
-		//LogFatal("Tried to parse file with unsupported header code");
+		LogFatal("The file '" << in.name() << "' had unsupported header name.");
 	}
 
 };

@@ -168,6 +168,8 @@ namespace se_ogre {
 
 		createInputBridge();
 
+		renderFrame();
+
 		return true;
 	}
 

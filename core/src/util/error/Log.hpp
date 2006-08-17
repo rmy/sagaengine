@@ -53,8 +53,8 @@ namespace se_err {
 		Log& operator << (char c);
 		Log& operator << (unsigned long n);
 		Log& operator << (long long n);
-		Log& operator << (se_core::String& s);
-		Log& operator << (se_core::String* s);
+		Log& operator << (const se_core::String& s);
+		Log& operator << (const se_core::String* s);
 		Log& mem(int n);
 
 	private:

@@ -24,23 +24,36 @@ rune@skalden.com
 
 #include "O3dPre.H"
 #include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
 
 namespace se_ogre {
+	struct MeshInfo {
+		MeshInfo();
+		~MeshInfo();
+
+		se_core::String thingName_;
+		se_core::String factory_;
+		Ogre::NameValuePairList params_;
+		se_core::String defaultMaterial_;
+		float scale_;
+		bool doScaleByRadius_;
+
+		// Level of Detail
+		float meshOut_;
+		// Level of Detail
+		float billboardIn_;
+
+		se_core::String* animations_;
+		float* animationSpeeds_;
+		se_core::String* materials_;
+	};
+
+
 	class _SeOgreExport MeshOfThing {
 	public:
-		MeshOfThing() : meshCount_(0) {}
+		MeshOfThing();
 		~MeshOfThing();
-		void add(se_core::String* thingName
-				 , se_core::String* factoryName
-				 , Ogre::NameValuePairList* params
-				 , se_core::String* defaultMaterialName
-				 , bool doScaleByRadius
-				 , float scale
-				 , se_core::String** animations
-				 , float* animationSpeeds
-				 , se_core::String** animationMaterials
-				 , float meshOut
-				 , float billboardIn);
+		void add(MeshInfo* meshInfo);
 		short index(const char* thingName);
 		const char* factory(short index);
 		Ogre::NameValuePairList* params(short index);
@@ -55,21 +68,8 @@ namespace se_ogre {
 
 	private:
 		static const short MAX_MESH_COUNT = 100;
-		se_core::String* thingNames_[ MAX_MESH_COUNT ];
-		se_core::String* factories_[ MAX_MESH_COUNT ];
-		Ogre::NameValuePairList* params_ [ MAX_MESH_COUNT ];
-		se_core::String* defaultMaterials_[ MAX_MESH_COUNT ];
-		float scales_[ MAX_MESH_COUNT ];
-		float meshOut_[ MAX_MESH_COUNT ];
-		float billboardIn_[ MAX_MESH_COUNT ];
-		bool doScaleByRadius_[ MAX_MESH_COUNT ];
-		se_core::String** animations_[ MAX_MESH_COUNT ];
-		float* animationSpeeds_[ MAX_MESH_COUNT ];
-		se_core::String** materials_[ MAX_MESH_COUNT ];
-
-		
+		MeshInfo** meshInfo_;
 		short meshCount_;
-
 	};
 }
 

@@ -96,6 +96,9 @@ namespace logic {
 		//
 		IoSchema::fileManager->loadBatch("logic/init.txt");
 
+		// Load ogre configuration
+		IoSchema::fileManager->loadDirectory("ogre/config/");
+
 		return true;
 	}
 

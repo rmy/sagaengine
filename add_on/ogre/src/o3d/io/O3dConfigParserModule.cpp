@@ -21,16 +21,11 @@ rune@skalden.com
 
 #include "O3dConfigParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
-#include "../thing/MeshOfThing.hpp"
-#include "../io/all.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "util/type/String.hpp"
-#include "util/type/TmpString.hpp"
 #include "util/error/Log.hpp"
-#include "sim/stat/Pos.hpp"
-#include "sim/stat/Anim.hpp"
 #include <cstring>
 #include <cstdio>
 
@@ -47,13 +42,28 @@ namespace se_ogre {
 
 	void O3dConfigParserModule
 	::parse(InputStream& in) {
+		Assert(O3dSchema::sceneManager 
+			   && "SceneManager must be created before loading ogre config file");
 		int code;
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'D': 
 				{ // Dome
 					String material;
-					in.readString(name);
+					in.readString(material);
+					float curvature = in.readFloat();
+					float tiling = in.readFloat();
+					
+					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling);
+				}
+				break;
+				
+			case 'B': 
+				{ // Box
+					String material;
+					in.readString(material);
+
+					O3dSchema::sceneManager->setSkyBox(true, material.get());
 				}
 				break;
 				

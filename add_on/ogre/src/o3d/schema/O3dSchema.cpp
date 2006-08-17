@@ -27,7 +27,7 @@ rune@skalden.com
 #include "o3d/thing/MeshOfThing.hpp"
 #include "o3d/thing/ThingEntityList.hpp"
 #include "o3d/widget/SpeechBubble.hpp"
-#include "o3d/io/O3dThingParserModule.hpp"
+#include "o3d/io/all.hpp"
 #include "o3d/input/InputManager.hpp"
 #include "o3d/input/Console.hpp"
 #include "o3d/init/O3dInitHandler.hpp"
@@ -67,7 +67,9 @@ namespace se_ogre {
 		struct AutoInit {
 			AutoInit() {
 				// Auto create and register instance of this parsers
-				static O3dThingParserModule o3dThingParserModule(se_core::IoSchema::parser());
+				static O3dThingParserModule o3dThingPM(se_core::IoSchema::parser());
+				static O3dConfigParserModule o3dConfigPM(se_core::IoSchema::parser());
+				static O3dAreaParserModule o3dAreaPM(se_core::IoSchema::parser());
 				static O3dInitHandler initHandler;
 
 				LogMsg("Registered Ogre add-on");
