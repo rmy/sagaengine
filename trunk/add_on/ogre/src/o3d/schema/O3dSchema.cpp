@@ -24,7 +24,6 @@ rune@skalden.com
 #include "o3d/RenderEngine.hpp"
 #include "o3d/area/WorldManager.hpp"
 #include "o3d/event/RenderEventListeners.hpp"
-#include "o3d/thing/MeshOfThing.hpp"
 #include "o3d/thing/ThingMOManager.hpp"
 #include "o3d/widget/SpeechBubble.hpp"
 #include "o3d/io/all.hpp"
@@ -37,7 +36,6 @@ using namespace se_ogre;
 
 namespace se_ogre {
 	namespace O3dSchema {
-		MeshOfThing meshOfThing;
 		ThingMOManager thingMOManager;
 
 		RaySceneQuery* raySceneQuery = 0;

@@ -28,7 +28,7 @@ rune@skalden.com
 #include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class ThingMO {
+	class _SeOgreExport ThingMO {
 	public:
 		bool hasAnimation() const { return hasAnimation_; }
 		void setVisible(bool state);

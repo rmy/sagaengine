@@ -28,7 +28,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_ogre {
-	class ThingMOFactory {
+	class _SeOgreExport ThingMOFactory {
 	public:
 		ThingMOFactory(const char* type);
 		virtual ~ThingMOFactory();

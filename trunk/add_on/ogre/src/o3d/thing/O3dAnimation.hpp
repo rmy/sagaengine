@@ -26,7 +26,8 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_ogre {
-	struct O3dAnimation {
+	class _SeOgreExport O3dAnimation {
+	public:
 		O3dAnimation() : speed_(1) {}
 		int id_;
 		se_core::String name_;

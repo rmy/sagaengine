@@ -31,7 +31,7 @@ namespace se_ogre {
 
 	ThingMOInfo
 	::ThingMOInfo()
-		: scale_(1.0f), popInSq_(0), popOutSq_(0), animationChannels_(0), channelCount_(0) {
+			: scale_(1.0f), popInSq_(0), popOutSq_(0), animationChannels_(0), channelCount_(0) {
 		setAnimationChannels(3);
 	}
 

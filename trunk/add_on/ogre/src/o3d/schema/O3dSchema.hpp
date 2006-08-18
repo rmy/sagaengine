@@ -28,7 +28,6 @@ rune@skalden.com
 #include "../input/o3d_input.hpp"
 #include "../init/o3d_init.hpp"
 #include "../thing/o3d_thing.hpp"
-#include "../thing/MeshOfThing.hpp"
 #include "../thing/ThingMOManager.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../widget/o3d_widget.hpp"
@@ -37,7 +36,6 @@ rune@skalden.com
 
 namespace se_ogre {
 	namespace O3dSchema {
-		extern _SeOgreExport se_ogre::MeshOfThing meshOfThing;
 		extern _SeOgreExport se_ogre::ThingMOManager thingMOManager;
 
 

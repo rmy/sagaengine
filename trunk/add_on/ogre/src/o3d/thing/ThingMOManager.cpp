@@ -45,7 +45,8 @@ namespace se_ogre {
 			--infoCount_;
 			delete info_[ infoCount_ ];
 		}
-		delete info_;
+		delete[] info_;
+		delete[] factories_;
 	}
 
 

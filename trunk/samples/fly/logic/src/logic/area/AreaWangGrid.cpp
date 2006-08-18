@@ -1,4 +1,6 @@
 #include "AreaWangGrid.hpp"
+#include <cstdio>
+
 
 using namespace se_core;
 

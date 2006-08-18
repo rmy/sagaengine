@@ -28,7 +28,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_ogre {
-	struct ThingMOInfo {
+	struct _SeOgreExport ThingMOInfo {
 		ThingMOInfo();
 		~ThingMOInfo();
 

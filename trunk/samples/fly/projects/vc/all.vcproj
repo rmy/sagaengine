@@ -347,8 +347,12 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\o3d_input.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\use.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.cpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFileManager.cpp"> </File>
@@ -371,12 +375,37 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\system\use.hpp"> </File>
 </Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\EntityUtil.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\EntityUtil.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\MeshOfThing.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\MeshOfThing.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dAnimation.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dAnimationSet.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dAnimationSet.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntity.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntity.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntityList.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntityList.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntityFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntityFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingImpostor.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingImpostor.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMO.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMO.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOInfo.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOInfo.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOList.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOList.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMOManager.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMovableObject.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMovableObject.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMovableObjectFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMovableObjectFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\o3d_thing.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\use.hpp"> </File>

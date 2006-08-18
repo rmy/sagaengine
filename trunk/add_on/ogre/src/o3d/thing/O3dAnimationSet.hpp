@@ -27,7 +27,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_ogre {
-	class O3dAnimationSet {
+	class _SeOgreExport O3dAnimationSet {
 	public:
 		O3dAnimationSet();
 		O3dAnimation* createAnimation(int id);

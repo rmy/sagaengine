@@ -82,7 +82,7 @@ namespace se_core {
 	private:
 		enum { MAX_ANIMS = 4 };
 
-		struct State {
+		struct _SeCoreExport State {
 			State() :
 				movementMode_(0),
 				movementStartedWhen_(0),

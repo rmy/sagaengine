@@ -69,9 +69,7 @@ namespace se_ogre {
 
 		// Make WorldManager listen to Ogre render events
 		Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
-		LogMsg("Added world manager as Ogre frame listener");
-
-		
+		LogMsg("Added world manager as Ogre frame listener");		
 	}
 
 
@@ -84,6 +82,14 @@ namespace se_ogre {
 		// Make WorldManager listen to Ogre render events
 		Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
 		LogMsg("Removed Ogre frame listener");
+
+		// Cleared world
+		O3dSchema::worldManager->clearWorld();
+		LogMsg("Cleared world");
+		
+		// Clear scene graph
+		O3dSchema::sceneManager->clearScene();
+		LogMsg("Cleared scene");
 
 		delete O3dSchema::renderEngine;
 		O3dSchema::renderEngine = 0;
