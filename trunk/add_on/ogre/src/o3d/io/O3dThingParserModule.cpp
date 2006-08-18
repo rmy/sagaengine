@@ -68,10 +68,9 @@ namespace se_ogre {
 
 			case 'B': // Billboard
 				{
-					String material;
-					in.readString(material);
-					info->movableObjectType_.set("billboard");
-					info->params_["material"] = material.get();
+					in.readString(info->defaultMaterial_);
+					info->movableObjectType_.set("Billboard");
+					info->params_["material"] = info->defaultMaterial_.get();
 				}
 				break;
 

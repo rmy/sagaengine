@@ -24,6 +24,7 @@ rune@skalden.com
 #include "ThingMOFactory.hpp"
 #include "ThingMovableObjectFactory.hpp"
 #include "ThingEntityFactory.hpp"
+#include "ThingBillboardFactory.hpp"
 
 namespace se_ogre {
 
@@ -34,6 +35,7 @@ namespace se_ogre {
 
 		static ThingMovableObjectFactory tmofMovableObject("default");
 		static ThingEntityFactory tmofEntity;
+		static ThingBillboardFactory tmofBillboard;
 	}
 
 
@@ -51,8 +53,9 @@ namespace se_ogre {
 	::addInfo(ThingMOInfo* info) {
 		// Insert - keep sorted
 		int i = infoCount_;
-		while(i > 0 && info->thingType_.compare(info_[--i]->thingType_) < 0) {
-			info_[ i + 1 ] = info_[i];
+		while(i > 0 && info->thingType_.compare(info_[i - 1]->thingType_) < 0) {
+			info_[ i ] = info_[i - 1];
+			--i;
 		}
 		info_[i] = info;
 		++infoCount_;
@@ -67,7 +70,7 @@ namespace se_ogre {
 
 		// Binary search
 		while(max >= min) {
-			int middle = (min + max) << 1;
+			int middle = (min + max) >> 1;
 			int cmp = info_[ middle ]->thingType_.compare( thingType );
 			if(cmp < 0) {
 				min = middle + 1;
@@ -102,9 +105,10 @@ namespace se_ogre {
 	void ThingMOManager
 	::addFactory(ThingMOFactory* factory) {
 		// Insert - keep sorted
-		int i = infoCount_;
-		while(i > 0 && factory->type().compare(factories_[--i]->type()) < 0) {
-			factories_[ i + 1 ] = factories_[i];
+		int i = factoryCount_;
+		while(i > 0 && factory->type().compare(factories_[i - 1]->type()) < 0) {
+			factories_[ i ] = factories_[i - 1];
+			--i;
 		}
 		factories_[i] = factory;
 		++factoryCount_;
@@ -115,11 +119,11 @@ namespace se_ogre {
 	int ThingMOManager
 	::factoryIndex(const char* moType) const {
 		int min = 0;
-		int max = infoCount_ - 1;
+		int max = factoryCount_ - 1;
 
 		// Binary search
 		while(max >= min) {
-			int middle = (min + max) << 1;
+			int middle = (min + max) >> 1;
 			int cmp = factories_[ middle ]->type().compare( moType );
 			if(cmp < 0) {
 				min = middle + 1;
@@ -150,9 +154,10 @@ namespace se_ogre {
 		const ThingMOInfo* inf = info(t.name());
 		if(!inf)
 			return 0;
-		const ThingMOFactory* f = factory(inf->movableObjectType_.get());
+		const char* factoryType = inf->movableObjectType_.get();
+		const ThingMOFactory* f = factory(factoryType);
 		if(!f) {
-			LogMsg("Movable object factory type " << f->type() << " does not exist for " << t.name());
+			LogMsg("Movable object factory type " << factoryType << " does not exist for " << t.name());
 		}
 		return f->create(t, *inf);
 	}
@@ -162,7 +167,6 @@ namespace se_ogre {
 	::release(ThingMO* tmo) {
 		tmo->factory_.release(tmo);
 	}
-
 
 
 }

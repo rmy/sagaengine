@@ -83,15 +83,19 @@ namespace se_core {
 
 
 		void add(const ViewPoint& other) {
-			coor_.rotate(other.face_);
+			if(!other.face_.isIdentity()) {
+				face_.rotate(other.face_);
+				coor_.rotate(other.face_);
+			}
 			coor_.add(other.coor_);
-			face_.rotate(other.face_);
 		}
 
 		void sub(const ViewPoint& other) {
-			face_.rotateInverse(other.face_);
 			coor_.sub(other.coor_);
-			coor_.rotateInverse(other.face_);
+			if(!other.face_.isIdentity()) {
+				coor_.rotateInverse(other.face_);
+				face_.rotateInverse(other.face_);
+			}
 		}
 
 		/**

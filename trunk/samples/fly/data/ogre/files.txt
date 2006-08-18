@@ -1,2 +1,3 @@
 ogre/thing/player/puck.txt
+ogre/thing/enemy/circle.txt
 ogre/config/config.txt

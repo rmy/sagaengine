@@ -1,0 +1,36 @@
+material skydome
+{
+	technique
+	{
+		pass
+		{
+			ligthing off
+
+			texture_unit
+			{
+				texture sky.png
+				tex_coord_set 0
+				scroll 0.5 0.5
+			}
+		}
+	}
+}
+
+
+material skybox
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+
+			texture_unit
+			{
+				cubic_texture sky.png separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}

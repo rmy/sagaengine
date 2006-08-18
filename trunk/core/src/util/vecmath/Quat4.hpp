@@ -239,6 +239,10 @@ namespace se_core {
 			#endif
 		}
 
+		bool isIdentity() const {
+			return x_ == 0 && y_ == 0 && z_ == 0 && w_ == 1;
+		}
+
 		/**
 		 * Sets the value of this quaternion to the equivalent rotation of teh
 		 * AxisAngle argument.

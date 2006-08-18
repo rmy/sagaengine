@@ -55,6 +55,8 @@ namespace se_ogre {
 		bool isVisible_;
 
 		Ogre::Real currentScale_;
+
+		se_core::ViewPoint last_;
 	};
 
 }

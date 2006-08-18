@@ -34,8 +34,17 @@ namespace se_ogre {
 	::ThingBillboard(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory) {
 
-		const char* bbsName = thing_.pos().area()->name();
-		Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
+		const char* bbsName = info_.defaultMaterial_.get();
+
+		Ogre::SceneManager* sm = O3dSchema::sceneManager;
+		if(sm->hasBillboardSet(bbsName)) {
+			billboardSet_ = sm->getBillboardSet(bbsName);
+		}
+		else {
+			billboardSet_ = sm->createBillboardSet(bbsName);
+			billboardSet_->setMaterialName(info_.defaultMaterial_.get());
+			sm->getRootSceneNode()->attachObject(billboardSet_);
+		}
 
 		Ogre::Vector3 pos
 			(
@@ -43,20 +52,28 @@ namespace se_ogre {
 			 CoorT::toFloat(thing_.pos().worldCoor().y_),
 			 CoorT::toFloat(thing_.pos().worldCoor().z_)
 			 );
-		billboard_ = bbs->createBillboard(pos);
+		billboard_ = billboardSet_->createBillboard(pos);
 		Ogre::Real scale = info_.scale_;
 		if(info_.doScaleByRadius_)
 			scale *= CoorT::toFloat(thing_.nextPos().radius());
-		billboard_->setDimensions( bbs->getDefaultWidth() * scale, bbs->getDefaultHeight() * scale );
+		billboard_->setDimensions( scale, scale );
+
 		currentBillboardScale_ = scale;
+
+		last_ = thing.nextPos().world_;
+		billboard_->setPosition(
+								CoorT::toFloat(last_.coor_.x_),
+								CoorT::toFloat(last_.coor_.y_),
+								CoorT::toFloat(last_.coor_.z_)
+								);
+
+		//hasAnimation_ = true;
 	}
 
 
 	ThingBillboard
 	::~ThingBillboard() {
-		const char* bbsName = thing_.pos().area()->name();
-		Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
-		bbs->removeBillboard(billboard_);
+		billboardSet_->removeBillboard(billboard_);
 		billboard_ = 0;
 	}
 
@@ -76,16 +93,18 @@ namespace se_ogre {
 		if(currentScale_ != currentBillboardScale_) {
 			// Interpolate between present radius and next radius
 			const float scale = currentScale_;
+			billboard_->setPosition(
+									CoorT::toFloat(last_.coor_.x_),
+									CoorT::toFloat(last_.coor_.y_),
+									CoorT::toFloat(last_.coor_.z_)
+									);
 
-			const char* bbsName = thing_.pos().area()->name();
-			Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
-			billboard_->setDimensions( bbs->getDefaultWidth() * scale
-										   , bbs->getDefaultHeight() * scale);
+
+			billboard_->setDimensions( scale, scale );
 
 			// Store scale for future scale change checks
 			currentBillboardScale_ = scale;
 		}
-
 	}
 
 

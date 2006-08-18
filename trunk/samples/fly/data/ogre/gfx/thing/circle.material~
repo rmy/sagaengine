@@ -1,0 +1,12 @@
+material circle
+{
+	technique 
+	{
+		pass 
+		{
+			ambient vertexcolour
+		}
+	}
+}
+
+

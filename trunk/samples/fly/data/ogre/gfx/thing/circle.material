@@ -1,0 +1,16 @@
+material circle
+{
+	technique 
+	{
+		pass 
+		{
+			alpha_rejection greater_equal 128
+
+			texture_unit
+			{
+				texture circle.png
+				tex_coord_set 0
+			}
+		}
+	}
+}
