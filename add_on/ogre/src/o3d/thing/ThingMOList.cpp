@@ -19,29 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMovableObject_hpp
-#define o3d_thing_ThingMovableObject_hpp
+#include "ThingMOList.hpp"
 
-#include "ThingMO.hpp"
-#include "O3dPre.H"
-#include "util/type/util_type.hpp"
-#include "util/type/String.hpp"
-#include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class ThingMovableObject : public ThingMO {
-	public:
-		void animate(float stepDelta, float timeSinceLastFrame) {}
-
-	protected:
-		friend class ThingMovableObjectFactory;
-		ThingMovableObject(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
-		~ThingMovableObject();
-
-	private:
-		Ogre::MovableObject* movableObject_;
-	};
-
 }
-
-#endif

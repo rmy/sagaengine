@@ -19,39 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMOManager_hpp
-#define o3d_thing_ThingMOManager_hpp
+#ifndef o3d_thing_ThingMovableObjectFactory_hpp
+#define o3d_thing_ThingMovableObjectFactory_hpp
 
 #include "O3dPre.H"
 #include "o3d_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
-
+#include "ThingMOFactory.hpp"
 
 namespace se_ogre {
-	class ThingMOManager {
+	class ThingMovableObjectFactory : public ThingMOFactory {
 	public:
-		ThingMOManager();
-		~ThingMOManager();
+		ThingMovableObjectFactory(const char* moType);
+		~ThingMovableObjectFactory();
 
-		void addInfo(ThingMOInfo* info);
-		int infoIndex(const char* thingType) const;
-		const ThingMOInfo* info(int index) const;
-		const ThingMOInfo* info(const char* thingType) const;
-
-		void addFactory(ThingMOFactory* factory);
-		int factoryIndex(const char* moType) const;
-		const ThingMOFactory* factory(const char* thingType) const;
-
-		ThingMO* create(se_core::PosNode& t);
-		void release(ThingMO* tmo);
-
-	private:
-		ThingMOInfo** info_;
-		int infoCount_;
-		ThingMOFactory** factories_;
-		int factoryCount_;
-
+		ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const;
 	};
 
 }

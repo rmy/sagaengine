@@ -19,21 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingEntityList_hpp
-#define o3d_thing_ThingEntityList_hpp
+#include "ThingMovableObjectFactory.hpp"
+#include "ThingMO.hpp"
+#include "ThingMovableObject.hpp"
 
-#include "o3d_thing.hpp"
-#include "util/template/SinglyLinkedList.hpp"
-#include "sim/config/all.hpp"
-
+using namespace se_core;
 
 namespace se_ogre {
-	typedef se_core::SinglyLinkedList<class se_ogre::ThingEntity, se_core::MAX_GAME_OBJECTS, 2> TEL;
 
-	class _SeOgreExport ThingEntityList : public TEL {
-	public:
-		ThingEntityList(short i) : TEL(__FILE__) { ++i; }
-	};
+	ThingMovableObjectFactory
+	::ThingMovableObjectFactory(const char* moType) 
+		: ThingMOFactory(moType) {
+	}
+
+
+	ThingMovableObjectFactory
+	::~ThingMovableObjectFactory() {
+	}
+
+	
+	ThingMO* ThingMovableObjectFactory
+	::create(se_core::PosNode& thing, const ThingMOInfo& info) const {
+		return new ThingMovableObject(thing, info, *this);
+	}
+
 }
-
-#endif

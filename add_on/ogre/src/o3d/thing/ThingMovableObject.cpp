@@ -19,25 +19,25 @@ rune@skalden.com
 */
 
 
+#include "ThingMOInfo.hpp"
 #include "ThingMovableObject.hpp"
 #include "../schema/O3dSchema.hpp"
 #include <cstdio>
+#include <cstring>
 
 namespace se_ogre {
 
 	ThingMovableObject
-	::ThingMovableObject(const ThingMOFactory& factory, const ThingMOInfo& info) 
-		: ThingMO(factory, info) {
+	::ThingMovableObject(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+		: ThingMO(thing, info, factory) {
 
-		/*
 		// Create a unique entity name
 		char name[128];
-		sprintf(name, "%d-%s", thing_->id(), thing_->name());
+		sprintf(name, "%d-%s", thing_.id(), thing_.name());
 
 		// Set the mesh
-		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, factory, params);
+		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
 		node_->attachObject(movableObject_);
-		*/
 	}
 
 

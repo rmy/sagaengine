@@ -23,6 +23,7 @@ rune@skalden.com
 #define o3d_thing_ThingEntity_hpp
 
 #include "O3dPre.H"
+#include "ThingMO.hpp"
 #include "o3d_thing.hpp"
 #include "sim/thing/sim_thing.hpp"
 
@@ -32,41 +33,26 @@ namespace se_ogre {
 	 * An entity visually representing a se_core::Thing
 	 * in 3D.
 	 */
-	class _SeOgreExport ThingEntity {
+	class _SeOgreExport ThingEntity : public ThingMO {
 	public:
 		/**
 		 * @param thing The thing that this entity is visually representing.
 		 */
-		ThingEntity(se_core::Thing& thing);
+		ThingEntity(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingEntity();
 
 		/**
-		 * Move the the entity, update animations and material.
+		 * Update animations and material.
 		 * @param Time sinse last move
 		 */
-		void move(float stepDelta, float timeSinceLastFrame);
+		void animate(float stepDelta, float timeSinceLastFrame);
 
-		/**
-		 * Check if this entity is controlled by a specific se_core::Thing
-		 * object
-		 */
-		bool hasThing(se_core::Thing& thing) { return (thing_ == &thing); }
 		void addToStaticGeometry(const char* name);
 
 		short anim();
 
 
 	protected:
-		bool endsWith(const char* s, const char* postfix);
-
-		/**
-		 * Set the mesh entity.
-		 */
-		//void setEntity(const char* name, const char* mesh, float scale);
-		void setEntity(const char* name, const char* factory, Ogre::NameValuePairList* params, float scale);
-
-		void setEntityVisible(bool state);
-
 		/**
 		 * Set the active animation.
 		 */
@@ -77,21 +63,10 @@ namespace se_ogre {
 		 */
 		void setMaterial(const char* mat);
 
-		Ogre::SceneNode* node_;
 		Ogre::Entity* entity_;
-		Ogre::Billboard* billboard_;
-		Ogre::MovableObject* movableObject_;
 		Ogre::AnimationState* state_;
-		Ogre::Real speed_;
-		bool doScaleByRadius_;
-		Ogre::Real currentScale_;
-		Ogre::Real scale_;
-		Ogre::Real meshOut_;
-		Ogre::Real billboardIn_;
-		se_core::Thing* thing_;
-		//EntityMaterial* tempMaterial_;
+		float speed_;
 		short prevAnim_;
-		bool isEntityVisible_;
 	};
 
 }

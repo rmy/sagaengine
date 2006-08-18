@@ -19,41 +19,25 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMOManager_hpp
-#define o3d_thing_ThingMOManager_hpp
+#ifndef o3d_thing_O3dAnimationSet_hpp
+#define o3d_thing_O3dAnimationSet_hpp
 
-#include "O3dPre.H"
-#include "o3d_thing.hpp"
+#include "O3dAnimation.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 
-
 namespace se_ogre {
-	class ThingMOManager {
+	class O3dAnimationSet {
 	public:
-		ThingMOManager();
-		~ThingMOManager();
-
-		void addInfo(ThingMOInfo* info);
-		int infoIndex(const char* thingType) const;
-		const ThingMOInfo* info(int index) const;
-		const ThingMOInfo* info(const char* thingType) const;
-
-		void addFactory(ThingMOFactory* factory);
-		int factoryIndex(const char* moType) const;
-		const ThingMOFactory* factory(const char* thingType) const;
-
-		ThingMO* create(se_core::PosNode& t);
-		void release(ThingMO* tmo);
+		O3dAnimationSet();
+		O3dAnimation* createAnimation(int id);
+		O3dAnimation* animation(const char* name);
+		O3dAnimation* animation(int id);
 
 	private:
-		ThingMOInfo** info_;
-		int infoCount_;
-		ThingMOFactory** factories_;
-		int factoryCount_;
-
+		enum { MAX_ANIMS = 64 };
+		O3dAnimation* animations_[MAX_ANIMS];
 	};
-
 }
 
 #endif

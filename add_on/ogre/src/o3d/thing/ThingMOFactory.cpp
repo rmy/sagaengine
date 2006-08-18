@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "ThingMOFactory.hpp"
 #include "ThingMO.hpp"
+#include "../schema/O3dSchema.hpp"
 
 using namespace se_core;
 
@@ -29,6 +30,8 @@ namespace se_ogre {
 	ThingMOFactory
 	::ThingMOFactory(const char* moType) {
 		type_.copy(moType);
+		// Auto register factory
+		O3dSchema::thingMOManager.addFactory(this);
 	}
 
 

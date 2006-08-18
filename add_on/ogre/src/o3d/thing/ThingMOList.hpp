@@ -19,29 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMovableObject_hpp
-#define o3d_thing_ThingMovableObject_hpp
+#ifndef o3d_thing_ThingMOList_hpp
+#define o3d_thing_ThingMOList_hpp
 
-#include "ThingMO.hpp"
-#include "O3dPre.H"
-#include "util/type/util_type.hpp"
-#include "util/type/String.hpp"
 #include "o3d_thing.hpp"
+#include "util/template/SinglyLinkedList.hpp"
+#include "sim/config/all.hpp"
+
 
 namespace se_ogre {
-	class ThingMovableObject : public ThingMO {
+	typedef se_core::SinglyLinkedList<class se_ogre::ThingMO, se_core::MAX_GAME_OBJECTS, 2> TMOL;
+
+	class _SeOgreExport ThingMOList : public TMOL {
 	public:
-		void animate(float stepDelta, float timeSinceLastFrame) {}
-
-	protected:
-		friend class ThingMovableObjectFactory;
-		ThingMovableObject(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
-		~ThingMovableObject();
-
-	private:
-		Ogre::MovableObject* movableObject_;
+		ThingMOList(short i) : TMOL(__FILE__) { ++i; }
 	};
-
 }
 
 #endif

@@ -32,17 +32,19 @@ namespace se_ogre {
 	public:
 		bool hasAnimation() const { return hasAnimation_; }
 		void setVisible(bool state);
-		void move(float stepDelta);
+		bool isVisible() { return isVisible_; }
+		void move(float stepDelta, float timeSinceLastFrame);
 		virtual void animate(float stepDelta, float timeSinceLastFrame) = 0;
+		bool hasThing(se_core::Thing& thing) { return thing_.id() == thing.id(); }
 
 	protected:
 		friend class ThingMOFactory;
-		ThingMO(const ThingMOFactory& factory, const ThingMOInfo& info);
+		ThingMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingMO();
 
 
-	private:
-		se_core::Thing* thing_;
+	protected:
+		se_core::PosNode& thing_;
 
 		friend class ThingMOManager;
 		const ThingMOFactory& factory_;

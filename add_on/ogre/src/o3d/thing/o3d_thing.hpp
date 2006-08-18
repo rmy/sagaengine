@@ -30,6 +30,8 @@ namespace se_ogre {
 	class ThingMOInfo;
 	class MeshOfThing;
 	class EntityMaterial;
+	class O3dAnimation;
+	class O3dAnimationSet;
 }
 
 #endif
