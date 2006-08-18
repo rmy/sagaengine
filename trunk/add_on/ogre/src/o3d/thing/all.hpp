@@ -24,8 +24,14 @@ rune@skalden.com
 
 #include "MeshOfThing.hpp"
 #include "EntityUtil.hpp"
-#include "ThingEntityList.hpp"
+#include "ThingMOList.hpp"
+#include "ThingMO.hpp"
+#include "ThingMOInfo.hpp"
+#include "ThingMOFactory.hpp"
+#include "ThingMOManager.hpp"
 #include "ThingEntity.hpp"
+#include "O3dAnimation.hpp"
+#include "O3dAnimationSet.hpp"
 #include "o3d_thing.hpp"
 
 #endif

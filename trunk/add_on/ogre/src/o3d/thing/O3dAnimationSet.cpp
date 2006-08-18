@@ -19,44 +19,44 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMOInfo_hpp
-#define o3d_thing_ThingMOInfo_hpp
-
 #include "O3dPre.H"
-#include "o3d_thing.hpp"
-#include "util/type/util_type.hpp"
+#include "O3dAnimationSet.hpp"
+#include "O3dAnimation.hpp"
 #include "util/type/String.hpp"
+#include "util/error/Log.hpp"
+#include "sim/stat/Pos.hpp"
+#include "sim/stat/Anim.hpp"
+#include <cstring>
+
+using namespace se_core;
 
 namespace se_ogre {
-	struct ThingMOInfo {
-		ThingMOInfo();
-		~ThingMOInfo();
+	O3dAnimationSet
+	::O3dAnimationSet() {
+		for(int i = 0; i < MAX_ANIMS; ++i) 
+			animations_[ i ] = 0;
+	}
 
-		// Per thing
-		bool doScaleByRadius_;
-		se_core::String thingType_;
 
-		// Per movable object
-		se_core::String movableObjectType_;
-		Ogre::NameValuePairList params_;
-		se_core::String defaultMaterial_;
+	O3dAnimation* O3dAnimationSet
+	::animation(const char* name) {
+		int id = SimSchema::dictionary().id(DE_MOVEMENT_MODE, name);
+		return animation(id);
+	}
 
-		// Level of Detail
-		float scale_;
-		float popInSq_;
-		float popOutSq_;
 
-		O3dAnimationSet* animationChannels_;
+	O3dAnimation* O3dAnimationSet
+	::animation(int id) {
+		return animations_[id];
+	}
 
-		void setAnimationChannels(int count);
-		O3dAnimation* animation(int channel, int id) const;
-		O3dAnimation* createAnimation(int channel, int id);
 
-	private:
-		int channelCount_;
-	};
+	O3dAnimation* O3dAnimationSet
+	::createAnimation(int id) {
+		Assert(id < MAX_ANIMS);
+		Assert(animations_[id] == 0);
+		animations_[id] = new O3dAnimation();
+		animations_[id]->id_ = id;
+	}
 
 }
-
-#endif
-

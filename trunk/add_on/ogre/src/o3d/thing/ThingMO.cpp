@@ -30,8 +30,8 @@ using namespace se_core;
 namespace se_ogre {
 
 	ThingMO
-	::ThingMO(const ThingMOFactory& factory, const ThingMOInfo& info) 
-		: factory_(factory), info_(info), hasAnimation_(false), isVisible_(false), currentScale_(1) {
+	::ThingMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory) 
+		: thing_(thing), factory_(factory), info_(info), hasAnimation_(false), isVisible_(false), currentScale_(1) {
 
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
@@ -39,28 +39,41 @@ namespace se_ogre {
 		// Scale all children of this node
 		Ogre::Real s = info_.scale_;
 		node_->setScale(s, s, s);
-
 	}
 
 
 	ThingMO
 	::~ThingMO() {
+		node_->removeAndDestroyAllChildren();
+		O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		node_ = 0;
 	}
 
 
 	void ThingMO
-	::move(float stepDelta) {
+	::move(float stepDelta, float timeSinceLastFrame) {
+
+		// Check if mesh entity is visible
+		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
+		coor_double_t distSq = playerCoor.distanceSquared(thing_.pos().worldCoor());
+		// Must be farther away than popIn distance, and closer than popOut distance
+		// (if popOut distance is defined)
+		bool isVisible = (distSq >= info_.popInSq_ && (info_.popOutSq_ == 0 || distSq < info_.popOutSq_));
+		setVisible(isVisible);
+		if(!isVisible) {
+			return;
+		}
 		setVisible(true);
 
 		// Are interpolations meaningful at all?
-		if(!thing_->pos().isKeyFramePath(thing_->nextPos())) {
+		if(!thing_.pos().isKeyFramePath(thing_.nextPos())) {
 			// If not skip it
 			return;
 		}
 
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
 		ViewPoint w;
-		thing_->worldViewPoint(alpha, w);
+		thing_.worldViewPoint(alpha, w);
 
 		// Translate from Euler3 if necessary
 		Quat4 face(w.face_);
@@ -86,8 +99,8 @@ namespace se_ogre {
 
 		// If radius scales the model
 		if(info_.doScaleByRadius_) {
-			Ogre::Real r1 = CoorT::toFloat(thing_->pos().radius());
-			Ogre::Real r2 = CoorT::toFloat(thing_->nextPos().radius());
+			Ogre::Real r1 = CoorT::toFloat(thing_.pos().radius());
+			Ogre::Real r2 = CoorT::toFloat(thing_.nextPos().radius());
 			Ogre::Real s = r1 - stepDelta * (r2 - r1);
 
 			// If scale has changed
@@ -105,7 +118,7 @@ namespace se_ogre {
 		}
 		
 		if(hasAnimation_)
-			animate(stepDelta, 0);
+			animate(stepDelta, timeSinceLastFrame);
 	}
 
 

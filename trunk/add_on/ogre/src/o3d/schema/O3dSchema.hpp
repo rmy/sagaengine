@@ -29,7 +29,8 @@ rune@skalden.com
 #include "../init/o3d_init.hpp"
 #include "../thing/o3d_thing.hpp"
 #include "../thing/MeshOfThing.hpp"
-#include "../thing/ThingEntityList.hpp"
+#include "../thing/ThingMOManager.hpp"
+#include "../thing/ThingMOList.hpp"
 #include "../widget/o3d_widget.hpp"
 #include "O3dPre.H"
 
@@ -37,10 +38,11 @@ rune@skalden.com
 namespace se_ogre {
 	namespace O3dSchema {
 		extern _SeOgreExport se_ogre::MeshOfThing meshOfThing;
+		extern _SeOgreExport se_ogre::ThingMOManager thingMOManager;
 
 
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
-		extern _SeOgreExport ThingEntityList thingEntityList;
+		extern _SeOgreExport ThingMOList thingMOList;
 		extern _SeOgreExport Ogre::Root* root;
 		extern _SeOgreExport Ogre::SceneManager* sceneManager;
 		extern _SeOgreExport WorldManager* worldManager;

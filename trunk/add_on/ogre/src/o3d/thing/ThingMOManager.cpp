@@ -22,12 +22,18 @@ rune@skalden.com
 #include "ThingMO.hpp"
 #include "ThingMOInfo.hpp"
 #include "ThingMOFactory.hpp"
+#include "ThingMovableObjectFactory.hpp"
+#include "ThingEntityFactory.hpp"
 
 namespace se_ogre {
 
 	ThingMOManager
-	::ThingMOManager() : infoCount_(0) {
+	::ThingMOManager() : infoCount_(0), factoryCount_(0) {
 		info_ = new ThingMOInfo*[100];
+		factories_ = new ThingMOFactory*[100];
+
+		static ThingMovableObjectFactory tmofMovableObject("default");
+		static ThingEntityFactory tmofEntity;
 	}
 
 
@@ -93,7 +99,6 @@ namespace se_ogre {
 	}
 
 
-
 	void ThingMOManager
 	::addFactory(ThingMOFactory* factory) {
 		// Insert - keep sorted
@@ -102,7 +107,7 @@ namespace se_ogre {
 			factories_[ i + 1 ] = factories_[i];
 		}
 		factories_[i] = factory;
-		++infoCount_;
+		++factoryCount_;
 		LogMsg("Added factory for movable object type: " << factory->type());
 	}
 
@@ -141,7 +146,7 @@ namespace se_ogre {
 
 
 	ThingMO* ThingMOManager
-	::create(se_core::Thing& t) {
+	::create(se_core::PosNode& t) {
 		const ThingMOInfo* inf = info(t.name());
 		if(!inf)
 			return 0;
@@ -149,6 +154,7 @@ namespace se_ogre {
 		if(!f) {
 			LogMsg("Movable object factory type " << f->type() << " does not exist for " << t.name());
 		}
+		return f->create(t, *inf);
 	}
 
 

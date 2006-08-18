@@ -23,7 +23,7 @@ rune@skalden.com
 #define o3d_area_WorldManager_hpp
 
 #include "../thing/o3d_thing.hpp"
-#include "../thing/ThingEntityList.hpp"
+#include "../thing/ThingMOList.hpp"
 #include "O3dPre.H"
 
 namespace se_ogre {
@@ -74,7 +74,7 @@ namespace se_ogre {
 			int id_;
 			bool shouldKeep_;
 			Ogre::SceneNode* node_;
-			ThingEntityList::iterator_type firstThingEntity;
+			ThingMOList::iterator_type firstThingMO;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
 	};

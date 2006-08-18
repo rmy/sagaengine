@@ -20,6 +20,8 @@ rune@skalden.com
 
 
 #include "ThingMOInfo.hpp"
+#include "O3dAnimation.hpp"
+#include "O3dAnimationSet.hpp"
 #include "util/error/Log.hpp"
 #include "sim/stat/Anim.hpp"
 
@@ -28,21 +30,34 @@ using namespace se_core;
 namespace se_ogre {
 
 	ThingMOInfo
-	::ThingMOInfo() : scale_(1.0f), billboardIn_(0), meshOut_(200.0) {
-		animations_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
-		animationSpeeds_ = new float[ Anim::MOVEMENT_MODE_COUNT ];
-		materials_ = new se_core::String[ Anim::MOVEMENT_MODE_COUNT ];
-		for(int i = 0; i < Anim::MOVEMENT_MODE_COUNT; ++i) {
-			animationSpeeds_[i] = 0;
-		}
+	::ThingMOInfo()
+		: scale_(1.0f), popInSq_(0), popOutSq_(0), animationChannels_(0), channelCount_(0) {
+		setAnimationChannels(3);
 	}
 
 
 	ThingMOInfo
 	::~ThingMOInfo() {
-		delete[] animations_;
-		delete[] animationSpeeds_;
-		delete[] materials_;
+		delete[] animationChannels_;
+	}
+
+
+	void ThingMOInfo
+	::setAnimationChannels(int count) {
+		animationChannels_ = new O3dAnimationSet[ count ];
+		channelCount_ = count;
+	}
+
+
+	O3dAnimation* ThingMOInfo
+	::createAnimation(int channel, int id) {
+		return animationChannels_[ channel ].createAnimation(id);
+	}
+
+
+	O3dAnimation* ThingMOInfo
+	::animation(int channel, int id) const {
+		return animationChannels_[ channel ].animation(id);
 	}
 
 }

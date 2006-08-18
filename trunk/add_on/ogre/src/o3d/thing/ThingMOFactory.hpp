@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_MeshOfThing_hpp
-#define o3d_thing_MeshOfThing_hpp
+#ifndef o3d_thing_ThingMOFactory_hpp
+#define o3d_thing_ThingMOFactory_hpp
 
 #include "O3dPre.H"
 #include "o3d_thing.hpp"
@@ -34,7 +34,7 @@ namespace se_ogre {
 		virtual ~ThingMOFactory();
 
 		const se_core::String& type() const;
-		virtual ThingMO* create(ThingMOInfo& info) const = 0;
+		virtual ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const = 0;
 		virtual void release(ThingMO* tmo) const;
 
 	private:

@@ -19,39 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingMOManager_hpp
-#define o3d_thing_ThingMOManager_hpp
+#ifndef o3d_thing_ThingImpostor_hpp
+#define o3d_thing_ThingImpostor_hpp
 
+#include "ThingMO.hpp"
 #include "O3dPre.H"
-#include "o3d_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
-
+#include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class ThingMOManager {
+	class ThingImpostor : public ThingMO {
 	public:
-		ThingMOManager();
-		~ThingMOManager();
+		void animate(float stepDelta, float timeSinceLastFrame);
 
-		void addInfo(ThingMOInfo* info);
-		int infoIndex(const char* thingType) const;
-		const ThingMOInfo* info(int index) const;
-		const ThingMOInfo* info(const char* thingType) const;
-
-		void addFactory(ThingMOFactory* factory);
-		int factoryIndex(const char* moType) const;
-		const ThingMOFactory* factory(const char* thingType) const;
-
-		ThingMO* create(se_core::PosNode& t);
-		void release(ThingMO* tmo);
+	protected:
+		friend class ThingImpostorFactory;
+		ThingImpostor(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		~ThingImpostor();
 
 	private:
-		ThingMOInfo** info_;
-		int infoCount_;
-		ThingMOFactory** factories_;
-		int factoryCount_;
-
+		Ogre::Billboard* billboard_;
+		float currentBillboardScale_;
 	};
 
 }
