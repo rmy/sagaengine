@@ -5,11 +5,24 @@ material circle
 		pass 
 		{
 			alpha_rejection greater_equal 128
+			cull_hardware none
+			cull_software none
+			point_sprites on
 
 			texture_unit
 			{
 				texture circle.png
 				tex_coord_set 0
+				rotate_anim 0.125
+				tex_address_mode clamp
+			}
+
+			texture_unit
+			{
+				texture circle.png
+				tex_coord_set 0
+				rotate_anim -0.125
+				tex_address_mode clamp
 			}
 		}
 	}
