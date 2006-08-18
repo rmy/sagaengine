@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "O3dAreaParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
-#include "../thing/MeshOfThing.hpp"
 #include "../io/all.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"

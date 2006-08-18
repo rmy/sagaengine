@@ -29,7 +29,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class ThingMOManager {
+	class _SeOgreExport ThingMOManager {
 	public:
 		ThingMOManager();
 		~ThingMOManager();

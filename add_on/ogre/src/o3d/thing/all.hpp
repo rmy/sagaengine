@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef o3d_thing_all_hpp
 #define o3d_thing_all_hpp
 
-#include "MeshOfThing.hpp"
 #include "EntityUtil.hpp"
 #include "ThingMOList.hpp"
 #include "ThingMO.hpp"

@@ -29,7 +29,7 @@ rune@skalden.com
 #include "ThingMOFactory.hpp"
 
 namespace se_ogre {
-	class ThingMovableObjectFactory : public ThingMOFactory {
+	class _SeOgreExport ThingMovableObjectFactory : public ThingMOFactory {
 	public:
 		ThingMovableObjectFactory(const char* moType);
 		~ThingMovableObjectFactory();

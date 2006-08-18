@@ -57,6 +57,7 @@ namespace se_ogre {
 		Assert(animations_[id] == 0);
 		animations_[id] = new O3dAnimation();
 		animations_[id]->id_ = id;
+		return animations_[id];
 	}
 
 }

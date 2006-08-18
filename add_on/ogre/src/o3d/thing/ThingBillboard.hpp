@@ -29,7 +29,7 @@ rune@skalden.com
 #include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class ThingBillboard : public ThingMO {
+	class _SeOgreExport ThingBillboard : public ThingMO {
 	public:
 		void animate(float stepDelta, float timeSinceLastFrame);
 

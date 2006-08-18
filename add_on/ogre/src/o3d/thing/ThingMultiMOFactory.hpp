@@ -29,7 +29,7 @@ rune@skalden.com
 #include "ThingMOFactory.hpp"
 
 namespace se_ogre {
-	class ThingMultiMOFactory : public ThingMOFactory {
+	class _SeOgreExport ThingMultiMOFactory : public ThingMOFactory {
 	public:
 		ThingMultiMOFactory();
 		~ThingMultiMOFactory();
