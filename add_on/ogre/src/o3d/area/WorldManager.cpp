@@ -38,7 +38,7 @@ using namespace se_core;
 namespace se_ogre {
 	WorldManager
 	::WorldManager() 
-			: playerEntity_(0), shouldStop_(false), debugOverlay_(0)
+		: playerEntity_(0), shouldStop_(false), debugOverlay_(0)
 			, lastRenderClock_(0), areaCount_(0) {
 		showDebugOverlay(false);
 	}

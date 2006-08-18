@@ -1,0 +1,5 @@
+OF01
+# Dome (material) (curvature) (tiling)
+D skydome 10 2
+#B skybox
+Q

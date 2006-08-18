@@ -52,7 +52,6 @@ namespace se_ogre {
 
 	void ThingMO
 	::move(float stepDelta, float timeSinceLastFrame) {
-
 		// Check if mesh entity is visible
 		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
 		coor_double_t distSq = playerCoor.distanceSquared(thing_.pos().worldCoor());
@@ -72,16 +71,15 @@ namespace se_ogre {
 		}
 
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		ViewPoint w;
-		thing_.worldViewPoint(alpha, w);
+		thing_.worldViewPoint(alpha, last_);
 
 		// Translate from Euler3 if necessary
-		Quat4 face(w.face_);
+		Quat4 face(last_.face_);
 
 		Ogre::Vector3 pos(
-				CoorT::toFloat(w.coor_.x_),
-				CoorT::toFloat(w.coor_.y_),
-				CoorT::toFloat(w.coor_.z_)
+				CoorT::toFloat(last_.coor_.x_),
+				CoorT::toFloat(last_.coor_.y_),
+				CoorT::toFloat(last_.coor_.z_)
 				);
 
 		Ogre::Quaternion rot(
@@ -113,7 +111,6 @@ namespace se_ogre {
 
 				// Scale all children of this node
 				node_->setScale(s, s, s);
-
 			}
 		}
 		

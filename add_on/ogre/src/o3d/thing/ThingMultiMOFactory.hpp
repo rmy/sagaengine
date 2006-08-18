@@ -19,29 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingBillboard_hpp
-#define o3d_thing_ThingBillboard_hpp
+#ifndef o3d_thing_ThingMultiMOFactory_hpp
+#define o3d_thing_ThingMultiMOFactory_hpp
 
-#include "ThingMO.hpp"
 #include "O3dPre.H"
+#include "o3d_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
-#include "o3d_thing.hpp"
+#include "ThingMOFactory.hpp"
 
 namespace se_ogre {
-	class ThingBillboard : public ThingMO {
+	class ThingMultiMOFactory : public ThingMOFactory {
 	public:
-		void animate(float stepDelta, float timeSinceLastFrame);
+		ThingMultiMOFactory();
+		~ThingMultiMOFactory();
 
-	protected:
-		friend class ThingBillboardFactory;
-		ThingBillboard(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
-		~ThingBillboard();
-
-	private:
-		Ogre::Billboard* billboard_;
-		Ogre::BillboardSet* billboardSet_;
-		float currentBillboardScale_;
+		ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const;
 	};
 
 }

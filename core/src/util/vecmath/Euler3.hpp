@@ -348,6 +348,10 @@ namespace se_core {
 			return yaw_ == a1.yaw_ && pitch_ == a1.pitch_ && roll_ == a1.roll_;
 		}
 
+		bool isIdentity() const {
+			return yaw_ == 0 && pitch_ == 0 && roll_ == 0;
+		}
+
 		/**
 		 * Returns true if the L-infinite distance between this angle and angle a1 is
 		 * less than or equal to the epsilon parameter, otherwise returns false. The L-infinite

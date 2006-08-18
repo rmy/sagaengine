@@ -19,29 +19,37 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_thing_ThingBillboard_hpp
-#define o3d_thing_ThingBillboard_hpp
+#ifndef o3d_thing_ThingMultiMO_hpp
+#define o3d_thing_ThingMultiMO_hpp
 
 #include "ThingMO.hpp"
+#include "ThingMOList.hpp"
 #include "O3dPre.H"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 #include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class ThingBillboard : public ThingMO {
+	class ThingMultiMO : public ThingMO {
 	public:
-		void animate(float stepDelta, float timeSinceLastFrame);
+		void animate(float stepDelta, float timeSinceLastFrame) {
+			animateChildren(stepDelta, timeSinceLastFrame);
+		}
+
+		void add(ThingMO& tmo);
+		void remove(ThingMO& tmo);
+
+		void moveChildren(float stepDelta, float timeSinceLastFrame);
+		void animateChildren(float stepDelta, float timeSinceLastFrame);
 
 	protected:
-		friend class ThingBillboardFactory;
-		ThingBillboard(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
-		~ThingBillboard();
+		friend class ThingMultiMOFactory;
+		ThingMultiMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		~ThingMultiMO();
 
 	private:
-		Ogre::Billboard* billboard_;
-		Ogre::BillboardSet* billboardSet_;
-		float currentBillboardScale_;
+		Ogre::MovableObject* movableObject_;
+		ThingMOList::iterator_type firstThingMO_;
 	};
 
 }
