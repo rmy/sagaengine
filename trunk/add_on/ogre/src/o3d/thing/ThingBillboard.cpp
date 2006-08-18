@@ -67,6 +67,8 @@ namespace se_ogre {
 								CoorT::toFloat(last_.coor_.z_)
 								);
 
+		billboard_->setRotation( Ogre::Radian(BrayT::toRad(last_.face_.roll_)) );
+
 		//hasAnimation_ = true;
 	}
 
@@ -81,6 +83,7 @@ namespace se_ogre {
 	void ThingBillboard
 	::animate(float stepDelta, float timeSinceLastFrame) {
 		// Visible
+		/*
 		if(isVisible()) {
 			billboard_->setTexcoordIndex(1);
 		}
@@ -88,23 +91,27 @@ namespace se_ogre {
 			// Texture 0 is transparent
 			billboard_->setTexcoordIndex(0);
 		}
+		*/
 
 		// If scale has changed
 		if(currentScale_ != currentBillboardScale_) {
 			// Interpolate between present radius and next radius
 			const float scale = currentScale_;
-			billboard_->setPosition(
-									CoorT::toFloat(last_.coor_.x_),
-									CoorT::toFloat(last_.coor_.y_),
-									CoorT::toFloat(last_.coor_.z_)
-									);
-
 
 			billboard_->setDimensions( scale, scale );
 
 			// Store scale for future scale change checks
 			currentBillboardScale_ = scale;
+
 		}
+
+		billboard_->setPosition(
+								CoorT::toFloat(last_.coor_.x_),
+								CoorT::toFloat(last_.coor_.y_),
+								CoorT::toFloat(last_.coor_.z_)
+								);
+
+		billboard_->setRotation( Ogre::Radian(BrayT::toRad(last_.face_.roll_)) );
 	}
 
 
