@@ -24,8 +24,9 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include <cstring>
 
+using namespace se_core;
 
-namespace se_core {
+namespace se_client {
 	Phrase
 	::Phrase() : currentLanguage_(NORWEGIAN), phraseCount_(0) {
 		//setLanguage(ENGLISH);

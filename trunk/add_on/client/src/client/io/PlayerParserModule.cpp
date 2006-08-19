@@ -36,7 +36,9 @@ rune@skalden.com
 #include <cstdio>
 #include <cstring>
 
-namespace se_core {
+using namespace se_core;
+
+namespace se_client {
 
 	PlayerParserModule
 	::PlayerParserModule(Parser& parser)

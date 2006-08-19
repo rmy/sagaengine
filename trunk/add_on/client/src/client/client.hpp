@@ -23,6 +23,6 @@ rune@skalden.com
  * Core functionality that would be handled by a client in a true multiplayer client-server architecture.
  */
 
-namespace se_core {
+namespace se_client {
 
 }

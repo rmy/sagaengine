@@ -29,7 +29,7 @@ rune@skalden.com
 #include "sim/thing/sim_thing.hpp"
 #include "sim/thing/CameraHandler.hpp"
 
-namespace se_core {
+namespace se_client {
 
 	/**
 	 * Translates MultiSimObject events for Areas into ClientEvents.

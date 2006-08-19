@@ -29,15 +29,15 @@ rune@skalden.com
 #include "sim/thing/sim_thing.hpp"
 
 
-namespace se_core {
-	class _SeClientExport PlayerParserModule : public ParserModule {
+namespace se_client {
+	class _SeClientExport PlayerParserModule : public se_core::ParserModule {
 	public:
-		PlayerParserModule(Parser& parser);
+		PlayerParserModule(se_core::Parser& parser);
 		virtual ~PlayerParserModule();
-		void parse(InputStream& in);
+		void parse(se_core::InputStream& in);
 
 	private:
-		void readInfo(InputStream& in, Camera* camera) const;
+		void readInfo(se_core::InputStream& in, se_core::Camera* camera) const;
 	};
 
 }

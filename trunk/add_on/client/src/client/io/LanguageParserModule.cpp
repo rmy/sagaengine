@@ -28,7 +28,9 @@ rune@skalden.com
 #include "io/schema/IoSchema.hpp"
 #include <cstdio>
 
-namespace se_core {
+using namespace se_core;
+
+namespace se_client {
 
 	LanguageParserModule
 	::LanguageParserModule(Parser& parser)
