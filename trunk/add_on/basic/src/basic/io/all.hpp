@@ -1,5 +1,5 @@
-#ifndef io_all_hpp
-#define io_all_hpp
+#ifndef basic_io_all_hpp
+#define basic_io_all_hpp
 
 #include "SimpleActorParserModule.hpp"
 #include "SimpleAreaParserModule.hpp"
