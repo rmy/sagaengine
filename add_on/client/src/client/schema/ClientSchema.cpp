@@ -33,7 +33,9 @@ rune@skalden.com
 #include "util/system/util_system.hpp"
 
 
-namespace se_core {
+using namespace se_core;
+
+namespace se_client {
 	namespace ClientSchema {
 		ClientEventBridge clientEventBridge; // OBJECT_IN_EWRAM;
 		ClientListeners clientListeners; // OBJECT_IN_EWRAM;

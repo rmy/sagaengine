@@ -25,12 +25,11 @@ rune@skalden.com
 #include "io/parse/ParserModule.hpp"
 #include "io/stream/io_stream.hpp"
 
-
-namespace se_core {
-	class _SeClientExport LanguageParserModule : public ParserModule {
+namespace se_client {
+	class _SeClientExport LanguageParserModule : public se_core::ParserModule {
 	public:
-		LanguageParserModule(Parser& parser);
-		void parse(InputStream& in);
+		LanguageParserModule(se_core::Parser& parser);
+		void parse(se_core::InputStream& in);
 	private:
 	};
 

@@ -27,15 +27,15 @@ rune@skalden.com
 #include "sim/thing/sim_thing.hpp"
 #include "util/system/util_system.hpp"
 
-namespace se_core {
+namespace se_client {
 	namespace ClientSchema {
 		extern _SeClientExport ClientListeners clientListeners;
 		extern _SeClientExport ClientEventBridge clientEventBridge;
 		extern _SeClientExport Phrase phrases;
 
-		extern _SeClientExport Player* player;
-		extern _SeClientExport Camera* floatingCamera;
-		extern _SeClientExport Camera* camera;
+		extern _SeClientExport se_core::Player* player;
+		extern _SeClientExport se_core::Camera* floatingCamera;
+		extern _SeClientExport se_core::Camera* camera;
 
 	};
 

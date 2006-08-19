@@ -24,7 +24,7 @@ rune@skalden.com
 /**
  * Multi languague support.
  */
-namespace se_core {
+namespace se_client {
 	class Phrase;
 }
 

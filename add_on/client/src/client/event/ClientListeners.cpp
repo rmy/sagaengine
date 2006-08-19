@@ -24,7 +24,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 
 
-namespace se_core {
+namespace se_client {
 
 	void ClientListeners
 	::addListener(ClientListener& l) {
