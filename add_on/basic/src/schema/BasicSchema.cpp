@@ -35,10 +35,15 @@ namespace se_basic {
 				static SimpleAreaThingParserModule sAreaThingPM(IoSchema::parser());
 				static SimpleActorParserModule sActorPM(IoSchema::parser());
 
+				// Register as init event listener
+				SimSchema::initListeners().addListener(*this);
+
 				LogMsg("Registered Basic add-on");
 			}
 
 			~AutoInit() {
+				SimSchema::initListeners().removeListener(*this);
+
 				LogMsg("Cleaned up Basic add-on");
 			}
 		} autoInit;

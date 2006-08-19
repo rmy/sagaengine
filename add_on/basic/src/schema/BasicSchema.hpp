@@ -26,7 +26,15 @@ rune@skalden.com
 
 namespace se_basic {
 	namespace BasicSchema {
-
+		class _SeOgreExport AutoInit : public se_core::InitListener {
+		public:
+			O3dInitHandler();
+			~O3dInitHandler();
+			void initEngineEvent() {}
+			void cleanupEngineEvent() {}
+			void initGameEvent() {}
+			void cleanupGameEvent() {}
+		};
 	}
 }
 
