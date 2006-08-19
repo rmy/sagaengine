@@ -23,7 +23,6 @@ rune@skalden.com
 #define ClientEventBridge_hpp
 
 #include "sim/sim.hpp"
-#include "sim/InitListener.hpp"
 #include "sim/stat/sim_stat.hpp"
 #include "sim/stat/MultiSimObjectListener.hpp"
 #include "sim/thing/sim_thing.hpp"
@@ -34,23 +33,21 @@ namespace se_client {
 	/**
 	 * Translates MultiSimObject events for Areas into ClientEvents.
 	 */
-	class _SeClientExport ClientEventBridge : public MultiSimObjectListener, public CameraHandler, public InitListener {
+	class _SeClientExport ClientEventBridge 
+		: public se_core::MultiSimObjectListener
+		, public se_core::CameraHandler {
 	public:
 		ClientEventBridge();
 		~ClientEventBridge();
-		void simObjectAddedEvent(MultiSimObject& owner, SimObject& value);
-		void simObjectRemovedEvent(MultiSimObject& owner, SimObject& value);
+		void simObjectAddedEvent(se_core::MultiSimObject& owner, se_core::SimObject& value);
+		void simObjectRemovedEvent(se_core::MultiSimObject& owner, se_core::SimObject& value);
 
-		void cameraLeftAreaEvent(Camera& caster, Area& area);
-		void cameraEnteredAreaEvent(Camera& caster, Area& area);
-
-		void initEngineEvent() {}
-		void cleanupEngineEvent() {}
-		void initGameEvent();
-		void cleanupGameEvent();
+		void cameraLeftAreaEvent(se_core::Camera& caster, se_core::Area& area);
+		void cameraEnteredAreaEvent(se_core::Camera& caster, se_core::Area& area);
 
 
-		void setCamera(Camera* newCamera);
+
+		void setCamera(se_core::Camera* newCamera);
 	};
 
 }

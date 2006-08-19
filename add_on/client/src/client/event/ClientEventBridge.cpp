@@ -38,6 +38,7 @@ rune@skalden.com
 #include "sim/area/AreaManager.hpp"
 #include "util/error/Log.hpp"
 
+using namespace se_core;
 
 namespace se_client {
 
@@ -131,28 +132,5 @@ namespace se_client {
 		}
 	}
 
-
-	void ClientEventBridge
-	::initGameEvent() {
-		WasHere();
-		// Player and camera objects are initialised from data file.
-	}
-
-
-	void ClientEventBridge
-	::cleanupGameEvent() {
-		if(ClientSchema::player) {
-			ClientSchema::player->leaveCurrentArea();
-			ClientSchema::player->reallyScheduleForDestruction();
-		}
-
-		if(ClientSchema::floatingCamera) {
-			ClientSchema::floatingCamera->leaveCurrentArea();
-			ClientSchema::floatingCamera->scheduleForDestruction();
-		}
-		ClientSchema::player = 0;
-		ClientSchema::floatingCamera = 0;
-		ClientSchema::camera = 0;
-	}
 
 }

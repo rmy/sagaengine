@@ -27,7 +27,6 @@ rune@skalden.com
 #include "../src/o3d/config/all.hpp"
 #include "../src/o3d/error/all.hpp"
 #include "../src/o3d/event/all.hpp"
-#include "../src/o3d/init/all.hpp"
 #include "../src/o3d/input/all.hpp"
 #include "../src/o3d/io/all.hpp"
 #include "../src/o3d/schema/all.hpp"

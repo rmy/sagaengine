@@ -26,7 +26,7 @@ rune@skalden.com
 #include "io/stream/io_stream.hpp"
 
 
-namespace se_core {
+namespace se_fmod {
 	class SoundParserModule : public ParserModule {
 	public:
 		SoundParserModule(Parser& parser);

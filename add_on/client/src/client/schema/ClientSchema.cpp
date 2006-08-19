@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../io/all.hpp"
 #include "../lang/Phrase.hpp"
 #include "sim/InitListeners.hpp"
+#include "sim/InitListener.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/thing/Player.hpp"
@@ -46,22 +47,45 @@ namespace se_client {
 		Camera* camera = 0; // VAR_IN_EWRAM;
 
 
-		const struct AutoInit {
+		const struct _SeClientExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				// Register some file loaders
 				static PlayerParserModule playerParserModule(se_core::IoSchema::parser());
 				static LanguageParserModule languageParserModule(se_core::IoSchema::parser());
 
 				// Client event bridge should listen to init events.
-				SimSchema::initListeners().addListener(clientEventBridge);
-
+				SimSchema::initListeners().addListener(*this);
 				LogMsg("Registered Client add-on");
 			}
 
+
 			~AutoInit() {
-				SimSchema::initListeners().removeListener(clientEventBridge);
+				SimSchema::initListeners().removeListener(*this);
 				LogMsg("Cleaned up Client add-on");
 			}
+
+
+			void initEngineEvent() {}
+			void cleanupEngineEvent() {}
+			void initGameEvent() {
+				// Player and camera objects are initialised from data file.
+			}
+
+			void cleanupGameEvent() {
+				if(ClientSchema::player) {
+					ClientSchema::player->leaveCurrentArea();
+					ClientSchema::player->reallyScheduleForDestruction();
+				}
+
+				if(ClientSchema::floatingCamera) {
+					ClientSchema::floatingCamera->leaveCurrentArea();
+					ClientSchema::floatingCamera->scheduleForDestruction();
+				}
+				ClientSchema::player = 0;
+				ClientSchema::floatingCamera = 0;
+				ClientSchema::camera = 0;
+			}
+
 		} autoInit;
 	}
 }

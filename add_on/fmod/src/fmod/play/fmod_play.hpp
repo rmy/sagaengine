@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef fmod_play_hpp
 #define fmod_play_hpp
 
-namespace se_core {
+namespace se_fmod {
 	class SoundPlayer;
 }
 

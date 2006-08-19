@@ -26,6 +26,7 @@ rune@skalden.com
 
 
 using namespace logic;
+using namespace se_client;
 using namespace se_core;
 using namespace se_ogre;
 

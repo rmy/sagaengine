@@ -32,8 +32,8 @@ rune@skalden.com
 #include "../thing/ThingMOManager.hpp"
 #include <cstring>
 
+using namespace se_client;
 using namespace se_core;
-
 
 namespace se_ogre {
 	WorldManager

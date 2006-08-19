@@ -24,9 +24,8 @@ rune@skalden.com
 #include "../schema/O3dSchema.hpp"
 
 
+using namespace se_client;
 using namespace se_core;
-
-
 
 namespace se_ogre {
 	SpeechBubble

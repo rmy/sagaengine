@@ -26,8 +26,8 @@ rune@skalden.com
 #include <cstdlib>
 #include <cstdio>
 
+using namespace se_client;
 using namespace se_core;
-
 
 namespace se_ogre {
 

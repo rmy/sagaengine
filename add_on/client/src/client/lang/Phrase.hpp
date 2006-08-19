@@ -34,7 +34,7 @@ namespace se_client {
 		static const unsigned short NORWEGIAN = 'N' * 256 + 'O';
 		static const unsigned short FRENCH = 'F' * 256 + 'R';
 
-		void addPhrase(unsigned short language, PhraseType type, String* name, String* phrase);
+		void addPhrase(unsigned short language, PhraseType type, se_core::String* name, se_core::String* phrase);
 		unsigned short findPhrase(PhraseType type, const char* name);
 		const char *getPhrase(PhraseType type, const char* name);
 		void setLanguage(unsigned short language);
@@ -46,8 +46,8 @@ namespace se_client {
 		static const int MAX_PHRASES = 300;
 		unsigned short languages_[ MAX_PHRASES ];
 		PhraseType types_[ MAX_PHRASES ];
-		String* namesC_[ MAX_PHRASES ];
-		String* phrasesC_[ MAX_PHRASES ];
+		se_core::String* namesC_[ MAX_PHRASES ];
+		se_core::String* phrasesC_[ MAX_PHRASES ];
 		const char* names_[ MAX_PHRASES ];
 		const char* phrases_[ MAX_PHRASES ];
 		unsigned short phraseCount_;

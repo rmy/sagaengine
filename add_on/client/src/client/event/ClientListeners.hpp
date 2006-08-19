@@ -32,15 +32,15 @@ namespace se_client {
 		ClientListeners() : listenerCount(0) {}
 		void addListener(ClientListener& l);
 		void removeListener(ClientListener& l);
-		void castCameraEnteredAreaEvent(Area& area);
-		void castCameraLeftAreaEvent(Area& area);
-		void castThingEnteredCameraAreaEvent(Thing& thing);
-		void castThingLeftCameraAreaEvent(Thing& thing);
+		void castCameraEnteredAreaEvent(se_core::Area& area);
+		void castCameraLeftAreaEvent(se_core::Area& area);
+		void castThingEnteredCameraAreaEvent(se_core::Thing& thing);
+		void castThingLeftCameraAreaEvent(se_core::Thing& thing);
 
 
-		void castThingEnteredActiveZoneEvent(Thing& thing);
-		void castThingLeftActiveZoneEvent(Thing& thing);
-		void castThingSwitchedActiveAreaEvent(Thing& thing);
+		void castThingEnteredActiveZoneEvent(se_core::Thing& thing);
+		void castThingLeftActiveZoneEvent(se_core::Thing& thing);
+		void castThingSwitchedActiveAreaEvent(se_core::Thing& thing);
 
 	private:
 		static const int MAX_LISTENERS = 10;

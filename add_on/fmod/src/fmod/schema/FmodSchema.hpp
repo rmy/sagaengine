@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../play/fmod_play.hpp"
 #include "../lang/fmod_lang.hpp"
 
-namespace se_core {
+namespace se_fmod {
 	namespace FmodSchema {
 		extern Sounds sounds;
 		extern SoundPlayer* soundPlayer;
