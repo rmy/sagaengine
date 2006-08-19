@@ -26,7 +26,6 @@ rune@skalden.com
 #include "../area/o3d_area.hpp"
 #include "../event/o3d_event.hpp"
 #include "../input/o3d_input.hpp"
-#include "../init/o3d_init.hpp"
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOManager.hpp"
 #include "../thing/ThingMOList.hpp"

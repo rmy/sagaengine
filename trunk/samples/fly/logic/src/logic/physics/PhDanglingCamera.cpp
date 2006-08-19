@@ -22,6 +22,7 @@ rune@skalden.com
 #include "PhDanglingCamera.hpp"
 #include "../area/SimpleArea.hpp"
 
+using namespace se_client;
 using namespace se_core;
 
 namespace logic {

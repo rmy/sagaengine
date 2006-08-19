@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "O3dPre.H"
 #include "O3dSchema.hpp"
+#include "o3d/system/O3dClock.hpp"
 #include "o3d/RenderEngine.hpp"
 #include "o3d/area/WorldManager.hpp"
 #include "o3d/event/RenderEventListeners.hpp"
@@ -29,10 +30,11 @@ rune@skalden.com
 #include "o3d/io/all.hpp"
 #include "o3d/input/InputManager.hpp"
 #include "o3d/input/Console.hpp"
-#include "o3d/init/O3dInitHandler.hpp"
+
 
 using namespace Ogre;
-using namespace se_ogre;
+using namespace se_client;
+using namespace se_core;
 
 namespace se_ogre {
 	namespace O3dSchema {
@@ -63,20 +65,86 @@ namespace se_ogre {
 		}
 
 		float gameClock = 0;
-		struct AutoInit {
+		struct _SeOgreExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				// Auto create and register instance of this parsers
 				static O3dThingParserModule o3dThingPM(se_core::IoSchema::parser());
 				static O3dConfigParserModule o3dConfigPM(se_core::IoSchema::parser());
 				static O3dAreaParserModule o3dAreaPM(se_core::IoSchema::parser());
-				static O3dInitHandler initHandler;
 
+				SimSchema::initListeners().addListener(*this);
 				LogMsg("Registered Ogre add-on");
 			}
 
 			~AutoInit() {
+				SimSchema::initListeners().removeListener(*this);
 				LogMsg("Cleaned up Ogre add-on");
 			}
+
+			void initEngineEvent() {
+				//
+				SimSchema::realClock = new O3dClock();
+
+				// Register a file manager
+				// (Could have been a network loader, or anything else.)
+				IoSchema::fileManager = new se_ogre::O3dFileManager("datapath.txt");
+				IoSchema::fileManager->init();
+
+				// Create RenderEngine object
+				O3dSchema::renderEngine = new RenderEngine();
+
+				// Setup scene
+				if(!O3dSchema::renderEngine->setup()) {
+					// Failure
+					LogFatal("RenderEngine setup failed");
+					return; // false;
+				}
+
+				// Make WorldManager listen to sagaengine core events
+				ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
+				LogMsg("Added world manager as SagaEngine client listener");
+
+				// Make WorldManager listen to Ogre render events
+				Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
+				LogMsg("Added world manager as Ogre frame listener");		
+
+			}
+			void cleanupEngineEvent() {
+				// Make WorldManager listen to sagaengine core events
+				ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
+				LogMsg("Removed SagaEngine client listener");
+
+				// Make WorldManager listen to Ogre render events
+				Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
+				LogMsg("Removed Ogre frame listener");
+
+				// Cleared world
+				O3dSchema::worldManager->clearWorld();
+				LogMsg("Cleared world");
+		
+				// Clear scene graph
+				O3dSchema::sceneManager->clearScene();
+				LogMsg("Cleared scene");
+
+				delete O3dSchema::renderEngine;
+				O3dSchema::renderEngine = 0;
+
+				delete SimSchema::realClock;
+				SimSchema::realClock = 0;
+
+				IoSchema::fileManager->cleanup();
+				delete IoSchema::fileManager;
+				IoSchema::fileManager = 0;
+			}
+			void initGameEvent() {
+				Assert(O3dSchema::renderEngine);
+				SimSchema::engineListeners().addListener(*O3dSchema::renderEngine);
+			}
+			void cleanupGameEvent() {
+				Assert(O3dSchema::renderEngine);
+				SimSchema::engineListeners().removeListener(*O3dSchema::renderEngine);
+			}
+
 		} autoInit;
 	}
 }

@@ -28,7 +28,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include <fmod_errors.h>
 
-namespace se_core {
+namespace se_fmod {
 	void ERRCHECK(FMOD_RESULT result) {
 		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}

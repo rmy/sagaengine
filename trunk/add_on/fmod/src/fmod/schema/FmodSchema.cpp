@@ -34,7 +34,7 @@ rune@skalden.com
 #include "util/system/util_system.hpp"
 
 
-namespace se_core {
+namespace se_fmod {
 	namespace FmodSchema {
 		Sounds sounds;
 		SoundPlayer* soundPlayer = 0;

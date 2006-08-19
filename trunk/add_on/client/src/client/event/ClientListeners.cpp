@@ -23,6 +23,7 @@ rune@skalden.com
 #include "ClientListener.hpp"
 #include "util/error/Log.hpp"
 
+using namespace se_core;
 
 namespace se_client {
 

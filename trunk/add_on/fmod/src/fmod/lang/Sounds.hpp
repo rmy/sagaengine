@@ -25,7 +25,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 #include <fmod.h>
 
-namespace se_core {
+namespace se_fmod {
 	class Sounds {
 	public:
 		Sounds();

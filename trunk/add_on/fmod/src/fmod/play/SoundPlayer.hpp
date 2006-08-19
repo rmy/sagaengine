@@ -26,7 +26,7 @@ rune@skalden.com
 #include <fmod.h>
 
 
-namespace se_core {
+namespace se_fmod {
 	class SoundPlayer : public SoundListener {
 	public:
 		SoundPlayer();
