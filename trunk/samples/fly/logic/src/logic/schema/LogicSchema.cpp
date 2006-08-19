@@ -35,15 +35,12 @@ namespace logic {
 
 
 	bool LogicSchema::init() {
-		// Create and register parser modules
-		static SimpleAreaParserModule sAreaPM(IoSchema::parser());
-		static SimpleAreaThingParserModule sAreaThingPM(IoSchema::parser());
-		static SimpleActorParserModule sActorPM(IoSchema::parser());
-		static AreaWangGridParserModule sAreaWangGridPM(IoSchema::parser());
-
 		// Create and register physics objects
 		static const PhSimple phSimple;
 		static const PhDanglingCamera phDanglingCamera;
+
+		// Create and register parser modules
+		static AreaWangGridParserModule sAreaWangGridPM(IoSchema::parser());
 
 		return true;
 	}

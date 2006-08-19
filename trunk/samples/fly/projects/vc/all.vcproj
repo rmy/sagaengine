@@ -337,11 +337,6 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\o3d_event.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\use.hpp"> </File>
-</Filter><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\O3dInitHandler.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\O3dInitHandler.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\all.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\o3d_init.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\use.hpp"> </File>
 </Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\Console.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\Console.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\ConsoleHandler.cpp"> </File>

@@ -19,7 +19,7 @@ namespace se_basic {
 
 	SimpleActorFactory
 	::~SimpleActorFactory() {
-		for(int i = 0; i < spawnPointCount; ++i) {
+		for(int i = 0; i < spawnPointCount_; ++i) {
 			delete spawnPoints_[ i ];
 		}
 		delete spawnPoints_;
@@ -86,7 +86,7 @@ namespace se_basic {
 		spawnPoints_ = new ViewPoint*[ count ];
 
 		spawnPointCount_ = count;
-		for(int i = 0; i < spawnPointCount; ++i) {
+		for(int i = 0; i < spawnPointCount_; ++i) {
 			spawnPoints_[ i ] = spawnPoints[ i ];
 		}
 	}

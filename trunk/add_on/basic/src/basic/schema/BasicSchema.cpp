@@ -21,14 +21,14 @@ rune@skalden.com
 
 #include "BasicPre.hpp"
 #include "BasicSchema.hpp"
-#include "../area/all.hpp"
 #include "../io/all.hpp"
 
 using namespace se_core;
 
 namespace se_basic {
 	namespace BasicSchema {
-		const struct AutoInit {
+		class _SeBasicExport AutoInit : public se_core::InitListener {
+		public:
 			AutoInit() {
 				// Create and register parser modules
 				static SimpleAreaParserModule sAreaPM(IoSchema::parser());
@@ -46,6 +46,12 @@ namespace se_basic {
 
 				LogMsg("Cleaned up Basic add-on");
 			}
-		} autoInit;
+
+			void initEngineEvent() {}
+			void cleanupEngineEvent() {}
+			void initGameEvent() {}
+			void cleanupGameEvent() {}
+
+			} autoInit;
 	}
 }
