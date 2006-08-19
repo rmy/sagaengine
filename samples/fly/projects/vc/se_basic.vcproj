@@ -1,0 +1,199 @@
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="se_basic"
+	ProjectGUID="{4243B0ED-C81E-451B-839E-2FDDB823B7F1}"
+	RootNamespace="se_basic"
+	Keyword="Win32Proj"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\$(ConfigurationName)"
+			IntermediateDirectory=".\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="se_client.lib se_core.lib "
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm150"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../../add_on/basic/src;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeBasicExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\$(ConfigurationName)"
+			IntermediateDirectory=".\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="2"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="se_client.lib se_core.lib "
+				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				OmitFramePointers="true"
+				AdditionalIncludeDirectories="../../../../add_on/basic/src;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeBasicExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
+				StringPooling="true"
+				MintimalRebuild="true"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
+			>
+			<File RelativePath="..\..\..\..\add_on\basic\src\BasicPre.hpp"> </File>
+<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\basic_area.hpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\all.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\all.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleActorFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleActorFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleCameraFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleCameraFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\all.hpp"> </File>
+</Filter></Filter>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
+

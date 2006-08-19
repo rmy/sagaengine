@@ -1,7 +1,7 @@
 #ifndef logic_area_AreaWangGrid_hpp
 #define logic_area_AreaWangGrid_hpp
 
-#include "logic_area.hpp"
+#include "sim/area/Area.hpp"
 #include "LogicPre.hpp"
 
 namespace logic {

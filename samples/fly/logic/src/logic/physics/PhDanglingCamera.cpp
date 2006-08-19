@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "PhDanglingCamera.hpp"
-#include "../area/SimpleArea.hpp"
+#include "sim/area/Area.hpp"
 
 using namespace se_client;
 using namespace se_core;

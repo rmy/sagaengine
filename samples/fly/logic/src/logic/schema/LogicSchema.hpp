@@ -18,7 +18,7 @@ Rune Myrland
 rune@skalden.com
 */
 
-#include "../area/logic_area.hpp"
+#include "../area/AreaWangGrid.hpp"
 
 
 #ifndef logic_schema_LogicSchema_hpp

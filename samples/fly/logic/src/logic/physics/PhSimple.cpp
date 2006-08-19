@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "PhSimple.hpp"
-#include "../area/SimpleArea.hpp"
+#include "sim/area/Area.hpp"
 
 using namespace se_core;
 
@@ -128,7 +128,7 @@ namespace logic {
 	bool PhSimple
 	::isBlocked(const Actor& actor, const Pos& pos, const Pos& nextPos) const {
 		short to = nextPos.terrainStyle();
-		if(to == SimpleArea::TS_VOID) {
+		if(to == se_core::Pos::TS_VOID) {
 			return true;
 		}
 
