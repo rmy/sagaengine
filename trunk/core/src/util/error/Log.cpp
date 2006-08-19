@@ -39,7 +39,7 @@ namespace se_err {
 
 
 	void scream3(const char* file, int line, const char* msg) {
-		char* buffer = new char[512];
+		char buffer[512];
 		sprintf(buffer, "Fat: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 
@@ -47,7 +47,7 @@ namespace se_err {
 		throw 0.0f;
 	}
 	void say3(const char* file, int line, const char* msg) {
-		char* buffer = new char[512];
+		char buffer[512];
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}

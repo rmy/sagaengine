@@ -19,7 +19,7 @@ namespace logic {
 
 	SimpleActorFactory
 	::~SimpleActorFactory() {
-		delete spawnPoints_;
+		delete[] spawnPoints_;
 	}
 
 
