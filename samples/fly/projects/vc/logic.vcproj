@@ -167,8 +167,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
 			>
 			<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
+<File RelativePath="..\..\logic\src\all.hpp"> </File>
 <Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\config\CustomMove.cpp"> </File>
 <File RelativePath="..\..\logic\src\config\CustomMove.hpp"> </File>
+<File RelativePath="..\..\logic\src\config\all.hpp"> </File>
 <File RelativePath="..\..\logic\src\config\config.hpp"> </File>
 </Filter><Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\action\DropStone.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\DropStone.hpp"> </File>
@@ -179,20 +181,9 @@
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
 </Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\SimpleArea.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\SimpleArea.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\SimpleAreaFactory.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\SimpleAreaFactory.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\area\all.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\logic_area.hpp"> </File>
 </Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleActorParserModule.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleActorParserModule.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleAreaParserModule.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleAreaParserModule.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleAreaThingParserModule.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\SimpleAreaThingParserModule.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\io\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
@@ -204,13 +195,7 @@
 <File RelativePath="..\..\logic\src\logic\schema\all.hpp"> </File>
 </Filter><Filter Name="script" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\script\ScCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\script\ScCamera.hpp"> </File>
-</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\thing\SimpleActorFactory.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\SimpleActorFactory.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\SimpleCameraFactory.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\SimpleCameraFactory.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\SimplePlayerFactory.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\SimplePlayerFactory.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\thing\all.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\script\all.hpp"> </File>
 </Filter></Filter>
 		</Filter>
 	</Files>

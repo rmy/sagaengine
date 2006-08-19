@@ -1,5 +1,6 @@
 ../../../../core/src
 ../../../../add_on/client/src
+../../../../add_on/basic/src
 ../../../../add_on/ogre/src
 ../../ogre_ui/src
 ../../logic/src
