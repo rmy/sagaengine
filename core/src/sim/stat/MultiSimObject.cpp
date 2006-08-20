@@ -24,7 +24,6 @@ rune@skalden.com
 #include "SimObjectIterator.hpp"
 #include "../SimObject.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../error/sim_error.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstdio>
 

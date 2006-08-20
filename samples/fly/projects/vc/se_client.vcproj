@@ -166,9 +166,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
 			>
-			<Filter Name="client" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\all.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\client\src\client\client.hpp"> </File>
-<Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.cpp"> </File>
+			<Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListener.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListeners.cpp"> </File>

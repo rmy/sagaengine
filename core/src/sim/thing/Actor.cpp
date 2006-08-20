@@ -26,7 +26,6 @@ rune@skalden.com
 #include "../area/Area.hpp"
 #include "../area/sim_area.hpp"
 #include "../custom/Abilities.hpp"
-#include "../error/sim_error.hpp"
 #include "../physics/Physics.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../script/Script.hpp"

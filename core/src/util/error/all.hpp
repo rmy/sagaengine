@@ -23,5 +23,6 @@ rune@skalden.com
 #define util_error_all_hpp
 
 #include "Log.hpp"
+#include "StopWatch.hpp"
 
 #endif

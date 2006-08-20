@@ -26,7 +26,6 @@ rune@skalden.com
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"
 #include "../script/ShowingCutscene.hpp"
-#include "../error/StopWatch.hpp"
 #include "../message/MessageCentral.hpp"
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
@@ -35,12 +34,13 @@ rune@skalden.com
 #include "../area/sim_area.hpp"
 #include "../area/AreaManager.hpp"
 #include "../thing/ThingManager.hpp"
-#include "util/system/util_system.hpp"
-#include "util/system/RealClock.hpp"
 #include "../physics/all.hpp"
 #include "../action/all.hpp"
 #include "../stat/Dictionary.hpp"
 #include "../stat/DictionaryEntry.hpp"
+#include "util/system/util_system.hpp"
+#include "util/error/StopWatch.hpp"
+#include "util/system/RealClock.hpp"
 #include <cstring>
 
 

@@ -265,10 +265,6 @@
 <File RelativePath="..\..\..\..\core\src\sim\custom\ThingData.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\custom\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\custom\sim_custom.hpp"> </File>
-</Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\error\StopWatch.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\StopWatch.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\all.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\sim_error.hpp"> </File>
 </Filter><Filter Name="message" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\message\MessageCentral.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\MessageCentral.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\MessageListener.hpp"> </File>
@@ -367,6 +363,8 @@
 <File RelativePath="..\..\..\..\core\src\util\config\util_config.hpp"> </File>
 </Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\error\Log.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\error\Log.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\error\StopWatch.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\error\StopWatch.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\error\all.hpp"> </File>
 </Filter><Filter Name="math" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\math\BrayT.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\math\BrayT.hpp"> </File>

@@ -23,7 +23,7 @@ rune@skalden.com
 
 #include "../sim.hpp"
 #include "../action/sim_action.hpp"
-#include "../error/sim_error.hpp"
+#include "util/error/StopWatch.hpp"
 #include "../message/sim_message.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"

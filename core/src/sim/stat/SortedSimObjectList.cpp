@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "SortedSimObjectList.hpp"
 #include "../SimObject.hpp"
-#include "../error/sim_error.hpp"
 #include "../action/Action.hpp"
 #include "../physics/Physics.hpp"
 #include "../react/ThingCollide.hpp"
