@@ -27,14 +27,34 @@ rune@skalden.com
 #include "sim/thing/sim_thing.hpp"
 #include "util/system/util_system.hpp"
 
+/**
+ * The Client add-on module works as a bridge between SagaEngine Core and client application.
+ * This add-on contains pointers the player and camera Actor objects, it contains language suppoert,
+ * and an event bridge that is useful between the core and render modules.
+ */
 namespace se_client {
+	/**
+	 * Global objects that are useful for client applications.
+	 * 
+	 */
 	namespace ClientSchema {
+		/** Manager for client listeners. */
 		extern _SeClientExport ClientListeners clientListeners;
+		
+		/** Bridge for events between the core and client application + set the present camera throught this class. */
 		extern _SeClientExport ClientEventBridge clientEventBridge;
+		
+		/** Look up dictionary that contains phrases in several languages. */
 		extern _SeClientExport Phrase phrases;
 
+		
+		/** The current player object */
 		extern _SeClientExport se_core::Player* player;
+
+		/** A camera object (actor) that can float free of the player object. */
 		extern _SeClientExport se_core::Camera* floatingCamera;
+
+		/** The object that the camera is attached to. Probably the player or the floatingCamera */
 		extern _SeClientExport se_core::Camera* camera;
 
 	};

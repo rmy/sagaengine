@@ -22,23 +22,9 @@ rune@skalden.com
 #ifndef se_client_hpp
 #define se_client_hpp
 
-#include "../src/client/all.hpp"
 #include "../src/client/schema/all.hpp"
 #include "../src/client/lang/all.hpp"
 #include "../src/client/event/all.hpp"
 #include "../src/client/io/all.hpp"
-
-namespace se_core {
-
-
-	inline bool initSeModule_Client() {
-		return true;
-	}
-
-
-	inline void cleanupSeModule_Client() {
-	}
-}
-
 
 #endif

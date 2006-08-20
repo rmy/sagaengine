@@ -21,9 +21,7 @@ rune@skalden.com
 
 #ifndef client_lang_client_lang_hpp
 #define client_lang_client_lang_hpp
-/**
- * Multi languague support.
- */
+
 namespace se_client {
 	class Phrase;
 }
