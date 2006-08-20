@@ -32,7 +32,7 @@ rune@skalden.com
 #include "util/system/util_system.hpp"
 
 /**
- * The core game simulation engine.
+ * The game simulation engine. This is the core of SagaEngine.
  */
 namespace se_core {
 	/**
