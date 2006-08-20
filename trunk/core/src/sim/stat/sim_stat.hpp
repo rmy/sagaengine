@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef engine_stat_hpp
 #define engine_stat_hpp
 
-/** Coordinates, abilities, health and other game stat classes. */
 namespace se_core {
 	class SimObjectList;
 	class SortedSimObjectList;
@@ -30,7 +29,7 @@ namespace se_core {
 	class MultiSimObject;
 	class ReportingMultiSimObject;
 	class ReportingMGOHandler;
-	class _SeCoreExport MultiSimObjectListener;
+	class MultiSimObjectListener;
 
 	class MultiSimObjectIterator;
 	class ThingIterator;

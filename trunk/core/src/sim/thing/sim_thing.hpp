@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef engine_thing_hpp
 #define engine_thing_hpp
 
-/** Things, Actors and related. */
 namespace se_core {
 	class Actor;
 	class Camera;

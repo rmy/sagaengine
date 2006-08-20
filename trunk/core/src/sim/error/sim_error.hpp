@@ -19,7 +19,6 @@ rune@skalden.com
 */
 
 
-/** Profiling utility class. */
 namespace se_core {
 	class StopWatch;
 }

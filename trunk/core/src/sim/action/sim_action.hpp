@@ -22,11 +22,6 @@ rune@skalden.com
 #ifndef engine_action_hpp
 #define engine_action_hpp
 
-/**
- * Actions and ActionQueue architecure.
- * Game actions are the atoms of game character behaviour
- * in SagaEngine.
- */
 namespace se_core {
 	/**
 	 * Action channels.

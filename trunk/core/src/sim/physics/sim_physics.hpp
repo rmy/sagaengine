@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef engine_physics_hpp
 #define engine_physics_hpp
 
-/** Movement formulas for different types of movement. */
 namespace se_core {
 	class Physics;
 	class PhDefault;

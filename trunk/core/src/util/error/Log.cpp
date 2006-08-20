@@ -344,9 +344,3 @@ void operator delete[] (void * p) {
 }
 #endif
 
-namespace se_err {
-	void hello() {
-		static int count = 0;
-		++count;
-	}
-}
