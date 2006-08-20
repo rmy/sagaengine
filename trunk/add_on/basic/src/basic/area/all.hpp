@@ -5,5 +5,8 @@
 #include "SimpleArea.hpp"
 #include "SimpleAreaFactory.hpp"
 #include "WangAreaGrid.hpp"
+#include "NavMesh.hpp"
+#include "NavMeshArea.hpp"
+#include "NavMeshAreaFactory.hpp"
 
 #endif

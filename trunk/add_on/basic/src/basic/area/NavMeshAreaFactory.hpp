@@ -19,15 +19,27 @@ rune@skalden.com
 */
 
 
-#ifndef basic_area_hpp
-#define basic_area_hpp
+#ifndef NavMeshAreaFactory_hpp
+#define NavMeshAreaFactory_hpp
+
+
+#include "basic_area.hpp"
+#include "BasicPre.hpp"
 
 namespace se_basic {
-	class SimpleArea;
-	class SimpleAreaFactory;
-	class NavMesh;
-	class NavMeshArea;
-	class NavMeshAreaFactory;
+
+	class _SeBasicExport NavMeshAreaFactory : public se_core::AreaFactory {
+	public:
+		NavMeshAreaFactory(se_core::String* name, coor_tile_t w, coor_tile_t h, se_core::ByteArray* data);
+		~NavMeshAreaFactory();
+		se_core::Area* create(se_core::String* name, int pageX, int pageY, int pageZ) const;
+
+	protected:
+		se_core::ByteArray* data_;
+		coor_tile_t width_, height_;
+		const NavMesh* navMesh_;
+	};
+
 }
 
 #endif

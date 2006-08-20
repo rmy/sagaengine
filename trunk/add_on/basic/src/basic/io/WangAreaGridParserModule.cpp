@@ -10,7 +10,7 @@ namespace se_basic {
 
 	WangAreaGridParserModule
 	::WangAreaGridParserModule(Parser& parser)
-		: ParserModule(parser, ParserModule::GAME, ParserModule::AREA, 2)  {
+		: ParserModule(parser, ParserModule::GAME, ParserModule::AREA_GRID, 2)  {
 	}
 
 
