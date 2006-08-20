@@ -40,7 +40,7 @@ namespace se_client {
 	namespace ClientSchema {
 		ClientEventBridge clientEventBridge; // OBJECT_IN_EWRAM;
 		ClientListeners clientListeners; // OBJECT_IN_EWRAM;
-		Phrase phrases OBJECT_IN_EWRAM;
+		Phrase phrases; // OBJECT_IN_EWRAM;
 
 		Player* player; // VAR_IN_EWRAM;
 		Camera* floatingCamera; // VAR_IN_EWRAM;
