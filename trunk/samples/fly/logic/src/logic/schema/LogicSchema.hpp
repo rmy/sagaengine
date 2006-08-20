@@ -18,7 +18,6 @@ Rune Myrland
 rune@skalden.com
 */
 
-#include "../area/AreaWangGrid.hpp"
 
 
 #ifndef logic_schema_LogicSchema_hpp
@@ -26,9 +25,6 @@ rune@skalden.com
 
 namespace logic {
 	namespace LogicSchema {
-
-		extern _FlyLogicExport AreaWangGrid* areaGrid;
-
 		_FlyLogicExport bool init();
 		_FlyLogicExport void cleanup();
 

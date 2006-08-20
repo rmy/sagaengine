@@ -21,8 +21,6 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "LogicSchema.hpp"
-#include "../area/AreaWangGrid.hpp"
-#include "../io/all.hpp"
 #include "../physics/all.hpp"
 
 using namespace se_core;
@@ -30,7 +28,6 @@ using namespace se_core;
 namespace logic {
 
 	namespace LogicSchema {
-		AreaWangGrid* areaGrid = 0;
 	}
 
 
@@ -38,9 +35,6 @@ namespace logic {
 		// Create and register physics objects
 		static const PhSimple phSimple;
 		static const PhDanglingCamera phDanglingCamera;
-
-		// Create and register parser modules
-		static AreaWangGridParserModule sAreaWangGridPM(IoSchema::parser());
 
 		return true;
 	}
