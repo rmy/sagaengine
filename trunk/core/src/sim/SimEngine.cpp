@@ -24,7 +24,6 @@ rune@skalden.com
 #include "SimListeners.hpp"
 #include "./action/Action.hpp"
 #include "./action/ActionQueue.hpp"
-#include "./error/StopWatch.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./stat/Pos.hpp"
 #include "./stat/MultiSimObject.hpp"
