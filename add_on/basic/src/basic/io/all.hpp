@@ -4,6 +4,7 @@
 #include "SimpleActorParserModule.hpp"
 #include "SimpleAreaParserModule.hpp"
 #include "SimpleAreaThingParserModule.hpp"
+#include "NavMeshAreaParserModule.hpp"
 #include "WangAreaGridParserModule.hpp"
 
 #endif

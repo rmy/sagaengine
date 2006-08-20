@@ -31,6 +31,7 @@ namespace se_basic {
 		public:
 			AutoInit() {
 				// Create and register parser modules
+				static NavMeshAreaParserModule nAreaPM(IoSchema::parser());
 				static SimpleAreaParserModule sAreaPM(IoSchema::parser());
 				static SimpleAreaThingParserModule sAreaThingPM(IoSchema::parser());
 				static SimpleActorParserModule sActorPM(IoSchema::parser());

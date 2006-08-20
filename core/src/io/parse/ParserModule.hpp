@@ -33,6 +33,7 @@ namespace se_core {
 			, AREA_THINGS = 'B'
 			, RANDOM_AREA_THINGS = 'C'
 			, CONFIG = 'F'
+			, AREA_GRID = 'G'
 			, HEIGHTMAP_AREA = 'H'
 			, LANGUAGE = 'L'
 			, MENU = 'M'
@@ -47,6 +48,7 @@ namespace se_core {
 
 		enum ModuleGroup { 
 			ENGINE = 'E'
+			, BASIC = 'B'
 			, CLIENT = 'C'
 			, SDL = 'S'
 			, GBA = 'G'
