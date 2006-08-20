@@ -4,5 +4,6 @@
 #include "basic_area.hpp"
 #include "SimpleArea.hpp"
 #include "SimpleAreaFactory.hpp"
+#include "WangAreaGrid.hpp"
 
 #endif

@@ -27,5 +27,4 @@ rune@skalden.com
 #include "../src/client/schema/all.hpp"
 #include "../src/client/thing/all.hpp"
 
-
 #endif
