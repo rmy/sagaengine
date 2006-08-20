@@ -32,7 +32,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				GenerateManifest="false"
@@ -119,7 +118,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
@@ -215,6 +213,8 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\WangAreaGrid.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\WangAreaGrid.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\basic_area.hpp"> </File>
 </Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.cpp"> </File>
@@ -223,6 +223,8 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\all.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.hpp"> </File>
@@ -254,11 +256,7 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\schema\ClientSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\schema\ClientSchema.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\schema\all.hpp"> </File>
-</Filter></Filter><Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\config\CustomMove.cpp"> </File>
-<File RelativePath="..\..\logic\src\config\CustomMove.hpp"> </File>
-<File RelativePath="..\..\logic\src\config\all.hpp"> </File>
-<File RelativePath="..\..\logic\src\config\config.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
+</Filter></Filter><Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.hpp"> </File>
@@ -294,12 +292,6 @@
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
-</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\all.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.cpp"> </File>
