@@ -168,23 +168,13 @@
 			>
 			<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
 <File RelativePath="..\..\logic\src\all.hpp"> </File>
-<Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\config\CustomMove.cpp"> </File>
-<File RelativePath="..\..\logic\src\config\CustomMove.hpp"> </File>
-<File RelativePath="..\..\logic\src\config\all.hpp"> </File>
-<File RelativePath="..\..\logic\src\config\config.hpp"> </File>
-</Filter><Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\action\DropStone.cpp"> </File>
+<Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\action\DropStone.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\DropStone.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayMusic.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayMusic.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
-</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\AreaWangGrid.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\area\all.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.cpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\AreaWangGridParserModule.hpp"> </File>
-<File RelativePath="..\..\logic\src\logic\io\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.cpp"> </File>
