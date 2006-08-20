@@ -22,8 +22,6 @@ rune@skalden.com
 #ifndef io_parse_hpp
 #define io_parse_hpp
 
-/** Data file parser architecture and some engine datafile parsers.
- */
 namespace se_core {
 	class Parser;
 	class ParserModule;

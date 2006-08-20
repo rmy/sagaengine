@@ -47,7 +47,6 @@ namespace se_client {
 		/** Look up dictionary that contains phrases in several languages. */
 		extern _SeClientExport Phrase phrases;
 
-		
 		/** The current player object */
 		extern _SeClientExport se_core::Player* player;
 
