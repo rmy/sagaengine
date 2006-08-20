@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_client {
 
 	/**
-	 * Translates MultiSimObject events for Areas into ClientEvents.
+	 * Translates some Sim events into ClientListener events.
 	 */
 	class _SeClientExport ClientEventBridge 
 		: public se_core::MultiSimObjectListener
@@ -44,8 +44,6 @@ namespace se_client {
 
 		void cameraLeftAreaEvent(se_core::Camera& caster, se_core::Area& area);
 		void cameraEnteredAreaEvent(se_core::Camera& caster, se_core::Area& area);
-
-
 
 		void setCamera(se_core::Camera* newCamera);
 	};

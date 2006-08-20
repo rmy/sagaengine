@@ -19,13 +19,8 @@ rune@skalden.com
 */
 
 
-/**
- * Convenience classes for gluing the core to the presentation code.
- */
 namespace se_client {
-
 	class ClientListener;
 	class ClientListeners;
 	class ClientEventBridge;
-
 }

@@ -25,6 +25,9 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 
 namespace se_client {
+	/**
+	 * Maintains in-game text in multiple languages.
+	 */
 	class _SeClientExport Phrase {
 	public:
 		Phrase();
