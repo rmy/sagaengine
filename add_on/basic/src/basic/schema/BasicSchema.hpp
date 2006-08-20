@@ -24,7 +24,13 @@ rune@skalden.com
 #ifndef basic_schema_BasicSchema_hpp
 #define basic_schema_BasicSchema_hpp
 
+/**
+ * Some basic area types, actor factories and parser modules.
+ */
 namespace se_basic {
+	/**
+	 * Globals defined by the se_basic add-on.
+	 */
 	namespace BasicSchema {
 		class AutoInit;
 	}
