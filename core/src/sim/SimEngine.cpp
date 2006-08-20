@@ -65,11 +65,12 @@ namespace se_core {
 		LogMsg("Destroying SimEngine");
 	}
 
-
+	/*
 	SimEngine* SimEngine
 	::singleton() {
 		return &SimSchema::simEngine;
 	}
+	*/
 
 
 	inline void SimEngine

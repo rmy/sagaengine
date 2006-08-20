@@ -51,12 +51,6 @@ namespace se_core {
 		~SimEngine();
 
 		/**
-		 * Convenience method. Gives a pointer to the
-		 * SimSchema::simEngine object.
-		 */
-		static SimEngine* singleton();
-
-		/**
 		 * Initialise the simulation engine. This should be called once
 		 * after the application starts up.
 		 *
