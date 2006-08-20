@@ -56,8 +56,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;"
+				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SeBasicExport=;_SimpleLogicExport=;_SimpleUiExport=;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -147,8 +147,8 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;"
+				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SeBasicExport=;_SimpleLogicExport=;_SimpleUiExport=;"
 				StringPooling="true"
 				MintimalRebuild="true"
 				RuntimeLibrary="0"
@@ -203,15 +203,37 @@
 			>
 			<File RelativePath="..\..\..\..\samples\simple\start\src\Application.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\start\src\Application.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\BasicPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\LogicPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\OgreUiPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\start\src\Start.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp"> </File>
-<Filter Name="client" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\all.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\client\src\client\client.hpp"> </File>
-<Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.cpp"> </File>
+<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\basic_area.hpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\all.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\all.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleActorFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleActorFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleCameraFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimpleCameraFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\all.hpp"> </File>
+</Filter></Filter><Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListener.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListeners.cpp"> </File>
@@ -267,17 +289,6 @@
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\all.hpp"> </File>
-</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\SimpleArea.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\SimpleArea.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\all.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\area\logic_area.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleActorParserModule.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleActorParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaParserModule.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\SimpleAreaThingParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\io\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhTrackingCamera.cpp"> </File>
@@ -286,13 +297,6 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\all.hpp"> </File>
-</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleActorFactory.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleActorFactory.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleCameraFactory.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimpleCameraFactory.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimplePlayerFactory.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\SimplePlayerFactory.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\thing\all.hpp"> </File>
 </Filter></Filter><Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\all.hpp"> </File>
@@ -317,11 +321,6 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\o3d_event.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\event\use.hpp"> </File>
-</Filter><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\O3dInitHandler.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\O3dInitHandler.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\all.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\o3d_init.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\init\use.hpp"> </File>
 </Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\Console.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\Console.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\ConsoleHandler.cpp"> </File>
@@ -473,10 +472,6 @@
 <File RelativePath="..\..\..\..\core\src\sim\custom\ThingData.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\custom\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\custom\sim_custom.hpp"> </File>
-</Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\error\StopWatch.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\StopWatch.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\all.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\error\sim_error.hpp"> </File>
 </Filter><Filter Name="message" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\message\MessageCentral.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\MessageCentral.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\MessageListener.hpp"> </File>
@@ -583,6 +578,8 @@
 <File RelativePath="..\..\..\..\core\src\util\config\util_config.hpp"> </File>
 </Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\error\Log.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\error\Log.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\error\StopWatch.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\error\StopWatch.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\error\all.hpp"> </File>
 </Filter><Filter Name="math" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\math\BrayT.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\math\BrayT.hpp"> </File>

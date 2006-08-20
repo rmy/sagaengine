@@ -44,9 +44,23 @@ namespace se_basic {
 		unsigned short w = in.readShort();
 		unsigned short h = in.readShort();
 
+		short doCreateInstance = false;
+		int code;
+		while((code = in.readInfoCode()) != 'Q') {
+			switch(code) {
+			case 'C': // create instance
+				doCreateInstance = true;
+				break;
+			default:
+				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
+				break;
+			}
+		}
+
 		SimpleAreaFactory* f = new SimpleAreaFactory(name, w, h);
 		SimSchema::areaManager.addFactory(f);
-		//SimSchema::areaManager.createArea(name->get(), name->get());
+		if(doCreateInstance)
+			SimSchema::areaManager.createArea(name->get(), name->get());
 	}
 
 }

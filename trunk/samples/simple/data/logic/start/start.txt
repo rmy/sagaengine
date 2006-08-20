@@ -4,7 +4,7 @@ E level1a 0
 /
 C control.camera
 E level1a 0
-V
 T
+V
 /
 Q

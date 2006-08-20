@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "LogicSchema.hpp"
-#include "../io/all.hpp"
 #include "../physics/all.hpp"
 
 using namespace se_core;
@@ -33,11 +32,6 @@ namespace logic {
 
 
 	bool LogicSchema::init() {
-		// Create and register parser modules
-		static SimpleAreaParserModule sAreaPM(IoSchema::parser());
-		static SimpleAreaThingParserModule sAreaThingPM(IoSchema::parser());
-		static SimpleActorParserModule sActorPM(IoSchema::parser());
-
 		// Create and register physics objects
 		static const PhSimple phSimple;
 

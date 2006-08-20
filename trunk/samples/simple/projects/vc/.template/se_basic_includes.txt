@@ -1,0 +1,4 @@
+../../../../core/include
+../../../../core/src
+../../../../add_on/client/include
+../../../../add_on/client/src

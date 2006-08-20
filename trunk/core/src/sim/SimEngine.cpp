@@ -65,13 +65,6 @@ namespace se_core {
 		LogMsg("Destroying SimEngine");
 	}
 
-	/*
-	SimEngine* SimEngine
-	::singleton() {
-		return &SimSchema::simEngine;
-	}
-	*/
-
 
 	inline void SimEngine
 	::flip(long when) {
@@ -129,8 +122,7 @@ namespace se_core {
 		// w is the game clock ('when') adjusted for lost performs.
 		long w = (p - lostPerformAdjustment_) << TIMESTEP_INTERVAL_SHIFT;
 
-		// Cast PreSimTickt event
-		//e.init(*this, EngineEvent::TYPE_PRE_TICK, w);
+		// Cast PreSimTick event
 		SimSchema::engineListeners().castPreSimTickEvent(w);
 
 		// Perform actions in actionQueue until up to date...

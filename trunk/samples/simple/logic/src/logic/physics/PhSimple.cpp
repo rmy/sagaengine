@@ -20,8 +20,9 @@ rune@skalden.com
 
 
 #include "PhSimple.hpp"
-#include "../area/SimpleArea.hpp"
+#include "basic/area/SimpleArea.hpp"
 
+using namespace se_basic;
 using namespace se_core;
 
 namespace logic {
@@ -82,6 +83,8 @@ namespace logic {
 		// Friction
 		nextMove.velocity_.scale(0.8);
 		nextMove.angularVelocity_.scale(0.8);
+
+		nextPos.updateWorldViewPoint();
 	}
 
 
