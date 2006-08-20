@@ -26,6 +26,9 @@ rune@skalden.com
 #include "../../sim/thing/sim_thing.hpp"
 
 namespace se_core {
+	/**
+	 * Save file encoders.  
+	 */
 	class _SeCoreExport Encoder {
 	public:
 		Encoder();

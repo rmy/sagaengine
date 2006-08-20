@@ -21,12 +21,10 @@ rune@skalden.com
 
 #ifndef io_encode_hpp
 #define io_encode_hpp
-/** Save file encoders.
- */
+
 namespace se_core {
 	class Encoder;
 	class EncoderModule;
-	class AreaThingEncoderModule;
 };
 
 #endif

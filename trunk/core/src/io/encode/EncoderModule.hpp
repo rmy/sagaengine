@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../stream/io_stream.hpp"
 
 namespace se_core {
+	/** Base class for encoder modules. */
 	class _SeCoreExport EncoderModule {
 	public:
 		/*

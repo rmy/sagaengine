@@ -31,7 +31,13 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 #include "util/system/util_system.hpp"
 
+/**
+ * The core simulation engine.
+ */
 namespace se_core {
+	/**
+	 * Global objects and methods used by the simulation logic.
+	 */
 	namespace SimSchema {
 		_SeCoreExport bool init();
 		_SeCoreExport void cleanup();
