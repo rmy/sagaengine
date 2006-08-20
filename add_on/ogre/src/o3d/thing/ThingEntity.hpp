@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_thing_ThingEntity_hpp
 #define o3d_thing_ThingEntity_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "ThingMO.hpp"
 #include "o3d_thing.hpp"
 #include "sim/thing/sim_thing.hpp"

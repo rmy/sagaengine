@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOList.hpp"
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport WorldManager 

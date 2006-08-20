@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_thing_EntityMaterial_hpp
 #define o3d_thing_EntityMaterial_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 
 
 namespace se_ogre {

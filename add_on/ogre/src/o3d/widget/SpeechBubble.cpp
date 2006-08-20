@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "SpeechBubble.hpp"
 #include "../schema/O3dSchema.hpp"
 

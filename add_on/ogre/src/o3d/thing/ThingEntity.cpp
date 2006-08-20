@@ -22,7 +22,7 @@ rune@skalden.com
 #include "ThingEntity.hpp"
 #include "ThingMOInfo.hpp"
 #include "all.hpp"
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "../config/o3d_config.hpp"
 #include "../schema/O3dSchema.hpp"
 #include "o3d/schema/O3dSchema.hpp"

@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_RenderEngine_hpp
 #define o3d_RenderEngine_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "o3d/event/o3d_event.hpp"
 #include "o3d/input/o3d_input.hpp"
 

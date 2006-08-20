@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "ThingMO.hpp"
 #include "ThingMOList.hpp"
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 #include "o3d_thing.hpp"
