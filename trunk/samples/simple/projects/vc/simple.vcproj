@@ -32,7 +32,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ui.lib logic.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				GenerateManifest="false"
@@ -119,7 +118,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ui.lib logic.lib se_ogre.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
