@@ -22,9 +22,6 @@ rune@skalden.com
 #ifndef base_math_hpp
 #define base_math_hpp
 
-/**
- * Basic math libary.
- */
 namespace se_core {
 	class Math;
 	class Trig;

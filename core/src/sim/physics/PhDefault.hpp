@@ -28,6 +28,7 @@ namespace se_core {
 
 	class _SeCoreExport PhDefault : public Physics {
 	public:
+		/** A default movement formula. */
 		PhDefault() : Physics("Default") {}
 		void calcNext(const Actor& actor
 				, const Pos& pos

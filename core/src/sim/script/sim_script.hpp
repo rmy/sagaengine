@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 
-/** Utility and base classes for scripts and cutscenes. */
 namespace se_core {
 	class ScriptData;
 	class Script;

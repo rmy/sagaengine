@@ -19,7 +19,6 @@ rune@skalden.com
 */
 
 
-/** Reaction classes for collisions and entering new terrain types. */
 namespace se_core {
 	class ThingCollide;
 	class DefaultTC;

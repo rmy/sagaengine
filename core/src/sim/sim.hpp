@@ -22,9 +22,6 @@ rune@skalden.com
 #ifndef engine_hpp
 #define engine_hpp
 
-/**
- * Game simulation engine.
- */
 namespace se_core {
 	class InitListener;
 	class InitListeners;

@@ -23,8 +23,6 @@ rune@skalden.com
 #define engine_area_hpp
 
 
-/** Area containers, terrain and movement architecture.
- */
 namespace se_core {
 	class Area;
 	class AreaFactory;

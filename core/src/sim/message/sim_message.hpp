@@ -19,7 +19,6 @@ rune@skalden.com
 */
 
 
-/** Speech and other ingame message handling. */
 namespace se_core {
 	class MessageListener;
 	class MessageCentral;

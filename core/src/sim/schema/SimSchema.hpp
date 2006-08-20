@@ -32,7 +32,7 @@ rune@skalden.com
 #include "util/system/util_system.hpp"
 
 /**
- * The core simulation engine.
+ * The core game simulation engine.
  */
 namespace se_core {
 	/**

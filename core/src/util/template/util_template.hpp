@@ -22,9 +22,6 @@ rune@skalden.com
 #ifndef base_template_hpp
 #define base_template_hpp
 
-/**
- * Data container templates used by the SagaEngine Core.
- */
 namespace se_core {
 	template <class ElementType, int maxElements, int xid> class SinglyLinkedList;
 }

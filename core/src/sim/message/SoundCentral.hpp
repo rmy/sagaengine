@@ -28,6 +28,7 @@ rune@skalden.com
 
 namespace se_core {
 
+	/** Sound message handling manager. */
 	class _SeCoreExport SoundCentral {
 	public:
 

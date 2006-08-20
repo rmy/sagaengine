@@ -19,12 +19,9 @@ rune@skalden.com
 */
 
 
-#ifndef base_hpp
-#define base_hpp
+#ifndef util_hpp
+#define util_hpp
 
-/**
- * Base libraries used by the engine.
- */
 namespace se_core {
 	#define APP_NAME "SagaEngine";
 	#define APP_VERSION = "0.1.0";

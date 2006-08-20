@@ -1,7 +1,3 @@
-#ifndef base_vecmath_hpp
-#define base_vecmath_hpp
-
-#include "util/type/util_type.hpp"
 /**
  * Vector math library.
  * The vectore math module is based on the Java3D specification, but coordinates
@@ -13,6 +9,11 @@
  * usage in the platform dependent layer for platforms optimised for floating point
  * operations.
  */
+
+#ifndef base_vecmath_hpp
+#define base_vecmath_hpp
+
+#include "util/type/util_type.hpp"
 namespace se_core {
 	class Tuple2;
 	class Tuple3;
