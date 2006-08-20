@@ -30,7 +30,7 @@ rune@skalden.com
 #include "../thing/ThingMOManager.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../widget/o3d_widget.hpp"
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 
 /**
  * The se_ogre add_on module is a gluing layer between SagaEngine and the Ogre 3d enginge (http://www.ogre3d.org/).

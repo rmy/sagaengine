@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_input_Console_hpp
 #define o3d_input_Console_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "OgreCEGUI.hpp"
 #include "o3d_input.hpp"
 

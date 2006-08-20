@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef O3dInputBridge_hpp
 #define O3dInputBridge_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 
 namespace se_ogre {
 	// Event handler to add ability to alter curvature

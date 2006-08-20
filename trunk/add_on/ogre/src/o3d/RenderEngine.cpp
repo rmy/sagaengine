@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "RenderEngine.hpp"
 #include "./area/WorldManager.hpp"
 #include "./config/o3d_config.hpp"

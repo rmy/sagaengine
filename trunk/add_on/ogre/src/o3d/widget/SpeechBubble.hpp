@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_widget_SpeechBubble_hpp
 #define o3d_widget_SpeechBubble_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport SpeechBubble : public se_core::MessageListener  {

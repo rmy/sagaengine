@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "O3dAnimationSet.hpp"
 #include "O3dAnimation.hpp"
 #include "util/type/String.hpp"

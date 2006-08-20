@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef o3d_thing_ThingMO_hpp
 #define o3d_thing_ThingMO_hpp
 
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 #include "o3d_thing.hpp"

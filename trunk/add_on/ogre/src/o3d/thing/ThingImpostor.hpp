@@ -23,7 +23,7 @@ rune@skalden.com
 #define o3d_thing_ThingImpostor_hpp
 
 #include "ThingMO.hpp"
-#include "O3dPre.H"
+#include "O3dPre.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 #include "o3d_thing.hpp"
