@@ -28,14 +28,13 @@ rune@skalden.com
 #include "util/system/util_system.hpp"
 
 /**
- * The Client add-on module works as a bridge between SagaEngine Core and client application.
+ * The se_client add-on module works as a bridge between SagaEngine Core and client application.
  * This add-on contains pointers the player and camera Actor objects, it contains language suppoert,
  * and an event bridge that is useful between the core and render modules.
  */
 namespace se_client {
 	/**
 	 * Global objects that are useful for client applications.
-	 * 
 	 */
 	namespace ClientSchema {
 		/** Manager for client listeners. */

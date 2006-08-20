@@ -22,11 +22,6 @@ rune@skalden.com
 #ifndef io_stream_hpp
 #define io_stream_hpp
 
-/** Streaming base classes.
- * These classes should be subclassed in a platform dependent
- * layer. This enables SagaEngine's data file architecture to both
- * handle real file systems and file system emulation on ROMs.
- */
 namespace se_core {
 	class InputStream;
 	class OutputStream;

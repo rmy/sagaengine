@@ -25,6 +25,15 @@ rune@skalden.com
 #include "io_stream.hpp"
 
 namespace se_core {
+	/** File system base class.
+	 * This class should be subclassed in a platform dependent
+	 * layer. This enables SagaEngine's data file architecture to both
+	 * handle real file systems, network transfers, and file system
+	 * emulation on ROMs.
+	 *
+	 * @see TextInputStream
+	 * @see BinaryInputStream
+	 */
 	class _SeCoreExport FileManager {
 	public:
 		FileManager();
