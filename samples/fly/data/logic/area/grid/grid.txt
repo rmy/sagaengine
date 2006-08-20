@@ -1,4 +1,4 @@
-XA02
+XG02
 64 64
 T tile00 RYGB
 T tile01 GBGB
