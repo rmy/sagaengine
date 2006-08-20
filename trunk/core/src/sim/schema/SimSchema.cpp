@@ -46,20 +46,28 @@ rune@skalden.com
 
 namespace se_core {
 	namespace SimSchema {
-		SortedSimObjectList& sortedSimObjectList() {
-			static SortedSimObjectList sgol;
-			return sgol;
-		}
-
-		SimListeners& engineListeners() {
-			static SimListeners simListeners;
-			return simListeners;
+		SimEngine simEngine;
+		AreaManager areaManager;
+		ThingManager& thingManager() {
+			static ThingManager thingManager;
+			return thingManager;
 		}
 
 		InitListeners& initListeners() {
 			static InitListeners initListeners;
 			return initListeners;
 		}
+
+		SimListeners& engineListeners() {
+			static SimListeners simListeners;
+			return simListeners;
+		}
+		
+		SortedSimObjectList& sortedSimObjectList() {
+			static SortedSimObjectList sgol;
+			return sgol;
+		}
+
 
 		HealthListeners& healthListeners() {
 			static HealthListeners healthListeners;
@@ -68,28 +76,23 @@ namespace se_core {
 
 		ActionQueue actionQueue[CHANNEL_COUNT];
 
-		StopWatch defaultStopWatch OBJECT_IN_EWRAM;
-		StopWatch* stopWatch = &defaultStopWatch;
+		//StopWatch defaultStopWatch OBJECT_IN_EWRAM;
+		//StopWatch* stopWatch = &defaultStopWatch;
 
 		MessageCentral messageCentral;
+		
 		SoundCentral soundCentral;
 
 		SimObjectList simObjectList;
+
 		Dictionary& dictionary() {
 			static Dictionary d;
 			return d;
 		}
 		//AllPropertyLists allPropertyLists;
 
-		AreaManager areaManager OBJECT_IN_EWRAM;
-		ThingManager& thingManager() {
-			static ThingManager thingManager;
-			return thingManager;
-		}
-
 		ShowingCutscene showingCutscene;
 		RealClock* realClock = 0;
-		SimEngine simEngine;
 
 		int scriptTracker = 0;
 		bool didTrack = false;
