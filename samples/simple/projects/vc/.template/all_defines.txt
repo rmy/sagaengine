@@ -1,5 +1,6 @@
 _SeOgreExport=
 _SeClientExport=
 _SeCoreExport=
+_SeBasicExport=
 _SimpleLogicExport=
 _SimpleUiExport=

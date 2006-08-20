@@ -1,2 +1,7 @@
 XA01
+# name (xsize in tiles) (zsize in tiles)
 level1a 30 20
+# Create instance
+C
+# quit
+Q

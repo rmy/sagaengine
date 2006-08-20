@@ -1,6 +1,7 @@
 ../../../../samples/simple/start/src
 ../../../../core/src
 ../../../../add_on/client/src
+../../../../add_on/basic/src
 ../../../../add_on/ogre/src
 ../../../../samples/simple/ogre_ui/src
 ../../../../samples/simple/logic/src

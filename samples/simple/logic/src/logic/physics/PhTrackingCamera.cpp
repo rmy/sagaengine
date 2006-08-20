@@ -1,6 +1,7 @@
 #include "PhTrackingCamera.hpp"
-#include "../area/SimpleArea.hpp"
+#include "basic/area/SimpleArea.hpp"
 
+using namespace se_basic;
 using namespace se_client;
 using namespace se_core;
 
@@ -32,6 +33,8 @@ namespace logic {
 		// Stay glued to the players spawn point 0
 		const ViewPoint* sp = ClientSchema::player->spawnPoint(0);
 		nextPos.local_.setViewPoint(*sp);
+		
+		nextPos.updateWorldViewPoint();
 	}
 
 
@@ -44,5 +47,5 @@ namespace logic {
 			actor.scheduleForDestruction();
 		}
 	}
-	
+
 }

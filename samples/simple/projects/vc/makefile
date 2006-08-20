@@ -15,6 +15,7 @@ debug: dbg
 rel: Release/OgreMain.dll
 	vcbuild se_core Release
 	vcbuild se_client Release
+	vcbuild se_basic Release
 	vcbuild se_ogre Release
 	vcbuild logic Release
 	vcbuild ui Release
@@ -22,6 +23,7 @@ rel: Release/OgreMain.dll
 
 dbg: Debug/OgreMain_d.dll
 	vcbuild se_core Debug
+	vcbuild se_basic Debug
 	vcbuild se_client Debug
 	vcbuild se_ogre Debug
 	vcbuild logic Debug
@@ -31,6 +33,7 @@ dbg: Debug/OgreMain_d.dll
 clean:
 	vcbuild -c se_core
 	vcbuild -c se_client
+	vcbuild -c se_basic
 	vcbuild -c se_ogre
 	vcbuild -c logic
 	vcbuild -c ui

@@ -3,4 +3,6 @@ XO02
 C control.camera
 # Physics (physics name)
 P TrackingCamera
+# No radius
+R 0
 Q

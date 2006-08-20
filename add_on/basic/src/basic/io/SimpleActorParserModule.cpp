@@ -36,7 +36,7 @@ namespace se_basic {
 			factory = new SimplePlayerFactory(name);
 			break;
 		default:
-			LogFatal("Unknown thing type");
+			LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
 		}
 		Assert(factory && "Forgot to create factory");
 		String collide("default"); // Default collide
@@ -102,7 +102,7 @@ namespace se_basic {
 				break;
 
 			default:
-				LogFatal("Unknown info code: " << code);
+				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}
 
 		}
@@ -142,7 +142,7 @@ namespace se_basic {
 				}
 				break;
 			default:
-				LogFatal("Illegal parameter to thing.");
+				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}
 		}
 	}
