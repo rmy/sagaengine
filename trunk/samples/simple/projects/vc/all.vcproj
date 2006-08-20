@@ -203,12 +203,19 @@
 <File RelativePath="..\..\..\..\samples\simple\start\src\Application.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\BasicPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\logic\src\LogicPre.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\O3dPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\OgreUiPre.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\start\src\Start.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.hpp"> </File>
 <File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp"> </File>
-<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.cpp"> </File>
+<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshArea.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshArea.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshAreaFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshAreaFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleArea.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\SimpleAreaFactory.hpp"> </File>
@@ -216,7 +223,9 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\WangAreaGrid.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\basic_area.hpp"> </File>
-</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.cpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\io\NavMeshAreaParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\NavMeshAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.hpp"> </File>
