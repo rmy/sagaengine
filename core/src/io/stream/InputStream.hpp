@@ -25,6 +25,11 @@ rune@skalden.com
 #include "../../util/type/util_type.hpp"
 
 namespace se_core {
+	/**
+	 * Input streaming base class.
+	 * This class (or rather its subclasses BinaryInputStream and TextInputStream
+	 * should be subclassed in a platform dependent layer).
+	 */
 	class _SeCoreExport InputStream {
 	public:
 		virtual ~InputStream() {}

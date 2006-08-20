@@ -33,11 +33,11 @@ rune@skalden.com
 #include "O3dPre.H"
 
 /**
- * The Ogre add_on module is a gluing layer between SagaEngine and the Ogre 3d enginge (http://www.ogre3d.org/).
+ * The se_ogre add_on module is a gluing layer between SagaEngine and the Ogre 3d enginge (http://www.ogre3d.org/).
  */
 namespace se_ogre {
 	/**
-	 * Global variables used by the Ogre add-on module.
+	 * Global variables used by the se_ogre add-on module.
 	 */
 	namespace O3dSchema {
 		/**
