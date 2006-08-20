@@ -32,7 +32,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="%s"
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				GenerateManifest="false"
@@ -119,7 +118,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="%s"
-				OutputFile="$(OutDir)/simple.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
