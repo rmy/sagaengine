@@ -27,6 +27,9 @@ rune@skalden.com
 #include "../stream/io_stream.hpp"
 
 namespace se_core {
+	/**
+	 * Global objects and methods for the core io system.
+	 */
 	namespace IoSchema {
 		extern _SeCoreExport Parser& parser();
 		Encoder& encoder();
