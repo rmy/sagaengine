@@ -93,14 +93,14 @@ namespace logic {
 		// Init simulation engine for new game
 		SimSchema::simEngine.initGame();
 
+		// Load ogre configuration
+		IoSchema::fileManager->loadDirectory("ogre/config/");
+
 		// Place creatures in areas
 		IoSchema::fileManager->loadDirectory("logic/area/thing/");
 
 		//
 		IoSchema::fileManager->loadBatch("logic/init.txt");
-
-		// Load ogre configuration
-		//IoSchema::fileManager->loadDirectory("ogre/config/");
 
 		return true;
 	}
