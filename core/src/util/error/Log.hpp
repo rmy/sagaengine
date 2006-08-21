@@ -48,6 +48,7 @@ namespace se_err {
 		Log& say();
 		Log& operator << (const char* msg);
 		Log& operator << (float n);
+		Log& operator << (double n);
 		Log& operator << (unsigned int n);
 		Log& operator << (int n);
 		Log& operator << (char c);

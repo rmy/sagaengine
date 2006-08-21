@@ -121,6 +121,14 @@ namespace se_err {
 
 
 	Log& Log
+	::operator << (double n) {
+		sprintf(tmp_, "%f", n);
+		copy(tmp_);
+		return *this;
+	}
+
+
+	Log& Log
 	::operator << (int n) {
 		sprintf(tmp_, "%d", n);
 		copy(tmp_);
