@@ -130,6 +130,7 @@ namespace se_ogre {
 		createViewports();
 		setupResources();
 
+
 		// Create any resource listeners (for loading screens)
 		createResourceListener();
 

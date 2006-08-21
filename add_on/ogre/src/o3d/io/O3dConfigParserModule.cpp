@@ -48,13 +48,16 @@ namespace se_ogre {
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'D': 
-				{ // Dome
+				try { // Dome
 					String material;
 					in.readString(material);
 					float curvature = in.readFloat();
 					float tiling = in.readFloat();
 					
 					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling);
+				}
+				catch(...) {
+					LogMsg("Couldn't create skydome for ogre config file " << in.name());
 				}
 				break;
 				
