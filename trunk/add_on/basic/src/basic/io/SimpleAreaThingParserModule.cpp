@@ -63,7 +63,7 @@ namespace se_basic {
 		Assert(area);
 		area->setSpawnPoints(spawnPointCount, spawnPoints);
 		area->flip();
-		LogMsg("Parsed things for: " << area->name());
+		//LogMsg("Parsed things for: " << area->name());
 	}
 
 
@@ -81,7 +81,6 @@ namespace se_basic {
 
 		int code;
 		while((code = in.readInfoCode()) != '/') {
-			LogMsg("Code: " << (char)code);
 			// Start reading children
 			if(code == '[') break;
 
@@ -93,7 +92,6 @@ namespace se_basic {
 				{
 					isScaled = true;
 					radius = in.readFloat();
- 					LogMsg("S " << radius);
 				}
 				break;
 			case 'T': // Transform
@@ -101,7 +99,7 @@ namespace se_basic {
 					float x = in.readFloat();
 					float y = in.readFloat();
 					float z = in.readFloat();
-					LogMsg("T " << x << " " << y << " " << z);
+					//LogMsg("T " << x << " " << y << " " << z);
 					vp.coor_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
 				}
 				break;
@@ -110,7 +108,7 @@ namespace se_basic {
 					float yaw = in.readFloat();
 					float pitch = in.readFloat();
 					float roll = in.readFloat();
- 					LogMsg("R " << yaw << " " << pitch << " " << roll);
+ 					//LogMsg("R " << yaw << " " << pitch << " " << roll);
 					vp.face_.setEuler(
 									  BrayT::fromDeg(yaw)
 									  , BrayT::fromDeg(pitch)
@@ -133,17 +131,17 @@ namespace se_basic {
 		thing->nextPos().setGrounded(isGrounded);
 
 		if(code == '[') {
-			LogMsg('[');
+			//LogMsg('[');
 			readChildren(in, area, *thing);
 
 			// End of thing ('/') should follow
 			code = in.readInfoCode();
 
-			LogMsg(']');
+			//LogMsg(']');
 		}
 		Assert(code == '/');
 		
-		LogMsg(thing->name() << ": " << vp.toLog());
+		//LogMsg(thing->name() << ": " << vp.toLog());
 	}
 
 
@@ -151,7 +149,7 @@ namespace se_basic {
 	::readChildren(InputStream& in, Area& area, PosNode& parent) {
 		int code;
 		while((code = in.readInfoCode()) != ']') {
-			LogMsg("Code: " << (char)code);
+			//LogMsg("Code: " << (char)code);
 			switch(code) {
 			case 'A': // object (thing or actor)
 				readThing(in, area, &parent);
