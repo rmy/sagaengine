@@ -9,4 +9,3 @@ sh ../../../../tools/qmake/strap_app.sh ../../logic logic
 sh ../../../../tools/qmake/strap_app.sh ../../start start
 
 qmake -o makefile all.pro
-
