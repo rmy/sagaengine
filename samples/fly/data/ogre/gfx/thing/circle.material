@@ -7,8 +7,8 @@ material circle
 			alpha_rejection greater_equal 128
 			cull_hardware none
 			cull_software none
-			point_sprites on
 
+			// TODO: Rotation fails on my amd64 fedora core 5 making ogre hang
 			texture_unit
 			{
 				texture circle.png
@@ -26,4 +26,22 @@ material circle
 			}
 		}
 	}
+
+
+	technique 
+	{
+		pass 
+		{
+			alpha_rejection greater_equal 128
+			cull_hardware none
+			cull_software none
+
+			texture_unit
+			{
+				texture circle.png
+				tex_coord_set 0
+			}
+		}
+	}
+
 }
