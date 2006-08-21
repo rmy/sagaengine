@@ -11,6 +11,7 @@ OBJECTS_DIR = .obj
 
 include( core.pro )
 include( client.pro )
+include( basic.pro )
 include( ogre.pro )
 include( ogre_ui.pro )
 include( logic.pro )

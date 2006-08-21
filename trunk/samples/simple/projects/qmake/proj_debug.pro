@@ -10,6 +10,10 @@ message( "client add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/src
 
+message( "basic add-on included" )
+INCLUDEPATH += $${SAGAENGINE}/add_on/basic/include
+INCLUDEPATH += $${SAGAENGINE}/add_on/basic/src
+
 message( "angelscript add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/src
@@ -37,6 +41,7 @@ INCLUDEPATH += $${OGRE}
 DESTDIR = $${SAGAENGINE}/samples/simple/projects/qmake
 
 DEFINES *= IS_OGRE DEBUG_LEVEL_2
-DEFINES *= _SeOgreExport= _SeClientExport= _SeCoreExport= _SimpleUiExport= _SimpleLogicExport=
+DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeCoreExport=
+DEFINES *= _SimpleUiExport= _SimpleLogicExport=
 
 message(Destdir: $$DESTDIR )

@@ -34,6 +34,8 @@ namespace logic {
 			, Move& nextMove
 			) const {
 
+		WasHere();
+
 		// Calc nextMove
 		Vector3 gravity(0, -4 * (COOR_RES / TIMESTEP_INTERVAL), 0);
 		nextMove.velocity_.add( move.force_ );
