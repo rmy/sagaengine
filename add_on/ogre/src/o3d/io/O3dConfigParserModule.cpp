@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "O3dConfigParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
+#include "../RenderEngine.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"
 #include "io/schema/IoSchema.hpp"
@@ -74,6 +75,7 @@ namespace se_ogre {
 					Assert(O3dSchema::sceneManager 
 						   && "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling);
+					LogMsg("Created skydome with material " << material);
 				}
 				catch(...) {
 					LogMsg("Couldn't create skydome for ogre config file " << in.name());
@@ -101,7 +103,7 @@ namespace se_ogre {
 	void O3dConfigParserModule
 	::chooseSceneManager(const char* sceneManager) {
         // Create the SceneManager, in this case a generic one
-        O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager, "gameSM");
+        O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager);
 		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
@@ -131,6 +133,7 @@ namespace se_ogre {
 		O3dSchema::playerCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
 		LogMsg("Created Ogre viewport");
+
 	}
 
 
