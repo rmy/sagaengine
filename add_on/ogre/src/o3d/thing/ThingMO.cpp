@@ -114,7 +114,7 @@ namespace se_ogre {
 				node_->setScale(s, s, s);
 			}
 		}
-		
+
 		if(hasAnimation_)
 			animate(stepDelta, timeSinceLastFrame);
 	}
@@ -126,9 +126,9 @@ namespace se_ogre {
 
 		isVisible_ = state;
 		if(isVisible_)
-			O3dSchema::sceneManager->getSceneNode("ThingSceneNode")->addChild(node_);
+			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
 		else
-			O3dSchema::sceneManager->getSceneNode("ThingSceneNode")->removeChild(node_);
+			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
 	}
 
 }

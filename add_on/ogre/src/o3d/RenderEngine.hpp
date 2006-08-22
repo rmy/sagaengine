@@ -42,24 +42,20 @@ namespace se_ogre {
 
 		static RenderEngine* singleton();
 		bool setup(void);
+		void cleanup(void);
 
 		void renderFrame();
 		void screenshot(int screenShotId);
 
 	protected:
-		void createScene(void);
-		void destroyScene(void);
-
 		/// SagaEngine Utility methods
 		void resetGameClock(void);
 
 		/// Ogre initialisation
 		bool configure(void);
-		void chooseSceneManager(void);
-		void createCamera(void);
+
 		void createInputBridge(void);
 
-		void createViewports(void);
 
 		/// Method which will define the source of resources
 		/// (other than current folder)
@@ -75,6 +71,7 @@ namespace se_ogre {
 
 	protected:
 		O3dInputBridge* inputBridge_;
+
 	private:
 #ifdef _DEBUG
 		const static int fastExit = 1;

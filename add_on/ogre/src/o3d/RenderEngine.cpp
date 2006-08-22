@@ -67,27 +67,13 @@ namespace se_ogre {
 
 	RenderEngine
 	::~RenderEngine() {
-		if(O3dSchema::playerCamera) {
-			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
-			O3dSchema::playerCamera = 0;
-			LogMsg("Destroyed camera");
-		}
-		delete inputBridge_;
-		inputBridge_ = 0;
-		LogMsg("Destroyed input bridge");
-
 		delete O3dSchema::console;
 		O3dSchema::console = 0;
 		LogMsg("Destroyed console");
 
-		delete O3dSchema::worldManager;
-		O3dSchema::worldManager = 0;
-		O3dSchema::sceneManager = 0;
-		LogMsg("Destroyed world manager and scene manager");
-
-		delete O3dSchema::raySceneQuery;
-		O3dSchema::raySceneQuery = 0;
-		LogMsg("Destroyed ray scene query");
+		delete O3dSchema::speechBubble;
+		O3dSchema::speechBubble = 0;
+		LogMsg("Destroyed speech bubble handler");
 
 		delete O3dSchema::root;
 		O3dSchema::root = 0;
@@ -112,6 +98,7 @@ namespace se_ogre {
 		Ogre::Root::getSingleton().getRenderSystem()->_getViewport()->getTarget()->writeContentsToFile(buffer);
 	}
 
+
 	void RenderEngine
 	::resetGameClock(void) {
 		O3dSchema::gameClock = 0;
@@ -121,15 +108,10 @@ namespace se_ogre {
 	/** Sets up the application - returns false if the user chooses to abandon configuration. */
 	bool RenderEngine
 	::setup(void) {
-		chooseSceneManager();
-
 		bool carryOn = configure();
 		if (!carryOn) return false;
 
-		createCamera();
-		createViewports();
 		setupResources();
-
 
 		// Create any resource listeners (for loading screens)
 		createResourceListener();
@@ -142,8 +124,11 @@ namespace se_ogre {
 			LogMsg("Your card does not support vertex programs.");
 		}
 
-		// Create the scene
-		createScene();
+        // Setup animation default
+        Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
+        Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
+		LogMsg("Initialized interpolation of animations.");
+
 		if(IS_CONSOLE_ENABLED) {
 			try {
 				O3dSchema::console->setupGuiSystem();
@@ -156,9 +141,6 @@ namespace se_ogre {
 			}
 		}
 
-		O3dSchema::renderEventListeners().castInit();
-		LogMsg("Cast init event to render event listeners");
-
 		if(O3dSchema::console) {
 			// Give application chance to create gui from
 			// xml in a renderEventListener before creating
@@ -167,74 +149,39 @@ namespace se_ogre {
 			LogMsg("Created applications CEGUI.");
 		}
 
+		// Create bridge between input
 		createInputBridge();
+		
+		// Create world manager
+		O3dSchema::worldManager = new WorldManager();
+		LogMsg("Created world manager");
 
-		renderFrame();
+		// Configure this from file
+		//chooseSceneManager();
+		//createCamera();
+		//createViewports();
 
 		return true;
 	}
 
 
 	void RenderEngine
-	::chooseSceneManager(void) {
-		O3dSchema::worldManager = new WorldManager();
-		LogMsg("Created world manager");
+	::cleanup(void) {
+		delete inputBridge_;
+		inputBridge_ = 0;
+		LogMsg("Destroyed input bridge");
 
-        // Create the SceneManager, in this case a generic one
-        O3dSchema::sceneManager = O3dSchema::root->createSceneManager(ST_GENERIC, "gameSM");
-		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getName().c_str());
-		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
-		// even if it is changed later (or else everything goes dark)
-		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
-		Ogre::SceneNode* node = O3dSchema::sceneManager->getRootSceneNode()->createChildSceneNode("MainSceneNode");
-		// LogMsg("Create 
-		node->createChildSceneNode("ThingSceneNode");
-		//node->createChildSceneNode("AreaSceneNode");
+		delete O3dSchema::worldManager;
+		O3dSchema::worldManager = 0;
+		O3dSchema::sceneManager = 0;
+		LogMsg("Destroyed world manager and scene manager");
+
+		delete O3dSchema::raySceneQuery;
+		O3dSchema::raySceneQuery = 0;
+		LogMsg("Destroyed ray scene query");
+
 	}
 
-
-	void RenderEngine
-	::createCamera(void) {
-		// Create the camera
-		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
-		LogMsg("Created player camera");
-
-		// Position it at 500 in Z direction
-		O3dSchema::playerCamera->setPosition(Ogre::Vector3(128,25,128));
-		// Look back along -Z
-		O3dSchema::playerCamera->lookAt(Ogre::Vector3(0, 0, -300));
-		O3dSchema::playerCamera->setNearClipDistance( 0.05 );
-		O3dSchema::playerCamera->setFarClipDistance( 9750 );
-		O3dSchema::playerCamera->setFOVy(Radian(Degree(45)));
-		/*
-		O3dSchema::playerCamera->setPolygonMode(PM_WIREFRAME);
-		O3dSchema::playerCamera->setPolygonMode(PM_SOLID);
-		O3dSchema::playerCamera->setPolygonMode(PM_POINTS);
-		*/
-
-		// TerrainSceneManager call
-		//O3dSchema::sceneManager->setPrimaryCamera(O3dSchema::playerCamera);
-	}
-
-
-	void RenderEngine
-	::createScene(void) {
-		LogMsg("Creating scene");
-		// Fog and background colour
-		//ColourValue fadeColour(0.56, 0.56, 0.75);
-
-        // Setup animation default
-        Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
-        Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
-
-		LogMsg("Initialized interpolation of animations.");
-	}
-
-
-	void RenderEngine
-	::destroyScene(void) {
-		O3dSchema::renderEventListeners().castCleanup();
-	}
 
 
 	// Create new frame listener
@@ -253,11 +200,9 @@ namespace se_ogre {
 		// You can skip this and use root.restoreConfig() to load configuration
 		// settings if you were sure there are valid ones saved in ogre.cfg
 		if(O3dSchema::root->restoreConfig()) {
-			O3dSchema::window = O3dSchema::root->initialise(true, "Game Render Window");
 			LogMsg("Loaded config");
-			return true;
 		}
-		else if(O3dSchema::root->showConfigDialog()) {
+		if(O3dSchema::root->showConfigDialog()) {
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by
 			// passing 'true'
@@ -270,20 +215,6 @@ namespace se_ogre {
 			LogMsg("Config canceled by user");
 			return false;
 		}
-	}
-
-
-
-	void RenderEngine
-	::createViewports(void) {
-		// Create one viewport, entire window
-		Viewport* vp = O3dSchema::window->addViewport(O3dSchema::playerCamera);
-		vp->setBackgroundColour(ColourValue(0,0,0));
-
-		// Alter the camera aspect ratio to match the viewport
-		O3dSchema::playerCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
-
-		LogMsg("Created Ogre viewport");
 	}
 
 

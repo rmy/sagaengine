@@ -93,11 +93,11 @@ namespace logic {
 		// Allow catch-up of AI to hardware clock
 		SimSchema::simEngine.setMultiplePerformsPerStepEnabled(true);
 
-		// Init simulation engine for new game
-		SimSchema::simEngine.initGame();
-
 		// Load ogre configuration
 		IoSchema::fileManager->loadDirectory("ogre/config/");
+
+		// Init simulation engine for new game
+		SimSchema::simEngine.initGame();
 
 		// Place creatures in areas
 		IoSchema::fileManager->loadDirectory("logic/area/thing/");
