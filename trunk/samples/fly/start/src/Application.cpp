@@ -79,6 +79,9 @@ namespace logic {
 		IoSchema::fileManager->loadDirectory("logic/cutscene/");
 
 		// Load bindings between (ogre) 3d models and (core) things
+		IoSchema::fileManager->loadDirectory("ogre/dict/");
+
+		// Load bindings between (ogre) 3d models and (core) things
 		IoSchema::fileManager->loadDirectory("ogre/thing/");
 
 		return true;

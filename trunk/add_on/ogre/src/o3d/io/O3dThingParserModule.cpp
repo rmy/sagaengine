@@ -52,6 +52,7 @@ namespace se_ogre {
 
 		int code;
 		while((code = in.readInfoCode()) != 'Q') {
+			LogMsg((char)(code));
 			switch(code) {
 			case 'N': // Name
 				in.readString(info->thingType_);
@@ -95,12 +96,20 @@ namespace se_ogre {
 				}
 				break;
 
+			case 'C': // Animation
+				{
+					int channelCount = in.readShort();
+					info->setAnimationChannels(channelCount);
+				}
+				break;
+
 			case 'A': // Animation
 				{
 					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
 					int channelId = in.readShort();
 					O3dAnimation* anim = info->createAnimation(channelId, animId);
 					in.readString(anim->name_);
+					LogMsg(anim->name_);
 					anim->speed_ = in.readFloat();
 				}
 				break;

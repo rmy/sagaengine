@@ -31,6 +31,7 @@ namespace se_core {
 		~Dictionary();
 		short id(short type, const char* name);
 		const char* name(short type, short id);
+		short highestId(short type) const;
 
 	private:
 		friend class DictionaryEntry;

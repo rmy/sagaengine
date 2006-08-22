@@ -51,6 +51,12 @@ namespace se_ogre {
 
 	O3dAnimation* ThingMOInfo
 	::createAnimation(int channel, int id) {
+		if(channelCount_ == 0) {
+			setAnimationChannels(channel + 1);
+		}
+		else {
+			Assert(channel < channelCount_);
+		}
 		return animationChannels_[ channel ].createAnimation(id);
 	}
 

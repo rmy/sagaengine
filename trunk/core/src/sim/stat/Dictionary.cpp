@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "Dictionary.hpp"
 #include "util/error/Log.hpp"
+#include "../config/sim_config.hpp"
 #include <cstring>
 
 namespace se_core {
@@ -38,11 +39,26 @@ namespace se_core {
 	}
 
 
+	short Dictionary
+	::highestId(short type) const {
+		int v = -1;
+		for(int i = 0; i < entryCount_; ++i) {
+			if(type == entries_[i]->type_ && v < entries_[i]->id_) {
+				v = entries_[i]->id_;
+			}
+		}
+		return v;
+	}
+
+
 	void Dictionary
 	::add(const DictionaryEntry* entry) {
 		Assert(entryCount_ < MAX_ENTRIES);
-		//LogMsg(entryCount_ << " - " << entry->type_ << ": " << entry->name_ << " = " << entry->id_);
+		if(entry->type_ == DE_DICTIONARY_TYPE) {
+			LogMsg("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
+		}
 		entries_[ entryCount_++ ] = entry;
+		LogMsg(entryCount_);
 	}
 
 
@@ -50,13 +66,13 @@ namespace se_core {
 	::id(short type, const char* name) {
 		//LogMsg(entryCount_);
 		for(int i = 0; i < entryCount_; ++i) {
+			//LogMsg("Read dictionary entry: " << entries_[i]->type_ << ", " << entries_[i]->name_);
 			//LogMsg(i << ", " << entries_[i]->type_ << ", " << entries_[i]->name_ << " == " << entries_[i]->id_);
 			if(entries_[i]->type_ == type && strcmp(entries_[i]->name_, name) == 0) {
-				//LogMsg("Read dictionary entry: " << type << ", " << name);
 				return entries_[i]->id_;
 			}
 		}
-		LogFatal("Unkown dictionary entry: " << type << ", " << name);
+		LogFatal("Unknown dictionary entry of type" << type << ": " << name);
 		return -1;
 	}
 
