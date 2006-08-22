@@ -26,6 +26,7 @@ rune@skalden.com
 #include "io/schema/IoSchema.hpp"
 #include "util/type/String.hpp"
 #include "util/error/Log.hpp"
+#include "O3dPre.hpp"
 #include <cstring>
 #include <cstdio>
 
@@ -42,11 +43,27 @@ namespace se_ogre {
 
 	void O3dConfigParserModule
 	::parse(InputStream& in) {
-		Assert(O3dSchema::sceneManager 
-			   && "SceneManager must be created before loading ogre config file");
 		int code;
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
+			case 'S': 
+				{ // SceneManager
+					String sceneManager;
+					in.readString(sceneManager);
+					chooseSceneManager(sceneManager.get());
+				}
+				break;
+
+			case 'C':
+				{
+					float near = in.readFloat();
+					float far = in.readFloat();
+					float fovy = in.readFloat();
+					createCamera(near, far, fovy);
+					createViewports();
+					break;
+				}
+
 			case 'D': 
 				try { // Dome
 					String material;
@@ -54,27 +71,70 @@ namespace se_ogre {
 					float curvature = in.readFloat();
 					float tiling = in.readFloat();
 					
+					Assert(O3dSchema::sceneManager 
+						   && "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling);
 				}
 				catch(...) {
 					LogMsg("Couldn't create skydome for ogre config file " << in.name());
 				}
 				break;
-				
+
 			case 'B': 
 				{ // Box
 					String material;
 					in.readString(material);
 
+					Assert(O3dSchema::sceneManager 
+						   && "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyBox(true, material.get());
 				}
 				break;
-				
+
 			default:
 				LogFatal("Unsupported code!");
 			}
 		}
 	}
+
+
+	void O3dConfigParserModule
+	::chooseSceneManager(const char* sceneManager) {
+        // Create the SceneManager, in this case a generic one
+        O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager, "gameSM");
+		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
+
+		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
+		// even if it is changed later (or else everything goes dark)
+		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
+	}
+
+
+	void O3dConfigParserModule
+	::createCamera(float near, float far, float fovy) {
+		// Create the camera
+		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
+		O3dSchema::playerCamera->setNearClipDistance(near);
+		O3dSchema::playerCamera->setFarClipDistance(far);
+		O3dSchema::playerCamera->setFOVy(Ogre::Radian(Ogre::Degree(fovy)));
+		LogMsg("Created player camera");
+	}
+
+
+	void O3dConfigParserModule
+	::createViewports(void) {
+		// Create one viewport, entire window
+		Ogre::Viewport* vp = O3dSchema::window->addViewport(O3dSchema::playerCamera);
+		vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+
+		// Alter the camera aspect ratio to match the viewport
+		O3dSchema::playerCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+
+		LogMsg("Created Ogre viewport");
+	}
+
+
+
 
 }
 
