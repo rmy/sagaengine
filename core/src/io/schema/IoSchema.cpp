@@ -52,6 +52,7 @@ namespace se_core {
 			//static ThingParserModule tpm(IoSchema::parser());
 			//static AreaThingParserModule atpm(IoSchema::parser());
 			static CutsceneParserModule cpm(IoSchema::parser());
+			static DictionaryParserModule dpm(IoSchema::parser());
 
 			// Return success
 			return true;

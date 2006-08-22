@@ -13,7 +13,7 @@ material circle
 			{
 				texture circle.png
 				tex_coord_set 0
-				rotate_anim 0.125
+				// rotate_anim 0.125
 				tex_address_mode clamp
 			}
 
@@ -21,7 +21,7 @@ material circle
 			{
 				texture circle.png
 				tex_coord_set 0
-				rotate_anim -0.125
+				// rotate_anim -0.125
 				tex_address_mode clamp
 			}
 		}

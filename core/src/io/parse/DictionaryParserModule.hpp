@@ -19,14 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_all_hpp
-#define io_parse_all_hpp
+#ifndef DictionaryParserModule_hpp
+#define DictionaryParserModule_hpp
 
-#include "AreaThingParserModule.hpp"
-#include "CutsceneParserModule.hpp"
-#include "DictionaryParserModule.hpp"
-#include "io_parse.hpp"
 #include "ParserModule.hpp"
-#include "Parser.hpp"
+#include "../stream/io_stream.hpp"
+#include "../../sim/script/sim_script.hpp"
+#include "../../sim/stat/sim_stat.hpp"
+#include "../../sim/thing/sim_thing.hpp"
+
+namespace se_core {
+	class _SeCoreExport DictionaryParserModule : public ParserModule {
+	public:
+		DictionaryParserModule(Parser& parser);
+		void parse(InputStream& in);
+	};
+
+}
 
 #endif

@@ -53,6 +53,7 @@ namespace se_ogre {
 
 	O3dAnimation* O3dAnimationSet
 	::createAnimation(int id) {
+		WasHere();
 		Assert(id < MAX_ANIMS);
 		Assert(animations_[id] == 0);
 		animations_[id] = new O3dAnimation();
