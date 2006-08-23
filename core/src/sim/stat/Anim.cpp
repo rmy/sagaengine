@@ -25,32 +25,36 @@ namespace se_core {
 	int Anim::MOVEMENT_MODE_COUNT = 12;
 
 	Anim
-	::Anim() {
+	::Anim() 
+		: movementMode_(0),
+		  movementStartedWhen_(0),
+		  weight_(1),
+		  speed_(1) {
 	}
 
 
 	void Anim
 	::setAnim(const Anim& original) {
-		states_[0] = original.states_[0];
+		*this = original;
 	}
 
 
 	void Anim
 	::setMovementMode(short mode) {
-		states_[0].movementMode_ = mode;
+		movementMode_ = mode;
 	}
 
 
 	void Anim
 	::setMovementMode(long when, short mode) {
-		states_[0].movementStartedWhen_ = when;
-		states_[0].movementMode_ = mode;
+		movementStartedWhen_ = when;
+		movementMode_ = mode;
 	}
 
 
 	short Anim
 	::movementMode() const {
-		return states_[0].movementMode_;
+		return movementMode_;
 	}
 
 }

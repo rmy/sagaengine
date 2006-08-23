@@ -74,6 +74,7 @@ namespace se_core {
 				}
 				in.readString(name);
 				new DictionaryEntry(dict, value, name.get(), true);
+				++value;
 				break;
 
 			default:

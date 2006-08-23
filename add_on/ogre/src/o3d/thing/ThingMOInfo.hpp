@@ -51,6 +51,7 @@ namespace se_ogre {
 		void setAnimationChannels(int count);
 		O3dAnimation* animation(int channel, int id) const;
 		O3dAnimation* createAnimation(int channel, int id);
+		int channelCount() const { return channelCount_; }
 
 	private:
 		int channelCount_;

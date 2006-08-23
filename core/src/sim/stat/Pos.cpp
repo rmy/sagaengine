@@ -144,7 +144,8 @@ namespace se_core {
 		index_ = original.index_;
 		isGrounded_ = original.isGrounded_;
 		radius_ = original.radius_;
-		anim_.setAnim(original.anim_);
+		for(int i = 0; i < MAX_ANIMS; ++i)
+			anim_[i] = original.anim_[i];
 	}
 
 	void Pos
