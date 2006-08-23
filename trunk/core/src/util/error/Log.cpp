@@ -35,6 +35,7 @@ namespace se_err {
 #	endif
 		fputs(s, stderr);
 		fputs("\n", stderr);
+		fflush(stderr);
 	}
 
 
