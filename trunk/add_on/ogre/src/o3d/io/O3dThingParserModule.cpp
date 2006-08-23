@@ -105,8 +105,8 @@ namespace se_ogre {
 
 			case 'A': // Animation
 				{
-					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
 					int channelId = in.readShort();
+					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
 					O3dAnimation* anim = info->createAnimation(channelId, animId);
 					in.readString(anim->name_);
 					LogMsg(anim->name_);

@@ -73,38 +73,28 @@ namespace se_core {
 		 * @param when The present adjusted game clock (milliseconds).
 		 * @return The present gameClock - when the movement mode started
 		 */
-		long movementWhen(long when) const { return when - states_[0].movementStartedWhen_; }
-		long movementWhen(int index, long when) const { return when - states_[0].movementStartedWhen_; }
+		long movementWhen(long when) const { return when - movementStartedWhen_; }
+		void setSpeed(scale_t s) { speed_ = s; }
+		scale_t speed() const { return speed_; }
+
+		void setWeight(scale_t w) { weight_ = w; }
+		scale_t weight() const { return weight_; }
+		//scale_t timePos(long when) { return startAt_ + (when - movementStartedWhen_) * SCALE_WHEN_TO_SECOND; }
+
 
 		static void setMovementModeCount(int c) { MOVEMENT_MODE_COUNT = c; }
 		static int MOVEMENT_MODE_COUNT;
 
 	private:
-		enum { MAX_ANIMS = 4 };
+		/** The movement mode. Signifies which animation should be shown. */
+		short movementMode_;
 
-		struct _SeCoreExport State {
-			State() :
-				movementMode_(0),
-				movementStartedWhen_(0),
-				weight_(0),
-				isFrozen_(false),
-				isActive_(false) {				
-			}
+		/** The time when the movement mode (animation) started. */
+		long movementStartedWhen_;
 
-			/** The movement mode. Signifies which animation should be shown. */
-			short movementMode_;
+		scale_t weight_;
 
-			/** The time when the movement mode (animation) started. */
-			long movementStartedWhen_;
-
-			scale_t weight_;
-
-			bool isFrozen_;
-
-			bool isActive_;
-		} states_[ MAX_ANIMS ];
-
-		
+		scale_t speed_;
 	};
 
 }

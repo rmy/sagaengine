@@ -49,14 +49,14 @@ namespace se_ogre {
 
 		void addToStaticGeometry(const char* name);
 
-		short anim();
+		short anim(int channel);
 
 
 	protected:
 		/**
 		 * Set the active animation.
 		 */
-		void setAnimation(const char* anim, float speed);
+		void setAnimation(int channel, const se_core::Anim& anim);
 
 		/**
 		 * Set the active material.
@@ -64,9 +64,11 @@ namespace se_ogre {
 		void setMaterial(const char* mat);
 
 		Ogre::Entity* entity_;
-		Ogre::AnimationState* state_;
-		float speed_;
-		short prevAnim_;
+
+		enum { MAX_ANIMS = se_core::Pos::MAX_ANIMS };
+		Ogre::AnimationState* state_[MAX_ANIMS];
+		float speed_[MAX_ANIMS];
+		short prevAnim_[MAX_ANIMS];
 	};
 
 }

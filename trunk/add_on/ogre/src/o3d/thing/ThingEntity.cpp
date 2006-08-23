@@ -36,7 +36,7 @@ using namespace se_core;
 namespace se_ogre {
 	ThingEntity
 	::ThingEntity(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
-		: ThingMO(thing, info, factory), entity_(0), state_(0), prevAnim_(0) {
+		: ThingMO(thing, info, factory), entity_(0) {
 
 		// Create a unique entity name
 		char name[128];
@@ -50,37 +50,35 @@ namespace se_ogre {
 		entity_->setCastShadows(true);
 
 		// Get and set animation associated with this thing
-		short animId = anim();
-		O3dAnimation* a = info_.animation(0, animId);
-		if(a && !a->name_.isEmpty()) {
-			float s = a->speed_;
-			setAnimation(a->name_.get(), s);
+		for(int i = 0; i < info_.channelCount(); ++i) {
+			const short animId = thing_.pos().anim(i).movementMode();
+			prevAnim_[i] = -1;
+			state_[i] = 0;
+
+			setAnimation(i, thing_.pos().anim(i));
 		}
 
 		// Get default material, if one
 		const char* material = info_.defaultMaterial_.get();
+		/*
 		// Check if this movement mode has a special material
 		if(a && !a->material_.isEmpty()) {
 			const char* material = a->material_.get();
 		}
+		*/
 		// If material is defined (default or special), set it
 		if(material) {
 			setMaterial(material);
 		}
+
+		hasAnimation_ = true;
 	}
 
 
 	ThingEntity
 	::~ThingEntity() {
 		O3dSchema::sceneManager->destroyMovableObject(entity_);
-		state_ = 0;
 		entity_ = 0;
-	}
-
-
-	short ThingEntity
-	::anim() {
-		return thing_.pos().anim().movementMode();
 	}
 
 
@@ -126,17 +124,30 @@ namespace se_ogre {
 
 
 	void ThingEntity
-	::setAnimation(const char* anim, float speed) {
-		// Set the animation state
-		state_ = entity_->getAnimationState(anim);
+	::setAnimation(int channel, const se_core::Anim& anim) {
+		const short animId = anim.movementMode();
+		if(prevAnim_[channel] != animId) {
+			prevAnim_[channel] = animId;
 
-		// Enable animation
-		state_->setEnabled(true);
+			O3dAnimation* a = info_.animation(channel, animId);
+			if(a && !a->name_.isEmpty()) {
+				// Set the animation state
+				state_[channel] = entity_->getAnimationState(a->name_.get());
 
-		// Use default animation speed
-		// TODO: Should probably change with the speed
-		// properties of a thing
-		speed_ = speed;
+				// Enable animation
+				state_[channel]->setEnabled(true);
+
+				// The anim speed of the mesh animation,
+				// multiplied by the anim speed of the things anim channel
+				const float s = a->speed_ * ScaleT::fromFloat(anim.speed());
+				speed_[channel] = s;
+			}
+			else if(state_[channel]) {
+				state_[channel]->setEnabled(false);
+				state_[channel] = 0;
+			}
+		}
+
 	}
 
 
@@ -149,37 +160,30 @@ namespace se_ogre {
 	void ThingEntity
 	::animate(float stepDelta, float timeSinceLastFrame) {
 		// Check if movement mode (and thus animation) has changed (ie walk to stand, etc)
-		const short animId = anim();
 
-		if(prevAnim_ != animId) {
-			prevAnim_ = animId;
+		for(int i = 0; i < info_.channelCount(); ++i) {
+			setAnimation(i, thing_.pos().anim(i));
 
-			O3dAnimation* a = info_.animation(0, animId);
-			if(a && !a->name_.isEmpty()) {
-				setAnimation(a->name_.get(), a->speed_);
-			}
-			else {
-				state_->setEnabled(false);
-				state_ = 0;
-			}
-
-
-			// Get default material, if one
-			const char* material = info_.defaultMaterial_.get();
-
-			// Check if this movement mode has a special material
-			if(a && !a->material_.isEmpty()) {
-				const char* material = a->material_.get();
-			}
-
-			// If material is defined (default or special), set it
-			if(material) {
-				setMaterial(material);
+			// Add passed time and update weight of animation
+			if(state_[i]) {
+				state_[i]->addTime(timeSinceLastFrame * speed_[i]);
+				state_[i]->setWeight(thing_.pos().anim(i).weight());
 			}
 		}
 
-		// Add passed time to the animation state
-		if(state_) state_->addTime(timeSinceLastFrame * speed_);
+		/*
+		// Get default material, if one
+		const char* material = info_.defaultMaterial_.get();
+
+		// Check if this movement mode has a special material
+		if(a && !a->material_.isEmpty()) {
+			const char* material = a->material_.get();
+		}
+		// If material is defined (default or special), set it
+		if(material) {
+		setMaterial(material);
+		}
+		*/
 	}
 
 

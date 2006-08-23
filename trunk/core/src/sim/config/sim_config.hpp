@@ -60,6 +60,8 @@ namespace se_core {
 #endif
 	const long TIMESTEP_INTERVAL = 1L << TIMESTEP_INTERVAL_SHIFT;
 
+	
+	//const scale_t SCALE_WHEN_TO_SECOND = (SCALE_RES / 1024);
 }
 
 

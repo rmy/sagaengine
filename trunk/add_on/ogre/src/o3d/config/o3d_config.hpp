@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_ogre {
 	const int PAGE_DELTA = 0;
 	const float TICKS_PER_SECOND = 1024.0;
-	const bool IS_CONSOLE_ENABLED = true;
+	const bool IS_CONSOLE_ENABLED = false;
 }
 #endif
 

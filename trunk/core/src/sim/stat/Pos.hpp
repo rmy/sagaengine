@@ -355,8 +355,8 @@ namespace se_core {
 		/**
 		 * Animation state.
 		 */
-		inline Anim& anim() {
-			return anim_;
+		inline Anim& anim(int index) {
+			return anim_[index];
 		}
 
 
@@ -364,8 +364,8 @@ namespace se_core {
 		 * Animation state.
 		 * const version.
 		 */
-		inline const Anim& anim() const {
-			return anim_;
+		inline const Anim& anim(int index) const {
+			return anim_[index];
 		}
 
 
@@ -390,7 +390,7 @@ namespace se_core {
 			radius_ = 0;
 			index_ = -1;
 			isGrounded_ = false;
-			anim_.setMovementMode(0, 0);
+			anim_[0].setMovementMode(0, 0);
 		}
 
 
@@ -408,7 +408,8 @@ namespace se_core {
 		ViewPoint world_;
 
 		/** Animation state */
-		Anim anim_;
+		enum { MAX_ANIMS = 4 };
+		Anim anim_[MAX_ANIMS];
 
 		/** The radius of the position in coor_t units. */
 		coor_t radius_;
