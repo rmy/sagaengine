@@ -154,5 +154,5 @@ if __name__ == '__main__':
 	if(h < 0):
 		h = -h
 
-	print base % (basefile, h, basefile, libraries_d, inc, defines, libraries, inc, defines, res)
+	print base % (basefile, h, basefile, inc, defines, libraries_d, inc, defines, libraries, res)
 	

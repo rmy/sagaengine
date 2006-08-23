@@ -29,19 +29,6 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies=""
-				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
@@ -55,6 +42,19 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=""
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -99,19 +99,6 @@
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies=""
-				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
@@ -129,6 +116,19 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=""
+				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -176,6 +176,8 @@
 <File RelativePath="..\..\..\..\core\src\io\parse\AreaThingParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\parse\CutsceneParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\parse\CutsceneParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\io\parse\DictionaryParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\io\parse\DictionaryParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\parse\Parser.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\parse\Parser.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\parse\ParserModule.cpp"> </File>

@@ -2,7 +2,7 @@
 #define logic_area_WangAreaGrid_hpp
 
 #include "sim/area/Area.hpp"
-#include "LogicPre.hpp"
+#include "BasicPre.hpp"
 
 namespace se_basic {
 
