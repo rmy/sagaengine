@@ -1,18 +1,15 @@
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="ui"
 	ProjectGUID="{5506E88C-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="ui"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
@@ -20,69 +17,48 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
-				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../ogre_ui/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeBasicExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllimport);_FlyUiExport=__declspec(dllexport);"
-				MinimalRebuild="true"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCLinkerTool"
+				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				OptimizeReferences="1"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -90,73 +66,50 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
+			WholeProgramOptimization="FALSE">
 			<Tool
-				Name="VCPreBuildEventTool"
-			/>
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="../../ogre_ui/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeBasicExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllimport);_FlyUiExport=__declspec(dllexport);"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCMIDLTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../ogre_ui/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeBasicExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllimport);_FlyUiExport=__declspec(dllexport);"
-				StringPooling="true"
-				MintimalRebuild="true"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCManagedWrapperGeneratorTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -164,8 +117,7 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
-			>
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
 			<File RelativePath="..\..\ogre_ui\src\OgreUiPre.hpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.hpp"> </File>

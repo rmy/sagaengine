@@ -10,8 +10,5 @@ python ../../../../tools/python/createVCProjFile.py simple ../../../../env/vc/ap
 
 python ../../../../tools/python/createVCProjFile.py all ../../../../env/vc/application > all.vcproj
 
-mkdir Debug
-mkdir Release
-
 cp ../../../../dependencies/bin/release/* Release/
 cp ../../../../dependencies/bin/debug/* Debug/
