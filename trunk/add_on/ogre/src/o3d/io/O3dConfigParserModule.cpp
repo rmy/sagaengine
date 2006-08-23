@@ -83,13 +83,16 @@ namespace se_ogre {
 				break;
 
 			case 'B': 
-				{ // Box
+				try { // Box
 					String material;
 					in.readString(material);
 
 					Assert(O3dSchema::sceneManager 
 						   && "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyBox(true, material.get());
+				}
+				catch(...) {
+					LogMsg("Couldn't create skybox for ogre config file " << in.name());
 				}
 				break;
 
