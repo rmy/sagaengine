@@ -38,6 +38,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_client.lib se_core.lib "
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
