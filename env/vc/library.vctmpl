@@ -38,6 +38,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="%s"
 				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
