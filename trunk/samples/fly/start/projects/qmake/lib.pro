@@ -5,7 +5,8 @@ message( "[ Application ogre_ui settings ]")
 CONFIG += app
 TARGET = fly
 
-LIBS = -lgame_logic -lgame_ogre_ui -lse_ogre -lse_client -lse_core -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
+#LIBS = -lgame_logic -lgame_ogre_ui -lse_ogre -lse_client -lse_core -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
+LIBS = -lSagaEngine -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
 
 INCLUDEPATH += ../../src
 

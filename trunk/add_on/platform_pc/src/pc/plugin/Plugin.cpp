@@ -33,10 +33,13 @@ namespace se_pc {
 
 	Plugin
 	::Plugin(const char* name) : isLoaded_(false) {
+#		ifdef _WINDOWS
 		name_.copy(name);
-#		ifndef _WINDOWS
+#		else
+		name_.set("lib");
+		name_.append(name);
 		name_.append(".so");
-#		endif
+#endif
 	}
 
 

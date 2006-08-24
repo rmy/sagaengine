@@ -1,4 +1,5 @@
 #/bin/sh
 
-qmake -project -t lib `find ../../src -name "*.?pp"` -o src.pro
+sh ../../../tools/qmake/strap_lib.sh ../.. core
+sh ../../../tools/qmake/strap_lib.sh ../../../add_on/platform_pc pc
 qmake -o makefile lib.pro

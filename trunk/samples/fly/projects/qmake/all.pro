@@ -23,6 +23,7 @@ INCLUDEPATH =
 !include( proj.pro ) {
     error( "You must link proj.pro to proj_debug.pro or proj_release.pro" )
 }
+DEFINES *= SE_STATIC
 
 message( Config: $$CONFIG )
 message( DestDir: $$DESTDIR )
