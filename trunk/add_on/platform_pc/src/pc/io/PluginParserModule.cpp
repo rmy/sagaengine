@@ -19,11 +19,13 @@ rune@skalden.com
 */
 
 #include "PluginParserModule.hpp"
+#include "../schema/PcSchema.hpp"
+#include "../plugin/PluginManager.hpp"
 #include <se_core.hpp>
 
 using namespace se_core;
 
-namespace se_plugin {
+namespace se_pc {
 	PluginParserModule
 	::PluginParserModule(Parser& parser)
 		: ParserModule(parser, ParserModule::ENGINE, ParserModule::PLUGIN, 1)  {
@@ -44,6 +46,7 @@ namespace se_plugin {
 				{
 					String plugin;
 					in.readString(plugin);
+					PcSchema::pluginManager().load(plugin.get());
 				}
 				break;
 			default:

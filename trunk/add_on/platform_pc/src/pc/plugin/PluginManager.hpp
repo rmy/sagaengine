@@ -19,21 +19,29 @@ rune@skalden.com
 */
 
 
-#ifndef PluginSchema_hpp
-#define PluginSchema_hpp
+#ifndef PluginManager_hpp
+#define PluginManager_hpp
 
-#include "../PluginManager.hpp"
 
-namespace se_plugin {
-	/**
-	 * Global objects and methods for the core io system.
-	 */
-	namespace PluginSchema {
-		extern _SePluginExport PluginManager& pluginManager();
+#include "Plugin.hpp"
 
-		/** Force linking of dependencies */
-		void _SePluginExport touch();
-	}
+namespace se_pc {
+
+	class _SePluginExport PluginManager {
+	public:
+		PluginManager();
+		virtual ~PluginManager();
+
+		Plugin* load(const char* name);
+		void unload(Plugin* plugin);
+		void unloadAll();
+
+	private:
+		enum { MAX_PLUGINS = 32 };
+		int pluginCount_;
+		Plugin** plugins_;
+	};
+
 }
 
 #endif

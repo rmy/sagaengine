@@ -23,7 +23,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include <cstring>
 
-namespace se_plugin {
+namespace se_pc {
 
 	PluginManager
 	::PluginManager() 

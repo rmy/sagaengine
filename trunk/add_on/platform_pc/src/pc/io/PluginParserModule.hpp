@@ -27,7 +27,7 @@ rune@skalden.com
 #include "sim/stat/sim_stat.hpp"
 #include "io/parse/ParserModule.hpp"
 
-namespace se_plugin {
+namespace se_pc {
 	class _SePluginExport PluginParserModule  : public se_core::ParserModule {
 	public:
 		PluginParserModule(se_core::Parser& parser);

@@ -25,7 +25,7 @@ rune@skalden.com
 
 using namespace se_core;
 
-namespace se_plugin {
+namespace se_pc {
 
 	Plugin
 	::Plugin(const char* name) : isLoaded_(false) {
