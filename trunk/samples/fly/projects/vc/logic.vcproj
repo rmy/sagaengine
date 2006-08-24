@@ -129,6 +129,8 @@
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhFly.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhFly.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\all.hpp"> </File>

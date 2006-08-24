@@ -223,7 +223,7 @@ namespace se_core {
 	::init() {
 		SimSchema::initListeners().castInitEngineEvent();
 		// Platform module must create a clock
-		Assert(SimSchema::realClock);
+		//Assert(SimSchema::realClock);
 		return true;
 	}
 

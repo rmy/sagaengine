@@ -82,6 +82,9 @@ namespace se_ogre {
 		extern _SeOgreExport RenderEngine* renderEngine;
 
 		extern _SeOgreExport float gameClock;
+
+		/** Force linking of dependencies */
+		void _SeOgreExport touch();
 	}
 }
 

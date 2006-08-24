@@ -22,7 +22,7 @@
 				AdditionalOptions="/Zm150"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SePcExport=;_SeClientExport=;_SeBasicExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;;"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -82,7 +82,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SePcExport=;_SeClientExport=;_SeBasicExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;;"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
@@ -240,6 +240,8 @@
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhFly.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhFly.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhSimple.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\all.hpp"> </File>

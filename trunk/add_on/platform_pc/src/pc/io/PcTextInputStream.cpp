@@ -69,21 +69,23 @@ namespace se_pc {
 		// Skips whitespace if any to first non-whitespace character
 		bool foundWhiteSpace = false;
 		do {
-		   switch(fileContents_[bufferIndex_]) {
-		   case ' ':
-		   case '\r':
-		   case '\t':
-		   case '\n':
-			   foundWhiteSpace = true;
-			   bufferIndex_++;
-			   break;
-		   case '#':
-			   // Comment out rest of line
-			   for(;fileContents_[bufferIndex_]!='\r'&&fileContents_[bufferIndex_]!='\n';bufferIndex_++);
-			   foundWhiteSpace=true;
-			   break;
-		   default:
-			   if(foundWhiteSpace) return;
+			switch(fileContents_[bufferIndex_]) {
+			case ' ':
+			case '\r':
+			case '\t':
+			case '\n':
+				foundWhiteSpace = true;
+				bufferIndex_++;
+				break;
+			case '#':
+				// Comment out rest of line
+				while(bufferIndex_ < contentsLength_ && fileContents_[bufferIndex_] != '\n' && fileContents_[bufferIndex_] != '\r') {
+					++bufferIndex_;
+				}
+				foundWhiteSpace = true;
+				break;
+			default:
+				if(foundWhiteSpace) return;
 		   }
 		} while (foundWhiteSpace);
 	}
@@ -128,12 +130,15 @@ namespace se_pc {
 	void PcTextInputStream
 	::readLine(String& dest) {
 		int i=0;
-		while(bufferIndex_<=contentsLength_ && fileContents_[bufferIndex_]!='\n' && fileContents_[bufferIndex_]!='\r') {
-			tmpBuffer_[i++]=fileContents_[bufferIndex_++];
+		while(bufferIndex_ < contentsLength_ && fileContents_[bufferIndex_] != '\n' && fileContents_[bufferIndex_] != '\r') {
+			tmpBuffer_[i++] = fileContents_[bufferIndex_++];
 		}
 		tmpBuffer_[i] = 0;
-		for (i=0;tmpBuffer_[i];i++) {
-			if(tmpBuffer_[i]=='#') {tmpBuffer_[i]=0; break;}
+		for(i=0; tmpBuffer_[i]; i++) {
+			if(tmpBuffer_[i] == '#') {
+				tmpBuffer_[i]=0; 
+				break;
+			}
 		}
 		dest.copy(tmpBuffer_);
 		nextToken();
@@ -143,7 +148,7 @@ namespace se_pc {
 	void PcTextInputStream
 	::readLine(char* dest, short maxLen) {
 		int i=0;
-		while(bufferIndex_<=contentsLength_ && fileContents_[bufferIndex_]!='\n' && fileContents_[bufferIndex_]!='\r') {
+		while(bufferIndex_ < contentsLength_ && fileContents_[bufferIndex_] != '\n' && fileContents_[bufferIndex_] !=' \r') {
 			dest[i++]=fileContents_[bufferIndex_++];
 		}
 		dest[i] = 0;
@@ -157,7 +162,7 @@ namespace se_pc {
 	char* PcTextInputStream
 	::readString() {
 		unsigned short i = 0;
-		while(bufferIndex_<contentsLength_) {
+		while(bufferIndex_ < contentsLength_) {
 			char c = fileContents_[bufferIndex_];
 			if(c == ' ' || c == '\n' || c == '\t' || c == '\r' || c=='#') {
 				break;
@@ -247,7 +252,7 @@ namespace se_pc {
 
 	bool PcTextInputStream
 	::eof() {
-		return bufferIndex_ == contentsLength_;
+		return bufferIndex_ >= contentsLength_;
 	}
 
 }
