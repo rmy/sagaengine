@@ -19,27 +19,30 @@ rune@skalden.com
 */
 
 
-#ifndef PluginManager_hpp
-#define PluginManager_hpp
+#ifndef Plugin_hpp
+#define Plugin_hpp
+
 
 
 #include "Plugin.hpp"
+#include "util/type/String.hpp"
 
-namespace se_plugin {
+namespace se_pc {
 
-	class _SePluginExport PluginManager {
+	class _SePluginExport Plugin {
 	public:
-		PluginManager();
-		virtual ~PluginManager();
+		Plugin(const char* name);
+		virtual ~Plugin();
 
-		Plugin* load(const char* name);
-		void unload(Plugin* plugin);
-		void unloadAll();
+		const char* name() { return name_.get(); }
+		void load();
+		void unload();
+		void* symbol(const char* name);
 
 	private:
-		enum { MAX_PLUGINS = 32 };
-		int pluginCount_;
-		Plugin** plugins_;
+		se_core::String name_;
+		bool isLoaded_;
+		void* plugin_;
 	};
 
 }

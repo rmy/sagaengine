@@ -29,8 +29,8 @@ rune@skalden.com
 
 using namespace se_core;
 
-namespace se_plugin {
-	namespace PluginSchema {
+namespace se_pc {
+	namespace PCSchema {
 		PluginManager& pluginManager() {
 			static PluginManager pluginManager;
 			return pluginManager;
