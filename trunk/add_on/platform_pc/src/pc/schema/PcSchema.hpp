@@ -22,17 +22,17 @@ rune@skalden.com
 #ifndef PluginSchema_hpp
 #define PluginSchema_hpp
 
-#include "../PluginManager.hpp"
+#include "../plugin/PluginManager.hpp"
 
 namespace se_pc {
 	/**
 	 * Global objects and methods for the core io system.
 	 */
 	namespace PcSchema {
-		extern _SePluginExport PluginManager& pluginManager();
+		extern _SePcExport PluginManager& pluginManager();
 
 		/** Force linking of dependencies */
-		void _SePluginExport touch();
+		void _SePcExport touch();
 	}
 }
 

@@ -29,7 +29,7 @@ rune@skalden.com
 
 namespace se_pc {
 
-	class _SePluginExport Plugin {
+	class _SePcExport Plugin {
 	public:
 		Plugin(const char* name);
 		virtual ~Plugin();

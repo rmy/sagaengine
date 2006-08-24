@@ -28,7 +28,7 @@ rune@skalden.com
 #include "io/parse/ParserModule.hpp"
 
 namespace se_pc {
-	class _SePluginExport PluginParserModule  : public se_core::ParserModule {
+	class _SePcExport PluginParserModule  : public se_core::ParserModule {
 	public:
 		PluginParserModule(se_core::Parser& parser);
 		virtual ~PluginParserModule();
