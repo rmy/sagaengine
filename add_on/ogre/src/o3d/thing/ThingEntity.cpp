@@ -54,7 +54,6 @@ namespace se_ogre {
 			const short animId = thing_.pos().anim(i).movementMode();
 			prevAnim_[i] = -1;
 			state_[i] = 0;
-
 			setAnimation(i, thing_.pos().anim(i));
 		}
 
@@ -129,6 +128,10 @@ namespace se_ogre {
 		if(prevAnim_[channel] != animId) {
 			prevAnim_[channel] = animId;
 
+			if(state_[channel]) {
+				state_[channel]->setEnabled(false);
+				state_[channel] = 0;
+			}
 			O3dAnimation* a = info_.animation(channel, animId);
 			if(a && !a->name_.isEmpty()) {
 				// Set the animation state
@@ -142,10 +145,6 @@ namespace se_ogre {
 				const float s = a->speed_ * ScaleT::fromFloat(anim.speed());
 				speed_[channel] = s;
 			}
-			else if(state_[channel]) {
-				state_[channel]->setEnabled(false);
-				state_[channel] = 0;
-			}
 		}
 
 	}
@@ -158,16 +157,22 @@ namespace se_ogre {
 
 
 	void ThingEntity
-	::animate(float stepDelta, float timeSinceLastFrame) {
+	::animate(long when, float stepDelta, float timeSinceLastFrame) {
 		// Check if movement mode (and thus animation) has changed (ie walk to stand, etc)
 
 		for(int i = 0; i < info_.channelCount(); ++i) {
-			setAnimation(i, thing_.pos().anim(i));
+			const Anim& a = thing_.pos().anim(i);
+			setAnimation(i, a);
 
 			// Add passed time and update weight of animation
 			if(state_[i]) {
-				state_[i]->addTime(timeSinceLastFrame * speed_[i]);
-				state_[i]->setWeight(thing_.pos().anim(i).weight());
+				LogMsg(i << ": " << a.movementMode());
+				float pos = ScaleT::toFloat(a.startPos()) * state_[i]->getLength();
+				pos += a.movementWhen(when) * (1.0f / 1024.0f);
+				LogMsg(pos);
+				//state_[i]->addTime(timeSinceLastFrame * speed_[i]);
+				state_[i]->setTimePosition(pos);
+				state_[i]->setWeight(a.weight());
 			}
 		}
 

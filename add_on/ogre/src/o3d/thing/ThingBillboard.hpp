@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport ThingBillboard : public ThingMO {
 	public:
-		void animate(float stepDelta, float timeSinceLastFrame);
+		void animate(long when, float stepDelta, float timeSinceLastFrame);
 
 	protected:
 		friend class ThingBillboardFactory;

@@ -32,15 +32,15 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport ThingMultiMO : public ThingMO {
 	public:
-		void animate(float stepDelta, float timeSinceLastFrame) {
-			animateChildren(stepDelta, timeSinceLastFrame);
+		void animate(long when, float stepDelta, float timeSinceLastFrame) {
+			animateChildren(when, stepDelta, timeSinceLastFrame);
 		}
 
 		void add(ThingMO& tmo);
 		void remove(ThingMO& tmo);
 
-		void moveChildren(float stepDelta, float timeSinceLastFrame);
-		void animateChildren(float stepDelta, float timeSinceLastFrame);
+		void moveChildren(long when, float stepDelta, float timeSinceLastFrame);
+		void animateChildren(long when, float stepDelta, float timeSinceLastFrame);
 
 	protected:
 		friend class ThingMultiMOFactory;

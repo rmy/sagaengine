@@ -62,7 +62,7 @@ namespace se_ogre {
 
 
 	void ThingImpostor
-	::animate(float stepDelta, float timeSinceLastFrame) {
+	::animate(long when, float stepDelta, float timeSinceLastFrame) {
 		// Visible
 		if(isVisible()) {
 			billboard_->setTexcoordIndex(1);

@@ -33,8 +33,8 @@ namespace se_ogre {
 		bool hasAnimation() const { return hasAnimation_; }
 		void setVisible(bool state);
 		bool isVisible() { return isVisible_; }
-		void move(float stepDelta, float timeSinceLastFrame);
-		virtual void animate(float stepDelta, float timeSinceLastFrame) = 0;
+		void move(long when, float stepDelta, float timeSinceLastFrame);
+		virtual void animate(long when, float stepDelta, float timeSinceLastFrame) = 0;
 		bool hasThing(se_core::Thing& thing) { return thing_.id() == thing.id(); }
 
 	protected:

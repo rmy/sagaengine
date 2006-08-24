@@ -46,6 +46,7 @@ namespace logic {
 		void initEngineEvent() {
 			// Create and register physics objects
 			static const PhSimple phSimple;
+			static const PhFly phFly;
 			static const PhDanglingCamera phDanglingCamera;
 		}
 

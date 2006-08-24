@@ -300,7 +300,7 @@ namespace se_ogre {
 			ThingMOList::iterator_type it = areas_[i].firstThingMO;
 			while(it != ThingMOList::NULL_NODE) {
 				ThingMO* te = O3dSchema::thingMOList.next(it);
-				te->move(stepDelta, timeSinceLastFrame);
+				te->move(renderClock, stepDelta, timeSinceLastFrame);
 			}
 		}
 
