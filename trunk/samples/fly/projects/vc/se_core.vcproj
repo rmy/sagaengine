@@ -119,7 +119,8 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
-			<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
+			<File RelativePath="..\..\..\..\add_on\platform_pc\src\PcPre.hpp"> </File>
+<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.hpp"> </File>
@@ -160,6 +161,8 @@
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\pc_io.hpp"> </File>
 </Filter><Filter Name="plugin" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.cpp"> </File>

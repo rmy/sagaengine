@@ -21,8 +21,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SeBasicExport=;_SimpleLogicExport=;_SimpleUiExport=;"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -81,8 +81,8 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../../../samples/simple/start/src;../../../../core/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../../../samples/simple/ogre_ui/src;../../../../samples/simple/logic/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeCoreExport=;_SeBasicExport=;_SimpleLogicExport=;_SimpleUiExport=;"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
@@ -134,16 +134,17 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc">
-			<File RelativePath="..\..\..\..\samples\simple\start\src\Application.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\start\src\Application.hpp"> </File>
+			<File RelativePath="..\..\start\src\Application.cpp"> </File>
+<File RelativePath="..\..\start\src\Application.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\BasicPre.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\LogicPre.hpp"> </File>
+<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\O3dPre.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\OgreUiPre.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\start\src\Start.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\Ui.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\game_ui.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\OgreUiPre.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\PcPre.hpp"> </File>
+<File RelativePath="..\..\start\src\Start.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\Ui.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\Ui.hpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\game_ui.cpp"> </File>
 <Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshArea.cpp"> </File>
@@ -230,21 +231,21 @@
 <File RelativePath="..\..\..\..\core\src\io\stream\TextInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\stream\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\stream\io_stream.hpp"> </File>
-</Filter></Filter><Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Forward.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Forward.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Jump.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Jump.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\Rotate.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\action\all.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhSimple.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhTrackingCamera.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\PhTrackingCamera.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\physics\all.hpp"> </File>
-</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\LogicSchema.hpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\logic\src\logic\schema\all.hpp"> </File>
+</Filter></Filter><Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\action\Forward.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Forward.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Jump.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Jump.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Rotate.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Rotate.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhSimple.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhSimple.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhTrackingCamera.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\PhTrackingCamera.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\physics\all.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\schema\LogicSchema.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\schema\LogicSchema.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\schema\all.hpp"> </File>
 </Filter></Filter><Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\all.hpp"> </File>
@@ -285,16 +286,8 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\use.hpp"> </File>
 </Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFileManager.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFileManager.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dTextInputStream.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dTextInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dThingParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dThingParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\all.hpp"> </File>
@@ -350,6 +343,24 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\widget\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\widget\o3d_widget.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\widget\use.hpp"> </File>
+</Filter></Filter><Filter Name="pc" Filter="cpp;hpp"><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFile.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFile.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\pc_io.hpp"> </File>
+</Filter><Filter Name="plugin" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
 </Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\InitListeners.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.cpp"> </File>
@@ -506,14 +517,14 @@
 <File RelativePath="..\..\..\..\core\src\sim\thing\ThingManager.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\sim_thing.hpp"> </File>
-</Filter></Filter><Filter Name="ui" Filter="cpp;hpp"><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\init\UiInitHandler.hpp"> </File>
-</Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\SimpleControls.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\input\SimpleControls.hpp"> </File>
-</Filter><Filter Name="material" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\material\Sunlight.hpp"> </File>
-</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.cpp"> </File>
-<File RelativePath="..\..\..\..\samples\simple\ogre_ui\src\ui\schema\UiSchema.hpp"> </File>
+</Filter></Filter><Filter Name="ui" Filter="cpp;hpp"><Filter Name="init" Filter="cpp;hpp"><File RelativePath="..\..\ogre_ui\src\ui\init\UiInitHandler.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\ui\init\UiInitHandler.hpp"> </File>
+</Filter><Filter Name="input" Filter="cpp;hpp"><File RelativePath="..\..\ogre_ui\src\ui\input\SimpleControls.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\ui\input\SimpleControls.hpp"> </File>
+</Filter><Filter Name="material" Filter="cpp;hpp"><File RelativePath="..\..\ogre_ui\src\ui\material\Sunlight.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\ui\material\Sunlight.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\ogre_ui\src\ui\schema\UiSchema.cpp"> </File>
+<File RelativePath="..\..\ogre_ui\src\ui\schema\UiSchema.hpp"> </File>
 </Filter></Filter><Filter Name="util" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\util.hpp"> </File>
 <Filter Name="bounds" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\bounds\BoundingBox.cpp"> </File>
