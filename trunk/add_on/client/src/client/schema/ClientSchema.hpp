@@ -55,8 +55,9 @@ namespace se_client {
 		/** The object that the camera is attached to. Probably the player or the floatingCamera */
 		extern _SeClientExport se_core::Camera* camera;
 
+		/** Force linking of dependencies */
+		void _SeClientExport touch();
 	};
-
 
 }
 

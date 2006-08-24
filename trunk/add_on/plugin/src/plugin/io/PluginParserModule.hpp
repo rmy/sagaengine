@@ -19,29 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef IoSchema_hpp
-#define IoSchema_hpp
+#ifndef PluginParserModule_hpp
+#define PluginParserModule_hpp
 
-#include "../parse/Parser.hpp"
-#include "../encode/io_encode.hpp"
-#include "../stream/io_stream.hpp"
+#include "io/stream/io_stream.hpp"
+#include "sim/area/sim_area.hpp"
+#include "sim/stat/sim_stat.hpp"
+#include "io/parse/ParserModule.hpp"
 
-namespace se_core {
-	/**
-	 * Global objects and methods for the core io system.
-	 */
-	namespace IoSchema {
-		extern _SeCoreExport Parser& parser();
-		Encoder& encoder();
-		extern _SeCoreExport FileManager* fileManager;
-
-		bool _SeCoreExport init();
-		void _SeCoreExport cleanup();
-		
-		/** Force linking of dependencies */
-		void _SeCoreExport touch();
-	}
+namespace se_plugin {
+	class _SePluginExport PluginParserModule  : public se_core::ParserModule {
+	public:
+		PluginParserModule(se_core::Parser& parser);
+		virtual ~PluginParserModule();
+		void parse(se_core::InputStream& in);
+	};
 }
-
 
 #endif

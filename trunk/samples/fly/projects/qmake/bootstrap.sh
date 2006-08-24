@@ -1,6 +1,7 @@
 #!/bin/sh
 
 sh ../../../../tools/qmake/strap_app.sh ../../../../core core
+sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/plugin plugin
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/client client
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/basic basic
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/ogre ogre
