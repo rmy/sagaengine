@@ -82,7 +82,7 @@ namespace se_core {
 			if((is = IoSchema::fileManager->open(filename)) != 0) {
 				IoSchema::parser().parse(*is, filename);
 				IoSchema::fileManager->close(is);
-				LogMsg("Finished loading: " << filename);
+				LogMsg("Finished loading batch: " << filename);
 				continue;
 			}
 

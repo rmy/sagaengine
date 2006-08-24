@@ -2,11 +2,12 @@ message( "[ core settings ]")
 
 CONFIG += lib
 OBJECTS_DIR = .obj
-TARGET = se_core
+TARGET = SagaEngine
 
 DEFINES *= _SeClientExport=
 
-include( src.pro )
+include( core.pro )
+include( pc.pro )
 
 INCLUDEPATH = ../../src
 
