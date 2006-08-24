@@ -85,11 +85,6 @@ namespace se_ogre {
 				//
 				SimSchema::realClock = new O3dClock();
 
-				// Register a file manager
-				// (Could have been a network loader, or anything else.)
-				IoSchema::fileManager = new se_ogre::O3dFileManager("datapath.txt");
-				IoSchema::fileManager->init();
-
 				// Create RenderEngine object
 				O3dSchema::renderEngine = new RenderEngine();
 

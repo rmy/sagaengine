@@ -19,26 +19,25 @@ rune@skalden.com
 */
 
 
-#include "O3dPre.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
+#include "PcPre.hpp"
+#include "PcTextInputStream.hpp"
+#include "PcFile.hpp"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
 
-using namespace se_client;
 using namespace se_core;
 
-namespace se_ogre {
+namespace se_pc {
 
-	O3dTextInputStream
-	::O3dTextInputStream() {
+	PcTextInputStream
+	::PcTextInputStream() {
 		fileContents_ = 0;
 	}
 
 
-	O3dTextInputStream
-	::O3dTextInputStream(const char* directory, const char* filename) {
+	PcTextInputStream
+	::PcTextInputStream(const char* directory, const char* filename) {
 		Assert(strlen(directory) + strlen(filename) + 2 < sizeof(sourceFilename_));
 		sprintf(sourceFilename_, "%s/%s", directory, filename);
 
@@ -58,14 +57,14 @@ namespace se_ogre {
 	}
 
 
-	O3dTextInputStream
-	::~O3dTextInputStream() {
+	PcTextInputStream
+	::~PcTextInputStream() {
 		if (fileContents_)
 			delete[] fileContents_;
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::nextToken() {
 		// Skips whitespace if any to first non-whitespace character
 		bool foundWhiteSpace = false;
@@ -90,7 +89,7 @@ namespace se_ogre {
 	}
 
 
-	int O3dTextInputStream
+	int PcTextInputStream
 	::readInt() {
 		readString();
 		int v = atoi(tmpBuffer_);
@@ -98,7 +97,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned int O3dTextInputStream
+	unsigned int PcTextInputStream
 	::readHeaderCode() {
 		unsigned int code =((unsigned char)fileContents_[bufferIndex_++] << 24);
 		code+=((unsigned char)fileContents_[bufferIndex_++] << 16);
@@ -109,7 +108,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned short O3dTextInputStream
+	unsigned short PcTextInputStream
 	::readLanguageCode() {
 		unsigned int code = (fileContents_[bufferIndex_++] <<  8);
 		code+=  fileContents_[bufferIndex_++];
@@ -118,7 +117,7 @@ namespace se_ogre {
 	}
 
 
-	float O3dTextInputStream
+	float PcTextInputStream
 	::readFloat() {
 		readString();
 		float v = static_cast<float>(atof(tmpBuffer_));
@@ -126,7 +125,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readLine(String& dest) {
 		int i=0;
 		while(bufferIndex_<=contentsLength_ && fileContents_[bufferIndex_]!='\n' && fileContents_[bufferIndex_]!='\r') {
@@ -141,7 +140,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readLine(char* dest, short maxLen) {
 		int i=0;
 		while(bufferIndex_<=contentsLength_ && fileContents_[bufferIndex_]!='\n' && fileContents_[bufferIndex_]!='\r') {
@@ -155,7 +154,7 @@ namespace se_ogre {
 	}
 
 
-	char* O3dTextInputStream
+	char* PcTextInputStream
 	::readString() {
 		unsigned short i = 0;
 		while(bufferIndex_<contentsLength_) {
@@ -177,7 +176,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readString(char* dest, short maxLen) {
 		char *r = readString();
 		dest[ maxLen - 1 ] = 0;
@@ -185,14 +184,14 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readString(String& dest) {
 		char *r = readString();
 		dest.copy(r);
 	}
 
 
-	int O3dTextInputStream
+	int PcTextInputStream
 	::readInfoCode() {
 		int v = fileContents_[bufferIndex_++];
 		// Eof not always working, so next token after
@@ -204,21 +203,19 @@ namespace se_ogre {
 	}
 
 
-	int O3dTextInputStream
+	int PcTextInputStream
 	::readPhraseType() {
-		char* name = readString();
-		int id = static_cast<int>(Phrase::typeIdOfName(name));
-		return id;
+		return readDictionaryWord(DE_PHRASE_TYPE);
 	}
 
 
-	int O3dTextInputStream
+	int PcTextInputStream
 	::readThingType() {
 		return readDictionaryWord(DE_THING_TYPE);
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readShortArray(ShortArray& dest, int size) {
 		unsigned short* array = new unsigned short[ size ];
 		for(int i = 0; i < size; ++i) {
@@ -228,7 +225,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readByteArray(ByteArray& dest, int size) {
 		unsigned char* array = new unsigned char[ size ];
 		for(int i = 0; i < size; ++i) {
@@ -238,7 +235,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dTextInputStream
+	void PcTextInputStream
 	::readCharArray(String& dest, int size) {
 		char* array = new char[ size ];
 		for(int i = 0; i < size; ++i) {
@@ -248,7 +245,7 @@ namespace se_ogre {
 	}
 
 
-	bool O3dTextInputStream
+	bool PcTextInputStream
 	::eof() {
 		return bufferIndex_ == contentsLength_;
 	}

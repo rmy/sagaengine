@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "O3dFile.hpp"
+#include "PcFile.hpp"
 #include "util/type/all.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
@@ -28,25 +28,25 @@ rune@skalden.com
 
 using namespace se_core;
 
-namespace se_ogre {
-	O3dFile
-	::O3dFile() : in_(0) {
+namespace se_pc {
+	PcFile
+	::PcFile() : in_(0) {
 	}
 
 
-	O3dFile
-	::O3dFile(const char* directory, const char* filename) : in_(0) {
+	PcFile
+	::PcFile(const char* directory, const char* filename) : in_(0) {
 		open(directory, filename);
 	}
 
 
-	O3dFile
-	::~O3dFile() {
+	PcFile
+	::~PcFile() {
 		close();
 	}
 
 
-	void O3dFile
+	void PcFile
 	::open(const char* directory, const char* filename) {
 		Assert(strlen(directory) + strlen(filename) + 2 < sizeof(fullFilePath_));
 		sprintf(fullFilePath_, "%s/%s", directory, filename);
@@ -56,14 +56,14 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::close() {
 		if(in_) fclose(in_);
 		in_ = 0;
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readLine(char* dest, short maxLen) {
 		dest[0] = 0;
 		fgets(dest, maxLen, in_);
@@ -76,7 +76,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readLine(String& dest) {
 		const short MAX_LEN = 512;
 		char buffer[ MAX_LEN ];
@@ -97,7 +97,7 @@ namespace se_ogre {
 	}
 
 
-	short O3dFile
+	short PcFile
 	::readString(char* dest, short maxLen) {
 		--maxLen;
 		unsigned char ch = 0;
@@ -125,7 +125,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readString(String& dest) {
 		const short MAX_LEN = 512;
 		char buffer[ MAX_LEN ];
@@ -137,13 +137,13 @@ namespace se_ogre {
 	}
 
 
-	bool O3dFile
+	bool PcFile
 	::eof() {
 		return (feof(in_) != 0) && ((ferror(in_) == 0));
 	}
 
 
-	float O3dFile
+	float PcFile
 	::readFloat() {
 		float v;
 		fread(&v, sizeof(v), 1, in_);
@@ -151,7 +151,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned long O3dFile
+	unsigned long PcFile
 	::readLong() {
 		long v;
 		fread(&v, sizeof(v), 1, in_);
@@ -159,7 +159,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned short O3dFile
+	unsigned short PcFile
 	::readShort() {
 		unsigned short v;
 		fread(&v, sizeof(v), 1, in_);
@@ -167,7 +167,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned char O3dFile
+	unsigned char PcFile
 	::readByte() {
 		unsigned char v;
 		//int n = fread(&v, sizeof(v), 1, in_);
@@ -177,7 +177,7 @@ namespace se_ogre {
 	}
 
 
-	unsigned char O3dFile
+	unsigned char PcFile
 	::nextByte() {
 		unsigned char v;
 		fread(&v, sizeof(v), 1, in_);
@@ -186,7 +186,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readShortArray(ShortArray& dest, int size) {
 		unsigned short* array = new unsigned short[ size ];
 		fread(array, size, sizeof(unsigned short), in_);
@@ -194,7 +194,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readByteArray(ByteArray& dest, int size) {
  		unsigned char* array = new unsigned char[ size ];
 		fread(array, size, sizeof(unsigned char), in_);
@@ -202,7 +202,7 @@ namespace se_ogre {
 	}
 
 
-	void O3dFile
+	void PcFile
 	::readCharArray(String& dest, int size) {
  		char* array = new char[ size ];
 		fread(array, size, sizeof(char), in_);
@@ -210,20 +210,20 @@ namespace se_ogre {
 	}
 
 
-	long O3dFile
+	long PcFile
 	::size() {
 		LogFatal("Not implemented");
 		return 0;
 	}
 
 
-	int O3dFile
+	int PcFile
 	::shortCount() {
 		return size() / sizeof(short);
 	}
 
 
-	const char* O3dFile
+	const char* PcFile
 	::filename() {
 		return fullFilePath_;
 	}

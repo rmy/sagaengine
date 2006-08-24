@@ -19,43 +19,43 @@ rune@skalden.com
 */
 
 
-#include "O3dBinaryInputStream.hpp"
+#include "PcBinaryInputStream.hpp"
 #include "util/type/all.hpp"
 
 
 using namespace se_core;
 
-namespace se_ogre {
-	O3dBinaryInputStream
-	::O3dBinaryInputStream() {
+namespace se_pc {
+	PcBinaryInputStream
+	::PcBinaryInputStream() {
 	}
 
 
- 	O3dBinaryInputStream
-	::O3dBinaryInputStream(const char* directory, const char* filename)
+ 	PcBinaryInputStream
+	::PcBinaryInputStream(const char* directory, const char* filename)
 		: file_(directory, filename) {
 	}
 
 
-	O3dBinaryInputStream
-	::~O3dBinaryInputStream() {
+	PcBinaryInputStream
+	::~PcBinaryInputStream() {
 		file_.close();
 	}
 
 
-	int O3dBinaryInputStream
+	int PcBinaryInputStream
 	::readInt() {
 		return file_.readLong();
 	}
 
 
-	unsigned short O3dBinaryInputStream
+	unsigned short PcBinaryInputStream
 	::readShort() {
 		return file_.readShort();
 	}
 
 
-	unsigned int O3dBinaryInputStream
+	unsigned int PcBinaryInputStream
 	::readHeaderCode() {
 		unsigned int code = file_.readByte() * (1L << 24) + file_.readByte() * (1L << 16)
 			+ file_.readByte() * (1L << 8) + file_.readByte();
@@ -63,63 +63,63 @@ namespace se_ogre {
 	}
 
 
-	unsigned short O3dBinaryInputStream
+	unsigned short PcBinaryInputStream
 	::readLanguageCode() {
 		unsigned int code = file_.readByte() * (1L << 8) + file_.readByte();
 		return code;
 	}
 
 
-	int O3dBinaryInputStream
+	int PcBinaryInputStream
 	::readPhraseType() {
 		unsigned int code = file_.readByte() * (1L << 8) + file_.readByte();
 		return code;
 	}
 
 
-	float O3dBinaryInputStream
+	float PcBinaryInputStream
 	::readFloat() {
 		return file_.readFloat();
 	}
 
 
-	void O3dBinaryInputStream
+	void PcBinaryInputStream
 	::readString(String& dest) {
 		file_.readString(dest);
 	}
 
 
-	void O3dBinaryInputStream
+	void PcBinaryInputStream
 	::readString(char* dest, short maxLen) {
 		file_.readString(dest, maxLen);
 	}
 
 
-	int O3dBinaryInputStream
+	int PcBinaryInputStream
 	::readInfoCode() {
 		return file_.readByte();
 	}
 
 
-	void O3dBinaryInputStream
+	void PcBinaryInputStream
 	::readShortArray(ShortArray& dest, int size) {
 		file_.readShortArray(dest, size);
 	}
 
 
-	void O3dBinaryInputStream
+	void PcBinaryInputStream
 	::readByteArray(ByteArray& dest, int size) {
 		file_.readByteArray(dest, size);
 	}
 
 
-	void O3dBinaryInputStream
+	void PcBinaryInputStream
 	::readCharArray(String& dest, int size) {
 		file_.readCharArray(dest, size);
 	}
 
 
-	bool O3dBinaryInputStream
+	bool PcBinaryInputStream
 	::eof() {
 		return file_.eof();
 	}

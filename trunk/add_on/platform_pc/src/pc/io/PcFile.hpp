@@ -19,18 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_O3dFile_hpp
-#define o3d_io_O3dFile_hpp
+#ifndef pc_io_PcFile_hpp
+#define pc_io_PcFile_hpp
 
 #include "util/type/util_type.hpp"
 #include <cstdio>
 
-namespace se_ogre {
-	class _SeOgreExport O3dFile {
+namespace se_pc {
+	class _SePcExport PcFile {
 	public:
-		O3dFile();
-		O3dFile(const char* directory, const char* filename);
-		virtual ~O3dFile();
+		PcFile();
+		PcFile(const char* directory, const char* filename);
+		virtual ~PcFile();
 		void open(const char* directory, const char* filename);
 		void close(void);
 

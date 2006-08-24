@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "PcSchema.hpp"
 #include "../io/PluginParserModule.hpp"
+#include "../io/PcFileManager.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
 #include "sim/schema/SimSchema.hpp"
@@ -41,6 +42,10 @@ namespace se_pc {
 			AutoInit() {
 				// Register some file loaders
 				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
+				// Register a file manager
+				// (Could have been a network loader, or anything else.)
+				IoSchema::fileManager = new PcFileManager("datapath.txt");
+				IoSchema::fileManager->init();
 
 				SimSchema::initListeners().addListener(*this);
 				LogMsg("Registered Plugin add-on");
@@ -53,7 +58,9 @@ namespace se_pc {
 			}
 
 
-			void initEngineEvent() {}
+			void initEngineEvent() {
+			}
+
 			void cleanupEngineEvent() {}
 			void initGameEvent() {}
 			void cleanupGameEvent() {}
