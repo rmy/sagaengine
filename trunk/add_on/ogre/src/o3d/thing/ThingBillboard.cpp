@@ -76,7 +76,7 @@ namespace se_ogre {
 
 
 	void ThingBillboard
-	::animate(float stepDelta, float timeSinceLastFrame) {
+	::animate(long when, float stepDelta, float timeSinceLastFrame) {
 		// Visible
 		/*
 		if(isVisible()) {

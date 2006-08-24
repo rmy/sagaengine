@@ -29,7 +29,8 @@ namespace se_core {
 		: movementMode_(0),
 		  movementStartedWhen_(0),
 		  weight_(1),
-		  speed_(1) {
+		  speed_(1),
+		  startPos_(0) {
 	}
 
 

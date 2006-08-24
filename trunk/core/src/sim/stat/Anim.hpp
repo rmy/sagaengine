@@ -79,8 +79,11 @@ namespace se_core {
 
 		void setWeight(scale_t w) { weight_ = w; }
 		scale_t weight() const { return weight_; }
-		//scale_t timePos(long when) { return startAt_ + (when - movementStartedWhen_) * SCALE_WHEN_TO_SECOND; }
-
+		/**
+		 * @returns 0 for beginning of anim, SCALE_RES for end of anim.
+		 */
+		void setStartPos(float p) { startPos_ = p; }
+		scale_t startPos() const { return startPos_; }
 
 		static void setMovementModeCount(int c) { MOVEMENT_MODE_COUNT = c; }
 		static int MOVEMENT_MODE_COUNT;
@@ -95,6 +98,8 @@ namespace se_core {
 		scale_t weight_;
 
 		scale_t speed_;
+
+		scale_t startPos_;
 	};
 
 }

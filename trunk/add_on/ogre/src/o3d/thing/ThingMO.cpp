@@ -52,7 +52,7 @@ namespace se_ogre {
 
 
 	void ThingMO
-	::move(float stepDelta, float timeSinceLastFrame) {
+	::move(long when, float stepDelta, float timeSinceLastFrame) {
 		// Check if mesh entity is visible
 		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
 		coor_double_t distSq = playerCoor.distanceSquared(thing_.pos().worldCoor());
@@ -116,7 +116,7 @@ namespace se_ogre {
 		}
 
 		if(hasAnimation_)
-			animate(stepDelta, timeSinceLastFrame);
+			animate(when, stepDelta, timeSinceLastFrame);
 	}
 
 

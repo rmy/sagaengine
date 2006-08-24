@@ -45,7 +45,7 @@ namespace se_ogre {
 		 * Update animations and material.
 		 * @param Time sinse last move
 		 */
-		void animate(float stepDelta, float timeSinceLastFrame);
+		void animate(long when, float stepDelta, float timeSinceLastFrame);
 
 		void addToStaticGeometry(const char* name);
 

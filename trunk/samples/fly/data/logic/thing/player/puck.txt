@@ -2,7 +2,7 @@ XO02
 P player.puck
 R 0.6
 C default
-P Simple
+P Fly
 # Camera
 E 0 T 0 .2 1 R 0 15 0 /
 # Stones

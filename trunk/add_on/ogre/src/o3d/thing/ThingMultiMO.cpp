@@ -49,21 +49,21 @@ namespace se_ogre {
 
 
 	void ThingMultiMO
-	::moveChildren(float stepDelta, float timeSinceLastFrame) {
+	::moveChildren(long when, float stepDelta, float timeSinceLastFrame) {
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::NULL_NODE) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
-			te->move(stepDelta, timeSinceLastFrame);
+			te->move(when, stepDelta, timeSinceLastFrame);
 		}
 	}
 
 	void ThingMultiMO
-	::animateChildren(float stepDelta, float timeSinceLastFrame) {
+	::animateChildren(long when, float stepDelta, float timeSinceLastFrame) {
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::NULL_NODE) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			if(te->hasAnimation())
-				te->animate(stepDelta, timeSinceLastFrame);
+				te->animate(when, stepDelta, timeSinceLastFrame);
 		}
 	}
 

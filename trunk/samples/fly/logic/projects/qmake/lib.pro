@@ -12,4 +12,3 @@ include( src.pro )
 message( Config: $$CONFIG )
 message( Target: $$TARGET )
 message( Template: $$TEMPLATE )
-
