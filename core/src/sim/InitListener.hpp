@@ -58,6 +58,7 @@ namespace se_core {
 		 * after a game (SimEngine::cleanupGame() method.)
 		 */
 		virtual void cleanupGameEvent() = 0;
+
 	};
 
 }

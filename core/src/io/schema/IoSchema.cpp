@@ -23,6 +23,7 @@ rune@skalden.com
 #include "../parse/all.hpp"
 #include "../encode/Encoder.hpp"
 #include "../stream/FileManager.hpp"
+#include "sim/schema/SimSchema.hpp"
 
 namespace se_core {
 	namespace IoSchema {
@@ -59,6 +60,13 @@ namespace se_core {
 		}
 
 		void cleanup() {
+		}
+
+
+		void touch() {
+			SimSchema::touch();
+			parser();
+			encoder();
 		}
 	}
 }

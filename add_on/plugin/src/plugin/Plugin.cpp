@@ -19,29 +19,44 @@ rune@skalden.com
 */
 
 
-#ifndef IoSchema_hpp
-#define IoSchema_hpp
+#include "Plugin.hpp"
+#include "util/error/Log.hpp"
+#include <dlfcn.h>
 
-#include "../parse/Parser.hpp"
-#include "../encode/io_encode.hpp"
-#include "../stream/io_stream.hpp"
+using namespace se_core;
 
-namespace se_core {
-	/**
-	 * Global objects and methods for the core io system.
-	 */
-	namespace IoSchema {
-		extern _SeCoreExport Parser& parser();
-		Encoder& encoder();
-		extern _SeCoreExport FileManager* fileManager;
+namespace se_plugin {
 
-		bool _SeCoreExport init();
-		void _SeCoreExport cleanup();
-		
-		/** Force linking of dependencies */
-		void _SeCoreExport touch();
+	Plugin
+	::Plugin(const char* name) : isLoaded_(false) {
+		name_.set(name);
+		name_.append(".so");
 	}
+
+
+	Plugin
+	::~Plugin() {
+		if(isLoaded_)
+			unload();
+	}
+
+
+	void Plugin
+	::load() {
+		LogMsg("Loading plugin " << name());
+		plugin_ = dlopen(name_.get() , RTLD_LAZY | RTLD_GLOBAL);
+		if(!plugin_) {
+			LogFatal("Couldn't load " << name() << ": " << dlerror());
+		}
+
+		isLoaded_ = (plugin_ != 0);
+	}
+
+
+	void Plugin
+	::unload() {
+		dlclose( plugin_ );
+		isLoaded_ = false;		
+	}
+
 }
-
-
-#endif

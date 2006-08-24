@@ -87,5 +87,12 @@ namespace se_client {
 			}
 
 		} autoInit;
+
+
+		void touch() {
+			se_core::SimSchema::touch();
+			se_core::IoSchema::touch();
+			autoInit;
+		}
 	}
 }

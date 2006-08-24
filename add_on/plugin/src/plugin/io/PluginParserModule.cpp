@@ -18,30 +18,38 @@ Rune Myrland
 rune@skalden.com
 */
 
+#include "PluginParserModule.hpp"
+#include <se_core.hpp>
 
-#ifndef IoSchema_hpp
-#define IoSchema_hpp
+using namespace se_core;
 
-#include "../parse/Parser.hpp"
-#include "../encode/io_encode.hpp"
-#include "../stream/io_stream.hpp"
-
-namespace se_core {
-	/**
-	 * Global objects and methods for the core io system.
-	 */
-	namespace IoSchema {
-		extern _SeCoreExport Parser& parser();
-		Encoder& encoder();
-		extern _SeCoreExport FileManager* fileManager;
-
-		bool _SeCoreExport init();
-		void _SeCoreExport cleanup();
-		
-		/** Force linking of dependencies */
-		void _SeCoreExport touch();
+namespace se_plugin {
+	PluginParserModule
+	::PluginParserModule(Parser& parser)
+		: ParserModule(parser, ParserModule::ENGINE, ParserModule::PLUGIN, 1)  {
 	}
+
+
+	PluginParserModule
+	::~PluginParserModule() {
+	}
+
+
+	void PluginParserModule
+	::parse(InputStream& in) {
+		int code = ' ';
+		while((code = in.readInfoCode()) != 'Q') {
+			switch(code) {
+			case 'P': // name
+				{
+					String plugin;
+					in.readString(plugin);
+				}
+				break;
+			default:
+				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
+			}
+		}
+	}
+
 }
-
-
-#endif

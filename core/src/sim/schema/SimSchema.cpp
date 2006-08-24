@@ -108,5 +108,11 @@ namespace se_core {
 		void cleanup() {
 			return simEngine.cleanup();
 		}
+
+
+		void touch() {
+			// The core has no dependencies
+		}
+
 	}
 }
