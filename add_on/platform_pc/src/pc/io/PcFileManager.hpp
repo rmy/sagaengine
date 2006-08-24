@@ -19,18 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_O3dFileManager_hpp
-#define o3d_io_O3dFileManager_hpp
+#ifndef pc_io_PcFileManager_hpp
+#define pc_io_PcFileManager_hpp
 
 #include "io/stream/FileManager.hpp"
 #include "util/type/util_type.hpp"
 
 
-namespace se_ogre {
-	class _SeOgreExport O3dFileManager : public se_core::FileManager {
+namespace se_pc {
+	class _SePcExport PcFileManager : public se_core::FileManager {
 	public:
-		O3dFileManager(const char* dataPath);
-		~O3dFileManager();
+		PcFileManager(const char* dataPath);
+		~PcFileManager();
 		void init();
 
 		se_core::InputStream* open(const char* filename);

@@ -19,20 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_O3dBinaryInputStream_hpp
-#define o3d_io_O3dBinaryInputStream_hpp
+#ifndef pc_io_PcBinaryInputStream_hpp
+#define pc_io_PcBinaryInputStream_hpp
 
 #include "io/stream/BinaryInputStream.hpp"
-#include "o3d_io.hpp"
-#include "O3dFile.hpp"
+#include "pc_io.hpp"
+#include "PcFile.hpp"
 #include "util/type/util_type.hpp"
 
-namespace se_ogre {
-	class _SeOgreExport O3dBinaryInputStream : public se_core::BinaryInputStream {
+namespace se_pc {
+	class _SePcExport PcBinaryInputStream : public se_core::BinaryInputStream {
 	public:
-		O3dBinaryInputStream();
-		O3dBinaryInputStream(const char* directory, const char* filename);
-		virtual ~O3dBinaryInputStream();
+		PcBinaryInputStream();
+		PcBinaryInputStream(const char* directory, const char* filename);
+		virtual ~PcBinaryInputStream();
 
 		unsigned int readHeaderCode();
 		unsigned short readLanguageCode();
@@ -54,8 +54,8 @@ namespace se_ogre {
 		const char* name() { return file_.filename(); }
 
 	private:
-		friend class O3dFileManager;
-		O3dFile file_;
+		friend class PcFileManager;
+		PcFile file_;
 	};
 }
 

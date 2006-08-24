@@ -19,19 +19,19 @@ rune@skalden.com
 */
 
 
-#ifndef o3d_io_O3dTextInputStream_hpp
-#define o3d_io_O3dTextInputStream_hpp
+#ifndef pc_io_PcTextInputStream_hpp
+#define pc_io_PcTextInputStream_hpp
 
 #include "io/stream/TextInputStream.hpp"
-#include "o3d_io.hpp"
-#include "O3dFile.hpp"
+#include "pc_io.hpp"
+#include "PcFile.hpp"
 
-namespace se_ogre {
-	class _SeOgreExport O3dTextInputStream : public se_core::TextInputStream {
+namespace se_pc {
+	class _SePcExport PcTextInputStream : public se_core::TextInputStream {
 	public:
-		O3dTextInputStream();
-		O3dTextInputStream(const char* directory, const char* filename);
-		virtual ~O3dTextInputStream();
+		PcTextInputStream();
+		PcTextInputStream(const char* directory, const char* filename);
+		virtual ~PcTextInputStream();
 
 		int readInt();
 		unsigned int readHeaderCode();
@@ -61,7 +61,7 @@ namespace se_ogre {
 	private:
 		void nextToken();
 		char* readString();
-		friend class O3dFileManager;
+		friend class PcFileManager;
 	};
 }
 

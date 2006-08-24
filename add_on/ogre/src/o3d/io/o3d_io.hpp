@@ -23,10 +23,6 @@ rune@skalden.com
 #define o3d_io_hpp
 
 namespace se_ogre {
-	class O3dFileManager;
-	class O3dFile;
-	class O3dTextInputStream;
-	class O3dBinaryInputStream;
 }
 
 #endif

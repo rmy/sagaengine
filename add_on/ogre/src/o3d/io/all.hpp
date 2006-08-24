@@ -22,13 +22,9 @@ rune@skalden.com
 #ifndef o3d_io_all_hpp
 #define o3d_io_all_hpp
 
-#include "O3dBinaryInputStream.hpp"
-#include "O3dTextInputStream.hpp"
-#include "O3dFile.hpp"
 #include "O3dThingParserModule.hpp"
 #include "O3dAreaParserModule.hpp"
 #include "O3dConfigParserModule.hpp"
-#include "O3dFileManager.hpp"
 #include "o3d_io.hpp"
 
 #endif

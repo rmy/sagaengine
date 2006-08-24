@@ -6,9 +6,9 @@ message( "core module included" )
 INCLUDEPATH += $${SAGAENGINE}/core/include
 INCLUDEPATH += $${SAGAENGINE}/core/src
 
-message( "plugin add-on included" )
-INCLUDEPATH += $${SAGAENGINE}/add_on/plugin/include
-INCLUDEPATH += $${SAGAENGINE}/add_on/plugin/src
+message( "platform_pc add-on included" )
+INCLUDEPATH += $${SAGAENGINE}/add_on/platform_pc/include
+INCLUDEPATH += $${SAGAENGINE}/add_on/platform_pc/src
 
 message( "client add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/include
@@ -42,7 +42,7 @@ DESTDIR = $${SAGAENGINE}/samples/fly/projects/qmake
 
 DEFINES *= SE_DOUBLE
 DEFINES *= IS_OGRE
-DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeClientExport= _SeCoreExport=
+DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SePcExport= _SeCoreExport=
 DEFINES *= _SimpleUiExport= _SimpleLogicExport=
 DEFINES *= _FlyUiExport= _FlyLogicExport=
 DEFINES *= _GameUiExport= _GameLogicExport=

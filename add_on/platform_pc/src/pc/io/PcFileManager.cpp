@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "O3dFileManager.hpp"
+#include "PcFileManager.hpp"
 #include "all.hpp"
 #include "io/stream/all.hpp"
 #include "util/error/Log.hpp"
@@ -32,9 +32,9 @@ rune@skalden.com
 using namespace se_core;
 
 
-namespace se_ogre {
-	O3dFileManager
-	::O3dFileManager(const char* dataPath)
+namespace se_pc {
+	PcFileManager
+	::PcFileManager(const char* dataPath)
 			: fileCount_(0) {
 		FILE* in = fopen(dataPath, "r");
 		if(!in) {
@@ -53,15 +53,15 @@ namespace se_ogre {
 	}
 
 
-	O3dFileManager
-	::~O3dFileManager() {
+	PcFileManager
+	::~PcFileManager() {
 		while(fileCount_ > 0) {
 			delete files_[ --fileCount_ ];
 		}
 	}
 
 
-	void O3dFileManager
+	void PcFileManager
 	::init() {
 		InputStream* is;
 		String* s = new String();
@@ -89,7 +89,7 @@ namespace se_ogre {
 	}
 
 
-	bool O3dFileManager
+	bool PcFileManager
 	::isBinaryFile(const char* filename) {
 		const char* s = filename;
 		short len = static_cast<short>(strlen(s));
@@ -105,7 +105,7 @@ namespace se_ogre {
 
 
 
-	bool O3dFileManager
+	bool PcFileManager
 	::isTextFile(const char* filename) {
 		return (!isBinaryFile(filename));
 		/*
@@ -124,37 +124,37 @@ namespace se_ogre {
 
 
 
-	se_core::InputStream* O3dFileManager
+	se_core::InputStream* PcFileManager
 	::open(const char* filename) {
 		if(isBinaryFile(filename)) {
-			return new O3dBinaryInputStream(directory_, filename);
+			return new PcBinaryInputStream(directory_, filename);
 		}
 		else if(isTextFile(filename)) {
-			return new O3dTextInputStream(directory_, filename);
+			return new PcTextInputStream(directory_, filename);
 		}
 		else {
 			char f[256];
 			sprintf(f, "%s.bin", filename);
 			if(exists(f)) {
-				return new O3dBinaryInputStream(directory_, f);
+				return new PcBinaryInputStream(directory_, f);
 			}
 			sprintf(f, "%s.txt", filename);
 			if(exists(f)) {
-				return new O3dTextInputStream(directory_, f);
+				return new PcTextInputStream(directory_, f);
 			}
 		}
 		return 0;
 	}
 
 
-	void O3dFileManager
+	void PcFileManager
 	::close(InputStream*& is) {
 		delete is;
 		is = 0;
 	}
 
 
-	bool O3dFileManager
+	bool PcFileManager
 	::exists(const char* filename) {
 		for(int i = 0; i < fileCount_; ++i) {
 			if(strcmp(filename, files_[i]->get()) == 0) return true;
@@ -163,20 +163,20 @@ namespace se_ogre {
 	}
 
 
-	int O3dFileManager
+	int PcFileManager
 	::fileCount() {
 		return fileCount_;
 	}
 
 
-	const char* O3dFileManager
+	const char* PcFileManager
 	::filename(int index) {
 		//printf("%d %s\n", index, files_[ index ]->get());
 		return files_[ index ]->get();
 	}
 
 
-	void O3dFileManager
+	void PcFileManager
 	::addFile(String* filename) {
 		Assert(fileCount_ < MAX_FILE_COUNT - 1);
 		files_[ fileCount_++ ] = filename;
