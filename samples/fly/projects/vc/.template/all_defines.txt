@@ -1,6 +1,9 @@
 _SeOgreExport=
 _SeClientExport=
 _SeBasicExport=
+_SePcExport=
 _SeCoreExport=
 _FlyLogicExport=
 _FlyUiExport=
+SE_STATIC
+

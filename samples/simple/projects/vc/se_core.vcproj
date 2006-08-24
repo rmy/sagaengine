@@ -22,8 +22,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../core/src;../../../../core/include;../../../../core/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../core/include;../../../../core/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -75,8 +75,8 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../../../core/src;../../../../core/include;../../../../core/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeCoreExport=__declspec(dllexport);"
+				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../core/include;../../../../core/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
@@ -119,7 +119,8 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
-			<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
+			<File RelativePath="..\..\..\..\add_on\platform_pc\src\PcPre.hpp"> </File>
+<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.hpp"> </File>
@@ -150,6 +151,24 @@
 <File RelativePath="..\..\..\..\core\src\io\stream\TextInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\stream\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\stream\io_stream.hpp"> </File>
+</Filter></Filter><Filter Name="pc" Filter="cpp;hpp"><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFile.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFile.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\pc_io.hpp"> </File>
+</Filter><Filter Name="plugin" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
 </Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\InitListeners.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.cpp"> </File>

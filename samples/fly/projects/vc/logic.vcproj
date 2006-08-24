@@ -120,7 +120,6 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
 			<File RelativePath="..\..\logic\src\LogicPre.hpp"> </File>
-<File RelativePath="..\..\logic\src\all.hpp"> </File>
 <Filter Name="logic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\action\DropStone.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\DropStone.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayMusic.cpp"> </File>

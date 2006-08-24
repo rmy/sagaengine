@@ -30,6 +30,9 @@ using namespace ui;
 namespace logic {
 	Application
 	::Application() {
+#ifndef SE_STATIC
+		IoSchema::fileManager->load("logic/plugins.txt");
+#endif
 		if(!initEngine()) {
 			LogFatal("Engine init failed");
 		}
@@ -45,16 +48,6 @@ namespace logic {
 	bool Application
 	::initEngine() {
 		if(!initSagaEngine()) {
-			return false;
-		}
-
-		//
-		if(!initGameModule_PlatformUI()) {
-			return false;
-		}
-
-
-		if(!LogicSchema::init()) {
 			return false;
 		}
 
@@ -125,8 +118,6 @@ namespace logic {
 
 	void Application
 	::cleanupEngine() {
-		LogicSchema::cleanup();
-
 		cleanupSagaEngine();
 	}
 

@@ -39,6 +39,13 @@ clean:
 	vcbuild -c ui
 	vcbuild -c fly
 
+static_debug: Debug/OgreMain_d.dll
+	vcbuild all Debug
+	
+static_release: Release/OgreMain.dll
+	vcbuild all Release
+	
+
 Release/OgreMain.dll:
 	xcopy ..\..\..\..\dependencies\bin\release\* Release\
 

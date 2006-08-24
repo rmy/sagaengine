@@ -23,8 +23,8 @@ rel: Release/OgreMain.dll
 
 dbg: Debug/OgreMain_d.dll
 	vcbuild se_core Debug
-	vcbuild se_basic Debug
 	vcbuild se_client Debug
+	vcbuild se_basic Debug
 	vcbuild se_ogre Debug
 	vcbuild logic Debug
 	vcbuild ui Debug
@@ -39,6 +39,12 @@ clean:
 	vcbuild -c ui
 	vcbuild -c simple
 
+static_debug: Debug/OgreMain_d.dll
+	vcbuild all Debug
+	
+static_release: Release/OgreMain.dll
+	vcbuild all Release
+	
 Release/OgreMain.dll:
 	xcopy ..\..\..\..\dependencies\bin\release\* Release\
 

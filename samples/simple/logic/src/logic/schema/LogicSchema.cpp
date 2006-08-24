@@ -30,16 +30,27 @@ namespace logic {
 	namespace LogicSchema {
 	}
 
-
-	bool LogicSchema::init() {
-		// Create and register physics objects
-		static const PhSimple phSimple;
-
-		return true;
-	}
+	const struct _SimpleLogicExport AutoInit : public se_core::InitListener {
+		AutoInit() {
+			SimSchema::initListeners().addListener(*this);
+			LogMsg("Registered Game Logic");
+		}
 
 
-	void LogicSchema::cleanup() {
-	}
+		~AutoInit() {
+			LogMsg("Cleaned up Game Logic");
+		}
+
+
+		void initEngineEvent() {
+			// Create and register physics objects
+			static const PhSimple phSimple;
+		}
+
+		void cleanupEngineEvent() {}
+		void initGameEvent() {}
+		void cleanupGameEvent() {}
+	} autoInit;
+
 
 }

@@ -1,4 +1,5 @@
 ../../../../core/src
+../../../../add_on/platform_pc/src
 ../../../../add_on/client/src
 ../../../../add_on/basic/src
 ../../../../add_on/ogre/src
