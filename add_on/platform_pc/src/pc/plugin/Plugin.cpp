@@ -21,7 +21,11 @@ rune@skalden.com
 
 #include "Plugin.hpp"
 #include "util/error/Log.hpp"
+#ifdef _WINDOWS
+#include <windows.h>
+#else
 #include <dlfcn.h>
+#endif
 
 using namespace se_core;
 
