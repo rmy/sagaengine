@@ -30,9 +30,6 @@ using namespace ui;
 namespace logic {
 	Application
 	::Application() {
-#ifndef SE_STATIC
-		IoSchema::fileManager->load("logic/plugins.txt");
-#endif
 		if(!initEngine()) {
 			LogFatal("Engine init failed");
 		}
@@ -50,6 +47,9 @@ namespace logic {
 		if(!initSagaEngine()) {
 			return false;
 		}
+#ifndef SE_STATIC
+		IoSchema::fileManager->load("logic/plugins.txt");
+#endif
 
 		Assert(IoSchema::fileManager);
 
@@ -65,8 +65,14 @@ namespace logic {
 		// Load movement data
 		IoSchema::fileManager->loadDirectory("logic/area/movement/");
 
+		// Load movement data
+		IoSchema::fileManager->loadDirectory("logic/area/grid/");
+
 		// Load cutscenes
 		IoSchema::fileManager->loadDirectory("logic/cutscene/");
+
+		// Load bindings between (ogre) 3d models and (core) things
+		IoSchema::fileManager->loadDirectory("ogre/dict/");
 
 		// Load bindings between (ogre) 3d models and (core) things
 		IoSchema::fileManager->loadDirectory("ogre/thing/");
@@ -80,6 +86,9 @@ namespace logic {
 		// Allow catch-up of AI to hardware clock
 		SimSchema::simEngine.setMultiplePerformsPerStepEnabled(true);
 
+		// Load ogre configuration
+		IoSchema::fileManager->loadDirectory("ogre/config/");
+
 		// Init simulation engine for new game
 		SimSchema::simEngine.initGame();
 
@@ -88,9 +97,6 @@ namespace logic {
 
 		//
 		IoSchema::fileManager->loadBatch("logic/init.txt");
-
-		// Load ogre configuration
-		IoSchema::fileManager->loadDirectory("ogre/config/");
 
 		return true;
 	}

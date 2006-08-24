@@ -6,4 +6,6 @@
 ../../../../core/src
 ../../../../add_on/client/include
 ../../../../add_on/client/src
+../../../../add_on/platform_pc/include
+../../../../add_on/platform_pc/src
 

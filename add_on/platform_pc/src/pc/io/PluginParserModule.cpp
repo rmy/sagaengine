@@ -53,6 +53,8 @@ namespace se_pc {
 				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}
 		}
+		// Catch up for new modules
+		SimSchema::initListeners().castInitEngineEvent();
 	}
 
 }

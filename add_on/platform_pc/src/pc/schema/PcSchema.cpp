@@ -40,13 +40,6 @@ namespace se_pc {
 
 		const struct _SePcExport AutoInit : public se_core::InitListener {
 			AutoInit() {
-				// Register some file loaders
-				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
-				// Register a file manager
-				// (Could have been a network loader, or anything else.)
-				IoSchema::fileManager = new PcFileManager("datapath.txt");
-				IoSchema::fileManager->init();
-
 				SimSchema::initListeners().addListener(*this);
 				LogMsg("Registered Plugin add-on");
 			}
@@ -59,6 +52,12 @@ namespace se_pc {
 
 
 			void initEngineEvent() {
+				// Register some file loaders
+				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
+				// Register a file manager
+				// (Could have been a network loader, or anything else.)
+				IoSchema::fileManager = new PcFileManager("datapath.txt");
+				IoSchema::fileManager->init();
 			}
 
 			void cleanupEngineEvent() {}

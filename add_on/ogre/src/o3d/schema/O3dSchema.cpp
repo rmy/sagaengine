@@ -30,6 +30,8 @@ rune@skalden.com
 #include "o3d/io/all.hpp"
 #include "o3d/input/InputManager.hpp"
 #include "o3d/input/Console.hpp"
+#include "io/schema/IoSchema.hpp"
+#include "pc/schema/PcSchema.hpp"
 
 
 using namespace Ogre;
@@ -163,6 +165,13 @@ namespace se_ogre {
 			}
 
 		} autoInit;
+
+		void touch() {
+			se_core::SimSchema::touch();
+			se_core::IoSchema::touch();
+			se_pc::PcSchema::touch();
+			autoInit;
+		}
 	}
 }
 

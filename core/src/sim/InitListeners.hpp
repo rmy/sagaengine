@@ -30,6 +30,11 @@ namespace se_core {
 
 	class _SeCoreExport InitListeners {
 	public:
+		InitListeners() 
+			: listenerCount_(0), nextEngineInit_(0), didAlreadyInitEngine_(false) {
+		}
+
+
 		/**
 		 * Add an engine listener.
 		 */
@@ -51,9 +56,11 @@ namespace se_core {
 		}
 
 		void castInitEngineEvent() {
-			for(int i = 0; i < listenerCount_; ++i) {
-				listeners_[ i ]->initEngineEvent();
+			while(nextEngineInit_ < listenerCount_) {
+				listeners_[ nextEngineInit_ ]->initEngineEvent();
+				++nextEngineInit_;
 			}
+			didAlreadyInitEngine_ = true;
 		}
 
 		void castCleanupEngineEvent() {
@@ -81,6 +88,7 @@ namespace se_core {
 		 */
 		void clear() {
 			listenerCount_ = 0;
+			didAlreadyInitEngine_ = false;
 		}
 
 
@@ -91,6 +99,10 @@ namespace se_core {
 		InitListener* listeners_[ MAX_LISTENERS ];
 		/** The number of listeners presently in the container */
 		short listenerCount_;
+
+		short nextEngineInit_;
+		/** Did already init engine. */
+		bool didAlreadyInitEngine_;
 	};
 
 }

@@ -3,6 +3,4 @@ OF01
 S DefaultSceneManager
 # Camera (near clip) (far clip) (degrees field of view)
 C 0.05 10000 45
-# Dome (material) (curvature) (tiling)
-D skydome 10 2
 Q

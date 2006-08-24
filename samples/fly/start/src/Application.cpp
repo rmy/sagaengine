@@ -30,9 +30,6 @@ using namespace ui;
 namespace logic {
 	Application
 	::Application() {
-#ifndef SE_STATIC
-		IoSchema::fileManager->load("logic/plugins.txt");
-#endif
 		if(!initEngine()) {
 			LogFatal("Engine init failed");
 		}
@@ -51,6 +48,9 @@ namespace logic {
 			return false;
 		}
 
+#ifndef SE_STATIC
+		IoSchema::fileManager->load("logic/plugins.txt");
+#endif
 		Assert(IoSchema::fileManager);
 
 		// Load language files
