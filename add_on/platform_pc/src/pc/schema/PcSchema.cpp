@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "PluginSchema.hpp"
+#include "PcSchema.hpp"
 #include "../io/PluginParserModule.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
@@ -30,14 +30,14 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_pc {
-	namespace PCSchema {
+	namespace PcSchema {
 		PluginManager& pluginManager() {
 			static PluginManager pluginManager;
 			return pluginManager;
 		}
 
 
-		const struct _SePluginExport AutoInit : public se_core::InitListener {
+		const struct _SePcExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				// Register some file loaders
 				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());

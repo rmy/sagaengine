@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_pc {
 
-	class _SePluginExport PluginManager {
+	class _SePcExport PluginManager {
 	public:
 		PluginManager();
 		virtual ~PluginManager();
