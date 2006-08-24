@@ -289,16 +289,8 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\input\use.hpp"> </File>
 </Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dAreaParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dBinaryInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dConfigParserModule.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFile.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFileManager.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dFileManager.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dTextInputStream.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dTextInputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dThingParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\O3dThingParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\io\all.hpp"> </File>

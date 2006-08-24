@@ -40,6 +40,15 @@ namespace se_core {
 
 
 	void FileManager
+	::load(const char* filename) {
+		InputStream* is = 0;
+		if((is = IoSchema::fileManager->open(filename)) != 0) {
+			IoSchema::parser().parse(*is, filename);
+			close(is);
+		}
+	}
+
+	void FileManager
 	::loadDirectory(const char* directory) {
 		int len = static_cast<int>(strlen(directory));
 		for(int i = 0; i < IoSchema::fileManager->fileCount(); ++i) {
