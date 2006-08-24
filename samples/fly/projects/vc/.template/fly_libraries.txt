@@ -1,8 +1,4 @@
 ui
-logic
-se_ogre
-se_basic
-se_client
 se_core
 OgreGUIRenderer
 OgreMain

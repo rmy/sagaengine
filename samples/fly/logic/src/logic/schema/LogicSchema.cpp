@@ -31,16 +31,27 @@ namespace logic {
 	}
 
 
-	bool LogicSchema::init() {
-		// Create and register physics objects
-		static const PhSimple phSimple;
-		static const PhDanglingCamera phDanglingCamera;
-
-		return true;
-	}
+	const struct _FlyLogicExport AutoInit : public se_core::InitListener {
+		AutoInit() {
+			SimSchema::initListeners().addListener(*this);
+			LogMsg("Registered Game Logic");
+		}
 
 
-	void LogicSchema::cleanup() {
-	}
+		~AutoInit() {
+			LogMsg("Cleaned up Game Logic");
+		}
+
+
+		void initEngineEvent() {
+			// Create and register physics objects
+			static const PhSimple phSimple;
+			static const PhDanglingCamera phDanglingCamera;
+		}
+
+		void cleanupEngineEvent() {}
+		void initGameEvent() {}
+		void cleanupGameEvent() {}
+	} autoInit;
 
 }

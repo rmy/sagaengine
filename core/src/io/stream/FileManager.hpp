@@ -44,6 +44,8 @@ namespace se_core {
 		virtual InputStream* open(const char* filename) = 0;
 		virtual void close(InputStream*& is) = 0;
 
+		void load(const char* filename);
+
 		/**
 		 * Load and parse all the files in this
 		 * directory and all subdirectories.

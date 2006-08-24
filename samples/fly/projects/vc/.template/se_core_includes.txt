@@ -1,4 +1,4 @@
 ../../../../core/include
 ../../../../core/src
-../../logic/include
-../../logic/src
+../../../../add_on/platform_pc/include
+../../../../add_on/platform_pc/src

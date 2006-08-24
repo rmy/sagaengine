@@ -25,9 +25,6 @@ rune@skalden.com
 
 namespace logic {
 	namespace LogicSchema {
-		_FlyLogicExport bool init();
-		_FlyLogicExport void cleanup();
-
 	}
 }
 

@@ -33,8 +33,10 @@ namespace se_pc {
 
 	Plugin
 	::Plugin(const char* name) : isLoaded_(false) {
-		name_.set(name);
+		name_.copy(name);
+#		ifndef _WINDOWS
 		name_.append(".so");
+#		endif
 	}
 
 
@@ -48,9 +50,17 @@ namespace se_pc {
 	void Plugin
 	::load() {
 		LogMsg("Loading plugin " << name());
+#		ifdef _WINDOWS
+		plugin_ = LoadLibrary(name_.get());
+#		else
 		plugin_ = dlopen(name_.get() , RTLD_LAZY | RTLD_GLOBAL);
+#		endif
 		if(!plugin_) {
+#			ifdef _WINDOWS
+			LogFatal("Couldn't load " << name());
+#			else
 			LogFatal("Couldn't load " << name() << ": " << dlerror());
+#endif
 		}
 
 		isLoaded_ = (plugin_ != 0);
@@ -59,7 +69,11 @@ namespace se_pc {
 
 	void Plugin
 	::unload() {
+#		ifdef _WINDOWS
+		FreeLibrary((HMODULE)plugin_);
+#		else
 		dlclose( plugin_ );
+#		endif
 		isLoaded_ = false;		
 	}
 
