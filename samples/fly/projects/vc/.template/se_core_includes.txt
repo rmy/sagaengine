@@ -1,4 +1,0 @@
-../../../../core/include
-../../../../core/src
-../../../../add_on/platform_pc/include
-../../../../add_on/platform_pc/src

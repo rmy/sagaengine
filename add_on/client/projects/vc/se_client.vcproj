@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="se_client"
-	ProjectGUID="{665FEB1D-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{40E2E989-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_client"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -22,8 +22,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../src;;../../../../core/src;../../../../core/include;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllimport);_SeClientExport=__declspec(dllexport);"
+				AdditionalIncludeDirectories="../../src;../../../../core/src;../../../../core/include;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeClientExport=__declspec(dllexport);_SePcExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -36,8 +36,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="se_core.lib"
-				AdditionalLibraryDirectories="C:\home\rune\svn\sf\core\projects\vc\Debug"/>
+				AdditionalDependencies="se_core.lib "
+				AdditionalLibraryDirectories="..\..\..\..\\bin\$(ConfigurationName);..\..\..\..\\dependencies\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
+				OptimizeReferences="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -61,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -73,8 +75,8 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../src;;../../../../core/src;../../../../core/include;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllimport);_SeClientExport=__declspec(dllexport);"
+				AdditionalIncludeDirectories="../../src;../../../../core/src;../../../../core/include;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeClientExport=__declspec(dllexport);_SePcExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
@@ -86,7 +88,9 @@
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLinkerTool"/>
+				Name="VCLinkerTool"
+				AdditionalDependencies="se_core.lib "
+				AdditionalLibraryDirectories="..\..\..\..\\bin\$(ConfigurationName);..\..\..\..\\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -115,94 +119,30 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
-			<Filter
-				Name="client"
-				Filter="cpp;hpp">
-				<File
-					RelativePath="..\..\src\client\all.hpp">
-				</File>
-				<File
-					RelativePath="..\..\src\client\client.hpp">
-				</File>
-				<Filter
-					Name="event"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\src\client\event\all.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\client_event.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\ClientEventBridge.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\ClientEventBridge.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\ClientListener.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\ClientListeners.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\event\ClientListeners.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="io"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\src\client\io\all.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\io\client_io.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\io\LanguageParserModule.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\io\LanguageParserModule.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\io\PlayerParserModule.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\io\PlayerParserModule.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="lang"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\src\client\lang\all.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\lang\client_lang.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\lang\Phrase.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\lang\Phrase.hpp">
-					</File>
-				</Filter>
-				<Filter
-					Name="schema"
-					Filter="cpp;hpp">
-					<File
-						RelativePath="..\..\src\client\schema\all.hpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\schema\ClientSchema.cpp">
-					</File>
-					<File
-						RelativePath="..\..\src\client\schema\ClientSchema.hpp">
-					</File>
-				</Filter>
-			</Filter>
+			<Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\src\client\event\ClientEventBridge.cpp"> </File>
+<File RelativePath="..\..\src\client\event\ClientEventBridge.hpp"> </File>
+<File RelativePath="..\..\src\client\event\ClientListener.hpp"> </File>
+<File RelativePath="..\..\src\client\event\ClientListeners.cpp"> </File>
+<File RelativePath="..\..\src\client\event\ClientListeners.hpp"> </File>
+<File RelativePath="..\..\src\client\event\all.hpp"> </File>
+<File RelativePath="..\..\src\client\event\client_event.hpp"> </File>
+</Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\src\client\io\LanguageParserModule.cpp"> </File>
+<File RelativePath="..\..\src\client\io\LanguageParserModule.hpp"> </File>
+<File RelativePath="..\..\src\client\io\PlayerParserModule.cpp"> </File>
+<File RelativePath="..\..\src\client\io\PlayerParserModule.hpp"> </File>
+<File RelativePath="..\..\src\client\io\all.hpp"> </File>
+<File RelativePath="..\..\src\client\io\client_io.hpp"> </File>
+</Filter><Filter Name="lang" Filter="cpp;hpp"><File RelativePath="..\..\src\client\lang\Phrase.cpp"> </File>
+<File RelativePath="..\..\src\client\lang\Phrase.hpp"> </File>
+<File RelativePath="..\..\src\client\lang\all.hpp"> </File>
+<File RelativePath="..\..\src\client\lang\client_lang.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\client\schema\ClientSchema.cpp"> </File>
+<File RelativePath="..\..\src\client\schema\ClientSchema.hpp"> </File>
+<File RelativePath="..\..\src\client\schema\all.hpp"> </File>
+</Filter></Filter>
 		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+

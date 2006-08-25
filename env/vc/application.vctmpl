@@ -37,7 +37,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="%s"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(SagaEngine)\$(ConfigurationName);$(SagaEngine)\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="$(SagaEngine)\bin\$(ConfigurationName);$(SagaEngine)\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/simple.pdb"
