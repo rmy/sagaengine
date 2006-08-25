@@ -2,6 +2,10 @@
 ../../../../dependencies/include/ogre/opt
 ../../../../dependencies/include/ogre/CEGUI
 ../../../../dependencies/include/ogre/samples
+$(OGRE_HOME)/include
+$(OGRE_HOME)/include/opt
+$(OGRE_HOME)/include/CEGUI
+$(OGRE_HOME)/samples/include
 ../../../../core/include
 ../../../../core/src
 ../../../../add_on/platform_pc/include

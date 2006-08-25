@@ -8,7 +8,8 @@ from FileWalker import FileWalker
 # Read it from disk
 
 basefile = sys.argv[1].strip(" /\\.")
-template = sys.argv[2].strip("")
+sagaengine =  sys.argv[2].strip("").replace("/", "\\")
+template = sagaengine + "\\env\\vc\\" + sys.argv[3].strip("")
 
 modules = list()
 fd = open(".template/" + basefile + "_modules.txt", "r")
@@ -153,5 +154,6 @@ if __name__ == '__main__':
 	if(h < 0):
 		h = -h
 
-	print base % (basefile, h, basefile, inc, defines, libraries_d, inc, defines, libraries, res)
-	
+	out = base % (basefile, h, basefile, inc, defines, libraries_d, inc, defines, libraries, res)
+	print out.replace('$(SagaEngine)', sagaengine)
+
