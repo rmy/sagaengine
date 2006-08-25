@@ -1,0 +1,1 @@
+The platform_pc libraries must be statically linked with se_core.

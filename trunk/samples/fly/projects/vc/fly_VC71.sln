@@ -1,26 +1,4 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_basic", "se_basic.vcproj", "{4243B0ED-C81E-451B-839E-2FDDB823B7F1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1} = {40E2E989-C81E-451B-839E-2FDDB823B7F1}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_client", "se_client.vcproj", "{40E2E989-C81E-451B-839E-2FDDB823B7F1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_core", "se_core.vcproj", "{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_ogre", "se_ogre.vcproj", "{02C89403-C81E-451B-839E-2FDDB823B7F1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1} = {40E2E989-C81E-451B-839E-2FDDB823B7F1}
-		{4243B0ED-C81E-451B-839E-2FDDB823B7F1} = {4243B0ED-C81E-451B-839E-2FDDB823B7F1}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logic", "logic.vcproj", "{4CA704F7-C81E-451B-839E-2FDDB823B7F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
@@ -47,28 +25,33 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fly", "fly.vcproj", "{2C123
 		{4CA704F7-C81E-451B-839E-2FDDB823B7F1} = {4CA704F7-C81E-451B-839E-2FDDB823B7F1}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_core", "..\..\..\..\core\projects\vc\se_core.vcproj", "{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_basic", "..\..\..\..\add_on\basic\projects\vc\se_basic.vcproj", "{4243B0ED-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1} = {40E2E989-C81E-451B-839E-2FDDB823B7F1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_client", "..\..\..\..\add_on\client\projects\vc\se_client.vcproj", "{40E2E989-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "se_ogre", "..\..\..\..\add_on\ogre\projects\vc\se_ogre.vcproj", "{02C89403-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1} = {6E6ABF27-C81E-451B-839E-2FDDB823B7F1}
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1} = {40E2E989-C81E-451B-839E-2FDDB823B7F1}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Release = Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
-		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
-		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
-		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
-		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
-		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
-		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
-		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
-		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
-		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
 		{4CA704F7-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
 		{4CA704F7-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
 		{4CA704F7-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
@@ -81,6 +64,22 @@ Global
 		{2C1236A0-4364-49FF-A230-613B08B5CF82}.Debug.Build.0 = Debug|Win32
 		{2C1236A0-4364-49FF-A230-613B08B5CF82}.Release.ActiveCfg = Release|Win32
 		{2C1236A0-4364-49FF-A230-613B08B5CF82}.Release.Build.0 = Release|Win32
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
+		{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
+		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
+		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
+		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
+		{4243B0ED-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
+		{40E2E989-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
+		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Debug.ActiveCfg = Debug|Win32
+		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Debug.Build.0 = Debug|Win32
+		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Release.ActiveCfg = Release|Win32
+		{02C89403-C81E-451B-839E-2FDDB823B7F1}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
