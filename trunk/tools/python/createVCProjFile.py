@@ -42,7 +42,6 @@ for line in fd.readlines():
 	libraries += line.strip() + ".lib "
 fd.close()
 
-
 libraries_d = ""
 try:
 	fd = open(".template/" + basefile + "_libraries_d.txt", "r")
@@ -149,7 +148,7 @@ if __name__ == '__main__':
 	res = dumpChildren(dirs, children.get("", dict()), "")
 	# If you get an error here, it is probably because
 	# there is something wrong with the vctmpl file.
-	# There must be 5 places with %s in it
+	# There must be 10 places with %08X and %s in it
 	h = int(hash(basefile))
 	if(h < 0):
 		h = -h
