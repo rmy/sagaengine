@@ -74,7 +74,7 @@ namespace logic {
 		nextPos.worldCoor().set(pos.worldCoor());
 
 		// Unless it is more than TRAIL_DISTANCE away
-		const coor_t TRAIL_DISTANCE = COOR_RES * 1;
+		const coor_t TRAIL_DISTANCE = COOR_RES * .7;
 		if(dist > TRAIL_DISTANCE) {
 			// s is always between 0 and 1
 			scale_t s = TRAIL_DISTANCE / dist;

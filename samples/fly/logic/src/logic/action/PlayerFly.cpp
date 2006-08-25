@@ -48,7 +48,7 @@ namespace logic {
 					, BrayT::fromDeg(-dirUD * .5f / r)
 					, BrayT::fromDeg(dirRoll * 1 / r)
 					);
-		p->speed_ = 0.15f * speed;
+		p->speed_ = 0.12f * speed;
 	}
 
 
