@@ -103,11 +103,32 @@ namespace logic {
 			nextPos.anim(0).setMovementMode(2);
 		}
 		else {
-			nextPos.anim(0).setMovementMode(1);
+			nextPos.anim(0).setMovementMode(0);
 		}
-		nextPos.anim(0).setMovementMode(1);
-		nextPos.anim(0).setSpeed(1);
-		nextPos.anim(0).setStartPos(BrayT::abs(y) / (64 * BRAY_RES));
+		float w = BrayT::abs(y) / (float)(BRAY_RES) * 0.19;
+		nextPos.anim(0).setSpeed(0);
+		nextPos.anim(0).setStartPos(w);
+		nextPos.anim(0).setWeight(w);
+		/*
+		static int pp = 64;
+		--pp;
+		while(pp <= 0) {
+			LogMsg(w);
+			pp = 16;
+		}
+		*/
+		float sw = nextMove.velocity_.length() * 1.2 - 1;
+		if(sw > 0) {
+			nextPos.anim(1).setMovementMode(1);
+			nextPos.anim(1).setStartPos(sw);
+			nextPos.anim(1).setWeight(sw);
+		}
+		else {
+			nextPos.anim(1).setMovementMode(2);
+			nextPos.anim(1).setStartPos(-sw);
+			nextPos.anim(1).setWeight(-sw);
+		}
+		nextPos.anim(1).setSpeed(0);
 
 		// Some steering noise
 		static Perlin p;

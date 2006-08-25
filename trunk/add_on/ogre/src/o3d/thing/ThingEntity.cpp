@@ -166,10 +166,10 @@ namespace se_ogre {
 
 			// Add passed time and update weight of animation
 			if(state_[i]) {
-				LogMsg(i << ": " << a.movementMode());
+				//LogMsg(i << ": " << a.movementMode());
 				float pos = ScaleT::toFloat(a.startPos()) * state_[i]->getLength();
-				pos += a.movementWhen(when) * (1.0f / 1024.0f);
-				LogMsg(pos);
+				pos += a.movementWhen(when) * (1.0f / 1024.0f) * speed_[i];
+				//LogMsg(pos);
 				//state_[i]->addTime(timeSinceLastFrame * speed_[i]);
 				state_[i]->setTimePosition(pos);
 				state_[i]->setWeight(a.weight());
