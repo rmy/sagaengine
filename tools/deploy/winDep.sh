@@ -1,11 +1,15 @@
 #!/bin/sh
 
-mkdir dependencies
-cd dependencies
-
 mkdir bin
 mkdir bin/debug
 mkdir bin/release
+
+cp /c/OgreSDK/bin/debug/*.dll bin/debug
+cp /c/OgreSDK/bin/release/*.dll bin/release
+
+
+mkdir dependencies
+cd dependencies
 
 mkdir lib
 mkdir lib/debug
@@ -15,9 +19,6 @@ mkdir include
 mkdir include/ogre
 mkdir include/ogre/samples
 
-
-cp /c/OgreSDK/bin/debug/*.dll bin/debug
-cp /c/OgreSDK/bin/release/*.dll bin/release
 
 cp /c/OgreSDK/lib/* lib/release/
 mv lib/release/*.pdb lib/debug

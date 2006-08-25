@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2">
@@ -37,7 +37,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/simple.pdb"
@@ -69,8 +69,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
-			IntermediateDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="TRUE">
@@ -97,7 +97,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
 				GenerateDebugInformation="FALSE"
 				SubSystem="2"

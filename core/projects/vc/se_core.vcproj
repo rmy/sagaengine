@@ -1,18 +1,15 @@
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="se_core"
-	ProjectGUID="{665FEB1D-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{6E6ABF27-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_core"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
@@ -20,65 +17,49 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../src;../../src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);"
-				MinimalRebuild="true"
+				AdditionalIncludeDirectories="../../src;../../../add_on/platform_pc/src;../../include;../../../add_on/platform_pc/include;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCLinkerTool"
+				AdditionalDependencies=""
+				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				GenerateDebugInformation="TRUE"
+				OptimizeReferences="1"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -86,69 +67,50 @@
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
+				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../src;../../src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeCoreExport=__declspec(dllexport);"
-				StringPooling="true"
-				MintimalRebuild="true"
+				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="../../src;../../../add_on/platform_pc/src;../../include;../../../add_on/platform_pc/include;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
+				StringPooling="TRUE"
 				RuntimeLibrary="2"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="true"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCLinkerTool"
+				AdditionalDependencies=""
+				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -156,9 +118,9 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd"
-			>
-			<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\src\io\encode\Encoder.cpp"> </File>
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
+			<File RelativePath="..\..\..\add_on\platform_pc\src\PcPre.hpp"> </File>
+<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\src\io\encode\EncoderModule.cpp"> </File>
 <File RelativePath="..\..\src\io\encode\EncoderModule.hpp"> </File>
@@ -168,6 +130,8 @@
 <File RelativePath="..\..\src\io\parse\AreaThingParserModule.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\CutsceneParserModule.cpp"> </File>
 <File RelativePath="..\..\src\io\parse\CutsceneParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\DictionaryParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\DictionaryParserModule.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\Parser.cpp"> </File>
 <File RelativePath="..\..\src\io\parse\Parser.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\ParserModule.cpp"> </File>
@@ -177,7 +141,8 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\io\schema\IoSchema.cpp"> </File>
 <File RelativePath="..\..\src\io\schema\IoSchema.hpp"> </File>
 <File RelativePath="..\..\src\io\schema\all.hpp"> </File>
-</Filter><Filter Name="stream" Filter="cpp;hpp"><File RelativePath="..\..\src\io\stream\BinaryInputStream.hpp"> </File>
+</Filter><Filter Name="stream" Filter="cpp;hpp"><File RelativePath="..\..\src\io\stream\BinaryInputStream.cpp"> </File>
+<File RelativePath="..\..\src\io\stream\BinaryInputStream.hpp"> </File>
 <File RelativePath="..\..\src\io\stream\FileManager.cpp"> </File>
 <File RelativePath="..\..\src\io\stream\FileManager.hpp"> </File>
 <File RelativePath="..\..\src\io\stream\InputStream.hpp"> </File>
@@ -186,6 +151,24 @@
 <File RelativePath="..\..\src\io\stream\TextInputStream.hpp"> </File>
 <File RelativePath="..\..\src\io\stream\all.hpp"> </File>
 <File RelativePath="..\..\src\io\stream\io_stream.hpp"> </File>
+</Filter></Filter><Filter Name="pc" Filter="cpp;hpp"><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcBinaryInputStream.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcFile.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcFile.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\all.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\io\pc_io.hpp"> </File>
+</Filter><Filter Name="plugin" Filter="cpp;hpp"><File RelativePath="..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\plugin\Plugin.hpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.cpp"> </File>
+<File RelativePath="..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
 </Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\InitListeners.hpp"> </File>
 <File RelativePath="..\..\src\sim\PosNode.cpp"> </File>
@@ -256,10 +239,6 @@
 <File RelativePath="..\..\src\sim\custom\ThingData.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\sim_custom.hpp"> </File>
-</Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\error\StopWatch.cpp"> </File>
-<File RelativePath="..\..\src\sim\error\StopWatch.hpp"> </File>
-<File RelativePath="..\..\src\sim\error\all.hpp"> </File>
-<File RelativePath="..\..\src\sim\error\sim_error.hpp"> </File>
 </Filter><Filter Name="message" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\message\MessageCentral.cpp"> </File>
 <File RelativePath="..\..\src\sim\message\MessageCentral.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\MessageListener.hpp"> </File>
@@ -358,6 +337,8 @@
 <File RelativePath="..\..\src\util\config\util_config.hpp"> </File>
 </Filter><Filter Name="error" Filter="cpp;hpp"><File RelativePath="..\..\src\util\error\Log.cpp"> </File>
 <File RelativePath="..\..\src\util\error\Log.hpp"> </File>
+<File RelativePath="..\..\src\util\error\StopWatch.cpp"> </File>
+<File RelativePath="..\..\src\util\error\StopWatch.hpp"> </File>
 <File RelativePath="..\..\src\util\error\all.hpp"> </File>
 </Filter><Filter Name="math" Filter="cpp;hpp"><File RelativePath="..\..\src\util\math\BrayT.cpp"> </File>
 <File RelativePath="..\..\src\util\math\BrayT.hpp"> </File>

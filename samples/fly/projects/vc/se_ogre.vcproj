@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../add_on/ogre/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;;"
+				AdditionalIncludeDirectories="../../../../add_on/ogre/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;$(OGRE_HOME)/include;$(OGRE_HOME)/include/opt;$(OGRE_HOME)/include/CEGUI;$(OGRE_HOME)/samples/include;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SePcExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -37,7 +37,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_client.lib se_core.lib OgreMain_d.lib OgreGUIRenderer_d.lib CEGUIBase_d.lib "
-				AdditionalLibraryDirectories="$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
@@ -63,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -75,7 +75,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../../../add_on/ogre/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;;"
+				AdditionalIncludeDirectories="../../../../add_on/ogre/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;$(OGRE_HOME)/include;$(OGRE_HOME)/include/opt;$(OGRE_HOME)/include/CEGUI;$(OGRE_HOME)/samples/include;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_2;_SeOgreExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SePcExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_client.lib se_core.lib OgreMain.lib OgreGUIRenderer.lib CEGUIBase.lib "
-				AdditionalLibraryDirectories=".\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
