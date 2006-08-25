@@ -37,7 +37,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\..\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/simple.pdb"

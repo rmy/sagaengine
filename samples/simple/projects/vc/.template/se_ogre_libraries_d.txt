@@ -1,5 +1,0 @@
-se_client
-se_core
-OgreMain_d
-OgreGUIRenderer_d
-CEGUIBase_d
