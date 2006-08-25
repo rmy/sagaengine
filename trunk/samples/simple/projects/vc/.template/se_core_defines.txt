@@ -1,2 +1,0 @@
-_SeCoreExport=__declspec(dllexport)
-_SePcExport=__declspec(dllexport)

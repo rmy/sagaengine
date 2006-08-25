@@ -13,31 +13,31 @@ release: rel
 debug: dbg
 
 rel:
-	vcbuild se_core Release
-	vcbuild se_client Release
-	vcbuild se_basic Release
-	vcbuild se_ogre Release
+	vcbuild ../../../../core/projects/vc/se_core.vcproj Release
+	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Release
+	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Release
+	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Release
 	vcbuild logic Release
 	vcbuild ui Release
-	vcbuild simple Release
+	vcbuild fly Release
 
 dbg:
-	vcbuild se_core Debug
-	vcbuild se_client Debug
-	vcbuild se_basic Debug
-	vcbuild se_ogre Debug
+	vcbuild ../../../../core/projects/vc/se_core.vcproj Debug
+	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Debug
+	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Debug
+	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Debug
 	vcbuild logic Debug
 	vcbuild ui Debug
-	vcbuild simple Debug
+	vcbuild fly Debug
 
 clean:
-	vcbuild -c se_core
-	vcbuild -c se_client
-	vcbuild -c se_basic
-	vcbuild -c se_ogre
+	vcbuild -c ../../../../core/projects/vc/se_core.vcproj
+	vcbuild -c ../../../../add_on/client/projects/vc/se_client.vcproj
+	vcbuild -c ../../../../add_on/basic/projects/vc/se_basic.vcproj
+	vcbuild -c ../../../../add_on/ogre/projects/vc/se_ogre.vcproj
 	vcbuild -c logic
 	vcbuild -c ui
-	vcbuild -c simple
+	vcbuild -c fly
 
 static_debug:
 	vcbuild all Debug
