@@ -1,16 +1,17 @@
-cd ../deploy
+cd ./deploy
 
 svn co https://svn.sourceforge.net/svnroot/sagaengine/trunk sagaengine
 cd sagaengine
 rm -Rf test
 rm -Rf samples/navmesh
+rm -Rf tools/deploy
 rm -Rf `find -name ".svn"`
 cd core
 rm `find -name "vc"`
 cd ../add_on
-rm -Rf samples/angelscript
-rm -Rf samples/ncurs
-rm -Rf samples/fmod
+rm -Rf angelscript
+rm -Rf ncurs
+rm -Rf fmod
 cd ../..
 
 tar -zcvf sagaengine-$1.tgz sagaengine
