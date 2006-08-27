@@ -44,7 +44,7 @@ namespace logic {
 
 	bool Application
 	::initEngine() {
-		if(!initSagaEngine()) {
+		if(!initSagaEngine("simple")) {
 			return false;
 		}
 #ifndef SE_STATIC

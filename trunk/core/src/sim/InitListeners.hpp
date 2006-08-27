@@ -56,6 +56,11 @@ namespace se_core {
 		}
 
 		void castInitEngineEvent() {
+			int i = nextEngineInit_;
+			while(i < listenerCount_) {
+				listeners_[ i ]->priorityInitEngineEvent();
+				++i;
+			}
 			while(nextEngineInit_ < listenerCount_) {
 				listeners_[ nextEngineInit_ ]->initEngineEvent();
 				++nextEngineInit_;

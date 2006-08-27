@@ -123,10 +123,6 @@ namespace se_ogre {
 
 				delete SimSchema::realClock;
 				SimSchema::realClock = 0;
-
-				IoSchema::fileManager->cleanup();
-				delete IoSchema::fileManager;
-				IoSchema::fileManager = 0;
 			}
 
 			void initGameEvent() {

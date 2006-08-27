@@ -49,8 +49,8 @@ rune@skalden.com
 
 namespace se_core {
 
-	inline bool initSagaEngine() {
-		if(!SimSchema::init()) {
+	inline bool initSagaEngine(const char* appName) {
+		if(!SimSchema::init(appName)) {
 			return false;
 		}
 		if(!IoSchema::init()) {

@@ -223,7 +223,10 @@ namespace se_ogre {
 	::setupResources(void) {
 		// Load resource paths from config file
 		ConfigFile cf;
-		cf.load("resources.cfg");
+		Ogre::String dataPath;
+		if(IoSchema::dataPath)
+			dataPath += IoSchema::dataPath;
+		cf.load(dataPath + "/ogre/resources.cfg");
 
 		// Go through all sections & settings in the file
 		ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -235,7 +238,7 @@ namespace se_ogre {
 			ConfigFile::SettingsMultiMap::iterator i;
 			for (i = settings->begin(); i != settings->end(); ++i) {
 				typeName = i->first;
-				archName = i->second;
+				archName = dataPath + i->second;
 				ResourceGroupManager::getSingleton()
 					.addResourceLocation(archName, typeName, secName);
 			}

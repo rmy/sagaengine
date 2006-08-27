@@ -17,8 +17,8 @@ rel:
 	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Release
 	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Release
 	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Release
-	vcbuild logic Release
-	vcbuild ui Release
+	vcbuild fly_logic Release
+	vcbuild fly_ui Release
 	vcbuild fly Release
 
 dbg:
@@ -26,8 +26,8 @@ dbg:
 	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Debug
 	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Debug
 	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Debug
-	vcbuild logic Debug
-	vcbuild ui Debug
+	vcbuild fly_logic Debug
+	vcbuild fly_ui Debug
 	vcbuild fly Debug
 
 clean:
@@ -35,12 +35,12 @@ clean:
 	vcbuild -c ../../../../add_on/client/projects/vc/se_client.vcproj
 	vcbuild -c ../../../../add_on/basic/projects/vc/se_basic.vcproj
 	vcbuild -c ../../../../add_on/ogre/projects/vc/se_ogre.vcproj
-	vcbuild -c logic
-	vcbuild -c ui
+	vcbuild -c fly_logic
+	vcbuild -c fly_ui
 	vcbuild -c fly
 
 static_debug:
-	vcbuild all Debug
+	vcbuild fly_static Debug
 
 static_release:
-	vcbuild all Release
+	vcbuild fly_static Release

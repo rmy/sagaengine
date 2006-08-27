@@ -22,6 +22,7 @@ rune@skalden.com
 #include "PcFileManager.hpp"
 #include "all.hpp"
 #include "io/stream/all.hpp"
+#include "io/schema/IoSchema.hpp"
 #include "util/error/Log.hpp"
 #include "util/type/TmpString.hpp"
 #include "util/type/String.hpp"
@@ -34,11 +35,25 @@ using namespace se_core;
 
 namespace se_pc {
 	PcFileManager
-	::PcFileManager(const char* dataPath)
+	::PcFileManager(const char* dataPathFile)
 			: fileCount_(0) {
-		FILE* in = fopen(dataPath, "r");
+		loadDatapath(dataPathFile);
+	}
+
+
+	PcFileManager
+	::~PcFileManager() {
+		while(fileCount_ > 0) {
+			delete files_[ --fileCount_ ];
+		}
+	}
+
+
+	void PcFileManager
+	::loadDatapath(const char* dataPathFile) {
+		FILE* in = fopen(dataPathFile, "r");
 		if(!in) {
-			LogFatal("Couldn't open: " << dataPath);
+			LogFatal("Couldn't open: " << dataPathFile);
 		}
 		static char buffer[256];
 		fgets(buffer, 256, in);
@@ -48,16 +63,8 @@ namespace se_pc {
 			buffer[ len ] = 0;
 		}
 		directory_ = buffer;
+		IoSchema::dataPath = buffer;
 		fclose(in);
-		// TODO: Throw exception if illegal datapath?
-	}
-
-
-	PcFileManager
-	::~PcFileManager() {
-		while(fileCount_ > 0) {
-			delete files_[ --fileCount_ ];
-		}
 	}
 
 

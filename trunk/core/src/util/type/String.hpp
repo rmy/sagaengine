@@ -35,9 +35,9 @@ namespace se_core {
 	 */
 	class _SeCoreExport String {
 	public:
-		inline String() : data_(0), doDestroy_(false) {}
-		inline String(const char* data) : data_(data), doDestroy_(false) {}
-		inline String(char* data) : data_(data), doDestroy_(true) {}
+		String();
+		String(const char* data);
+		String(char* data);
 		~String();
 		void set(const char* data);
 		void set(char* data);

@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "Application.hpp"
+#include <se_core.hpp>
 #include <exception>
 #include <stdexcept>
 #include <iostream>
@@ -65,6 +66,8 @@ int main(int argc, char *argv[])
 		std::cerr << "Unknown exception. Exiting" << std::endl;
 	}
 	*/
+
+	WasHere();
 	return 0;
 }
 
