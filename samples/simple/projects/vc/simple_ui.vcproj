@@ -36,7 +36,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
+				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib simple_logic.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
@@ -89,7 +89,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib logic.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="se_ogre.lib se_client.lib se_core.lib simple_logic.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>

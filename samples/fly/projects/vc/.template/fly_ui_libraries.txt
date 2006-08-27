@@ -1,7 +1,7 @@
 se_ogre
 se_client
 se_core
-logic
+fly_logic
 OgreGUIRenderer
 OgreMain
 CEGUIBase
