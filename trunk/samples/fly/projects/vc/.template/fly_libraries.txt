@@ -1,4 +1,3 @@
-ui
 se_core
 OgreGUIRenderer
 OgreMain

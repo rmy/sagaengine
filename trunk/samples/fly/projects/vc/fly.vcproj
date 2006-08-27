@@ -35,7 +35,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ui.lib logic.lib se_ogre.lib se_basic.lib se_client.lib se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
+				AdditionalDependencies="se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
@@ -94,7 +94,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ui.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
