@@ -17,30 +17,30 @@ rel:
 	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Release
 	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Release
 	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Release
-	vcbuild logic Release
-	vcbuild ui Release
-	vcbuild fly Release
+	vcbuild simple_logic Release
+	vcbuild simple_ui Release
+	vcbuild simple Release
 
 dbg:
 	vcbuild ../../../../core/projects/vc/se_core.vcproj Debug
 	vcbuild ../../../../add_on/client/projects/vc/se_client.vcproj Debug
 	vcbuild ../../../../add_on/basic/projects/vc/se_basic.vcproj Debug
 	vcbuild ../../../../add_on/ogre/projects/vc/se_ogre.vcproj Debug
-	vcbuild logic Debug
-	vcbuild ui Debug
-	vcbuild fly Debug
+	vcbuild simple_logic Debug
+	vcbuild simple_ui Debug
+	vcbuild simple Debug
 
 clean:
 	vcbuild -c ../../../../core/projects/vc/se_core.vcproj
 	vcbuild -c ../../../../add_on/client/projects/vc/se_client.vcproj
 	vcbuild -c ../../../../add_on/basic/projects/vc/se_basic.vcproj
 	vcbuild -c ../../../../add_on/ogre/projects/vc/se_ogre.vcproj
-	vcbuild -c logic
-	vcbuild -c ui
-	vcbuild -c fly
+	vcbuild -c simple_logic
+	vcbuild -c simple_ui
+	vcbuild -c simple
 
 static_debug:
-	vcbuild all Debug
+	vcbuild simple_static Debug
 
 static_release:
-	vcbuild all Release
+	vcbuild simple_static Release

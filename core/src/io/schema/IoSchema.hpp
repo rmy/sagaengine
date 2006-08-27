@@ -40,6 +40,8 @@ namespace se_core {
 		
 		/** Force linking of dependencies */
 		void _SeCoreExport touch();
+
+		extern _SeCoreExport const char* dataPath;
 	}
 }
 

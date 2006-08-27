@@ -24,6 +24,18 @@ rune@skalden.com
 #include <cstring>
 
 namespace se_core {
+	String
+	::String() : data_(0), doDestroy_(false) {
+	}
+
+	String
+	::String(const char* data) : data_(data), doDestroy_(false) {
+	}
+
+	String
+	::String(char* data) : data_(data), doDestroy_(true) {
+	}
+
 
 	String
 	::~String() {

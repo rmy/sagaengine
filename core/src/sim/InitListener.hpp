@@ -40,6 +40,7 @@ namespace se_core {
 		 * This event occurs when the core engine has initialised itself.
 		 */
 		virtual void initEngineEvent() = 0;
+		virtual void priorityInitEngineEvent() {}
 
 		/**
 		 * This event occurs when the core simulation engine is about to

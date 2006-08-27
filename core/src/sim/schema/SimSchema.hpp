@@ -41,8 +41,10 @@ namespace se_core {
 	namespace SimSchema {
 		/**
 		 * Same as SimSchema::simEngine.init()
+		 * @param applicationName application name which add-on modules may use
+		 *                        to choose application specific resources.
 		 */
-		_SeCoreExport bool init();
+		_SeCoreExport bool init(const char* applicationName);
 
 		/**
 		 * Same as SimSchema::simEngine.cleanup()
@@ -165,6 +167,14 @@ namespace se_core {
 
 		/** Force linking of dependencies */
 		void _SeCoreExport touch();
+
+		/**
+		 * Application name, as registered by the application during
+		 * init. Add-ons may use this to identify application specific
+		 * resources. The platform_pc add-on uses it to choose which datapath
+		 * file belongs to the application.
+		 */
+		extern _SeCoreExport const char* appName;
 	}
 }
 

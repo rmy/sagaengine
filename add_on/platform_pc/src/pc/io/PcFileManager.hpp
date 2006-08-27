@@ -29,9 +29,11 @@ rune@skalden.com
 namespace se_pc {
 	class _SePcExport PcFileManager : public se_core::FileManager {
 	public:
-		PcFileManager(const char* dataPath);
+		PcFileManager(const char* dataPathFile);
 		~PcFileManager();
 		void init();
+
+		void loadDatapath(const char* dataPathFile);
 
 		se_core::InputStream* open(const char* filename);
 		void close(se_core::InputStream*& is);

@@ -46,21 +46,32 @@ namespace se_pc {
 
 
 			~AutoInit() {
+				IoSchema::fileManager->cleanup();
+				delete IoSchema::fileManager;
+				IoSchema::fileManager = 0;
+
 				SimSchema::initListeners().removeListener(*this);
 				LogMsg("Cleaned up Plugin add-on");
+			}
+
+			void priorityInitEngineEvent() {
+				// Register a file manager
+				// (Could have been a network loader, or anything else.)
+				se_core::String dataPath(SimSchema::appName);
+				dataPath.append("_datapath.txt");
+				IoSchema::fileManager = new PcFileManager(dataPath.get());
 			}
 
 
 			void initEngineEvent() {
 				// Register some file loaders
 				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
-				// Register a file manager
-				// (Could have been a network loader, or anything else.)
-				IoSchema::fileManager = new PcFileManager("datapath.txt");
 				IoSchema::fileManager->init();
 			}
 
-			void cleanupEngineEvent() {}
+			void cleanupEngineEvent() {
+			}
+
 			void initGameEvent() {}
 			void cleanupGameEvent() {}
 		} autoInit;

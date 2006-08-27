@@ -94,11 +94,13 @@ namespace se_core {
 		ShowingCutscene showingCutscene;
 		RealClock* realClock = 0;
 
+		const char* appName = 0;
 		int scriptTracker = 0;
 		bool didTrack = false;
 
 
-		bool init() {
+		bool init(const char* applicationName) {
+			appName = applicationName;
 			static DictionaryEntry dDictionaryType(DE_DICTIONARY_TYPE, DE_DICTIONARY_TYPE, "DICTIONARY_TYPE", false);
 			static DictionaryEntry dThingType(DE_DICTIONARY_TYPE, DE_THING_TYPE, "THING_TYPE", false);
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);

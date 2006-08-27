@@ -1,7 +1,7 @@
 EZ01
 P se_client
 P se_basic
-P logic
+P fly_logic
 P se_ogre
-P ui
+P fly_ui
 Q

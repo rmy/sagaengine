@@ -96,7 +96,7 @@ namespace se_ogre {
 				}
 				break;
 
-			case 'C': // Animation
+			case 'C': // Animation channel count
 				{
 					int channelCount = in.readShort();
 					info->setAnimationChannels(channelCount);

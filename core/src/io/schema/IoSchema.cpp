@@ -41,6 +41,8 @@ namespace se_core {
 		// FileManager and register its subclass here
 		FileManager* fileManager = 0;
 
+		const char* dataPath = 0;
+
 
 		bool init() {
 			// Create parser manager object

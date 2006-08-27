@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="ui"
-	ProjectGUID="{5506E88C-C81E-451B-839E-2FDDB823B7F1}"
-	RootNamespace="ui"
+	Name="fly_ui"
+	ProjectGUID="{54DDC12A-C81E-451B-839E-2FDDB823B7F1}"
+	RootNamespace="fly_ui"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
