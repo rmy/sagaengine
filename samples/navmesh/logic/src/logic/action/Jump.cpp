@@ -19,45 +19,37 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#include "LogicPre.hpp"
+#include "Jump.hpp"
+
+using namespace se_core;
 
 
 namespace logic {
-	class Application {
-	public:
-		Application(const char* appName);
-		~Application();
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
+	short Jump
+	::duration(se_core::Actor& performer, se_core::Parameter& parameter) const {
+		return 1;
+	}
 
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
 
-		/**
-		 * Execute the game.
-		 */
-		void go();
+	bool Jump
+	::isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const {
+		return false;
+	}
 
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
 
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
+	void Jump
+	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+		// Can only jump if not in free air.
+		if(performer.pos().isGrounded()) {
+			// Set upwards speed
+			performer.nextMove().force_.y_ += COOR_RES;
+			performer.nextPos().setGrounded(false);
+		}
+	}
 
-	private: // Helper methods
-	};
+
+	const Jump actionJump;
 }
 
-#endif

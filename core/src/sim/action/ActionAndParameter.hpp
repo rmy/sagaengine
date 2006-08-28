@@ -35,7 +35,7 @@ namespace se_core {
 			return data_;
 		}
 
-		inline unsigned short actionStage(short channel) { return actionStage_; }
+		inline unsigned short actionStage() { return actionStage_; }
 		void incrActionStage() { ++actionStage_; }
 		void resetActionStage() { ++actionStage_ = 0; }
 

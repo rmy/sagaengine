@@ -19,45 +19,33 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#include "LogicPre.hpp"
+#include "TargetPlayer.hpp"
 
+
+using namespace se_core;
 
 namespace logic {
-	class Application {
-	public:
-		Application(const char* appName);
-		~Application();
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
 
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
+	void TargetPlayer
+	::perform(long when, Actor& performer, Parameter& parameter) const {
+		SimObjectIterator it(performer.pos().area()->allThings());
+		while(it.hasNext()) {
+			Thing* t = &it.nextThing();
+			if(t->isType(got_PLAYER)) {
+				performer.setTarget(static_cast<Actor*>(t));
+				break;
+			}
+		}
+	}
 
-		/**
-		 * Execute the game.
-		 */
-		void go();
 
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
+	bool TargetPlayer
+	::isContinuing(Actor& performer, Parameter& parameter) const {
+		return (!performer.hasTarget());
+	}
 
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
 
-	private: // Helper methods
-	};
+	const TargetPlayer actionTargetPlayer;
 }
-
-#endif

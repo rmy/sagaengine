@@ -25,7 +25,7 @@ rune@skalden.com
 #include "OgreUiPre.H"
 
 namespace ui {
-	class Sunlight : public se_ogre::RenderEventListener {
+	class _NavMeshUiExport Sunlight : public se_ogre::RenderEventListener {
 	public:
 		Sunlight();
 		void init();

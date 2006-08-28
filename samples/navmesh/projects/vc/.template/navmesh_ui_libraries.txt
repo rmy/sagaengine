@@ -1,0 +1,7 @@
+se_ogre
+se_client
+se_core
+navmesh_logic
+OgreGUIRenderer
+OgreMain
+CEGUIBase

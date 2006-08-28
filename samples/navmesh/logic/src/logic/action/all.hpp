@@ -19,22 +19,19 @@ rune@skalden.com
 */
 
 
-#ifndef game_GameControls_hpp
-#define game_GameControls_hpp
+#ifndef logic_action_all_hpp
+#define logic_action_all_hpp
 
-#include "OgreUiPre.hpp"
-
-
-namespace ui {
-	// Event handler to add ability to alter curvature
-	class _NavMeshUiExport GameControls : public se_ogre::InputHandler {
-	public:
-		GameControls();
-		virtual ~GameControls();
-
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
-	};
-}
+#include "Forward.hpp"
+#include "Backward.hpp"
+#include "RotateLeft.hpp"
+#include "RotateRight.hpp"
+#include "RotateNone.hpp"
+#include "Seek.hpp"
+#include "TargetPlayer.hpp"
+#include "Stop.hpp"
+#include "Jump.hpp"
+#include "ShootAcid.hpp"
+#include "Disintegrate.hpp"
 
 #endif

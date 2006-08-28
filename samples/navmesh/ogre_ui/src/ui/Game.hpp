@@ -23,7 +23,7 @@ rune@skalden.com
 #define ui_Game_hpp
 
 namespace ui {
-	class Game {
+	class _NavMeshUiExport Game {
 	public:
 		Game();
 		~Game();

@@ -19,22 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef game_GameControls_hpp
-#define game_GameControls_hpp
+#include "LogicPre.hpp"
+#include "Stop.hpp"
 
-#include "OgreUiPre.hpp"
+using namespace se_core;
 
 
-namespace ui {
-	// Event handler to add ability to alter curvature
-	class _NavMeshUiExport GameControls : public se_ogre::InputHandler {
-	public:
-		GameControls();
-		virtual ~GameControls();
+namespace logic {
 
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
-	};
+	void Stop
+	::perform(long when, Actor& performer, Parameter& parameter) const {
+		performer.nextMove().resetSpeed();
+	}
+
+	const Stop actionStop;
 }
-
-#endif

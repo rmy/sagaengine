@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 {
 	try {
 		// Create application object
-		logic::Application app("simple");
+		logic::Application app("navmesh");
 		app.go();
 
 	} catch( char* msg ) {

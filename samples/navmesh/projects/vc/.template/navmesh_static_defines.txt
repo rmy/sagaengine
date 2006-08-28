@@ -1,0 +1,8 @@
+_SeOgreExport=
+_SeClientExport=
+_SeBasicExport=
+_SePcExport=
+_SeCoreExport=
+_SimpleLogicExport=
+_SimpleUiExport=
+SE_STATIC

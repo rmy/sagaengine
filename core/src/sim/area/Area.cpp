@@ -131,7 +131,7 @@ namespace se_core {
 
 
 	MultiSimObject& Area
-	::allThings() {
+	::allThings() const {
 		return *allThings_;
 	}
 

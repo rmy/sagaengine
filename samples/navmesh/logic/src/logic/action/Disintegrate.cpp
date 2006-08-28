@@ -19,22 +19,33 @@ rune@skalden.com
 */
 
 
-#ifndef game_GameControls_hpp
-#define game_GameControls_hpp
-
-#include "OgreUiPre.hpp"
+#include "LogicPre.hpp"
+#include "Disintegrate.hpp"
 
 
-namespace ui {
-	// Event handler to add ability to alter curvature
-	class _NavMeshUiExport GameControls : public se_ogre::InputHandler {
-	public:
-		GameControls();
-		virtual ~GameControls();
+namespace se_core {
 
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
-	};
+	void Disintegrate
+	::perform(long when, Actor& performer, Parameter& parameter) const {
+		performer.scheduleForDestruction();
+	}
+
+
+	short Disintegrate
+	::duration(Actor& performer, Parameter& parameter) const {
+		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+		return 1 + (p->millis_ >> TIMESTEP_INTERVAL_SHIFT);
+	}
+
+
+	const Disintegrate& Disintegrate
+	::param(short millis, Parameter& out) const {
+		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
+		p->millis_ = millis;
+		return *this;
+	}
+
+
+
+	const Disintegrate actionDisintegrate;
 }
-
-#endif
