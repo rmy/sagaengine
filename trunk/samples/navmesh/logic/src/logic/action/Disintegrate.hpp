@@ -19,45 +19,40 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#ifndef Disintegrate_hpp
+#define Disintegrate_hpp
 
+#include "sim/action/Action.hpp"
 
-namespace logic {
-	class Application {
+namespace se_core {
+
+	class Disintegrate : public Action {
 	public:
-		Application(const char* appName);
-		~Application();
+		Disintegrate() : Action("disintegrate") {}
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
+		short duration(Actor& performer, Parameter& parameter) const;
 
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
+		short channel() const {
+			return CHANNEL_MOVEMENT;
+		}
 
-		/**
-		 * Execute the game.
-		 */
-		void go();
+		bool isRepeating(long when, Actor &performer, Parameter& parameter) const {
+			return false;
+		}
 
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
+		void perform(long when, Actor& performer, Parameter& parameter) const;
 
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
+		const Disintegrate& param(short millis, Parameter& out) const;
 
-	private: // Helper methods
+	private:
+
+		struct Param {
+			short millis_;
+		};
 	};
+
+	extern const Disintegrate actionDisintegrate;
 }
+
 
 #endif

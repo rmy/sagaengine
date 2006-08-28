@@ -19,45 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#ifndef logic_CoBlock_hpp
+#define logic_CoBlock_hpp
 
+#include "sim/react/ThingCollide.hpp"
 
 namespace logic {
-	class Application {
+	class _NavMeshLogicExport CoBlock  : public se_core::ThingCollide {
 	public:
-		Application(const char* appName);
-		~Application();
+		CoBlock();
+		bool collide(se_core::Actor& pusher
+					 , se_core::Thing& target) const;
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
-
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
-
-		/**
-		 * Execute the game.
-		 */
-		void go();
-
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
-
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
-
-	private: // Helper methods
+	private:
 	};
+
+	extern const CoBlock coBlock;
 }
 
 #endif

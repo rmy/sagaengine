@@ -19,22 +19,18 @@ rune@skalden.com
 */
 
 
-#ifndef game_GameControls_hpp
-#define game_GameControls_hpp
+#include "LogicPre.hpp"
+#include "RotateNone.hpp"
 
-#include "OgreUiPre.hpp"
+using namespace se_core;
 
 
-namespace ui {
-	// Event handler to add ability to alter curvature
-	class _NavMeshUiExport GameControls : public se_ogre::InputHandler {
-	public:
-		GameControls();
-		virtual ~GameControls();
+namespace logic {
 
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
-	};
+	void RotateNone
+	::perform(long when, Actor& performer, Parameter& parameter) const {
+		performer.nextMove().angularVelocity_.yaw_ = 0;
+	}
+
+	const RotateNone actionRotateNone;
 }
-
-#endif

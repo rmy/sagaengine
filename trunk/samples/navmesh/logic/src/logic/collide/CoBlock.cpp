@@ -19,45 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#include "LogicPre.hpp"
+#include "CoBlock.hpp"
+
+using namespace se_core;
 
 
 namespace logic {
-	class Application {
-	public:
-		Application(const char* appName);
-		~Application();
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
+	CoBlock
+	::CoBlock() : ThingCollide("Block") {
+	}
 
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
 
-		/**
-		 * Execute the game.
-		 */
-		void go();
+	bool CoBlock
+	::collide(se_core::Actor& pusher
+			  , se_core::Thing& target) const {
+		if(pusher.spawner() == &target
+		   || target.spawner() == &pusher)
+			return false;
 
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
+		return true;
+	}
 
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
-
-	private: // Helper methods
-	};
+	const CoBlock coBlock;
 }
-
-#endif

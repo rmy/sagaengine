@@ -19,45 +19,27 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#include "LogicPre.hpp"
+#include "LogicSchema.hpp"
+#include "../physics/all.hpp"
 
+using namespace se_core;
 
 namespace logic {
-	class Application {
-	public:
-		Application(const char* appName);
-		~Application();
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
+	namespace LogicSchema {
 
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
+		AutoInit
+		::AutoInit() {
+			// Create and register physics objects
+			static const PhNavMesh phNavMesh;
+			static const PhMissile phMissile;
+		}
 
-		/**
-		 * Execute the game.
-		 */
-		void go();
 
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
+		AutoInit
+		::~AutoInit() {
+		}
+	}
 
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
-
-	private: // Helper methods
-	};
 }
-
-#endif

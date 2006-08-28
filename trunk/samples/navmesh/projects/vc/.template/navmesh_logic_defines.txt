@@ -1,0 +1,6 @@
+_SeOgreExport=__declspec(dllimport)
+_SeBasicExport=__declspec(dllimport)
+_SeClientExport=__declspec(dllimport)
+_SeCoreExport=__declspec(dllimport)
+_NavMeshUiExport=__declspec(dllimport)
+_NavMeshLogicExport=__declspec(dllexport)

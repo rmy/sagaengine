@@ -22,10 +22,10 @@ rune@skalden.com
 #ifndef UiInitHandler_hpp
 #define UiInitHandler_hpp
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 
 namespace se_ogre {
-	class UiInitHandler : public se_core::InitListener {
+	class _NavMeshUiExport UiInitHandler : public se_core::InitListener {
 	public:
 		UiInitHandler();
 		~UiInitHandler();

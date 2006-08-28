@@ -132,7 +132,7 @@ namespace se_core {
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
 		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
-		MultiSimObject& allThings();
+		MultiSimObject& allThings() const;
 		ReportingMultiSimObject& reportingThings();
 		MultiSimObject& movingThings();
 		MultiSimObject& pushableThings();

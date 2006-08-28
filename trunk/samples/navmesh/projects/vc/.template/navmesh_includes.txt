@@ -1,0 +1,15 @@
+../../../../dependencies/include/ogre
+../../../../dependencies/include/ogre/opt
+../../../../dependencies/include/ogre/CEGUI
+../../../../dependencies/include/ogre/samples
+../../../../core/include
+../../../../core/src
+../../../../add_on/client/include
+../../../../add_on/client/src
+../../../../add_on/ogre/include
+../../../../add_on/ogre/src
+../../ogre_ui/include
+../../ogre_ui/src
+../../logic/include
+../../logic/src
+../../start/src

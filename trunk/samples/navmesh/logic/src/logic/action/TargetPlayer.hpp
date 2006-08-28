@@ -19,45 +19,24 @@ rune@skalden.com
 */
 
 
-#ifndef Application_hpp
-#define Application_hpp
+#ifndef logic_TargetPlayer_hpp
+#define logic_TargetPlayer_hpp
 
+#include "sim/action/Action.hpp"
 
 namespace logic {
-	class Application {
+	class _NavMeshLogicExport TargetPlayer : public se_core::Action {
 	public:
-		Application(const char* appName);
-		~Application();
+		TargetPlayer() : se_core::Action("TargetPlayer") {}
 
-		/**
-		 * Initialise things that need to be initialised only once
-		 * during the lifetime of the application.
-		 */
-		bool initEngine(const char* appName);
-
-		/**
-		 * Initialise things that need to be reinitialised every
-		 * time a new game is started.
-		 */
-		bool initGame();
-
-		/**
-		 * Execute the game.
-		 */
-		void go();
-
-		/**
-		 * Cleanup the after game.
-		 */
-		void cleanupGame();
-
-		/**
-		 * Cleanup before shutting down the application.
-		 */
-		void cleanupEngine();
-
-	private: // Helper methods
+		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
+		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const;
+		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
+		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
 	};
+
+
+	extern const TargetPlayer actionTargetPlayer;
 }
 
 #endif
