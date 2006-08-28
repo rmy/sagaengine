@@ -109,6 +109,7 @@ namespace logic {
 		nextPos.anim(0).setSpeed(0);
 		nextPos.anim(0).setStartPos(w);
 		nextPos.anim(0).setWeight(w);
+		LogMsg(w);
 		/*
 		static int pp = 64;
 		--pp;
@@ -117,17 +118,10 @@ namespace logic {
 			pp = 16;
 		}
 		*/
-		float sw = nextMove.velocity_.length() * 1.2 - 1;
-		if(sw > 0) {
-			nextPos.anim(1).setMovementMode(1);
-			nextPos.anim(1).setStartPos(sw);
-			nextPos.anim(1).setWeight(sw);
-		}
-		else {
-			nextPos.anim(1).setMovementMode(2);
-			nextPos.anim(1).setStartPos(-sw);
-			nextPos.anim(1).setWeight(-sw);
-		}
+		float sw = nextMove.velocity_.length() * .3;
+		nextPos.anim(1).setMovementMode(1);
+		nextPos.anim(1).setStartPos(sw);
+		nextPos.anim(1).setWeight(sw);
 		nextPos.anim(1).setSpeed(0);
 
 		// Some steering noise
