@@ -1,0 +1,9 @@
+logic/thing/player/blue.txt
+logic/thing/enemy/acid_spitter.txt
+logic/thing/enemy/seeker.txt
+logic/thing/missile/acid.txt
+logic/thing/control/camera.txt
+logic/start/start.txt
+logic/area/movement/level_01_a.bin
+logic/area/thing/3.3_things.txt
+logic/area/grid/grid.txt

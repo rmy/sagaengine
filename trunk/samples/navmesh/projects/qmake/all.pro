@@ -16,11 +16,13 @@ DESTDIR = .
 OBJECTS_DIR = .obj
 
 include( core.pro )
+include( pc.pro )
+include( basic.pro )
 include( client.pro )
-include( angelscript.pro )
 include( ogre.pro )
 include( ogre_ui.pro )
-include( game.pro )
+include( logic.pro )
+include( start.pro )
 
 message( Config: $$CONFIG )
 message( DestDir: $$DESTDIR )

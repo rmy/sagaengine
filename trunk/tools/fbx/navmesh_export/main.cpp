@@ -44,8 +44,7 @@ int main(int argc, char** argv) {
 	TriangulateContent(scene, converter);
 	sdkManager->DestroyKFbxGeometryConverter(converter);
 
-	// Dump
-	//DisplayContent(scene);
+	// Save
 	SaveContent(scene);
 }
 
@@ -150,24 +149,12 @@ void SaveContent(KFbxNode* node) {
     }
 	else
     {
+		puts(node->GetName());
 		attributeType = (node->GetNodeAttribute()->GetAttributeType());
-
 		switch (attributeType) {
 			case KFbxNodeAttribute::eMESH:
 				SaveNavMesh(node);
 				break;
 	    }
-	}
-
-	//DisplayUserProperties(pNode);
-	//DisplayTarget(pNode);
-	//DisplayPivotsAndLimits(pNode);
-	//DisplayTransformPropagation(pNode);
-	//DisplayGeometricTransform(pNode);
-	//DisplayDefaultAnimation(pNode);
-
-    for(i = 0; i < node->GetChildCount(); i++)
-	{
-		DisplayContent(node->GetChild(i));
 	}
 }

@@ -19,35 +19,20 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.hpp"
 #include "../include/game_ui.hpp"
-#include "ui/input/GameControls.hpp"
-#include "ui/material/Sunlight.hpp"
+#include "ui/schema/UiSchema.hpp"
 
-using namespace se_core;
-using namespace se_ogre;
 
 namespace ui {
-	Ui
-	::Ui() {
+
+	bool initGameModule_PlatformUI() {
+		return UiSchema::init();
 	}
 
 
-	bool Ui
-	::init() {
-		static Sunlight sunlight;
-
-		// Load bindings between (ogre) 3d models and (core) things
-		IoSchema::fileManager->loadDirectory("ogre/thing/");
-
-		// Load 3d models
-		return true;
+	void cleanupGameModule_PlatformUI() {
+		UiSchema::cleanup();
 	}
 
-
-	void Ui
-	::cleanup() {
-		RenderEngine::singleton()->cleanup();
-	}
 
 }

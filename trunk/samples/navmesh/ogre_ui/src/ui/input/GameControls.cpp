@@ -20,11 +20,12 @@ rune@skalden.com
 
 
 #include "GameControls.hpp"
-#include "OgreUiPre.H"
-#include "game/action/all.hpp"
+#include "OgreUiPre.hpp"
+#include "logic/action/all.hpp"
 
 
-using namespace game;
+using namespace logic;
+using namespace se_client;
 using namespace se_core;
 using namespace se_ogre;
 

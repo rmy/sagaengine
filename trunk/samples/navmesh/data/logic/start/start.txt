@@ -1,0 +1,10 @@
+EX01
+P player.blue
+E 3.3 0
+G
+V
+/
+C control.camera
+E 3.3 0
+/
+Q

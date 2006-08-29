@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 #include "UiInitHandler.hpp"
 
 
