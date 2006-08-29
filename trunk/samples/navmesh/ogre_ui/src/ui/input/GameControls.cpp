@@ -45,6 +45,7 @@ namespace ui {
 
 	void GameControls
 	::keyPressed(Ogre::KeyEvent* e) {
+		WasHere();
 		if(ClientSchema::player->hasActiveScript()) {
 			if(O3dSchema::speechBubble)
 				O3dSchema::speechBubble->trackUserFeedback();
@@ -114,7 +115,6 @@ namespace ui {
 			ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionStop);
 			ClientSchema::player->setDefaultMovementAction(actionStop);
 			break;
-
 		}
 	}
 

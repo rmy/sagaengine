@@ -22,29 +22,50 @@ rune@skalden.com
 #include "OgreUiPre.hpp"
 #include "UiSchema.hpp"
 #include "../init/UiInitHandler.hpp"
+#include "../material/Sunlight.hpp"
 
+using namespace se_core;
 using namespace se_ogre;
 
 namespace ui {
 
-	bool UiSchema
-	::init() {
-		if(!initSeModule_Ogre()) {
-			return false;
-		}
+	namespace UiSchema {
+		// Create a game controller object
+		GameControls gameControls;
 
-		// Make sure that init calls to se_core::SimEngine is propagated
-		static UiInitHandler initHandler;
+		const struct AutoInit : public se_core::InitListener {
+			AutoInit() {
+				static Sunlight sunlight;
 
-		// Success
-		return true;
-	}
+				SimSchema::initListeners().addListener(*this);
+				LogMsg("Registered UiSchema game module");
+			}
+
+			~AutoInit() {
+				SimSchema::initListeners().removeListener(*this);
+				LogMsg("Cleaned up UiSchema game module");
+			}
 
 
-	void UiSchema
-	::cleanup() {
-		//
-		cleanupSeModule_Ogre();
+			void initEngineEvent() {
+			}
+
+
+			void cleanupEngineEvent() {
+			}
+
+
+			void initGameEvent() {
+				UiSchema::gameControls.grabFocus();
+			}
+
+
+			void cleanupGameEvent() {
+			}
+
+
+		} autoInit;
+
 	}
 
 }

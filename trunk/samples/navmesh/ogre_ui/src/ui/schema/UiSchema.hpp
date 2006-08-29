@@ -21,11 +21,12 @@ rune@skalden.com
 
 #ifndef ui_schema_UiSchema_hpp
 #define ui_schema_UiSchema_hpp
+#include "../input/GameControls.hpp"
 
 namespace ui {
 	namespace UiSchema {
-		bool init();
-		void cleanup();
+		// Create a game controller object
+		extern _NavMeshUiExport GameControls gameControls;
 	}
 
 }

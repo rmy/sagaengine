@@ -29,7 +29,7 @@ namespace logic {
 
 	void Backward
 	::perform(long when, Actor& performer, Parameter& parameter) const {
-		performer.nextMove().changeSpeed(-performer.walkSpeed() / 2);
+		performer.nextMove().changeSpeed(performer.walkSpeed() / 2);
 	}
 
 	const Backward actionBackward;

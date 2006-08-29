@@ -29,7 +29,7 @@ namespace logic {
 
 	void Forward
 	::perform(long when, Actor& performer, Parameter& parameter) const {
-		performer.nextMove().changeSpeed(performer.walkSpeed());
+		performer.nextMove().changeSpeed(-performer.walkSpeed());
 	}
 
 	const Forward actionForward;
