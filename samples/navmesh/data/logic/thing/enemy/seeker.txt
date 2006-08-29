@@ -1,0 +1,8 @@
+XO02
+A enemy.seeker
+R 0.50
+C Block
+O
+P NavMesh
+Q
+X Seeker

@@ -1,8 +1,0 @@
-XO02
-A enemy.acid_spitter
-R 0.50
-C Block
-O
-P NavMesh
-X AcidSpitter
-Q

@@ -1,0 +1,8 @@
+XO02
+A enemy.acid_spitter
+R 0.50
+C Block
+O
+P NavMesh
+Q
+X AcidSpitter

@@ -1,4 +1,0 @@
-XO03
-C control.camera
-P Default
-Q

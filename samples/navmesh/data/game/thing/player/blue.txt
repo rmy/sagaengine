@@ -1,7 +1,0 @@
-XO04
-P player.blue
-R 0.6
-C default
-O
-P NavMesh
-Q

@@ -1,7 +1,0 @@
-/home/rune/svn/sagaengine/samples/simple/game/src
-/home/rune/svn/sagaengine/samples/simple/ogre_ui/src
-/home/rune/svn/sagaengine/add_on/client/src
-/home/rune/svn/sagaengine/add_on/angelscript/src
-/home/rune/svn/sagaengine/add_on/ogre/src
-/home/rune/svn/sagaengine/core/src
-

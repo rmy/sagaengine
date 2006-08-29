@@ -19,35 +19,30 @@ rune@skalden.com
 */
 
 
-#include "OgreUiPre.hpp"
-#include "../include/game_ui.hpp"
-#include "ui/input/GameControls.hpp"
-#include "ui/material/Sunlight.hpp"
+#ifndef Ui_hpp
+#define Ui_hpp
 
-using namespace se_core;
-using namespace se_ogre;
+#include "OgreUiPre.hpp"
 
 namespace ui {
-	Ui
-	::Ui() {
-	}
 
+	/**
+	 * This is a small class that the game logic module
+	 * uses to start the user interface. This is all
+	 * that the game logic module should need to include
+	 * for ui, to speed up compilation when compiling
+	 * game logic.
+	 */
+	class _SimpleUiExport Ui {
+	public:
+		Ui();
+		bool init();
+		void cleanup();
 
-	bool Ui
-	::init() {
-		static Sunlight sunlight;
-
-		// Load bindings between (ogre) 3d models and (core) things
-		IoSchema::fileManager->loadDirectory("ogre/thing/");
-
-		// Load 3d models
-		return true;
-	}
-
-
-	void Ui
-	::cleanup() {
-		RenderEngine::singleton()->cleanup();
-	}
+	};
 
 }
+
+
+#endif
+

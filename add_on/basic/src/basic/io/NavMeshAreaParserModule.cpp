@@ -9,7 +9,7 @@ namespace se_basic {
 
 	NavMeshAreaParserModule
 	::NavMeshAreaParserModule(Parser& parser)
-		: ParserModule(parser, ParserModule::GAME, ParserModule::AREA, 2) {
+		: ParserModule(parser, ParserModule::BASIC, ParserModule::AREA, 2) {
 	}
 
 

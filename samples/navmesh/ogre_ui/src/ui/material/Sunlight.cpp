@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "Sunlight.hpp"
-#include "OgreUiPre.H"
+#include "OgreUiPre.hpp"
 
 using namespace se_core;
 using namespace se_ogre;

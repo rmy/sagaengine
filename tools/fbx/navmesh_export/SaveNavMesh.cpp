@@ -315,7 +315,7 @@ public:
 		filename.Append(".bin");
 		FILE* out = fopen(filename.Buffer(), "w");
 
-		SaveHeader('X', 'A', 1, out);
+		SaveHeader('B', 'A', 2, out);
 
 		DisplayString(" Name: ", name);
 		SaveString(name, out);
@@ -361,6 +361,7 @@ public:
 		//SaveShort(controlPointIndex[j], out);
 
 		fclose(out);
+		DisplayString("Saved: ", filename);
 	}
 };
 

@@ -24,7 +24,8 @@ rune@skalden.com
 
 namespace logic {
 	namespace LogicSchema {
-		class AutoInit {
+		class _NavMeshLogicExport AutoInit {
+		public:
 			AutoInit();
 			~AutoInit();
 		};

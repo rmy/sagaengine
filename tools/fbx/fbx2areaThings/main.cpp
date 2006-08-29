@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 	else 
 	{
 
-		fprintf(OUTFILE, "XB01\n");
+		fprintf(OUTFILE, "BA02\n");
 		KString filename(argv[1]);
 		filename.FindAndReplace(".fbx", "", filename.GetLen() - 4);
 		

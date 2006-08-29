@@ -40,6 +40,8 @@ namespace logic {
 		AutoInit
 		::~AutoInit() {
 		}
+
+		const AutoInit autoInit;
 	}
 
 }
