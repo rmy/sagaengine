@@ -26,12 +26,10 @@ rune@skalden.com
 namespace ui {
 
 	bool initGameModule_PlatformUI() {
-		return UiSchema::init();
 	}
 
 
 	void cleanupGameModule_PlatformUI() {
-		UiSchema::cleanup();
 	}
 
 

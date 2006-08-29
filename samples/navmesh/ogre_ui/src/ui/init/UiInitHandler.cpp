@@ -21,11 +21,12 @@ rune@skalden.com
 
 #include "OgreUiPre.hpp"
 #include "UiInitHandler.hpp"
+#include "../schema/UiSchema.hpp"
 
 
 using namespace se_core;
 
-namespace se_ogre {
+namespace ui {
 
 	UiInitHandler
 	::UiInitHandler() {
@@ -51,6 +52,7 @@ namespace se_ogre {
 
 	void UiInitHandler
 	::initGameEvent() {
+		UiSchema::gameControls.grabFocus();
 		// Create a game controller object
 		//gameControls_ = new BlobberControls();
 

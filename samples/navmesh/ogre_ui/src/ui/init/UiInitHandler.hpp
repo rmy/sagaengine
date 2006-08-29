@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "OgreUiPre.hpp"
 
-namespace se_ogre {
+namespace ui {
 	class _NavMeshUiExport UiInitHandler : public se_core::InitListener {
 	public:
 		UiInitHandler();

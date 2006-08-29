@@ -29,7 +29,7 @@ namespace logic {
 
 	void RotateRight
 	::perform(long when, Actor& performer, Parameter& parameter) const {
-		performer.nextMove().angularVelocity_.yaw_ = -3 * BRAY_RES;
+		performer.nextMove().angularVelocity_.yaw_ = 3 * BRAY_RES;
 	}
 
 	const RotateRight actionRotateRight;
