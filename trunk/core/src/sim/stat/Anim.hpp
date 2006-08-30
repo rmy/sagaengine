@@ -83,6 +83,7 @@ namespace se_core {
 		 * @returns 0 for beginning of anim, SCALE_RES for end of anim.
 		 */
 		void setStartPos(float p) { startPos_ = p; }
+		void addStartPos(float p) { startPos_ += p; }
 		scale_t startPos() const { return startPos_; }
 
 		static void setMovementModeCount(int c) { MOVEMENT_MODE_COUNT = c; }

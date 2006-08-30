@@ -99,26 +99,37 @@ namespace logic {
 		if(BrayT::isLeftwise(y)) {
 			nextPos.anim(0).setMovementMode(1);
 		}
-		else if(BrayT::isRightwise(y)) {
+		else {
 			nextPos.anim(0).setMovementMode(2);
 		}
-		else {
-			nextPos.anim(0).setMovementMode(0);
-		}
 		float w = BrayT::abs(y) / (float)(BRAY_RES) * 0.19;
+		if(w < 0.02) w = 0.02;
 		nextPos.anim(0).setSpeed(0);
 		nextPos.anim(0).setStartPos(w);
 		nextPos.anim(0).setWeight(w);
-		LogMsg(w);
 
-		float sw = nextMove.velocity_.length() * .3;
+		static float maxW = 0;
+		if(maxW < w) {
+			maxW = w;
+			LogMsg(maxW);
+		}
+
+		float sw = nextMove.velocity_.length() * .7;
+		if(sw > 0.99999f) sw = 0.99999f;
 		nextPos.anim(1).setMovementMode(1);
 		nextPos.anim(1).setStartPos(sw);
 		nextPos.anim(1).setWeight(sw);
 		nextPos.anim(1).setSpeed(0);
 
+		static float maxSw = 0;
+		if(maxSw < sw) {
+			maxSw = sw;
+			LogMsg(maxSw);
+		}
+
 		nextPos.anim(2).setMovementMode(0);
 		nextPos.anim(2).setSpeed(1);
+		nextPos.anim(2).addStartPos(2 * (w + sw / 2) / (float)TIMESTEP_INTERVAL);
 
 		// Some steering noise
 		static Perlin p;
