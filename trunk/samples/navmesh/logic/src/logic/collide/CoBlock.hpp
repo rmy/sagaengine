@@ -34,7 +34,7 @@ namespace logic {
 	private:
 	};
 
-	extern const CoBlock coBlock;
+	extern _NavMeshLogicExport const CoBlock coBlock;
 }
 
 #endif

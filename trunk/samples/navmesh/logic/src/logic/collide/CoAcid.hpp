@@ -34,7 +34,7 @@ namespace logic {
 	private:
 	};
 
-	extern const CoAcid coAcid;
+	extern _NavMeshLogicExport const CoAcid coAcid;
 }
 
 #endif

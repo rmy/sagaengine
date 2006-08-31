@@ -1,2 +1,3 @@
 se_client
 se_core
+se_basic

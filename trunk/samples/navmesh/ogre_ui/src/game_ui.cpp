@@ -26,6 +26,7 @@ rune@skalden.com
 namespace ui {
 
 	bool initGameModule_PlatformUI() {
+		return true;
 	}
 
 

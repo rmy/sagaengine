@@ -40,7 +40,7 @@ namespace logic {
 	};
 
 
-	extern const Jump actionJump;
+	extern _NavMeshLogicExport const Jump actionJump;
 }
 
 #endif

@@ -36,7 +36,7 @@ namespace logic {
 	};
 
 
-	extern const TargetPlayer actionTargetPlayer;
+	extern _NavMeshLogicExport const TargetPlayer actionTargetPlayer;
 }
 
 #endif

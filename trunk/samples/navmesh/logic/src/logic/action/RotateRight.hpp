@@ -37,7 +37,7 @@ namespace logic {
 	};
 
 
-	extern const RotateRight actionRotateRight;
+	extern _NavMeshLogicExport const RotateRight actionRotateRight;
 }
 
 #endif

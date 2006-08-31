@@ -94,7 +94,7 @@ namespace logic {
 		nextPos.localFace().roll_ = BrayT::scale(0.8f, nextPos.localFace().roll_);
 		nextPos.localFace().pitch_ = BrayT::scale(0.85f, nextPos.localFace().pitch_);
 
-		// Animation
+		// Turn left or right animation
 		bray_t y = nextMove.angularVelocity_.yaw_;
 		if(BrayT::isLeftwise(y)) {
 			nextPos.anim(0).setMovementMode(1);
@@ -104,43 +104,29 @@ namespace logic {
 		}
 		float w = BrayT::abs(y) / (float)(BRAY_RES) * 0.19;
 		if(w < 0.02) w = 0.02;
+		// This animation should not move with time, only with turing speed
 		nextPos.anim(0).setSpeed(0);
 		nextPos.anim(0).setStartPos(w);
+		// The more you turn, the higher the weight of the turning animation
 		nextPos.anim(0).setWeight(w);
 
-		static float maxW = 0;
-		if(maxW < w) {
-			maxW = w;
-			LogMsg(maxW);
-		}
-
+		// Scale speed to [0, 1> values, the clamp
 		float sw = nextMove.velocity_.length() * .7;
 		if(sw > 0.99999f) sw = 0.99999f;
 		nextPos.anim(1).setMovementMode(1);
+		// Animation is governed by fly speed, not time
+		nextPos.anim(1).setSpeed(0);
 		nextPos.anim(1).setStartPos(sw);
 		nextPos.anim(1).setWeight(sw);
-		nextPos.anim(1).setSpeed(0);
 
-		static float maxSw = 0;
-		if(maxSw < sw) {
-			maxSw = sw;
-			LogMsg(maxSw);
-		}
-
+		// Some time and air resistance governed animation
 		nextPos.anim(2).setMovementMode(0);
 		nextPos.anim(2).setSpeed(1);
 		nextPos.anim(2).addStartPos(2 * (w + sw / 2) / (float)TIMESTEP_INTERVAL);
 
-		// Some steering noise
+		// Some steering noise (turbulence)
 		static Perlin p;
 		float s = p.noise(pos.localCoor().x_ * 0.025f, pos.localCoor().y_ * 0.025f, pos.localCoor().y_ * 0.025f, 9, 9, 9, true, true, true) * 2;
-		/*
-		Euler3 noise(
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().x_ * 0.125, pos.localCoor().y_ * 0.125, 9, 9, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().y_ * 0.125, pos.localCoor().z_ * 0.125, 9, 9, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().z_ * 0.125, pos.localCoor().x_ * 0.125, 9, 9, true, true)))
-				   );
-		*/
 		Euler3 noise(
 					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().x_, pos.localCoor().y_, 72, 72, true, true))),
 					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().y_, pos.localCoor().z_, 72, 72, true, true))),
@@ -149,8 +135,7 @@ namespace logic {
 		noise.scale(s);
 		nextPos.localFace().add(noise);
 
-		// local and world viewpoint must agree before leaving
-		// physics
+		// local and world viewpoint must agree before leaving physics
 		nextPos.updateWorldViewPoint();
 	}
 

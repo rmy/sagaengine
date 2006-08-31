@@ -25,30 +25,6 @@ rune@skalden.com
 namespace ui {
 	bool initGameModule_PlatformUI();
 	void cleanupGameModule_PlatformUI();
-
-
-	/**
-	 * This is a small class that the game logic module
-	 * uses to start the user interface. This is all
-	 * that the game logic module should need to include
-	 * for ui, to speed up compilation when compiling
-	 * game logic.
-	 */
-	class Ui {
-	public:
-		Ui();
-		bool init();
-		void cleanup();
-
-		void go();
-
-	private:
-		bool menu();
-		void game();
-
-
-		bool doContinue_;
-	};
 }
 
 

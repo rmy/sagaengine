@@ -22,7 +22,7 @@ namespace logic {
 		void spawn(long when, se_core::Actor& performer) const;
 	};
 
-	extern const ShootAcid actionShootAcid;
+	extern _NavMeshLogicExport const ShootAcid actionShootAcid;
 }
 
 #endif

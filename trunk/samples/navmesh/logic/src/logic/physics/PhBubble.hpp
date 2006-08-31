@@ -27,7 +27,7 @@ namespace logic {
 	};
 
 
-	extern const PhBubble physicsBubble;	
+	extern _NavMeshLogicExport const PhBubble physicsBubble;	
 }
 
 #endif

@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "OgreUiPre.hpp"
-#include "../include/game_ui.hpp"
+#include "Ui.hpp"
 #include "ui/input/GameControls.hpp"
 #include "ui/material/Sunlight.hpp"
 

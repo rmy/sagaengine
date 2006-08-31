@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="fly"
-	ProjectGUID="{2C1236A0-4364-49FF-A230-613B08B5CF82}"
-	RootNamespace="fly"
+	Name="navmesh"
+	ProjectGUID="{0AD9315D-4364-49FF-A230-613B08B5CF82}"
+	RootNamespace="navmesh"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -21,8 +21,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../start/src;;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;$(OGRE_HOME)/include;$(OGRE_HOME)/include/opt;$(OGRE_HOME)/include/CEGUI;$(OGRE_HOME)/samples/include;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllimport);_FlyUiExport=__declspec(dllimport);"
+				AdditionalIncludeDirectories="../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_SimpleLogicExport=__declspec(dllimport);_SimpleUiExport=__declspec(dllimport);"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -80,8 +80,8 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../start/src;;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;$(OGRE_HOME)/include;$(OGRE_HOME)/include/opt;$(OGRE_HOME)/include/CEGUI;$(OGRE_HOME)/samples/include;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllimport);_FlyUiExport=__declspec(dllimport);"
+				AdditionalIncludeDirectories="../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_SimpleLogicExport=__declspec(dllimport);_SimpleUiExport=__declspec(dllimport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
@@ -94,7 +94,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
+				AdditionalDependencies="OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib se_core.lib "
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"

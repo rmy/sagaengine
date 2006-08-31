@@ -37,7 +37,7 @@ namespace logic {
 	};
 
 
-	extern const Forward actionForward;
+	extern _NavMeshLogicExport const Forward actionForward;
 }
 
 #endif

@@ -37,7 +37,7 @@ namespace logic {
 	};
 
 
-	extern const Stop actionStop;
+	extern _NavMeshLogicExport const Stop actionStop;
 }
 
 #endif
