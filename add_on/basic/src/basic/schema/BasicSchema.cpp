@@ -22,6 +22,7 @@ rune@skalden.com
 #include "BasicPre.hpp"
 #include "BasicSchema.hpp"
 #include "../io/all.hpp"
+#include "../physics/all.hpp"
 
 using namespace se_core;
 
@@ -37,15 +38,16 @@ namespace se_basic {
 				static SimpleActorParserModule sActorPM(IoSchema::parser());
 				static WangAreaGridParserModule wangGridPM(IoSchema::parser());
 
+				// Register physics
+				static PhTrackingCamera phTrackingCamera;
+
 				// Register as init event listener
 				SimSchema::initListeners().addListener(*this);
-
 				LogMsg("Registered Basic add-on");
 			}
 
 			~AutoInit() {
 				SimSchema::initListeners().removeListener(*this);
-
 				LogMsg("Cleaned up Basic add-on");
 			}
 
@@ -53,7 +55,6 @@ namespace se_basic {
 			void cleanupEngineEvent() {}
 			void initGameEvent() {}
 			void cleanupGameEvent() {}
-
-			} autoInit;
+		} autoInit;
 	}
 }
