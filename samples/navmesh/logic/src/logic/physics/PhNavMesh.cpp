@@ -40,8 +40,8 @@ namespace logic {
 		nextPos.localFace().rotate( nextMove.angularVelocity_ );
 
 		// Friction
-		nextMove.angularVelocity_.scale(0.8);
-		nextMove.velocity_.scale(0.8);
+		//nextMove.angularVelocity_.scale(0.8);
+		//nextMove.velocity_.scale(0.8);
 
 		// Calc navigation mesh triangle id
 		nextPos.updateWorldViewPoint();
