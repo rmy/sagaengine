@@ -1,1 +1,1 @@
-../../fly/navmesh/data/
+../../samples/fly/data/
