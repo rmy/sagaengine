@@ -29,7 +29,7 @@ namespace logic {
 	};
 
 
-	extern const PhPushBack physicsPushBack;
+	extern _NavMeshLogicExport const PhPushBack physicsPushBack;
 }
 
 #endif

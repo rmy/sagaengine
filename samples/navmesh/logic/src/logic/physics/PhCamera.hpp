@@ -27,7 +27,7 @@ namespace logic {
 	};
 
 
-	extern const PhCamera physicsCamera;	
+	extern _NavMeshLogicExport const PhCamera physicsCamera;	
 }
 
 #endif

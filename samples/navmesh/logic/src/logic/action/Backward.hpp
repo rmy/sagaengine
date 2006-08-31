@@ -37,7 +37,7 @@ namespace logic {
 	};
 
 
-	extern const Backward actionBackward;
+	extern _NavMeshLogicExport const Backward actionBackward;
 }
 
 #endif

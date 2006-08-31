@@ -51,7 +51,7 @@ namespace se_core {
 		};
 	};
 
-	extern const Disintegrate actionDisintegrate;
+	extern _NavMeshLogicExport const Disintegrate actionDisintegrate;
 }
 
 

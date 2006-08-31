@@ -1,7 +1,8 @@
 se_ogre
+navmesh_logic
+se_basic
 se_client
 se_core
-navmesh_logic
 OgreGUIRenderer
 OgreMain
 CEGUIBase

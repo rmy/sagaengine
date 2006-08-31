@@ -21,11 +21,9 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "Application.hpp"
-#include "logic/schema/LogicSchema.hpp"
-#include <game_ui.hpp>
 
 using namespace se_core;
-using namespace ui;
+
 
 namespace logic {
 	Application

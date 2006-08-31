@@ -36,7 +36,7 @@ namespace logic {
 	};
 
 
-	extern const Seek actionSeek;
+	extern _NavMeshLogicExport const Seek actionSeek;
 }
 
 #endif

@@ -1,7 +1,7 @@
 EZ01
 P se_client
 P se_basic
-P simple_logic
+P navmesh_logic
 P se_ogre
-P simple_ui
+P navmesh_ui
 Q

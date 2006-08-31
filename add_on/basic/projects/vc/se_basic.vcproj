@@ -145,6 +145,9 @@
 <File RelativePath="..\..\src\basic\io\WangAreaGridParserModule.cpp"> </File>
 <File RelativePath="..\..\src\basic\io\WangAreaGridParserModule.hpp"> </File>
 <File RelativePath="..\..\src\basic\io\all.hpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\physics\PhTrackingCamera.cpp"> </File>
+<File RelativePath="..\..\src\basic\physics\PhTrackingCamera.hpp"> </File>
+<File RelativePath="..\..\src\basic\physics\all.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\schema\BasicSchema.cpp"> </File>
 <File RelativePath="..\..\src\basic\schema\BasicSchema.hpp"> </File>
 <File RelativePath="..\..\src\basic\schema\all.hpp"> </File>
