@@ -51,12 +51,15 @@ namespace se_ogre {
 
 		// Debug overlay
 		void showDebugOverlay(bool show);
-
+		void setCentreAligned(bool flag) {
+			isAreaGeomCentreAligned_ = flag;
+		}
 
 	protected: // Helper methods
 		bool hasMesh(se_core::Thing& thing);
 		void updateStats(void);
 		int findArea(int id);
+		void getAreaOffset(se_core::Area& area, Ogre::Vector3& dest);
 
 	private:
 		//
@@ -74,10 +77,12 @@ namespace se_ogre {
 		struct {
 			int id_;
 			bool shouldKeep_;
+			Ogre::Vector3 offset_;
 			Ogre::SceneNode* node_;
 			ThingMOList::iterator_type firstThingMO;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
+		bool isAreaGeomCentreAligned_;
 	};
 }
 
