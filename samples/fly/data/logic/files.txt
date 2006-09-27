@@ -4,6 +4,14 @@ logic/thing/control/camera.txt
 logic/start/start.txt
 logic/area/grid/grid.txt
 logic/area/thing/3.3_things.txt
+logic/area/thing/tile00_things.txt
+logic/area/thing/tile01_things.txt
+logic/area/thing/tile02_things.txt
+logic/area/thing/tile03_things.txt
+logic/area/thing/tile04_things.txt
+logic/area/thing/tile05_things.txt
+logic/area/thing/tile06_things.txt
+logic/area/thing/tile07_things.txt
 logic/area/movement/tile00.txt
 logic/area/movement/tile01.txt
 logic/area/movement/tile02.txt

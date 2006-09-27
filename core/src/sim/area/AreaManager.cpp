@@ -87,6 +87,22 @@ namespace se_core {
 	}
 
 
+	int AreaManager
+	::areasByFactory(const char* name, Area** dest, int maxCount) {
+		int c = 0;
+		for(int i = 0; i < areaCount_; ++i) {
+			Assert(areas_[ i ]->factory());
+			Assert(areas_[ i ]->factory()->name());
+			if(strcmp(areas_[ i ]->factory()->name(), name) == 0) {
+				dest[ c++ ] = areas_[ i ];
+				if(c >= maxCount)
+					break;
+			}
+		}
+		return c;
+	}
+
+
 	bool AreaManager
 	::hasArea(const char* name) {
 		for(int i = 0; i < areaCount_; ++i) {

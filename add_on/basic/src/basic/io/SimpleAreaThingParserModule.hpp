@@ -11,10 +11,10 @@ namespace se_basic {
 		void parse(se_core::InputStream& in);
 
 	private:
-		void readThing(se_core::InputStream& in, se_core::Area& area, se_core::PosNode* parent = 0);
-		void readChildren(se_core::InputStream& in, se_core::Area& area, se_core::PosNode& parent);
+		void readThing(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::PosNode** parents = 0);
+		void readChildren(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::PosNode** parents);
 		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
-		void readMultiCutscene(se_core::InputStream& in, se_core::MultiSimObject& mgo);
+		void readMultiCutscene(se_core::InputStream& in, int areaCount, se_core::Area** areas);
 	};
 
 }

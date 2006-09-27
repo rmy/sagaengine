@@ -1,0 +1,11 @@
+XB01
+F tile03
+
+A enemy.circle T 12.50 15 57.50 R 0 0 0 /
+A enemy.circle T 22.50 20 157.50 R 0 0 0 /
+A enemy.circle T 82.50 10 97.50 R 0 0 0 /
+A enemy.circle T 122.50 8 27.50 R 0 0 0 /
+A enemy.circle T 252.50 20 137.50 R 0 0 0 /
+A enemy.circle T 182.50 10 57.50 R 0 0 0 /
+
+Q

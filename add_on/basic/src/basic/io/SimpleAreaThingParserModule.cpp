@@ -18,7 +18,9 @@ namespace se_basic {
 
 	void SimpleAreaThingParserModule
 	::parse(InputStream& in) {
-		Area* area = 0;
+		short MAX_AREAS = 1024;
+		Area* areas[ MAX_AREAS];
+		int areaCount = 0;
 
 		short MAX_SPAWN_POINTS = 20;
 		int spawnPointCount = 0;
@@ -28,21 +30,37 @@ namespace se_basic {
 		}
 
 		int code = in.readInfoCode();
-		Assert(code == 'N');
-		{
-			String tempString;
-			in.readString(tempString);
-			area = SimSchema::areaManager.area(tempString.get());
+		switch(code) {
+		case 'N':
+			{
+				String tempString;
+				in.readString(tempString);
+				areas[0] = SimSchema::areaManager.area(tempString.get());
+				areaCount = 1;
+			}
+			break;
+
+		case 'F':
+			{
+				String tempString;
+				in.readString(tempString);
+				areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
+				LogMsg(areaCount);
+			}
+			break;
+
+		default:
+			LogFatal("Unkown area type code: " << (char)(code));
 		}
 
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'A': // object (thing or actor)
-				readThing(in, *area);
+				readThing(in, areaCount, areas);
 				break;
 
 			case 'C': // Cutscenes
-				readMultiCutscene(in, area->multiSimObject(Area::MGOA_CUTSCENES));
+				readMultiCutscene(in, areaCount, areas);
 				break;
 
 			case 'E': // entrance
@@ -60,15 +78,20 @@ namespace se_basic {
 				break;
 			}
 		}
-		Assert(area);
-		area->setSpawnPoints(spawnPointCount, spawnPoints);
-		area->flip();
+		Assert(areaCount);
+		for(int i = 0; i < areaCount; ++i) {
+			if(spawnPointCount) {
+				LogMsg("Set spawn points for: " << areas[i]->name());
+				areas[i]->setSpawnPoints(spawnPointCount, spawnPoints);
+			}
+			areas[i]->flip();
+		}
 		//LogMsg("Parsed things for: " << area->name());
 	}
 
 
 	void SimpleAreaThingParserModule
-	::readThing(InputStream& in, se_core::Area& area, PosNode* parent) {
+	::readThing(InputStream& in, int areaCount, se_core::Area** areas, PosNode** parents) {
 		String thingName;
 		in.readString(thingName);
 
@@ -99,11 +122,10 @@ namespace se_basic {
 					float x = in.readFloat();
 					float y = in.readFloat();
 					float z = in.readFloat();
-					//LogMsg("T " << x << " " << y << " " << z);
 					vp.coor_.set(CoorT::fromFloat(x), CoorT::fromFloat(y), CoorT::fromFloat(z));
 				}
 				break;
-			case 'R': // Transform
+			case 'R': // Rotation
 				{
 					float yaw = in.readFloat();
 					float pitch = in.readFloat();
@@ -122,17 +144,23 @@ namespace se_basic {
 			}
 		}
 
-		Thing* thing = area.spawn(thingName.get(), vp, 0, parent);
-		if(isScaled) {
-			// Scale relative to the default raidus of the thing
-			float r = CoorT::toFloat(thing->nextPos().radius()) * radius;
-			thing->nextPos().setRadius(r);
+		PosNode* siblings[areaCount];
+		for(int i = 0; i < areaCount; ++i) {
+			LogMsg(areas[i]->name());
+			PosNode* parent = (parents) ? parents[i] : 0;
+			Thing* thing = areas[i]->spawn(thingName.get(), vp, 0, parent);
+			if(isScaled) {
+				// Scale relative to the default raidus of the thing
+				float r = CoorT::toFloat(thing->nextPos().radius()) * radius;
+				thing->nextPos().setRadius(r);
+			}
+			thing->nextPos().setGrounded(isGrounded);
+			siblings[i] = thing;
 		}
-		thing->nextPos().setGrounded(isGrounded);
 
 		if(code == '[') {
 			//LogMsg('[');
-			readChildren(in, area, *thing);
+			readChildren(in, areaCount, areas, siblings);
 
 			// End of thing ('/') should follow
 			code = in.readInfoCode();
@@ -146,13 +174,13 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readChildren(InputStream& in, Area& area, PosNode& parent) {
+	::readChildren(InputStream& in, int areaCount, Area** areas, PosNode** parents) {
 		int code;
 		while((code = in.readInfoCode()) != ']') {
 			//LogMsg("Code: " << (char)code);
 			switch(code) {
 			case 'A': // object (thing or actor)
-				readThing(in, area, &parent);
+				readThing(in, areaCount, areas, parents);
 				break;
 			}
 		}
@@ -195,8 +223,9 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readMultiCutscene(InputStream& in, MultiSimObject& mgo) {
+	::readMultiCutscene(InputStream& in, int areaCount, Area** areas) {
 		String* name;
+
 		for(;;) {
 			name = new String();
 			in.readString(*name);
@@ -208,7 +237,11 @@ namespace se_basic {
 				LogFatal("Tried to add non-existing cutscene.");
 			}
 			else {
-				mgo.add(*SimSchema::sortedSimObjectList().cutscene(name->get()));
+				Cutscene& c = *SimSchema::sortedSimObjectList().cutscene(name->get());
+				for(int i = 0; i < areaCount; ++i) {
+					MultiSimObject& mgo = areas[i]->multiSimObject(Area::MGOA_CUTSCENES);
+					mgo.add(c);
+				}
 				delete name;
 			}
 		}
