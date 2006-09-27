@@ -721,6 +721,8 @@ namespace se_core {
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
+		LogMsg("Spawned " << thingName << " in " << name());
+
 		// Return the newly created thing
 		return thing;
 	}

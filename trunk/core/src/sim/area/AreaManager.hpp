@@ -33,6 +33,7 @@ namespace se_core {
 		void addArea(Area* area);
 		bool hasArea(const char* name);
 		Area* area(const char* name);
+		int areasByFactory(const char* name, Area** dest, int maxCount);
 		Area* area(int id);
 		int activeCount() { return activeCount_; }
 		Area* active(int index);
@@ -54,9 +55,8 @@ namespace se_core {
 
 		const AreaFactory* factory(const char* name) const;
 
-
-		static const int MAX_ELEMENTS = 1024 * 4;
-		static const int MAX_FACTORIES = 32;
+		static const int MAX_ELEMENTS = 1024 * 16;
+		static const int MAX_FACTORIES = 512;
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 
 		int areaCount_;

@@ -38,7 +38,8 @@ namespace se_core {
 	::PosNode(enum SimObjectType type, const char* name)
 			: SimObject(type, name)
 			, isCollideable_(false)
-			, didMove_(false) {
+			, didMove_(false)
+			, spawnPoints_(0) {		
 	}
 
 
@@ -112,7 +113,6 @@ namespace se_core {
 	}
 
 
-
 	void PosNode
 	::addChildPosNode(PosNode& node) {
 		// Static pos nodes should have the area as
@@ -157,7 +157,6 @@ namespace se_core {
 	}
 
 
-
 	void PosNode
 	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
 		dest.setViewPoint(position_.world_);
@@ -168,6 +167,9 @@ namespace se_core {
 
 	void PosNode
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
+		if(spawnPoints_ != 0)
+			LogFatal("Spawn points set twice: " << name());
+
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;
 	}
@@ -179,6 +181,5 @@ namespace se_core {
 		Assert(spawnPoints_[id] != 0);
 		return spawnPoints_[id];
 	}
-
 
 }
