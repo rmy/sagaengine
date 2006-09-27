@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "O3dConfigParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
+#include "../area/WorldManager.hpp"
 #include "../RenderEngine.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"
@@ -96,8 +97,22 @@ namespace se_ogre {
 				}
 				break;
 
+			case 'A': 
+				{
+					// Area alignment
+					short align = in.readShort();
+					switch(align) {
+					case 1:
+						O3dSchema::worldManager->setCentreAligned(true);
+						break;
+					default:
+						O3dSchema::worldManager->setCentreAligned(false);
+					}
+				}
+				break;
+
 			default:
-				LogFatal("Unsupported code!");
+				LogFatal("Unsupported code: " << (char)(code));
 			}
 		}
 	}

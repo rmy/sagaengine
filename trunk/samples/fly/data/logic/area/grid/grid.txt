@@ -1,5 +1,5 @@
 XG02
-128 128
+15 15
 T tile00 RYGB
 T tile01 GBGB
 T tile02 RYRY

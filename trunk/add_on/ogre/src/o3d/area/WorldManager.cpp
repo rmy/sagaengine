@@ -39,7 +39,7 @@ namespace se_ogre {
 	WorldManager
 	::WorldManager() 
 		: playerEntity_(0), shouldStop_(false), debugOverlay_(0)
-			, lastRenderClock_(0), areaCount_(0) {
+		, lastRenderClock_(0), areaCount_(0), isAreaGeomCentreAligned_(false) {
 		showDebugOverlay(false);
 	}
 
@@ -70,6 +70,19 @@ namespace se_ogre {
 				return i;
 		}
 		return -1;
+	}
+
+
+	void WorldManager
+	::getAreaOffset(se_core::Area& area, Ogre::Vector3& dest) {
+		dest.x = area.pos().localCoor().x_;
+		dest.y = area.pos().localCoor().y_;
+		dest.z = area.pos().localCoor().z_;
+		
+		if(isAreaGeomCentreAligned_) {
+			dest.x += area.width() / 2.0f;
+			dest.z += area.height() / 2.0f;
+		}
 	}
 
 
@@ -116,8 +129,9 @@ namespace se_ogre {
 						areas_[ index ].id_ = a->id();
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
+						getAreaOffset(*a, areas_[ index ].offset_);
 						areas_[ index ].node_->attachObject(entity);
-						areas_[ index ].node_->setPosition(a->pos().localCoor().x_ + a->width() / 2.0f, a->pos().localCoor().y_, a->pos().localCoor().z_ + a->height() / 2.0f);
+						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
 
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
 
