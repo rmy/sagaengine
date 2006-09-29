@@ -134,6 +134,9 @@ namespace ui {
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
 		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
 
+		actionRotateCamera.param(dirRoll(), 0, 0, p);
+		ClientSchema::floatingCamera->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
+
 		if(doDropStone) ClientSchema::player->planAction(CHANNEL_EXTRA, actionDropStone, &p);
 	}
 
@@ -186,6 +189,9 @@ namespace ui {
 		static Parameter p;
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
 		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
+
+		actionRotateCamera.param(dirRoll(), 0, 0, p);
+		ClientSchema::floatingCamera->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
 	}
 
 

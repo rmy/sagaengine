@@ -80,6 +80,7 @@ namespace se_core {
 		multiplePerformsPerStepEnabled_ = state;
 	}
 
+
 	void SimEngine
 	::go() {
 		while(true) {
@@ -219,6 +220,7 @@ namespace se_core {
 		}
 	}
 
+
 	bool SimEngine
 	::init() {
 		SimSchema::initListeners().castInitEngineEvent();
@@ -227,11 +229,13 @@ namespace se_core {
 		return true;
 	}
 
+
 	void SimEngine
 	::cleanup() {
 		SimSchema::initListeners().castCleanupEngineEvent();
 		resetAll();
 	}
+
 
 	void SimEngine
 	::initGame() {

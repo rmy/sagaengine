@@ -357,7 +357,6 @@ namespace se_ogre {
 
 		// Don't try to move the camera if the camera is not in an area
 		if(!ClientSchema::camera->pos().hasArea()) {
-			WasHere();
 			return;
 		}
 

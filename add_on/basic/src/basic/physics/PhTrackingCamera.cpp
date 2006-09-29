@@ -7,7 +7,7 @@ using namespace se_core;
 
 namespace se_basic {
 
-	const PhTrackingCamera physicsCamera;	
+	const PhTrackingCamera physicsTrackingCamera;	
 
 
 	void PhTrackingCamera

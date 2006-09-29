@@ -89,7 +89,8 @@ namespace se_ogre {
 				QuatT::toFloat(face.y_),
 				QuatT::toFloat(face.z_)
 				);
-							 
+
+
 		// Set the new position
 		node_->setPosition(pos);
 
