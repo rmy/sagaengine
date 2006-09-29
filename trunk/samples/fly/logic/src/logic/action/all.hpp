@@ -3,6 +3,7 @@
 
 #include "DropStone.hpp"
 #include "PlayerFly.hpp"
+#include "RotateCamera.hpp"
 #include "PlayMusic.hpp"
 
 #endif

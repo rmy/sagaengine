@@ -22,8 +22,7 @@ void DisplayMyChannels(KFbxNode* pNode, KFbxTakeNode* pTakeNode);
 
 FILE* OUTFILE;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 	KFbxSdkManager* lSdkManager = NULL;
 	KFbxScene* lScene = NULL;
 	bool lResult;
@@ -33,48 +32,44 @@ int main(int argc, char** argv)
 
 	// Load the scene.
 
-	// The example can take a FBX file as an argument.
-	if(argc > 2)
-	{
-		lResult = LoadScene(lSdkManager, lScene, argv[1]);
 
-		if(lResult) {
-			OUTFILE = fopen(argv[2], "wt");
-			if(OUTFILE == 0) {
-				fprintf(stderr, "Could not open output file: %s\n", argv[2]);
-				lResult = false;
-			}
-		}
-		
-	}
-	else
-	{
-		lResult = false;
-		fprintf(stderr, "Usage: fbx2areaThings <FBX file name> <output filename>\n");
-	}
-
-	if(lResult == false)
-	{
-		// Destroy all objects created by the FBX SDK.
-		DestroySdkObjects(lSdkManager);
-		fprintf(stderr, "An error occured while loading the scene...\n");
+	// The example can take one or more FBX file as an argument.
+	if(argc <= 4) {
+		fprintf(stderr, "Usage: fbx2areaThings <F or N> <area name> <output filename> <FBX file name> ...\n");
 		return 0;
 	}
-	else 
-	{
 
-		fprintf(OUTFILE, "BA02\n");
-		KString filename(argv[1]);
-		filename.FindAndReplace(".fbx", "", filename.GetLen() - 4);
-		
-		fprintf(OUTFILE, "N %s\n", filename.GetBuffer());
-		DisplayContent(lScene);
-		fprintf(OUTFILE, "\nQ\n");
+	OUTFILE = fopen(argv[3], "wt");
+	if(OUTFILE == 0) {
+		fprintf(stderr, "Could not open output file: %s\n", argv[2]);
+		return 0;
 	}
+
+	//fprintf(OUTFILE, "BA02\n");	
+	fprintf(OUTFILE, "XB01\n");	
+
+	fprintf(OUTFILE, "%c %s\n", argv[1][0], argv[2]);
+
+	for(int i = 4; i < argc; ++i) {
+		lResult = LoadScene(lSdkManager, lScene, argv[i]);
+
+		if(lResult == false) {
+			// Destroy all objects created by the FBX SDK.
+			DestroySdkObjects(lSdkManager);
+			fprintf(stderr, "An error occured while loading <%s>\n", argv[i]);
+			continue;
+		}
+		else {
+			DisplayContent(lScene);
+		}
+	}
+
+	fprintf(OUTFILE, "\nQ\n");
+	fclose(OUTFILE);
 
 	// Destroy all objects created by the FBX SDK.
 	DestroySdkObjects(lSdkManager);
-	
+
 	return 0;
 }
 
