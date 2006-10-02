@@ -539,52 +539,50 @@ namespace se_core {
 
 		int sp = 0;
 		itStack[ 0 ] = childPosNodes().iterator();
-		if(itStack[ 0 ] == SimObjectList::end())
-			// No children at all..
-			return;
+		if(itStack[ 0 ] != SimObjectList::end()) {
+			do {
+				// Get next in chain
+				PosNode* p = SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
+				Assert(p);
 
-		do {
-			// Get next in chain
-			PosNode* p = SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
-			Assert(p);
+				// Move to new position in collision grid
+				if(collisionGrid_
+				   && p->isCollideable()
+				   && p->pos().area() == p->nextPos().area()) {
 
-			// Move to new position in collision grid
-			if(collisionGrid_
-					&& p->isCollideable()
-					&& p->pos().area() == p->nextPos().area()) {
+					// TODO: Make CollisionGrid handle PosNodes
+					Assert(p->isType(got_POS_NODE));
+					t = static_cast<Thing*>(p);
 
-				// TODO: Make CollisionGrid handle PosNodes
-				Assert(p->isType(got_POS_NODE));
-				t = static_cast<Thing*>(p);
+					// TODO: Real speed instead of max speed...
+					static const coor_t speed = COOR_RES;
+					coor_t speedAndRadius = p->pos().radius() + speed;
+					const Point3& wc = pos().worldCoor();
 
-				// TODO: Real speed instead of max speed...
-				static const coor_t speed = COOR_RES;
-				coor_t speedAndRadius = p->pos().radius() + speed;
-				const Point3& wc = pos().worldCoor();
+					// TODO: Real speed instead of max speed...
+					static const coor_t nextSpeed =  COOR_RES;
+					coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
+					const Point3& nextWC = nextPos().worldCoor();
 
-				// TODO: Real speed instead of max speed...
-				static const coor_t nextSpeed =  COOR_RES;
-				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				const Point3& nextWC = nextPos().worldCoor();
+					collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
+				}
 
-				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
-			}
+				// Do the flip
+				p->flip();
 
-			// Do the flip
-			p->flip();
+				// Push child chain as next chain on stack
+				itStack[ ++sp ] = p->childPosNodes().iterator();
 
-			// Push child chain as next chain on stack
-			itStack[ ++sp ] = p->childPosNodes().iterator();
+				// Stack overflowed?
+				Assert(sp < MAX_STACK_DEPTH);
 
-			// Stack overflowed?
-			Assert(sp < MAX_STACK_DEPTH);
-
-			// Pop all completed chain
-			while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
-				--sp;
-			}
-			// Continue if unpopped chains
-		} while(sp >= 0);
+				// Pop all completed chain
+				while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
+					--sp;
+				}
+				// Continue if unpopped chains
+			} while(sp >= 0);
+		}
 
 
 		// Flip new spawns into area
@@ -593,6 +591,7 @@ namespace se_core {
 			// Spawned things doesn't have to be actors
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			//LogMsg(t->pos().y_);
+			LogMsg(t->name());
 
 			// Newly spawned things will change area on first flip.
 			// This will call Area::addThing, inserting it into

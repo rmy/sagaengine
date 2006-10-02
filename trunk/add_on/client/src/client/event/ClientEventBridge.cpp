@@ -56,7 +56,7 @@ namespace se_client {
 	::simObjectAddedEvent(MultiSimObject& owner, SimObject& value) {
 		Thing& thing = static_cast<Thing&>(value);
 		if(value.id() != ClientSchema::camera->id()) {
-			ClientSchema::clientListeners.castThingEnteredCameraAreaEvent(thing);
+			//ClientSchema::clientListeners.castThingEnteredCameraAreaEvent(thing);
 
 			if(thing.pos().hasArea() && thing.pos().area()->isActive()) {
 				ClientSchema::clientListeners.castThingSwitchedActiveAreaEvent(thing);
@@ -70,27 +70,32 @@ namespace se_client {
 
 	void ClientEventBridge
 	::simObjectRemovedEvent(MultiSimObject& owner, SimObject& value) {
+		/*
 		Thing& thing = static_cast<Thing&>(value);
 		if(value.id() != ClientSchema::camera->id()) {
 			// If yes, cast thing left area event
-			ClientSchema::clientListeners.castThingLeftCameraAreaEvent(thing);
+			//ClientSchema::clientListeners.castThingLeftCameraAreaEvent(thing);
 
 			if(!thing.nextPos().hasArea() || !thing.nextPos().area()->isActive()) {
 				ClientSchema::clientListeners.castThingLeftActiveZoneEvent(thing);
 			}
 		}
+		*/
 
 	}
 
 
 	void ClientEventBridge
 	::cameraEnteredAreaEvent(Camera& caster, Area& area) {
+		WasHere();
+		SimSchema::areaManager.setActive(&area, 2);
 		// Cast camera entered area event
-		SimSchema::areaManager.setActive(&area, 3);
 		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+			LogMsg(SimSchema::areaManager.active(i)->name());
 			SimSchema::areaManager.active(i)->reportingThings().setHandler(this);
 		}
+		WasHere();
 	}
 
 
@@ -106,6 +111,7 @@ namespace se_client {
 
 	void ClientEventBridge
 	::setCamera(Camera* newCamera) {
+		WasHere();
 		if(ClientSchema::camera == newCamera) return;
 		Camera* oldCamera = ClientSchema::camera;
 		ClientSchema::camera = newCamera;
@@ -115,21 +121,24 @@ namespace se_client {
 
 		if(newArea != oldArea) {
 			if(oldArea != 0) {
-				ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldArea);
+				cameraLeftAreaEvent(*oldCamera, *oldArea);
+				//ClientSchema::clientListeners.castCameraLeftAreaEvent(*oldArea);
 			}
 			if(newArea != 0) {
-				SimSchema::areaManager.setActive(newArea);
-				ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newArea);
+				//SimSchema::areaManager.setActive(newArea);
+				//ClientSchema::clientListeners.castCameraEnteredAreaEvent(*newArea);
+				cameraEnteredAreaEvent(*newCamera, *newArea);
 			}
 		}
 		if(oldCamera) {
-			if(oldArea) oldArea->reportingThings().setHandler(0);
+			//if(oldArea) oldArea->reportingThings().setHandler(0);
 			oldCamera->setCameraHandler(0);
 		}
 		if(newCamera) {
-			if(newArea) newArea->reportingThings().setHandler(this);
+			//if(newArea) newArea->reportingThings().setHandler(this);
 			newCamera->setCameraHandler(this);
 		}
+		WasHere();
 	}
 
 

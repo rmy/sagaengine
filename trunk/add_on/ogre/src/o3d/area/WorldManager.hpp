@@ -76,10 +76,12 @@ namespace se_ogre {
 		enum { MAX_AREAS = 3 * AREA_SIDE * AREA_SIDE * AREA_SIDE };
 		struct {
 			int id_;
+			se_core::Area* area_;
 			bool shouldKeep_;
+			bool isNew_;
 			Ogre::Vector3 offset_;
 			Ogre::SceneNode* node_;
-			ThingMOList::iterator_type firstThingMO;
+			ThingMOList::iterator_type firstThingMO_;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
 		bool isAreaGeomCentreAligned_;

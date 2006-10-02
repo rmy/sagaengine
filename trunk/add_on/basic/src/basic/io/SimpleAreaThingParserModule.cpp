@@ -84,7 +84,8 @@ namespace se_basic {
 				LogMsg("Set spawn points for: " << areas[i]->name());
 				areas[i]->setSpawnPoints(spawnPointCount, spawnPoints);
 			}
-			areas[i]->flip();
+			//LogMsg("Flip children for: " << areas[i]->name());
+			//areas[i]->flipChildren();
 		}
 		//LogMsg("Parsed things for: " << area->name());
 	}
@@ -146,7 +147,6 @@ namespace se_basic {
 
 		PosNode* siblings[areaCount];
 		for(int i = 0; i < areaCount; ++i) {
-			LogMsg(areas[i]->name());
 			PosNode* parent = (parents) ? parents[i] : 0;
 			Thing* thing = areas[i]->spawn(thingName.get(), vp, 0, parent);
 			if(isScaled) {
