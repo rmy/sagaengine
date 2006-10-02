@@ -70,7 +70,6 @@ namespace se_client {
 
 	void ClientEventBridge
 	::simObjectRemovedEvent(MultiSimObject& owner, SimObject& value) {
-		/*
 		Thing& thing = static_cast<Thing&>(value);
 		if(value.id() != ClientSchema::camera->id()) {
 			// If yes, cast thing left area event
@@ -80,8 +79,6 @@ namespace se_client {
 				ClientSchema::clientListeners.castThingLeftActiveZoneEvent(thing);
 			}
 		}
-		*/
-
 	}
 
 
