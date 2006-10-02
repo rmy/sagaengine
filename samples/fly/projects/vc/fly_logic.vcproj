@@ -126,6 +126,8 @@
 <File RelativePath="..\..\logic\src\logic\action\PlayMusic.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\RotateCamera.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\RotateCamera.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>

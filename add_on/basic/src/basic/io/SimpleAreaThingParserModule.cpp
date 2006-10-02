@@ -18,7 +18,7 @@ namespace se_basic {
 
 	void SimpleAreaThingParserModule
 	::parse(InputStream& in) {
-		short MAX_AREAS = 1024;
+		const short MAX_AREAS = 1024;
 		Area* areas[ MAX_AREAS];
 		int areaCount = 0;
 
@@ -145,7 +145,7 @@ namespace se_basic {
 			}
 		}
 
-		PosNode* siblings[areaCount];
+		PosNode** siblings = new PosNode*[areaCount];
 		for(int i = 0; i < areaCount; ++i) {
 			PosNode* parent = (parents) ? parents[i] : 0;
 			Thing* thing = areas[i]->spawn(thingName.get(), vp, 0, parent);
@@ -168,7 +168,7 @@ namespace se_basic {
 			//LogMsg(']');
 		}
 		Assert(code == '/');
-		
+		delete siblings;
 		//LogMsg(thing->name() << ": " << vp.toLog());
 	}
 
