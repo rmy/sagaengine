@@ -75,6 +75,15 @@ namespace se_ogre {
 				}
 				break;
 
+			case 'G': // static Geometry
+				{
+					String mesh;
+					in.readString(mesh);
+					info->movableObjectType_.set("StaticGeometry");
+					info->params_["mesh"] = mesh.get();
+				}
+				break;
+
 			case 'S': // Scale
 				info->scale_ = in.readFloat();
 				break;

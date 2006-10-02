@@ -34,6 +34,8 @@ namespace se_ogre {
 	::ThingMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory) 
 		: thing_(thing), factory_(factory), info_(info), hasAnimation_(false), isVisible_(false), currentScale_(1) {
 
+		parentNode_ = O3dSchema::sceneManager->getRootSceneNode();
+
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
 
@@ -92,7 +94,7 @@ namespace se_ogre {
 
 
 		// Set the new position
-		node_->setPosition(pos);
+		node_->setPosition(pos - parentNode_->getPosition());
 
 		// Set new orientation
 		node_->setOrientation(rot);
@@ -127,9 +129,26 @@ namespace se_ogre {
 
 		isVisible_ = state;
 		if(isVisible_)
-			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
+			parentNode_->addChild(node_);
 		else
-			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
+			parentNode_->removeChild(node_);
+	}
+
+
+	void ThingMO
+	::setParentNode(Ogre::SceneNode* sn) {
+		if(sn == parentNode_)
+			return;
+
+		if(isVisible_)
+			parentNode_->removeChild(node_);
+
+		node_->setPosition(node_->getPosition() + parentNode_->getPosition());
+		parentNode_ = sn;
+		node_->setPosition(node_->getPosition() - parentNode_->getPosition());
+
+		if(isVisible_)
+			parentNode_->addChild(node_);
 	}
 
 }

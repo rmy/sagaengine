@@ -591,7 +591,7 @@ namespace se_core {
 			// Spawned things doesn't have to be actors
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			//LogMsg(t->pos().y_);
-			LogMsg(t->name());
+			//LogMsg(t->name());
 
 			// Newly spawned things will change area on first flip.
 			// This will call Area::addThing, inserting it into
@@ -720,7 +720,7 @@ namespace se_core {
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
-		LogMsg("Spawned " << thingName << " in " << name());
+		//LogMsg("Spawned " << thingName << " in " << name());
 
 		// Return the newly created thing
 		return thing;

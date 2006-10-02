@@ -81,6 +81,7 @@ namespace se_ogre {
 			bool isNew_;
 			Ogre::Vector3 offset_;
 			Ogre::SceneNode* node_;
+			Ogre::StaticGeometry* staticGeometry_;
 			ThingMOList::iterator_type firstThingMO_;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
