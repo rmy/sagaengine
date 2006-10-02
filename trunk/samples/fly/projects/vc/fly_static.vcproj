@@ -169,7 +169,9 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\all.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhCirclingCamera.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhCirclingCamera.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\all.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.cpp"> </File>
@@ -239,6 +241,8 @@
 <File RelativePath="..\..\logic\src\logic\action\PlayMusic.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\RotateCamera.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\RotateCamera.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
@@ -342,6 +346,10 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\o3d_thing.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\use.hpp"> </File>

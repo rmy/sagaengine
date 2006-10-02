@@ -133,17 +133,13 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc">
-			<File
-				RelativePath="..\..\start\src\Application.cpp">
-			</File>
-			<File
-				RelativePath="..\..\start\src\Application.hpp">
-			</File>
-			<File
-				RelativePath="..\..\start\src\Start.cpp">
-			</File>
+			<File RelativePath="..\..\start\src\Application.cpp"> </File>
+<File RelativePath="..\..\start\src\Application.hpp"> </File>
+<File RelativePath="..\..\start\src\Start.cpp"> </File>
+
 		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+
