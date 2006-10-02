@@ -53,12 +53,12 @@ namespace se_ogre {
 	void WorldManager
 	::clearWorld() {
 		for(int i = 0; i < areaCount_; ++i) {
-			ThingMOList::iterator_type it = areas_[i].firstThingMO;
+			ThingMOList::iterator_type it = areas_[i].firstThingMO_;
 			while(it != ThingMOList::NULL_NODE) {
 				ThingMO* te = O3dSchema::thingMOList.next(it);
 				O3dSchema::thingMOManager.release(te);
 			}
-			O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO);
+			O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO_);
 		}
 	}
 
@@ -98,7 +98,7 @@ namespace se_ogre {
 			O3dSchema::sceneManager->setWorldGeometry(Ogre::String(areaType));
 		}
 		catch(...) {
-			LogMsg("Couldn't load geometry for area");
+			LogMsg("Couldn't load geometry for area: " << area.name());
 
 			for(short relZ = -AREA_RANGE; relZ <= AREA_RANGE; ++relZ) {
 				for(short relX = -AREA_RANGE; relX <= AREA_RANGE; ++relX) {
@@ -124,8 +124,10 @@ namespace se_ogre {
 						entity->setCastShadows(false);
 
 						index = areaCount_++;
+						areas_[ index ].area_ = a;
 						areas_[ index ].shouldKeep_ = true;
-						areas_[ index ].firstThingMO = ThingMOList::NULL_NODE;
+						areas_[ index ].isNew_ = true;
+						areas_[ index ].firstThingMO_ = ThingMOList::NULL_NODE;
 						areas_[ index ].id_ = a->id();
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
@@ -135,17 +137,6 @@ namespace se_ogre {
 
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
 
-						// Add things
-						se_core::SimObjectIterator nit(a->allThings());
-						while(nit.hasNext()) {
-							Thing& thing = nit.nextThing();
-							if(!hasMesh(thing)) {
-								continue;
-							}
-
-							ThingMO* te = O3dSchema::thingMOManager.create(thing);
-							O3dSchema::thingMOList.add(*te, areas_[ index ].firstThingMO);
-						}
 					}
 					catch(...) {
 						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
@@ -161,12 +152,12 @@ namespace se_ogre {
 				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
 
 				// Remove things
-				ThingMOList::iterator_type it = areas_[i].firstThingMO;
+				ThingMOList::iterator_type it = areas_[i].firstThingMO_;
 				while(it != ThingMOList::NULL_NODE) {
 					ThingMO* te = O3dSchema::thingMOList.next(it);
 					O3dSchema::thingMOManager.release(te);
 				}
-				O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO);
+				O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO_);
 
 				// Move last area in array to here
 				areas_[i] = areas_[ --areaCount_];
@@ -174,6 +165,30 @@ namespace se_ogre {
 				--i;
 			}
 		}
+
+
+		// Add area things in new areas
+		for(int i = 0; i < areaCount_; ++i) {
+			if(areas_[i].isNew_) {
+				Area* a = areas_[i].area_;
+				LogMsg(a->name());
+				// Add things
+				se_core::SimObjectIterator nit(a->reportingThings());
+				while(nit.hasNext()) {
+					WasHere();
+					Thing& thing = nit.nextThing();
+					if(!hasMesh(thing)) {
+						continue;
+					}
+
+					ThingMO* te = O3dSchema::thingMOManager.create(thing);
+					O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
+				}
+
+				areas_[i].isNew_ = false;
+			}
+		}
+
 	}
 
 
@@ -204,8 +219,9 @@ namespace se_ogre {
 
 		// Add thing
 		ThingMO* te = O3dSchema::thingMOManager.create(thing);
-		O3dSchema::thingMOList.add(*te, areas_[index].firstThingMO);
+		O3dSchema::thingMOList.add(*te, areas_[index].firstThingMO_);
 	}
+
 
 	void WorldManager
 	::thingLeftActiveZoneEvent(se_core::Thing& thing) {
@@ -218,11 +234,11 @@ namespace se_ogre {
 		int index = findArea(thing.pos().area()->id());
 		if(index < 0) return;
 
-		ThingMOList::iterator_type it = areas_[index].firstThingMO;
+		ThingMOList::iterator_type it = areas_[index].firstThingMO_;
 		while(it != ThingMOList::NULL_NODE) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			if(te->hasThing(thing)) {
-				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO);
+				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO_);
 				O3dSchema::thingMOManager.release(te);
 				break;
 			}
@@ -244,14 +260,14 @@ namespace se_ogre {
 		if(thing.nextPos().hasArea())
 			nextIndex = findArea(thing.nextPos().area()->id());
 
-		ThingMOList::iterator_type it = areas_[index].firstThingMO;
+		ThingMOList::iterator_type it = areas_[index].firstThingMO_;
 		while(it != ThingMOList::NULL_NODE) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			if(te->hasThing(thing)) {
-				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO);
+				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO_);
 				if(nextIndex >= 0) {
 					// Add to new area if it is visible
-					O3dSchema::thingMOList.add(*te, areas_[nextIndex].firstThingMO);
+					O3dSchema::thingMOList.add(*te, areas_[nextIndex].firstThingMO_);
 				}
 				else {
 					// ... or destroy
@@ -311,7 +327,7 @@ namespace se_ogre {
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
 		for(int i = 0; i < areaCount_; ++i) {
-			ThingMOList::iterator_type it = areas_[i].firstThingMO;
+			ThingMOList::iterator_type it = areas_[i].firstThingMO_;
 			while(it != ThingMOList::NULL_NODE) {
 				ThingMO* te = O3dSchema::thingMOList.next(it);
 				te->move(renderClock, stepDelta, timeSinceLastFrame);
