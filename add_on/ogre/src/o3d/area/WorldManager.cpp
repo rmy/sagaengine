@@ -131,12 +131,18 @@ namespace se_ogre {
 						areas_[ index ].id_ = a->id();
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
+						if(O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
+							areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
+						}
+						else {
+							areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->createStaticGeometry(a->name());
+						}
+
 						getAreaOffset(*a, areas_[ index ].offset_);
 						areas_[ index ].node_->attachObject(entity);
 						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
-
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
-
+						areas_[ index ].node_->_updateBounds();
 					}
 					catch(...) {
 						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
@@ -145,47 +151,53 @@ namespace se_ogre {
 			}
 		}
 
-		// Throw away areas that shouldn't be kept
-		for(int i = 0; i < areaCount_; ++i) {
-			if(!areas_[i].shouldKeep_) {
-				// Remove area from scene graph
-				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
-
-				// Remove things
-				ThingMOList::iterator_type it = areas_[i].firstThingMO_;
-				while(it != ThingMOList::NULL_NODE) {
-					ThingMO* te = O3dSchema::thingMOList.next(it);
-					O3dSchema::thingMOManager.release(te);
-				}
-				O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO_);
-
-				// Move last area in array to here
-				areas_[i] = areas_[ --areaCount_];
-				// Do this index again (as it now contains a new area)
-				--i;
-			}
-		}
-
-
 		// Add area things in new areas
 		for(int i = 0; i < areaCount_; ++i) {
 			if(areas_[i].isNew_) {
 				Area* a = areas_[i].area_;
-				LogMsg(a->name());
+
 				// Add things
 				se_core::SimObjectIterator nit(a->reportingThings());
 				while(nit.hasNext()) {
-					WasHere();
 					Thing& thing = nit.nextThing();
 					if(!hasMesh(thing)) {
 						continue;
 					}
 
 					ThingMO* te = O3dSchema::thingMOManager.create(thing);
+					te->setParentNode(areas_[ i ].node_);
 					O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
 				}
 
+				areas_[i].staticGeometry_->build();
+				areas_[i].node_->_updateBounds();
 				areas_[i].isNew_ = false;
+			}
+		}
+
+
+		// Throw away areas that shouldn't be kept
+		for(int i = 0; i < areaCount_; ++i) {
+			if(!areas_[i].shouldKeep_) {
+				// Destroy static geometry
+				areas_[ i].staticGeometry_->destroy();
+
+				// Remove things
+				ThingMOList::iterator_type it = areas_[i].firstThingMO_;
+				while(it != ThingMOList::NULL_NODE) {
+					ThingMO* te = O3dSchema::thingMOList.next(it);
+					//LogMsg(te->name());
+					O3dSchema::thingMOManager.release(te);
+				}
+				O3dSchema::thingMOList.removeChain(areas_[i].firstThingMO_);
+
+				// Remove area from scene graph
+				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
+
+				// Move last area in array to here
+				areas_[i] = areas_[ --areaCount_];
+				// Do this index again (as it now contains a new area)
+				--i;
 			}
 		}
 
@@ -219,6 +231,7 @@ namespace se_ogre {
 
 		// Add thing
 		ThingMO* te = O3dSchema::thingMOManager.create(thing);
+		te->setParentNode(areas_[ index ].node_);
 		O3dSchema::thingMOList.add(*te, areas_[index].firstThingMO_);
 	}
 
@@ -267,6 +280,7 @@ namespace se_ogre {
 				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO_);
 				if(nextIndex >= 0) {
 					// Add to new area if it is visible
+					te->setParentNode(areas_[ nextIndex ].node_);
 					O3dSchema::thingMOList.add(*te, areas_[nextIndex].firstThingMO_);
 				}
 				else {

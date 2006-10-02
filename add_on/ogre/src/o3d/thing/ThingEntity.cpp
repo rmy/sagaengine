@@ -40,7 +40,9 @@ namespace se_ogre {
 
 		// Create a unique entity name
 		char name[128];
-		sprintf(name, "%d-%s", thing_.id(), thing_.name());
+		static int pool = 1000;
+		//sprintf(name, "%d-%s", thing_.id(), thing_.name());
+		sprintf(name, "%d-%s", ++pool, thing_.name());
 
 		// Create entity
 		Ogre::MovableObject* mo = O3dSchema::sceneManager->createMovableObject(name, Ogre::EntityFactory::FACTORY_TYPE_NAME, &info_.params_);
@@ -86,9 +88,9 @@ namespace se_ogre {
 		///////
 		Ogre::Vector3 nextPos
 			(
-			 CoorT::toFloat(thing_.nextPos().localCoor().x_),
-			 CoorT::toFloat(thing_.nextPos().localCoor().y_),
-			 CoorT::toFloat(thing_.nextPos().localCoor().z_)
+			 CoorT::toFloat(thing_.nextPos().worldCoor().x_),
+			 CoorT::toFloat(thing_.nextPos().worldCoor().y_),
+			 CoorT::toFloat(thing_.nextPos().worldCoor().z_)
 			 );
 
 		Ogre::Real scale = info_.scale_;

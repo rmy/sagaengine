@@ -89,7 +89,7 @@ namespace se_client {
 		// Cast camera entered area event
 		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			LogMsg(SimSchema::areaManager.active(i)->name());
+			//LogMsg(SimSchema::areaManager.active(i)->name());
 			SimSchema::areaManager.active(i)->reportingThings().setHandler(this);
 		}
 		WasHere();
