@@ -56,7 +56,10 @@ namespace se_ogre {
 		}
 
 	protected: // Helper methods
+		void compileAllStaticGeometry();
+		Ogre::StaticGeometry* compileStaticGeometry(se_core::Area* a);
 		bool hasMesh(se_core::Thing& thing);
+		bool hasStaticGeometry(se_core::Thing& thing);
 		void updateStats(void);
 		int findArea(int id);
 		void getAreaOffset(se_core::Area& area, Ogre::Vector3& dest);

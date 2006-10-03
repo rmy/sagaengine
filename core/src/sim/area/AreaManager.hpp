@@ -34,7 +34,7 @@ namespace se_core {
 		bool hasArea(const char* name);
 		Area* area(const char* name);
 		int areasByFactory(const char* name, Area** dest, int maxCount);
-		Area* area(int id);
+		Area* areaById(int id);
 		int activeCount() { return activeCount_; }
 		Area* active(int index);
 		void resetThings();
@@ -44,10 +44,11 @@ namespace se_core {
 		void setActive(Area* area);
 		void setActive(Area* area, int pages);
 		void setInactive(Area* area);
+		int areaCount() { return areaCount_; }
+		Area* area(int index) { return areas_[index]; }
 
 		void addFactory(const AreaFactory* factory);
 		Area* createArea(const char* areaName, const char* factoryName, int pageX = -1, int pageY = -1, int pageZ = -1);
-
 		void integrity();
 
 	private:

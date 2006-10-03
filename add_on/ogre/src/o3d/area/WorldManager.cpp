@@ -28,6 +28,7 @@ rune@skalden.com
 #include "../event/RenderEventListeners.hpp"
 #include "../schema/all.hpp"
 #include "../thing/ThingMO.hpp"
+#include "../thing/ThingMOInfo.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../thing/ThingMOManager.hpp"
 #include <cstring>
@@ -63,16 +64,71 @@ namespace se_ogre {
 	}
 
 
-	/*
 	void WorldManager
-	::compileStaticGeometry() {
-		Area* a;
-
-		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(a->name());
-		sg->build();
-		
+	::compileAllStaticGeometry() {
+		int c = SimSchema::areaManager.areaCount();
+		for(int i = 0; i < c; ++i) {
+			Area* a = SimSchema::areaManager.area(i);
+			compileStaticGeometry(a);
+		}
 	}
-	*/
+
+	Ogre::StaticGeometry* WorldManager
+	::compileStaticGeometry(Area* a) {
+		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(a->name());
+
+		se_core::SimObjectIterator nit(a->reportingThings());
+		while(nit.hasNext()) {
+			Thing& thing = nit.nextThing();
+			if(!hasStaticGeometry(thing)) {
+				continue;
+			}
+
+			// Create entity
+			const ThingMOInfo* info = O3dSchema::thingMOManager.info(thing.name());
+			Ogre::Entity* entity;
+			if(O3dSchema::sceneManager->hasEntity(thing.name())) {
+				entity = O3dSchema::sceneManager->getEntity(thing.name());
+			}
+			else {
+				Ogre::MovableObject* mo = O3dSchema::sceneManager->createMovableObject(thing.name(), Ogre::EntityFactory::FACTORY_TYPE_NAME, &info->params_);
+				entity = static_cast<Ogre::Entity*>(mo);
+			}
+
+
+			ViewPoint& nextPos = thing.nextPos().world_;
+			Ogre::Vector3 pos(
+				CoorT::toFloat(nextPos.coor_.x_),
+				CoorT::toFloat(nextPos.coor_.y_),
+				CoorT::toFloat(nextPos.coor_.z_)
+				);
+
+			Quat4 face(nextPos.face_);
+			Ogre::Quaternion rot(
+				QuatT::toFloat(face.w_),
+				QuatT::toFloat(face.x_),
+				QuatT::toFloat(face.y_),
+				QuatT::toFloat(face.z_)
+				);
+
+			Ogre::Real scale = info->scale_;
+			// If radius scales the model
+			if(info->doScaleByRadius_) {
+				// Interpolate between present radius and next radius
+				scale *= CoorT::toFloat(thing.nextPos().radius());
+			}
+
+			Ogre::Vector3 s(scale, scale, scale);
+			sg->addEntity(entity, pos, rot, s);
+		}
+
+		sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
+		sg->setRenderingDistance(1024);
+		sg->build();
+		sg->setVisible(false);
+
+		return sg;
+	}
 
 
 	int WorldManager
@@ -143,12 +199,12 @@ namespace se_ogre {
 						areas_[ index ].id_ = a->id();
 						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
-						if(O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
-							areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
+						if(!O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
+							compileAllStaticGeometry();
 						}
-						else {
-							areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->createStaticGeometry(a->name());
-						}
+						areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
+						areas_[ index ].staticGeometry_->setVisible(true);
+
 
 						getAreaOffset(*a, areas_[ index ].offset_);
 						areas_[ index ].node_->attachObject(entity);
@@ -181,9 +237,6 @@ namespace se_ogre {
 					O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
 				}
 
-				areas_[i].staticGeometry_->setRegionDimensions(Ogre::Vector3(128, 128, 128));
-				areas_[i].staticGeometry_->setRenderingDistance(1024);
-				areas_[i].staticGeometry_->build();
 				areas_[i].node_->_updateBounds();
 				areas_[i].isNew_ = false;
 			}
@@ -194,7 +247,9 @@ namespace se_ogre {
 		for(int i = 0; i < areaCount_; ++i) {
 			if(!areas_[i].shouldKeep_) {
 				// Destroy static geometry
-				areas_[ i].staticGeometry_->destroy();
+				if(areas_[ i].staticGeometry_) {
+					areas_[ i].staticGeometry_->setVisible(false);
+				}
 
 				// Remove things
 				ThingMOList::iterator_type it = areas_[i].firstThingMO_;
@@ -309,11 +364,22 @@ namespace se_ogre {
 
 	bool WorldManager
 	::hasMesh(se_core::Thing& thing) {
+		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
+		if(index < 0)
+			return false;
+
+		return !O3dSchema::thingMOManager.info(index)->isStatic_;
+	}
+
+
+	bool WorldManager
+	::hasStaticGeometry(se_core::Thing& thing) {
 		// Find which mesh this thing should use
 		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
+		if(index < 0)
+			return false;
 
-		// Did find one?
-		return index >= 0;
+		return O3dSchema::thingMOManager.info(index)->isStatic_;
 	}
 
 
