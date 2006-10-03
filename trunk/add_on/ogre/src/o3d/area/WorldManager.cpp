@@ -76,7 +76,26 @@ namespace se_ogre {
 	Ogre::StaticGeometry* WorldManager
 	::compileStaticGeometry(Area* a) {
 		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(a->name());
+		Ogre::Entity* entity;
 
+		Ogre::Vector3 offset;
+		getAreaOffset(*a, offset);
+		sg->setOrigin(offset);
+
+		
+		// Area geometry
+		const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
+		Ogre::String type(areaType);
+		if(O3dSchema::sceneManager->hasEntity(type)) {
+			entity = O3dSchema::sceneManager->getEntity(type);
+		}
+		else {
+			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
+			entity->setNormaliseNormals(true);
+		}
+		sg->addEntity(entity, offset, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
+
+		// Add static things
 		se_core::SimObjectIterator nit(a->reportingThings());
 		while(nit.hasNext()) {
 			Thing& thing = nit.nextThing();
@@ -93,6 +112,7 @@ namespace se_ogre {
 			else {
 				Ogre::MovableObject* mo = O3dSchema::sceneManager->createMovableObject(thing.name(), Ogre::EntityFactory::FACTORY_TYPE_NAME, &info->params_);
 				entity = static_cast<Ogre::Entity*>(mo);
+				entity->setNormaliseNormals(true);
 			}
 
 
@@ -122,6 +142,7 @@ namespace se_ogre {
 			sg->addEntity(entity, pos, rot, s);
 		}
 
+		sg->setCastShadows(false);
 		sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
 		sg->setRenderingDistance(1024);
 		sg->build();
@@ -187,9 +208,6 @@ namespace se_ogre {
 						static int pool = 0;
 						static char buffer[128];
 						sprintf(buffer, "%s.%d", a->name(), pool++);
-						Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(buffer, type + ".mesh");
-						entity->setNormaliseNormals(true);
-						entity->setCastShadows(false);
 
 						index = areaCount_++;
 						areas_[ index ].area_ = a;
@@ -197,7 +215,6 @@ namespace se_ogre {
 						areas_[ index ].isNew_ = true;
 						areas_[ index ].firstThingMO_ = ThingMOList::NULL_NODE;
 						areas_[ index ].id_ = a->id();
-						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 
 						if(!O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
 							compileAllStaticGeometry();
@@ -205,12 +222,23 @@ namespace se_ogre {
 						areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
 						areas_[ index ].staticGeometry_->setVisible(true);
 
-
 						getAreaOffset(*a, areas_[ index ].offset_);
-						areas_[ index ].node_->attachObject(entity);
+						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
+						/*
+						if(O3dSchema::sceneManager->hasEntity(type)) {
+							Ogre::Entity* entity = O3dSchema::sceneManager->getEntity(type);
+							areas_[ index ].node_->attachObject(entity);
+						}
+						*/
+
 						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
 						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
-						areas_[ index ].node_->_updateBounds();
+
+
+						/*
+						Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(buffer, type + ".mesh");
+						*/
+						//areas_[ index ].node_->_updateBounds();
 					}
 					catch(...) {
 						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
