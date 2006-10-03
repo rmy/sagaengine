@@ -115,7 +115,7 @@ namespace se_core {
 
 
 	Area* AreaManager
-	::area(int id) {
+	::areaById(int id) {
 		for(int i = 0; i < areaCount_; ++i) {
 			if(areas_[ i ]->id() == id) {
 				return areas_[ i ];

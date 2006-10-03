@@ -69,13 +69,23 @@ namespace se_ogre {
 		Ogre::SceneManager* sm = O3dSchema::sceneManager;
 		staticGeometry_ = sm->getStaticGeometry(staticName);
 
+		se_core::ViewPoint& nextPos = thing_.nextPos().world_;
+		Quat4 face(nextPos.face_);
+
 		///////
-		Ogre::Vector3 nextPos
-			(
-			 CoorT::toFloat(thing_.nextPos().worldCoor().x_),
-			 CoorT::toFloat(thing_.nextPos().worldCoor().y_),
-			 CoorT::toFloat(thing_.nextPos().worldCoor().z_)
-			 );
+		Ogre::Vector3 pos(
+			CoorT::toFloat(nextPos.coor_.x_),
+			CoorT::toFloat(nextPos.coor_.y_),
+			CoorT::toFloat(nextPos.coor_.z_)
+			);
+
+		Ogre::Quaternion rot(
+			QuatT::toFloat(face.w_),
+			QuatT::toFloat(face.x_),
+			QuatT::toFloat(face.y_),
+			QuatT::toFloat(face.z_)
+			);
+
 
 		Ogre::Real scale = info_.scale_;
 		// If radius scales the model
@@ -94,7 +104,7 @@ namespace se_ogre {
 		}
 
 		Ogre::Vector3 s(scale, scale, scale);
-		staticGeometry_->addEntity(entity_, nextPos, Ogre::Quaternion::IDENTITY, s);
+		staticGeometry_->addEntity(entity_, pos, rot, s);
 	}
 
 }

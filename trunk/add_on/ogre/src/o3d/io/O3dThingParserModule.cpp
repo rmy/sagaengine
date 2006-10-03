@@ -81,6 +81,7 @@ namespace se_ogre {
 					in.readString(mesh);
 					info->movableObjectType_.set("StaticGeometry");
 					info->params_["mesh"] = mesh.get();
+					info->isStatic_ = true;
 				}
 				break;
 

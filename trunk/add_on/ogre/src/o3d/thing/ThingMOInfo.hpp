@@ -47,6 +47,7 @@ namespace se_ogre {
 		float popOutSq_;
 
 		O3dAnimationSet* animationChannels_;
+		bool isStatic_;
 
 		void setAnimationChannels(int count);
 		O3dAnimation* animation(int channel, int id) const;
