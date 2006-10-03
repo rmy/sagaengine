@@ -63,6 +63,18 @@ namespace se_ogre {
 	}
 
 
+	/*
+	void WorldManager
+	::compileStaticGeometry() {
+		Area* a;
+
+		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(a->name());
+		sg->build();
+		
+	}
+	*/
+
+
 	int WorldManager
 	::findArea(int id) {
 		for(int i = 0; i < areaCount_; ++i) {
@@ -169,6 +181,8 @@ namespace se_ogre {
 					O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
 				}
 
+				areas_[i].staticGeometry_->setRegionDimensions(Ogre::Vector3(128, 128, 128));
+				areas_[i].staticGeometry_->setRenderingDistance(1024);
 				areas_[i].staticGeometry_->build();
 				areas_[i].node_->_updateBounds();
 				areas_[i].isNew_ = false;
