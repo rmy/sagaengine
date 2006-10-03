@@ -76,7 +76,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="%s"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;%s"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_1;%s"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
