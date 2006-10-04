@@ -14,6 +14,10 @@ message( "client add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/src
 
+message( "basic add-on included" )
+INCLUDEPATH += $${SAGAENGINE}/add_on/basic/include
+INCLUDEPATH += $${SAGAENGINE}/add_on/basic/src
+
 message( "angelscript add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/src
