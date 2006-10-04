@@ -35,6 +35,7 @@ namespace se_ogre {
 		void chooseSceneManager(const char* sceneManager);
 		void createCamera(float near, float far, float fovy);
 		void createViewports(void);
+		void readLight(se_core::InputStream& in);
 	};
 }
 
