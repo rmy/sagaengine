@@ -19,12 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
+#ifndef engine_react_CoNone_hpp
+#define engine_react_CoNone_hpp
 
-#include "DefaultTC.hpp"
-#include "CoNone.hpp"
 #include "ThingCollide.hpp"
-#include "sim_react.hpp"
+
+namespace se_core {
+	class _SeCoreExport CoNone : public ThingCollide {
+	public:
+		CoNone();
+		bool collide(Actor& pusher
+					 , Thing& target) const;
+
+	private:
+	};
+
+	extern _SeCoreExport const CoNone coNone;
+}
 
 #endif

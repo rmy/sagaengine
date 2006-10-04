@@ -19,12 +19,24 @@ rune@skalden.com
 */
 
 
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
+#include "LogicPre.hpp"
+#include "Sprint.hpp"
+#include "../schema/LogicSchema.hpp"
 
-#include "DefaultTC.hpp"
-#include "CoNone.hpp"
-#include "ThingCollide.hpp"
-#include "sim_react.hpp"
+using namespace se_core;
 
-#endif
+
+namespace logic {
+
+	void Sprint
+	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+		Vector3 f(0, 0, -0.75 * COOR_RES);
+		f.rotate(performer.pos().localFace());
+		performer.nextMove().clearForces();
+		performer.nextMove().addForce(f);
+	}
+
+
+	const Sprint actionSprint;
+}
+

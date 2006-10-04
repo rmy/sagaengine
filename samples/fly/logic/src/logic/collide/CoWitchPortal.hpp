@@ -19,12 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
+#ifndef logic_CoWitchPortal_hpp
+#define logic_CoWitchPortal_hpp
 
-#include "DefaultTC.hpp"
-#include "CoNone.hpp"
-#include "ThingCollide.hpp"
-#include "sim_react.hpp"
+#include "sim/react/ThingCollide.hpp"
+
+namespace logic {
+	class _FlyLogicExport CoWitchPortal  : public se_core::ThingCollide {
+	public:
+		CoWitchPortal();
+		bool collide(se_core::Actor& pusher
+					 , se_core::Thing& target) const;
+
+	private:
+	};
+
+	extern _FlyLogicExport const CoWitchPortal coWitchPortal;
+}
 
 #endif

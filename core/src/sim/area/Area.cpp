@@ -521,7 +521,7 @@ namespace se_core {
 				// Test for collision
 				if(_testActor2ThingCollision(*a, *things[ inner ])) {
 					a->resetFutureCoor();
-					//LogMsg("Collision: " << a->name() << ", " << things[ inner ]->name());
+					LogMsg("Collision: " << a->name() << ", " << things[ inner ]->name());
 					break;
 				}
 			}

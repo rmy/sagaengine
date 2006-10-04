@@ -256,6 +256,7 @@ namespace se_core {
 	void SimEngine
 	::setGameOver(bool state) {
 		LogMsg(__FUNCTION__ << ": " << state);
+		//static int c = 0; if(++c > 10) LogFatal("!");
 		isGameOver_ = state;
 	}
 
