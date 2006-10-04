@@ -35,6 +35,7 @@ namespace ui {
 
 	void Sunlight
 	::init() {
+		/*
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.2));
 		light_ = O3dSchema::sceneManager->createLight("MainLight");
 		light_->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -42,6 +43,7 @@ namespace ui {
 		//light_->setSpecularColour(Ogre::ColourValue(0.1, 0.1, 0.1));
 		light_->setCastShadows(true);
 		light_->setDirection(1, -1, 1);
+		*/
 	}
 
 }
