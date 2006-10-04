@@ -66,6 +66,10 @@ namespace se_ogre {
 					break;
 				}
 
+			case 'L': // Light
+				readLight(in);
+				break;
+
 			case 'D': 
 				try { // Dome
 					String material;
@@ -156,6 +160,60 @@ namespace se_ogre {
 
 
 
+	void O3dConfigParserModule
+	::readLight(InputStream& in) {
+		int code;
+		code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			case 'A': 
+				{ // Ambient
+					float r = in.readFloat();
+					float g = in.readFloat();
+					float b = in.readFloat();
+					O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(r, g, b));
+				}
+				break;
+
+			case 'D':
+				{ // Directional light
+					Ogre::Light* light = O3dSchema::sceneManager->createLight("MainLight");
+					light->setType(Ogre::Light::LT_DIRECTIONAL);
+					light->setCastShadows(true);
+
+					while((code = in.readInfoCode()) != '/') {
+						switch(code) {
+						case 'V': // Direction vector
+							{
+								float x = in.readFloat();
+								float y = in.readFloat();
+								float z = in.readFloat();
+								light->setDirection(x, y, z);
+							}
+							break;
+
+						case 'C': // Colour
+							{
+								float r = in.readFloat();
+								float g = in.readFloat();
+								float b = in.readFloat();
+								light->setDiffuseColour(Ogre::ColourValue(r, g, b));
+							}
+							break;
+
+						default:
+							LogFatal("Unknown directional lighting code: " << (char)(code));
+						}
+					}
+				}
+				break;
+			default:
+				LogFatal("Unknown lighting code: " << (char)(code));
+			}
+		}
+	}
 
 }
 
