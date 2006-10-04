@@ -79,7 +79,7 @@ namespace se_ogre {
 					
 					Assert(O3dSchema::sceneManager 
 						   && "SceneManager must be created before loading ogre config file");
-					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling);
+					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling, 512);
 					LogMsg("Created skydome with material " << material);
 				}
 				catch(...) {
