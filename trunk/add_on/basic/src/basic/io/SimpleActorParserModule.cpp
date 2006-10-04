@@ -39,7 +39,7 @@ namespace se_basic {
 			LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
 		}
 		Assert(factory && "Forgot to create factory");
-		String collide("default"); // Default collide
+		String collide("none"); // Default collide
 
 		enum { MAX_SPAWN_POINTS = 20 };
 		int spawnPointCount = 0;

@@ -19,12 +19,27 @@ rune@skalden.com
 */
 
 
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
+#include "LogicPre.hpp"
+#include "CoWitchPortal.hpp"
+#include "../action/Sprint.hpp"
 
-#include "DefaultTC.hpp"
-#include "CoNone.hpp"
-#include "ThingCollide.hpp"
-#include "sim_react.hpp"
+using namespace se_core;
 
-#endif
+namespace logic {
+
+	CoWitchPortal
+	::CoWitchPortal() : ThingCollide("WitchPortal") {
+	}
+
+
+	bool CoWitchPortal
+	::collide(se_core::Actor& pusher
+			  , se_core::Thing& target) const {
+		pusher.planAction(CHANNEL_EXTRA, actionSprint);
+		WasHere();
+		return false;
+	}
+
+
+	const CoWitchPortal coWitchPortal;
+}

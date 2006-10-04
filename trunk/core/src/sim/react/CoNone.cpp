@@ -19,12 +19,23 @@ rune@skalden.com
 */
 
 
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
-
-#include "DefaultTC.hpp"
 #include "CoNone.hpp"
-#include "ThingCollide.hpp"
-#include "sim_react.hpp"
+#include "../thing/Thing.hpp"
+#include "../thing/Actor.hpp"
+#include "../action/all.hpp"
 
-#endif
+
+
+namespace se_core {
+
+	CoNone
+	::CoNone() : ThingCollide("none") {
+	}
+
+	bool CoNone
+	::collide(Actor& pusher, Thing& target) const {
+		return false;
+	}
+
+	const CoNone coNone;
+}

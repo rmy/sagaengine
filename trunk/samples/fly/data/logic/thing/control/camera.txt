@@ -1,6 +1,6 @@
 XO02
 C control.camera
 P DanglingCamera
-C default
 X Camera
+C none
 Q
