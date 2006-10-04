@@ -5,4 +5,10 @@ S OctreeSceneManager
 C 0.05 10000 45
 # Dome (material) (curvature) (tiling)
 D skydome 10 2
+L {
+# Ambient (r) (g) (b)
+A 0.3 0.3 0.3
+# Directional Vector (x) (y) (z) diffuseColour (r) (g) (b)
+D V 1 -1 1 C 0.7 0.7 0.7 /
+}
 Q
