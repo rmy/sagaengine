@@ -76,7 +76,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="../../src;../../../add_on/platform_pc/src;../../include;../../../add_on/platform_pc/include;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_1;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_X;_SeCoreExport=__declspec(dllexport);_SePcExport=__declspec(dllexport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
@@ -254,7 +254,9 @@
 <File RelativePath="..\..\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\sim_physics.hpp"> </File>
-</Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\react\DefaultTC.cpp"> </File>
+</Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\react\CoNone.cpp"> </File>
+<File RelativePath="..\..\src\sim\react\CoNone.hpp"> </File>
+<File RelativePath="..\..\src\sim\react\DefaultTC.cpp"> </File>
 <File RelativePath="..\..\src\sim\react\DefaultTC.hpp"> </File>
 <File RelativePath="..\..\src\sim\react\ThingCollide.cpp"> </File>
 <File RelativePath="..\..\src\sim\react\ThingCollide.hpp"> </File>

@@ -81,7 +81,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_X;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="FALSE"
@@ -169,7 +169,9 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\all.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhCirclingCamera.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhCirclingCamera.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\PhTrackingCamera.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\physics\all.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\schema\BasicSchema.cpp"> </File>
@@ -365,6 +367,10 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\o3d_thing.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\use.hpp"> </File>
@@ -476,7 +482,9 @@
 <File RelativePath="..\..\..\..\core\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\sim_physics.hpp"> </File>
-</Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.cpp"> </File>
+</Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\react\CoNone.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CoNone.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\ThingCollide.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\ThingCollide.hpp"> </File>

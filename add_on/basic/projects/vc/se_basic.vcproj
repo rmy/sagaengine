@@ -76,7 +76,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="../../src;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_1;_SeBasicExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_X;_SeBasicExport=__declspec(dllexport);_SeClientExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"

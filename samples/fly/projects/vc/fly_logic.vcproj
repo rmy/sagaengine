@@ -76,7 +76,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="TRUE"
 				AdditionalIncludeDirectories="../../logic/src;;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../logic/include;../../logic/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_1;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeBasicExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyUiExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllexport);"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_X;_SeOgreExport=__declspec(dllimport);_SeClientExport=__declspec(dllimport);_SeBasicExport=__declspec(dllimport);_SeCoreExport=__declspec(dllimport);_FlyUiExport=__declspec(dllimport);_FlyLogicExport=__declspec(dllexport);"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
@@ -128,7 +128,11 @@
 <File RelativePath="..\..\logic\src\logic\action\PlayerFly.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\RotateCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\RotateCamera.hpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Sprint.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\action\Sprint.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\action\all.hpp"> </File>
+</Filter><Filter Name="collide" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\collide\CoWitchPortal.cpp"> </File>
+<File RelativePath="..\..\logic\src\logic\collide\CoWitchPortal.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhDanglingCamera.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\physics\PhFly.cpp"> </File>
