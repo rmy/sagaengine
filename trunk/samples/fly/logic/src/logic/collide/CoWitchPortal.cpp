@@ -36,7 +36,6 @@ namespace logic {
 	::collide(se_core::Actor& pusher
 			  , se_core::Thing& target) const {
 		pusher.planAction(CHANNEL_EXTRA, actionSprint);
-		WasHere();
 		return false;
 	}
 
