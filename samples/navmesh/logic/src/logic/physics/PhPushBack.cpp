@@ -79,6 +79,7 @@ namespace logic {
 			nextMove.velocity_.y_ = 0;
 		}
 
+		nextPos.updateWorldViewPoint();
 	}
 
 

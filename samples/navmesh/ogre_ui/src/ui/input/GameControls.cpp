@@ -63,6 +63,7 @@ namespace ui {
 			break;
 
 		case Ogre::KC_X:
+			ClientSchema::player->planAction(CHANNEL_EXTRA, actionShootAcid);
 			break;
 
 		case Ogre::KC_UP:

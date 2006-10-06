@@ -25,7 +25,8 @@ namespace logic {
 
 	void ShootAcid
 	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
-		spawn(when, performer);
+		if(parameter.actionStage() == 1)
+			spawn(when, performer);
 	}
 
 
@@ -33,9 +34,12 @@ namespace logic {
 	void ShootAcid
 	::spawn(long when, Actor& performer) const {
 		// Spawn the missile at spawn point 0
-		Actor* shot = reinterpret_cast<Actor*>(performer.spawn("missile.acid", 0, Pos::TSM_VOID));
-		if(!shot)
+		WasHere();
+		Actor* shot = reinterpret_cast<Actor*>(performer.spawn("missile.acid", 1, Pos::TSM_VOID));
+		if(!shot) {
+			WasHere();
 			return;
+		}
 
 		if(performer.isPlayer()) {
 			//TODO: play sound effect

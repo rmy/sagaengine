@@ -27,7 +27,6 @@ namespace logic {
 		// Entered new area?
 		Area* old = nextPos.area();
 		if(!nextPos.area()->isLegalCoor(nextPos.worldCoor())) {
-			//LogMsg("Out of bounds: "<< nextPos.area()->name() << ": " << nextPos.world_.toLog());
 			Area* a = nextPos.area()->neighbour(nextPos.worldCoor());
 			if(a) {
 				// Change area, keep world viewpoint
@@ -46,7 +45,9 @@ namespace logic {
 			// Cant destroy it before affect, so just leave area here
 			nextPos.resetArea();
 		}
-		//LogMsg(actor.name() << ": " <<  actor.pos().y_ << ", " << nextPos.y_);
+
+		nextPos.updateWorldViewPoint();
+		//LogMsg(actor.name() << ": " <<  actor.pos().worldCoor().y_ << ", " << nextPos.worldCoor().y_);
 	}
 
 

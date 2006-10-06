@@ -6,6 +6,6 @@
 // Forward declaration.
 class FBXFILESDK_NAMESPACE::KFbxNode;
 
-void SaveNavMesh(FBXFILESDK_NAMESPACE::KFbxNode* node);
+void SaveNavMesh(FBXFILESDK_NAMESPACE::KFbxNode* node, float size);
 
 #endif // #ifndef _DISPLAY_MESH_H
