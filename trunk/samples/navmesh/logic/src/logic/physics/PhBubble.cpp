@@ -61,6 +61,8 @@ namespace logic {
 			// Cant destroy it before affect, so just leave area here
 			nextPos.resetArea();
 		}
+
+		nextPos.updateWorldViewPoint();
 	}
 
 

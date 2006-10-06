@@ -700,6 +700,7 @@ namespace se_core {
 	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosNode* parent) {
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
 			// Tried to spawn on denied terrain type
+			LogMsg((int)(tsMask(terrainStyle(vp.coor_))));
 			return 0;
 		}
 
@@ -720,7 +721,7 @@ namespace se_core {
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
-		//LogMsg("Spawned " << thingName << " in " << name());
+		LogMsg("Spawned " << thingName << " in " << name());
 
 		// Return the newly created thing
 		return thing;

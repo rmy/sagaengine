@@ -2,5 +2,8 @@ OF01
 # Scenemanager (name)
 S DefaultSceneManager
 # Camera (near clip) (far clip) (degrees field of view)
-C 0.05 10000 45
+C 0.5 1000 45
+# Area geometry alignment (0 = 0,0, 1 = centre)
+A 1
+
 Q

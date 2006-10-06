@@ -470,9 +470,10 @@ namespace se_core {
 		Assert(sp && "Spawn point does not exist");
 		ViewPoint vp(*sp);
 
-		// Calculate world coor of spawn point
+		// Calculate area coor of spawn point
 		const PosNode* node = this;
 		vp.add(pos().world_);
+		vp.sub(position_.area()->pos().world_);
 
 		// Spawn it in area (with area as parent)
 		Thing* t = position_.area()->spawn(thingName, vp, deniedTsMask);

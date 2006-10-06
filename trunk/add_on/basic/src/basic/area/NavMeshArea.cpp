@@ -58,18 +58,13 @@ namespace se_basic {
 
 	short NavMeshArea
 	::terrainStyle(const Point3& coor, short index) const {
-		// Only one rule - don't walk outside the area.
 		coor_tile_t x = coor.xTile();
 		coor_tile_t y = coor.zTile();
 
-		//if(!isLegalCoor(x, y)) {
-		//	return TS_VOID;
-		//}
-
-		//Point2(coor.x_, coor.z_);
-		short tri = (index >= 0) ? index : navMesh_->find(Point2(coor.x_, coor.z_));
+		Point2 p(coor.x_, coor.z_);
+		short tri = (index >= 0) ? index : navMesh_->find(p);
 		//short tri = navMesh_->find(p);
-		//LogMsg(tri << ": " << coor.x_ << ", " << coor.z_);	
+		//LogMsg(tri << ": " << coor.x_ << ", " << coor.z_);
 
 		if(tri < 0) {
 			return TS_VOID;

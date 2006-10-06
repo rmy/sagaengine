@@ -1,7 +1,10 @@
 XO02
 P player.blue
 R 0.6
+# Camera
 E 0 T 0 5 5 R 0 35 0 /
+#
+E 1 T 0 1 0 R 0 0 0 /
 C default
 O
 P NavMesh

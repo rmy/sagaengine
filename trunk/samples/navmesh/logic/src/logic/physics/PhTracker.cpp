@@ -123,6 +123,8 @@ namespace logic {
 			nextPos.localCoor().y_ = gh;
 			nextMove.velocity_.y_ = 0;
 		}
+
+		nextPos.updateWorldViewPoint();
 	}
 
 

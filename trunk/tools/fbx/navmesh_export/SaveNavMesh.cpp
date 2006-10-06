@@ -29,6 +29,16 @@ struct Point2 {
 
 struct Point3 {
 	coor_t x_, y_, z_;
+
+	void reset() {
+		x_ = y_ = z_;
+	}
+
+	void add(Point3& p) {
+		x_ += p.x_;
+		y_ += p.z_;
+		z_ += p.z_;
+	}
 };
 
 
@@ -219,6 +229,57 @@ public:
 	}
 
 
+	void alignTile(float size) {
+		Point3 max, min;
+		if(controlPointCount_ < 1)
+			return;
+
+		min = max = controlPoints_[0];
+		for(int i = 1; i < controlPointCount_; ++i) {
+			if(min.x_ > controlPoints_[i].x_)
+				min.x_ = controlPoints_[i].x_;
+			if(min.z_ > controlPoints_[i].z_)
+				min.z_ = controlPoints_[i].z_;
+
+			if(max.x_ < controlPoints_[i].x_)
+				max.x_ = controlPoints_[i].x_;
+			if(max.z_ < controlPoints_[i].z_)
+				max.z_ = controlPoints_[i].z_;
+		}
+
+		Point2 center;
+		center.x_ = (min.x_ + max.x_) / 2;
+		center.y_ = 0;
+		center.z_ = (min.z_ + max.z_) / 2;
+
+		Point3 align;
+		align.reset();
+		//align.x_ = align.z_ = size / 2;
+		while(align.x_ + center.x_ > size) {
+			align.x_ -= size;
+		}
+		while(align.z_ + center.z_ > size) {
+			align.z_ -= size;
+		}
+
+		while(align.x_ + center.x_ < 0) {
+			align.x_ += size;
+		}
+		while(align.z_ + center.z_ < 0) {
+			align.z_ += size;
+		}
+
+		for(int i = 0; i < controlPointCount_; ++i) {
+			controlPoints_[i].add( align );
+		}
+
+		DisplayDouble("        Center.x_           ", center.x_ + align.x_);
+		DisplayDouble("        Center.z_           ", center.z_ + align.z_);
+
+	}
+
+
+
 protected:
 	short controlPointCount_;
 	short triangleCount_;
@@ -249,6 +310,7 @@ public:
 		controlPoints_[index].z_ = CoorT::fromFloat(v[2]);
 		DisplayInt("CPI: ", index);
 		DisplayDouble("   Control point.x :", controlPoints_[index].x_);
+		DisplayDouble("   Control point.y :", controlPoints_[index].y_);
 		DisplayDouble("   Control point.z :", controlPoints_[index].z_);
 	}
 
@@ -277,7 +339,7 @@ public:
 	}
 
 
-	void save(const char* nodeName) {
+	void save(const char* nodeName, float size) {
 		const char* name = nodeName;
 		// Strip away "Model::" prefix from node name
 		for(int colonCount = 0; *name != 0 && colonCount < 2; ++name) {
@@ -294,11 +356,13 @@ public:
 		float w = 0, h = 0;
 		// Calc extents
 		for(int i = 0; i < controlPointCount_; ++i) {
+			/*
 			controlPoints_[ i ].x_ += .5;
 			controlPoints_[ i ].x_ *= 16;
 			controlPoints_[ i ].y_ *= 16;
 			controlPoints_[ i ].z_ += .5;
 			controlPoints_[ i ].z_ *= 16;
+			*/
 
 			if(w < controlPoints_[ i ].x_) {
 				w = controlPoints_[ i ].x_;
@@ -321,15 +385,21 @@ public:
 		SaveString(name, out);
 
 		DisplayInt("        Control Points     ", controlPointCount_);
-		DisplayInt("        Control Point size ", sizeof(Point3));
+		//DisplayInt("        Control Point size ", sizeof(Point3));
 		DisplayInt("        Triangles          ", triangleCount_);
-		DisplayInt("        Triangle size      ", sizeof(Triangle));
+		//DisplayInt("        Triangle size      ", sizeof(Triangle));
 
 
 		DisplayDouble("        Width              ", w);
 		DisplayDouble("        Height             ", h);
-		SaveShort(static_cast<short>(w + .99999999999), out);
-		SaveShort(static_cast<short>(h + .99999999999), out);
+		if(size == 0) {
+			SaveShort(static_cast<short>(w + .99999999999), out);
+			SaveShort(static_cast<short>(h + .99999999999), out);
+		}
+		else {
+			SaveShort(static_cast<short>(size), out);
+			SaveShort(static_cast<short>(size), out);
+		}
 
 		short dataSize = 2 + 2
 			+ sizeof(Point3) * controlPointCount_
@@ -376,7 +446,7 @@ bool hasControlPoint(KFbxMesh* mesh, int tri, int cp) {
 }
 
 
-void SaveNavMesh(KFbxNode* node) {
+void SaveNavMesh(KFbxNode* node, float size) {
 	KFbxMesh* mesh = (KFbxMesh*) node->GetNodeAttribute ();
 
 	DisplayString("Mesh Name: ", node->GetName());
@@ -394,6 +464,8 @@ void SaveNavMesh(KFbxNode* node) {
 	for(int i = 0; i < controlPointsCount; ++i) {
 		navMesh.setControlPoint(i, controlPoints[i]);
 	}
+	if(size != 0)
+		navMesh.alignTile(size);
 	for(int i = 0; i < polygonCount; ++i) {
 		int polygonSize = mesh->GetPolygonSize(i);
 		// assert(polygonSize == 3);
@@ -540,7 +612,7 @@ void SaveNavMesh(KFbxNode* node) {
 	}
 
 	// Save compressed path
-	navMesh.save(node->GetName());
+	navMesh.save(node->GetName(), size);
 
 }
 

@@ -1,8 +1,8 @@
 XB01
 N 3.3
 
-E 0 T 5.5 5 2.5 R 180 0 0 /
-E 1 T 12.5 10 2.5 R 180 0 0 /
+E 0 T 8 0 8 R 180 0 0 /
+E 1 T 8 0 8 R 180 0 0 /
 
 #A enemy.acid_spitter T 12.50 15 57.50 R 0 0 0 /
 #A enemy.seeker T 22.50 20 157.50 R 0 0 0 /
