@@ -3,7 +3,7 @@ cd ./deploy
 svn co https://svn.sourceforge.net/svnroot/sagaengine/trunk sagaengine
 cd sagaengine
 rm -Rf test
-rm -Rf samples/navmesh
+#rm -Rf samples/navmesh
 rm -Rf tools/deploy
 rm -Rf `find -name ".svn"`
 cd core
