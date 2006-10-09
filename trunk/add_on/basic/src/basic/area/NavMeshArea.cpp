@@ -8,6 +8,7 @@ namespace se_basic {
 	NavMeshArea
 	::NavMeshArea(String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
 			: Area (name, w, h), navMesh_(navMesh) {
+		LogMsg("Creating area " << name << " with size " << w << ", " << h);
 	}
 
 
