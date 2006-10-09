@@ -36,7 +36,7 @@ struct Point3 {
 
 	void add(Point3& p) {
 		x_ += p.x_;
-		y_ += p.z_;
+		y_ += p.y_;
 		z_ += p.z_;
 	}
 };
@@ -247,18 +247,18 @@ public:
 				max.z_ = controlPoints_[i].z_;
 		}
 
-		Point2 center;
+		Point3 center;
 		center.x_ = (min.x_ + max.x_) / 2;
 		center.y_ = 0;
 		center.z_ = (min.z_ + max.z_) / 2;
 
 		Point3 align;
-		align.reset();
-		//align.x_ = align.z_ = size / 2;
-		while(align.x_ + center.x_ > size) {
+		align.y_ = 0;
+		align.x_ = align.z_ = size / 2;
+		while(align.x_ + center.x_ >= size) {
 			align.x_ -= size;
 		}
-		while(align.z_ + center.z_ > size) {
+		while(align.z_ + center.z_ >= size) {
 			align.z_ -= size;
 		}
 
