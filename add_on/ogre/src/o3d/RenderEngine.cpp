@@ -206,9 +206,16 @@ namespace se_ogre {
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by
 			// passing 'true'
-			O3dSchema::root->saveConfig();
-			O3dSchema::window = O3dSchema::root->initialise(true);
 			LogMsg("Got requested config");
+			try {
+				O3dSchema::root->saveConfig();
+				O3dSchema::window = O3dSchema::root->initialise(true);
+				LogMsg("Saved config");
+			}
+			catch(...) {
+				// Probably running from non-writeable media
+				LogMsg("Couldn't write config");
+			}
 			return true;
 		}
 		else {
