@@ -209,13 +209,13 @@ namespace se_ogre {
 			LogMsg("Got requested config");
 			try {
 				O3dSchema::root->saveConfig();
-				O3dSchema::window = O3dSchema::root->initialise(true);
 				LogMsg("Saved config");
 			}
 			catch(...) {
 				// Probably running from non-writeable media
 				LogMsg("Couldn't write config");
 			}
+			O3dSchema::window = O3dSchema::root->initialise(true);
 			return true;
 		}
 		else {
