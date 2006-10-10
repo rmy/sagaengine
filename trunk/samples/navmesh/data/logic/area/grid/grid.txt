@@ -1,13 +1,14 @@
 XG02
 7 7
-#T level_01_a AAAA
-T tile_0011 0011
-T tile_0110 0110
-T tile_0111 0111
-T tile_1001 1001
-T tile_1011 1011
-T tile_1100 1100
-T tile_1101 1101
-T tile_1110 1110
-T tile_1111 1111
+T level_a_0011 0011
+T level_a_0101 0101
+T level_a_0110 0110
+T level_a_0111 0111
+T level_a_1010 1010
+T level_a_1100 1100
+T level_a_1110 1110
+T level_a_1001 1001
+T level_a_1011 1011
+#More interesting levels without this
+#T level_a_1111 1111
 Q
