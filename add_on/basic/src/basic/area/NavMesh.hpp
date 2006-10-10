@@ -194,7 +194,7 @@ namespace se_basic {
 			paths_ = new Path(triangleCount_, offset.ch);
 			offset.ch += paths_->dataSize();
 
-			/* */
+			/*
 			for(int i = 0; i < triangleCount_; ++i) {
 				LogMsg(i << ": "
 						<< triangles_[ i ].controlPoints_[0] << ", "
@@ -208,7 +208,7 @@ namespace se_basic {
 			for(int i = 0; i < controlPointCount_; ++i) {
 				LogMsg(i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
 			}
-			/* */
+			*/
 		}
 
 

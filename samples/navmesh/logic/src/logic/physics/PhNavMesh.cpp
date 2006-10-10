@@ -95,7 +95,7 @@ namespace logic {
 
 		nextPos.updateWorldViewPoint();
 
-		LogMsg(actor.name() << ": " << gh);
+		//LogMsg(actor.name() << ": " << gh);
 	}
 
 
