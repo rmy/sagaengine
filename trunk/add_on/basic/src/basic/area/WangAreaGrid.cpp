@@ -62,7 +62,14 @@ namespace se_basic {
 			}
 		} while(didFind);
 
-		Assert("Didn't find match");
+		char buffer[5];
+		buffer[0] = (wanted[0] != 0) ? wanted[0] : 'X';
+		buffer[1] = (wanted[1] != 0) ? wanted[1] : 'X';
+		buffer[2] = (wanted[2] != 0) ? wanted[2] : 'X';
+		buffer[3] = (wanted[3] != 0) ? wanted[3] : 'X';
+		buffer[4] = 0;
+
+		LogFatal("Didn't find match for: " << buffer);
 		return 0;
 	}
 

@@ -22,7 +22,6 @@ namespace se_basic {
 		// (width height)
 		unsigned short w = in.readShort();
 		unsigned short h = in.readShort();
-		w = h = 16; // TODO: Temporary - for debugging
 
 		// (navmesh data)
 		unsigned short dataSize = in.readShort();
