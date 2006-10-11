@@ -20,8 +20,106 @@ material lambert_test_veg
 		}
 	}
 }
+
+
+vertex_program Examples/BumpMapVP cg
+{
+        source Example_BumpMapping.cg
+        entry_point main_vp
+        profiles vs_1_1 arbvp1
+}
+
+
+
 material lambert_test_gulv
 {
+	// Preferred technique, uses vertex and fragment programs
+	// to support a single coloured light
+	technique
+	{
+		pass
+		{
+			// base colours, not needed for rendering, but as information
+			// to lighting pass categorisation routine
+			ambient 0 0 0
+			// Vertex program reference
+			vertex_program_ref Examples/BumpMapVP
+			{
+				param_named_auto lightPosition light_position_object_space 0
+				param_named_auto worldViewProj worldviewproj_matrix
+			}
+
+			// Fragment program
+			fragment_program_ref Examples/BumpMapFP
+			{
+				param_named_auto lightDiffuse light_diffuse_colour 0
+			}
+
+			// Base bump map
+			texture_unit
+			{
+				colour_op replace
+				texture floor_bump.jpg
+				//texture Cave_floor.512.jpg
+			}
+			// Normalisation cube map
+			texture_unit
+			{
+				cubic_texture nm.png combinedUVW
+				tex_coord_set 1
+				tex_address_mode clamp
+			}
+			// Decal
+			texture_unit
+			{	
+				//texture floor_bump.jpg
+				texture Cave_floor.512.jpg
+			}
+		}
+	}
+
+
+	// Fallback technique, uses vertex program but only fixed-function
+	// fragment shading, which does not support coloured light
+	technique
+	{
+		pass
+		{
+			// base colours, not needed for rendering, but as information
+			// to lighting pass categorisation routine
+			ambient 0 0 0
+			// Vertex program reference
+			vertex_program_ref Examples/BumpMapVP
+			{
+				param_named_auto lightPosition light_position_object_space 0
+				param_named_auto worldViewProj worldviewproj_matrix
+			}
+
+			// Base bump map
+			texture_unit
+			{
+				texture floor_bump.jpg
+				//texture NMBumpsOut.png
+				colour_op replace
+			}
+			// Normalisation cube map
+			texture_unit
+			{
+				cubic_texture nm.png combinedUVW
+				tex_coord_set 1
+				tex_address_mode clamp
+				colour_op_ex dotproduct src_texture src_current
+				colour_op_multipass_fallback dest_colour zero
+			}
+			// Decal
+			texture_unit
+			{
+				texture Cave_floor.512.jpg
+			}
+		}
+	}
+
+
 	technique
 	{
 		pass
