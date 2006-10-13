@@ -26,7 +26,7 @@ namespace logic {
 		//nextMove.velocity_.add( move.force_ );
 		nextMove.velocity_.add( gravity );
 
-		bray_t diffNow = BrayT::sub(move.yaw_, nextPos.worldFace().yaw_);
+		bray_t diffNow = BrayT::sub(move.workYaw(), nextPos.worldFace().yaw_);
 		bray_t absDiff = BrayT::abs(diffNow);
 		bray_t diffNext = BrayT::sub(diffNow, move.angularVelocity_.yaw_);
 
@@ -60,7 +60,7 @@ namespace logic {
 		nextPos.worldFace().rotate( nextMove.angularVelocity_ );
 		if(diffNow < BRAY_RES) {
 			nextMove.angularVelocity_.yaw_ = 0;
-			nextPos.worldFace().yaw_ = nextMove.yaw_;
+			nextPos.worldFace().yaw_ = nextMove.workYaw();
 		}
 		//}
 

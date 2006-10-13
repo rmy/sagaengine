@@ -35,6 +35,7 @@ rune@skalden.com
 #include "util/vecmath/Euler3.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/Vector3.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 
 namespace se_core {
@@ -54,16 +55,18 @@ namespace se_core {
 		Vector3 force_; // Forces applied (acceleration)
 		Euler3 torque_; // Torque - forces changing rotation
 
-		// work vars
-		bray_t yaw_;
-		coor_t speed_;
+		// The physics object is free to interpret these values as they like
+		struct WorkVars {
+			coor_t speed_;
+			ViewPoint vp_;
+		} work_;
 
 	public:
 		Move();
 		void setMove(const Move& original);
 
-		coor_t speed() const { return speed_; }
-		bray_t yaw() const { return yaw_; }
+		coor_t workSpeed() const { return work_.speed_; }
+		bray_t workYaw() const { return work_.vp_.face_.yaw_; }
 
 		/**
 		 * Get speed in the xz-plane.
@@ -75,7 +78,7 @@ namespace se_core {
 		/**
 		 * Set speed to zero.
 		 */
-		inline void resetSpeed() { speed_ = 0; velocity_.reset(); }
+		inline void resetSpeed() { work_.speed_ = 0; velocity_.reset(); }
 
 		void changeYaw(bray_t yaw);
 		void changeSpeed(coor_t speed);

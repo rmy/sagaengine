@@ -144,8 +144,8 @@ namespace se_core {
 		unsigned int index = find(type, name);
 		Assert(index >= 0 && index <= simObjectCount_);
 
-		DebugExec(if(!(simObjects_[ index ]->type() == type && strcmp(simObjects_[ index ]->name(), name) == 0))) {
-			LogMsg(index << ": " << type << ", " << name);
+		if(!(simObjects_[ index ]->type() == type && strcmp(simObjects_[ index ]->name(), name) == 0)) {
+			LogMsg("Not found: " << index << ": " << type << ", " << name);
 			LogMsg(simObjects_[ index ]->type() << ", " << simObjects_[ index ]->name());
 			LogFatal("Not found: " << name);
 		}

@@ -24,7 +24,7 @@ namespace logic {
 
 		// Calc nextMove
 		Vector3 gravity(0, -3 * (COOR_RES / TIMESTEP_INTERVAL), 0);
-		nextMove.velocity_.setForward( nextMove.speed_, nextPos.localFace().yaw_ + BrayT::DEG180 );
+		nextMove.velocity_.setForward( nextMove.workSpeed(), nextPos.localFace().yaw_ + BrayT::DEG180 );
 		nextMove.velocity_.add( move.force_ );
 		nextMove.velocity_.add( gravity );
 
