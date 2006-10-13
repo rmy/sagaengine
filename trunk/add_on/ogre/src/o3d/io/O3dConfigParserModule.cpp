@@ -181,7 +181,7 @@ namespace se_ogre {
 				{ // Directional light
 					Ogre::Light* light = O3dSchema::sceneManager->createLight("MainLight");
 					light->setType(Ogre::Light::LT_DIRECTIONAL);
-					light->setCastShadows(true);
+					light->setCastShadows(false);
 
 					while((code = in.readInfoCode()) != '/') {
 						switch(code) {
@@ -209,6 +209,89 @@ namespace se_ogre {
 					}
 				}
 				break;
+
+			case 'P':
+				{
+					String name;
+					in.readString(name);
+					Ogre::Light* light = O3dSchema::sceneManager->createLight(name.get());
+					light->setType(Ogre::Light::LT_POINT);
+					light->setCastShadows(false);
+
+					while((code = in.readInfoCode()) != '/') {
+						switch(code) {
+						case 'S':
+							light->setCastShadows(true);
+							break;
+						case 'T':
+							{ // Translation							
+								float x = in.readFloat();
+								float y = in.readFloat();
+								float z = in.readFloat();
+								light->setPosition(x, y, z);
+							}
+
+						case 'V': // Direction vector
+							{
+								float x = in.readFloat();
+								float y = in.readFloat();
+								float z = in.readFloat();
+								light->setPosition(x, y, z);
+							}
+							break;
+
+						case 'C': // Colour
+							{
+								float r = in.readFloat();
+								float g = in.readFloat();
+								float b = in.readFloat();
+								light->setDiffuseColour(Ogre::ColourValue(r, g, b));
+							}
+							break;
+
+						case 'A': // Attenuation
+							{
+								float range = in.readFloat();
+								float constant = in.readFloat();
+								float linear = in.readFloat();
+								float quadratic = in.readFloat();
+								light->setAttenuation(range, constant, linear, quadratic);
+							}
+							break;
+
+						default:
+							LogFatal("Unknown point lighting code: " << (char)(code));
+						}
+					}
+
+				}
+				break;
+
+			case 'T':
+				{ // Texture shadows
+					short size = in.readShort();
+					short count = in.readShort();
+					float far = in.readFloat();
+					float r = in.readFloat();
+					float g = in.readFloat();
+					float b = in.readFloat();
+
+					try {
+						Assert(O3dSchema::sceneManager 
+							   && "SceneManager must be createt before setting shadow technique");
+						O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
+						O3dSchema::sceneManager->setShadowTextureSettings(size, count);
+						O3dSchema::sceneManager->setShadowFarDistance(far);
+						O3dSchema::sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
+
+						LogMsg("Created " << count << " shadow textures of size " << size);
+					}
+					catch(...) {
+						LogMsg("Couldn't create shadow texture");
+					}
+				}
+				break;
+
 			default:
 				LogFatal("Unknown lighting code: " << (char)(code));
 			}

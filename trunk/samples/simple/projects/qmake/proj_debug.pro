@@ -6,6 +6,10 @@ message( "core module included" )
 INCLUDEPATH += $${SAGAENGINE}/core/include
 INCLUDEPATH += $${SAGAENGINE}/core/src
 
+message( "platform_oc add-on included" )
+INCLUDEPATH += $${SAGAENGINE}/add_on/platform_pc/include
+INCLUDEPATH += $${SAGAENGINE}/add_on/platform_pc/src
+
 message( "client add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/client/src
@@ -40,8 +44,8 @@ INCLUDEPATH += $${OGRE}
 
 DESTDIR = $${SAGAENGINE}/samples/simple/projects/qmake
 
-DEFINES *= IS_OGRE DEBUG_LEVEL_2
-DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeCoreExport=
+DEFINES *= IS_OGRE DEBUG_LEVEL_2 SE_STATIC
+DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeCoreExport= _SePcExport=
 DEFINES *= _SimpleUiExport= _SimpleLogicExport=
 
 message(Destdir: $$DESTDIR )

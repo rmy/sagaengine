@@ -10,6 +10,7 @@ DESTDIR = .
 OBJECTS_DIR = .obj
 
 include( core.pro )
+include( platform_pc.pro )
 include( client.pro )
 include( basic.pro )
 include( ogre.pro )

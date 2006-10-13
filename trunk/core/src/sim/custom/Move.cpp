@@ -25,6 +25,7 @@ rune@skalden.com
 
 #include "util/type/util_type.hpp"
 #include "util/math/Trig.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 #include "../stat/all.hpp"
 #include "../area/Area.hpp"
 
@@ -35,9 +36,10 @@ namespace se_core {
 		angularVelocity_.setIdentity();
 		torque_.setIdentity();
 		force_.reset();
-		yaw_ = 0;
-		speed_ = 0;
+		work_.speed_ = 0;
+		work_.vp_.setIdentity();
 	}
+
 
 	void Move
 	::setMove(const Move& original) {
@@ -48,23 +50,23 @@ namespace se_core {
 
 	void Move
 	::changeSpeed(coor_t speed) {
-		speed_ = speed;
-		velocity_.setForward(speed_, yaw_, 0);
+		work_.speed_ = speed;
+		velocity_.setForward(work_.speed_, work_.vp_.face_.yaw_, 0);
 	}
 
 
 	void Move
 	::changeYaw(bray_t yaw) {
-		yaw_ = yaw;
-		velocity_.setForward(speed_, yaw_, 0);
+		work_.vp_.face_.yaw_ = yaw;
+		velocity_.setForward(work_.speed_, work_.vp_.face_.yaw_, 0);
 	}
 
 
 	void Move
 	::changeMovement(bray_t yaw, coor_t speed) {
-		yaw_ = yaw;
-		speed_ = speed;
-		velocity_.setForward(speed_, yaw_, 0);
+		work_.vp_.face_.yaw_ = yaw;
+		work_.speed_ = speed;
+		velocity_.setForward(work_.speed_, work_.vp_.face_.yaw_, 0);
 	}
 
 
