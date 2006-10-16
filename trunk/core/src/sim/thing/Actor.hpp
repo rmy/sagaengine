@@ -116,6 +116,7 @@ namespace se_core {
 		 * @see clearPlannedAction
 		 */
 		virtual void planDefaultMovementAction() const {}
+		virtual void performDefaultMovementAction() const {}
 
 		//ActionParameter& param(short channel) const { return actionParameters_[channel]; }
 
@@ -253,6 +254,7 @@ namespace se_core {
 			physics().affect(*this);
 		}
 
+		void pushPhysics(const char* name);
 		void pushPhysics(const Physics *ph);
 		void popPhysics();
 
@@ -273,6 +275,7 @@ namespace se_core {
 		Actor* target() { return target_; }
 		bool hasTarget() const { return target_ != 0; }
 		void setTarget(Actor* target) { target_ = target; }
+		void resetTarget() { target_ = 0; }
 
 		virtual bool isPlayer() { return false; }
 

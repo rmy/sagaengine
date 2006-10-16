@@ -396,6 +396,13 @@ namespace se_core {
 
 
 	void Actor
+	::pushPhysics(const char* name) {
+		const Physics* p = SimSchema::sortedSimObjectList().physics(name);
+		pushPhysics(p);
+	}
+
+
+	void Actor
 	::setShowingCutscene(ShowingCutscene* sc, const Script* script) {
 		Assert(!showingCutscene_);
 		showingCutscene_ = sc;

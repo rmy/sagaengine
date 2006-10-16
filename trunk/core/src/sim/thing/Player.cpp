@@ -138,6 +138,22 @@ namespace se_core {
 	}
 
 
+	void Player
+	::performDefaultMovementAction() const {
+		long when = SimSchema::simEngine.when();
+		if(defaultMovementAction_.hasAction()) {
+			const Action* a = defaultMovementAction_.action();
+			Parameter& p = defaultMovementAction_.parameter();
+			a->perform(when, const_cast<Player&>(*this), p);
+		}
+		if(defaultTurnAction_.hasAction()) {
+			const Action* a = defaultTurnAction_.action();
+			Parameter& p = defaultTurnAction_.parameter();
+			a->perform(when, const_cast<Player&>(*this), p);
+		}
+	}
+
+
 	bool Player
 	::findDefaultActionTarget() {
 		if(pos().hasArea()) {
