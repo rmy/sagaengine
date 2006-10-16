@@ -220,7 +220,7 @@ namespace se_ogre {
 
 					while((code = in.readInfoCode()) != '/') {
 						switch(code) {
-						case 'S':
+						case 'W':
 							light->setCastShadows(true);
 							break;
 						case 'T':
@@ -241,11 +241,22 @@ namespace se_ogre {
 							break;
 
 						case 'C': // Colour
+							LogMsg("Deprecated");
+						case 'D': // Diffuse
 							{
 								float r = in.readFloat();
 								float g = in.readFloat();
 								float b = in.readFloat();
 								light->setDiffuseColour(Ogre::ColourValue(r, g, b));
+							}
+							break;
+
+						case 'S': // Specular
+							{
+								float r = in.readFloat();
+								float g = in.readFloat();
+								float b = in.readFloat();
+								light->setSpecularColour(Ogre::ColourValue(r, g, b));
 							}
 							break;
 
