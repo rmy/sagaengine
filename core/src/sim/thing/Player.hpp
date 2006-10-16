@@ -96,6 +96,7 @@ namespace se_core {
 		 * @see clearPlannedAction
 		 */
 		void planDefaultMovementAction() const;
+		void performDefaultMovementAction() const;
 
 		bool findDefaultActionTarget();
 		void findPickTarget();

@@ -92,6 +92,8 @@ namespace se_core {
 	void PosNode
 	::leaveCurrentArea() {
 		if(position_.hasArea()) {
+			LogMsg(pos().worldCoor().toLog());
+			LogMsg(nextPos().worldCoor().toLog());
 			position_.area()->removePosNode(*this);
 		}
 	}

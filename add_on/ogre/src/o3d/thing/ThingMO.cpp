@@ -103,7 +103,7 @@ namespace se_ogre {
 		if(info_.doScaleByRadius_) {
 			Ogre::Real r1 = CoorT::toFloat(thing_.pos().radius());
 			Ogre::Real r2 = CoorT::toFloat(thing_.nextPos().radius());
-			Ogre::Real s = r1 - stepDelta * (r2 - r1);
+			Ogre::Real s = r1 + stepDelta * (r2 - r1);
 
 			// If scale has changed
 			if(s != currentScale_) {
