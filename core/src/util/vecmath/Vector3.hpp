@@ -118,6 +118,16 @@ namespace se_core {
 		}
 
 		/**
+		 * Returns the squared length of this vector.
+		 * @return the squared length of this vector
+		 */
+		coor_double_t xzLengthSquared() const {
+			return
+				(static_cast<coor_double_t>(x_)*x_)
+				+ (static_cast<coor_double_t>(z_)*z_);
+		}
+
+		/**
 		 * Returns the length of this vector.
 		 * @return the length of this vector
 		 */

@@ -240,6 +240,7 @@ namespace se_core {
 
 		bool calcNextCoor() {
 			move_ = nextMove_;
+			// Reset values in nextPos that only last for a step
 			nextMove_.flick();
 			physics().calcNext(*this, pos(), nextPos(), move(), nextMove());
 

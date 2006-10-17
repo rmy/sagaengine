@@ -136,15 +136,20 @@ namespace se_core {
 	::remove(const Point3& c, coor_t size, Thing& thing) {
 		const coor_tile_t x = c.xTile() - xOffset_;
 		const coor_tile_t z = c.zTile() - zOffset_;
+		const coor_tile_t s = CoorT::tile(size) + 1;
 
 		// Find the right level
-		short level = calcLevel(CoorT::tile(size) + 1);
+		short level = calcLevel(s);
 
 		// Reference to first element pointer. Element pointer may change.
+		int index = indexAtLevel(x, z, level);
+		if(index < 0) {
+			LogMsg(c.toLog());
+		}
 		Assert(indexAtLevel(x, z, level) >= 0);
 		Assert(indexAtLevel(x, z, level) < (1L << level) * (1L << level));
-		CollisionGridThingList::iterator_type& it
-			= nodeLevels_[level][ indexAtLevel(x, z, level) ];
+
+		CollisionGridThingList::iterator_type& it = nodeLevels_[level][index];
 
 		return thingList().remove(thing, it);
 	}
@@ -155,25 +160,31 @@ namespace se_core {
 		   , const Point3& to, coor_t newSize
 		   , Thing& thing) {
 
-		coor_tile_t os = CoorT::tile(oldSize) + 1;
-		coor_tile_t ns = CoorT::tile(newSize) + 1;
+		const coor_tile_t os = CoorT::tile(oldSize) + 1;
+		const coor_tile_t ox = from.xTile() - xOffset_;
+		const coor_tile_t oz = from.zTile() - zOffset_;
+
+		const coor_tile_t ns = CoorT::tile(newSize) + 1;
+		const coor_tile_t nx = to.xTile() - xOffset_;
+		const coor_tile_t nz = to.zTile() - zOffset_;
 
 		int oldLevel = calcLevel(os);
-		int oldIndex = indexAtLevel(from.xTile() - xOffset_, from.zTile() - zOffset_, oldLevel);
+		int oldIndex = indexAtLevel(ox, oz, oldLevel);
 		int newLevel = (os != ns) ? calcLevel(ns) : oldLevel;
-		int newIndex = indexAtLevel(to.xTile() - xOffset_, to.zTile() - zOffset_, newLevel);
+		int newIndex = indexAtLevel(nx, nz, newLevel);
 
 		// If still in same cell, don't move
-		if(oldLevel == newLevel && oldIndex == newIndex)
+		if(oldIndex == newIndex)
 			return;
 
 		// Different cell, move
 		CollisionGridThingList::iterator_type& oldIt
 			= nodeLevels_[oldLevel][ oldIndex ];
-		thingList().remove(thing, oldIt);
+		bool didDelete = thingList().remove(thing, oldIt);
 		CollisionGridThingList::iterator_type& newIt
 			= nodeLevels_[newLevel][ newIndex ];
 		thingList().add(thing, newIt);
+		return;
 	}
 
 

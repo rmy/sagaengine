@@ -66,7 +66,8 @@ namespace se_core {
 		/** Returns true if object is or inherits from the given type
 		 */
 		virtual bool isType(enum SimObjectType type) const {
-			return (type == got_THING);
+			if(type == got_THING) return true;
+			return PosNode::isType(type);
 		}
 
 
@@ -103,7 +104,7 @@ namespace se_core {
 
 		/**
 		 */
-		bool isCollideable() const { return isCollideable_; }
+		//bool isCollideable() const { return isCollideable_; }
 
 
 		////// Methods that may be used by scripts - end //////
@@ -118,7 +119,7 @@ namespace se_core {
 		 * is a hint to the engine that this should be included
 		 * in the collison space.
 		 */
-		void setCollideable(bool isCollideable) { isCollideable_ = isCollideable; }
+		//void setCollideable(bool isCollideable) { isCollideable_ = isCollideable; }
 
 		/** Returns true if Thing is scheduled for destruction.
 		 *
@@ -148,7 +149,7 @@ namespace se_core {
 		Actor* spawner_;
 
 		bool isPickable_;
-		bool isCollideable_;
+		//bool isCollideable_;
 		bool isDead_;
 
 	public:

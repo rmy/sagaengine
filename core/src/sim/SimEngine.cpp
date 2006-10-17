@@ -18,7 +18,6 @@ Rune Myrland
 rune@skalden.com
 */
 
-
 #include "InitListeners.hpp"
 #include "SimEngine.hpp"
 #include "SimListeners.hpp"
@@ -105,7 +104,7 @@ namespace se_core {
 	bool SimEngine
 	::step(long when) {
 		// Check if ready to perform the next
-		if(when < (previousPerform_ + 1) * TIMESTEP_INTERVAL) {
+		if(when < (previousPerform_ + 1) << TIMESTEP_INTERVAL_SHIFT) {
 			return false;
 		}
 
