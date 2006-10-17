@@ -244,6 +244,7 @@ namespace se_core {
 		CollisionGrid* collisionGrid_;
 
 		const AreaFactory* factory_;
+
 	};
 
 }

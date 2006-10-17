@@ -23,6 +23,7 @@ rune@skalden.com
 #define engine_config_engine_config_hpp
 
 #include "util/config/util_config.hpp"
+#include "util/type/util_type.hpp"
 
 namespace se_core {
 
@@ -59,8 +60,11 @@ namespace se_core {
 	const short TIMESTEP_INTERVAL_SHIFT = SE_STEP_SHIFT;
 #endif
 	const long TIMESTEP_INTERVAL = 1L << TIMESTEP_INTERVAL_SHIFT;
+	const long TIMESTEPS_PER_SECOND = 1024L >> TIMESTEP_INTERVAL_SHIFT;
 
-	
+	const float COOR_STEP = COOR_RES / TIMESTEPS_PER_SECOND;
+	const scale_t SCALE_STEP = SCALE_RES / TIMESTEPS_PER_SECOND;
+
 	//const scale_t SCALE_WHEN_TO_SECOND = (SCALE_RES / 1024);
 }
 

@@ -318,7 +318,7 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingEnteredActiveZoneEvent(se_core::Thing& thing) {
-		LogMsg("Thing entered active zone: " << thing.name());
+		//LogMsg("Thing entered active zone: " << thing.name());
 		if(!hasMesh(thing)) {
 			return;
 		}
@@ -336,7 +336,7 @@ namespace se_ogre {
 
 	void WorldManager
 	::thingLeftActiveZoneEvent(se_core::Thing& thing) {
-		LogMsg("Thing left active zone: " << thing.name());
+		//LogMsg("Thing left active zone: " << thing.name());
 		if(!hasMesh(thing)) {
 			return;
 		}
@@ -425,7 +425,7 @@ namespace se_ogre {
 		// We are inbetwen AI steps. Calculate exactly where.
 		// stepDelta 0.0f means we are at Thing::pos, 1.0f at nextPos.
 		float stepDelta = (renderClock - SimSchema::simEngine.when())
-			/ static_cast<float>(se_core::TIMESTEP_INTERVAL);
+			/ static_cast<float>(TIMESTEP_INTERVAL);
 		if(stepDelta < 0.0f || stepDelta > 1.0f) {
 			LogMsg(stepDelta);
 			// When in doubt, show thing at nextPos.

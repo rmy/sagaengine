@@ -39,6 +39,8 @@ rune@skalden.com
 
 
 namespace se_core {
+	static coor_t MAX_SPEED = 0; // 64 * COOR_STEP;
+
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
 			: PosNode(got_AREA, name->get()), moverCount_(0), width_(w), height_(h)
@@ -196,7 +198,7 @@ namespace se_core {
 		if(thing.isCollideable()) {
 			if(isActive_) {
 				// TODO: Should use speed + radius
-				coor_t speedAndRadius = thing.nextPos().radius() + COOR_RES;
+				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
 				collisionGrid_->insert(thing.nextPos().worldCoor(), speedAndRadius, thing);
 			}
 			multiSimObjects_[ MGOA_PUSHABLE_THINGS ].add(thing);
@@ -213,15 +215,17 @@ namespace se_core {
 	void Area
 	::removeThing(Thing& thing) {
 		allThings_->remove(thing);
-		//LogMsg(thing.name());
 		if(isActive_ && thing.isCollideable()) {
 			// TODO: Should use speed + radius
-			coor_t speedAndRadius = thing.pos().radius() + COOR_RES;
-			//bool didDelete =
-			collisionGrid_->remove(thing.pos().worldCoor(), speedAndRadius, thing);
+			coor_t speedAndRadius = thing.pos().radius() + MAX_SPEED;
+			bool didDelete = collisionGrid_->remove(thing.pos().worldCoor(), speedAndRadius, thing);
+			if(!didDelete) {
+				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
+				didDelete = collisionGrid_->remove(thing.nextPos().worldCoor(), speedAndRadius, thing);
+			}
 			//LogMsg(thing.name());
 			// TODO: This assert fails?
-			//DbgAssert(didDelete);
+			DbgAssert(didDelete);
 		}
 
 		multiSimObjects_[ MGOA_MOVING_THINGS ].remove(thing);
@@ -306,7 +310,7 @@ namespace se_core {
 		while(it != SimObjectList::NULL_NODE) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(t->isCollideable()) {
-				LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
+				//LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
 				collisionGrid_->insert(t->nextPos().worldCoor(), t->nextPos().radius(), *t);
 			}
 		}
@@ -544,7 +548,6 @@ namespace se_core {
 				// Get next in chain
 				PosNode* p = SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
 				Assert(p);
-
 				// Move to new position in collision grid
 				if(collisionGrid_
 				   && p->isCollideable()
@@ -555,14 +558,14 @@ namespace se_core {
 					t = static_cast<Thing*>(p);
 
 					// TODO: Real speed instead of max speed...
-					static const coor_t speed = COOR_RES;
+					static const coor_t speed = MAX_SPEED;
 					coor_t speedAndRadius = p->pos().radius() + speed;
-					const Point3& wc = pos().worldCoor();
+					const Point3& wc = p->pos().worldCoor();
 
 					// TODO: Real speed instead of max speed...
-					static const coor_t nextSpeed =  COOR_RES;
+					static const coor_t nextSpeed =  MAX_SPEED;
 					coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-					const Point3& nextWC = nextPos().worldCoor();
+					const Point3& nextWC = p->nextPos().worldCoor();
 
 					collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
 				}
@@ -629,10 +632,6 @@ namespace se_core {
 			// the actor into a new area or no area. Placing it
 			// here should have no unwanted side effects.
 			a->affect();
-
-			// Reset values in nextPos that only last for a step
-			//TODO: Must flick movement
-			//a->nextMove().flick();
 
 			// Calc next position
 			if(a->calcNextCoor()) {
@@ -721,7 +720,7 @@ namespace se_core {
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
-		LogMsg("Spawned " << thingName << " in " << name());
+		//LogMsg("Spawned " << thingName << " in " << name());
 
 		// Return the newly created thing
 		return thing;
