@@ -63,6 +63,7 @@ namespace se_core {
 
 		const ActionAndParameter& defaultMovementAction() const { return defaultMovementAction_; }
 		void setDefaultMovementAction(const Action& action, const Parameter* parameter = 0) const { 
+			LogMsg(action.name());
 			defaultMovementAction_.setAction(action);
 			if(parameter) {
 				defaultMovementAction_.copyParameter(*parameter);

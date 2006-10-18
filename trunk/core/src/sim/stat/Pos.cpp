@@ -148,6 +148,14 @@ namespace se_core {
 			anim_[i] = original.anim_[i];
 	}
 
+
+	void Pos
+	::swapAnims(int a, int b) {
+		Anim tmp(anim_[a]);
+		anim_[a] = anim_[b];
+		anim_[b] = tmp;
+	}
+
 	void Pos
 	::setXZ(const Pos& original) {
 		// Revert coordinates in xz plane. (Can still fall.)

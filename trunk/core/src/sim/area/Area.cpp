@@ -39,7 +39,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	static coor_t MAX_SPEED = 0; // 64 * COOR_STEP;
+	static coor_t MAX_SPEED = 64 * COOR_STEP + COOR_RES;
 
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
@@ -222,6 +222,7 @@ namespace se_core {
 			if(!didDelete) {
 				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
 				didDelete = collisionGrid_->remove(thing.nextPos().worldCoor(), speedAndRadius, thing);
+				if(!didDelete) LogMsg("Couldn't remove " << thing.name() << " from collision grid");
 			}
 			//LogMsg(thing.name());
 			// TODO: This assert fails?
