@@ -131,7 +131,7 @@ namespace se_ogre {
 			prevAnim_[channel] = animId;
 
 			if(state_[channel]) {
-				state_[channel]->setEnabled(false);
+				//state_[channel]->setEnabled(false);
 				state_[channel] = 0;
 			}
 			O3dAnimation* a = info_.animation(channel, animId);
@@ -140,11 +140,14 @@ namespace se_ogre {
 				state_[channel] = entity_->getAnimationState(a->name_.get());
 
 				// Enable animation
-				state_[channel]->setEnabled(true);
+				//state_[channel]->setEnabled(true);
 
 				// The anim speed of the mesh animation,
 				// multiplied by the anim speed of the things anim channel
-				const float s = a->speed_ * ScaleT::fromFloat(anim.speed());
+				float s = a->speed_;
+				if(s > 0) {
+					s = 1 / s;
+				}
 				speed_[channel] = s;
 			}
 		}
@@ -160,21 +163,34 @@ namespace se_ogre {
 
 	void ThingEntity
 	::animate(long when, float stepDelta, float timeSinceLastFrame) {
-		// Check if movement mode (and thus animation) has changed (ie walk to stand, etc)
+		// Reset movement state, so that starting state is known
+		for(int i = 0; i < info_.channelCount(); ++i) {
+			if(state_[i]) {
+				state_[i]->setEnabled(false);
+				state_[i]->setWeight(0);
+				state_[i]->setTimePosition(0);
+			}
+		}
 
 		for(int i = 0; i < info_.channelCount(); ++i) {
 			const Anim& a = thing_.pos().anim(i);
+			// Check if movement mode (and thus animation) has changed (ie walk to stand, etc)
 			setAnimation(i, a);
 
 			// Add passed time and update weight of animation
 			if(state_[i]) {
-				//LogMsg(i << ": " << a.movementMode());
-				float pos = ScaleT::toFloat(a.startPos()) * state_[i]->getLength();
-				pos += a.movementWhen(when) * (1.0f / 1024.0f) * speed_[i];
-				//LogMsg(pos);
-				//state_[i]->addTime(timeSinceLastFrame * speed_[i]);
-				state_[i]->setTimePosition(pos);
-				state_[i]->setWeight(a.weight());
+				const Anim& na = thing_.nextPos().anim(i);
+
+				float pos = ScaleT::toFloat(a.pos()) * state_[i]->getLength() * speed_[i];
+				//float nextPos = ScaleT::toFloat(a.nextPos()) * state_[i]->getLength() * speed_[i];
+				// If same state are in more channels, interpolate between their positions
+				Assert(!state_[i]->getEnabled() && "Using the same animation twice at one");
+				//LogMsg(i << ": " << state_[i]->getAnimationName().c_str() << " - " << a.movementMode() << " w=" << a.weight() << " pos=" << pos);
+				if(a.weight() > 0) {
+					state_[i]->setTimePosition(pos);
+					state_[i]->setWeight(a.weight());
+					state_[i]->setEnabled(true);
+				}
 			}
 		}
 

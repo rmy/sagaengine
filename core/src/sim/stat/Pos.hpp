@@ -368,6 +368,11 @@ namespace se_core {
 			return anim_[index];
 		}
 
+		/**
+		 * Swap 2 animations.
+		 */
+		void swapAnims(int a, int b);
+
 
 		/**
 		 * Update y coordinate to reflect Area height and present Pos layer.

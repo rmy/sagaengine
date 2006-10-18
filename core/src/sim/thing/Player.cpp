@@ -104,11 +104,13 @@ namespace se_core {
 	::reallyScheduleForDestruction() {
 		scheduleForDestruction();
 		SimSchema::thingManager().scheduleForDestruction(*this);
+		isDead_ = true;
 	}
 
 
 	bool Player
 	::changeArea() {
+		if(isDead_) return false;
 		lastEntrance_.setViewPoint(nextPos().local_);
 		return Camera::changeArea();
 	}
@@ -140,9 +142,11 @@ namespace se_core {
 
 	void Player
 	::performDefaultMovementAction() const {
+		WasHere();
 		long when = SimSchema::simEngine.when();
 		if(defaultMovementAction_.hasAction()) {
 			const Action* a = defaultMovementAction_.action();
+			LogMsg(a->name());
 			Parameter& p = defaultMovementAction_.parameter();
 			a->perform(when, const_cast<Player&>(*this), p);
 		}

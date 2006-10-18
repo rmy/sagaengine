@@ -265,7 +265,7 @@ namespace se_core {
 		SimSchema::initListeners().castCleanupGameEvent();
 
 		setSpecialMover(0);
-		perform(SimEngine::when() + TIMESTEP_INTERVAL);
+		//perform(SimEngine::when() + TIMESTEP_INTERVAL);
 		SimSchema::areaManager.resetThings();
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			SimSchema::actionQueue[i].reset();
