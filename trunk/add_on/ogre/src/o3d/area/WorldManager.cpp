@@ -146,8 +146,8 @@ namespace se_ogre {
 		sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
 		sg->setRenderingDistance(1024);
 		sg->setRenderQueueGroup(Ogre::RENDER_QUEUE_WORLD_GEOMETRY_1);
-		sg->build();
 		sg->setVisible(false);
+		sg->build();
 
 		return sg;
 	}
@@ -211,6 +211,11 @@ namespace se_ogre {
 						sprintf(buffer, "%s.%d", a->name(), pool++);
 
 						index = areaCount_++;
+						getAreaOffset(*a, areas_[ index ].offset_);
+						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
+						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
+						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
+
 						areas_[ index ].area_ = a;
 						areas_[ index ].shouldKeep_ = true;
 						areas_[ index ].isNew_ = true;
@@ -218,13 +223,15 @@ namespace se_ogre {
 						areas_[ index ].id_ = a->id();
 
 						if(!O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
-							compileAllStaticGeometry();
+							try {
+								compileAllStaticGeometry();
+							}
+							catch(...) {
+							}
 						}
 						areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
 						areas_[ index ].staticGeometry_->setVisible(true);
 
-						getAreaOffset(*a, areas_[ index ].offset_);
-						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
 						/*
 						if(O3dSchema::sceneManager->hasEntity(type)) {
 							Ogre::Entity* entity = O3dSchema::sceneManager->getEntity(type);
@@ -232,8 +239,6 @@ namespace se_ogre {
 						}
 						*/
 
-						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
-						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
 
 
 						/*
@@ -266,7 +271,8 @@ namespace se_ogre {
 					O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
 				}
 
-				areas_[i].node_->_updateBounds();
+				if(areas_[i].node_)
+					areas_[i].node_->_updateBounds();
 				areas_[i].isNew_ = false;
 			}
 		}
