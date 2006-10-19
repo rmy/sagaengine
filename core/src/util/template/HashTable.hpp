@@ -45,7 +45,7 @@ namespace se_core {
 		};
 
 		struct NodeList
-			: public SinglyLinkedList<HashTableNode, poolSize, 97> {
+				: public SinglyLinkedList<HashTableNode, poolSize, 97> {
 			NodeList(const char* name) : SinglyLinkedList<HashTableNode, poolSize, 97>(name) {
 			}
 		};
@@ -54,12 +54,12 @@ namespace se_core {
 
 
 		HashTable()
-			: count_(0) {
+				: count_(0) {
 			initialize();
 		}
 
 		HashTable(int size)
-			: count_(0) {
+				: count_(0) {
 			initialize(size);
 		}
 
@@ -120,10 +120,10 @@ namespace se_core {
 			if(!hashTable_)
 				return 0;
 
-			HashTableNode* newNode = lookupNode(key);
+			HashTableNode* node = lookupNode(key);
 
-			if(newNode)
-				return newNode->data_;
+			if(node)
+				return node->data_;
 
 			return 0;
 		}
@@ -131,10 +131,9 @@ namespace se_core {
 
 		// returns the list that contains this hash key...
 		// (for instance, if you have multiple matching keys)
-		//HashTable::NodeList::iterator_type
-		short lookupList(short key) {
+		iterator_type lookupList(short key) {
 			if(!hashTable_)
-				return 0;
+				return -1;
 			unsigned int index = hash(key) % tableSize();
 			return hashTable_[index];
 		}
@@ -166,10 +165,12 @@ namespace se_core {
 			return hashTable_;
 		}
 
+
 		NodeList& nodeList() {
 			static NodeList singleton(__FILE__);
 			return singleton;
 		}
+
 
 		int tableSize() {
 			return tableSize_;
@@ -209,7 +210,6 @@ namespace se_core {
 		// (Don't forget to move to public access if you declare them!)
 		HashTable& Copy(const HashTable& source_object);
 		HashTable& operator= (const HashTable& source_object);
-
 	};
 }
 

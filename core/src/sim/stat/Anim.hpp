@@ -86,9 +86,9 @@ namespace se_core {
 		void addStartPos(float p) { startPos_ += p; }
 		scale_t startPos() const { return startPos_; }
 		scale_t pos() const { return pos_; }
-		scale_t resetPos() { pos_ = startPos_; }
-		scale_t addPos(scale_t s) { pos_ += s; }
-		scale_t updatePos() { pos_ += speed_ * SCALE_STEP; }
+		void resetPos() { pos_ = startPos_; }
+		void addPos(scale_t s) { pos_ += s; }
+		void updatePos() { pos_ += speed_ * SCALE_STEP; }
 
 		static void setMovementModeCount(int c) { MOVEMENT_MODE_COUNT = c; }
 		static int MOVEMENT_MODE_COUNT;

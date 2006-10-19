@@ -29,10 +29,12 @@ namespace se_core {
 	class SimListener;
 	class SimListeners;
 	class SimObject;
+	class SimComposite;
+	class SimCompositeOwner;
 	class PosNode;
 
 	enum SimObjectType {
-		got_GAME_OBJECT, got_ACTION, got_PHYSICS, got_AREA,
+		got_GAME_OBJECT, got_ACTION, got_PHYSICS, got_SIM_COMPOSITE_OWNER, got_AREA,
 		got_TRIMAP_AREA, got_HEIGHTMAP_AREA, got_TERRAIN,
 		got_POS_NODE, got_THING, got_ACTOR, got_CAMERA,
 		got_PLAYER, got_SCRIPT, got_CUTSCENE,
