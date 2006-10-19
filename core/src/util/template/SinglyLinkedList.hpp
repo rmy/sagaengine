@@ -26,6 +26,7 @@ rune@skalden.com
 
 
 namespace se_core {
+
 	/**
 	 * Singly linked list manager.
 	 * Stores multiple singly linked lists in a single fixed size array. The
@@ -298,7 +299,7 @@ namespace se_core {
 
 
 		/**
-		 * Remove all sinly linked lists.
+		 * Remove all singly linked lists.
 		 * Removes all singly linked lists contained in the
 		 * structure.
 		 */
@@ -320,7 +321,7 @@ namespace se_core {
 		 */
 		//static const iterator_type NULL_NODE = -1;
 		// Must be primitive type
-		static const short NULL_NODE = -1;
+		static const int NULL_NODE = -1;
 
 
 	private:

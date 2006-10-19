@@ -28,7 +28,7 @@ rune@skalden.com
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./stat/Pos.hpp"
-#include "./stat/MultiSimObject.hpp"
+#include "./stat/SimCompositeList.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
 #include "util/vecmath/Point3.hpp"
@@ -100,8 +100,7 @@ namespace se_core {
 		SimNodeComposite* parent_;
 
 		/** List of child SimNodeComposites  */
-		Children children_;
-		Children::iterator_type firstChild_;
+		SimCompositeList::iterator_type firstChild_;
 	};
 
 }

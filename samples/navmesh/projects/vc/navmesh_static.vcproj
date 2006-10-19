@@ -399,12 +399,20 @@
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
 </Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\InitListeners.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\PosComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\PosComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimComposite.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimCompositeOwner.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimCompositeOwner.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimListeners.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimNodeComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimNodeComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimObject.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimObject.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\all.hpp"> </File>
@@ -415,6 +423,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\action\ActionAndParameter.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActionQueue.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActionQueue.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\action\ActorComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\action\ActorComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActorList.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActorList.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\EnterTo.cpp"> </File>
@@ -479,6 +489,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\physics\PhDefault.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\Physics.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\Physics.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\physics\PhysicsComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\physics\PhysicsComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\sim_physics.hpp"> </File>
@@ -503,6 +515,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\script\ReentrantScript.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\Script.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\Script.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\script\ScriptComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\script\ScriptComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\ShowingCutscene.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\ShowingCutscene.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\TimelineScript.cpp"> </File>
@@ -529,6 +543,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\stat\Property.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\ReportingMultiSimObject.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\ReportingMultiSimObject.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\SimCompositeList.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\SimCompositeList.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\SimObjectIterator.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\SimObjectIterator.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\SimObjectList.cpp"> </File>

@@ -23,6 +23,8 @@ rune@skalden.com
 #include "SimNodeComposite.hpp"
 #include "SimObject.hpp"
 #include "thing/Actor.hpp"
+#include "schema/SimSchema.hpp"
+#include "stat/SimCompositeList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -30,7 +32,7 @@ namespace se_core {
 
 	SimNodeComposite
 	::SimNodeComposite(Actor* owner)
-		: SimComposite(sct_NODE, owner), children_(__FILE__), firstChild_(-1) {
+		: SimComposite(sct_NODE, owner), firstChild_(-1) {
 	}
 
 
@@ -65,13 +67,13 @@ namespace se_core {
 	::addChild(SimNodeComposite& node) {
 		// Static pos nodes should have the area as
 		// parent.
-		children_.add(node, firstChild_);
+		SimSchema::simCompositeList.add(node, firstChild_);
 	}
 
 
 	void SimNodeComposite
 	::removeChild(SimNodeComposite& node) {
-		children_.remove(node, firstChild_);
+		SimSchema::simCompositeList.remove(node, firstChild_);
 	}
 
 }
