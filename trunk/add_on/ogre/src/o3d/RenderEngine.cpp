@@ -179,7 +179,6 @@ namespace se_ogre {
 		delete O3dSchema::raySceneQuery;
 		O3dSchema::raySceneQuery = 0;
 		LogMsg("Destroyed ray scene query");
-
 	}
 
 
@@ -202,7 +201,15 @@ namespace se_ogre {
 		if(O3dSchema::root->restoreConfig()) {
 			LogMsg("Loaded config");
 		}
-		if(O3dSchema::root->showConfigDialog()) {
+		bool gotConfig = false;
+		try {
+			gotConfig = O3dSchema::root->showConfigDialog();
+		}
+		catch(...) {
+			// Probably failed to write config
+			gotConfig = true;
+		}
+		if(gotConfig) {
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by
 			// passing 'true'
