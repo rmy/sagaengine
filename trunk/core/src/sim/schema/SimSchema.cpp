@@ -30,6 +30,7 @@ rune@skalden.com
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
 #include "../stat/SimObjectList.hpp"
+#include "../stat/SimCompositeList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../area/sim_area.hpp"
 #include "../area/AreaManager.hpp"
@@ -84,6 +85,7 @@ namespace se_core {
 		SoundCentral soundCentral;
 
 		SimObjectList simObjectList;
+		SimCompositeList simCompositeList;
 
 		Dictionary& dictionary() {
 			static Dictionary d;

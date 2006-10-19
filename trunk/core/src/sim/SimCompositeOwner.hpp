@@ -27,7 +27,9 @@ rune@skalden.com
 
 
 namespace se_core {
-	typedef HashTable<class SimComposite, 200> Composites;
+	typedef HashTable<class SimComposite, 200> SCOHT;
+	class _SeCoreExport Composites : public SCOHT  {
+	};
 
 
 	class _SeCoreExport SimCompositeOwner : public SimObject {
@@ -36,7 +38,7 @@ namespace se_core {
 
 	public:
 		SimCompositeOwner(const char* name);
-		inline SimComposite* composite(int type) {
+		SimComposite* composite(int type) {
 			return composites_.lookup(type);
 		}
 

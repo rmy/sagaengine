@@ -63,9 +63,9 @@ namespace se_core {
 			initialize(size);
 		}
 
-		HashTable(const HashTable& source) {
-			copy(source);
-		}
+		//HashTable(const HashTable& source) {
+		//	copy(source);
+		//}
 
 
 		virtual ~HashTable() {
@@ -161,8 +161,8 @@ namespace se_core {
 		}
 
 
-		iterator_type hashTable() {
-			return hashTable_;
+		iterator_type hashTable(int index) {
+			return hashTable_[index];
 		}
 
 
@@ -208,8 +208,8 @@ namespace se_core {
 	private:
 		// declared to prevent unintentional use...
 		// (Don't forget to move to public access if you declare them!)
-		HashTable& Copy(const HashTable& source_object);
-		HashTable& operator= (const HashTable& source_object);
+		HashTable& Copy(const HashTable& source_object) { return *this; }
+		HashTable& operator= (const HashTable& source_object) { return *this; }
 	};
 }
 

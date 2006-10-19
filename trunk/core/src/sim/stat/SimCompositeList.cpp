@@ -19,39 +19,29 @@ rune@skalden.com
 */
 
 
-#ifndef engine_stat_hpp
-#define engine_stat_hpp
+#include "SimCompositeList.hpp"
 
 namespace se_core {
-	class SimObjectList;
-	class SimCompositeList;
-	class SortedSimObjectList;
+	/*
+	SimCompositeList
+	::SimCompositeList() {
+		clear();
+	}
 
-	class MultiSimObject;
-	class ReportingMultiSimObject;
-	class ReportingMGOHandler;
-	class MultiSimObjectListener;
 
-	class MultiSimObjectIterator;
-	class ThingIterator;
+	SimCompositeList
+	::~SimCompositeList() {
+	}
 
-	// Use with util/template/HashTable ?
-	class Property;
-	//class PropertySet;
-	//class PropertyList;
-	//class AllPropertyLists;
 
-	class Dictionary;
-
-	class Anim;
-	class Pos;
-	class Force;
-	class Speed;
-	class ViewPoint;
-
-	class HealthListener;
-	class HealthListeners;
+	void SimCompositeList
+	::clear() {
+		firstFreeNode = 0;
+		for(int i = 0; i < MAX_ELEMENTS; ++i) {
+			nextNodes[ i ] = i + 1;
+		}
+		nextNodes[ MAX_ELEMENTS - 1 ] = NULL_NODE;
+	}
+	*/
 
 }
-
-#endif
