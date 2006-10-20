@@ -22,16 +22,9 @@ rune@skalden.com
 #ifndef sim_PosComposite_hpp
 #define sim_PosComposite_hpp
 
-#include "./SimObject.hpp"
-#include "./SimComposite.hpp"
-#include "./action/sim_action.hpp"
-#include "./config/sim_config.hpp"
-#include "./stat/Pos.hpp"
-#include "./stat/MultiSimObject.hpp"
-#include "./stat/sim_stat.hpp"
-#include "./area/sim_area.hpp"
-#include "util/vecmath/Point3.hpp"
-#include "util/vecmath/ViewPoint.hpp"
+#include "../SimComposite.hpp"
+#include "Pos.hpp"
+#include "../config/sim_config.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 

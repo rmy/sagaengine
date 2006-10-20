@@ -22,6 +22,7 @@ namespace se_basic {
 		static Tuple3 b;
 		Point2 p(coor.x_, coor.z_);
 		short tri = (index >= 0) ? index : navMesh_->find(p);
+		Assert(tri >= 0 && "Make sure coor is legal before calling groundHeight");
 		navMesh_->barycentric(tri, p, b);
 		return navMesh_->height(tri, b);
 	}

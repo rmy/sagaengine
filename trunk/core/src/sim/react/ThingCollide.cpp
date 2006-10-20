@@ -22,7 +22,7 @@ rune@skalden.com
 #include "ThingCollide.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../stat/Pos.hpp"
+#include "../pos/Pos.hpp"
 #include "../thing/Actor.hpp"
 
 

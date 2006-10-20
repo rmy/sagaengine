@@ -23,7 +23,7 @@ rune@skalden.com
 #include "O3dAnimation.hpp"
 #include "O3dAnimationSet.hpp"
 #include "util/error/Log.hpp"
-#include "sim/stat/Anim.hpp"
+#include "sim/pos/Anim.hpp"
 
 using namespace se_core;
 

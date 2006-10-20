@@ -19,28 +19,13 @@ rune@skalden.com
 */
 
 
-#ifndef StopScript_hpp
-#define StopScript_hpp
-
-#include "sim/action/Action.hpp"
+#ifndef sim_pos_hpp
+#define sim_pos_hpp
 
 namespace se_core {
-	class _SeCoreExport StopScript : public Action {
-	public:
-		StopScript() : Action("stop_script") {}
-
-		short duration(Actor& performer, Parameter& parameter) const { return 1; }
-
-		bool isRepeating(long when, Actor &performer, Parameter& parameter) const {
-			return false;
-		}
-
-		void perform(long when, Actor& performer, Parameter& parameter) const;
-
-	private:
-	};
-
-	extern _SeCoreExport const StopScript actionStopScript;
+	class Anim;
+	class Pos;
+	class PosComposite;
 }
 
 #endif

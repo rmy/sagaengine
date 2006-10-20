@@ -23,7 +23,7 @@ rune@skalden.com
 #include "PCFile.hpp"
 #include "util/type/all.hpp"
 #include "client/lang/Phrase.hpp"
-#include "sim/stat/Pos.hpp"
+#include "sim/pos/Pos.hpp"
 #include <cstring>
 #include <cstdlib>
 

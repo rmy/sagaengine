@@ -143,8 +143,31 @@
 <File RelativePath="..\..\start\src\Start.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\all.hpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\game_ui.cpp"> </File>
-<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.cpp"> </File>
+<Filter Name="basic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\action\EnterTo.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\EnterTo.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\IdleFor.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\IdleFor.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\LeaveToAndStopScript.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\LeaveToAndStopScript.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PopScript.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PopScript.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PushScript.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PushScript.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Say.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Say.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Spawn.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Spawn.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StartCutscene.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StartCutscene.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StopCutscene.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StopCutscene.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StopScript.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\StopScript.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\basic_action.hpp"> </File>
+</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMesh.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshArea.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\area\NavMeshArea.hpp"> </File>
@@ -369,8 +392,6 @@
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
 </Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\InitListeners.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\PosComposite.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\PosComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComposite.cpp"> </File>
@@ -397,28 +418,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\action\ActorComposite.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActorList.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\ActorList.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\EnterTo.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\EnterTo.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\Idle.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\Idle.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\IdleFor.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\IdleFor.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\LeaveToAndStopScript.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\LeaveToAndStopScript.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\PopScript.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\PopScript.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\PushScript.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\PushScript.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\Say.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\Say.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\Spawn.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\Spawn.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StartCutscene.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StartCutscene.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StopCutscene.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StopCutscene.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StopScript.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\action\StopScript.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\action\sim_action.hpp"> </File>
 </Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\area\Area.cpp"> </File>
@@ -464,6 +465,14 @@
 <File RelativePath="..\..\..\..\core\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\sim_physics.hpp"> </File>
+</Filter><Filter Name="pos" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\pos\Anim.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\Anim.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\Pos.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\Pos.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\PosComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\PosComposite.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\all.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\pos\sim_pos.hpp"> </File>
 </Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\react\CoNone.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\CoNone.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.cpp"> </File>
@@ -493,9 +502,7 @@
 <File RelativePath="..\..\..\..\core\src\sim\script\TimelineScript.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\script\sim_script.hpp"> </File>
-</Filter><Filter Name="stat" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\stat\Anim.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\stat\Anim.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\stat\Dictionary.cpp"> </File>
+</Filter><Filter Name="stat" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\stat\Dictionary.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\Dictionary.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\DictionaryEntry.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\DictionaryEntry.hpp"> </File>
@@ -507,8 +514,6 @@
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimObject.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimObjectListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiValue.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\stat\Pos.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\stat\Pos.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\Property.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\Property.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\ReportingMultiSimObject.cpp"> </File>

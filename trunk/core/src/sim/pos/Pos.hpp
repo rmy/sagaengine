@@ -23,9 +23,7 @@ rune@skalden.com
 #define Pos_hpp
 
 #include "Anim.hpp"
-#include "sim_stat.hpp"
 #include "util/vecmath/ViewPoint.hpp"
-#include "util/vecmath/Point3.hpp"
 #include "../sim.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"

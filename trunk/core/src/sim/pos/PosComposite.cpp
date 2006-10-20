@@ -20,13 +20,9 @@ rune@skalden.com
 
 
 #include "PosComposite.hpp"
-#include "./thing/Actor.hpp"
-#include "./config/all.hpp"
-#include "./schema/SimSchema.hpp"
-#include "./stat/SimObjectList.hpp"
-#include "./stat/MultiSimObject.hpp"
-#include "./area/Area.hpp"
-#include "./area/sim_area.hpp"
+#include "../thing/Actor.hpp"
+#include "../config/all.hpp"
+#include "../area/Area.hpp"
 #include "util/error/Log.hpp"
 #include <cstring>
 
