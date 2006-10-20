@@ -19,13 +19,13 @@ rune@skalden.com
 */
 
 
-#ifndef se_client_hpp
-#define se_client_hpp
+#ifndef se_basic_hpp
+#define se_basic_hpp
 
-#include "../src/client/action/all.hpp"
-#include "../src/client/area/all.hpp"
-#include "../src/client/io/all.hpp"
-#include "../src/client/schema/all.hpp"
-#include "../src/client/thing/all.hpp"
+#include "../src/basic/action/all.hpp"
+#include "../src/basic/area/all.hpp"
+#include "../src/basic/io/all.hpp"
+#include "../src/basic/schema/all.hpp"
+#include "../src/basic/thing/all.hpp"
 
 #endif
