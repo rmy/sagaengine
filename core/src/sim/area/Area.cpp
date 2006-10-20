@@ -284,9 +284,10 @@ namespace se_core {
 				}
 			}
 		}
-		if(actor.hasTarget()) {
-			actor.setDefaultAction(actionStartCutscene);
-		}
+		//TODO:
+		//if(actor.hasTarget()) {
+		//	actor.setDefaultAction(actionStartCutscene);
+		//}
 
 		return actor.pickTarget();
 	}

@@ -27,7 +27,7 @@ rune@skalden.com
 #include "./SimCompositeOwner.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
-#include "./stat/Pos.hpp"
+#include "./pos/Pos.hpp"
 #include "./stat/SimCompositeList.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"

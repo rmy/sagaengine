@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef se_client_hpp
 #define se_client_hpp
 
+#include "../src/client/action/all.hpp"
 #include "../src/client/area/all.hpp"
 #include "../src/client/io/all.hpp"
 #include "../src/client/schema/all.hpp"

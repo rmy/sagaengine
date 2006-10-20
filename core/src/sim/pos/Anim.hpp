@@ -79,12 +79,18 @@ namespace se_core {
 
 		void setWeight(scale_t w) { weight_ = w; }
 		scale_t weight() const { return weight_; }
+
+		void setStartPos(float p) { startPos_ = p; }
+		void addStartPos(float p) { startPos_ += p; }
+
 		/**
 		 * @returns 0 for beginning of anim, SCALE_RES for end of anim.
 		 */
-		void setStartPos(float p) { startPos_ = p; }
-		void addStartPos(float p) { startPos_ += p; }
 		scale_t startPos() const { return startPos_; }
+
+		/**
+		 * @returns 0 for beginning of anim, SCALE_RES for end of anim.
+		 */
 		scale_t pos() const { return pos_; }
 		void resetPos() { pos_ = startPos_; }
 		void addPos(scale_t s) { pos_ += s; }

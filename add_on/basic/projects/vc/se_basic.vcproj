@@ -120,7 +120,30 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
 			<File RelativePath="..\..\src\BasicPre.hpp"> </File>
-<Filter Name="basic" Filter="cpp;hpp"><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\area\NavMesh.cpp"> </File>
+<File RelativePath="..\..\src\all.hpp"> </File>
+<Filter Name="basic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\action\EnterTo.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\EnterTo.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\IdleFor.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\IdleFor.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\LeaveToAndStopScript.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\LeaveToAndStopScript.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\PopScript.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\PopScript.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\PushScript.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\PushScript.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\Say.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\Say.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\Spawn.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\Spawn.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\StartCutscene.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\StartCutscene.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\StopCutscene.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\StopCutscene.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\StopScript.cpp"> </File>
+<File RelativePath="..\..\src\basic\action\StopScript.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\all.hpp"> </File>
+<File RelativePath="..\..\src\basic\action\basic_action.hpp"> </File>
+</Filter><Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\area\NavMesh.cpp"> </File>
 <File RelativePath="..\..\src\basic\area\NavMesh.hpp"> </File>
 <File RelativePath="..\..\src\basic\area\NavMeshArea.cpp"> </File>
 <File RelativePath="..\..\src\basic\area\NavMeshArea.hpp"> </File>

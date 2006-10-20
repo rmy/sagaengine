@@ -34,8 +34,8 @@ rune@skalden.com
 #include "../script/sim_script.hpp"
 #include "../script/Script.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../stat/Anim.hpp"
-#include "../stat/Pos.hpp"
+#include "../pos/Anim.hpp"
+#include "../pos/Pos.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/type/String.hpp"
 

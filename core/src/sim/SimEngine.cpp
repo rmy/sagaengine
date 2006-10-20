@@ -24,7 +24,7 @@ rune@skalden.com
 #include "./action/Action.hpp"
 #include "./action/ActionQueue.hpp"
 #include "./schema/SimSchema.hpp"
-#include "./stat/Pos.hpp"
+#include "./pos/Pos.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/SimObjectIterator.hpp"
 #include "./stat/SimObjectList.hpp"

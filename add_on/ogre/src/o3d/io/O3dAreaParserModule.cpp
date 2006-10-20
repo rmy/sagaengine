@@ -28,8 +28,8 @@ rune@skalden.com
 #include "util/type/String.hpp"
 #include "util/type/TmpString.hpp"
 #include "util/error/Log.hpp"
-#include "sim/stat/Pos.hpp"
-#include "sim/stat/Anim.hpp"
+#include "sim/pos/Pos.hpp"
+#include "sim/pos/Anim.hpp"
 #include <cstring>
 #include <cstdio>
 
