@@ -1,32 +1,110 @@
 #include "ui_assetEditor.h"
 #include <QApplication>
+#include <QDirModel>
+#include <QStandardItemModel>
 #include <QMainWindow>
+#include <QStack>
+#include <QTextStream>
 
-int main(int argc, char *argv[])
- {
-     QApplication app(argc, argv);
-     QMainWindow *window = new QMainWindow;
-     Ui_MainWindow ui;
-     ui.setupUi(window);
+enum FileDataRoles {
+	FILE_PATH = Qt::UserRole + 1,
+	HEADER_CODE,
+	LEVELS
+};
 
-     window->show();
+void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
+	// Traverse files in current dir
+	QDir files(path.join("/"));
+	files.setFilter(QDir::Files);
 
-	 ui.textEdit->setText("Test");
+	QStringList entries(files.entryList(QStringList() << "*.txt" << "*.bin" ));
+	QStringList::iterator it = entries.begin();
+	while(it != entries.end()) {
+		QStandardItem* item = new QStandardItem(*it);
+		path << *it;
+		item->setData(QVariant(path.join("/")), FILE_PATH);
+		path.removeLast();
+		entitiesModel->appendRow(item);
+		++it;
+	}
 
-	 ui.type->setColumnCount(1);
-	 QTreeWidgetItem* typeAll = new QTreeWidgetItem(ui.type, QStringList("All types"));
-	 QTreeWidgetItem* typeThing = new QTreeWidgetItem(typeAll, QStringList("Thing")); 
-	 QTreeWidgetItem* typeThingLogic = new QTreeWidgetItem(typeThing, QStringList("Logic"));
-	 QTreeWidgetItem* typeThingAnim = new QTreeWidgetItem(typeThing, QStringList("Animations"));
-	 QTreeWidgetItem* typeUnknown = new QTreeWidgetItem(typeAll, QStringList("Unknown"));
+	files.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+	QStringList dirList(files.entryList());
+	while(!dirList.isEmpty()) {
+		path << dirList.takeFirst();
+		traverseSubdir(path, entitiesModel);
+		path.removeLast();
+	}
+}
 
 
-	 ui.type->addTopLevelItem(typeAll);
-	 typeAll->addChild(typeThing);
-	 typeAll->addChild(typeUnknown);
+int main(int argc, char *argv[]) {
+	QApplication app(argc, argv);
+	QMainWindow *window = new QMainWindow;
+	Ui_MainWindow ui;
+	ui.setupUi(window);
 
-	 typeThing->addChild(typeThingLogic);
-	 typeThing->addChild(typeThingAnim);
+	window->show();
 
-     return app.exec();
- }
+	QString dataPath(QDir::homePath() + "/svn/projects/blue/code/data/");
+
+	// Files
+	QDirModel* dirModel = new QDirModel(QStringList() << "*.txt" << "*.bin"
+										, QDir::AllDirs | QDir::NoDotAndDotDot
+										, QDir::Name);
+	ui.files->setModel(dirModel);
+	ui.files->setRootIndex(dirModel->index(dataPath));
+	ui.files->hideColumn(1);
+	ui.files->hideColumn(2);
+	ui.files->hideColumn(3);
+
+	// Levels
+	QDirModel* levelModel = new QDirModel(QStringList() << "*.txt"
+										, QDir::Files
+										, QDir::Name);
+	ui.levels->setModel(levelModel);
+	ui.levels->setRootIndex(levelModel->index(dataPath));
+	ui.levels->hideColumn(1);
+	ui.levels->hideColumn(2);
+	ui.levels->hideColumn(3);
+
+
+	// Types
+	QStandardItemModel* typeModel = new QStandardItemModel;
+	QFile file("types.txt");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		QStack<QStandardItem*> stack;
+		stack.push(typeModel->invisibleRootItem());
+
+		QTextStream in(&file);
+		QStandardItem *item = 0;
+		while (!in.atEnd()) {
+			QString line = in.readLine().trimmed();
+			if(line.isEmpty())
+				continue;
+			if(line.compare("{") == 0) {
+				if(item != 0)
+					stack.push(item);
+				continue;
+			}
+			if(line.compare("}") == 0) {
+				stack.pop();
+				continue;
+			}
+
+			QStringList parts = line.split("/");
+			item = new QStandardItem(QString(parts.takeLast()));
+			item->setData(QVariant(parts));
+			stack.top()->appendRow(item);
+		}
+	}
+	ui.types->setModel(typeModel);
+
+	// Entities
+	QStandardItemModel* entitiesModel = new QStandardItemModel;
+	QStringList path(dataPath);
+	traverseSubdir(path, entitiesModel);
+	ui.entities->setModel(entitiesModel);
+
+	return app.exec();
+}

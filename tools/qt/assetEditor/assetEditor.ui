@@ -1,77 +1,113 @@
 <ui version="4.0" >
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
-  <property name="windowModality" >
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>785</width>
-    <height>604</height>
+    <width>751</width>
+    <height>462</height>
    </rect>
-  </property>
-  <property name="sizePolicy" >
-   <sizepolicy>
-    <hsizetype>7</hsizetype>
-    <vsizetype>7</vsizetype>
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="windowTitle" >
    <string>SagaEngine asset editor</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <layout class="QGridLayout" >
+   <layout class="QVBoxLayout" >
     <property name="margin" >
      <number>9</number>
     </property>
     <property name="spacing" >
      <number>6</number>
     </property>
-    <item row="0" column="0" >
-     <widget class="QSplitter" name="work" >
+    <item>
+     <widget class="QSplitter" name="splitter_2" >
       <property name="orientation" >
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QSplitter" name="splitter" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>5</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QTreeWidget" name="type" />
-       <widget class="QTreeWidget" name="files" />
-       <widget class="QTreeWidget" name="level" />
+       <widget class="QTreeView" name="files" >
+        <property name="toolTip" >
+         <string>Files</string>
+        </property>
+       </widget>
+       <widget class="QTreeView" name="levels" >
+        <property name="toolTip" >
+         <string>Levels</string>
+        </property>
+       </widget>
+       <widget class="QTreeView" name="types" >
+        <property name="toolTip" >
+         <string>Types</string>
+        </property>
+       </widget>
       </widget>
-      <widget class="QTableWidget" name="tableWidget" >
+      <widget class="QListView" name="entities" >
        <property name="sizePolicy" >
         <sizepolicy>
-         <hsizetype>7</hsizetype>
+         <hsizetype>5</hsizetype>
          <vsizetype>5</vsizetype>
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
       </widget>
-      <widget class="QFrame" name="properties" >
-       <property name="frameShape" >
-        <enum>QFrame::StyledPanel</enum>
+      <widget class="QTabWidget" name="tabWidget" >
+       <property name="minimumSize" >
+        <size>
+         <width>400</width>
+         <height>0</height>
+        </size>
        </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Raised</enum>
+       <property name="baseSize" >
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" >
-         <widget class="QTextEdit" name="textEdit" />
-        </item>
-       </layout>
+       <property name="currentIndex" >
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="tab_3" >
+        <attribute name="title" >
+         <string>Tab 1</string>
+        </attribute>
+        <layout class="QVBoxLayout" >
+         <property name="margin" >
+          <number>9</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_4" >
+        <attribute name="title" >
+         <string>Tab 2</string>
+        </attribute>
+        <layout class="QVBoxLayout" >
+         <property name="margin" >
+          <number>9</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QTextEdit" name="sourceEditor" />
+         </item>
+        </layout>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -82,35 +118,40 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>785</width>
-     <height>22</height>
+     <width>751</width>
+     <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuThing" >
-    <property name="title" >
-     <string>Entity</string>
-    </property>
-    <widget class="QMenu" name="menuCreate" >
-     <property name="title" >
-      <string>Create</string>
-     </property>
-     <addaction name="actionThing" />
-    </widget>
-    <addaction name="menuCreate" />
-   </widget>
    <widget class="QMenu" name="menuFile" >
     <property name="title" >
      <string>File</string>
     </property>
-    <addaction name="actionSave" />
-    <addaction name="actionImport" />
+    <addaction name="actionNew" />
+    <addaction name="actionOpen" />
+    <addaction name="actionRecent_Forms" />
     <addaction name="separator" />
-    <addaction name="actionExit" />
+    <addaction name="actionSave" />
+    <addaction name="separator" />
+    <addaction name="actionImport" />
    </widget>
    <addaction name="menuFile" />
-   <addaction name="menuThing" />
   </widget>
   <widget class="QStatusBar" name="statusbar" />
+  <action name="actionOpen" >
+   <property name="text" >
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionRecent_Forms" >
+   <property name="text" >
+    <string>Recent</string>
+   </property>
+  </action>
+  <action name="actionNew" >
+   <property name="text" >
+    <string>New</string>
+   </property>
+  </action>
   <action name="actionSave" >
    <property name="text" >
     <string>Save</string>
@@ -121,22 +162,24 @@
     <string>Import</string>
    </property>
   </action>
-  <action name="actionThing" >
-   <property name="text" >
-    <string>Thing</string>
-   </property>
-  </action>
-  <action name="actionActor" >
-   <property name="text" >
-    <string>Area</string>
-   </property>
-  </action>
-  <action name="actionExit" >
-   <property name="text" >
-    <string>Exit</string>
-   </property>
-  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>entities</sender>
+   <signal>activated(QModelIndex)</signal>
+   <receiver>sourceEditor</receiver>
+   <slot>setModified()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>255</x>
+     <y>232</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>541</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
