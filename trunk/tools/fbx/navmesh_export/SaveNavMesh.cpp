@@ -452,14 +452,16 @@ void SaveNavMesh(KFbxNode* node, float size) {
 	DisplayString("Mesh Name: ", node->GetName());
 
 	int controlPointsCount = mesh->GetControlPointsCount();
-	int polygonCount = mesh->GetPolygonCount();
+	const int polygonCount = mesh->GetPolygonCount();
+	static const int MAX_POLY_COUNT = 256;
+	if(polygonCount > MAX_POLY_COUNT) throw "Too many polygons";
 	SaveableNavMesh navMesh(controlPointsCount, polygonCount);
 
 	KFbxVector4* controlPoints = mesh->GetControlPoints();
 
-	short neighbours[ polygonCount ][ 3 ];
-	float neighbourDistances[ polygonCount ][ 3 ];
-	KFbxVector4 centers[ polygonCount ];
+	short neighbours[ MAX_POLY_COUNT ][ 3 ];
+	float neighbourDistances[ MAX_POLY_COUNT ][ 3 ];
+	KFbxVector4 centers[ MAX_POLY_COUNT ];
 
 	for(int i = 0; i < controlPointsCount; ++i) {
 		navMesh.setControlPoint(i, controlPoints[i]);
@@ -525,8 +527,8 @@ void SaveNavMesh(KFbxNode* node, float size) {
 	}
 
 	// Calculate best path
-	char path[ polygonCount ][ polygonCount ];
-	float visited[ polygonCount ];
+	char path[ MAX_POLY_COUNT ][ MAX_POLY_COUNT ];
+	float visited[ MAX_POLY_COUNT ];
 	for(int i = 0; i < polygonCount; ++i) {
 		// Reset visited
 		for(int poly = 0; poly < polygonCount; ++poly) {
