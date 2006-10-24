@@ -5,12 +5,8 @@
 #include <QMainWindow>
 #include <QStack>
 #include <QTextStream>
-
-enum FileDataRoles {
-	FILE_PATH = Qt::UserRole + 1,
-	HEADER_CODE,
-	LEVELS
-};
+#include "ExController.h"
+#include "ViewController.hpp"
 
 void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 	// Traverse files in current dir
@@ -23,6 +19,14 @@ void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 		QStandardItem* item = new QStandardItem(*it);
 		path << *it;
 		item->setData(QVariant(path.join("/")), FILE_PATH);
+		QFile file(path.join("/"));
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {	
+			QTextStream in(&file);
+			QString headerCode(in.readLine(4));
+			item->setData(headerCode, HEADER_CODE);
+		}
+
+
 		path.removeLast();
 		entitiesModel->appendRow(item);
 		++it;
@@ -36,6 +40,7 @@ void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 		path.removeLast();
 	}
 }
+
 
 
 int main(int argc, char *argv[]) {
@@ -94,7 +99,8 @@ int main(int argc, char *argv[]) {
 
 			QStringList parts = line.split("/");
 			item = new QStandardItem(QString(parts.takeLast()));
-			item->setData(QVariant(parts));
+			item->setData(QVariant(0), TYPE);
+			item->setData(QVariant(parts), INCLUDE);
 			stack.top()->appendRow(item);
 		}
 	}
@@ -105,6 +111,16 @@ int main(int argc, char *argv[]) {
 	QStringList path(dataPath);
 	traverseSubdir(path, entitiesModel);
 	ui.entities->setModel(entitiesModel);
+
+	//
+	ExController contr(*entitiesModel, *ui.entities);
+	QObject::connect(ui.types, SIGNAL(clicked(QModelIndex)),
+					 &contr, SLOT(updateList(QModelIndex)));
+
+
+	ViewController inspect(ui);
+	QObject::connect(ui.entities, SIGNAL(clicked(QModelIndex)),
+					 &inspect, SLOT(updateText(QModelIndex)));
 
 	return app.exec();
 }
