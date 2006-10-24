@@ -164,22 +164,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>entities</sender>
-   <signal>activated(QModelIndex)</signal>
-   <receiver>sourceEditor</receiver>
-   <slot>setModified()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>255</x>
-     <y>232</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>541</x>
-     <y>243</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

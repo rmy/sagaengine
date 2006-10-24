@@ -2,8 +2,8 @@
 {
 	0001/Things
 	{
-		0002/Logic
-		0003/Ogre
+		XO02/Logic
+		OO01/Ogre
 	}
 
 	????/Unkown
