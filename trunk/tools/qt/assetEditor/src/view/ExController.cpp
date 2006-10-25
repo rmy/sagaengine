@@ -16,8 +16,8 @@ void ExController
 			QStringList incHeaders(index.data(INCLUDE).toStringList());
 			const QStandardItemModel* sourceModel = static_cast<const QStandardItemModel*>(index.model());
 			QStandardItem* root = sourceModel->item(index.row(), index.column());
+
 			// Traverse children to get all included
-			
 			for(int i = 0; i < model_.rowCount(); ++i) {
 				QStandardItem* item = model_.item(i, 0);
 				QString header(item->data(HEADER_CODE).toString());
@@ -25,7 +25,6 @@ void ExController
 			}
 		}
 		break;
-
 	}
 
 }

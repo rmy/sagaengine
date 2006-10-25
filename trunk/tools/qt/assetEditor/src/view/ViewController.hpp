@@ -3,6 +3,7 @@
 
 #include "ui_assetEditor.h"
 #include "enums.hpp"
+#include "OgreView.hpp"
 #include <qobject.h>
 #include <qstandarditemmodel.h>
 
@@ -16,6 +17,7 @@ public:
 	void updateText(const QModelIndex& index);
 
 private:
+	OgreView* ogreView_;
 	Ui_MainWindow & ui_;
 };
 
