@@ -23,7 +23,6 @@ public:
 private:
 	QStandardItemModel& model_;
 	QListView& view_;
-	//QStringList x_;
 };
 
 

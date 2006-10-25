@@ -77,9 +77,9 @@
         </size>
        </property>
        <property name="currentIndex" >
-        <number>1</number>
+        <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_3" >
+       <widget class="QWidget" name="propertyPane" >
         <attribute name="title" >
          <string>Tab 1</string>
         </attribute>

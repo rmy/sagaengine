@@ -1,12 +1,13 @@
-#include "ui_assetEditor.h"
 #include <QApplication>
 #include <QDirModel>
 #include <QStandardItemModel>
 #include <QMainWindow>
 #include <QStack>
 #include <QTextStream>
-#include "ExController.h"
-#include "ViewController.hpp"
+#include "ui_assetEditor.h"
+#include "view/ExController.hpp"
+#include "view/ViewController.hpp"
+#include "view/OgreView.hpp"
 
 void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 	// Traverse files in current dir
@@ -122,5 +123,7 @@ int main(int argc, char *argv[]) {
 	QObject::connect(ui.entities, SIGNAL(clicked(QModelIndex)),
 					 &inspect, SLOT(updateText(QModelIndex)));
 
+
+	
 	return app.exec();
 }
