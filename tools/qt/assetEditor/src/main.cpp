@@ -8,6 +8,11 @@
 #include "view/ExController.hpp"
 #include "view/ViewController.hpp"
 #include "view/OgreView.hpp"
+#include "schema/AssetEditorSchema.hpp"
+#include <se_core.hpp>
+
+using namespace se_core;
+using namespace se_asset;
 
 void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 	// Traverse files in current dir
@@ -19,14 +24,17 @@ void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 	while(it != entries.end()) {
 		QStandardItem* item = new QStandardItem(*it);
 		path << *it;
+		// Remove datapath from stored path
+		QString dataPath(path.takeFirst());
 		item->setData(QVariant(path.join("/")), FILE_PATH);
+		// put datapath back in stored path
+		path.prepend(dataPath);
 		QFile file(path.join("/"));
 		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {	
 			QTextStream in(&file);
 			QString headerCode(in.readLine(4));
 			item->setData(headerCode, HEADER_CODE);
 		}
-
 
 		path.removeLast();
 		entitiesModel->appendRow(item);
@@ -46,13 +54,14 @@ void traverseSubdir(QStringList& path, QStandardItemModel* entitiesModel) {
 
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
-	QMainWindow *window = new QMainWindow;
-	Ui_MainWindow ui;
-	ui.setupUi(window);
+	se_core::initSagaEngine("ae");
+	QString dataPath(IoSchema::dataPath);
 
-	window->show();
-
-	QString dataPath(QDir::homePath() + "/svn/projects/blue/code/data/");
+	AESchema::singleton().window_ = new QMainWindow;
+	AESchema::singleton().ui_ = new Ui_MainWindow;
+	Ui_MainWindow& ui = *AESchema::singleton().ui_;
+	ui.setupUi(AESchema::singleton().window_);
+	AESchema::singleton().window_->show();
 
 	// Files
 	QDirModel* dirModel = new QDirModel(QStringList() << "*.txt" << "*.bin"
@@ -124,6 +133,5 @@ int main(int argc, char *argv[]) {
 					 &inspect, SLOT(updateText(QModelIndex)));
 
 
-	
 	return app.exec();
 }

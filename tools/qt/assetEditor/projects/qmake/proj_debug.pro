@@ -21,7 +21,7 @@ INCLUDEPATH += $${OGRE}
 DESTDIR = $${SAGAENGINE}/tools/qt/assetEditor/projects/qmake
 
 DEFINES *= IS_OGRE DEBUG_LEVEL_2 SE_STATIC
-DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeCoreExport= _SePcExport=
+DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SeCoreExport= _SePcExport= _SeAeExport=
 DEFINES *= _SimpleUiExport= _SimpleLogicExport=
 
 message(Destdir: $$DESTDIR )
