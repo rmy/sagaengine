@@ -101,7 +101,7 @@ void * operator new[](size_t size, char const * file, int line);
 #define LogWarning(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
 #define LogMsg(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).whisper()
 #define DebugExec(n) n
-#define WasHere() { se_err::say3(__FILE__, __LINE__, __FUNCTION__); }
+#define WasHere() { se_err::whisper3(__FILE__, __LINE__, __FUNCTION__); }
 #define Dump(msg) { se_err::dump(msg); se_err::dump("\n"); }
 #define DumpAllocs se_err::dumpAlloc();
 
@@ -127,6 +127,7 @@ namespace se_err {
 #define DbgLogFatal(n)
 #define DbgAssert(b)
 //#define LogMsg(msg)
+#define LogWarning(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
 #define LogMsg(msg)
 // se_err::debugStop()
 //{ se_err::say3(__FILE__, __LINE__, __FUNCTION__); }
@@ -146,8 +147,9 @@ namespace se_err {
 #define LogFatal(n)
 #define DbgLogFatal(n)
 #define DbgAssert(b)
-// Prevents strange bug in release mode ...
 #define LogMsg(msg)
+#define LogWarning(msg)
+// Prevents strange bug in release mode ...
 //se_err::hello()
 #define DebugExec(n)
 #define WasHere()
