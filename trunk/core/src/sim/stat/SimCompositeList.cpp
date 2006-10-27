@@ -22,6 +22,12 @@ rune@skalden.com
 #include "SimCompositeList.hpp"
 
 namespace se_core {
+
+	SimCompositeList
+	::SimCompositeList() : SCL(__FILE__) {
+	}
+
+
 	/*
 	SimCompositeList
 	::SimCompositeList() {

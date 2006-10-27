@@ -55,7 +55,7 @@ namespace se_ogre {
 	::clearWorld() {
 		for(int i = 0; i < areaCount_; ++i) {
 			ThingMOList::iterator_type it = areas_[i].firstThingMO_;
-			while(it != ThingMOList::NULL_NODE) {
+			while(it != ThingMOList::end()) {
 				ThingMO* te = O3dSchema::thingMOList.next(it);
 				O3dSchema::thingMOManager.release(te);
 			}
@@ -219,7 +219,7 @@ namespace se_ogre {
 						areas_[ index ].area_ = a;
 						areas_[ index ].shouldKeep_ = true;
 						areas_[ index ].isNew_ = true;
-						areas_[ index ].firstThingMO_ = ThingMOList::NULL_NODE;
+						areas_[ index ].firstThingMO_ = ThingMOList::end();
 						areas_[ index ].id_ = a->id();
 
 						if(!O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
@@ -288,7 +288,7 @@ namespace se_ogre {
 
 				// Remove things
 				ThingMOList::iterator_type it = areas_[i].firstThingMO_;
-				while(it != ThingMOList::NULL_NODE) {
+				while(it != ThingMOList::end()) {
 					ThingMO* te = O3dSchema::thingMOList.next(it);
 					//LogMsg(te->name());
 					O3dSchema::thingMOManager.release(te);
@@ -313,7 +313,7 @@ namespace se_ogre {
 		/*
 		// Clear thinglist
 		ThingMOList::iterator_type it = areas_[index].firstThingMO;
-		while(it != ThingMOList::NULL_NODE) {
+		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			ThingMO* te = O3dSchema::thingMOManager.release(te);
 		}
@@ -352,7 +352,7 @@ namespace se_ogre {
 		if(index < 0) return;
 
 		ThingMOList::iterator_type it = areas_[index].firstThingMO_;
-		while(it != ThingMOList::NULL_NODE) {
+		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			if(te->hasThing(thing)) {
 				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO_);
@@ -378,7 +378,7 @@ namespace se_ogre {
 			nextIndex = findArea(thing.nextPos().area()->id());
 
 		ThingMOList::iterator_type it = areas_[index].firstThingMO_;
-		while(it != ThingMOList::NULL_NODE) {
+		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			if(te->hasThing(thing)) {
 				O3dSchema::thingMOList.remove(*te, areas_[index].firstThingMO_);
@@ -457,7 +457,7 @@ namespace se_ogre {
 		// Interpolate world positions at this stepDelta for all Things in scene.
 		for(int i = 0; i < areaCount_; ++i) {
 			ThingMOList::iterator_type it = areas_[i].firstThingMO_;
-			while(it != ThingMOList::NULL_NODE) {
+			while(it != ThingMOList::end()) {
 				ThingMO* te = O3dSchema::thingMOList.next(it);
 				te->move(renderClock, stepDelta, timeSinceLastFrame);
 			}

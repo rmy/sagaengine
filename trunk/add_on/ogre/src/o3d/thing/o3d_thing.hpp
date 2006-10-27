@@ -28,6 +28,7 @@ namespace se_ogre {
 	class ThingMO;
 	class ThingMOFactory;
 	struct ThingMOInfo;
+	class ThingMOInfoList;
 	class MeshOfThing;
 	class EntityMaterial;
 	class O3dAnimation;

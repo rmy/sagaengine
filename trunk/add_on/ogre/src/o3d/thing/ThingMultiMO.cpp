@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "ThingMOInfo.hpp"
+#include "ThingMOManager.hpp"
 #include "ThingMultiMO.hpp"
 #include "../schema/O3dSchema.hpp"
 #include <cstdio>
@@ -29,41 +30,41 @@ namespace se_ogre {
 
 	ThingMultiMO
 	::ThingMultiMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
-		: ThingMO(thing, info, factory) {
-
-		// Create a unique entity name
-		char name[128];
-		sprintf(name, "%d-%s", thing_.id(), thing_.name());
-
-		// Set the mesh
-		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
-		node_->attachObject(movableObject_);
+		: ThingMO(thing, info, factory), firstThingMO_(ThingMOList::end()) {
+		hasAnimation_ = true;
 	}
 
 
 	ThingMultiMO
 	::~ThingMultiMO() {
-		O3dSchema::sceneManager->destroyMovableObject(movableObject_);
-		movableObject_ = 0;
+		ThingMOList::iterator_type it = firstThingMO_;
+		while(it != ThingMOList::end()) {
+			ThingMO* te = O3dSchema::thingMOList.next(it);
+			O3dSchema::thingMOManager.release(te);
+		}
 	}
 
 
 	void ThingMultiMO
 	::moveChildren(long when, float stepDelta, float timeSinceLastFrame) {
 		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::NULL_NODE) {
+		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			te->move(when, stepDelta, timeSinceLastFrame);
+			te->resetPos();
 		}
 	}
 
+
 	void ThingMultiMO
 	::animateChildren(long when, float stepDelta, float timeSinceLastFrame) {
+		moveChildren(when, stepDelta, timeSinceLastFrame);
 		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::NULL_NODE) {
+		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
-			if(te->hasAnimation())
+			if(te->hasAnimation()) {
 				te->animate(when, stepDelta, timeSinceLastFrame);
+			}
 		}
 	}
 
@@ -71,8 +72,10 @@ namespace se_ogre {
 	void ThingMultiMO
 	::add(ThingMO& tmo) {
 		O3dSchema::thingMOList.add(tmo, firstThingMO_);
-		if(tmo.hasAnimation())
-			hasAnimation_ = true;
+		tmo.setParentNode(node_);
+		tmo.setVisible(true);
+		//if(tmo.hasAnimation())
+		//	hasAnimation_ = true;
 	}
 
 

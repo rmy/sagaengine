@@ -215,7 +215,7 @@ namespace se_core {
 		SimObjectList::iterator_type it = actor.cutscenes().iterator();
 
 		Cutscene* c = 0;
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			c = SimSchema::simObjectList.nextCutscene(it);
 			if(!questGoals().contains(c->afterTheseGoals())) {
 				c = 0;

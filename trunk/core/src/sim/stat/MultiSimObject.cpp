@@ -32,14 +32,14 @@ namespace se_core {
 
 	MultiSimObject
 	::MultiSimObject()
-		: firstNode_(SimObjectList::NULL_NODE) {
+		: firstNode_(SimObjectList::end()) {
 	}
 
 
 	MultiSimObject
 	::~MultiSimObject() {
 		SimSchema::simObjectList.removeChain(firstNode_);
-		firstNode_ = SimObjectList::NULL_NODE;
+		firstNode_ = SimObjectList::end();
 	}
 
 
@@ -59,7 +59,7 @@ namespace se_core {
 	bool MultiSimObject
 	::contains(SimObject& value) const {
 		SimObjectList::iterator_type it = iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			if(SimSchema::simObjectList.next(it)->id() == value.id())
 				return true;
 		}
@@ -70,7 +70,7 @@ namespace se_core {
 	bool MultiSimObject
 	::contains(MultiSimObject& mgo) const {
 		SimObjectList::iterator_type it = mgo.iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			if(!contains(*SimSchema::simObjectList.next(it)))
 				return false;
 		}
@@ -81,7 +81,7 @@ namespace se_core {
 	bool MultiSimObject
 	::sharesAny(MultiSimObject& mgo) const {
 		SimObjectList::iterator_type it = mgo.iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			if(contains(*SimSchema::simObjectList.next(it))) {
 				return true;
 			}
@@ -94,7 +94,7 @@ namespace se_core {
 	::add(MultiSimObject& mgo) {
 		Assert(&mgo);
 		SimObjectList::iterator_type it = mgo.iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			add(*SimSchema::simObjectList.next(it));
 		}
 	}
@@ -103,7 +103,7 @@ namespace se_core {
 	void MultiSimObject
 	::destroyMembersAndClear() {
 		SimObjectList::iterator_type it = iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			delete SimSchema::simObjectList.next(it);
 		}
 		clear();
@@ -118,7 +118,7 @@ namespace se_core {
 
 	bool MultiSimObject
 	::isEmpty() const {
-		return (firstNode_ == SimObjectList::NULL_NODE);
+		return (firstNode_ == SimObjectList::end());
 	}
 
 

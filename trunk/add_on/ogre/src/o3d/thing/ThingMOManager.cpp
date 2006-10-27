@@ -20,10 +20,14 @@ rune@skalden.com
 
 #include "ThingMOManager.hpp"
 #include "ThingMO.hpp"
+#include "ThingMultiMO.hpp"
 #include "ThingMOInfo.hpp"
+#include "ThingMOInfoList.hpp"
 #include "ThingMOFactory.hpp"
 #include "ThingMovableObjectFactory.hpp"
 #include "ThingEntityFactory.hpp"
+#include "ThingMultiMOFactory.hpp"
+#include "ThingLightFactory.hpp"
 #include "ThingBillboardFactory.hpp"
 #include "ThingStaticGeometryFactory.hpp"
 
@@ -31,13 +35,15 @@ namespace se_ogre {
 
 	ThingMOManager
 	::ThingMOManager() : infoCount_(0), factoryCount_(0) {
-		info_ = new ThingMOInfo*[100];
+		infoList_ = new ThingMOInfoList*[100];
 		factories_ = new ThingMOFactory*[100];
 
 		static ThingMovableObjectFactory tmofMovableObject("default");
 		static ThingEntityFactory tmofEntity;
+		static ThingLightFactory tmofLight;
 		static ThingBillboardFactory tmofBillboard;
 		static ThingStaticGeometryFactory tmofStaticGeometry;
+		static ThingMultiMOFactory tmofMultiMO;
 	}
 
 
@@ -45,13 +51,13 @@ namespace se_ogre {
 	::~ThingMOManager() {
 		while(infoCount_ > 0) {
 			--infoCount_;
-			delete info_[ infoCount_ ];
+			delete infoList_[ infoCount_ ];
 		}
-		delete[] info_;
+		delete[] infoList_;
 		delete[] factories_;
 	}
 
-
+	/*
 	void ThingMOManager
 	::addInfo(ThingMOInfo* info) {
 		// Insert - keep sorted
@@ -64,6 +70,21 @@ namespace se_ogre {
 		++infoCount_;
 		LogMsg("Added meshinfo for: " << info->thingType_);
 	}
+	*/
+
+
+	void ThingMOManager
+	::addInfoList(ThingMOInfoList* infoList) {
+		// Insert - keep sorted
+		int i = infoCount_;
+		while(i > 0 && infoList->thingType_.compare(infoList_[i - 1]->thingType_) < 0) {
+			infoList_[ i ] = infoList_[i - 1];
+			--i;
+		}
+		infoList_[i] = infoList;
+		++infoCount_;
+		LogMsg("Added meshinfo for: " << infoList->thingType_);
+	}
 
 
 	int ThingMOManager
@@ -74,7 +95,7 @@ namespace se_ogre {
 		// Binary search
 		while(max >= min) {
 			int middle = (min + max) >> 1;
-			int cmp = info_[ middle ]->thingType_.compare( thingType );
+			int cmp = infoList_[ middle ]->thingType_.compare( thingType );
 			if(cmp < 0) {
 				min = middle + 1;
 			}
@@ -92,16 +113,29 @@ namespace se_ogre {
 
 	const ThingMOInfo* ThingMOManager
 	::info(int index) const {
-		return info_[index];
+		return infoList_[index]->infos_[0];
 	}
 
 
 	const ThingMOInfo* ThingMOManager
 	::info(const char* thingType) const {
+		LogMsg(thingType);
+		int index = infoIndex(thingType);
+		if(index < 0) {
+			LogMsg("Couldnt model for " << thingType);
+			return 0;
+		}
+		LogMsg("Moeld count for " << thingType << " is " << infoList_[index]->infoCount_);
+		return infoList_[index]->infos_[0];
+	}
+
+
+	const ThingMOInfoList* ThingMOManager
+	::infoList(const char* thingType) const {
 		int index = infoIndex(thingType);
 		if(index < 0)
 			return 0;
-		return info_[index];
+		return infoList_[index];
 	}
 
 
@@ -154,15 +188,34 @@ namespace se_ogre {
 
 	ThingMO* ThingMOManager
 	::create(se_core::PosNode& t) {
-		const ThingMOInfo* inf = info(t.name());
-		if(!inf)
+		const ThingMOInfoList* inf = infoList(t.name());
+		if(!inf || inf->infoCount_ < 1)
 			return 0;
-		const char* factoryType = inf->movableObjectType_.get();
-		const ThingMOFactory* f = factory(factoryType);
-		if(!f) {
-			LogMsg("Movable object factory type " << factoryType << " does not exist for " << t.name());
+
+		if(inf->infoCount_ == 1 && false) {
+			const char* factoryType = inf->infos_[0]->movableObjectType_.get();
+			const ThingMOFactory* f = factory(factoryType);
+			if(!f) {
+				LogWarning("Movable object factory type " << factoryType << " does not exist for " << t.name());	
+				return 0;
+			}
+			return f->create(t, *inf->infos_[0]);
 		}
-		return f->create(t, *inf);
+
+		static ThingMOInfo dummy;
+		
+		ThingMultiMO* parent = static_cast<ThingMultiMO*>(factory("multi")->create(t, dummy));
+		for(int i = 0; i < inf->infoCount_; ++i) {
+			const char* factoryType	= inf->infos_[i]->movableObjectType_.get();
+			const ThingMOFactory* f = factory(factoryType);
+			if(!f) {
+				LogWarning("Movable object factory type " << factoryType << " does not exist for " << t.name());	
+				continue;
+			}
+			ThingMO* child = f->create(t, *inf->infos_[i]);
+			parent->add(*child);
+		}
+		return parent;
 	}
 
 

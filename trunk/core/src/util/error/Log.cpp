@@ -49,6 +49,11 @@ namespace se_err {
 	}
 	void say3(const char* file, int line, const char* msg) {
 		char buffer[512];
+		sprintf(buffer, "Wrn: \"%s\" (%s-%d)", msg, file, line);
+		dump(buffer);
+	}
+	void whisper3(const char* file, int line, const char* msg) {
+		char buffer[512];
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}
@@ -94,6 +99,13 @@ namespace se_err {
 	Log& Log
 	::say() {
 		say3(file_, line_, msg_);
+		return *this;
+	}
+
+
+	Log& Log
+	::whisper() {
+		whisper3(file_, line_, msg_);
 		return *this;
 	}
 

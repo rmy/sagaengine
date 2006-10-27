@@ -19,26 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef Parser_hpp
-#define Parser_hpp
+#ifndef o3d_thing_ThingLightFactory_hpp
+#define o3d_thing_ThingLightFactory_hpp
 
-#include "../stream/InputStream.hpp"
-#include "io_parse.hpp"
+#include "O3dPre.hpp"
+#include "o3d_thing.hpp"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+#include "ThingMOFactory.hpp"
 
-
-namespace se_core {
-
-	class _SeCoreExport Parser {
+namespace se_ogre {
+	class _SeOgreExport ThingLightFactory : public ThingMOFactory {
 	public:
-		Parser();
-		~Parser();
-		void add(ParserModule *module);
-		bool parse(InputStream& in);
+		ThingLightFactory();
+		~ThingLightFactory();
 
-	private:
-		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
-		int moduleCount_;
+		ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const;
 	};
 
 }

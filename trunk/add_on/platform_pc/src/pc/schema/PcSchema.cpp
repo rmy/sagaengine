@@ -46,7 +46,8 @@ namespace se_pc {
 
 
 			~AutoInit() {
-				IoSchema::fileManager->cleanup();
+				if(IoSchema::fileManager)
+					IoSchema::fileManager->cleanup();
 				delete IoSchema::fileManager;
 				IoSchema::fileManager = 0;
 

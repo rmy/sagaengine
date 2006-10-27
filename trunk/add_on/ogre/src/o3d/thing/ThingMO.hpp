@@ -34,6 +34,7 @@ namespace se_ogre {
 		void setVisible(bool state);
 		bool isVisible() { return isVisible_; }
 		void move(long when, float stepDelta, float timeSinceLastFrame);
+		void resetPos();
 		virtual void animate(long when, float stepDelta, float timeSinceLastFrame) = 0;
 		bool hasThing(se_core::Thing& thing) { return thing_.id() == thing.id(); }
 		void setParentNode(Ogre::SceneNode* sn);

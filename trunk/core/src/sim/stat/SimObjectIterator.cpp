@@ -35,7 +35,7 @@ namespace se_core {
 
 	SimObjectIterator
 	::SimObjectIterator()
-		: it_(SimObjectList::NULL_NODE) {
+		: it_(SimObjectList::end()) {
 	}
 
 
@@ -57,7 +57,7 @@ namespace se_core {
 
 	bool SimObjectIterator
 	::hasNext() {
-		return it_ != SimObjectList::NULL_NODE;
+		return it_ != SimObjectList::end();
 	}
 
 	SimObject& SimObjectIterator

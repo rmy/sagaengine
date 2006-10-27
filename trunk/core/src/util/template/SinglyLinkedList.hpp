@@ -68,15 +68,15 @@ namespace se_core {
 		 * for efficiency reasons.
 		 * @param element the element to add
 		 * @param firstNode a reference to a variable containint the
-		 *    index of the first node in the list (or NULL_NODE if it
+		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
 		void add(ElementType& element, iterator_type &firstNode) {
 			// Check that there are free nodes left
-			DebugExec(if(firstFreeNode_ == NULL_NODE)) LogMsg(name_ << ": " << MAX_ELEMENTS << " - " << count_);
-			DebugExec(if(firstFreeNode_ == NULL_NODE)) LogMsg("Size: " << size(firstNode));
+			DebugExec(if(firstFreeNode_ == end())) LogMsg(name_ << ": " << MAX_ELEMENTS << " - " << count_);
+			DebugExec(if(firstFreeNode_ == end())) LogMsg("Size: " << size(firstNode));
 
-			Assert(firstFreeNode_ != NULL_NODE);
+			Assert(firstFreeNode_ != end());
 			Assert((&element) != 0);
 			//DbgAssert(!isFree(firstNode));
 
@@ -112,7 +112,7 @@ namespace se_core {
 			firstFreeNode_ = iterator;
 
 			// Make the iterator point to the next node in the chain
-			if(previousElement != NULL_NODE) {
+			if(previousElement != end()) {
 				nextNodes_[ previousElement ] = tmp;
 			}
 			iterator = tmp;
@@ -151,18 +151,18 @@ namespace se_core {
 		 * to remove.
 		 * @param element The elemnt to remove
 		 * @param firstNode a reference to a variable containint the
-		 *    index of the first node in the list (or NULL_NODE if it
+		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
 		bool remove(ElementType& element, iterator_type &firstNode) {
 			Assert(nodes_[0] != 0);
 			//DbgAssert(!isFree(firstNode));
 			iterator_type iterator = firstNode;
-			iterator_type prev = NULL_NODE;
-			while(iterator != NULL_NODE) {
+			iterator_type prev = end();
+			while(iterator != end()) {
 				if(nodes_[ iterator ] == &element) {
 					if(iterator == firstNode) {
-						remove(iterator, NULL_NODE);
+						remove(iterator, end());
 						firstNode = iterator;
 						return true;
 					}
@@ -186,18 +186,18 @@ namespace se_core {
 		 * Remove the chain
 		 * Remove all members from the singly linked list
 		 * @param firstNode a reference to a variable containint the
-		 *    index of the first node in the list (or NULL_NODE if it
+		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
 		void removeChain(iterator_type &firstNode) {
 			// Store beginning of chain
 			//DbgAssert(!isFree(firstNode));
-			if(firstNode == NULL_NODE)
+			if(firstNode == end())
 				return;
 			iterator_type tmp = firstNode;
 
 			// Find last node
-			while(nextNodes_[ firstNode ] != NULL_NODE) {
+			while(nextNodes_[ firstNode ] != end()) {
 				firstNode = nextNodes_[ firstNode ];
 			}
 			// Make last node point to free nodes
@@ -207,7 +207,7 @@ namespace se_core {
 			firstFreeNode_ = tmp;
 
 			// Reset firstNode of cleared chain
-			firstNode = NULL_NODE;
+			firstNode = end();
 		}
 
 
@@ -215,13 +215,13 @@ namespace se_core {
 		 * Check if an element exists in a singly linked list
 		 * @param element element to look for
 		 * @param firstNode a reference to a variable containing the
-		 *    index of the first node in the list (or NULL_NODE if it
+		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
 		bool hasElement(ElementType& element, iterator_type& firstNode) {
 			//DbgAssert(!isFree(firstNode));
 			iterator_type iterator = firstNode;
-			while(iterator != NULL_NODE) {
+			while(iterator != end()) {
 				if(nodes_[ iterator ] == &element)
 					return true;
 
@@ -241,11 +241,11 @@ namespace se_core {
 		 * @param iterator a reference to a variable pointing
 		 *       to the current member in the list. After the call
 		 *       it will contain the index of the next member,
-		 *       or NULL_NODE if no more members exist.
+		 *       or end() if no more members exist.
 		 */
 		ElementType* next(iterator_type& iterator) {
 			//DbgAssert(!isFree(iterator));
-			//DbgAssert(iterator != NULL_NODE);
+			//DbgAssert(iterator != end());
 			//DbgAssert(iterator >= 0);
 			//DbgAssert(iterator < MAX_ELEMENTS);
 
@@ -264,14 +264,14 @@ namespace se_core {
 		 * Returns the value that terminates the loop.
 		 */
 		static const iterator_type end() {
-			return NULL_NODE;
+			return -1;
 		}
 
 
 		/**
 		 * The number of members in a list.
 		 * @param firstNode a reference to a variable containing the
-		 *    index of the first node in the list (or NULL_NODE if it
+		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 * @return the number of members
 		 */
@@ -279,7 +279,7 @@ namespace se_core {
 			//DbgAssert(!isFree(firstNode));
 			int s = 0;
 			iterator_type iterator = firstNode;
-			while(iterator != NULL_NODE) {
+			while(iterator != end()) {
 				++s;
 				iterator = nextNodes_[ iterator ];
 			}
@@ -289,7 +289,7 @@ namespace se_core {
 
 		bool isFree(const iterator_type &it) {
 			iterator_type iterator = firstFreeNode_;
-			while(iterator != NULL_NODE) {
+			while(iterator != end()) {
 				if(it == iterator) return true;
 				iterator = nextNodes_[ iterator ];
 			}
@@ -308,7 +308,7 @@ namespace se_core {
 			for(iterator_type i = 0; i < MAX_ELEMENTS; ++i) {
 				nextNodes_[ i ] = i + 1;
 			}
-			nextNodes_[ MAX_ELEMENTS - 1 ] = NULL_NODE;
+			nextNodes_[ MAX_ELEMENTS - 1 ] = end();
 			//LogMsg("Free node list size (" << name << "): " << size(firstFreeNode_));
 		}
 
@@ -319,9 +319,9 @@ namespace se_core {
 		 * that the list is empty, or if in an iterator,
 		 * that the iterator has reached the end of the list.
 		 */
-		//static const iterator_type NULL_NODE = -1;
+		//static const iterator_type end() = -1;
 		// Must be primitive type
-		static const int NULL_NODE = -1;
+		//static const int end() = -1;
 
 
 	private:
@@ -340,7 +340,7 @@ namespace se_core {
 
 		/**
 		 * The next node for any element in nodes_ with
-		 * the same array index. A value of NULL_NODE means
+		 * the same array index. A value of end() means
 		 * that the node is the last in the list.
 		 */
 		iterator_type* nextNodes_;

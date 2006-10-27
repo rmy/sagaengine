@@ -19,28 +19,31 @@ rune@skalden.com
 */
 
 
-#ifndef Parser_hpp
-#define Parser_hpp
+#include "ThingMOInfoList.hpp"
+#include "ThingMOInfo.hpp"
+#include "util/error/Log.hpp"
 
-#include "../stream/InputStream.hpp"
-#include "io_parse.hpp"
+using namespace se_core;
+
+namespace se_ogre {
+
+	ThingMOInfoList
+	::ThingMOInfoList()
+		: infoCount_(0), infos_(0) {
+		infos_ = new ThingMOInfo*[ MAX_INFOS ];
+	}
 
 
-namespace se_core {
+	ThingMOInfoList
+	::~ThingMOInfoList() {
+		delete infos_;
+	}
 
-	class _SeCoreExport Parser {
-	public:
-		Parser();
-		~Parser();
-		void add(ParserModule *module);
-		bool parse(InputStream& in);
 
-	private:
-		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
-		int moduleCount_;
-	};
+	void ThingMOInfoList
+	::add(ThingMOInfo* info) {
+		Assert(infoCount_ < MAX_INFOS);
+		infos_[ infoCount_++ ] = info;
+	}
 
 }
-
-#endif

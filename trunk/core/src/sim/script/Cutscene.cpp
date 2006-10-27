@@ -92,7 +92,7 @@ namespace se_core {
 		}
 
 		SimObjectList::iterator_type it = area.multiSimObject(Area::MGOA_ACTORS).iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			Actor* a = SimSchema::simObjectList.nextActor(it);
 			if(a->id() == performerId || a->id() == scriptTarid)
 				continue;
