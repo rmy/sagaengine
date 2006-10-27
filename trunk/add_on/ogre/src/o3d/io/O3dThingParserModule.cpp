@@ -156,8 +156,9 @@ namespace se_ogre {
 					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
 					O3dAnimation* anim = info->createAnimation(channelId, animId);
 					in.readString(anim->name_);
-					LogMsg(anim->name_);
 					anim->speed_ = in.readFloat();
+					
+					anim->doLoop_ = (in.readInfoCode() == '+');
 				}
 				break;
 
