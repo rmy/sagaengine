@@ -28,11 +28,12 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dAnimation {
 	public:
-		O3dAnimation() : speed_(1) {}
+		O3dAnimation() : speed_(1), doLoop_(false) {}
 		int id_;
 		se_core::String name_;
 		float speed_;
 		se_core::String material_;
+		bool doLoop_;
 	};
 
 }

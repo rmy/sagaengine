@@ -139,8 +139,8 @@ namespace se_ogre {
 				// Set the animation state
 				state_[channel] = entity_->getAnimationState(a->name_.get());
 
-				// Enable animation
-				//state_[channel]->setEnabled(true);
+				// Enable looping
+				state_[channel]->setLoop(a->doLoop_);
 
 				// The anim speed of the mesh animation,
 				// multiplied by the anim speed of the things anim channel
@@ -182,10 +182,8 @@ namespace se_ogre {
 				const Anim& na = thing_.nextPos().anim(i);
 
 				float pos = ScaleT::toFloat(a.pos()) * state_[i]->getLength() * speed_[i];
-				//float nextPos = ScaleT::toFloat(a.nextPos()) * state_[i]->getLength() * speed_[i];
 				// If same state are in more channels, interpolate between their positions
 				Assert(!state_[i]->getEnabled() && "Using the same animation twice at one");
-				//LogMsg(i << ": " << state_[i]->getAnimationName().c_str() << " - " << a.movementMode() << " w=" << a.weight() << " pos=" << pos);
 				if(a.weight() > 0) {
 					state_[i]->setTimePosition(pos);
 					state_[i]->setWeight(a.weight());
