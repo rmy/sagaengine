@@ -23,6 +23,7 @@ rune@skalden.com
 #define base_noise_Perlin_hpp
 
 #include "util/type/util_type.hpp"
+#include "../vecmath/Vector3.hpp"
 
 namespace se_core {
 	class _SeCoreExport Perlin {
@@ -45,6 +46,8 @@ namespace se_core {
 					 const unsigned int frequencyX, const unsigned int frequencyY,
 					 const unsigned int frequencyZ, const unsigned int frequencyW,
 					 const bool tileX, const bool tileY, const bool tileZ, const bool tileW );
+
+		float noise( const Vector3& v, const unsigned int freq, bool tile);
 
 	protected:
 		static int floor( const float x ) { return ((int)(x) - ((x) < 0 && (x) != (int)(x))); }

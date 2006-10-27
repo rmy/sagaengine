@@ -19,26 +19,29 @@ rune@skalden.com
 */
 
 
-#ifndef Parser_hpp
-#define Parser_hpp
+#ifndef o3d_thing_ThingMOInfoList_hpp
+#define o3d_thing_ThingMOInfoList_hpp
 
-#include "../stream/InputStream.hpp"
-#include "io_parse.hpp"
+#include "O3dPre.hpp"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+#include "o3d_thing.hpp"
+#include "ThingMOInfo.hpp"
 
-
-namespace se_core {
-
-	class _SeCoreExport Parser {
+namespace se_ogre {
+	class _SeOgreExport ThingMOInfoList {
 	public:
-		Parser();
-		~Parser();
-		void add(ParserModule *module);
-		bool parse(InputStream& in);
+		ThingMOInfoList();
+		~ThingMOInfoList();
 
-	private:
-		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
-		int moduleCount_;
+		se_core::String thingType_;
+		int infoCount_;
+		ThingMOInfo** infos_;
+
+		void add(ThingMOInfo* info);
+
+
+		const static int MAX_INFOS = 16;
 	};
 
 }

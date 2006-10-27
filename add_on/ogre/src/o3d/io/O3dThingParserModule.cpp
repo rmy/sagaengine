@@ -22,6 +22,7 @@ rune@skalden.com
 #include "O3dThingParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
 #include "../thing/ThingMOInfo.hpp"
+#include "../thing/ThingMOInfoList.hpp"
 #include "../thing/O3dAnimation.hpp"
 #include "../io/all.hpp"
 #include "io/parse/all.hpp"
@@ -34,6 +35,7 @@ rune@skalden.com
 #include "sim/pos/Anim.hpp"
 #include <cstring>
 #include <cstdio>
+#include <vector>
 
 
 using namespace se_core;
@@ -48,22 +50,57 @@ namespace se_ogre {
 
 	void O3dThingParserModule
 	::parse(InputStream& in) {
-		ThingMOInfo* info = new ThingMOInfo();
+		ThingMOInfoList* infoList = new ThingMOInfoList;
 
-		int code;
+		int code = in.readInfoCode();
+		Assert(code == 'N');
+		in.readString(infoList->thingType_);
+
 		while((code = in.readInfoCode()) != 'Q') {
 			LogMsg((char)(code));
 			switch(code) {
-			case 'N': // Name
-				in.readString(info->thingType_);
+			case '{':
+				{
+					ThingMOInfo* info = new ThingMOInfo();
+					parseThingInfo(in, info);
+					infoList->add(info);
+					LogMsg("Added info for " << infoList->thingType_);
+				}
 				break;
 
+			default:
+				LogFatal("Unsupported code: " << (char)(code));
+			}
+		}
+
+		O3dSchema::thingMOManager.addInfoList(infoList);
+	}
+
+
+	void O3dThingParserModule
+	::parseThingInfo(InputStream& in, ThingMOInfo* info) {
+		int code;
+		while((code = in.readInfoCode()) != '}') {
+			LogMsg((char)(code));
+			switch(code) {
 			case 'M': // Mesh
 				{
 					String mesh;
 					in.readString(mesh);
 					info->movableObjectType_.set(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
 					info->params_["mesh"] = mesh.get();
+				}
+				break;
+
+			case 'X': // Point light
+				{
+					info->movableObjectType_.set(Ogre::LightFactory::FACTORY_TYPE_NAME.c_str());
+				}
+				break;
+
+			case 'N': // Not shadow caster
+				{
+					info->isShadowCaster_ = false;
 				}
 				break;
 
@@ -140,14 +177,12 @@ namespace se_ogre {
 				break;
 
 			default:
-				LogFatal("Unsupported code!");
+				LogFatal("Unsupported code: " << (char)(code));
 			}
 		}
 
-		Assert(!info->thingType_.isEmpty());
 		Assert(!info->movableObjectType_.isEmpty() && "You must define exactly one of mesh name or factory");
 
-		O3dSchema::thingMOManager.addInfo(info);
 	}
 
 }

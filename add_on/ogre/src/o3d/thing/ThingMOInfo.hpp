@@ -34,7 +34,7 @@ namespace se_ogre {
 
 		// Per thing
 		bool doScaleByRadius_;
-		se_core::String thingType_;
+		//se_core::String thingType_;
 
 		// Per movable object
 		se_core::String movableObjectType_;
@@ -48,6 +48,8 @@ namespace se_ogre {
 
 		O3dAnimationSet* animationChannels_;
 		bool isStatic_;
+
+		bool isShadowCaster_;
 
 		void setAnimationChannels(int count);
 		O3dAnimation* animation(int channel, int id) const;

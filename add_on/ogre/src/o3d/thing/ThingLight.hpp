@@ -19,28 +19,34 @@ rune@skalden.com
 */
 
 
-#ifndef Parser_hpp
-#define Parser_hpp
+#ifndef o3d_thing_ThingLight_hpp
+#define o3d_thing_ThingLight_hpp
 
-#include "../stream/InputStream.hpp"
-#include "io_parse.hpp"
+#include "O3dPre.hpp"
+#include "ThingMO.hpp"
+#include "o3d_thing.hpp"
+#include "sim/thing/sim_thing.hpp"
 
+namespace se_ogre {
 
-namespace se_core {
-
-	class _SeCoreExport Parser {
+	/**
+	 * An entity visually representing a se_core::Thing
+	 * in 3D.
+	 */
+	class _SeOgreExport ThingLight : public ThingMO {
 	public:
-		Parser();
-		~Parser();
-		void add(ParserModule *module);
-		bool parse(InputStream& in);
+		/**
+		 * @param thing The thing that this entity is visually representing.
+		 */
+		ThingLight(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		void animate(long, float, float) {}
+		~ThingLight();
 
-	private:
-		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
-		int moduleCount_;
+	protected:
+		Ogre::Light* light_;
 	};
 
 }
+
 
 #endif

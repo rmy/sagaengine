@@ -34,6 +34,7 @@ namespace se_err {
 	/** Must be defined in platform dependent module */
 	extern _SeCoreExport void scream3(const char* file, int line, const char* msg2);
 	extern _SeCoreExport void say3(const char* file, int line, const char* msg2);
+	extern _SeCoreExport void whisper3(const char* file, int line, const char* msg2);
 	extern _SeCoreExport void dump(const char *s);
 	/** Must be defined stop **/
 
@@ -46,6 +47,7 @@ namespace se_err {
 		Log& file(const char* file, int line);
 		Log& scream();
 		Log& say();
+		Log& whisper();
 		Log& operator << (const char* msg);
 		Log& operator << (float n);
 		Log& operator << (double n);
@@ -96,7 +98,8 @@ void * operator new[](size_t size, char const * file, int line);
 #define LogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
 #define DbgLogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
 //#define LogMsg(msg) se_err::say3(__FILE__, __LINE__, msg)
-#define LogMsg(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
+#define LogWarning(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
+#define LogMsg(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).whisper()
 #define DebugExec(n) n
 #define WasHere() { se_err::say3(__FILE__, __LINE__, __FUNCTION__); }
 #define Dump(msg) { se_err::dump(msg); se_err::dump("\n"); }

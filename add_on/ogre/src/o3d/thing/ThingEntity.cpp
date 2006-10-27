@@ -49,7 +49,7 @@ namespace se_ogre {
 		node_->attachObject(mo);
 		entity_ = static_cast<Ogre::Entity*>(mo);
 		entity_->setNormaliseNormals(true);
-		entity_->setCastShadows(true);
+		entity_->setCastShadows(info.isShadowCaster_);
 
 		// Get and set animation associated with this thing
 		for(int i = 0; i < info_.channelCount(); ++i) {

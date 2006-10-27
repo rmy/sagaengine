@@ -50,9 +50,8 @@ namespace se_core {
 		modules_[ moduleCount_++ ] = module;
 	}
 
-
-	void Parser
-	::parse(InputStream& in, const char* msgOnError) {
+	bool Parser
+	::parse(InputStream& in) {
 		LogMsg("Loading file: " << in.name());
 
 		int headerCode = in.readHeaderCode();
@@ -60,10 +59,11 @@ namespace se_core {
 		for(int i = 0; i < moduleCount_; ++i) {
 			if(modules_[i]->headerCode() == headerCode) {
 				modules_[i]->parse(in);
-				return;
+				return true;
 			}
 		}
-		LogFatal("The file '" << in.name() << "' had unsupported header name.");
+		LogWarning("The file '" << in.name() << "' had unsupported header name.");
+		return false;
 	}
 
 };

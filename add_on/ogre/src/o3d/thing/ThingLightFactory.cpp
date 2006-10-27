@@ -19,28 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef Parser_hpp
-#define Parser_hpp
+#include "ThingLightFactory.hpp"
+#include "ThingMO.hpp"
+#include "ThingLight.hpp"
 
-#include "../stream/InputStream.hpp"
-#include "io_parse.hpp"
+using namespace se_core;
+
+namespace se_ogre {
+
+	ThingLightFactory
+	::ThingLightFactory() 
+		: ThingMOFactory(Ogre::LightFactory::FACTORY_TYPE_NAME.c_str()) {
+	}
 
 
-namespace se_core {
+	ThingLightFactory
+	::~ThingLightFactory() {
+	}
 
-	class _SeCoreExport Parser {
-	public:
-		Parser();
-		~Parser();
-		void add(ParserModule *module);
-		bool parse(InputStream& in);
-
-	private:
-		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
-		int moduleCount_;
-	};
+	
+	ThingMO* ThingLightFactory
+	::create(se_core::PosNode& thing, const ThingMOInfo& info) const {
+		return new ThingLight(thing, info, *this);
+	}
 
 }
-
-#endif

@@ -102,7 +102,7 @@ namespace se_core {
 		SimObjectList::iterator_type it = this->allThings().iterator();
 		Thing* t;
 		ThingFactory* td;
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());
 			DebugExec(const Point3& c = t->pos().localCoor());
@@ -246,7 +246,7 @@ namespace se_core {
 		coor_t nearest = (3 * COOR_RES);
 
 		SimObjectList::iterator_type it = multiSimObject(MGOA_PICKABLE_THINGS).iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(coor.xzDistanceLinf(t->pos().localCoor()) < nearest) {
 				nearest = coor.xzDistanceLinf(t->pos().localCoor());
@@ -272,7 +272,7 @@ namespace se_core {
 		coor_double_t nearest = -1;
 
 		SimObjectList::iterator_type it = multiSimObject(MGOA_ACTORS).iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			Actor* a = SimSchema::simObjectList.nextActor(it);
 			if(a == &actor) continue;
 			if(a->cutscenes().isEmpty()) continue;
@@ -309,7 +309,7 @@ namespace se_core {
 
 		// Add moving elements to grid
 		SimObjectList::iterator_type it = allThings_->iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(t->isCollideable()) {
 				//LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
@@ -327,7 +327,7 @@ namespace se_core {
 		if(!isActive_) moverCount_ = 0;
 
 		SimObjectList::iterator_type it = allThings_->iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			Thing* t = SimSchema::simObjectList.nextThing(it);
 			if(t->isType(got_ACTOR)) {
 				Actor* a = reinterpret_cast<Actor*>(t);
@@ -342,7 +342,7 @@ namespace se_core {
 		Cutscene* c = 0;
 
 		SimObjectList::iterator_type it = multiSimObject(MGOA_CUTSCENES).iterator();
-		while(it != SimObjectList::NULL_NODE) {
+		while(it != SimObjectList::end()) {
 			c = SimSchema::simObjectList.nextCutscene(it);
 			Assert(c != 0);
 			if(!performer.questGoals().contains(c->afterTheseGoals())) {
@@ -619,7 +619,7 @@ namespace se_core {
 
 		int sp = 0;
 		itStack[ 0 ] = childPosNodes().iterator();
-		if(itStack[ 0 ] == SimObjectList::NULL_NODE)
+		if(itStack[ 0 ] == SimObjectList::end())
 			// No children at all
 			return 0;
 

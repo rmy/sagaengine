@@ -33,6 +33,7 @@ namespace se_ogre {
 	class _SeOgreExport ThingMultiMO : public ThingMO {
 	public:
 		void animate(long when, float stepDelta, float timeSinceLastFrame) {
+			moveChildren(when, stepDelta, timeSinceLastFrame);
 			animateChildren(when, stepDelta, timeSinceLastFrame);
 		}
 
@@ -48,7 +49,6 @@ namespace se_ogre {
 		~ThingMultiMO();
 
 	private:
-		Ogre::MovableObject* movableObject_;
 		ThingMOList::iterator_type firstThingMO_;
 	};
 

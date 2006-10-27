@@ -300,7 +300,6 @@ namespace se_core {
 	}
 
 
-
 	float Perlin
 	::noise(float x, float y, float z, float w,
 			const unsigned int frequencyX, const unsigned int frequencyY,
@@ -396,5 +395,14 @@ namespace se_core {
 								 lerp( a,	gradient( permutations_[ ABBB ], x  , y_1, z_1, w_1 ),
 									   gradient( permutations_[ BBBB ], x_1, y_1, z_1, w_1 )))));
 	}
+
+
+	float Perlin
+	::noise( const Vector3& v, const unsigned int freq, bool tile) {
+		return noise(CoorT::toFloat(v.x_), freq, tile,
+					 CoorT::toFloat(v.y_), freq, tile,
+					 CoorT::toFloat(v.z_), freq, tile);
+	}
+
 
 }

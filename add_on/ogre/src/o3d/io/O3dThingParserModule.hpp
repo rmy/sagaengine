@@ -24,13 +24,14 @@ rune@skalden.com
 
 #include "io/parse/ParserModule.hpp"
 #include "io/stream/io_stream.hpp"
+#include "../thing/ThingMOInfo.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport O3dThingParserModule  : public se_core::ParserModule {
 	public:
 		O3dThingParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);
-
+		void parseThingInfo(se_core::InputStream& in, ThingMOInfo* info_);
 	private:
 	};
 }

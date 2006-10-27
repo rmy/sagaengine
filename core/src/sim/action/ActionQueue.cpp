@@ -41,10 +41,10 @@ namespace se_core {
 		, scheduleFutureTurns_(new ActorList::iterator_type[MAX_TURNS]) {
 		channel_ = createActionChannelId();
 		for(unsigned short i = 0; i < INITIATIVES_PER_TURN; ++i) {
-			scheduleCurrentTurn_[ i ] = ActorList::NULL_NODE;
+			scheduleCurrentTurn_[ i ] = ActorList::end();
 		}
 		for(unsigned short i = 0; i < MAX_TURNS; ++i) {
-			scheduleFutureTurns_[ i ] = ActorList::NULL_NODE;
+			scheduleFutureTurns_[ i ] = ActorList::end();
 		}
 	}
 
@@ -58,7 +58,7 @@ namespace se_core {
 	void ActionQueue
 	::performScheduledActions(long when) {
 		ActorList::iterator_type it = scheduleCurrentTurn_[ currentInitiative_ ];
-		while(it != ActorList::NULL_NODE) {
+		while(it != ActorList::end()) {
 			Actor* a = actorList_.next(it);
 			a->perform(when, channel_);
 		}
@@ -68,7 +68,7 @@ namespace se_core {
 	void ActionQueue
 	::scheduleNextActions(long when) {
 		ActorList::iterator_type it = scheduleCurrentTurn_[ currentInitiative_ ];
-		while(it != ActorList::NULL_NODE) {
+		while(it != ActorList::end()) {
 			Actor* a = actorList_.next(it);
 			a->scheduleNextAction(when, channel_);
 		}
@@ -132,7 +132,7 @@ namespace se_core {
 		currentTurn_ = futureTurn(INITIATIVES_PER_TURN);
 
 		ActorList::iterator_type it = scheduleFutureTurns_[ currentTurn_ ];
-		while(it != ActorList::NULL_NODE) {
+		while(it != ActorList::end()) {
 			Actor* a = actorList_.next(it);
 			unsigned short initiative = initiativeFromSchedule(a->actionSchedule(channel_));
 			actorList_.add(*a, scheduleCurrentTurn_[ initiative ]);
@@ -147,10 +147,10 @@ namespace se_core {
 		currentTurn_ = 0;
 		currentInitiative_ = 0;
 		for(unsigned short i = 0; i < INITIATIVES_PER_TURN; ++i) {
-			scheduleCurrentTurn_[ i ] = ActorList::NULL_NODE;
+			scheduleCurrentTurn_[ i ] = ActorList::end();
 		}
 		for(unsigned short i = 0; i < MAX_TURNS; ++i) {
-			scheduleFutureTurns_[ i ] = ActorList::NULL_NODE;
+			scheduleFutureTurns_[ i ] = ActorList::end();
 		}
 	}
 

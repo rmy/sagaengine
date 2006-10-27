@@ -118,8 +118,9 @@ namespace se_ogre {
 			}
 		}
 
-		if(hasAnimation_)
+		if(hasAnimation_) {
 			animate(when, stepDelta, timeSinceLastFrame);
+		}
 	}
 
 
@@ -139,6 +140,7 @@ namespace se_ogre {
 	::setParentNode(Ogre::SceneNode* sn) {
 		if(sn == parentNode_)
 			return;
+		LogMsg(thing_.name());
 
 		if(isVisible_)
 			parentNode_->removeChild(node_);
@@ -149,6 +151,12 @@ namespace se_ogre {
 
 		if(isVisible_)
 			parentNode_->addChild(node_);
+	}
+
+	void ThingMO
+	::resetPos() {
+		node_->setPosition(0, 0, 0);
+		node_->resetOrientation();
 	}
 
 }

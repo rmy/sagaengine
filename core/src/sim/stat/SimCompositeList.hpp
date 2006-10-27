@@ -33,21 +33,7 @@ namespace se_core {
 	typedef SinglyLinkedList<class SimComposite, MAX_GAME_OBJECTS, 7> SCL;
 	class _SeCoreExport SimCompositeList : public SCL {
 	public:
-		SimCompositeList() : SCL(__FILE__) {}
-		/*
-		inline ActorComposite* nextActor(iterator_type& iterator) {
-			return reinterpret_cast<ActorComposite*>(next(iterator));
-		}
-		inline PhysicsComposite* nextThing(iterator_type& iterator) {
-			return reinterpret_cast<PhysicsComposite*>(next(iterator));
-		}
-		inline PosComposite* nextPos(iterator_type& iterator) {
-			return reinterpret_cast<PosComposite*>(next(iterator));
-		}
-		inline ScriptComposite* nextScript(iterator_type& iterator) {
-			return reinterpret_cast<ScriptComposite*>(next(iterator));
-		}
-		*/
+		SimCompositeList();
 	};
 }
 

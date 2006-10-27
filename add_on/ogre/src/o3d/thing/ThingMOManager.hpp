@@ -34,10 +34,12 @@ namespace se_ogre {
 		ThingMOManager();
 		~ThingMOManager();
 
-		void addInfo(ThingMOInfo* info);
+		void addInfoList(ThingMOInfoList* infoList);
+		//void addInfo(ThingMOInfo* info);
 		int infoIndex(const char* thingType) const;
 		const ThingMOInfo* info(int index) const;
 		const ThingMOInfo* info(const char* thingType) const;
+		const ThingMOInfoList* infoList(const char* thingType) const;
 
 		void addFactory(ThingMOFactory* factory);
 		int factoryIndex(const char* moType) const;
@@ -47,11 +49,10 @@ namespace se_ogre {
 		void release(ThingMO* tmo);
 
 	private:
-		ThingMOInfo** info_;
+		ThingMOInfoList** infoList_;
 		int infoCount_;
 		ThingMOFactory** factories_;
 		int factoryCount_;
-
 	};
 
 }

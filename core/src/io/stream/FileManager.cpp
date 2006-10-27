@@ -43,7 +43,7 @@ namespace se_core {
 	::load(const char* filename) {
 		InputStream* is = 0;
 		if((is = IoSchema::fileManager->open(filename)) != 0) {
-			IoSchema::parser().parse(*is, filename);
+			bool success = IoSchema::parser().parse(*is);
 			close(is);
 		}
 	}
@@ -56,7 +56,7 @@ namespace se_core {
 			if(strncmp(filename, directory, len) == 0) {
 				InputStream* is = 0;
 				if((is = IoSchema::fileManager->open(filename)) != 0) {
-					IoSchema::parser().parse(*is, filename);
+					bool success = IoSchema::parser().parse(*is);
 					close(is);
 				}
 			}
@@ -80,7 +80,7 @@ namespace se_core {
 
 			InputStream* is = 0;
 			if((is = IoSchema::fileManager->open(filename)) != 0) {
-				IoSchema::parser().parse(*is, filename);
+				bool success = IoSchema::parser().parse(*is);
 				IoSchema::fileManager->close(is);
 				LogMsg("Finished loading batch: " << filename);
 				continue;
