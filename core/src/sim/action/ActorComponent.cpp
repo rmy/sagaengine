@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "ActorComposite.hpp"
+#include "ActorComponent.hpp"
 #include "ActionAndParameter.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
@@ -27,30 +27,27 @@ rune@skalden.com
 
 namespace se_core {
 
-	ActorComposite
-	::ActorComposite(Actor* owner)
-		: SimComposite(sct_ACTOR, owner), feed_(0) {
-		//scriptStack_[currentScript_] = 0;
+	ActorComponent
+	::ActorComponent(Actor* owner)
+		: SimComponent(sct_ACTOR, owner), feed_(0) {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
 		}
 	}
 
 
-	ActorComposite
-	::~ActorComposite() {
+	ActorComponent
+	::~ActorComponent() {
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::scheduleNextAction(short channel) {
 		// Actions still in action queue after
 		// scheduleForDestruction may try to plan
 		// further actions
 		if(isDead()) return;
 		Assert(plannedAction_[channel].hasAction());
-		//presentAction_[channel].setAction(*plannedAction_[channel].action());
-		//presentAction_[channel].swapParameters(plannedAction_[channel]);
 		presentAction_[channel] = plannedAction_[channel];
 		plannedAction_[channel].resetAction();
 
@@ -64,7 +61,7 @@ namespace se_core {
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::continueAction(long when, short channel) {
 		// Add to action queue
 		const Action* a = presentAction_[channel].action();
@@ -76,36 +73,36 @@ namespace se_core {
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::planAction(short channel, const Action& action, const Parameter* parameter) const {
 		plannedAction_[channel].setAction(action);
 		if(parameter) {
 			plannedAction_[channel].copyParameter(*parameter);
 		}
 		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<ActorComposite&>(*this).scheduleNextAction(channel);
+			const_cast<ActorComponent&>(*this).scheduleNextAction(channel);
 		}
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::planAction(short channel, const ActionAndParameter& action) const {
 		if(!action.hasAction())
 			return;
 		plannedAction_[channel].set(action);
 		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<ActorComposite&>(*this).scheduleNextAction(channel);
+			const_cast<ActorComponent&>(*this).scheduleNextAction(channel);
 		}
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::clearPlannedAction(short channel) const {
 		plannedAction_[channel].resetAction();
 	}
 
 
-	void ActorComposite
+	void ActorComponent
 	::disrupt() {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			disrupt(i);
@@ -113,7 +110,7 @@ namespace se_core {
 	}
 
 
-	bool ActorComposite
+	bool ActorComponent
 	::disrupt(short channel) {
 		if(!presentAction_[ channel ].hasAction()) return true;
 		// Actions are only removed from ActionQueue if it is in a future
@@ -127,8 +124,7 @@ namespace se_core {
 	}
 
 
-
-	void ActorComposite
+	void ActorComponent
 	::nextScriptAction(short channel) {
 		if(!feed_) return;
 		ActionAndParameter& aap = plannedAction_[channel];

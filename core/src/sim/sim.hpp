@@ -29,7 +29,7 @@ namespace se_core {
 	class SimListener;
 	class SimListeners;
 	class SimObject;
-	class SimComposite;
+	class SimComponent;
 	class SimCompositeOwner;
 	class PosNode;
 

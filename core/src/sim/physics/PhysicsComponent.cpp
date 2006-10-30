@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "PhysicsComposite.hpp"
+#include "PhysicsComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
@@ -27,26 +27,26 @@ rune@skalden.com
 
 
 namespace se_core {
-	PhysicsComposite
-	::PhysicsComposite(Actor* owner) 
-		: SimComposite(sct_PHYSICS, owner), currentPhysics_(0) {
+	PhysicsComponent
+	::PhysicsComponent(Actor* owner) 
+		: SimComponent(sct_PHYSICS, owner), currentPhysics_(0) {
 		physics_[currentPhysics_] = 0;
 	}
 
 
-	PhysicsComposite
-	::~PhysicsComposite() {
+	PhysicsComponent
+	::~PhysicsComponent() {
 	}
 
 
-	void PhysicsComposite
+	void PhysicsComponent
 	::popPhysics() {
 		Assert(currentPhysics_ > 0);
 		--currentPhysics_;
 	}
 
 
-	void PhysicsComposite
+	void PhysicsComponent
 	::pushPhysics(const Physics* ph) {
 		if(hasPhysics() && physics().isStacker()) {
 			// Increase script counter
@@ -57,7 +57,7 @@ namespace se_core {
 	}
 
 
-	void PhysicsComposite
+	void PhysicsComponent
 	::pushPhysics(const char* name) {
 		const Physics* p = SimSchema::sortedSimObjectList().physics(name);
 		pushPhysics(p);

@@ -19,10 +19,10 @@ rune@skalden.com
 */
 
 
-#ifndef sim_PosComposite_hpp
-#define sim_PosComposite_hpp
+#ifndef sim_PosComponent_hpp
+#define sim_PosComponent_hpp
 
-#include "../SimComposite.hpp"
+#include "../SimComponent.hpp"
 #include "Pos.hpp"
 #include "../config/sim_config.hpp"
 #include "util/type/util_type.hpp"
@@ -32,17 +32,17 @@ rune@skalden.com
 namespace se_core {
 	/** Parent class for entities that exists in and has a position in the game world.
 	 *
-	 * PosComposite is the base class for all world entities, including
+	 * PosComponent is the base class for all world entities, including
 	 * the Area, Thing and Actor classes. It maintains information
 	 * about the present local coordinate of a world entity, a
 	 * reference to its parent, a list of its children, and methods
 	 * for traversing the parents to calculate the world coordinates
 	 * of the entity.
 	 */
-	class _SeCoreExport PosComposite : public SimComposite {
+	class _SeCoreExport PosComponent : public SimComponent {
 	public:
-		PosComposite(Actor* owner);
-		virtual ~PosComposite();
+		PosComponent(Actor* owner);
+		virtual ~PosComponent();
 
 		/** Return a const reference to the current position of the thing.
 		 *
@@ -51,16 +51,16 @@ namespace se_core {
 		 * The nextPos() is copied into pos() at the next AI-step.
 		 *
 		 * The pos() object also contains information about the radius of the
-		 * collision cylinder of the PosComposite. This is used for the first step
-		 * of the collision testing. The PosCompositeCollide
-		 * object registered with the PosComposite may perform further collision
+		 * collision cylinder of the PosComponent. This is used for the first step
+		 * of the collision testing. The PosComponentCollide
+		 * object registered with the PosComponent may perform further collision
 		 * testing.
 		 */
 		inline const Pos& pos() const {
 			return position_;
 		}
 
-		/** Does the PosComposite move during this simulation step?
+		/** Does the PosComponent move during this simulation step?
 		 */
 		bool didMove() const {
 			return didMove_;
@@ -95,14 +95,14 @@ namespace se_core {
 		 */
 		void flip();
 
-		/** Remove the PosComposite from its area.
+		/** Remove the PosComponent from its area.
 		 *
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
 		virtual void leaveCurrentArea();
 
-		/** Move the PosComposite from one area to another.
+		/** Move the PosComponent from one area to another.
 		 *
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
@@ -132,7 +132,7 @@ namespace se_core {
 		 */
 		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
 
-		/** Set the list of spawn points associated with this PosComposite.
+		/** Set the list of spawn points associated with this PosComponent.
 		 *
 		 * @param count the number of spawn points
 		 * @param spawnPoints the list of spawn points
@@ -146,19 +146,19 @@ namespace se_core {
 		const ViewPoint* spawnPoint(short id) const;
 
 	protected:
-		/** Position of the PosComposite at the beginning of the current simulation step */
+		/** Position of the PosComponent at the beginning of the current simulation step */
 		Pos position_;
 
-		/** Position of the PosComposite at the beginning of the next simulation step */
+		/** Position of the PosComponent at the beginning of the next simulation step */
 		Pos nextPosition_;
 
-		/** Flag which indicates that the PosComposite moves between the current and the next simulation step. */
+		/** Flag which indicates that the PosComponent moves between the current and the next simulation step. */
 		bool didMove_;
 
 		/** The number of spawn points */
 		int spawnPointCount_;
 
-		/** List of spawn points associated this this PosComposite */
+		/** List of spawn points associated this this PosComponent */
 		const ViewPoint* const* spawnPoints_;
 	};
 

@@ -20,28 +20,28 @@ rune@skalden.com
 
 
 #include "Script.hpp"
-#include "ScriptComposite.hpp"
+#include "ScriptComponent.hpp"
 #include "../action/all.hpp"
 #include "../../util/type/String.hpp"
 #include "../../util/error/Log.hpp"
 
 
 namespace se_core {
-	ScriptComposite
-	::ScriptComposite(Actor* owner)
-		: SimComposite(sct_SCRIPT, owner)
+	ScriptComponent
+	::ScriptComponent(Actor* owner)
+		: SimComponent(sct_SCRIPT, owner)
 			, currentScript_(0) {
 		scriptStack_[currentScript_] = 0;
 	}
 
 
-	ScriptComposite
-	::~ScriptComposite() {
+	ScriptComponent
+	::~ScriptComponent() {
 		clearScripts();
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::nextScriptAction(short channel, ActionAndParameter& aap) {
 		if(!script()) return;
 		Parameter& p = aap.parameter();
@@ -52,7 +52,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::setDefaultScript(const Script* s) {
 		if(!isActive() || currentScript_ != 0) {
 			if(scriptStack_[0]) {
@@ -73,7 +73,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::clearScripts() {
 		// TODO:
 		//if(showingCutscene_) {
@@ -91,7 +91,7 @@ namespace se_core {
 
 
 	// TODO:
-	//void ScriptComposite
+	//void ScriptComponent
 	//::pushScript(const char* name) {
 	//	// Asser(!isDead_);
 	//	const Script* s = SimSchema::sortedSimObjectList().script(name);
@@ -99,7 +99,7 @@ namespace se_core {
 	//}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::pushScript(const Script* s) {
 		//TODO:
 		//for(int i = 0; i < CHANNEL_COUNT; ++i) {
@@ -134,7 +134,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::popScript() {
 		// Asser(!isDead_);
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
@@ -165,7 +165,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::stopScript() {
 		//TODO:
 		//if(showingCutscene_) {
@@ -183,7 +183,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComposite
+	void ScriptComponent
 	::setActive(bool state) {
 		// Setting to active??
 		if(isActive()) {

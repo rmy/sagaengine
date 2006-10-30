@@ -39,6 +39,7 @@ namespace se_ogre {
 		factories_ = new ThingMOFactory*[100];
 
 		static ThingMovableObjectFactory tmofMovableObject("default");
+		static ThingMovableObjectFactory tmofParticleSystem("ParticleSystem");
 		static ThingEntityFactory tmofEntity;
 		static ThingLightFactory tmofLight;
 		static ThingBillboardFactory tmofBillboard;

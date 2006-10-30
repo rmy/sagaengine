@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef SimComposite_hpp
-#define SimComposite_hpp
+#ifndef SimComponent_hpp
+#define SimComponent_hpp
 
 #include "sim.hpp"
 #include "thing/sim_thing.hpp"
@@ -32,16 +32,16 @@ namespace se_core {
 	/**
 	 * Base class for functionality composites.
 	 */
-	class _SeCoreExport SimComposite {
+	class _SeCoreExport SimComponent {
 	public:
-		enum SimCompositeType { sct_UNDEFINED, sct_ACTOR, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS };
+		enum SimComponentType { sct_UNDEFINED, sct_ACTOR, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS };
 
 		/**
-		 * Construct unnamed SimComposite.
+		 * Construct unnamed SimComponent.
 		 *
-		 * @param type The type of SimComposite (gct_ACTOR, gct_PHYSICS, etc)
+		 * @param type The type of SimComponent (gct_ACTOR, gct_PHYSICS, etc)
 		 */
-		SimComposite(enum SimCompositeType type, Actor* owner)
+		SimComponent(enum SimComponentType type, Actor* owner)
 			: type_(type), owner_(owner) {
 		}
 
@@ -49,7 +49,7 @@ namespace se_core {
 		/**
 		 * Destructor.
 		 */
-		virtual ~SimComposite() {
+		virtual ~SimComponent() {
 		}
 
 
@@ -67,9 +67,9 @@ namespace se_core {
 		virtual void setActive(bool state) {}
 
 		/**
-		 * The type of SimComposite.
+		 * The type of SimComponent.
 		 */
-		enum SimCompositeType type_;
+		enum SimComponentType type_;
 		Actor* owner_;
 	};
 

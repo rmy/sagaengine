@@ -2,7 +2,7 @@
 #define io_encode_all_hpp
 
 #include "Encoder.hpp"
-#include "EncoderModule.hpp"
 #include "io_encode.hpp"
+#include "EncoderModule.hpp"
 
 #endif
