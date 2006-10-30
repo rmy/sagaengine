@@ -42,6 +42,8 @@ namespace se_core {
 		got_USER_DEFINED
 	};
 
+	enum SimComponentType { sct_UNDEFINED, sct_ACTOR, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS };
+
 }
 
 #endif
