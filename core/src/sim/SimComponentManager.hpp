@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef SimComponent_hpp
-#define SimComponent_hpp
+#ifndef SimComponentManager_hpp
+#define SimComponentManager_hpp
 
 #include "sim.hpp"
 #include "thing/sim_thing.hpp"
@@ -30,46 +30,35 @@ rune@skalden.com
 namespace se_core {
 
 	/**
-	 * Base class for functionality composites.
+	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport SimComponent {
+	class _SeCoreExport SimComponentManager {
 	public:
-
 		/**
-		 * Construct unnamed SimComponent.
+		 * Construct SimComponentManager.
 		 *
-		 * @param type The type of SimComponent (gct_ACTOR, gct_PHYSICS, etc)
+		 * @param type The type of SimComponentManager (gct_ACTOR, gct_PHYSICS, etc)
 		 */
-		SimComponent(enum SimComponentType type, Actor* owner)
-			: type_(type), owner_(owner) {
+		SimComponentManager(enum SimComponentType type)
+			: type_(type) {
 		}
 
 
 		/**
 		 * Destructor.
 		 */
-		virtual ~SimComponent() {
+		virtual ~SimComponentManager() {
 		}
 
 
-		inline Actor* owner() {
-			return owner_;
-		}
+		virtual void step(long when) = 0;
 
-		bool isActive();
-		bool isDead();
-
-	protected:
-		friend class SimCompositeOwner;
-		/** Called by SimCompositeOwner
-		 */
-		virtual void setActive(bool state) {}
-
+	private:
 		/**
 		 * The type of SimComponent.
 		 */
 		enum SimComponentType type_;
-		Actor* owner_;
+
 	};
 
 }
