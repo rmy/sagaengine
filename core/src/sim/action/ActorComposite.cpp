@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "ActorComposite.hpp"
+#include "ActionAndParameter.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 
@@ -28,7 +29,7 @@ namespace se_core {
 
 	ActorComposite
 	::ActorComposite(Actor* owner)
-		: SimComposite(sct_ACTOR, owner) {
+		: SimComposite(sct_ACTOR, owner), feed_(0) {
 		//scriptStack_[currentScript_] = 0;
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
@@ -129,15 +130,10 @@ namespace se_core {
 
 	void ActorComposite
 	::nextScriptAction(short channel) {
-		Parameter& p = plannedAction_[channel].parameter();
-
-		const Action* a = 0;
-		// TODO: 
-		// Call scripting module
-		// if(!script()) return;
-		//a = script()->nextAction(*this, channel, scriptData(), p);
-		if(a) {
-			plannedAction_[channel].setAction(*a);
+		if(!feed_) return;
+		ActionAndParameter& aap = plannedAction_[channel];
+		feed_->nextAction(*owner_, channel, aap);
+		if(aap.hasAction()) {
 			if(!presentAction_[channel].hasAction()) {
 				scheduleNextAction(channel);
 			}
