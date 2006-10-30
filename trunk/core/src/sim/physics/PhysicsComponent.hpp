@@ -19,11 +19,11 @@ rune@skalden.com
 */
 
 
-#ifndef engine_physics_PhysicsComposite_hpp
-#define engine_physics_PhysicsComposite_hpp
+#ifndef engine_physics_PhysicsComponent_hpp
+#define engine_physics_PhysicsComponent_hpp
 
 #include "Physics.hpp"
-#include "../SimComposite.hpp"
+#include "../SimComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
 #include "../area/sim_area.hpp"
@@ -32,12 +32,12 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsComposite : public SimComposite {
+	class _SeCoreExport PhysicsComponent : public SimComponent {
 	public:
 		/** Constructor.
 		 */
-		PhysicsComposite(Actor* owner);
-		~PhysicsComposite();
+		PhysicsComponent(Actor* owner);
+		~PhysicsComponent();
 
 		bool calcNextCoor() {
 			move_ = nextMove_;

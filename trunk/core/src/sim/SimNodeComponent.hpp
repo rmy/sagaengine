@@ -19,16 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef sim_SimNodeComposite_hpp
-#define sim_SimNodeComposite_hpp
+#ifndef sim_SimNodeComponent_hpp
+#define sim_SimNodeComponent_hpp
 
 #include "./SimObject.hpp"
-#include "./SimComposite.hpp"
+#include "./SimComponent.hpp"
 #include "./SimCompositeOwner.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
-#include "./stat/SimCompositeList.hpp"
+#include "./stat/SimComponentList.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
 #include "util/vecmath/Point3.hpp"
@@ -38,15 +38,15 @@ rune@skalden.com
 
 
 namespace se_core {
-	typedef SinglyLinkedList<class SimNodeComposite, MAX_GAME_OBJECTS, 27> Children;
+	typedef SinglyLinkedList<class SimNodeComponent, MAX_GAME_OBJECTS, 27> Children;
 
 	/** Container class for SimObjects that exists in the game world.
 	 */
-	class _SeCoreExport SimNodeComposite : public SimComposite {
+	class _SeCoreExport SimNodeComponent : public SimComponent {
 	public:
 
-		SimNodeComposite(Actor* owner);
-		virtual ~SimNodeComposite();
+		SimNodeComponent(Actor* owner);
+		virtual ~SimNodeComponent();
 
 		/**
 		 * Does the Pos have a parent?
@@ -56,13 +56,13 @@ namespace se_core {
 		/**
 		 * Get parent.
 		 */
-		SimNodeComposite* parent() { return parent_; }
+		SimNodeComponent* parent() { return parent_; }
 
 		/**
 		 * Get parent.
 		 * const version.
 		 */
-		const SimNodeComposite* parent() const { return parent_; }
+		const SimNodeComponent* parent() const { return parent_; }
 
 		/**
 		 * Set parent to none.
@@ -72,24 +72,24 @@ namespace se_core {
 		void resetParent() { parent_ = 0; }
 
 		/**
-		 * Add a SimNodeComposite as a child.
+		 * Add a SimNodeComponent as a child.
 		 */
-		void addChild(SimNodeComposite& node);
+		void addChild(SimNodeComponent& node);
 
 		/**
-		 * Add a SimNodeComposite from the child list.
+		 * Add a SimNodeComponent from the child list.
 		 */
-		void removeChild(SimNodeComposite& node);
+		void removeChild(SimNodeComponent& node);
 
 		/**
-		 * Remove the SimNodeComposite from the child list of its parent.
+		 * Remove the SimNodeComponent from the child list of its parent.
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
 		virtual void leaveCurrentParent();
 
 		/**
-		 * Move this SimNodeComposite from the child list of the old parent, to the child list of the new.
+		 * Move this SimNodeComponent from the child list of the old parent, to the child list of the new.
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
@@ -97,10 +97,10 @@ namespace se_core {
 
 	protected:
 		/** The parent of this position */
-		SimNodeComposite* parent_;
+		SimNodeComponent* parent_;
 
-		/** List of child SimNodeComposites  */
-		SimCompositeList::iterator_type firstChild_;
+		/** List of child SimNodeComponents  */
+		SimComponentList::iterator_type firstChild_;
 	};
 
 }

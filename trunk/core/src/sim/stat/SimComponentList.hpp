@@ -19,35 +19,22 @@ rune@skalden.com
 */
 
 
-#include "SimCompositeList.hpp"
+#ifndef SimComponentList_hpp
+#define SimComponentList_hpp
+
+#include "../sim.hpp"
+#include "util/template/SinglyLinkedList.hpp"
+#include "sim/config/all.hpp"
+#include "../thing/sim_thing.hpp"
+#include "../script/sim_script.hpp"
+
 
 namespace se_core {
-
-	SimCompositeList
-	::SimCompositeList() : SCL(__FILE__) {
-	}
-
-
-	/*
-	SimCompositeList
-	::SimCompositeList() {
-		clear();
-	}
-
-
-	SimCompositeList
-	::~SimCompositeList() {
-	}
-
-
-	void SimCompositeList
-	::clear() {
-		firstFreeNode = 0;
-		for(int i = 0; i < MAX_ELEMENTS; ++i) {
-			nextNodes[ i ] = i + 1;
-		}
-		nextNodes[ MAX_ELEMENTS - 1 ] = NULL_NODE;
-	}
-	*/
-
+	typedef SinglyLinkedList<class SimComponent, MAX_GAME_OBJECTS, 7> SCL;
+	class _SeCoreExport SimComponentList : public SCL {
+	public:
+		SimComponentList();
+	};
 }
+
+#endif

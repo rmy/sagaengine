@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "PosComposite.hpp"
+#include "PosComponent.hpp"
 #include "../thing/Actor.hpp"
 #include "../config/all.hpp"
 #include "../area/Area.hpp"
@@ -29,20 +29,20 @@ rune@skalden.com
 
 namespace se_core {
 
-	PosComposite
-	::PosComposite(Actor* owner)
-			: SimComposite(sct_POS, owner)
+	PosComponent
+	::PosComponent(Actor* owner)
+			: SimComponent(sct_POS, owner)
 			, didMove_(false)
 			, spawnPoints_(0) {		
 	}
 
 
-	PosComposite
-	::~PosComposite() {
+	PosComponent
+	::~PosComponent() {
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::flip() {
 		if(position_.parent() != nextPosition_.parent()) {
 			//TODO:
@@ -55,7 +55,7 @@ namespace se_core {
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::leaveCurrentArea() {
 		if(position_.hasArea()) {
 			//LogMsg(pos().worldCoor().toLog());
@@ -65,7 +65,7 @@ namespace se_core {
 	}
 
 
-	bool PosComposite
+	bool PosComponent
 	::changeArea() {
 		if(position_.hasArea()) {
 			leaveCurrentArea();
@@ -81,7 +81,7 @@ namespace se_core {
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::updateWorldViewPoint() {
 		nextPosition_.world_.setViewPoint(nextPosition_.local_);
 		if(nextPos().hasParent()) {
@@ -90,14 +90,14 @@ namespace se_core {
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::worldCoor(scale_t alpha, Point3& dest) const {
 		dest.set(position_.worldCoor());
 		dest.interpolate(nextPosition_.worldCoor(), alpha);
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::worldViewPoint(scale_t alpha, ViewPoint& dest) const {
 		dest.setViewPoint(position_.world_);
 		dest.coor_.interpolate(nextPosition_.worldCoor(), alpha);
@@ -105,7 +105,7 @@ namespace se_core {
 	}
 
 
-	void PosComposite
+	void PosComponent
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
 		if(spawnPoints_ != 0)
 			LogFatal("Spawn points set twice: " << owner_->name());
@@ -115,7 +115,7 @@ namespace se_core {
 	}
 
 
-	const ViewPoint* PosComposite
+	const ViewPoint* PosComponent
 	::spawnPoint(short id) const {
 		Assert(id >= 0 && id < spawnPointCount_);
 		Assert(spawnPoints_[id] != 0);

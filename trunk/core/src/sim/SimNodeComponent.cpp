@@ -19,29 +19,29 @@ rune@skalden.com
 */
 
 
-#include "SimComposite.hpp"
-#include "SimNodeComposite.hpp"
+#include "SimComponent.hpp"
+#include "SimNodeComponent.hpp"
 #include "SimObject.hpp"
 #include "thing/Actor.hpp"
 #include "schema/SimSchema.hpp"
-#include "stat/SimCompositeList.hpp"
+#include "stat/SimComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
 namespace se_core {
 
-	SimNodeComposite
-	::SimNodeComposite(Actor* owner)
-		: SimComposite(sct_NODE, owner), firstChild_(-1) {
+	SimNodeComponent
+	::SimNodeComponent(Actor* owner)
+		: SimComponent(sct_NODE, owner), firstChild_(-1) {
 	}
 
 
-	SimNodeComposite
-	::~SimNodeComposite() {
+	SimNodeComponent
+	::~SimNodeComponent() {
 	}
 
 
-	bool SimNodeComposite
+	bool SimNodeComponent
 	::changeParent() {
 		leaveCurrentParent();
 
@@ -55,7 +55,7 @@ namespace se_core {
 	}
 
 
-	void SimNodeComposite
+	void SimNodeComponent
 	::leaveCurrentParent() {
 		if(hasParent()) {
 			parent()->removeChild(*this);
@@ -63,17 +63,17 @@ namespace se_core {
 	}
 
 
-	void SimNodeComposite
-	::addChild(SimNodeComposite& node) {
+	void SimNodeComponent
+	::addChild(SimNodeComponent& node) {
 		// Static pos nodes should have the area as
 		// parent.
-		SimSchema::simCompositeList.add(node, firstChild_);
+		SimSchema::simComponentList.add(node, firstChild_);
 	}
 
 
-	void SimNodeComposite
-	::removeChild(SimNodeComposite& node) {
-		SimSchema::simCompositeList.remove(node, firstChild_);
+	void SimNodeComponent
+	::removeChild(SimNodeComponent& node) {
+		SimSchema::simComponentList.remove(node, firstChild_);
 	}
 
 }

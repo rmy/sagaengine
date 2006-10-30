@@ -19,20 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef ScriptComposite_hpp
-#define ScriptComposite_hpp
+#ifndef ScriptComponent_hpp
+#define ScriptComponent_hpp
 
-#include "../SimComposite.hpp"
+#include "../SimComponent.hpp"
 #include "../thing/Actor.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/all.hpp"
 
 namespace se_core {
-	class _SeCoreExport ScriptComposite : public SimComposite {
+	class _SeCoreExport ScriptComponent : public SimComponent {
 	public:
-		ScriptComposite(Actor* owner);
-		virtual ~ScriptComposite();
+		ScriptComponent(Actor* owner);
+		virtual ~ScriptComponent();
 
 		/**
 		 * Returns true if the Actor is inside an active area.

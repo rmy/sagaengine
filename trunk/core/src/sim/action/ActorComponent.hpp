@@ -19,11 +19,11 @@ rune@skalden.com
 */
 
 
-#ifndef ActorComposite_hpp
-#define ActorComposite_hpp
+#ifndef ActorComponent_hpp
+#define ActorComponent_hpp
 
 #include "sim_action.hpp"
-#include "../SimComposite.hpp"
+#include "../SimComponent.hpp"
 #include "../thing/sim_thing.hpp"
 #include "Action.hpp"
 #include "ActionQueue.hpp"
@@ -34,15 +34,15 @@ namespace se_core {
 
 	/**
 	 * Base class for actions.
-	 * ActorComposites are the atoms of game-character behaviour in SagaEngine.
+	 * ActorComponents are the atoms of game-character behaviour in SagaEngine.
 	 * They define what a character can do.
 	 */
-	class _SeCoreExport ActorComposite : public SimComposite {
+	class _SeCoreExport ActorComponent : public SimComponent {
 	public:
 		/** Constructor.
 		 */
-		ActorComposite(Actor* owner);
-		~ActorComposite();
+		ActorComponent(Actor* owner);
+		~ActorComponent();
 
 		/**
 		 * Plan a new action.
@@ -57,19 +57,19 @@ namespace se_core {
 		 * Clear planned action.
 		 * Clear an action that is waiting for being entered into the
 		 * ActionQueue, but hasn't yet gotten there (because another
-		 * Action for the same ActorComposite and channel is already in the queue).
+		 * Action for the same ActorComponent and channel is already in the queue).
 		 */
 		void clearPlannedAction(short channel) const;
 
 		/**
-		 * Disrupt all actions the this ActorComposite has in the ActionQueue.
+		 * Disrupt all actions the this ActorComponent has in the ActionQueue.
 		 * Actions that are performed in the on-going initiative are not
 		 * disrupted.
 		 */
 		void disrupt();
 
 		/**
-		 * Disrupt an action the this ActorComposite has in a given ActionQueue channel.
+		 * Disrupt an action the this ActorComponent has in a given ActionQueue channel.
 		 * Actions that are performed in the on-going initiative are not
 		 * disrupted.
 		 */
@@ -93,7 +93,7 @@ namespace se_core {
 		virtual void performDefaultMovementAction() const {}
 
 		/**
-		 * Schedule this ActorComposite for destruction.
+		 * Schedule this ActorComponent for destruction.
 		 * It will be destroyed when the on-going initative is performed,
 		 * allowing the actor to complete any action it is performing this
 		 * initiative.
@@ -148,7 +148,7 @@ namespace se_core {
 	};
 
 
-	inline void ActorComposite
+	inline void ActorComponent
 	::perform(long when, short channel) {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
@@ -156,7 +156,7 @@ namespace se_core {
 	}
 
 
-	inline void ActorComposite
+	inline void ActorComponent
 	::scheduleNextAction(long when, short channel) {
 		if(!isActive() || isDead()) {
 			presentAction_[ channel ].resetAction();

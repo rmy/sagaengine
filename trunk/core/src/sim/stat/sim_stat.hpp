@@ -24,7 +24,7 @@ rune@skalden.com
 
 namespace se_core {
 	class SimObjectList;
-	class SimCompositeList;
+	class SimComponentList;
 	class SortedSimObjectList;
 
 	class MultiSimObject;

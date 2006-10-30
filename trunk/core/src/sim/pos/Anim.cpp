@@ -26,7 +26,7 @@ namespace se_core {
 
 	Anim
 	::Anim() 
-		: movementMode_(-1),
+		: movementMode_(0),
 		  movementStartedWhen_(0),
 		  pos_(0), 
 		  weight_(1),
