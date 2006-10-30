@@ -28,6 +28,7 @@ rune@skalden.com
 #include "Action.hpp"
 #include "ActionQueue.hpp"
 #include "ActionAndParameter.hpp"
+#include "ActionFeed.hpp"
 
 namespace se_core {
 
@@ -141,6 +142,8 @@ namespace se_core {
 		mutable unsigned short presentActionScheduledComplete_[CHANNEL_COUNT];
 
 
+		ActionFeed* feed_;
+
 	protected:
 	};
 
@@ -149,8 +152,7 @@ namespace se_core {
 	::perform(long when, short channel) {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
-		// TODO:
-		//a->perform(when, *owner_, p);
+		a->perform(when, *owner_, p);
 	}
 
 
