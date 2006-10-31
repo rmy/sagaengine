@@ -76,8 +76,6 @@ namespace se_client {
 				LogMsg(tempString.get());
 				ClientSchema::floatingCamera = static_cast<Camera*>(SimSchema::thingManager().create(tempString.get()));
 				Assert(ClientSchema::floatingCamera != 0);
-				//TODO: ClientSchema::floatingCamera->nextPos().changeMovement(0, 0);
-				SimSchema::simEngine.setSpecialMover(ClientSchema::floatingCamera);
 				readInfo(in, ClientSchema::floatingCamera);
 				ClientSchema::floatingCamera->flip();
 				break;

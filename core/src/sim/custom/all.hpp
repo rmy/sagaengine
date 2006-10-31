@@ -1,5 +1,5 @@
-#ifndef sim_custom_all_hpp
-#define sim_custom_all_hpp
+#ifndef custom_all_hpp
+#define custom_all_hpp
 
 #include "sim_custom.hpp"
 #include "ThingData.hpp"

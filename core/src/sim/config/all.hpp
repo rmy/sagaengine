@@ -1,5 +1,5 @@
-#ifndef sim_config_all_hpp
-#define sim_config_all_hpp
+#ifndef config_all_hpp
+#define config_all_hpp
 
 #include "Default.hpp"
 #include "sim_config.hpp"

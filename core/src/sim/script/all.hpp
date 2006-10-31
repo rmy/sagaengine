@@ -1,5 +1,5 @@
-#ifndef sim_script_all_hpp
-#define sim_script_all_hpp
+#ifndef script_all_hpp
+#define script_all_hpp
 
 #include "Cutscene.hpp"
 #include "sim_script.hpp"

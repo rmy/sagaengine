@@ -164,12 +164,6 @@ namespace se_core {
 		 */
 		void setGameOver(bool state);
 
-		/**
-		 * Set a special mover (camera) which will be moved, but not
-		 * handled by the collision detector.
-		 */
-		void setSpecialMover(Camera* m) { specialMover_ = m; }
-
 	protected:
 		/**
 		 * Performs AI actions.
@@ -269,26 +263,6 @@ namespace se_core {
 		 * Game clock adjustment.
 		 */
 		long lostPerformAdjustment_;
-
-		/**
-		 * Size of movers_. Make sure it is large enough to hold
-		 * all things that moves in the active area(s)!
-		 */
-		const static int MAX_MOVER_COUNT = MAX_GAME_OBJECTS;
-
-		/**
-		 * List of movers this step. Updated by the coordinate precalcer and
-		 * used by the collision detector.
-		 */
-		Actor** movers_;
-
-		/** Number of movers presently in the movers_ array */
-		short moverCount_;
-
-		/**
-		 * A camera is a special mover because it does not collide.
-		 */
-		Camera* specialMover_;
 
 	};
 

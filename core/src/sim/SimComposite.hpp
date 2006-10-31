@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef SimCompositeOwner_hpp
-#define SimCompositeOwner_hpp
+#ifndef SimComposite_hpp
+#define SimComposite_hpp
 
 #include "SimObject.hpp"
 #include "util/template/HashTable.hpp"
@@ -32,12 +32,12 @@ namespace se_core {
 	};
 
 
-	class _SeCoreExport SimCompositeOwner : public SimObject {
+	class _SeCoreExport SimComposite : public SimObject {
 	protected:
-		SimCompositeOwner(enum SimObjectType type, const char* name);
+		SimComposite(enum SimObjectType type, const char* name);
 
 	public:
-		SimCompositeOwner(const char* name);
+		SimComposite(const char* name);
 		SimComposite* composite(int type) {
 			return composites_.lookup(type);
 		}

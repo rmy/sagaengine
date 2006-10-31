@@ -19,52 +19,45 @@ rune@skalden.com
 */
 
 
-#ifndef SimComponentManager_hpp
-#define SimComponentManager_hpp
+#ifndef ActionComponentManager_hpp
+#define ActionComponentManager_hpp
 
-#include "sim.hpp"
-#include "thing/sim_thing.hpp"
-#include "util/error/Log.hpp"
-#include "util/type/String.hpp"
+#include "../sim.hpp"
+#include "../SimComponentManager.hpp"
+
 
 namespace se_core {
 
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport SimComponentManager {
+	class _SeCoreExport ActionComponentManager : public SimComponentManager {
 	public:
 		/**
-		 * Construct SimComponentManager.
-		 *
-		 * @param type The type of SimComponentManager (gct_ACTOR, gct_PHYSICS, etc)
+		 * Construct ActionComponentManager.
 		 */
-		SimComponentManager(enum SimComponentType type)
-			: type_(type) {
+		ActionComponentManager()
+			: SimComponentManager(sct_ACTOR) {
 		}
 
 
 		/**
 		 * Destructor.
 		 */
-		virtual ~SimComponentManager() {
+		virtual ~ActionComponentManager() {
 		}
 
 
-		virtual void step(long when) = 0;
+		void step(long when);
 
-		virtual void init() {}
-		virtual void initGame() {}
-		virtual void cleanupGame() {}
-		virtual void cleanup() {}
+		void cleanupGame();
 
+		static ActionComponentManager& singleton();
 
 	private:
 		/**
-		 * The type of SimComponent.
+		 * The type of ActionComponent.
 		 */
-		enum SimComponentType type_;
-
 	};
 
 }

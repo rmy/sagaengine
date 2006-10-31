@@ -60,8 +60,8 @@ namespace se_core {
 		bool isDead();
 
 	protected:
-		friend class SimCompositeOwner;
-		/** Called by SimCompositeOwner
+		friend class SimComposite;
+		/** Called by SimComposite
 		 */
 		virtual void setActive(bool state) {}
 

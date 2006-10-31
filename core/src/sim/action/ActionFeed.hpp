@@ -34,7 +34,7 @@ namespace se_core {
 	 * action. A script does not change the state of the performer in any
 	 * way, except for what is needed to communicate with actions.
 	 */
-	class _SeCoreExport ActionFeed : public SimObject {
+	class _SeCoreExport ActionFeed {
 	public:
 		virtual void nextAction(const Actor& performer, int channel, ActionAndParameter& out) const = 0;
 	};

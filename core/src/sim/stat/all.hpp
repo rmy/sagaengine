@@ -1,5 +1,5 @@
-#ifndef sim_stat_all_hpp
-#define sim_stat_all_hpp
+#ifndef stat_all_hpp
+#define stat_all_hpp
 
 #include "Dictionary.hpp"
 #include "DictionaryEntry.hpp"

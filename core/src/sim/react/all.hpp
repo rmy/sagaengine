@@ -1,5 +1,5 @@
-#ifndef sim_react_all_hpp
-#define sim_react_all_hpp
+#ifndef react_all_hpp
+#define react_all_hpp
 
 #include "ThingCollide.hpp"
 #include "DefaultTC.hpp"
