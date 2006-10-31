@@ -23,6 +23,7 @@ rune@skalden.com
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
+#include "../thing/Actor.hpp"
 
 
 
@@ -62,6 +63,28 @@ namespace se_core {
 		const Physics* p = SimSchema::sortedSimObjectList().physics(name);
 		pushPhysics(p);
 	}
+
+
+	bool PhysicsComponent
+	::calcNextCoor() {
+		move_ = nextMove_;
+
+		nextMove_.flick();
+		physics().calcNext(*owner_, owner_->pos(), owner_->nextPos(), move(), nextMove());
+
+		//
+		didMove_ = owner_->nextPos().didParentMove() || !owner_->nextPos().localEquals(owner_->pos());
+		return didMove_;
+	}
+
+
+	bool PhysicsComponent
+	::isMover() const {
+		// Actors that has physics can move
+		return hasPhysics();
+	}
+
+
 
 }
 

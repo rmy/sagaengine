@@ -38,6 +38,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 #include "../script/ScriptComponent.hpp"
 #include "../action/ActionComponent.hpp"
+#include "../physics/PhysicsComponent.hpp"
 
 
 namespace se_core {
@@ -86,6 +87,43 @@ namespace se_core {
 			actionComponent_->disrupt();
 		}
 
+		// TODO
+		void affect() {
+			physicsComponent_->affect();
+		}
+
+		bool calcNextCoor() {
+			return physicsComponent_->calcNextCoor();
+		}
+
+		bool isMover() const {
+			return physicsComponent_->isMover();
+		}
+
+		Move& nextMove() {
+			return physicsComponent_->nextMove();
+		}
+
+		const Move& move() const {
+			return physicsComponent_->move();
+		}
+
+		void setDefaultPhysics(const Physics* ph) {
+			physicsComponent_->setDefaultPhysics(ph);
+		}
+
+		void pushPhysics(const Physics* ph) {
+			physicsComponent_->pushPhysics(ph);
+		}
+
+		void pushPhysics(const char* ph) {
+			physicsComponent_->pushPhysics(ph);
+		}
+
+		void popPhysics() {
+			physicsComponent_->popPhysics();
+		}
+
 
 	public:
 		/** Constructor.
@@ -132,7 +170,6 @@ namespace se_core {
 
 		///////////////////////////////////////
 
-		bool isMover() const;
 		bool isPusher() const { return collide_ != 0; }
 
 		void setShowingCutscene(ShowingCutscene* sc, const Script* script);
@@ -143,35 +180,6 @@ namespace se_core {
 
 
 		virtual void setActive(bool state);
-
-		bool calcNextCoor() {
-			move_ = nextMove_;
-			// Reset values in nextPos that only last for a step
-			nextMove_.flick();
-			physics().calcNext(*this, pos(), nextPos(), move(), nextMove());
-
-			// Any change in render position?
-			didMove_ = nextPos().didParentMove() || !nextPos().localEquals(position_.local_);
-			//if(didMove_) { updateWorldViewPoint(); }
-			return didMove_;
-		}
-
-
-		void affect() {
-			physics().affect(*this);
-		}
-
-		void pushPhysics(const char* name);
-		void pushPhysics(const Physics *ph);
-		void popPhysics();
-
-		inline const Move& move() const {
-			return move_;
-		}
-
-		inline Move& nextMove() {
-			return nextMove_;
-		}
 
 		void setCollide(const ThingCollide* collide) { collide_ = collide; }
 		inline bool pushThing(Thing& pushedThing) {
@@ -193,10 +201,6 @@ namespace se_core {
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() { return spawnCount_; }
 
-		void setDefaultPhysics(const Physics* ph) {
-			physics_[0] = ph;
-		}
-
 		MultiSimObject& cutscenes() { return cutscenes_; }
 		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
 		MultiSimObject& questGoals() { return questGoals_; }
@@ -204,24 +208,6 @@ namespace se_core {
 	protected:
 		friend class SimEngine;
 		friend class Area;
-
-		//bool isBlockedByTerrain() {
-		//	return physics().isBlocked(*this, pos(), nextPos());
-		//}
-
-	protected:
-		friend class ThingFactory;
-		friend class ThingDefinition;
-
-		inline bool hasPhysics() const {
-			return (physics_[0] != 0);
-		}
-		inline const Physics& physics() {
-			return *physics_[currentPhysics_];
-		}
-		inline const Physics& physics() const {
-			return *physics_[currentPhysics_];
-		}
 
 	protected:
 		friend class ShowingCutscene;
@@ -231,18 +217,11 @@ namespace se_core {
 
 	protected:
 		// Group shorts for compiler
-		short currentPhysics_;
-
 		ShowingCutscene* showingCutscene_;
 
 		MultiSimObject cutscenes_;
 		MultiSimObject cutsceneMemberships_;
 		MultiSimObject questGoals_;
-
-		static const short MAX_PHYSICS_STACK_SIZE = 3;
-		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
-
-		Move move_, nextMove_;
 
 		const ThingCollide* collide_;
 		Actor* target_;
@@ -251,6 +230,7 @@ namespace se_core {
 
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
+		PhysicsComponent* physicsComponent_;
 
 	};
 
