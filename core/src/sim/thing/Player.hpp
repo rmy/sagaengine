@@ -51,6 +51,7 @@ namespace se_core {
 		bool isMover() { return true; }
 		bool changeArea();
 
+		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const;
 
 		const ActionAndParameter& defaultAction() const { return defaultAction_; }
 		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 

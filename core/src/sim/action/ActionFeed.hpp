@@ -23,7 +23,7 @@ rune@skalden.com
 #define ActionFeed_hpp
 
 #include "../SimObject.hpp"
-#include "../action/sim_action.hpp"
+#include "sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/util_type.hpp"
 
@@ -36,7 +36,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport ActionFeed {
 	public:
-		virtual void nextAction(const Actor& performer, int channel, ActionAndParameter& out) const = 0;
+		virtual void nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out) = 0;
 	};
 
 }

@@ -48,29 +48,29 @@ namespace se_core {
 	Actor
 	::Actor(const char* name)
 			: Thing(got_ACTOR, name)
-			  , isActive_(false)
-			  , currentScript_(0), currentPhysics_(0)
+			  , currentPhysics_(0)
 			  , showingCutscene_(0)
 			  , collide_(&tcDefault)
 			  , target_(0)
 			  , spawnCount_(0) {
 		physics_[currentPhysics_] = 0;
-		scriptStack_[currentScript_] = 0;
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			presentActionScheduledComplete_[i] = 0;
-		}
+		actionComponent_ = new ActionComponent(this);
+		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 	}
 
 
 	Actor
 	::~Actor() {
-		clearScripts();
+		scriptComponent_->clearScripts();
+		delete scriptComponent_;
+		delete actionComponent_;
 	}
 
 
 	void Actor
 	::cleanup() {
-		clearScripts();
+		actionComponent_->cleanup();
+		scriptComponent_->clearScripts();
 		Thing::cleanup();
 	}
 
@@ -83,102 +83,12 @@ namespace se_core {
 
 
 	void Actor
-	::scheduleNextAction(short channel) {
-		// Actions still in action queue after
-		// scheduleForDestruction may try to plan
-		// further actions
-		if(isDead_) return;
-		Assert(plannedAction_[channel].hasAction());
-		//presentAction_[channel].setAction(*plannedAction_[channel].action());
-		//presentAction_[channel].swapParameters(plannedAction_[channel]);
-		presentAction_[channel] = plannedAction_[channel];
-		plannedAction_[channel].resetAction();
-
-		// Add to action queue
-		const Action* a = presentAction_[channel].action();
-		Parameter& p = presentAction_[channel].parameter();
-		p.resetActionStage();
-		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
-		a->prepare(*this, p);
-	}
-
-
-	void Actor
-	::continueAction(long when, short channel) {
-		// Add to action queue
-		const Action* a = presentAction_[channel].action();
-		Parameter& p = presentAction_[channel].parameter();
-		p.incrActionStage();
-		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
-		a->prepare(*this, p);
-	}
-
-
-	void Actor
-	::planAction(short channel, const Action& action, const Parameter* parameter) const {
-		plannedAction_[channel].setAction(action);
-		if(parameter) {
-			plannedAction_[channel].copyParameter(*parameter);
-		}
-		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<Actor&>(*this).scheduleNextAction(channel);
-		}
-	}
-
-
-	void Actor
-	::planAction(short channel, const ActionAndParameter& action) const {
-		if(!action.hasAction())
-			return;
-		plannedAction_[channel].set(action);
-		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<Actor&>(*this).scheduleNextAction(channel);
-		}
-	}
-
-
-	void Actor
-	::clearPlannedAction(short channel) const {
-		plannedAction_[channel].resetAction();
-	}
-
-
-	void Actor
-	::disrupt() {
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			disrupt(i);
-		}
-	}
-
-
-	bool Actor
-	::disrupt(short channel) {
-		if(!presentAction_[ channel ].hasAction()) return true;
-		// Actions are only removed from ActionQueue if it is in a future
-		// initiative. If it is in the initiative presently performed, it
-		// will not be touched...
-		bool didDisrupt = SimSchema::actionQueue[ channel ].disrupt(*this);
-		if(didDisrupt) {
-			presentAction_[ channel ].resetAction();
-		}
-		return didDisrupt;
-	}
-
-
-	void Actor
 	::scheduleForDestruction() {
 		// Don't schedule for destruction twice
 		if(isDead_) return;
 		// Stop any scripts and release memory held by them
-		clearScripts();
-		// Clear planned actions
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			clearPlannedAction(i);
-		}
-		// Disrupt actions i progress
-		disrupt();
+		actionComponent_->cleanup();
+		scriptComponent_->clearScripts();
 		Thing::scheduleForDestruction();
 	}
 
@@ -210,6 +120,7 @@ namespace se_core {
 	}
 
 
+	/*
 	Cutscene* Actor
 	::findRunnableCutscene(Actor& actor) {
 		SimObjectList::iterator_type it = actor.cutscenes().iterator();
@@ -229,6 +140,7 @@ namespace se_core {
 		}
 		return c;
 	}
+	*/
 
 
 	void Actor
@@ -240,140 +152,6 @@ namespace se_core {
 	void Actor
 	::sound(const char* snd) {
 		SimSchema::soundCentral.sound(*this, snd);
-	}
-
-
-	void Actor
-	::nextScriptAction(short channel) {
-		Parameter& p = plannedAction_[channel].parameter();
-		const Action* a = script()->nextAction(*this, channel, scriptData(), p);
-		if(a) {
-			plannedAction_[channel].setAction(*a);
-			if(!presentAction_[channel].hasAction()) {
-				scheduleNextAction(channel);
-			}
-		}
-	}
-
-
-	void Actor
-	::setDefaultScript(const Script* s) {
-		if(!isActive() || currentScript_ != 0) {
-			if(scriptStack_[0]) {
-				scriptStack_[0]->release(scriptData_[0]);
-			}
-			scriptStack_[0] = s;
-			scriptData_[0] = scriptStack_[0]->init(*this);
-			return;
-		}
-
-		if(script()) script()->release(scriptData_[currentScript_]);
-		scriptStack_[0] = s;
-		scriptData_[0] = scriptStack_[0]->init(*this);
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			nextScriptAction(i);
-		}
-	}
-
-
-	void Actor
-	::clearScripts() {
-		if(showingCutscene_) {
-			removeFromShowingCutscene();
-		}
-		while(currentScript_ > 0) {
-			scriptStack_[ currentScript_ ]->release( scriptData_[ currentScript_ ] );
-			scriptStack_[ currentScript_-- ] = 0;
-		}
-		if(scriptStack_[0] != 0) {
-			scriptStack_[ 0 ]->release( scriptData_[ 0 ] );
-			scriptStack_[ 0 ] = 0;
-		}
-	}
-
-
-	void Actor
-	::pushScript(const char* name) {
-		// Asser(!isDead_);
-		const Script* s = SimSchema::sortedSimObjectList().script(name);
-		pushScript(s);
-	}
-
-
-	void Actor
-	::pushScript(const Script* s) {
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			clearPlannedAction(i);
-			disrupt(i);
-		}
-
-		// If there already is a script running...
-		if(script() && !script()->isStacker()) {
-			// Release script data
-			popScript();
-		}
-
-		if(currentScript_ == 0 && scriptStack_[currentScript_] != 0) {
-			++currentScript_;
-		}
-
-		Assert(currentScript_ < SCRIPT_STACK_SIZE);
-		// Set the new script
-		scriptStack_[currentScript_] = s;
-		// Init script data
-		scriptData_[currentScript_] = script()->init(*this);
-
-		// If script is active
-		if(isActive()) {
-			// Plan actions for all channels
-			for(short i = 0; i < CHANNEL_COUNT; ++i) {
-				nextScriptAction(i);
-			}
-		}
-	}
-
-
-	void Actor
-	::popScript() {
-		// Asser(!isDead_);
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			clearPlannedAction(i);
-		}
-		disrupt();
-		if(currentScript_ == 0) {
-			Assert(script());
-			script()->release(scriptData_[currentScript_]);
-			scriptData_[currentScript_] = 0;
-			scriptStack_[currentScript_] = 0;
-			return;
-		}
-
-		if(script()) script()->release(scriptData_[currentScript_]);
-		--currentScript_;
-		if(!script()) return;
-
-		script()->reinit(*this, scriptData());
-		if(!isActive())
-			return;
-		for(short i = 0; i < CHANNEL_COUNT; ++i) {
-			nextScriptAction(i);
-		}
-	}
-
-
-	void Actor
-	::stopScript() {
-		if(showingCutscene_) {
-			removeFromShowingCutscene();
-		}
-		else {
-			Assert(script());
-			script()->release(scriptData_[currentScript_]);
-			scriptData_[currentScript_] = 0;
-			currentScript_ = 0;
-			scriptStack_[0] = 0;
-			disrupt();
-		}
 	}
 
 
@@ -403,13 +181,11 @@ namespace se_core {
 
 
 	void Actor
-	::setShowingCutscene(ShowingCutscene* sc, const Script* script) {
-		Assert(!showingCutscene_);
-		showingCutscene_ = sc;
-		showingCutscene_->addMember(*this);
-		pushScript(script);
+	::stopShowingCutscene() {
+		if(showingCutscene_) {
+			showingCutscene_->freeMembers();
+		}
 	}
-
 
 	void Actor
 	::setNoCutsceneShowing() {
@@ -417,6 +193,16 @@ namespace se_core {
 			popScript();
 			showingCutscene_ = 0;
 		}
+	}
+
+
+	/*
+	void Actor
+	::setShowingCutscene(ShowingCutscene* sc, const Script* script) {
+		Assert(!showingCutscene_);
+		showingCutscene_ = sc;
+		showingCutscene_->addMember(*this);
+		pushScript(script);
 	}
 
 
@@ -428,12 +214,7 @@ namespace se_core {
 	}
 
 
-	void Actor
-	::stopShowingCutscene() {
-		if(showingCutscene_) {
-			showingCutscene_->freeMembers();
-		}
-	}
+	*/
 
 
 	void Actor
@@ -441,32 +222,8 @@ namespace se_core {
 		if(state == isActive_) return;
 		isActive_ = state;
 
-		// Setting to active??
-		if(isActive_) {
-			// Start script
-			if(script()) {
-				// Init (or reinit) scripts data block
-				script()->reinit(*this, scriptData());
-				//scriptData_ = script()->init(*this);
-				// Start script in all action channels
-				for(int i = 0; i < CHANNEL_COUNT; ++i) {
-					nextScriptAction(i);
-				}
-			}
-		}
-		// Setting to inactive
-		else {
-			// Clear action in all channels
-			for(int i = 0; i < CHANNEL_COUNT; ++i) {
-				clearPlannedAction(i);
-			}
-			// Disrupt actions in progress
-			disrupt();
-
-			// Reset movmement
-			//nextPos().resetSpeed();
-			//nextPos().setMovementMode(STAND);
-		}
+		scriptComponent_->setActive(state);
+		actionComponent_->setActive(state);
 	}
 
 

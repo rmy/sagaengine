@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef ActorComponent_hpp
-#define ActorComponent_hpp
+#ifndef ActionComponent_hpp
+#define ActionComponent_hpp
 
 #include "sim_action.hpp"
 #include "../SimComponent.hpp"
@@ -34,15 +34,17 @@ namespace se_core {
 
 	/**
 	 * Base class for actions.
-	 * ActorComponents are the atoms of game-character behaviour in SagaEngine.
+	 * ActionComponents are the atoms of game-character behaviour in SagaEngine.
 	 * They define what a character can do.
 	 */
-	class _SeCoreExport ActorComponent : public SimComponent {
+	class _SeCoreExport ActionComponent : public SimComponent {
 	public:
 		/** Constructor.
 		 */
-		ActorComponent(Actor* owner);
-		~ActorComponent();
+		ActionComponent(Actor* owner);
+		~ActionComponent();
+
+		void cleanup();
 
 		/**
 		 * Plan a new action.
@@ -52,48 +54,32 @@ namespace se_core {
 		 */
 		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const;
 		void planAction(short channel, const ActionAndParameter& action) const;
+		void planActionIfNone(short channel, const ActionAndParameter& action) const;
 
 		/**
 		 * Clear planned action.
 		 * Clear an action that is waiting for being entered into the
 		 * ActionQueue, but hasn't yet gotten there (because another
-		 * Action for the same ActorComponent and channel is already in the queue).
+		 * Action for the same ActionComponent and channel is already in the queue).
 		 */
 		void clearPlannedAction(short channel) const;
 
 		/**
-		 * Disrupt all actions the this ActorComponent has in the ActionQueue.
+		 * Disrupt all actions the this ActionComponent has in the ActionQueue.
 		 * Actions that are performed in the on-going initiative are not
 		 * disrupted.
 		 */
 		void disrupt();
 
 		/**
-		 * Disrupt an action the this ActorComponent has in a given ActionQueue channel.
+		 * Disrupt an action the this ActionComponent has in a given ActionQueue channel.
 		 * Actions that are performed in the on-going initiative are not
 		 * disrupted.
 		 */
 		bool disrupt(short channel);
 
 		/**
-		 * Plan to perform the default movement action.
-		 *
-		 * Plans the default movement action when the action that is presently
-		 * in the ActionQueue is completed, if no other action is planned
-		 * for that channel. The default movement Action is typically Walk
-		 * or Stand. This method allows the player character to resume movement
-		 * after the player has pushed a buttton to do something else.
-		 *
-		 * If you want to force planning this action, do a
-		 * clearPlannedAction(...) first.
-		 *
-		 * @see clearPlannedAction
-		 */
-		virtual void planDefaultMovementAction() const {}
-		virtual void performDefaultMovementAction() const {}
-
-		/**
-		 * Schedule this ActorComponent for destruction.
+		 * Schedule this ActionComponent for destruction.
 		 * It will be destroyed when the on-going initative is performed,
 		 * allowing the actor to complete any action it is performing this
 		 * initiative.
@@ -105,6 +91,8 @@ namespace se_core {
 		}
 
 		void setActionFeed(ActionFeed* feed);
+
+		void setActive(bool state);
 
 	protected:
 		friend class ActionQueue;
@@ -154,7 +142,7 @@ namespace se_core {
 	};
 
 
-	inline void ActorComponent
+	inline void ActionComponent
 	::perform(long when, short channel) {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
@@ -162,7 +150,7 @@ namespace se_core {
 	}
 
 
-	inline void ActorComponent
+	inline void ActionComponent
 	::scheduleNextAction(long when, short channel) {
 		if(!isActive() || isDead()) {
 			presentAction_[ channel ].resetAction();

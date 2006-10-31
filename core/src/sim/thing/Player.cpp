@@ -84,18 +84,8 @@ namespace se_core {
 		if(isDead_) return;
 
 		SimSchema::simEngine.setGameOver(true);
-		clearScripts();
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			clearPlannedAction(i);
-		}
-		disrupt();
-		/*
-		SimObjectList::iterator_type it = carriedThings().iterator();
-		while(it != SimObjectList::NULL_NODE) {
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			t->scheduleForDestruction();
-			}
-		*/
+		scriptComponent_->clearScripts();
+		actionComponent_->cleanup();
 		isDead_ = true;
 	}
 
@@ -116,38 +106,38 @@ namespace se_core {
 	}
 
 
+	void Player
+	::planAction(short channel, const Action& action, const Parameter* parameter) const {
+		actionComponent_->planAction(channel, action, parameter);
+	}
 
 	void Player
 	::planDefaultAction() const {
 		if(!defaultAction_.hasAction()) return;
-		planAction(CHANNEL_EXTRA, defaultAction_);
+		actionComponent_->planAction(CHANNEL_EXTRA, defaultAction_);
 	}
 
 
 	void Player
 	::planDefaultMovementAction() const {
 		if(defaultMovementAction_.hasAction()) {
-			if(!plannedAction_[ CHANNEL_MOVEMENT ].hasAction()) {
-				planAction(CHANNEL_MOVEMENT, defaultMovementAction_);
-			}
+			actionComponent_->planActionIfNone(CHANNEL_MOVEMENT, defaultMovementAction_);
 		}
 
 		if(defaultTurnAction_.hasAction()) {
-			if(!plannedAction_[ CHANNEL_DIRECTION ].hasAction()) {
-				planAction(CHANNEL_DIRECTION, defaultTurnAction_);
-			}
+			actionComponent_->planActionIfNone(CHANNEL_DIRECTION, defaultTurnAction_);
 		}
 	}
 
 
 	void Player
 	::performDefaultMovementAction() const {
-		WasHere();
 		long when = SimSchema::simEngine.when();
+		WasHere();
 		if(defaultMovementAction_.hasAction()) {
 			const Action* a = defaultMovementAction_.action();
-			LogMsg(a->name());
 			Parameter& p = defaultMovementAction_.parameter();
+			LogMsg(a->name());
 			a->perform(when, const_cast<Player&>(*this), p);
 		}
 		if(defaultTurnAction_.hasAction()) {

@@ -4,7 +4,7 @@
 namespace se_core {
    	SimComposite
 	::SimComposite(enum SimObjectType type, const char* name)
-			: SimObject(type, name) {
+		: SimObject(type, name), isActive_(false), isDead_(false) {
 	}
 
 

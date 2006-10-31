@@ -42,22 +42,11 @@ namespace se_core {
 
 	void Camera
 	::setActive(bool state) {
-		if(state == true) return;
-		isActive_ = true;
+		if(state == isActive_) return;
 
-		// Setting to active??
-		if(isActive_) {
-			// Start script
-			if(script()) {
-				// Init (or reinit) scripts data block
-				script()->reinit(*this, scriptData());
-				//scriptData_ = script()->init(*this);
-				// Start script in all action channels
-				for(int i = 0; i < CHANNEL_COUNT; ++i) {
-					nextScriptAction(i);
-				}
-			}
-		}
+		isActive_ = true;
+		actionComponent_->setActive(isActive_);
+		scriptComponent_->setActive(isActive_);
 	}
 
 

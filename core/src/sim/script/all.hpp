@@ -3,6 +3,7 @@
 
 #include "Cutscene.hpp"
 #include "sim_script.hpp"
+#include "ScriptComponentManager.hpp"
 #include "QuestGoal.hpp"
 #include "ReentrantScript.hpp"
 #include "ScriptComponent.hpp"

@@ -53,7 +53,7 @@ namespace se_core {
 			isActive_ = state;
 		}
 
-	private:
+	protected:
 		Composites composites_;
 		bool isActive_;
 		bool isDead_;

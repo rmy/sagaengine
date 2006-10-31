@@ -56,6 +56,7 @@ namespace se_core {
 
 	void Cutscene
 	::setScripts(const Area& area, Actor& performer, Actor* scriptTarget) {
+		/*
 		static ShowingCutscene showingCutscene;
 		showingCutscene.freeMembers();
 		showingCutscene.setCutscene(this);
@@ -70,7 +71,6 @@ namespace se_core {
 		TmpString tmp;
 		sprintf(tmp.get(), "%s.performer", name());
 		if(SimSchema::sortedSimObjectList().has(got_SCRIPT, tmp.get())) {
-			WasHere();
 			script = SimSchema::sortedSimObjectList().script(tmp.get());
 			performer.setShowingCutscene(&showingCutscene, script);
 		}
@@ -105,6 +105,7 @@ namespace se_core {
 				a->setShowingCutscene(&showingCutscene, script);
 			}
 		}
+*/
 	}
 
 	/**
@@ -112,12 +113,14 @@ namespace se_core {
 	*/
 	void Cutscene
 	::setSingleScript(ShowingCutscene* showingCutscene, Actor& actor) {
+		/*
 		TmpString tmp;
 		sprintf(tmp.get(), "%s.%s", name(), actor.name());
 		if(SimSchema::sortedSimObjectList().has(got_SCRIPT, tmp.get())) {
 			const Script* script = SimSchema::sortedSimObjectList().script(tmp.get());
 			actor.setShowingCutscene(showingCutscene, script);
 		}
+		*/
 	}
 
 }
