@@ -37,7 +37,7 @@ namespace se_core {
 		 * Construct ActionComponentManager.
 		 */
 		ActionComponentManager()
-			: SimComponentManager(sct_ACTOR) {
+			: SimComponentManager(sct_ACTION) {
 		}
 
 
