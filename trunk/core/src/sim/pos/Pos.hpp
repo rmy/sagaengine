@@ -112,19 +112,19 @@ namespace se_core {
 		#endif
 
 
-		inline bool localEquals(ViewPoint& vp) {
+		inline bool localEquals(const ViewPoint& vp) const {
 			return local_.viewPointEquals(vp);
 		}
 
-		inline bool localEquals(Pos& p) {
+		inline bool localEquals(const Pos& p) const {
 			return local_.viewPointEquals(p.local_);
 		}
 
-		inline bool worldEquals(ViewPoint& vp) {
+		inline bool worldEquals(const ViewPoint& vp) const {
 			return world_.viewPointEquals(vp);
 		}
 
-		inline bool worldEquals(Pos& p) {
+		inline bool worldEquals(const Pos& p) const {
 			return world_.viewPointEquals(p.world_);
 		}
 

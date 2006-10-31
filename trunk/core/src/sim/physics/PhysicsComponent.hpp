@@ -39,20 +39,7 @@ namespace se_core {
 		PhysicsComponent(Actor* owner);
 		~PhysicsComponent();
 
-		bool calcNextCoor() {
-			move_ = nextMove_;
-			// Reset values in nextPos that only last for a step
-			nextMove_.flick();
-			//TODO:
-			//physics().calcNext(*owner_, pos(), nextPos(), move(), nextMove());
-
-			// Any change in render position?
-			//TODO:
-			//didMove_ = nextPos().didParentMove() || !nextPos().localEquals(position_.local_);
-			//if(didMove_) { updateWorldViewPoint(); }
-			return didMove_;
-		}
-
+		bool calcNextCoor();
 
 		void affect() {
 			physics().affect(*owner_);
@@ -74,10 +61,13 @@ namespace se_core {
 			physics_[0] = ph;
 		}
 
+		bool isMover() const;
+
 	private:
 		inline bool hasPhysics() const {
 			return (physics_[0] != 0);
 		}
+
 		inline const Physics& physics() {
 			return *physics_[currentPhysics_];
 		}

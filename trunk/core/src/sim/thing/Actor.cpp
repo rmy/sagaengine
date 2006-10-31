@@ -48,14 +48,13 @@ namespace se_core {
 	Actor
 	::Actor(const char* name)
 			: Thing(got_ACTOR, name)
-			  , currentPhysics_(0)
 			  , showingCutscene_(0)
 			  , collide_(&tcDefault)
 			  , target_(0)
 			  , spawnCount_(0) {
-		physics_[currentPhysics_] = 0;
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
+		physicsComponent_ = new PhysicsComponent(this);
 	}
 
 
@@ -74,12 +73,6 @@ namespace se_core {
 		Thing::cleanup();
 	}
 
-
-	bool Actor
-	::isMover() const {
-		// Actors that has physics can move
-		return hasPhysics();
-	}
 
 
 	void Actor
@@ -152,31 +145,6 @@ namespace se_core {
 	void Actor
 	::sound(const char* snd) {
 		SimSchema::soundCentral.sound(*this, snd);
-	}
-
-
-	void Actor
-	::popPhysics() {
-		Assert(currentPhysics_ > 0);
-		--currentPhysics_;
-	}
-
-
-	void Actor
-	::pushPhysics(const Physics* ph) {
-		if(hasPhysics() && physics().isStacker()) {
-			// Increase script counter
-			++currentPhysics_;
-		}
-		Assert(currentPhysics_ < MAX_PHYSICS_STACK_SIZE - 1);
-		physics_[ currentPhysics_ ] = ph;
-	}
-
-
-	void Actor
-	::pushPhysics(const char* name) {
-		const Physics* p = SimSchema::sortedSimObjectList().physics(name);
-		pushPhysics(p);
 	}
 
 
