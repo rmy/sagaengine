@@ -194,9 +194,7 @@ namespace se_core {
 
 		virtual bool isPlayer() { return false; }
 
-		//Thing* spawn(const char* name);
 		Thing* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
-		//Thing* spawn(const char* name, Vector3& disp);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() { return spawnCount_; }
@@ -231,7 +229,6 @@ namespace se_core {
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		PhysicsComponent* physicsComponent_;
-
 	};
 
 

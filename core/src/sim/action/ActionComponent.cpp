@@ -29,7 +29,7 @@ namespace se_core {
 
 	ActionComponent
 	::ActionComponent(Actor* owner)
-		: SimComponent(sct_ACTOR, owner), feed_(0) {
+		: SimComponent(sct_ACTION, owner), feed_(0) {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
 		}
