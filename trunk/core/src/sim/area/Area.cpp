@@ -277,11 +277,14 @@ namespace se_core {
 			if(a == &actor) continue;
 			if(a->cutscenes().isEmpty()) continue;
 			if(nearest < 0 || coor.xzDistanceSquared(a->pos().localCoor()) < nearest) {
+				// TODO:
+				/*
 				if(pos.hasInFront(a->pos().localCoor()) && actor.findRunnableCutscene(*a)) {
 					nearest = coor.xzDistanceSquared(a->pos().localCoor());
 					actor.setTarget(a);
 					actor.setPickTarget(a);
 				}
+				*/
 			}
 		}
 		//TODO:
@@ -359,7 +362,8 @@ namespace se_core {
 		if(c->questGoal()) {
 			performer.questGoals().add(*(c->questGoal()));
 		}
-		c->setScripts(*this, performer);
+		// TODO:
+		//c->setScripts(*this, performer);
 	}
 
 

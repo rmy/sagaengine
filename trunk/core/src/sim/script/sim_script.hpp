@@ -23,6 +23,7 @@ rune@skalden.com
 namespace se_core {
 	class ScriptData;
 	class Script;
+	class ScriptComponent;
 	class Cutscene;
 	class ShowingCutscene;
 	class QuestGoal;

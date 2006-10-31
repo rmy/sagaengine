@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "ActionQueue.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../thing/Actor.hpp"
+#include "ActionComponent.hpp"
 #include "../thing/ThingFactory.hpp"
 
 
@@ -59,7 +59,7 @@ namespace se_core {
 	::performScheduledActions(long when) {
 		ActorList::iterator_type it = scheduleCurrentTurn_[ currentInitiative_ ];
 		while(it != ActorList::end()) {
-			Actor* a = actorList_.next(it);
+			ActionComponent* a = actorList_.next(it);
 			a->perform(when, channel_);
 		}
 	}
@@ -69,14 +69,14 @@ namespace se_core {
 	::scheduleNextActions(long when) {
 		ActorList::iterator_type it = scheduleCurrentTurn_[ currentInitiative_ ];
 		while(it != ActorList::end()) {
-			Actor* a = actorList_.next(it);
+			ActionComponent* a = actorList_.next(it);
 			a->scheduleNextAction(when, channel_);
 		}
 	}
 
 
 	unsigned short ActionQueue
-	::add(Actor &actor, short duration) {
+	::add(ActionComponent &actor, short duration) {
 		unsigned short turn = futureTurn(duration);
 
 		if(turn == currentTurn_) {
@@ -92,7 +92,7 @@ namespace se_core {
 
 
 	bool ActionQueue
-	::disrupt(Actor &actor) {
+	::disrupt(ActionComponent &actor) {
 		bool didDisrupt = false;
 		unsigned short schedule = actor.actionSchedule(channel_);
 		unsigned short turn = turnFromSchedule(schedule);
@@ -133,7 +133,7 @@ namespace se_core {
 
 		ActorList::iterator_type it = scheduleFutureTurns_[ currentTurn_ ];
 		while(it != ActorList::end()) {
-			Actor* a = actorList_.next(it);
+			ActionComponent* a = actorList_.next(it);
 			unsigned short initiative = initiativeFromSchedule(a->actionSchedule(channel_));
 			actorList_.add(*a, scheduleCurrentTurn_[ initiative ]);
 		}

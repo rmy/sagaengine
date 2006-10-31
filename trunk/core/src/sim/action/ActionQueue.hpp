@@ -23,6 +23,7 @@ rune@skalden.com
 #define ActionQueue_hpp
 
 #include "ActorList.hpp"
+#include "sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 
 
@@ -31,8 +32,8 @@ namespace se_core {
 	/**
 	 * The action queue stores who is about to perform actions.
 	 * You will not access this class directly. You plan actions
-	 * using Actor::planAction(...), and disrupt them by calling
-	 * Actor::disrupt(...)
+	 * using ActionComponent::planAction(...), and disrupt them by calling
+	 * ActionComponent::disrupt(...)
 	 */
 	class _SeCoreExport ActionQueue {
 	public:
@@ -42,18 +43,18 @@ namespace se_core {
 		 * Add and actor that plans to perform an action. The
 		 * ActionQueue does not store the Actions themselves, but
 		 * instead the actor that is to perform them. When the
-		 * action is performed, the Actor is requested by
+		 * action is performed, the ActionComponent is requested by
 		 * the ActionQueue to perform the planned Action.
 		 */
-		unsigned short add(Actor &actor, short duration);
+		unsigned short add(ActionComponent &actor, short duration);
 
 		/**
-		 * Remove an Actor from the action queue.
+		 * Remove an ActionComponent from the action queue.
 		 */
-		bool disrupt(Actor &actor);
+		bool disrupt(ActionComponent &actor);
 
 		/**
-		 * Request Actors that has just perfomed an action
+		 * Request ActionComponents that has just perfomed an action
 		 * to schedule their next action.
 		 */
 		void scheduleNextActions(long when);

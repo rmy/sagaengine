@@ -23,9 +23,8 @@ rune@skalden.com
 #define ScriptComponent_hpp
 
 #include "../SimComponent.hpp"
-#include "../action/ActorComponent.hpp"
+#include "../action/ActionComponent.hpp"
 #include "../action/ActionFeed.hpp"
-#include "../thing/Actor.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/all.hpp"
@@ -33,8 +32,14 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport ScriptComponent : public SimComponent, public ActionFeed {
 	public:
-		ScriptComponent(Actor* owner, ActorComponent* consumer);
+		ScriptComponent(Actor* owner, ActionComponent* consumer);
 		virtual ~ScriptComponent();
+
+		void cleanup();
+
+		//
+		// Override from ActionFeed
+		void nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out);
 
 		/**
 		 * Returns true if the Actor is inside an active area.
@@ -114,7 +119,7 @@ namespace se_core {
 	protected:
 		short currentScript_;
 
-		ActorComponent* consumer_;
+		ActionComponent* consumer_;
 		static const short SCRIPT_STACK_SIZE = 6;
 		const Script* scriptStack_[SCRIPT_STACK_SIZE];
 		ScriptData* scriptData_[SCRIPT_STACK_SIZE];

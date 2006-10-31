@@ -43,6 +43,4 @@ namespace se_core {
 		//
 	}
 
-
-
 }

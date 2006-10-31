@@ -39,6 +39,7 @@ namespace se_core {
 	class Action;
 	class ActionAndParameter;
 	class Parameter;
+	class ActionComponent;
 }
 
 #endif

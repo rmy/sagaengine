@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "ActorComponent.hpp"
+#include "ActionComponent.hpp"
 #include "ActionAndParameter.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
@@ -27,8 +27,8 @@ rune@skalden.com
 
 namespace se_core {
 
-	ActorComponent
-	::ActorComponent(Actor* owner)
+	ActionComponent
+	::ActionComponent(Actor* owner)
 		: SimComponent(sct_ACTOR, owner), feed_(0) {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
@@ -36,12 +36,17 @@ namespace se_core {
 	}
 
 
-	ActorComponent
-	::~ActorComponent() {
+	ActionComponent
+	::~ActionComponent() {
 	}
 
 
-	void ActorComponent
+	void ActionComponent
+	::cleanup() {
+		setActive(false);
+	}
+
+	void ActionComponent
 	::scheduleNextAction(short channel) {
 		// Actions still in action queue after
 		// scheduleForDestruction may try to plan
@@ -56,53 +61,60 @@ namespace se_core {
 		Parameter& p = presentAction_[channel].parameter();
 		p.resetActionStage();
 		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*owner_, a->duration(*owner_, p));
+			= SimSchema::actionQueue[channel].add(*this, a->duration(*owner_, p));
 		a->prepare(*owner_, p);
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::continueAction(long when, short channel) {
 		// Add to action queue
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
 		p.incrActionStage();
 		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*owner_, a->duration(*owner_, p));
+			= SimSchema::actionQueue[channel].add(*this, a->duration(*owner_, p));
 		a->prepare(*owner_, p);
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::planAction(short channel, const Action& action, const Parameter* parameter) const {
 		plannedAction_[channel].setAction(action);
 		if(parameter) {
 			plannedAction_[channel].copyParameter(*parameter);
 		}
 		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<ActorComponent&>(*this).scheduleNextAction(channel);
+			const_cast<ActionComponent&>(*this).scheduleNextAction(channel);
 		}
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::planAction(short channel, const ActionAndParameter& action) const {
 		if(!action.hasAction())
 			return;
 		plannedAction_[channel].set(action);
 		if(!presentAction_[channel].hasAction() && plannedAction_[channel].hasAction()) {
-			const_cast<ActorComponent&>(*this).scheduleNextAction(channel);
+			const_cast<ActionComponent&>(*this).scheduleNextAction(channel);
 		}
 	}
 
 
-	void ActorComponent
+	void ActionComponent
+	::planActionIfNone(short channel, const ActionAndParameter& action) const {
+		if(!plannedAction_[ channel ].hasAction())
+			planAction(channel, action);
+	}
+
+
+	void ActionComponent
 	::clearPlannedAction(short channel) const {
 		plannedAction_[channel].resetAction();
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::disrupt() {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			disrupt(i);
@@ -110,13 +122,13 @@ namespace se_core {
 	}
 
 
-	bool ActorComponent
+	bool ActionComponent
 	::disrupt(short channel) {
 		if(!presentAction_[ channel ].hasAction()) return true;
 		// Actions are only removed from ActionQueue if it is in a future
 		// initiative. If it is in the initiative presently performed, it
 		// will not be touched...
-		bool didDisrupt = SimSchema::actionQueue[ channel ].disrupt(*owner_);
+		bool didDisrupt = SimSchema::actionQueue[ channel ].disrupt(*this);
 		if(didDisrupt) {
 			presentAction_[ channel ].resetAction();
 		}
@@ -124,11 +136,11 @@ namespace se_core {
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::nextScriptAction(short channel) {
 		if(!feed_) return;
 		ActionAndParameter& aap = plannedAction_[channel];
-		feed_->nextAction(*owner_, channel, aap);
+		feed_->nextAction(*this, channel, aap);
 		if(aap.hasAction()) {
 			if(!presentAction_[channel].hasAction()) {
 				scheduleNextAction(channel);
@@ -137,9 +149,29 @@ namespace se_core {
 	}
 
 
-	void ActorComponent
+	void ActionComponent
 	::setActionFeed(ActionFeed* feed) {
 		Assert(feed_ == 0 &&  "Should only have one action feed");
 		feed_ = feed;
+	}
+
+
+	void ActionComponent
+	::setActive(bool state) {
+		if(state) {
+			if(feed_) {
+				for(int i = 0; i < CHANNEL_COUNT; ++i) {
+					nextScriptAction(i);
+				}
+			}
+		}
+		else {
+			// Clear action in all channels
+			for(int i = 0; i < CHANNEL_COUNT; ++i) {
+				clearPlannedAction(i);
+			}
+			// Disrupt actions in progress
+			disrupt();
+		}
 	}
 }

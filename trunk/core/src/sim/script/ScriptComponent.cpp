@@ -22,13 +22,14 @@ rune@skalden.com
 #include "Script.hpp"
 #include "ScriptComponent.hpp"
 #include "../action/all.hpp"
-#include "../../util/type/String.hpp"
-#include "../../util/error/Log.hpp"
+#include "../thing/Actor.hpp"
+#include "util/type/String.hpp"
+#include "util/error/Log.hpp"
 
 
 namespace se_core {
 	ScriptComponent
-	::ScriptComponent(Actor* owner, ActorComponent* consumer)
+	::ScriptComponent(Actor* owner, ActionComponent* consumer)
 		: SimComponent(sct_SCRIPT, owner)
 		, currentScript_(0)
 		, consumer_(consumer) {
@@ -39,8 +40,21 @@ namespace se_core {
 
 	ScriptComponent
 	::~ScriptComponent() {
-		consumer_->resetActionFeed();
+		cleanup();
+	}
+
+	void ScriptComponent
+	::cleanup() {
+		if(consumer_)
+			consumer_->resetActionFeed();
+		consumer_ = 0;
 		clearScripts();
+	}
+
+
+	void ScriptComponent
+	::nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out) {
+		nextScriptAction(channel, out);
 	}
 
 
@@ -200,17 +214,6 @@ namespace se_core {
 					//nextScriptAction(i);
 				}
 			}
-		}
-		// Setting to inactive
-		else {
-			// Clear action in all channels
-			for(int i = 0; i < CHANNEL_COUNT; ++i) {
-				//TODO:
-				//clearPlannedAction(i);
-			}
-			// Disrupt actions in progress
-			//TODO:
-			//disrupt();
 		}
 	}
 
