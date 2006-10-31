@@ -1,5 +1,5 @@
-#ifndef sim_physics_all_hpp
-#define sim_physics_all_hpp
+#ifndef physics_all_hpp
+#define physics_all_hpp
 
 #include "Physics.hpp"
 #include "PhysicsUtil.hpp"

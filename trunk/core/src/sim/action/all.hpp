@@ -1,5 +1,5 @@
-#ifndef sim_action_all_hpp
-#define sim_action_all_hpp
+#ifndef action_all_hpp
+#define action_all_hpp
 
 #include "ActionFeed.hpp"
 #include "Action.hpp"

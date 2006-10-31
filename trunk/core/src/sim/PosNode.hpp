@@ -23,7 +23,7 @@ rune@skalden.com
 #define sim_PosNode_hpp
 
 #include "./SimObject.hpp"
-#include "./SimCompositeOwner.hpp"
+#include "./SimComposite.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
@@ -46,7 +46,7 @@ namespace se_core {
 	 * for traversing the parents to calculate the world coordinates
 	 * of the entity.
 	 */
-	class _SeCoreExport PosNode : public SimCompositeOwner {
+	class _SeCoreExport PosNode : public SimComposite {
 	public:
 		PosNode(enum SimObjectType type, const char* name);
 		virtual ~PosNode();

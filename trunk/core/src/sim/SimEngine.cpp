@@ -21,8 +21,11 @@ rune@skalden.com
 #include "InitListeners.hpp"
 #include "SimEngine.hpp"
 #include "SimListeners.hpp"
-#include "./action/Action.hpp"
-#include "./action/ActionQueue.hpp"
+//#include "./action/Action.hpp"
+//#include "./action/ActionQueue.hpp"
+#include "./action/ActionComponentManager.hpp"
+#include "./physics/PhysicsComponentManager.hpp"
+#include "./script/ScriptComponentManager.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./pos/Pos.hpp"
 #include "./stat/MultiSimObject.hpp"
@@ -49,17 +52,13 @@ namespace se_core {
 	SimEngine
 	::SimEngine()
 		: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
-		, lostPerformAdjustment_(0)
-		, movers_(new Actor*[MAX_MOVER_COUNT])
-		, moverCount_(0)
-		, specialMover_(0) {
+		, lostPerformAdjustment_(0) {
 		LogMsg("Creating SimEngine");
 	}
 
 
 	SimEngine
 	::~SimEngine() {
-		delete[] movers_;
 		resetAll();
 		LogMsg("Destroying SimEngine");
 	}
@@ -155,19 +154,10 @@ namespace se_core {
 		// Make the precalced next coor the present position.
 		flip(when);
 
-		// Performs the scheduled actions in all action channels
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			SimSchema::actionQueue[i].performScheduledActions(when);
-		}
+		// Schedules and performs the scheduled actions in all action channels
+		ActionComponentManager::singleton().step(when);
 
-		// Precalc coordinate for the next frame
-		performPhysics(when + TIMESTEP_INTERVAL);
-
-		// Test and resolve collisions between game things and between
-		// game things and walls or other terrain obstructions.
-		testCollisions(when, when + TIMESTEP_INTERVAL);
-
-		// Performs all destructions that resulted form the actions.
+		// Performs all destructions that resulted from the actions.
 		// It is necessary to do this as a separate step, because an
 		// object destroyed in this initiative may have a counteraction
 		// scheduled that by game rules are performed simultaneously,
@@ -175,48 +165,8 @@ namespace se_core {
 		// actions.
 		SimSchema::thingManager().performDestructions();
 
-		// Schedule next action after after all actors have performed theirs,
-		// as to not disadvantage the AI for any actor. (Will call scripts
-		// to ask what the next action should be.)
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			SimSchema::actionQueue[i].scheduleNextActions(when);
-		}
-
-		// Step to the next step in any performed cutscene, if one
-		// is active.
-		if(SimSchema::didTrack) {
-			++SimSchema::scriptTracker;
-			SimSchema::didTrack = false;
-		}
-
-		// Prepares the next initiative (that is, the next scheduled actions)
-		// in all action channels
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			SimSchema::actionQueue[i].beginNextInitiative();
-		}
-
-	}
-
-
-	void SimEngine
-	::performPhysics(long when) {
-		Actor** m = movers_;
-		moverCount_ = 0;
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			int c = area->performChildPhysics(m);
-			m += c;
-			moverCount_ += c;
-		}
-	}
-
-
-	void SimEngine
-	::testCollisions(long startWhen, long endWhen) {
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			area->testActors2ThingsCollisions(); //area->movers_, area->moverCount_);
-		}
+		// Move things and check for collisions
+		PhysicsComponentManager::singleton().step(when);
 	}
 
 
@@ -244,8 +194,7 @@ namespace se_core {
 		SimSchema::realClock->reset();
 		// Begin game with game over flag not set
 		setGameOver(false);
-		SimSchema::didTrack = true;
-		SimSchema::scriptTracker = 0;
+		ScriptComponentManager::singleton().initGame();
 
 		SimSchema::initListeners().castInitGameEvent();
 
@@ -264,19 +213,16 @@ namespace se_core {
 	::cleanupGame() {
 		SimSchema::initListeners().castCleanupGameEvent();
 
-		setSpecialMover(0);
 		//perform(SimEngine::when() + TIMESTEP_INTERVAL);
 		SimSchema::areaManager.resetThings();
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			SimSchema::actionQueue[i].reset();
-		}
+		//
+		ActionComponentManager::singleton().cleanupGame();
 		SimSchema::thingManager().reset();
-		SimSchema::didTrack = false;
-		SimSchema::scriptTracker = 0;
+		ScriptComponentManager::singleton().cleanupGame();
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;
-		moverCount_ = 0;
+		PhysicsComponentManager::singleton().cleanup();
 	}
 
 

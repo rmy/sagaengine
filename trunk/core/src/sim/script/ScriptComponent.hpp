@@ -23,15 +23,17 @@ rune@skalden.com
 #define ScriptComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../action/ActorComponent.hpp"
+#include "../action/ActionFeed.hpp"
 #include "../thing/Actor.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/all.hpp"
 
 namespace se_core {
-	class _SeCoreExport ScriptComponent : public SimComponent {
+	class _SeCoreExport ScriptComponent : public SimComponent, public ActionFeed {
 	public:
-		ScriptComponent(Actor* owner);
+		ScriptComponent(Actor* owner, ActorComponent* consumer);
 		virtual ~ScriptComponent();
 
 		/**
@@ -112,6 +114,7 @@ namespace se_core {
 	protected:
 		short currentScript_;
 
+		ActorComponent* consumer_;
 		static const short SCRIPT_STACK_SIZE = 6;
 		const Script* scriptStack_[SCRIPT_STACK_SIZE];
 		ScriptData* scriptData_[SCRIPT_STACK_SIZE];

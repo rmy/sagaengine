@@ -100,6 +100,12 @@ namespace se_core {
 		 */
 		void scheduleForDestruction();
 
+		void resetActionFeed() {
+			feed_ = 0;
+		}
+
+		void setActionFeed(ActionFeed* feed);
+
 	protected:
 		friend class ActionQueue;
 
