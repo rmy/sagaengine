@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "SimObject.hpp"
 #include "util/template/HashTable.hpp"
+#include "stat/MultiSimComponent.hpp"
 
 
 namespace se_core {
@@ -38,23 +39,21 @@ namespace se_core {
 
 	public:
 		SimComposite(const char* name);
-		SimComposite* composite(int type) {
-			return composites_.lookup(type);
-		}
+		SimComponent* component(int type);
+		void addComponent();
 
 		bool isActive() { return isActive_; }
 		bool isDead() { return isDead_; }
-		void setActive(bool state) {
-			if(state == isActive_) return;
+		void setActive(bool state);
 
-			// TODO: 
-			// Traverse children
-			//   warn active
-			isActive_ = state;
-		}
+	private:
+		friend class SimComponent;
+		// The SimComponent adds and removes itself
+		void removeComponent(SimComponent& c);
+		void addComponent(SimComponent& c);
 
 	protected:
-		Composites composites_;
+		MultiSimComponent components_;
 		bool isActive_;
 		bool isDead_;
 	};

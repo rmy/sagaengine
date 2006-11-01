@@ -179,7 +179,7 @@ namespace se_core {
 		void stopShowingCutscene();
 
 
-		virtual void setActive(bool state);
+		//virtual void setActive(bool state);
 
 		void setCollide(const ThingCollide* collide) { collide_ = collide; }
 		inline bool pushThing(Thing& pushedThing) {

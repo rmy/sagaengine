@@ -19,41 +19,39 @@ rune@skalden.com
 */
 
 
-#ifndef engine_stat_hpp
-#define engine_stat_hpp
+#include "SimComponentIterator.hpp"
+#include "MultiSimComponent.hpp"
+#include "SimComponentList.hpp"
+#include "../schema/SimSchema.hpp"
+#include "../thing/Thing.hpp"
+#include "../thing/Actor.hpp"
+#include "../script/Cutscene.hpp"
+#include "../script/QuestGoal.hpp"
+
 
 namespace se_core {
-	class SimObjectList;
-	class SimComponentList;
-	class SortedSimObjectList;
 
-	class MultiSimObject;
-	class MultiSimComponent;
-	class ReportingMultiSimObject;
-	class ReportingMGOHandler;
-	class MultiSimObjectListener;
+	SimComponentIterator
+	::SimComponentIterator()
+		: it_(SimComponentList::end()) {
+	}
 
-	class MultiSimObjectIterator;
-	class MultiSimComponentIterator;
-	class ThingIterator;
 
-	// Use with util/template/HashTable ?
-	class Property;
-	//class PropertySet;
-	//class PropertyList;
-	//class AllPropertyLists;
+	SimComponentIterator
+	::SimComponentIterator(MultiSimComponent& msc) {
+		(*this).init(msc);
+	}
 
-	class Dictionary;
 
-	class Anim;
-	class Pos;
-	class Force;
-	class Speed;
-	class ViewPoint;
+	void SimComponentIterator
+	::init(MultiSimComponent& msc) {
+		msc.initIterator(it_);
+	}
 
-	class HealthListener;
-	class HealthListeners;
+
+	void SimComponentIterator
+	::init(short firstNode) {
+		it_ = firstNode;
+	}
 
 }
-
-#endif

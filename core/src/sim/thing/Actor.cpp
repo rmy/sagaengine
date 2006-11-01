@@ -185,6 +185,7 @@ namespace se_core {
 	*/
 
 
+	/*
 	void Actor
 	::setActive(bool state) {
 		if(state == isActive_) return;
@@ -193,6 +194,7 @@ namespace se_core {
 		scriptComponent_->setActive(state);
 		actionComponent_->setActive(state);
 	}
+	*/
 
 
 	Thing* Actor

@@ -135,8 +135,8 @@ namespace se_core {
 		MultiSimObject& allThings() const;
 		ReportingMultiSimObject& reportingThings();
 		MultiSimObject& movingThings();
-		MultiSimObject& pushableThings();
-		MultiSimObject& pushingThings();
+		//MultiSimObject& pushableThings();
+		//MultiSimObject& pushingThings();
 
 		void addThing(Thing& thing);
 		void removeThing(Thing& thing);
@@ -151,7 +151,6 @@ namespace se_core {
 					&& worldCoor.z_ >= nextPosition_.localCoor().z_
 					&& worldCoor.xTile() < nextPosition_.localCoor().xTile() + width_
 					&& worldCoor.zTile() < nextPosition_.localCoor().zTile() + height_);
-
 		}
 
 		virtual short terrainStyle(const Point3& coor, short index = -1) const = 0;
