@@ -44,9 +44,12 @@ namespace se_core {
 	::setActive(bool state) {
 		if(state == isActive_) return;
 
+		SimComposite::setActive(true);
+		/*
 		isActive_ = true;
 		actionComponent_->setActive(isActive_);
 		scriptComponent_->setActive(isActive_);
+		*/
 	}
 
 

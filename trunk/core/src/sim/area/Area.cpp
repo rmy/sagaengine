@@ -144,6 +144,7 @@ namespace se_core {
 	}
 
 
+	/*
 	MultiSimObject& Area
 	::pushableThings() {
 		return multiSimObjects_[ MGOA_PUSHABLE_THINGS ];
@@ -154,6 +155,7 @@ namespace se_core {
 	::pushingThings() {
 		return multiSimObjects_[ MGOA_PUSHING_THINGS ];
 	}
+	*/
 
 
 	MultiSimObject& Area

@@ -34,26 +34,25 @@ namespace se_core {
 	 */
 	class _SeCoreExport SimComponent {
 	public:
-
 		/**
 		 * Construct unnamed SimComponent.
 		 *
 		 * @param type The type of SimComponent (gct_ACTOR, gct_PHYSICS, etc)
 		 */
-		SimComponent(enum SimComponentType type, Actor* owner)
-			: type_(type), owner_(owner) {
-		}
-
+		SimComponent(enum SimComponentType type, Actor* owner);
 
 		/**
 		 * Destructor.
 		 */
-		virtual ~SimComponent() {
-		}
+		virtual ~SimComponent();
 
 
 		inline Actor* owner() {
 			return owner_;
+		}
+
+		enum SimComponentType type() {
+			return type_;
 		}
 
 		bool isActive();

@@ -50,6 +50,9 @@ namespace se_ogre {
 		entity_ = static_cast<Ogre::Entity*>(mo);
 		entity_->setNormaliseNormals(true);
 		entity_->setCastShadows(info.isShadowCaster_);
+		if(entity_->hasSkeleton()) {
+			entity_->getSkeleton()->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);
+		}
 
 		// Get and set animation associated with this thing
 		for(int i = 0; i < info_.channelCount(); ++i) {
@@ -168,7 +171,7 @@ namespace se_ogre {
 			if(state_[i]) {
 				state_[i]->setEnabled(false);
 				state_[i]->setWeight(0);
-				state_[i]->setTimePosition(0);
+				state_[i]->setTimePosition(.25);
 			}
 		}
 
@@ -181,13 +184,23 @@ namespace se_ogre {
 			if(state_[i]) {
 				const Anim& na = thing_.nextPos().anim(i);
 
-				float pos = ScaleT::toFloat(a.pos()) * state_[i]->getLength() * speed_[i];
+				float pos = ScaleT::toFloat(a.pos());
+				if(a.movementMode() == na.movementMode()) {
+					pos += stepDelta * (na.pos() - a.pos());
+				}
+				pos *= state_[i]->getLength() * speed_[i];
 				// If same state are in more channels, interpolate between their positions
-				Assert(!state_[i]->getEnabled() && "Using the same animation twice at one");
+				Assert(!state_[i]->getEnabled() && "Using the same animation twice at once");
 				if(a.weight() > 0) {
+					//state_[i]->setTimePosition(pos);
 					state_[i]->setTimePosition(pos);
-					state_[i]->setWeight(a.weight());
+					float w = a.weight();
+					if(a.movementMode() == na.movementMode()) {
+						w += stepDelta * (na.weight() - a.weight());
+					}
+					state_[i]->setWeight(w);
 					state_[i]->setEnabled(true);
+					//LogMsg(thing_.name() << ": " << state_[i]->getAnimationName().c_str() << ": " << w << " - " << stepDelta);
 				}
 			}
 		}

@@ -89,7 +89,10 @@ namespace se_core {
 		 * Reset the next coordinate.
 		 * Sets the next coordinate to be the same as the present one.
 		 */
-		inline void resetFutureCoor() { didMove_ = false; nextPos().setPos(position_); }
+		inline void resetFutureCoor() {
+			didMove_ = false;
+			nextPos().setPos(position_);
+		}
 
 		inline void resetFutureXZCoor() {
 			// Revert back to original area if necessary
