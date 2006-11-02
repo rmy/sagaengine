@@ -55,6 +55,13 @@ namespace se_ogre {
 
 	void ThingMO
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
+		// Are interpolations meaningful at all?
+		if(!thing_.pos().isKeyFramePath(thing_.nextPos())) {
+			// If not skip it
+			setVisible(false);
+			return;
+		}
+
 		// Check if mesh entity is visible
 		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
 		coor_double_t distSq = playerCoor.distanceSquared(thing_.pos().worldCoor());
@@ -63,13 +70,6 @@ namespace se_ogre {
 		bool isVisible = (distSq >= info_.popInSq_ && (info_.popOutSq_ == 0 || distSq < info_.popOutSq_));
 		setVisible(isVisible);
 		if(!isVisible) {
-			return;
-		}
-		setVisible(true);
-
-		// Are interpolations meaningful at all?
-		if(!thing_.pos().isKeyFramePath(thing_.nextPos())) {
-			// If not skip it
 			return;
 		}
 

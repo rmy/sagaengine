@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOList.hpp"
+#include "../thing/MultiO3dThingComponent.hpp"
 #include "O3dPre.hpp"
 
 namespace se_ogre {
@@ -85,7 +86,8 @@ namespace se_ogre {
 			Ogre::Vector3 offset_;
 			Ogre::SceneNode* node_;
 			Ogre::StaticGeometry* staticGeometry_;
-			ThingMOList::iterator_type firstThingMO_;
+			//ThingMOList::iterator_type firstThingMO_;
+			MultiO3dThingComponent moList_;
 		} areas_[ MAX_AREAS ];
 		int areaCount_;
 		bool isAreaGeomCentreAligned_;

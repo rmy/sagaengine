@@ -46,13 +46,13 @@ namespace se_core {
 	void MultiSimObject
 	::add(SimObject& value) {
 		Assert(&value);
-		SimSchema::simObjectList.add(value, firstNode_);
+		SimSchema::simObjectList.add(&value, firstNode_);
 	}
 
 
 	void MultiSimObject
 	::remove(SimObject& value) {
-		SimSchema::simObjectList.remove(value, firstNode_);
+		SimSchema::simObjectList.remove(&value, firstNode_);
 	}
 
 

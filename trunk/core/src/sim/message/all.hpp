@@ -1,5 +1,5 @@
-#ifndef message_all_hpp
-#define message_all_hpp
+#ifndef sim_message_all_hpp
+#define sim_message_all_hpp
 
 #include "SoundListener.hpp"
 #include "MessageListener.hpp"

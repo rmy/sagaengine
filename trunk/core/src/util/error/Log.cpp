@@ -74,8 +74,8 @@ char* log_msg() {
 #if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 namespace se_err {
 	Log& log() {
-		static Log l OBJECT_IN_EWRAM;
-		return l;
+		static Log lg OBJECT_IN_EWRAM;
+		return lg;
 	}
 
 

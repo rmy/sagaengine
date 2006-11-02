@@ -29,7 +29,8 @@ namespace se_ogre {
 
 	ThingLightFactory
 	::ThingLightFactory() 
-		: ThingMOFactory(Ogre::LightFactory::FACTORY_TYPE_NAME.c_str()) {
+	//: ThingMOFactory(Ogre::LightFactory::FACTORY_TYPE_NAME.c_str()) {	
+		: ThingMOFactory("Light") {
 	}
 
 

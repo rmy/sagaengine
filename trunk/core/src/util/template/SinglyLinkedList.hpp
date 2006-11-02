@@ -71,13 +71,13 @@ namespace se_core {
 		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
-		void add(ElementType& element, iterator_type &firstNode) {
+		void add(ElementType* element, iterator_type &firstNode) {
 			// Check that there are free nodes left
 			DebugExec(if(firstFreeNode_ == end())) LogMsg(name_ << ": " << MAX_ELEMENTS << " - " << count_);
 			DebugExec(if(firstFreeNode_ == end())) LogMsg("Size: " << size(firstNode));
 
 			Assert(firstFreeNode_ != end());
-			Assert((&element) != 0);
+			Assert((element) != 0);
 			//DbgAssert(!isFree(firstNode));
 
 			// Store pointer to the second node in free node chain
@@ -91,7 +91,7 @@ namespace se_core {
 			firstFreeNode_ = tmp;
 
 			// Store actor as first node of the chain
-			nodes_[ firstNode ] = &element;
+			nodes_[ firstNode ] = element;
 			DebugExec(++count_);
 
 			DebugExec(if(nodes_[0] == 0) LogMsg(name_));
@@ -154,13 +154,13 @@ namespace se_core {
 		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
-		bool remove(ElementType& element, iterator_type &firstNode) {
+		bool remove(ElementType* element, iterator_type &firstNode) {
 			Assert(nodes_[0] != 0);
 			//DbgAssert(!isFree(firstNode));
 			iterator_type iterator = firstNode;
 			iterator_type prev = end();
 			while(iterator != end()) {
-				if(nodes_[ iterator ] == &element) {
+				if(nodes_[ iterator ] == element) {
 					if(iterator == firstNode) {
 						remove(iterator, end());
 						firstNode = iterator;
@@ -218,11 +218,11 @@ namespace se_core {
 		 *    index of the first node in the list (or end() if it
 		 *    is a new or empty list)
 		 */
-		bool hasElement(ElementType& element, iterator_type& firstNode) {
+		bool hasElement(ElementType* element, iterator_type& firstNode) {
 			//DbgAssert(!isFree(firstNode));
 			iterator_type iterator = firstNode;
 			while(iterator != end()) {
-				if(nodes_[ iterator ] == &element)
+				if(nodes_[ iterator ] == element)
 					return true;
 
 				// Make iterator point to the next node in the chain

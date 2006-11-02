@@ -30,6 +30,7 @@ rune@skalden.com
 #include "ThingLightFactory.hpp"
 #include "ThingBillboardFactory.hpp"
 #include "ThingStaticGeometryFactory.hpp"
+#include "O3dThingComponent.hpp"
 
 namespace se_ogre {
 
@@ -187,13 +188,14 @@ namespace se_ogre {
 	}
 
 
-	ThingMO* ThingMOManager
+	O3dThingComponent* ThingMOManager
 	::create(se_core::PosNode& t) {
 		const ThingMOInfoList* inf = infoList(t.name());
 		if(!inf || inf->infoCount_ < 1)
 			return 0;
 
-		if(inf->infoCount_ == 1 && false) {
+		/*
+		if(inf->infoCount_ == 1) {
 			const char* factoryType = inf->infos_[0]->movableObjectType_.get();
 			const ThingMOFactory* f = factory(factoryType);
 			if(!f) {
@@ -204,8 +206,10 @@ namespace se_ogre {
 		}
 
 		static ThingMOInfo dummy;
+		*/
 		
-		ThingMultiMO* parent = static_cast<ThingMultiMO*>(factory("multi")->create(t, dummy));
+		//ThingMultiMO* parent = static_cast<ThingMultiMO*>(factory("multi")->create(t, dummy));
+		O3dThingComponent* parent = new O3dThingComponent(static_cast<se_core::Actor*>(&t));
 		for(int i = 0; i < inf->infoCount_; ++i) {
 			const char* factoryType	= inf->infos_[i]->movableObjectType_.get();
 			const ThingMOFactory* f = factory(factoryType);
@@ -223,6 +227,12 @@ namespace se_ogre {
 	void ThingMOManager
 	::release(ThingMO* tmo) {
 		tmo->factory_.release(tmo);
+	}
+
+
+	void ThingMOManager
+	::release(O3dThingComponent* tc) {
+		delete tc;
 	}
 
 

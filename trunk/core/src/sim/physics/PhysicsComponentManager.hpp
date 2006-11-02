@@ -53,7 +53,10 @@ namespace se_core {
 		static PhysicsComponentManager& singleton();
 
 	private:
+		void flip(long when);
+		void affect(long when);
 		void performPhysics(long when);
+		int performChildPhysics(Area* area, Actor** movers);
 		void testCollisions(long startWhen, long endWhen);
 
 

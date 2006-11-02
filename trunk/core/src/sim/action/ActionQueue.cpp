@@ -81,10 +81,10 @@ namespace se_core {
 
 		if(turn == currentTurn_) {
 			unsigned short initiative = futureInitiative(duration);
-			actorList_.add(actor, scheduleCurrentTurn_[ initiative ]);
+			actorList_.add(&actor, scheduleCurrentTurn_[ initiative ]);
 		}
 		else {
-			actorList_.add(actor, scheduleFutureTurns_[ turn ]);
+			actorList_.add(&actor, scheduleFutureTurns_[ turn ]);
 		}
 
 		return futureSchedule(duration);
@@ -103,12 +103,12 @@ namespace se_core {
 			// action in the same initiative, and also solves some hard
 			// concurrency problems...
 			if(initiative != currentInitiative_) {
-				actorList_.remove(actor, scheduleCurrentTurn_[ initiative ]);
+				actorList_.remove(&actor, scheduleCurrentTurn_[ initiative ]);
 				didDisrupt = true;
 			}
 		}
 		else {
-			actorList_.remove(actor, scheduleFutureTurns_[ turn ] );
+			actorList_.remove(&actor, scheduleFutureTurns_[ turn ] );
 			didDisrupt = true;
 		}
 
@@ -135,7 +135,7 @@ namespace se_core {
 		while(it != ActorList::end()) {
 			ActionComponent* a = actorList_.next(it);
 			unsigned short initiative = initiativeFromSchedule(a->actionSchedule(channel_));
-			actorList_.add(*a, scheduleCurrentTurn_[ initiative ]);
+			actorList_.add(a, scheduleCurrentTurn_[ initiative ]);
 		}
 		actorList_.removeChain(scheduleFutureTurns_[ currentTurn_ ]);
 	}

@@ -4,7 +4,6 @@
 #include "DictionaryParserModule.hpp"
 #include "io_parse.hpp"
 #include "Parser.hpp"
-#include "AreaThingParserModule.hpp"
 #include "CutsceneParserModule.hpp"
 #include "ParserModule.hpp"
 

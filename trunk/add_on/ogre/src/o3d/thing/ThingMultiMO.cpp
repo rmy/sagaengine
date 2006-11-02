@@ -71,7 +71,7 @@ namespace se_ogre {
 
 	void ThingMultiMO
 	::add(ThingMO& tmo) {
-		O3dSchema::thingMOList.add(tmo, firstThingMO_);
+		O3dSchema::thingMOList.add(&tmo, firstThingMO_);
 		tmo.setParentNode(node_);
 		tmo.setVisible(true);
 		//if(tmo.hasAnimation())
@@ -81,7 +81,7 @@ namespace se_ogre {
 
 	void ThingMultiMO
 	::remove(ThingMO& tmo) {
-		O3dSchema::thingMOList.remove(tmo, firstThingMO_);
+		O3dSchema::thingMOList.remove(&tmo, firstThingMO_);
 	}
 
 }

@@ -1,5 +1,5 @@
-#ifndef pos_all_hpp
-#define pos_all_hpp
+#ifndef sim_pos_all_hpp
+#define sim_pos_all_hpp
 
 #include "PosComponent.hpp"
 #include "sim_pos.hpp"

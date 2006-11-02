@@ -44,7 +44,7 @@ namespace se_core {
 	 * this is the behaviour wanted), but it does not have the ability to act
 	 * on its own.
 	 */
-	class _SeCoreExport Thing : public PosNode, public ThingData {
+	class _SeCoreExport Thing : public PosNode {
 	protected:
 		Thing(enum SimObjectType type, const char* name);
 	public:
@@ -121,12 +121,6 @@ namespace se_core {
 		 */
 		//void setCollideable(bool isCollideable) { isCollideable_ = isCollideable; }
 
-		/** Returns true if Thing is scheduled for destruction.
-		 *
-		 * @see scheduleForDestruction
-		 */
-		inline bool isDead() { return isDead_; }
-
 		void setSpawner(Actor* spawner);
 
 		////////////////////////////////////////
@@ -150,7 +144,8 @@ namespace se_core {
 
 		bool isPickable_;
 		//bool isCollideable_;
-		bool isDead_;
+
+		static const int MGO_COUNT = 20;
 
 	public:
 		DebugExec(static int refCount);

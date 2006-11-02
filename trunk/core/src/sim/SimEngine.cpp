@@ -51,8 +51,8 @@ namespace se_core {
 
 	SimEngine
 	::SimEngine()
-		: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
-		, lostPerformAdjustment_(0) {
+			: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
+			, lostPerformAdjustment_(0) {
 		LogMsg("Creating SimEngine");
 	}
 
@@ -151,12 +151,6 @@ namespace se_core {
 
 	void SimEngine
 	::perform(long when) {
-		// Make the precalced next coor the present position.
-		flip(when);
-
-		// Schedules and performs the scheduled actions in all action channels
-		ActionComponentManager::singleton().step(when);
-
 		// Performs all destructions that resulted from the actions.
 		// It is necessary to do this as a separate step, because an
 		// object destroyed in this initiative may have a counteraction
@@ -165,8 +159,12 @@ namespace se_core {
 		// actions.
 		SimSchema::thingManager().performDestructions();
 
+		// Schedules and performs the scheduled actions in all action channels
+		ActionComponentManager::singleton().step(when);
+
 		// Move things and check for collisions
 		PhysicsComponentManager::singleton().step(when);
+
 	}
 
 

@@ -185,7 +185,7 @@ namespace se_core {
 		bool addNeighbour(Area* area);
 		bool isNeighbour(Area& area);
 
-		void testActors2ThingsCollisions(); //Actor** movers, short moverCount);
+		void testActors2ThingsCollisions(Actor** movers, short moverCount);
 
 		/**
 		 * Flip all moving things in this area, making
@@ -201,7 +201,7 @@ namespace se_core {
 		 * later be tested for collisions and may be reverted.
 		 */
 		//int performPhysics(Actor** movers);
-		int performChildPhysics(Actor** movers);
+		//int performChildPhysics(Actor** movers);
 
 
 		/**
@@ -213,6 +213,7 @@ namespace se_core {
 
 
 	private:
+		friend class PhysicsComponentManager;
 		/**
 		 * List of movers this step. Updated by the coordinate precalcer and
 		 * used by the collision detector.

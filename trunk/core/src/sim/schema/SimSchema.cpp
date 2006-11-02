@@ -31,6 +31,7 @@ rune@skalden.com
 #include "../stat/HealthListeners.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SimComponentList.hpp"
+#include "../stat/VoidList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../area/sim_area.hpp"
 #include "../area/AreaManager.hpp"
@@ -86,6 +87,7 @@ namespace se_core {
 
 		SimObjectList simObjectList;
 		SimComponentList simComponentList;
+		VoidList voidList;
 
 		Dictionary& dictionary() {
 			static Dictionary d;

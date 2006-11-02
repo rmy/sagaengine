@@ -19,39 +19,7 @@ rune@skalden.com
 */
 
 
-#include "SimComponentIterator.hpp"
-#include "MultiSimComponent.hpp"
-#include "SimComponentList.hpp"
-#include "../schema/SimSchema.hpp"
-#include "../thing/Thing.hpp"
-#include "../thing/Actor.hpp"
-#include "../script/Cutscene.hpp"
-#include "../script/QuestGoal.hpp"
-
+#include "VoidList.hpp"
 
 namespace se_core {
-
-	SimComponentIterator
-	::SimComponentIterator()
-		: it_(SimComponentList::end()) {
-	}
-
-
-	SimComponentIterator
-	::SimComponentIterator(MultiSimComponent& msc) {
-		(*this).init(msc);
-	}
-
-
-	void SimComponentIterator
-	::init(MultiSimComponent& msc) {
-		msc.initIterator(it_);
-	}
-
-
-	void SimComponentIterator
-	::init(short firstNode) {
-		it_ = firstNode;
-	}
-
 }

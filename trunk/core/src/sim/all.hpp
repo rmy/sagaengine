@@ -1,5 +1,5 @@
-#ifndef _all_hpp
-#define _all_hpp
+#ifndef sim_all_hpp
+#define sim_all_hpp
 
 #include "SimObject.hpp"
 #include "SimListener.hpp"

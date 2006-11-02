@@ -19,44 +19,41 @@ rune@skalden.com
 */
 
 
-#include "MultiSimComponent.hpp"
-#include "VoidList.hpp"
-#include "../SimComponent.hpp"
-#include "../schema/SimSchema.hpp"
-#include "../../util/error/Log.hpp"
+#include "MultiO3dThingComponent.hpp"
 #include <cstdio>
 
+using namespace se_core;
 
-namespace se_core {
+namespace se_ogre {
 
-	MultiSimComponent
-	::MultiSimComponent()
+	MultiO3dThingComponent
+	::MultiO3dThingComponent()
 		: firstNode_(VoidList::end()) {
 	}
 
 
-	MultiSimComponent
-	::~MultiSimComponent() {
+	MultiO3dThingComponent
+	::~MultiO3dThingComponent() {
 		SimSchema::voidList.removeChain(firstNode_);
 		firstNode_ = VoidList::end();
 	}
 
 
-	void MultiSimComponent
-	::add(SimComponent& value) {
+	void MultiO3dThingComponent
+	::add(O3dThingComponent& value) {
 		Assert(&value);
 		SimSchema::voidList.add(&value, firstNode_);
 	}
 
 
-	void MultiSimComponent
-	::remove(SimComponent& value) {
+	void MultiO3dThingComponent
+	::remove(O3dThingComponent& value) {
 		SimSchema::voidList.remove(&value, firstNode_);
 	}
 
 
-	bool MultiSimComponent
-	::contains(SimComponent& value) const {
+	bool MultiO3dThingComponent
+	::contains(O3dThingComponent& value) const {
 		VoidList::iterator_type it = iterator();
 		while(it != VoidList::end()) {
 			if(SimSchema::voidList.next(it) == &value)
@@ -66,22 +63,22 @@ namespace se_core {
 	}
 
 
-	bool MultiSimComponent
-	::contains(MultiSimComponent& msc) const {
+	bool MultiO3dThingComponent
+	::contains(MultiO3dThingComponent& msc) const {
 		VoidList::iterator_type it = msc.iterator();
 		while(it != VoidList::end()) {
-			if(!contains(*static_cast<SimComponent*>(SimSchema::voidList.next(it))))
+			if(!contains(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it))))
 				return false;
 		}
 		return true;
 	}
 
 
-	bool MultiSimComponent
-	::sharesAny(MultiSimComponent& msc) const {
+	bool MultiO3dThingComponent
+	::sharesAny(MultiO3dThingComponent& msc) const {
 		VoidList::iterator_type it = msc.iterator();
 		while(it != VoidList::end()) {
-			if(contains(*static_cast<SimComponent*>(SimSchema::voidList.next(it)))) {
+			if(contains(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it)))) {
 				return true;
 			}
 		}
@@ -89,70 +86,70 @@ namespace se_core {
 	}
 
 
-	void MultiSimComponent
-	::add(MultiSimComponent& msc) {
+	void MultiO3dThingComponent
+	::add(MultiO3dThingComponent& msc) {
 		Assert(&msc);
 		VoidList::iterator_type it = msc.iterator();
 		while(it != VoidList::end()) {
-			add(*static_cast<SimComponent*>(SimSchema::voidList.next(it)));
+			add(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it)));
 		}
 	}
 
 
-	void MultiSimComponent
+	void MultiO3dThingComponent
 	::destroyMembersAndClear() {
 		VoidList::iterator_type it = iterator();
 		while(it != VoidList::end()) {
-			delete static_cast<SimComponent*>(SimSchema::voidList.next(it));
+			delete static_cast<O3dThingComponent*>(SimSchema::voidList.next(it));
 		}
 		clear();
 	}
 
 
-	void MultiSimComponent
+	void MultiO3dThingComponent
 	::initIterator(VoidList::iterator_type& iterator) const {
 		iterator = firstNode_;
 	}
 
 
-	bool MultiSimComponent
+	bool MultiO3dThingComponent
 	::isEmpty() const {
 		return (firstNode_ == VoidList::end());
 	}
 
 
-	void MultiSimComponent
+	void MultiO3dThingComponent
 	::clear() {
 		SimSchema::voidList.removeChain(firstNode_);
 	}
 
 
-	int MultiSimComponent
+	int MultiO3dThingComponent
 	::size() const {
 		return SimSchema::voidList.size(firstNode_);
 	}
 
 
 
-	MultiSimComponent::Iterator
+	MultiO3dThingComponent::Iterator
 	::Iterator()
 		: it_(VoidList::end()) {
 	}
 
 
-	MultiSimComponent::Iterator
-	::Iterator(MultiSimComponent& msc) {
+	MultiO3dThingComponent::Iterator
+	::Iterator(MultiO3dThingComponent& msc) {
 		(*this).init(msc);
 	}
 
 
-	void MultiSimComponent::Iterator
-	::init(MultiSimComponent& msc) {
+	void MultiO3dThingComponent::Iterator
+	::init(MultiO3dThingComponent& msc) {
 		msc.initIterator(it_);
 	}
 
 
-	void MultiSimComponent::Iterator
+	void MultiO3dThingComponent::Iterator
 	::init(short firstNode) {
 		it_ = firstNode;
 	}

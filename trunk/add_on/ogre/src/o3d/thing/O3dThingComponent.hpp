@@ -19,24 +19,34 @@ rune@skalden.com
 */
 
 
-#ifndef AreaThingParserModule_hpp
-#define AreaThingParserModule_hpp
+#ifndef O3dThingComponent_hpp
+#define O3dThingComponent_hpp
 
-#include "../stream/io_stream.hpp"
-#include "../../sim/area/sim_area.hpp"
-#include "../../sim/stat/sim_stat.hpp"
-#include "ParserModule.hpp"
+#include "O3dPre.hpp"
+#include "ThingMOList.hpp"
 
-namespace se_core {
-	class _SeCoreExport AreaThingParserModule  : public ParserModule {
+namespace se_ogre {
+	class _SeOgreExport O3dThingComponent  : public se_core::SimComponent {
 	public:
-		AreaThingParserModule(Parser& parser);
-		virtual ~AreaThingParserModule();
-		void parse(InputStream& in);
+		O3dThingComponent(se_core::Actor* owner);
+		~O3dThingComponent();
+		void setActive(bool state);
+		void setVisible(bool state);
 
-	private:
-		void readThing(InputStream& in, Area& area);
-		void readMultiCutscene(InputStream& in, MultiSimObject& mgo);
+		void move(long when, float stepDelta, float timeSinceLastFrame);
+		void setParentNode(Ogre::SceneNode* sn);
+
+		void add(ThingMO& tmo);
+		void remove(ThingMO& tmo);
+
+
+	protected:
+		Ogre::SceneNode* parentNode_;
+		Ogre::SceneNode* node_;
+		se_core::ViewPoint last_;
+		bool isVisible_;
+
+		ThingMOList::iterator_type firstThingMO_;
 	};
 
 }
