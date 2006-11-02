@@ -13,6 +13,7 @@ namespace se_core {
 	SimComponent
 	::~SimComponent() {
 		owner_->removeComponent(*this);
+		owner_ = 0;
 	}
 
 

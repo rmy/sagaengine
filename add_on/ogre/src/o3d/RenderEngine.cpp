@@ -167,6 +167,17 @@ namespace se_ogre {
 
 	void RenderEngine
 	::cleanup(void) {
+		LogMsg("Shutting down resource group manager");
+		ResourceGroupManager::getSingleton().shutdownAll();
+		/*
+		const StringVector& s = ResourceGroupManager::getSingleton().getResourceGroups();
+		for(int i = 0; i < s.size(); ++i) {
+			LogMsg("Destroying resource group: " << s[i].c_str());
+			ResourceGroupManager::getSingleton().destroyResourceGroup(s[i]);
+		}
+		*/
+
+
 		delete inputBridge_;
 		inputBridge_ = 0;
 		LogMsg("Destroyed input bridge");

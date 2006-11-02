@@ -36,7 +36,7 @@ namespace se_ogre {
 
 	ThingMOInfoList
 	::~ThingMOInfoList() {
-		delete infos_;
+		delete[] infos_;
 	}
 
 

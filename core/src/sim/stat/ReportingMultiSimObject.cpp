@@ -47,7 +47,7 @@ namespace se_core {
 
 	void ReportingMultiSimObject
 	::add(SimObject& value) {
-		SimSchema::simObjectList.add(value, firstNode_);
+		SimSchema::simObjectList.add(&value, firstNode_);
 		if(handler_) handler_->simObjectAddedEvent(*this, value);
 		//if(owner_) SimSchema::multiSimObjectListeners.castSimObjectAddedEvent(*this, value);
 	}
@@ -55,7 +55,7 @@ namespace se_core {
 
 	void ReportingMultiSimObject
 	::remove(SimObject& value) {
-		SimSchema::simObjectList.remove(value, firstNode_);
+		SimSchema::simObjectList.remove(&value, firstNode_);
 		if(handler_) handler_->simObjectRemovedEvent(*this, value);
 		//if(owner_) SimSchema::multiSimObjectListeners.castSimObjectRemovedEvent(*this, value);
 	}

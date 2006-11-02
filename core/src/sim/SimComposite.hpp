@@ -25,6 +25,7 @@ rune@skalden.com
 #include "SimObject.hpp"
 #include "util/template/HashTable.hpp"
 #include "stat/MultiSimComponent.hpp"
+#include "stat/MultiSimObject.hpp"
 
 
 namespace se_core {
@@ -43,6 +44,11 @@ namespace se_core {
 		void addComponent();
 
 		bool isActive() { return isActive_; }
+
+		/** Returns true if Thing is scheduled for destruction.
+		 *
+		 * @see scheduleForDestruction
+		 */
 		bool isDead() { return isDead_; }
 		void setActive(bool state);
 
@@ -53,7 +59,11 @@ namespace se_core {
 		void addComponent(SimComponent& c);
 
 	protected:
+		SimComposite* parent_;
+		MultiSimObject childComposites_;
+
 		MultiSimComponent components_;
+
 		bool isActive_;
 		bool isDead_;
 	};

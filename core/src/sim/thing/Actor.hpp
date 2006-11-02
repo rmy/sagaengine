@@ -23,7 +23,6 @@ rune@skalden.com
 #define engine_thing_Actor_hpp
 
 #include "Thing.hpp"
-#include "../custom/ActorData.hpp"
 #include "../action/sim_action.hpp"
 #include "../custom/Move.hpp"
 #include "../physics/Physics.hpp"
@@ -39,6 +38,7 @@ rune@skalden.com
 #include "../script/ScriptComponent.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../physics/PhysicsComponent.hpp"
+#include "../custom/StatComponent.hpp"
 
 
 namespace se_core {
@@ -46,7 +46,7 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class _SeCoreExport Actor : public Thing, public ActorData {
+	class _SeCoreExport Actor : public Thing {
 	public:
 		//TODO:
 		void stopScript() {
@@ -89,7 +89,8 @@ namespace se_core {
 
 		// TODO
 		void affect() {
-			physicsComponent_->affect();
+			if(!isDead_)
+				physicsComponent_->affect();
 		}
 
 		bool calcNextCoor() {
@@ -124,6 +125,16 @@ namespace se_core {
 			physicsComponent_->popPhysics();
 		}
 
+
+		// TODO
+		coor_t walkSpeed() const {
+			return statComponent_->walkSpeed();
+		}
+
+		Abilities* abilities() {
+			return statComponent_->abilities(); 
+		}
+		
 
 	public:
 		/** Constructor.
@@ -229,6 +240,7 @@ namespace se_core {
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		PhysicsComponent* physicsComponent_;
+		StatComponent* statComponent_;
 	};
 
 

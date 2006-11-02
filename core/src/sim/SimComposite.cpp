@@ -1,5 +1,6 @@
 #include "SimComposite.hpp"
-#include "stat/SimComponentIterator.hpp"
+#include "SimComponent.hpp"
+#include "stat/MultiSimComponent.hpp"
 #include "sim.hpp"
 
 namespace se_core {
@@ -20,7 +21,7 @@ namespace se_core {
 		if(state == isActive_) return;
 
 		isActive_ = state;
-		SimComponentIterator it(components_);
+		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			it.next().setActive(state);
 		}
@@ -29,7 +30,7 @@ namespace se_core {
 
 	SimComponent*  SimComposite
 	::component(int type) {
-		SimComponentIterator it(components_);
+		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
 			if(c.type() == type) {

@@ -26,6 +26,7 @@ namespace se_core {
 	class SimObjectList;
 	class SimComponentList;
 	class SortedSimObjectList;
+	class VoidList;
 
 	class MultiSimObject;
 	class MultiSimComponent;

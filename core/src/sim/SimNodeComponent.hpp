@@ -100,7 +100,7 @@ namespace se_core {
 		SimNodeComponent* parent_;
 
 		/** List of child SimNodeComponents  */
-		SimComponentList::iterator_type firstChild_;
+		MultiSimComponent children_;
 	};
 
 }

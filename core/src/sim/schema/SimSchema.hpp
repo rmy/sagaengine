@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #ifndef SimSchema_hpp
+#define SimSchema_hpp
 
 #include "../sim.hpp"
 #include "../action/sim_action.hpp"
@@ -158,6 +159,7 @@ namespace se_core {
 		 */
 		extern _SeCoreExport SimObjectList simObjectList;
 		extern _SeCoreExport SimComponentList simComponentList;
+		extern _SeCoreExport VoidList voidList;
 
 		//extern AllPropertyLists allPropertyLists;
 		//extern _SeCoreExport StopWatch* stopWatch;
@@ -179,5 +181,4 @@ namespace se_core {
 	}
 }
 
-#define SimSchema_hpp
 #endif

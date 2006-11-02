@@ -1,5 +1,5 @@
-#ifndef stat_all_hpp
-#define stat_all_hpp
+#ifndef sim_stat_all_hpp
+#define sim_stat_all_hpp
 
 #include "Dictionary.hpp"
 #include "DictionaryEntry.hpp"
@@ -12,8 +12,10 @@
 #include "HealthListeners.hpp"
 #include "ReportingMultiSimObject.hpp"
 #include "sim_stat.hpp"
+#include "MultiSimComponent.hpp"
 #include "HealthListener.hpp"
 #include "SimObjectList.hpp"
 #include "SortedSimObjectList.hpp"
+#include "VoidList.hpp"
 
 #endif

@@ -117,7 +117,7 @@ namespace se_core {
 		// Insert the element. The element will bed inserted at
 		// the beginning of the list. Thus often moving elements
 		// will stay in the beginning of node lists
-		thingList().add(thing, it);
+		thingList().add(&thing, it);
 
 		Assert(nodeLevels_[ level ][ indexAtLevel(x, z, level) ] !=
 			   CollisionGridThingList::end());
@@ -151,7 +151,7 @@ namespace se_core {
 
 		CollisionGridThingList::iterator_type& it = nodeLevels_[level][index];
 
-		return thingList().remove(thing, it);
+		return thingList().remove(&thing, it);
 	}
 
 
@@ -180,10 +180,10 @@ namespace se_core {
 		// Different cell, move
 		CollisionGridThingList::iterator_type& oldIt
 			= nodeLevels_[oldLevel][ oldIndex ];
-		bool didDelete = thingList().remove(thing, oldIt);
+		bool didDelete = thingList().remove(&thing, oldIt);
 		CollisionGridThingList::iterator_type& newIt
 			= nodeLevels_[newLevel][ newIndex ];
-		thingList().add(thing, newIt);
+		thingList().add(&thing, newIt);
 		return;
 	}
 
@@ -280,8 +280,8 @@ namespace se_core {
 
 		for(int i = 0; i < totalNodeCount_; ++i) {
 			CollisionGridThingList::iterator_type it = nodes_[i];
-			if(thingList().hasElement(thing, it)) {
-				thingList().remove(thing, nodes_[i]);
+			if(thingList().hasElement(&thing, it)) {
+				thingList().remove(&thing, nodes_[i]);
 				return true;
 			}
 		}

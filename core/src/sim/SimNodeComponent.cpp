@@ -32,7 +32,7 @@ namespace se_core {
 
 	SimNodeComponent
 	::SimNodeComponent(Actor* owner)
-		: SimComponent(sct_NODE, owner), firstChild_(-1) {
+		: SimComponent(sct_NODE, owner) {
 	}
 
 
@@ -67,13 +67,13 @@ namespace se_core {
 	::addChild(SimNodeComponent& node) {
 		// Static pos nodes should have the area as
 		// parent.
-		SimSchema::simComponentList.add(node, firstChild_);
+		children_.add(node);
 	}
 
 
 	void SimNodeComponent
 	::removeChild(SimNodeComponent& node) {
-		SimSchema::simComponentList.remove(node, firstChild_);
+		children_.remove(node);
 	}
 
 }

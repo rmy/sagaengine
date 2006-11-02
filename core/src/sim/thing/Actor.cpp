@@ -55,12 +55,16 @@ namespace se_core {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		physicsComponent_ = new PhysicsComponent(this);
+		statComponent_ = new StatComponent(this);
+
 	}
 
 
 	Actor
 	::~Actor() {
 		scriptComponent_->clearScripts();
+		delete statComponent_;
+		delete physicsComponent_;
 		delete scriptComponent_;
 		delete actionComponent_;
 	}

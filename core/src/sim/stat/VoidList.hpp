@@ -19,39 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef SimComponentIterator_hpp
-#define SimComponentIterator_hpp
+#ifndef VoidList_hpp
+#define VoidList_hpp
 
-#include "sim_stat.hpp"
 #include "../sim.hpp"
+#include "util/template/SinglyLinkedList.hpp"
+#include "sim/config/all.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../script/sim_script.hpp"
-#include "../SimComponent.hpp"
-#include "SimComponentList.hpp"
-#include "../schema/SimSchema.hpp"
+
 
 namespace se_core {
-
-	class _SeCoreExport SimComponentIterator {
+	typedef SinglyLinkedList<void, MAX_GAME_OBJECTS, 2> VL;
+	class _SeCoreExport VoidList : public VL {
 	public:
-		SimComponentIterator();
-		SimComponentIterator(MultiSimComponent& mgo);
-		void init(MultiSimComponent& mgo);
-		void init(short firstMode);
-
-		inline bool hasNext() {
-			return it_ != SimComponentList::end();
+		VoidList() : VL(__FILE__) {}
+		inline SimComponent* nextSimComponent(iterator_type& iterator) {
+			return reinterpret_cast<SimComponent*>(next(iterator));
 		}
-
-		inline SimComponent& next() {
-			return *(SimSchema::simComponentList.next(it_));
+		inline SimObject* nextSimObject(iterator_type& iterator) {
+			return reinterpret_cast<SimObject*>(next(iterator));
 		}
-
-	private:
-		SimComponentList::iterator_type it_;
 	};
-
 }
-
 
 #endif

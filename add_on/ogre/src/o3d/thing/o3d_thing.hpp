@@ -33,6 +33,7 @@ namespace se_ogre {
 	class EntityMaterial;
 	class O3dAnimation;
 	class O3dAnimationSet;
+	class O3dThingComponent;
 }
 
 #endif

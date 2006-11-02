@@ -1,5 +1,5 @@
-#ifndef area_all_hpp
-#define area_all_hpp
+#ifndef sim_area_all_hpp
+#define sim_area_all_hpp
 
 #include "CollisionGrid.hpp"
 #include "Area.hpp"

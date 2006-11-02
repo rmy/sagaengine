@@ -45,8 +45,9 @@ namespace se_ogre {
 		int factoryIndex(const char* moType) const;
 		const ThingMOFactory* factory(const char* thingType) const;
 
-		ThingMO* create(se_core::PosNode& t);
+		O3dThingComponent* create(se_core::PosNode& t);
 		void release(ThingMO* tmo);
+		void release(O3dThingComponent* tc);
 
 	private:
 		ThingMOInfoList** infoList_;

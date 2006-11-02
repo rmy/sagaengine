@@ -33,7 +33,7 @@ namespace se_ogre {
 	class _SeOgreExport ThingMultiMO : public ThingMO {
 	public:
 		void animate(long when, float stepDelta, float timeSinceLastFrame) {
-			moveChildren(when, stepDelta, timeSinceLastFrame);
+			//moveChildren(when, stepDelta, timeSinceLastFrame);
 			animateChildren(when, stepDelta, timeSinceLastFrame);
 		}
 

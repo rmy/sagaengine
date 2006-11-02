@@ -500,7 +500,7 @@ namespace se_core {
 	}
 
 	void Area
-	::testActors2ThingsCollisions() { // Actor** movers, short moverCount) {
+	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
 		Assert(collisionGrid_);
 
 		// Create buffer to temporarily hold collision candidates
@@ -509,7 +509,7 @@ namespace se_core {
 		static Thing* things[MAX_THINGS] VAR_IN_EWRAM;
 
 		for(int outer = 0; outer < moverCount_; ++outer) {
-			Actor* a = movers_[ outer ];
+			Actor* a = movers[ outer ];
 
 			// Get collision candidates in this and all
 			// neighbouring areas
@@ -613,8 +613,7 @@ namespace se_core {
 		multiSimObjects_[ MGOA_SPAWNS ].clear();
 	}
 
-
-
+	/*
 	int Area
 	::performChildPhysics(Actor** movers) {
 		movers_ = movers;
@@ -664,7 +663,7 @@ namespace se_core {
 
 		return moverCount_;
 	}
-
+	*/
 
 	/*
 	int Area

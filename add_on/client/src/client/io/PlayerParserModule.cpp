@@ -116,6 +116,7 @@ namespace se_client {
 				}
 				break;
 
+				/*
 			case 'S': // Statistic
 				id = in.readDictionaryWord(DE_SINGLE_VALUE);
 				value = in.readInt();
@@ -129,6 +130,7 @@ namespace se_client {
 				//camera->attribute(id).set(stringValue);
 				in.readString(camera->attribute(id));
 				break;
+				*/
 
 			case 'V': // ViewPort
 				ClientSchema::clientEventBridge.setCamera(camera);
