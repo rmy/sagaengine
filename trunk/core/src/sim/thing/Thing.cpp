@@ -98,5 +98,14 @@ namespace se_core {
 	}
 
 
+	void Thing
+	::resetSpawner() {
+		if(spawner_) {
+			spawner_->decSpawnCount();
+			spawner_ = 0;
+		}
+	}
+
+
 
 }
