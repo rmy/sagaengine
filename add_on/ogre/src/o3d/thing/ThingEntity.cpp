@@ -171,7 +171,7 @@ namespace se_ogre {
 			if(state_[i]) {
 				state_[i]->setEnabled(false);
 				state_[i]->setWeight(0);
-				state_[i]->setTimePosition(.25);
+				state_[i]->setTimePosition(0);
 			}
 		}
 

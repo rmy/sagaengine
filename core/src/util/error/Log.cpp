@@ -34,11 +34,9 @@ namespace se_err {
 		OutputDebugString("\n");
 #	endif
 
-
-		printf("%s\n", s);
-		//fputs(s, stderr);
-		//fputs("\n", stderr);
-		//fflush(stderr);
+		fputs(s, stderr);
+		fputs("\n", stderr);
+		fflush(stderr);
 	}
 
 
@@ -57,8 +55,6 @@ namespace se_err {
 	}
 	void whisper3(const char* file, int line, const char* msg) {
 		char buffer[512];
-		puts(file);
-		puts(msg);
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}

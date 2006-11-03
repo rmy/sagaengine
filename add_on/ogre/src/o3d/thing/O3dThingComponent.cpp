@@ -35,13 +35,11 @@ namespace se_ogre {
 
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
-		LogMsg(owner->name());
 	}
 
 
 	O3dThingComponent
 	::~O3dThingComponent() {
-		LogMsg(owner_->name());
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
