@@ -29,7 +29,7 @@ namespace se_core {
 
 // You may configure this with compiler option
 #ifndef SE_MAX_GT
-#	define SE_MAX_GT 512
+#	define SE_MAX_GT 4 * 1024
 #endif
 
 // You may configure this with a compiler option

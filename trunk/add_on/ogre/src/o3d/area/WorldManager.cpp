@@ -221,7 +221,6 @@ namespace se_ogre {
 						areas_[ index ].area_ = a;
 						areas_[ index ].shouldKeep_ = true;
 						areas_[ index ].isNew_ = true;
-						//areas_[ index ].firstThingMO_ = ThingMOList::end();
 						areas_[ index ].moList_.clear();
 						areas_[ index ].id_ = a->id();
 
@@ -261,7 +260,7 @@ namespace se_ogre {
 			if(areas_[i].isNew_) {
 				Area* a = areas_[i].area_;
 
-			// Add things
+				// Add things
 				se_core::SimObjectIterator nit(a->reportingThings());
 				while(nit.hasNext()) {
 					Thing& thing = nit.nextThing();
@@ -343,8 +342,10 @@ namespace se_ogre {
 		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
 		if(tc) {
 			int index = findArea(thing.pos().area()->id());
-			if(index >= 0)
+			if(index >= 0) {
+				Assert(areas_[index].moList_.contains(*tc));
 				areas_[index].moList_.remove(*tc);
+			}
 			O3dSchema::thingMOManager.release(tc);
 		}
 	}
@@ -370,6 +371,7 @@ namespace se_ogre {
 		// Remove from existing area
 		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
 		if(tc) {
+			Assert(areas_[index].moList_.contains(*tc));
 			areas_[index].moList_.remove(*tc);
 			// Destroy if new area is *not* visible
 			if(nextIndex < 0) {

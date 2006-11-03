@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport TimelineScript : public Script {
 	public:
-		TimelineScript(String* name, int trackerPosCount = 40);
+		TimelineScript(const char* name, int trackerPosCount = 40);
 		virtual ~TimelineScript();
 		virtual const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const;
 		void addAction(int trackerPos, const char* name);
@@ -74,7 +74,6 @@ namespace se_core {
 		const Action** actions_;
 		int* scriptSingleValueParameters_;
 		String** scriptAttributeParameters_;
-		String* nameString_; // For proper destruction of name strings
 		bool isInZeroMode_;
 	};
 

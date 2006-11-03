@@ -30,15 +30,18 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::O3dThingComponent(Actor* owner)
-		: SimComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false), firstThingMO_(ThingMOList::end()) {
+		: SimComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false)
+		, firstThingMO_(ThingMOList::end()) {
 
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
+		LogMsg(owner->name());
 	}
 
 
 	O3dThingComponent
 	::~O3dThingComponent() {
+		LogMsg(owner_->name());
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
@@ -55,7 +58,6 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::setActive(bool state) {
-		setVisible(state);
 	}
 
 

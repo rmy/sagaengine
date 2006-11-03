@@ -45,11 +45,10 @@ namespace se_core {
 
 
 	Script
-	::Script(String* name)
-		: SimObject(got_SCRIPT, name->get())
+	::Script(const char* name)
+		: SimObject(got_SCRIPT, name)
 		, nameString_(name)
 	{
-		LogMsg(name->get());
 		SimSchema::sortedSimObjectList().add(this);
 	}
 
@@ -57,7 +56,7 @@ namespace se_core {
 	Script
 	::~Script() {
 		SimSchema::sortedSimObjectList().remove(this);
-		delete nameString_;
+		//delete nameString_;
 	}
 
 

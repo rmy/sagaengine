@@ -60,6 +60,11 @@ namespace se_err {
 		Log& operator << (const se_core::String* s);
 		Log& mem(int n);
 
+		static Log& singleton() {
+			static Log log;
+			return log;
+		}
+
 	private:
 		void copy(const char* msg) {
 			while(msgPos_ < MAX_MSG_SIZE - 1 && *msg != 0) {
@@ -68,7 +73,7 @@ namespace se_err {
 			msg_[msgPos_] = 0;
 		}
 
-		static const short MAX_MSG_SIZE = 256;
+		static const short MAX_MSG_SIZE = 512;
 		short msgPos_;
 		char msg_[MAX_MSG_SIZE];
 		char tmp_[MAX_MSG_SIZE];
@@ -95,11 +100,11 @@ void * operator new[](size_t size, char const * file, int line);
 #define DbgAssert(b) if(!(b)) { se_err::debugStop(); se_err::scream3(__FILE__, __LINE__, # b); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
 //#define DbgLogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
-#define LogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
-#define DbgLogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
+#define LogFatal(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).scream()
+#define DbgLogFatal(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).scream()
 //#define LogMsg(msg) se_err::say3(__FILE__, __LINE__, msg)
-#define LogWarning(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
-#define LogMsg(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).whisper()
+#define LogWarning(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).say()
+#define LogMsg(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).whisper()
 #define DebugExec(n) n
 #define WasHere() { se_err::whisper3(__FILE__, __LINE__, __FUNCTION__); }
 #define Dump(msg) { se_err::dump(msg); se_err::dump("\n"); }
@@ -123,11 +128,11 @@ namespace se_err {
 
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
-#define LogFatal(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).scream()
+#define LogFatal(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).scream()
 #define DbgLogFatal(n)
 #define DbgAssert(b)
 //#define LogMsg(msg)
-#define LogWarning(msg) (se_err::log().file(__FILE__, __LINE__) << msg ).say()
+#define LogWarning(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).say()
 #define LogMsg(msg)
 // se_err::debugStop()
 //{ se_err::say3(__FILE__, __LINE__, __FUNCTION__); }

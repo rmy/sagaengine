@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport CustomScript : public Script {
 	public:
-		CustomScript(String* name);
+		CustomScript(char* name);
 		ScriptData* init(const Actor& performer) const;
 		const Action* nextAction(const Actor& performer, int channel, ScriptData* sd) const;
 		virtual const Action* nextDirection(const Actor& performer, ScriptData* sd) const;

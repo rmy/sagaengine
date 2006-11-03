@@ -191,8 +191,10 @@ namespace se_ogre {
 	O3dThingComponent* ThingMOManager
 	::create(se_core::PosNode& t) {
 		const ThingMOInfoList* inf = infoList(t.name());
-		if(!inf || inf->infoCount_ < 1)
+		if(!inf || inf->infoCount_ < 1) {
+			LogMsg(t.name());
 			return 0;
+		}
 
 		/*
 		if(inf->infoCount_ == 1) {
