@@ -36,14 +36,14 @@ namespace se_core {
 	SortedSimObjectList
 	::SortedSimObjectList()
 		: simObjects_(new SimObject*[ MAX_GAME_OBJECTS ]), simObjectCount_(0) {
-		LogMsg("Creating SortedSimObjectList");
+		//LogMsg("Creating SortedSimObjectList");
 	}
 
 
 	SortedSimObjectList
 	::~SortedSimObjectList() {
 		delete[] simObjects_;
-		LogMsg("Destroying SortedSimObjectList");
+		//LogMsg("Destroying SortedSimObjectList");
 	}
 
 

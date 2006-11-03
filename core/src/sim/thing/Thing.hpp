@@ -122,6 +122,7 @@ namespace se_core {
 		//void setCollideable(bool isCollideable) { isCollideable_ = isCollideable; }
 
 		void setSpawner(Actor* spawner);
+		void resetSpawner();
 
 		////////////////////////////////////////
 

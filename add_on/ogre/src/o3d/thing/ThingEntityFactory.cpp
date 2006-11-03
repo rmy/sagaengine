@@ -29,7 +29,7 @@ namespace se_ogre {
 
 	ThingEntityFactory
 	::ThingEntityFactory() 
-		: ThingMOFactory(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str()) {
+		: ThingMOFactory("Entity") { // Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str()) {
 	}
 
 
