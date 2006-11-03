@@ -168,7 +168,7 @@ namespace se_basic {
 			//LogMsg(']');
 		}
 		Assert(code == '/');
-		delete siblings;
+		delete[] siblings;
 		//LogMsg(thing->name() << ": " << vp.toLog());
 	}
 

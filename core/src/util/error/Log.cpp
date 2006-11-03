@@ -33,9 +33,12 @@ namespace se_err {
 		OutputDebugString(s);
 		OutputDebugString("\n");
 #	endif
-		fputs(s, stderr);
-		fputs("\n", stderr);
-		fflush(stderr);
+
+
+		printf("%s\n", s);
+		//fputs(s, stderr);
+		//fputs("\n", stderr);
+		//fflush(stderr);
 	}
 
 
@@ -54,6 +57,8 @@ namespace se_err {
 	}
 	void whisper3(const char* file, int line, const char* msg) {
 		char buffer[512];
+		puts(file);
+		puts(msg);
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}
@@ -73,10 +78,13 @@ char* log_msg() {
 
 #if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 namespace se_err {
-	Log& log() {
-		static Log lg OBJECT_IN_EWRAM;
+	/*
+	Log& Log
+	::singleton() {
+		static Log lg;
 		return lg;
 	}
+	*/
 
 
 	Log& Log

@@ -35,7 +35,7 @@ namespace se_core {
 
 
 	TimelineScript
-	::TimelineScript(String* name, int trackerPosCount) : Script(name), trackerPosCount_(trackerPosCount), nameString_(name), isInZeroMode_(trackerPosCount == 1) {
+	::TimelineScript(const char* name, int trackerPosCount) : Script(name), trackerPosCount_(trackerPosCount), isInZeroMode_(trackerPosCount == 1) {
 		actions_ = new const Action*[ trackerPosCount_ ];
 		scriptSingleValueParameters_ = new int[ trackerPosCount_ ];
 		scriptAttributeParameters_ = new String*[ trackerPosCount_ ];
@@ -50,7 +50,6 @@ namespace se_core {
 	TimelineScript
 	::~TimelineScript() {
 		delete actions_;
-		delete nameString_;
 	}
 
 

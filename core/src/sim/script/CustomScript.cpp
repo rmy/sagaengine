@@ -30,7 +30,7 @@ namespace se_core {
 
 
 	CustomScript
-	::CustomScript(String* name) : Script(name) {
+	::CustomScript(char* name) : Script(name) {
 	}
 
 

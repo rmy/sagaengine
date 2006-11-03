@@ -61,7 +61,7 @@ namespace se_core {
 			simObjects_[ index ] = go;
 			++simObjectCount_;
 		}
-		LogMsg("Registered SimObject '" << go->name() << "' of type " << go->type());
+		//LogMsg("Registered SimObject '" << go->name() << "' of type " << go->type());
 	}
 
 

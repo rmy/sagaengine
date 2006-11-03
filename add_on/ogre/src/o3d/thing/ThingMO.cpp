@@ -55,12 +55,14 @@ namespace se_ogre {
 
 	void ThingMO
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
+		/*
 		// Are interpolations meaningful at all?
 		if(!thing_.pos().isKeyFramePath(thing_.nextPos())) {
 			// If not skip it
 			setVisible(false);
 			return;
 		}
+		*/
 
 		// Check if mesh entity is visible
 		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
@@ -73,6 +75,7 @@ namespace se_ogre {
 			return;
 		}
 
+		/*
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
 		thing_.worldViewPoint(alpha, last_);
 
@@ -98,6 +101,7 @@ namespace se_ogre {
 
 		// Set new orientation
 		node_->setOrientation(rot);
+		*/
 
 		// If radius scales the model
 		if(info_.doScaleByRadius_) {

@@ -46,7 +46,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport Script : public SimObject {
 	public:
-		Script(String* name);
+		Script(const char* name);
 		virtual ~Script();
 		virtual ScriptData* init(const Actor& performer) const { return 0; }
 		virtual void reinit(const Actor& performer, ScriptData* sd) const {}
@@ -61,7 +61,7 @@ namespace se_core {
 		virtual bool isStacker() const { return true; }
 
 	private:
-		String* nameString_; // For proper destruction of name strings
+		String nameString_; // For proper destruction of name strings
 	};
 
 }

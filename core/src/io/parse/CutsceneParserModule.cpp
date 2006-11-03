@@ -117,8 +117,8 @@ namespace se_core {
 		in.readString(*name);
 		char* fullname = new char[ strlen(cutsceneName) + strlen(name->get()) + 2 ];
 		sprintf(fullname, "%s.%s", cutsceneName, name->get());
-		name->set(fullname);
-		TimelineScript* script = new TimelineScript(name, trackerPosCount);
+		//name->set(fullname);
+		TimelineScript* script = new TimelineScript(fullname, trackerPosCount);
 		int trackerPos = 0;
 		int parameter = 0;
 		name = new String();

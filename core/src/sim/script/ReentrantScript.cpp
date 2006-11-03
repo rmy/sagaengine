@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 
 	ReentrantScript
-	::ReentrantScript(const char* name) : Script(new String(name)) {
+	::ReentrantScript(const char* name) : Script(name) {
 	}
 
 
