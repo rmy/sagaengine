@@ -92,11 +92,16 @@ namespace se_basic {
 
 	void NavMeshArea
 	::path(const Pos& from, const Pos& to, Point3& out) const {
+		// In different areas
+		if(from.area() != to.area()) {
+			return out.set(from.localCoor());
+		}
 		// Already in same triangle
 		if(from.index() == to.index()) {
 			out.set(to.localCoor());
 			return;
 		}
+		// In line of sight
 		if(navMesh_->isInLineOfSight(from, to)) {
 			out.set(to.localCoor());
 			return;

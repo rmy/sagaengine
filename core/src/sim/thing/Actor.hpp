@@ -37,6 +37,7 @@ rune@skalden.com
 #include "util/type/String.hpp"
 #include "../script/ScriptComponent.hpp"
 #include "../action/ActionComponent.hpp"
+#include "../action/ActionAndParameter.hpp"
 #include "../physics/PhysicsComponent.hpp"
 #include "../custom/StatComponent.hpp"
 
@@ -197,11 +198,11 @@ namespace se_core {
 			return collide_->collide(*this, pushedThing);
 		}
 
-		const Actor* target() const { return target_; }
-		Actor* target() { return target_; }
-		bool hasTarget() const { return target_ != 0; }
-		void setTarget(Actor* target) { target_ = target; }
-		void resetTarget() { target_ = 0; }
+		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
+		Actor* target() { return static_cast<Actor*>(target_.object()); }
+		bool hasTarget() const { return !target_.isNull(); }
+		void setTarget(Actor* target) { target_.set(target->ptr()); }
+		void resetTarget() { target_.reset(); }
 
 		virtual bool isPlayer() { return false; }
 
@@ -214,12 +215,37 @@ namespace se_core {
 		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
 		MultiSimObject& questGoals() { return questGoals_; }
 
+		bool hasDefaultAction() const {
+			return defaultAction_.hasAction();
+		}
+		const ActionAndParameter& defaultAction() const { 
+			return defaultAction_; 
+		}
+		const Action* defaultAction(Parameter& out) const { 
+			out = defaultAction_.parameter();
+			return defaultAction_.action(); 
+		}
+		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 
+			defaultAction_.setAction(action);
+			if(parameter) {
+				defaultAction_.copyParameter(*parameter);
+			}
+		}
+		void resetDefaultAction() { defaultAction_.resetAction(); }
+
+		/**
+		 *
+		 */
+		void planDefaultAction() const;
+
+
 	protected:
 		friend class SimEngine;
 		friend class Area;
 
 	protected:
 		friend class ShowingCutscene;
+		mutable ActionAndParameter defaultAction_;
 
 		/** ShowingCutscene uses this to free members. */
 		void setNoCutsceneShowing();
@@ -233,7 +259,7 @@ namespace se_core {
 		MultiSimObject questGoals_;
 
 		const ThingCollide* collide_;
-		Actor* target_;
+		SimPtr target_;
 
 		int spawnCount_;
 

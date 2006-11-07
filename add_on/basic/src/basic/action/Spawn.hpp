@@ -30,19 +30,19 @@ namespace se_basic {
 		Spawn() : se_core::Action("Spawn") {
 		}
 
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const {
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
 			return 5;
 		}
 
-		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const {
+		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
 			return false;
 		}
 
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const {
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
 			return false;
 		}
 
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 		void param(const char* thingType, short spawnPoint, se_core::Parameter& out);
 

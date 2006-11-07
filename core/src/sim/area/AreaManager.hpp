@@ -51,27 +51,27 @@ namespace se_core {
 		Area* createArea(const char* areaName, const char* factoryName, int pageX = -1, int pageY = -1, int pageZ = -1);
 		void integrity();
 
-	private:
-		CollisionGrid* grabCollisionGrid();
+		int maxWidth() { return maxWidth_; }
+		int maxHeight() { return maxHeight_; }
 
+	private:
 		const AreaFactory* factory(const char* name) const;
 
 		static const int MAX_ELEMENTS = 1024 * 16;
 		static const int MAX_FACTORIES = 512;
+		friend class PhysicsComponentManager;
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 
 		int areaCount_;
 		int factoryCount_;
 		int activeCount_;
 
-		int gridCount_, gridPoolCount_;
-		CollisionGrid** collisionGrids_;
-		CollisionGrid** gridPool_;
-
 		const AreaFactory** factories_;
 		Area** areas_;
 		Area** active_;
 		bool* shouldKeep_;
+
+		coor_tile_t maxWidth_, maxHeight_;
 	};
 
 }

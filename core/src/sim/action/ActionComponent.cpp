@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 
 	ActionComponent
-	::ActionComponent(Actor* owner)
+	::ActionComponent(SimComposite* owner)
 		: SimComponent(sct_ACTION, owner), feed_(0) {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			presentActionScheduledComplete_[i] = 0;
@@ -61,8 +61,8 @@ namespace se_core {
 		Parameter& p = presentAction_[channel].parameter();
 		p.resetActionStage();
 		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*this, a->duration(*owner_, p));
-		a->prepare(*owner_, p);
+			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
+		a->prepare(*this, p);
 	}
 
 
@@ -73,8 +73,8 @@ namespace se_core {
 		Parameter& p = presentAction_[channel].parameter();
 		p.incrActionStage();
 		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*this, a->duration(*owner_, p));
-		a->prepare(*owner_, p);
+			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
+		a->prepare(*this, p);
 	}
 
 
@@ -157,7 +157,7 @@ namespace se_core {
 
 
 	void ActionComponent
-	::setActive(bool state) {
+	::setScriptActive(bool state) {
 		if(state) {
 			if(feed_) {
 				for(int i = 0; i < CHANNEL_COUNT; ++i) {
@@ -173,5 +173,11 @@ namespace se_core {
 			// Disrupt actions in progress
 			disrupt();
 		}
+	}
+
+
+	void ActionComponent
+	::setActive(bool state) {
+		setScriptActive(state);
 	}
 }

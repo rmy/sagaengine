@@ -30,10 +30,6 @@ namespace se_fmod {
 	namespace FmodSchema {
 		extern Sounds sounds;
 		extern SoundPlayer* soundPlayer;
-
-		bool SE_AUTO_INIT init();
-		void SE_AUTO_CLEANUP cleanup();
-
 	};
 
 

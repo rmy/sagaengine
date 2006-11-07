@@ -112,13 +112,6 @@ namespace se_core {
 	}
 
 	void Player
-	::planDefaultAction() const {
-		if(!defaultAction_.hasAction()) return;
-		actionComponent_->planAction(CHANNEL_EXTRA, defaultAction_);
-	}
-
-
-	void Player
 	::planDefaultMovementAction() const {
 		if(defaultMovementAction_.hasAction()) {
 			actionComponent_->planActionIfNone(CHANNEL_MOVEMENT, defaultMovementAction_);
@@ -138,12 +131,12 @@ namespace se_core {
 			const Action* a = defaultMovementAction_.action();
 			Parameter& p = defaultMovementAction_.parameter();
 			LogMsg(a->name());
-			a->perform(when, const_cast<Player&>(*this), p);
+			a->perform(when, *actionComponent_, p);
 		}
 		if(defaultTurnAction_.hasAction()) {
 			const Action* a = defaultTurnAction_.action();
 			Parameter& p = defaultTurnAction_.parameter();
-			a->perform(when, const_cast<Player&>(*this), p);
+			a->perform(when, *actionComponent_, p);
 		}
 	}
 

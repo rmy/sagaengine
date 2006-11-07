@@ -28,9 +28,9 @@ namespace se_basic {
 	class _SeBasicExport IdleFor : public se_core::Action {
 	public:
 		IdleFor() : se_core::Action("idle_for") {}
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const;
-		bool isRepeating(long when, se_core::Actor& performer, se_core::Parameter& parameter) const { return false; }
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
+		bool isRepeating(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return false; }
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 		const IdleFor& param(short millis, se_core::Parameter& out) const;
 

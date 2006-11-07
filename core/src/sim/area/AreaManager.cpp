@@ -34,13 +34,12 @@ namespace se_core {
 
 	AreaManager
 	::AreaManager() 
-			: areaCount_(0), factoryCount_(0), activeCount_(0), gridCount_(0), gridPoolCount_(0) {
+			: areaCount_(0), factoryCount_(0), activeCount_(0)
+			, maxWidth_(0), maxHeight_(0) {
 		areas_ = new Area*[ MAX_ELEMENTS ];
 		factories_ = new const AreaFactory*[ MAX_FACTORIES ];
 		active_ = new Area*[ MAX_ACTIVE ];
 		shouldKeep_ = new bool[ MAX_ACTIVE ];
-		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
-		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
 		LogMsg("Creating AreaManager");
 	}
 
@@ -51,9 +50,7 @@ namespace se_core {
 		delete[] areas_;
 		delete[] active_;
 		delete[] factories_;
-		delete[] collisionGrids_;
 		delete[] shouldKeep_;
-		delete[] gridPool_;
 		LogMsg("Destroying AreaManager");
 	}
 
@@ -61,6 +58,12 @@ namespace se_core {
 	void AreaManager
 	::addArea(Area* area) {
 		Assert(areaCount_ < MAX_ELEMENTS && "Too many elements. Adjust MAX_ELEMENTS.");
+
+		if(area->width() > maxWidth_)
+			maxWidth_ = area->width();
+		if(area->height() > maxHeight_)
+			maxHeight_ = area->height();
+
 
 		// Init neighbours
 		for(int i = 0; i < areaCount_; ++i) {
@@ -140,7 +143,6 @@ namespace se_core {
 		}
 
 		active_[ activeCount_ ] = area;
-		active_[ activeCount_ ]->setCollisionGrid(grabCollisionGrid());
 		active_[ activeCount_ ]->setActive(true);
 		++activeCount_;
 
@@ -173,8 +175,6 @@ namespace se_core {
 					// Make it active
 					index = activeCount_;
 					active_[ index ] = a;
-					CollisionGrid* g = grabCollisionGrid();
-					active_[ index ]->setCollisionGrid(g);
 					active_[ index ]->setActive(true);
 					++activeCount_;
 				}
@@ -190,16 +190,8 @@ namespace se_core {
 		for(int i = 0; i < activeCount_; ++i) {
 			Assert(active_[i]);
 			if(!shouldKeep_[i]) {
-				// Get back collisionGrid to pool
-				//LogMsg(i << " < " << activeCount_);
 				Area* a = active_[i];
 				Assert(a);
-				CollisionGrid* g = a->resetCollisionGrid();
-				Assert(g);
-				if(g) {
-					g->clear();
-					gridPool_[ gridPoolCount_++ ] = g;
-				}
 				a->setActive(false);
 
 				// Delete current by moving last to here
@@ -214,7 +206,6 @@ namespace se_core {
 		}
 
 		DebugExec(integrity());
-
 	}
 
 
@@ -222,11 +213,6 @@ namespace se_core {
 	::setInactive(Area* area) {
 		for(int i = 0; i < activeCount_; ++i) {
 			if(area == active_[i]) {
-				CollisionGrid* g = area->resetCollisionGrid();
-				if(g) {
-					g->clear();
-					gridPool_[ gridPoolCount_++ ] = g;
-				}
 				area->setActive(false);
 
 				--activeCount_;
@@ -297,14 +283,6 @@ namespace se_core {
 			areas_[ i ]->reset();
 		}
 		LogMsg("Destoryed things");
-		/*
-		if(active()) {
-			active()->setActive(false);
-			active()->resetCollisionGrid();
-			if(collisionGrid_)
-				collisionGrid_->clear();
-		}
-		*/
 	}
 
 
@@ -328,37 +306,6 @@ namespace se_core {
 		factoryCount_ = 0;
 		LogMsg("Destroyed area factories");
 
-		for(int i = 0; i < gridCount_; ++i) {
-			delete collisionGrids_[i];
-		}
-		gridCount_ = 0;
-		LogMsg("Destroyed area grids");
-	}
-
-
-	CollisionGrid* AreaManager
-	::grabCollisionGrid() {
-		// Create grid object if necessary
-		coor_tile_t maxWidth = 1, maxHeight = 1;
-		if(!gridPoolCount_) {
-			Assert(gridCount_ < MAX_ACTIVE);
-
-			for(int i = 0; i < areaCount_; ++i) {
-				coor_tile_t xs = areas_[i]->width();
-				coor_tile_t zs = areas_[i]->height();
-				if(xs > maxWidth) maxWidth = xs;
-				if(zs > maxHeight) maxHeight = zs;
-			}
-			short d = 2;
-			while((1 << (d + 1)) < maxWidth / 4 && (1 << (d + 1)) < maxHeight / 4)
-				++d;
-
-			CollisionGrid* g = new CollisionGrid(maxWidth, maxHeight, d);
-			gridPool_[ gridPoolCount_++ ] = g;
-			collisionGrids_[ gridCount_++ ] = g;
-		}
-
-		return gridPool_[ --gridPoolCount_ ];
 	}
 
 
@@ -373,9 +320,6 @@ namespace se_core {
 
 	void AreaManager
 	::integrity() {
-		for(int i = 0; i < activeCount_; ++i) {
-			Assert(active_[i]->collisionGrid_);
-		}
 		for(int i = 0; i < activeCount_ - 1; ++i) {
 			for(int j = i + 1; j < activeCount_; ++j) {
 				if(active_[i] == active_[j]) {

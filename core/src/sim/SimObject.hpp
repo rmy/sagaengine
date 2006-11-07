@@ -25,6 +25,7 @@ rune@skalden.com
 #include "sim.hpp"
 #include "util/error/Log.hpp"
 #include "util/type/String.hpp"
+#include "SimPtr.hpp"
 
 namespace se_core {
 
@@ -44,7 +45,7 @@ namespace se_core {
 		 *
 		 * @param type The type of SimObject (got_ACTION, got_THING, etc)
 		 */
-		SimObject(enum SimObjectType type) : type_(type) {
+		SimObject(enum SimObjectType type) : type_(type), ptr_(this) {
 			id_ = createId();
 		}
 
@@ -55,7 +56,7 @@ namespace se_core {
 		 * @param name The name of the game object
 		 */
 		SimObject(enum SimObjectType type, const char* name)
-			: type_(type), name_(name) {
+			: type_(type), name_(name), ptr_(this) {
 			id_ = createId();
 		}
 
@@ -107,6 +108,7 @@ namespace se_core {
 		 * Register SimObject in SimSchema::sortedSimObjectList().
 		 */
 		void registerInSortedList();
+		SimPtr& ptr() { return ptr_; }
 
 	private:
 		/**
@@ -135,6 +137,8 @@ namespace se_core {
 		 * @TODO: Should be String ??
 		 */
 		const char* name_;
+
+		SimPtr ptr_;
 	};
 
 }

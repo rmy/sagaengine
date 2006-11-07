@@ -27,13 +27,13 @@ rune@skalden.com
 
 
 namespace se_fmod {
-	class SoundPlayer : public SoundListener {
+	class SoundPlayer : public se_core::SoundListener {
 	public:
 		SoundPlayer();
 		~SoundPlayer();
 
 		void ambienceEvent(char* snd);
-		void soundEvent(Actor& speaker, const char* snd);
+		void soundEvent(se_core::Actor& speaker, const char* snd);
 
 		FMOD_SOUND* loadSound(const char* filename);
 

@@ -77,7 +77,7 @@ namespace se_core {
 		 * it. (TODO: Can a Thing be spawned? Will not all spawned things have
 		 * the ability to perform Action?)
 		 */
-		Actor* spawner() const { return spawner_; }
+		Actor* spawner() const;
 
 		/** Returns true if the thing is pickable.
 		 *
@@ -141,7 +141,7 @@ namespace se_core {
 		 * This enables monster spawner's to create new children whenever
 		 * they fall below a certain count.
 		 */
-		Actor* spawner_;
+		SimPtr spawner_;
 
 		bool isPickable_;
 		//bool isCollideable_;

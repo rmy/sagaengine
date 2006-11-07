@@ -30,6 +30,8 @@ rune@skalden.com
 #include <fmod.h>
 
 
+using namespace se_core;
+
 namespace se_fmod {
 	Sounds
 	::Sounds() : currentLanguage_(NORWEGIAN), soundCount_(0) {

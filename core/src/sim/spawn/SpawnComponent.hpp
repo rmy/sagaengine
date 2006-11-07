@@ -23,6 +23,7 @@ rune@skalden.com
 #define SpawnComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../sim.hpp"
 #include "../pos/PosComponent.hpp"
 #include "util/type/all.hpp"
 #include "util/vecmath/util_vecmath.hpp"
@@ -30,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SpawnComponent : public SimComponent {
 	public:
-		SpawnComponent(Actor* owner, PosComponent* pos);
+		SpawnComponent(SimComposite* owner, PosComponent* pos);
 		virtual ~SpawnComponent();
 
 		void cleanup();

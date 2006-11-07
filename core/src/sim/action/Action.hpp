@@ -24,7 +24,6 @@ rune@skalden.com
 
 #include "sim_action.hpp"
 #include "../SimObject.hpp"
-#include "../thing/sim_thing.hpp"
 
 namespace se_core {
 
@@ -48,7 +47,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual short duration(Actor& performer, Parameter& parameter) const {
+		virtual short duration(ActionComponent& performer, Parameter& parameter) const {
 			return 1;
 		}
 
@@ -59,7 +58,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual bool isRepeating(long when, Actor &performer, Parameter& parameter) const { 
+		virtual bool isRepeating(long when, ActionComponent &performer, Parameter& parameter) const { 
 			return false;
 		}
 
@@ -72,7 +71,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual bool isContinuing(Actor &performer, Parameter& parameter) const {
+		virtual bool isContinuing(ActionComponent &performer, Parameter& parameter) const {
 			return false; 
 		}
 
@@ -82,7 +81,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual void prepare(Actor &performer, Parameter& parameter) const {}
+		virtual void prepare(ActionComponent &performer, Parameter& parameter) const {}
 
 		/**
 		 * Called if the action is disrupted, that is being removed
@@ -91,7 +90,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual void disrupt(Actor &performer, Parameter& parameter) const {}
+		virtual void disrupt(ActionComponent &performer, Parameter& parameter) const {}
 
 		/**
 		 * Perform the action.
@@ -100,7 +99,7 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual void perform(long when, Actor &performer, Parameter& parameter) const = 0;
+		virtual void perform(long when, ActionComponent &performer, Parameter& parameter) const = 0;
 	};
 
 }

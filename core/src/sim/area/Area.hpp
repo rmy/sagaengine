@@ -33,6 +33,7 @@ rune@skalden.com
 #include "util/math/CoorT.hpp"
 #include "util/vecmath/util_vecmath.hpp"
 #include "sim/config/sim_config.hpp"
+#include "../physics/sim_physics.hpp"
 
 
 namespace se_core {
@@ -42,8 +43,8 @@ namespace se_core {
 		enum MultiSimObjectType {
 			MGOA_PICKABLE_THINGS = 0,
 			MGOA_MOVING_THINGS,
-			MGOA_PUSHABLE_THINGS,
-			MGOA_PUSHING_THINGS,
+			//			MGOA_PUSHABLE_THINGS,
+			//			MGOA_PUSHING_THINGS,
 			MGOA_ACTORS,
 			MGOA_CUTSCENES,
 			MGOA_SPAWNS,
@@ -85,24 +86,6 @@ namespace se_core {
 		virtual short index(const Point3& wc, short oldIndex = -1) const = 0;
 
 		/**
-		 * Sets the grid used to speed up the collisions detection.
-		 * Often there an area is inactive much of the time, and a fine grained grid
-		 * may take up quite a lot of memory. So the grid is passed around from
-		 * one active area to the next.
-		 */
-		void setCollisionGrid(CollisionGrid* grid);
-
-		/**
-		 * Resets collision grid.
-		 * @see setCollisionGrid
-		 */
-		CollisionGrid* resetCollisionGrid() {
-			CollisionGrid* g = collisionGrid_;
-			collisionGrid_ = 0;
-			return g;
-		}
-
-		/**
 		 * Save area to a stream.
 		 * @todo: NOT YET IMPLEMENTED.
 		 */
@@ -134,9 +117,7 @@ namespace se_core {
 		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
 		MultiSimObject& allThings() const;
 		ReportingMultiSimObject& reportingThings();
-		MultiSimObject& movingThings();
-		//MultiSimObject& pushableThings();
-		//MultiSimObject& pushingThings();
+		CollisionGrid* collisionGrid();
 
 		void addThing(Thing& thing);
 		void removeThing(Thing& thing);
@@ -212,18 +193,6 @@ namespace se_core {
 		Thing* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosNode* parent = 0);
 
 
-	private:
-		friend class PhysicsComponentManager;
-		/**
-		 * List of movers this step. Updated by the coordinate precalcer and
-		 * used by the collision detector.
-		 */
-		Actor** movers_;
-
-		/** Number of movers presently in the movers_ array */
-		short moverCount_;
-		
-
 	protected:
 		friend class AreaManager;
 
@@ -239,12 +208,15 @@ namespace se_core {
 		MultiSimObject* multiSimObjects_;
 		ReportingMultiSimObject* allThings_;
 
+		friend class PhysicsSolverComponent;
 		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
 		Area* neighbours_[ MAX_NEIGHBOURS ];
-		CollisionGrid* collisionGrid_;
 
 		const AreaFactory* factory_;
 
+		ScriptComponent* scriptComponent_;
+		ActionComponent* actionComponent_;
+		PhysicsSolverComponent* physicsSolverComponent_;
 	};
 
 }

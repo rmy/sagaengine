@@ -23,6 +23,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/area/Area.hpp"
 #include "sim/area/AreaManager.hpp"
+#include "sim/action/ActionComponent.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/thing/Thing.hpp"
 #include "util/error/Log.hpp"
@@ -37,7 +38,8 @@ namespace se_basic {
 
 
 	void LeaveToAndStopScript
-	::perform(long when, Actor& performer, Parameter& parameter) const {
+	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		Actor& performer = *perf.owner();
 		// Stop script
 		performer.stopScript();
 

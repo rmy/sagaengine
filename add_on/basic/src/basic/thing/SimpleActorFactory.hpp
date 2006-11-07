@@ -18,6 +18,7 @@ namespace se_basic {
 		void setCollide(const char* name);
 		void setPickable(bool isPickable);
 		void setCollideable(bool isCollideable);
+		void setDefaultAction(const char* name);
 
 		/**
 		 * Copy spawn points.
@@ -31,6 +32,7 @@ namespace se_basic {
 		const se_core::Script* script_;
 		const se_core::Physics* physics_;
 		const se_core::ThingCollide* collide_;
+		se_core::ActionAndParameter* defaultAction_;
 
 		int spawnPointCount_;
 		se_core::ViewPoint** spawnPoints_;

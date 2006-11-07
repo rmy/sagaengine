@@ -42,7 +42,7 @@ namespace se_core {
 		bool calcNextCoor();
 
 		void affect() {
-			physics().affect(*owner_);
+			physics().affect(*owner());
 		}
 
 		void pushPhysics(const char* name);

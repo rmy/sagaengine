@@ -31,6 +31,8 @@ rune@skalden.com
 #include "util/type/String.hpp"
 #include <cstdio>
 
+using namespace se_core;
+
 namespace se_fmod {
 
 	SoundParserModule

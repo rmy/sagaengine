@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport ScriptComponent : public SimComponent, public ActionFeed {
 	public:
-		ScriptComponent(Actor* owner, ActionComponent* consumer);
+		ScriptComponent(SimComposite* owner, ActionComponent* consumer);
 		virtual ~ScriptComponent();
 
 		void cleanup();

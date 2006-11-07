@@ -28,19 +28,7 @@ namespace se_core {
 
 	Action
 	::Action(const char* name) : SimObject(got_ACTION, name) {
-		// Don't register in sorted list here. It will disable us from
-		// using const objects in statically linked libraries.
-		//
-		// Also not needed unless you implement some scripting
-		// that are working using the sorted list
-		// alone. This is not ideal, as actions often need some
-		// specific parameter tweaking.
-		//
-		// If you want to do this, register the wanted actions
-		// explicitly in an init fucntion by doing the following call:
-		//
-		//    registerInSortedList();
-		//
+		registerInSortedList();
 	}
 
 }

@@ -22,6 +22,8 @@ rune@skalden.com
 #ifndef PhysicsComponentManager_hpp
 #define PhysicsComponentManager_hpp
 
+#include "sim_physics.hpp"
+#include "../area/CollisionGrid.hpp"
 #include "../sim.hpp"
 #include "../SimComponentManager.hpp"
 #include "../thing/Actor.hpp"
@@ -52,6 +54,14 @@ namespace se_core {
 
 		static PhysicsComponentManager& singleton();
 
+		CollisionGrid* grabCollisionGrid();
+		void releaseCollisionGrid(CollisionGrid* g);
+
+		//
+		friend class PhysicsSolverComponent;
+		void setSolverActive(PhysicsSolverComponent* s);
+		void setSolverInactive(PhysicsSolverComponent* s);
+
 	private:
 		void flip(long when);
 		void affect(long when);
@@ -74,6 +84,16 @@ namespace se_core {
 
 		/** Number of movers presently in the movers_ array */
 		short moverCount_;
+
+		//
+		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
+		int activeSolverCount_;
+		PhysicsSolverComponent** activeSolvers_;
+
+		//
+		int gridCount_, gridPoolCount_;
+		CollisionGrid** collisionGrids_;
+		CollisionGrid** gridPool_;
 
 	};
 

@@ -30,7 +30,7 @@ namespace se_core {
 	class SimListeners;
 	class SimObject;
 	class SimComponent;
-	class SimCompositeOwner;
+	class SimComposite;
 	class PosNode;
 
 	enum SimObjectType {

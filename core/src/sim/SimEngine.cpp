@@ -63,6 +63,7 @@ namespace se_core {
 		LogMsg("Destroying SimEngine");
 	}
 
+	/*
 
 	inline void SimEngine
 	::flip(long when) {
@@ -71,6 +72,7 @@ namespace se_core {
 			area->flipChildren();
 		}
 	}
+	*/
 
 
 	void SimEngine

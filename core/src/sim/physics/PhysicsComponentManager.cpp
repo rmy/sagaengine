@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "PhysicsComponentManager.hpp"
+#include "PhysicsSolverComponent.hpp"
 #include "sim_physics.hpp"
 #include "../area/Area.hpp"
 #include "../area/AreaManager.hpp"
@@ -31,13 +32,24 @@ rune@skalden.com
 namespace se_core {
 	PhysicsComponentManager
 	::PhysicsComponentManager()
-		: SimComponentManager(sct_PHYSICS) 
-		, movers_(new Actor*[MAX_MOVER_COUNT])
-		, moverCount_(0) {
+			: SimComponentManager(sct_PHYSICS) 
+			, movers_(new Actor*[MAX_MOVER_COUNT]), moverCount_(0)
+			, activeSolverCount_(0)
+			, gridCount_(0), gridPoolCount_(0) {
+		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
+		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
+		activeSolvers_ = new PhysicsSolverComponent*[ MAX_ACTIVE ];
 	}
+
 
 	PhysicsComponentManager
 	::~PhysicsComponentManager() {
+		for(int i = 0; i < gridCount_; ++i) {
+			delete collisionGrids_[i];
+		}
+		gridCount_ = 0;
+		LogMsg("Destroyed area grids");
+
 		delete[] movers_;
 	}
 
@@ -46,6 +58,29 @@ namespace se_core {
 	::singleton() {
 		static PhysicsComponentManager instance;
 		return instance;
+	}
+
+
+	void PhysicsComponentManager
+	::setSolverActive(PhysicsSolverComponent* s) {
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			if(s == activeSolvers_[i]) return;
+		}
+
+		activeSolvers_[ activeSolverCount_ ] = s;
+		++activeSolverCount_;
+	}
+
+
+	void PhysicsComponentManager
+	::setSolverInactive(PhysicsSolverComponent* s) {
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			if(s == activeSolvers_[i]) {
+				--activeSolverCount_;
+				activeSolvers_[ i ] = activeSolvers_[ activeSolverCount_ ];
+				activeSolvers_[ activeSolverCount_ ] = 0;
+			}
+		}
 	}
 
 
@@ -74,9 +109,15 @@ namespace se_core {
 
 	void PhysicsComponentManager
 	::flip(long when) {
+		/*
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			Area* area = SimSchema::areaManager.active(i);
 			area->flipChildren();
+		}
+		*/
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			PhysicsSolverComponent* s = activeSolvers_[i];
+			s->flipChildren();
 		}
 	}
 
@@ -85,6 +126,7 @@ namespace se_core {
 	::performPhysics(long when) {
 		Actor** m = movers_;
 		moverCount_ = 0;
+		/*
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			Area* area = SimSchema::areaManager.active(i);
 			int c = performChildPhysics(area, m);
@@ -95,6 +137,18 @@ namespace se_core {
 			m += c;
 			moverCount_ += c;
 
+		}
+		*/
+
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			PhysicsSolverComponent* s = activeSolvers_[i];
+			int c = performChildPhysics(s->toArea(), m);
+
+			s->moverCount_ = c;
+			s->movers_ = m;
+
+			m += c;
+			moverCount_ += c;
 		}
 	}
 
@@ -143,9 +197,15 @@ namespace se_core {
 
 	void PhysicsComponentManager
 	::testCollisions(long startWhen, long endWhen) {
+		/*
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			Area* area = SimSchema::areaManager.active(i);
 			area->testActors2ThingsCollisions(area->movers_, area->moverCount_);
+		}
+		*/
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			PhysicsSolverComponent* s = activeSolvers_[i];
+			s->testActors2ThingsCollisions(s->movers_, s->moverCount_);
 		}
 	}
 
@@ -163,6 +223,37 @@ namespace se_core {
 			a->affect();
 		}
 
+	}
+
+
+
+	CollisionGrid* PhysicsComponentManager
+	::grabCollisionGrid() {
+		// Create grid object if necessary
+		coor_tile_t maxWidth = 1, maxHeight = 1;
+		if(!gridPoolCount_) {
+			Assert(gridCount_ < MAX_ACTIVE);
+
+			coor_tile_t maxWidth = SimSchema::areaManager.maxWidth();
+			coor_tile_t maxHeight = SimSchema::areaManager.maxHeight();
+			short d = 2;
+			while((1 << (d + 1)) < maxWidth / 4 && (1 << (d + 1)) < maxHeight / 4)
+				++d;
+
+			CollisionGrid* g = new CollisionGrid(maxWidth, maxHeight, d);
+			gridPool_[ gridPoolCount_++ ] = g;
+			collisionGrids_[ gridCount_++ ] = g;
+		}
+
+		return gridPool_[ --gridPoolCount_ ];
+	}
+
+
+
+	void PhysicsComponentManager
+	::releaseCollisionGrid(CollisionGrid* g) {
+		g->clear();
+		gridPool_[ gridPoolCount_++ ] = g;
 	}
 
 

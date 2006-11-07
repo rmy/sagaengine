@@ -70,10 +70,10 @@ namespace se_core {
 		move_ = nextMove_;
 
 		nextMove_.flick();
-		physics().calcNext(*owner_, owner_->pos(), owner_->nextPos(), move(), nextMove());
+		physics().calcNext(*owner(), owner()->pos(), owner()->nextPos(), move(), nextMove());
 
 		//
-		didMove_ = owner_->nextPos().didParentMove() || !owner_->nextPos().localEquals(owner_->pos());
+		didMove_ = owner()->nextPos().didParentMove() || !owner()->nextPos().localEquals(owner()->pos());
 		return didMove_;
 	}
 

@@ -73,6 +73,14 @@ namespace se_basic {
 				}
 				break;
 
+			case 'D': // Default action
+				{
+					String actionName;
+					in.readString(actionName);
+					factory->setDefaultAction(actionName.get());
+				}
+				break;
+
 			case 'C': // Collide
 				in.readString(collide);
 				break;

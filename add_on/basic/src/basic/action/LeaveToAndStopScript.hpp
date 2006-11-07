@@ -28,9 +28,9 @@ namespace se_basic {
 	class _SeBasicExport LeaveToAndStopScript : public se_core::Action {
 	public:
 		LeaveToAndStopScript()  : se_core::Action("leave_to") {}
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return 1; }
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 	private:
 		void param(const char* areaName, short entranceId, se_core::Parameter& out);

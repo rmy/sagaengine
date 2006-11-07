@@ -27,10 +27,10 @@ rune@skalden.com
 
 
 namespace se_fmod {
-	class SoundParserModule : public ParserModule {
+	class SoundParserModule : public se_core::ParserModule {
 	public:
-		SoundParserModule(Parser& parser);
-		void parse(InputStream& in);
+		SoundParserModule(se_core::Parser& parser);
+		void parse(se_core::InputStream& in);
 	private:
 	};
 

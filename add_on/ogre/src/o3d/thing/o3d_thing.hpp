@@ -34,6 +34,7 @@ namespace se_ogre {
 	class O3dAnimation;
 	class O3dAnimationSet;
 	class O3dThingComponent;
+	class MultiO3dThingComponent;
 }
 
 #endif

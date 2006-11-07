@@ -22,7 +22,7 @@ rune@skalden.com
 #include "ReentrantScript.hpp"
 #include "../action/Action.hpp"
 #include "../action/Idle.hpp"
-#include "../thing/Actor.hpp"
+#include "ScriptComponent.hpp"
 #include "../../util/type/String.hpp"
 #include "../../util/error/Log.hpp"
 
@@ -36,7 +36,7 @@ namespace se_core {
 
 
 	const Action* ReentrantScript
-	::nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const {
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const {
 		Assert(sd);
 		ReentrantData& rd = static_cast<ReentrantData&>(*sd);
 		const Action* a;

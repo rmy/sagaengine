@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim.hpp"
 #include "thing/sim_thing.hpp"
+#include "area/sim_area.hpp"
 #include "util/error/Log.hpp"
 #include "util/type/String.hpp"
 
@@ -39,7 +40,7 @@ namespace se_core {
 		 *
 		 * @param type The type of SimComponent (gct_ACTOR, gct_PHYSICS, etc)
 		 */
-		SimComponent(enum SimComponentType type, Actor* owner);
+		SimComponent(enum SimComponentType type, SimComposite* owner);
 
 		/**
 		 * Destructor.
@@ -48,8 +49,21 @@ namespace se_core {
 
 
 		inline Actor* owner() {
-			return owner_;
+			return reinterpret_cast<Actor*>(owner_);
 		}
+		inline Actor* actor() {
+			return reinterpret_cast<Actor*>(owner_);
+		}
+		inline const Actor* actor() const {
+			return reinterpret_cast<Actor*>(owner_);
+		}
+		inline Area* toArea() {
+			return reinterpret_cast<Area*>(owner_);
+		}
+		inline const Area* toArea() const {
+			return reinterpret_cast<Area*>(owner_);
+		}
+
 
 		enum SimComponentType type() {
 			return type_;
@@ -68,7 +82,7 @@ namespace se_core {
 		 * The type of SimComponent.
 		 */
 		enum SimComponentType type_;
-		Actor* owner_;
+		SimComposite* owner_;
 	};
 
 }
