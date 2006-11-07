@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef Script_hpp
 #define Script_hpp
 
+#include "sim_script.hpp"
 #include "../SimObject.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
@@ -48,10 +49,10 @@ namespace se_core {
 	public:
 		Script(const char* name);
 		virtual ~Script();
-		virtual ScriptData* init(const Actor& performer) const { return 0; }
-		virtual void reinit(const Actor& performer, ScriptData* sd) const {}
+		virtual ScriptData* init(const ScriptComponent& performer) const { return 0; }
+		virtual void reinit(const ScriptComponent& performer, ScriptData* sd) const {}
 		void release(ScriptData* &sd) const { delete sd; sd = 0; }
-		virtual const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const = 0;
+		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const = 0;
 		void trackUserFeedback() const;
 
 		/**

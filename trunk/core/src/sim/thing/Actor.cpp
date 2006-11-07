@@ -223,4 +223,10 @@ namespace se_core {
 	}
 
 
+	void Actor
+	::planDefaultAction() const {
+		if(!defaultAction_.hasAction()) return;
+		actionComponent_->planAction(CHANNEL_EXTRA, defaultAction_);
+	}
+
 }

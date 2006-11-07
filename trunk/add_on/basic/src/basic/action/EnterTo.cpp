@@ -36,7 +36,8 @@ using namespace se_core;
 namespace se_basic {
 
 	void EnterTo
-	::perform(long when, Actor& performer, Parameter& parameter) const {
+	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		Actor& performer = *perf.owner();
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		const char* name = p->areaName_;
 		short id = p->id_;

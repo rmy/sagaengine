@@ -22,6 +22,7 @@ rune@skalden.com
 #include "O3dThingComponent.hpp"
 #include "../schema/O3dSchema.hpp"
 #include "ThingMO.hpp"
+#include "MultiO3dThingComponent.hpp"
 
 using namespace se_core;
 using namespace se_client;
@@ -29,9 +30,9 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dThingComponent
-	::O3dThingComponent(Actor* owner)
+	::O3dThingComponent(SimComposite* owner)
 		: SimComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false)
-		, firstThingMO_(ThingMOList::end()) {
+		, firstThingMO_(ThingMOList::end()), o3dAreaThings_(0) {
 
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
@@ -51,11 +52,32 @@ namespace se_ogre {
 		node_->removeAndDestroyAllChildren();
 		O3dSchema::sceneManager->destroySceneNode(node_->getName());
 		node_ = 0;
+
+		resetAreaList();
+	}
+
+
+	void O3dThingComponent
+	::resetAreaList() {
+		if(o3dAreaThings_) {
+			o3dAreaThings_->remove(*this);
+			o3dAreaThings_ = 0;
+		}
+	}
+
+
+	void O3dThingComponent
+	::setAreaList(MultiO3dThingComponent& al) {
+		resetAreaList();
+		o3dAreaThings_ = &al;
+		o3dAreaThings_->add(*this);
 	}
 
 
 	void O3dThingComponent
 	::setActive(bool state) {
+		if(!state)
+			resetAreaList();
 	}
 
 
@@ -75,9 +97,9 @@ namespace se_ogre {
 	void O3dThingComponent
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
 		// Are interpolations meaningful at all?
-		if(owner_ == 0)
+		if(owner() == 0)
 			return;
-		if(isDead() || !isActive() || !owner_->pos().isKeyFramePath(owner_->nextPos())) {
+		if(isDead() || !isActive() || !owner()->pos().isKeyFramePath(owner()->nextPos())) {
 			// If not skip it
 			setVisible(false);
 			return;
@@ -85,7 +107,7 @@ namespace se_ogre {
 
 		setVisible(true);
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		owner_->worldViewPoint(alpha, last_);
+		owner()->worldViewPoint(alpha, last_);
 
 		// Translate from Euler3 if necessary
 		Quat4 face(last_.face_);
@@ -137,7 +159,7 @@ namespace se_ogre {
 	::setParentNode(Ogre::SceneNode* sn) {
 		if(sn == parentNode_)
 			return;
-		LogMsg(owner_->name());
+		LogMsg(owner()->name());
 
 		if(parentNode_) {
 			if(isVisible_)

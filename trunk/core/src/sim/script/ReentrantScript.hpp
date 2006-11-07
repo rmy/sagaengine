@@ -37,12 +37,12 @@ namespace se_core {
 	class _SeCoreExport ReentrantScript : public Script {
 	public:
 		ReentrantScript(const char* name);
-		const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const;
+		const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const;
 
-		virtual ScriptData* init(const Actor& performer) const = 0;
+		virtual ScriptData* init(const ScriptComponent& performer) const = 0;
 
-		virtual const Action* sequence(const Actor& performer, ReentrantData& _, Parameter& out) const = 0;
-		virtual const Action* transition(const Actor& performer, ReentrantData& _, Parameter& out) const = 0;
+		virtual const Action* sequence(const ScriptComponent& performer, ReentrantData& _, Parameter& out) const = 0;
+		virtual const Action* transition(const ScriptComponent& performer, ReentrantData& _, Parameter& out) const = 0;
 
 	private:
 	};

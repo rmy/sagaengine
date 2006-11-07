@@ -39,15 +39,15 @@ namespace se_core {
 
 	Thing
 	::Thing(const char* name)
-			: PosNode(got_THING, name), spawner_(0)
-			  , isPickable_(false) {
+			: PosNode(got_THING, name)
+			, isPickable_(false) {
 		DebugExec(++refCount);
 	}
 
 
 	Thing
 	::Thing(enum SimObjectType type, const char* name)
-			: PosNode(type, name), spawner_(0)
+			: PosNode(type, name)
 			  , isPickable_(false) {
 		DebugExec(++refCount);
 	}
@@ -72,37 +72,39 @@ namespace se_core {
 	::scheduleForDestruction() {
 		if(isDead_) return;
 
-		//LogMsg(name());
 		nextPos().resetArea();
 		if(spawner()) {
 			spawner()->decSpawnCount();
 		}
 		SimSchema::thingManager().scheduleForDestruction(*this);
-		/*
-		SimObjectList::iterator_type it = carriedThings().iterator();
-		while(it != SimObjectList::NULL_NODE) {
-			SimSchema::simObjectList.nextThing(it)->scheduleForDestruction();
-			}
-		*/
 		isDead_ = true;
 	}
 
 
+	Actor* Thing
+	::spawner() const {
+		if(spawner_.isNull()) {
+			return 0;
+		}
+		return static_cast<Actor*>(spawner_.object());
+	}
 
 
 	void Thing
 	::setSpawner(Actor* spawner) {
 		Assert(spawner != 0);
-		spawner_ = spawner;
-		spawner_->incSpawnCount();
+		spawner_.set(spawner->ptr());
+		spawner->incSpawnCount();
+		Assert(!spawner_.isNull());
 	}
 
 
 	void Thing
 	::resetSpawner() {
-		if(spawner_) {
-			spawner_->decSpawnCount();
-			spawner_ = 0;
+		if(!spawner_.isNull()) {
+			Actor* s = static_cast<Actor*>(spawner_.object());
+			s->decSpawnCount();
+			spawner_.reset();
 		}
 	}
 

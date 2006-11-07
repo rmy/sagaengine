@@ -12,6 +12,7 @@ namespace se_basic {
 		, isCollideable_(false)
 		, script_(0)
 		, physics_(0)
+		, defaultAction_(0)
 		, spawnPointCount_(0)
 		, spawnPoints_(0) {
 	}
@@ -22,6 +23,7 @@ namespace se_basic {
 		for(int i = 0; i < spawnPointCount_; ++i) {
 			delete spawnPoints_[ i ];
 		}
+		delete defaultAction_;
 		delete[] spawnPoints_;
 	}
 
@@ -36,6 +38,10 @@ namespace se_basic {
 		a->setCollide(collide_);
 		a->nextPos().setRadius(radius_);
 		a->setSpawnPoints(spawnPointCount_, spawnPoints_);
+		if(defaultAction_ && defaultAction_->hasAction()) {
+			LogMsg(defaultAction_->action()->name());
+			a->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
+		}
 
 		if(script_) {
 			a->setDefaultScript(script_);
@@ -71,6 +77,13 @@ namespace se_basic {
 	void SimpleActorFactory
 	::setPhysics(const char* name) {
 		physics_ = SimSchema::sortedSimObjectList().physics(name);
+	}
+
+
+	void SimpleActorFactory
+	::setDefaultAction(const char* name) {
+		defaultAction_ = new ActionAndParameter();
+		defaultAction_->setAction(*SimSchema::sortedSimObjectList().action(name));
 	}
 
 

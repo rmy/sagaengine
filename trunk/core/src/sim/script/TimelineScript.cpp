@@ -20,13 +20,13 @@ rune@skalden.com
 
 
 #include "TimelineScript.hpp"
+#include "ScriptComponent.hpp"
 #include "../sim.hpp"
 #include "../SimEngine.hpp"
 #include "../action/Action.hpp"
 #include "../action/Idle.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../thing/Actor.hpp"
 #include "../../util/type/String.hpp"
 #include "../../util/error/Log.hpp"
 
@@ -68,7 +68,7 @@ namespace se_core {
 
 
 	const Action* TimelineScript
-	::nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const {
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const {
 		if(channel != 0)
 			return 0;
 		if(isInZeroMode_) {
@@ -85,10 +85,7 @@ namespace se_core {
 		Assert(SimSchema::scriptTracker < trackerPosCount_);
 		const Action* a = actions_[ trackerPosCount_ + SimSchema::scriptTracker];
 		if(!a) { return &actionIdle; }
-		WasHere();
 		SimSchema::didTrack = true;
-		LogMsg(performer.name());
-		LogMsg(a->name());
 		//performer.param(channel).setNumber(scriptSingleValueParameters_[SimSchema::scriptTracker]);
 		if(scriptAttributeParameters_[SimSchema::scriptTracker]) {
 			//performer.param(channel).setString(scriptAttributeParameters_[SimSchema::scriptTracker]->get());

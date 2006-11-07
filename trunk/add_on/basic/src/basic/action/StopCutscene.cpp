@@ -27,8 +27,8 @@ using namespace se_core;
 namespace se_basic {
 
 	void StopCutscene
-	::perform(long when, Actor& performer, Parameter& parameter) const {
-		WasHere();
+	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		Actor& performer = *perf.owner();
 		performer.stopShowingCutscene();
 	}
 

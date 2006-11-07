@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	PosComponent
-	::PosComponent(Actor* owner)
+	::PosComponent(SimComposite* owner)
 			: SimComponent(sct_POS, owner)
 			, didMove_(false)
 			, spawnPoints_(0) {		
@@ -60,7 +60,7 @@ namespace se_core {
 		if(position_.hasArea()) {
 			//LogMsg(pos().worldCoor().toLog());
 			//LogMsg(nextPos().worldCoor().toLog());
-			position_.area()->removePosNode(*owner_);
+			position_.area()->removePosNode(*owner());
 		}
 	}
 
@@ -72,7 +72,7 @@ namespace se_core {
 		}
 
 		if(nextPos().hasArea()) {
-			nextPos().area()->addPosNode(*owner_);
+			nextPos().area()->addPosNode(*owner());
 		}
 		else {
 			return false;
@@ -108,7 +108,7 @@ namespace se_core {
 	void PosComponent
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
 		if(spawnPoints_ != 0)
-			LogFatal("Spawn points set twice: " << owner_->name());
+			LogFatal("Spawn points set twice: " << owner()->name());
 
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;

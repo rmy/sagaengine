@@ -38,7 +38,6 @@ namespace se_core {
 	::walkSpeed() const {
 		return (abilities()->modified(Abilities::SPEED) * COOR_RES) / (coor_t)TIMESTEPS_PER_SECOND;
 		//return (abilities()->modified(Abilities::SPEED) * COOR_RES) / (coor_t)TIMESTEP_INTERVAL;
-
 		//return COOR_RES * CoorT::fromInt(abilities()->modified(Abilities::SPEED) >> TIMESTEP_INTERVAL);
 		//return (((abilities()->modified(Abilities::SPEED) * COOR_RES) >> TIMESTEP_INTERVAL_SHIFT) * 3) >> 4;
 	}

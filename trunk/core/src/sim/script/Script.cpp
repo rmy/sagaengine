@@ -20,11 +20,11 @@ rune@skalden.com
 
 
 #include "Script.hpp"
+#include "ScriptComponent.hpp"
 #include "../sim.hpp"
 #include "../action/Action.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../thing/Actor.hpp"
 #include "../../util/type/String.hpp"
 #include "../../util/error/Log.hpp"
 

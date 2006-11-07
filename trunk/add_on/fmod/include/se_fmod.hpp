@@ -23,7 +23,7 @@ rune@skalden.com
 #define se_fmod_hpp
 
 #include "../src/fmod/schema/all.hpp"
-//#include "../src/fmod/lang/all.hpp"
+#include "../src/fmod/lang/all.hpp"
 #include "../src/fmod/play/all.hpp"
 #include "../src/fmod/io/all.hpp"
 

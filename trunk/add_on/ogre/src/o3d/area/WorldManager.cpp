@@ -270,8 +270,7 @@ namespace se_ogre {
 
 					O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
 					tc->setParentNode(areas_[ i ].node_);
-					areas_[ i ].moList_.add(*tc);
-					//O3dSchema::thingMOList.add(*te, areas_[ i ].firstThingMO_);
+					tc->setAreaList(areas_[ i ].moList_);
 				}
 
 				if(areas_[i].node_)
@@ -293,6 +292,7 @@ namespace se_ogre {
 				MultiO3dThingComponent::Iterator it(areas_[i].moList_);
 				while(it.hasNext()) {
 					O3dThingComponent* tc = &it.next();
+					tc->resetAreaList();
 					O3dSchema::thingMOManager.release(tc);
 				}
 				areas_[i].moList_.clear();
@@ -329,7 +329,7 @@ namespace se_ogre {
 		// Add thing
 		O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
 		tc->setParentNode(areas_[ index ].node_);
-		areas_[index].moList_.add(*tc);
+		tc->setAreaList(areas_[ index ].moList_);
 	}
 
 
@@ -341,11 +341,7 @@ namespace se_ogre {
 
 		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
 		if(tc) {
-			int index = findArea(thing.pos().area()->id());
-			if(index >= 0) {
-				Assert(areas_[index].moList_.contains(*tc));
-				areas_[index].moList_.remove(*tc);
-			}
+			tc->resetAreaList();
 			O3dSchema::thingMOManager.release(tc);
 		}
 	}
@@ -358,10 +354,6 @@ namespace se_ogre {
 			return;
 		}
 
-		// Find member area
-		int index = findArea(thing.pos().area()->id());
-		if(index < 0) return;
-
 		// Find new area
 		int nextIndex = -1;
 		if(thing.nextPos().hasArea()) {
@@ -371,8 +363,7 @@ namespace se_ogre {
 		// Remove from existing area
 		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
 		if(tc) {
-			Assert(areas_[index].moList_.contains(*tc));
-			areas_[index].moList_.remove(*tc);
+			tc->resetAreaList();
 			// Destroy if new area is *not* visible
 			if(nextIndex < 0) {
 				O3dSchema::thingMOManager.release(tc);
@@ -385,7 +376,7 @@ namespace se_ogre {
 			if(tc == 0)
 				tc = O3dSchema::thingMOManager.create(thing);
 			tc->setParentNode(areas_[ nextIndex ].node_);
-			areas_[nextIndex].moList_.add(*tc);
+			tc->setAreaList(areas_[nextIndex].moList_);
 		}
 	}
 

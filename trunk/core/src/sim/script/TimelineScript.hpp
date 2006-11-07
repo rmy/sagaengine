@@ -23,6 +23,7 @@ rune@skalden.com
 #define TimelineScript_hpp
 
 #include "Script.hpp"
+#include "sim_script.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../../util/type/util_type.hpp"
@@ -32,7 +33,7 @@ namespace se_core {
 	public:
 		TimelineScript(const char* name, int trackerPosCount = 40);
 		virtual ~TimelineScript();
-		virtual const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const;
+		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const;
 		void addAction(int trackerPos, const char* name);
 		void addAction(int trackerPos, const Action* action);
 		//virtual bool isAlwaysActive() { return false; }
@@ -63,7 +64,7 @@ namespace se_core {
 			setParameter(trackerPos, parameter);
 		}
 
-		//virtual void activate(Actor& performer) const {}
+		//virtual void activate(ScriptComponent& performer) const {}
 		void setZeroMode(bool state) { isInZeroMode_ = state; }
 
 	private:

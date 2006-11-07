@@ -29,11 +29,11 @@ namespace se_core {
 	class _SeCoreExport Idle : public Action {
 	public:
 		Idle() : Action("idle") {}
-		short duration(Actor& performer, Parameter& parameter) const { return 1; }
-		bool isRepeating(long when, Actor &performer, Parameter& parameter) const {
+		short duration(ActionComponent& performer, Parameter& parameter) const { return 1; }
+		bool isRepeating(long when, ActionComponent &performer, Parameter& parameter) const {
 			return false;
 		}
-		void perform(long when, Actor& performer, Parameter& parameter) const {}
+		void perform(long when, ActionComponent& performer, Parameter& parameter) const {}
 	};
 
 	extern _SeCoreExport const Idle actionIdle;

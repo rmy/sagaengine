@@ -20,13 +20,18 @@ rune@skalden.com
 
 
 #include "SoundPlayer.hpp"
+#include "client/schema/ClientSchema.hpp"
 #include "../lang/Sounds.hpp"
 #include "../schema/FmodSchema.hpp"
 #include "util/error/Log.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/message/SoundCentral.hpp"
 #include "sim/schema/SimSchema.hpp"
+#include "io/schema/IoSchema.hpp"
+#include "sim/thing/Player.hpp"
 #include <fmod_errors.h>
+
+using namespace se_core;
 
 namespace se_fmod {
 	void ERRCHECK(FMOD_RESULT result) {
@@ -49,8 +54,8 @@ namespace se_fmod {
 		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		SimSchema::soundCentral.addListener(*this);
-		
 	}
+
 
 	SoundPlayer
 	::~SoundPlayer() {
@@ -88,8 +93,33 @@ namespace se_fmod {
 			LogMsg("Couldn't play sound: " << snd);
 			return;
 		}
-		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
+
+		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, true, &channel_);
 		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+
+		se_core::Point3 c(speaker.pos().worldCoor());
+		c.sub(se_client::ClientSchema::player->pos().worldCoor());
+		//c.scale(0.125);
+        //FMOD_VECTOR pos = { c.x_, c.y_, c.z_ };
+        //FMOD_VECTOR vel = { 0.0f,  0.0f, 0.0f };
+		//result = FMOD_Channel_Set3DAttributes(channel_, &pos, &vel);
+		//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+
+		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .25;
+		if(d < .5) { 
+			d = 1;
+		}
+		else {
+			d = .5 / d;
+		}
+
+		FMOD_Channel_SetVolume(channel_, d);
+
+
+        result = FMOD_Channel_SetPaused(channel_, false);
+		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+
+
 	}
 
 
@@ -100,9 +130,11 @@ namespace se_fmod {
 		char buffer[256];
 
 		// TODO: Load path from datapath.txt
-		const char* dirname = "../../data";
+		const char* dirname = IoSchema::dataPath;
 		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
-		result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE, 0, &snd);
+		LogMsg(buffer);
+		//result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE, 0, &snd);
+		result = FMOD_System_CreateSound(system_, buffer, FMOD_HARDWARE | FMOD_3D, 0, &snd);
 		if (result != FMOD_OK) {
 			LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 			snd = 0;

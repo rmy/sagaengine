@@ -35,18 +35,18 @@ rune@skalden.com
 #include "sim/script/all.hpp"
 #include "sim/stat/all.hpp"
 #include "sim/thing/all.hpp"
+#include "../physics/PhysicsSolverComponent.hpp"
 #include <cstdio>
 
 
 namespace se_core {
-	static coor_t MAX_SPEED = 64 * COOR_STEP + COOR_RES;
-
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
-			: PosNode(got_AREA, name->get()), moverCount_(0), width_(w), height_(h)
+			: PosNode(got_AREA, name->get()), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
-			, collisionGrid_(0), factory_(0) {
+		  //, collisionGrid_(0)
+			, factory_(0) {
 
 		// Init to default position
 		position_.reset();
@@ -68,6 +68,9 @@ namespace se_core {
 		// Add self in center
 		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
 
+		physicsSolverComponent_ = new PhysicsSolverComponent(this);
+		actionComponent_ = new ActionComponent(this);
+		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
 	}
@@ -78,6 +81,9 @@ namespace se_core {
 		delete[] multiSimObjects_;
 		delete allThings_;
 		delete nameString_;
+		delete physicsSolverComponent_;
+		delete scriptComponent_;
+		delete actionComponent_;
 	}
 
 
@@ -113,7 +119,7 @@ namespace se_core {
 			for(int i = 0; i < SV_COUNT; ++i) {
 				if(td->singleValue(i) == t->singleValue(i)) continue;
 				Dump((sprintf(log_msg(), "S %d %d", i, t->singleValue(i)), log_msg()));
-				}
+			}
 
 			// Attributes
 			for(int i = 0; i < ATT_COUNT; ++i) {
@@ -144,24 +150,10 @@ namespace se_core {
 	}
 
 
-	/*
-	MultiSimObject& Area
-	::pushableThings() {
-		return multiSimObjects_[ MGOA_PUSHABLE_THINGS ];
-	}
-
-
-	MultiSimObject& Area
-	::pushingThings() {
-		return multiSimObjects_[ MGOA_PUSHING_THINGS ];
-	}
-	*/
-
-
-	MultiSimObject& Area
-	::movingThings() {
-		return multiSimObjects_[ MGOA_MOVING_THINGS ];
-	}
+	//MultiSimObject& Area
+	//::movingThings() {
+	//	return multiSimObjects_[ MGOA_MOVING_THINGS ];
+	//}
 
 
 	void Area
@@ -198,16 +190,19 @@ namespace se_core {
 			multiSimObjects_[ MGOA_MOVING_THINGS ].add(thing);
 
 		if(thing.isCollideable()) {
+			physicsSolverComponent_->addCollideable(thing);
+			/*
 			if(isActive_) {
 				// TODO: Should use speed + radius
 				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
 				collisionGrid_->insert(thing.nextPos().worldCoor(), speedAndRadius, thing);
 			}
 			multiSimObjects_[ MGOA_PUSHABLE_THINGS ].add(thing);
+			*/
 		}
 
-		if(thing.isPusher())
-			multiSimObjects_[ MGOA_PUSHING_THINGS ].add(thing);
+		//if(thing.isPusher())
+		//	multiSimObjects_[ MGOA_PUSHING_THINGS ].add(thing);
 
 		if(!thing.isType(got_ACTOR))
 			multiSimObjects_[ MGOA_ACTORS ].add(thing);
@@ -217,6 +212,7 @@ namespace se_core {
 	void Area
 	::removeThing(Thing& thing) {
 		allThings_->remove(thing);
+		/*
 		if(isActive_ && thing.isCollideable()) {
 			// TODO: Should use speed + radius
 			coor_t speedAndRadius = thing.pos().radius() + MAX_SPEED;
@@ -230,11 +226,15 @@ namespace se_core {
 			// TODO: This assert fails?
 			DbgAssert(didDelete);
 		}
+		*/
+		if(thing.isCollideable()) {
+			physicsSolverComponent_->removeCollideable(thing);
+		}
 
 		multiSimObjects_[ MGOA_MOVING_THINGS ].remove(thing);
 		multiSimObjects_[ MGOA_PICKABLE_THINGS ].remove(thing);
-		multiSimObjects_[ MGOA_PUSHABLE_THINGS ].remove(thing);
-		multiSimObjects_[ MGOA_PUSHING_THINGS ].remove(thing);
+		//multiSimObjects_[ MGOA_PUSHABLE_THINGS ].remove(thing);
+		//multiSimObjects_[ MGOA_PUSHING_THINGS ].remove(thing);
 		multiSimObjects_[ MGOA_ACTORS ].remove(thing);
 	}
 
@@ -298,29 +298,9 @@ namespace se_core {
 	}
 
 
-	void Area
-	::setCollisionGrid(CollisionGrid* grid) {
-		collisionGrid_ = grid;
-
-		// Make sure the grid does not have any members
-		// from previous usage
-		collisionGrid_->clear();
-
-		// Align the grid coordinate system with
-		// this areas coordinate system
-		collisionGrid_->setSize(width_, height_);
-
-		collisionGrid_->setOffset(position_.worldCoor());
-
-		// Add moving elements to grid
-		SimObjectList::iterator_type it = allThings_->iterator();
-		while(it != SimObjectList::end()) {
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			if(t->isCollideable()) {
-				//LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
-				collisionGrid_->insert(t->nextPos().worldCoor(), t->nextPos().radius(), *t);
-			}
-		}
+	CollisionGrid* Area
+	::collisionGrid() {
+		return physicsSolverComponent_->collisionGrid(); 
 	}
 
 
@@ -328,8 +308,7 @@ namespace se_core {
 	::setActive(bool state) {
 		if(state == isActive_) return;
 		isActive_ = state;
-
-		if(!isActive_) moverCount_ = 0;
+		physicsSolverComponent_->setActive(state);
 
 		SimObjectList::iterator_type it = allThings_->iterator();
 		while(it != SimObjectList::end()) {
@@ -479,6 +458,13 @@ namespace se_core {
 	}
 
 
+	void Area
+	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
+		physicsSolverComponent_->testActors2ThingsCollisions(movers, moverCount);
+	}
+
+	/*
+
 	inline bool _testActor2ThingCollision(Actor& actor1,
 							  Thing& thing2) {
 		// How close must the things be before colliding?
@@ -539,11 +525,13 @@ namespace se_core {
 			}
 		}
 	}
-
+	*/
 
 
 	void Area
 	::flipChildren(void) {
+		//physicsSolverComponent_->flipChildren();
+		/*
 		static const int MAX_STACK_DEPTH = 10;
 		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
 
@@ -594,6 +582,7 @@ namespace se_core {
 				// Continue if unpopped chains
 			} while(sp >= 0);
 		}
+		*/
 
 
 		// Flip new spawns into area
@@ -613,93 +602,6 @@ namespace se_core {
 		multiSimObjects_[ MGOA_SPAWNS ].clear();
 	}
 
-	/*
-	int Area
-	::performChildPhysics(Actor** movers) {
-		movers_ = movers;
-		moverCount_ = 0;
-
-		static const int MAX_STACK_DEPTH = 10;
-		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
-
-		int sp = 0;
-		itStack[ 0 ] = childPosNodes().iterator();
-		if(itStack[ 0 ] == SimObjectList::end())
-			// No children at all
-			return 0;
-
-		do {
-			// Get next in chain
-			Actor* a = SimSchema::simObjectList.nextActor(itStack [ sp ]);
-
-			// Affect actors with the effects of the terrain
-			// they are standing on.
-			// PS! Placed here to avoid an extra loop. Cannot
-			// be placed in move(), because flip may move
-			// the actor into a new area or no area. Placing it
-			// here should have no unwanted side effects.
-			a->affect();
-
-			// Calc next position
-			if(a->calcNextCoor()) {
-				// Add to movers
-				movers[moverCount_++] = a;
-			}
-
-
-			// Push child chain as next chain on stack
-			itStack[ ++sp ] = a->childPosNodes().iterator();
-
-			// Stack overflowed?
-			Assert(sp < MAX_STACK_DEPTH);
-
-			// Pop all completed chain
-			while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
-				--sp;
-			}
-
-			// Continue if there are still incomplete chains
-		} while(sp >= 0);
-
-		return moverCount_;
-	}
-	*/
-
-	/*
-	int Area
-	::performPhysics(Actor** movers) {
-		int moverCount = 0;
-
-		// Get iterator for things with ability to move
-		SimObjectList::iterator_type it = movingThings().iterator();
-		while(it != SimObjectList::end()) {
-			// Next actor with the ability to move
-			Actor* a = SimSchema::simObjectList.nextActor(it);
-
-			// Affect actors with the effects of the terrain
-			// they are standing on.
-			// PS! Placed here to avoid an extra loop. Cannot
-			// be placed in move(), because flip may move
-			// the actor into a new area or no area. Placing it
-			// here should have no unwanted side effects.
-			a->affect();
-
-			// Reset values in nextPos that only last for a step
-			//TODO: Must flick movement
-			//a->nextMove().flick();
-
-			// Calc next position
-			if(a->calcNextCoor()) {
-				// Add to movers
-				movers[moverCount++] = a;
-			}
-			//movers[moverCount++] = a;
-		}
-
-		// Return number of movers
-		return moverCount;
-	}
-	*/
 
 
 	Thing* Area

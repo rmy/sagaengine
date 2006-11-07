@@ -19,15 +19,9 @@ rune@skalden.com
 */
 
 
-#ifndef engine_physics_hpp
-#define engine_physics_hpp
+#include "SimPtr.hpp"
 
 namespace se_core {
-	class Physics;
-	class PhysicsComponent;
-	class PhysicsSolverComponent;
-	class PhDefault;
+
+
 }
-
-
-#endif

@@ -28,7 +28,8 @@ using namespace se_core;
 namespace se_basic {
 
 	void StopScript
-	::perform(long when, Actor& performer, Parameter& parameter) const {
+	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		Actor& performer = *perf.owner();
 		performer.stopScript();
 		//performer.removeFromShowingCutscene();
 	}

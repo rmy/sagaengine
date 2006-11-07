@@ -23,6 +23,7 @@ rune@skalden.com
 #define sim_PosComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../sim.hpp"
 #include "Pos.hpp"
 #include "../config/sim_config.hpp"
 #include "util/type/util_type.hpp"
@@ -41,7 +42,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport PosComponent : public SimComponent {
 	public:
-		PosComponent(Actor* owner);
+		PosComponent(SimComposite* owner);
 		virtual ~PosComponent();
 
 		/** Return a const reference to the current position of the thing.

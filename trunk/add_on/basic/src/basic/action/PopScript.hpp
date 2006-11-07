@@ -28,10 +28,10 @@ namespace se_basic {
 	class _SeBasicExport PopScript : public se_core::Action {
 	public:
 		PopScript() : se_core::Action("pop_script") {}
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return 1; }
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
 
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 
 	private:

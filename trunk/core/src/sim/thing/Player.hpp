@@ -53,15 +53,6 @@ namespace se_core {
 
 		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const;
 
-		const ActionAndParameter& defaultAction() const { return defaultAction_; }
-		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 
-			defaultAction_.setAction(action);
-			if(parameter) {
-				defaultAction_.copyParameter(*parameter);
-			}
-		}
-		void resetDefaultAction() { defaultAction_.resetAction(); }
-
 		const ActionAndParameter& defaultMovementAction() const { return defaultMovementAction_; }
 		void setDefaultMovementAction(const Action& action, const Parameter* parameter = 0) const { 
 			LogMsg(action.name());
@@ -77,11 +68,6 @@ namespace se_core {
 				defaultTurnAction_.copyParameter(*parameter);
 			}
 		}
-
-		/**
-		 *
-		 */
-		void planDefaultAction() const;
 
 		/**
 		 * Plan to perform the default movement action.
@@ -115,7 +101,6 @@ namespace se_core {
 
 
 		// TODO: Move to Player class
-		mutable ActionAndParameter defaultAction_;
 		mutable ActionAndParameter defaultMovementAction_;
 		mutable ActionAndParameter defaultTurnAction_;
 

@@ -1,10 +1,9 @@
 #include "SimComponent.hpp"
 #include "SimComposite.hpp"
-#include "thing/Actor.hpp"
 
 namespace se_core {
 	SimComponent
-	::SimComponent(enum SimComponentType type, Actor* owner)
+	::SimComponent(enum SimComponentType type, SimComposite* owner)
 			: type_(type), owner_(owner) {
 		owner_->addComponent(*this);
 	}

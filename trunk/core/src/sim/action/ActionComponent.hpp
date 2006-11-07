@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim_action.hpp"
 #include "../SimComponent.hpp"
-#include "../thing/sim_thing.hpp"
+#include "../sim.hpp"
 #include "Action.hpp"
 #include "ActionQueue.hpp"
 #include "ActionAndParameter.hpp"
@@ -41,7 +41,7 @@ namespace se_core {
 	public:
 		/** Constructor.
 		 */
-		ActionComponent(Actor* owner);
+		ActionComponent(SimComposite* owner);
 		~ActionComponent();
 
 		void cleanup();
@@ -93,6 +93,7 @@ namespace se_core {
 		void setActionFeed(ActionFeed* feed);
 
 		void setActive(bool state);
+		void setScriptActive(bool state);
 
 	protected:
 		friend class ActionQueue;
@@ -146,7 +147,7 @@ namespace se_core {
 	::perform(long when, short channel) {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
-		a->perform(when, *owner_, p);
+		a->perform(when, *this, p);
 	}
 
 
@@ -158,7 +159,7 @@ namespace se_core {
 		}
 
 		ActionAndParameter& aap = presentAction_[channel];
-		if(aap.hasAction() && aap.action()->isContinuing(*owner_, aap.parameter())) {
+		if(aap.hasAction() && aap.action()->isContinuing(*this, aap.parameter())) {
 			continueAction(when, channel);
 			return;
 		}
@@ -171,7 +172,7 @@ namespace se_core {
 		if(!plannedAction_[channel].hasAction()) {
 			// Is present action repeating (until another is planned)?
 			ActionAndParameter& aap = presentAction_[channel];
-			if(aap.action()->isRepeating(when, *owner_, aap.parameter())) {
+			if(aap.action()->isRepeating(when, *this, aap.parameter())) {
 				// If, yeah - plan to do present action again
 				plannedAction_[channel] = presentAction_[channel];
 			}

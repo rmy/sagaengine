@@ -29,7 +29,7 @@ rune@skalden.com
 
 namespace se_core {
 	SpawnComponent
-	::SpawnComponent(Actor* owner, PosComponent* pos)
+	::SpawnComponent(SimComposite* owner, PosComponent* pos)
 		: SimComponent(sct_SCRIPT, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0) {
 	}
 
@@ -52,7 +52,7 @@ namespace se_core {
 		ViewPoint vp(*sp);
 
 		// Calculate area coor of spawn point
-		const PosNode* node = owner_;
+		const PosNode* node = owner();
 		const Pos& pos = pos_->pos();
 		vp.add(pos.world_);
 		vp.sub(pos.area()->pos().world_);
@@ -61,7 +61,7 @@ namespace se_core {
 		Thing* t = const_cast<Area*>(pos.area())->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
-		if(t) t->setSpawner(owner_);
+		if(t) t->setSpawner(owner());
 
 		return t;
 	}

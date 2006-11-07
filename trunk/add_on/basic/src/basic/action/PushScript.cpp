@@ -25,6 +25,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/script/Script.hpp"
 #include "sim/stat/SortedSimObjectList.hpp"
+#include "sim/action/ActionComponent.hpp"
 #include "sim/thing/Actor.hpp"
 #include "util/error/Log.hpp"
 
@@ -34,9 +35,10 @@ using namespace se_core;
 namespace se_basic {
 
 	void PushScript
-	::perform(long when, Actor& performer, Parameter& parameter) const {
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		Actor& performer = *perf.owner();
 
+		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		const Script* s = SimSchema::sortedSimObjectList().script(p->script_);
 		performer.pushScript(s);
 	}

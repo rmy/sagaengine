@@ -29,7 +29,7 @@ rune@skalden.com
 
 namespace se_core {
 	ScriptComponent
-	::ScriptComponent(Actor* owner, ActionComponent* consumer)
+	::ScriptComponent(SimComposite* owner, ActionComponent* consumer)
 		: SimComponent(sct_SCRIPT, owner)
 		, currentScript_(0)
 		, consumer_(consumer) {
@@ -62,7 +62,7 @@ namespace se_core {
 	::nextScriptAction(short channel, ActionAndParameter& aap) {
 		if(!script()) return;
 		Parameter& p = aap.parameter();
-		const Action* a = script()->nextAction(*owner_, channel, scriptData(), p);
+		const Action* a = script()->nextAction(*this, channel, scriptData(), p);
 		if(a) {
 			aap.setAction(*a);
 		}
@@ -76,17 +76,14 @@ namespace se_core {
 				scriptStack_[0]->release(scriptData_[0]);
 			}
 			scriptStack_[0] = s;
-			scriptData_[0] = scriptStack_[0]->init(*owner_);
+			scriptData_[0] = scriptStack_[0]->init(*this);
 			return;
 		}
 
 		if(script()) script()->release(scriptData_[currentScript_]);
 		scriptStack_[0] = s;
-		scriptData_[0] = scriptStack_[0]->init(*owner_);
-		//TODO:
-		//for(int i = 0; i < CHANNEL_COUNT; ++i) {
-		//	nextScriptAction(i);
-		//}
+		scriptData_[0] = scriptStack_[0]->init(*this);
+		consumer_->setScriptActive(true);
 	}
 
 
@@ -118,11 +115,7 @@ namespace se_core {
 
 	void ScriptComponent
 	::pushScript(const Script* s) {
-		//TODO:
-		//for(int i = 0; i < CHANNEL_COUNT; ++i) {
-		//	clearPlannedAction(i);
-		//	disrupt(i);
-		//}
+		consumer_->setScriptActive(false);
 
 		// If there already is a script running...
 		if(script() && !script()->isStacker()) {
@@ -138,15 +131,11 @@ namespace se_core {
 		// Set the new script
 		scriptStack_[currentScript_] = s;
 		// Init script data
-		scriptData_[currentScript_] = script()->init(*owner_);
+		scriptData_[currentScript_] = script()->init(*this);
 
-		// If script is active
+		// If owner is active
 		if(isActive()) {
-			// Plan actions for all channels
-			for(short i = 0; i < CHANNEL_COUNT; ++i) {
-				//TODO:
-				//nextScriptAction(i);
-			}
+			consumer_->setScriptActive(true);
 		}
 	}
 
@@ -154,12 +143,7 @@ namespace se_core {
 	void ScriptComponent
 	::popScript() {
 		// Asser(!isDead_);
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			//TODOq
-			//clearPlannedAction(i);
-		}
-		//TODO:
-		//disrupt();
+		consumer_->setScriptActive(false);
 		if(currentScript_ == 0) {
 			Assert(script());
 			script()->release(scriptData_[currentScript_]);
@@ -172,13 +156,10 @@ namespace se_core {
 		--currentScript_;
 		if(!script()) return;
 
-		script()->reinit(*owner_, scriptData());
+		script()->reinit(*this, scriptData());
 		if(!isActive())
 			return;
-		for(short i = 0; i < CHANNEL_COUNT; ++i) {
-			//TODO:
-			//nextScriptAction(i);
-		}
+		consumer_->setScriptActive(true);
 	}
 
 
@@ -195,7 +176,7 @@ namespace se_core {
 		currentScript_ = 0;
 		scriptStack_[0] = 0;
 		//TODO:
-		//disrupt();
+		consumer_->disrupt();
 		//}
 	}
 
@@ -207,12 +188,9 @@ namespace se_core {
 			// Start script
 			if(script()) {
 				// Init (or reinit) scripts data block
-				script()->reinit(*owner_, scriptData());
+				script()->reinit(*this, scriptData());
 				// Start script in all action channels
-				for(int i = 0; i < CHANNEL_COUNT; ++i) {
-					//TODO:
-					//nextScriptAction(i);
-				}
+				consumer_->setScriptActive(true);
 			}
 		}
 	}

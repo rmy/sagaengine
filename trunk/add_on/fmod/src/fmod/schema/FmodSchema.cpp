@@ -39,26 +39,45 @@ namespace se_fmod {
 		Sounds sounds;
 		SoundPlayer* soundPlayer = 0;
 
-		bool init() {
-			// Sound types
-			static const DictionaryEntry stSound(DE_SOUND_TYPE, Sounds::SOUND, "SOUND");
-			static const DictionaryEntry stMusic(DE_SOUND_TYPE, Sounds::MUSIC, "MUSIC");
-			static const DictionaryEntry stSpeech(DE_SOUND_TYPE, Sounds::SPEECH, "SPEECH");
+		struct AutoInit : public se_core::InitListener {
+			AutoInit() {
+				// Sound types
+				static const se_core::DictionaryEntry stSound(se_core::DE_SOUND_TYPE, Sounds::SOUND, "SOUND");
+				static const se_core::DictionaryEntry stMusic(se_core::DE_SOUND_TYPE, Sounds::MUSIC, "MUSIC");
+				static const se_core::DictionaryEntry stSpeech(se_core::DE_SOUND_TYPE, Sounds::SPEECH, "SPEECH");
 
 
-			// Register some file loaders
-			static SoundParserModule soundParserModule(se_core::IoSchema::parser());
+				// Register some file loaders
+				static SoundParserModule soundParserModule(se_core::IoSchema::parser());
+				
+				soundPlayer = new SoundPlayer();
+				LogMsg("Registered Fmod add-on");
+			}
 
-			soundPlayer = new SoundPlayer();
-			LogMsg("Registered Fmod add-on");
+			~AutoInit() {
+				delete soundPlayer;
+				LogMsg("Cleaned up Fmod add-on");
+			}
 
-			// return success
-			return true;
-		}
 
-		void cleanup() {
-			delete soundPlayer;
-			LogMsg("Cleaned up Fmod add-on");
+			void initEngineEvent() {
+			}
+
+			void cleanupEngineEvent() {
+			}
+
+			void initGameEvent() {
+			}
+
+			void cleanupGameEvent() {
+			}
+		} autoInit;
+
+
+		void touch() {
+			se_core::SimSchema::touch();
+			se_core::IoSchema::touch();
+			autoInit;
 		}
 	}
 }

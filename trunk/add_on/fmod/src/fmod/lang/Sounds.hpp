@@ -36,7 +36,7 @@ namespace se_fmod {
 		static const unsigned short NORWEGIAN = 'N' * 256 + 'O';
 		static const unsigned short FRENCH = 'F' * 256 + 'R';
 
-		void add(unsigned short language, SoundType type, String* name, String* filename);
+		void add(unsigned short language, SoundType type, se_core::String* name, se_core::String* filename);
 		short find(SoundType type, const char* name, unsigned short lang);
 		FMOD_SOUND* get(SoundType type, const char* name);
 		void setLanguage(unsigned short language);
@@ -49,10 +49,10 @@ namespace se_fmod {
 		struct Sound {
 			unsigned short language_;
 			SoundType type_;
-			String* nameC_;
+			se_core::String* nameC_;
 			const char* name_;
-			String* soundC_;
-			String* filename_;
+			se_core::String* soundC_;
+			se_core::String* filename_;
 			FMOD_SOUND *sound_;
 		} *sounds_;
 

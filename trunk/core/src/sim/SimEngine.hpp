@@ -193,7 +193,7 @@ namespace se_core {
 		 *
 		 * @param when Ajusted game clock (milliseconds)
 		 */
-		void flip(long when);
+		//void flip(long when);
 
 		/**
 		 * Some things (especially the players and perhaps some AI controlles

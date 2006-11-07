@@ -28,11 +28,11 @@ namespace se_basic {
 	class _SeBasicExport PushScript : public se_core::Action {
 	public:
 		PushScript() : se_core::Action("push_script") {}
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { return 1; }
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const { return false; }
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return 1; }
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
 
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
-		const PushScript& param(const se_core::Actor& performer, const char* script) const;
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
+		const PushScript& param(const se_core::ActionComponent& performer, const char* script) const;
 
 	private:
 		void param(const char* script, se_core::Parameter& out);

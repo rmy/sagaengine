@@ -25,7 +25,8 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/pos/Pos.hpp"
 #include "sim/thing/Thing.hpp"
-#include "sim/thing/Actor.hpp"
+#include "sim/action/ActionComponent.hpp"
+#include "sim/action/ActionAndParameter.hpp"
 #include "util/vecmath/Point3.hpp"
 
 using namespace se_core;
@@ -33,12 +34,12 @@ using namespace se_core;
 namespace se_basic {
 
 	void IdleFor
-	::perform(long when, Actor& performer, Parameter& parameter) const {
+	::perform(long when, ActionComponent& performer, Parameter& parameter) const {
 		SimSchema::didTrack = true;
 	}
 
 	short IdleFor
-	::duration(Actor& performer, Parameter& parameter) const {
+	::duration(ActionComponent& performer, Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		return 1 + (p->millis_ >> TIMESTEP_INTERVAL_SHIFT);
 	}
