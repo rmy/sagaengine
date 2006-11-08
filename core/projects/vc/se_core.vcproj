@@ -185,6 +185,8 @@
 <File RelativePath="..\..\src\sim\SimNodeComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\SimObject.cpp"> </File>
 <File RelativePath="..\..\src\sim\SimObject.hpp"> </File>
+<File RelativePath="..\..\src\sim\SimPtr.cpp"> </File>
+<File RelativePath="..\..\src\sim\SimPtr.hpp"> </File>
 <File RelativePath="..\..\src\sim\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\sim.hpp"> </File>
 <Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\action\Action.cpp"> </File>
@@ -249,6 +251,8 @@
 <File RelativePath="..\..\src\sim\physics\PhysicsComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsComponentManager.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsComponentManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsSolverComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsSolverComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\sim_physics.hpp"> </File>
