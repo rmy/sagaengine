@@ -50,7 +50,6 @@ namespace se_core {
 			: Thing(got_ACTOR, name)
 			  , showingCutscene_(0)
 			  , collide_(&tcDefault)
-			  , target_(0)
 			  , spawnCount_(0) {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);

@@ -44,9 +44,10 @@ namespace se_fmod {
 
 		while(soundCount_ > 0) {
 			--soundCount_;
+			//TODO:
+			//result = FMOD_Sound_Release(sounds_[ soundCount_ ].sound_);
 			delete sounds_[ soundCount_ ].nameC_;
 			delete sounds_[ soundCount_ ].soundC_;
-			result = FMOD_Sound_Release(sounds_[ soundCount_ ].sound_);
 			//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 		}
 		delete sounds_;
