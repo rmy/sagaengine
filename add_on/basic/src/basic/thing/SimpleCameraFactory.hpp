@@ -11,7 +11,7 @@ namespace se_basic {
 		SimpleCameraFactory(se_core::String* name);
 		~SimpleCameraFactory();
 
-		se_core::Thing* create() const;
+		se_core::SimComposite* create() const;
 	};
 
 }

@@ -19,31 +19,40 @@ rune@skalden.com
 */
 
 
-#ifndef ActorFactory_hpp
-#define ActorFactory_hpp
-
-#include "ThingFactory.hpp"
-#include "util/type/String.hpp"
-#include "../physics/sim_physics.hpp"
-#include "../react/sim_react.hpp"
-#include "../script/sim_script.hpp"
+#include "SimCompositeFactory.hpp"
+#include "SimComposite.hpp"
+#include "./config/all.hpp"
+#include "./stat/all.hpp"
+#include "util/type/all.hpp"
+#include "util/error/Log.hpp"
+#include <cstring>
+#include <cstdio>
 
 namespace se_core {
-	/*
-	class _SeCoreExport ActorFactory : public ThingFactory {
-	public:
-		ActorFactory(String* name);
-		~ActorFactory();
 
-		Thing* create() const;
+	SimCompositeFactory
+	::SimCompositeFactory(short type, String* name)
+		: name_(name), type_(type), tag_(0) {
+	}
 
-	protected:
-		String* script_;
-		const Physics* physics_;
-		const ThingCollide* collide_;
-	};
-	*/
+
+	SimCompositeFactory
+	::~SimCompositeFactory() {
+		delete name_;
+	}
+
+
+	void SimCompositeFactory
+	::release(SimComposite* t) {
+		delete t;
+	}
+
+
+	const char* SimCompositeFactory
+	::name() const {
+		return name_->get();
+	}
+
+
 
 }
-
-#endif

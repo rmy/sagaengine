@@ -23,6 +23,7 @@ rune@skalden.com
 #define SimComposite_hpp
 
 #include "SimObject.hpp"
+#include "sim.hpp"
 #include "util/template/HashTable.hpp"
 #include "stat/MultiSimComponent.hpp"
 #include "stat/MultiSimObject.hpp"
@@ -52,6 +53,9 @@ namespace se_core {
 		bool isDead() { return isDead_; }
 		void setActive(bool state);
 
+		void setTag(int t) { tag_ = t; }
+		int tag() { return tag_; }
+
 	private:
 		friend class SimComponent;
 		// The SimComponent adds and removes itself
@@ -59,6 +63,9 @@ namespace se_core {
 		void addComponent(SimComponent& c);
 
 	protected:
+		int tag_;
+		friend class ThingManager;
+		SimCompositeFactory* factory_;
 		SimComposite* parent_;
 		MultiSimObject childComposites_;
 

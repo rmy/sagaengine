@@ -107,7 +107,7 @@ namespace se_core {
 		// Things
 		SimObjectList::iterator_type it = this->allThings().iterator();
 		Thing* t;
-		ThingFactory* td;
+		SimCompositeFactory* td;
 		while(it != SimObjectList::end()) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());

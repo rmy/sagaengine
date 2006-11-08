@@ -22,6 +22,7 @@ rune@skalden.com
 #include "ThingManager.hpp"
 #include "ThingFactory.hpp"
 #include "Thing.hpp"
+#include "../SimCompositeFactory.hpp"
 #include "../script/Cutscene.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "util/error/Log.hpp"
@@ -42,13 +43,13 @@ namespace se_core {
 
 
 	void ThingManager
-	::addFactory(ThingFactory* factory) {
+	::addFactory(SimCompositeFactory* factory) {
 		Assert(factoryCount_ < MAX_FACTORIES - 1);
 		factories_[ factoryCount_++ ] = factory;
 	}
 
 
-	ThingFactory* ThingManager
+	SimCompositeFactory* ThingManager
 	::factory(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
@@ -93,7 +94,7 @@ namespace se_core {
 	::create(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
-				Thing* t =  factories_[i]->create();
+				Thing* t =  static_cast<Thing*>(factories_[i]->create());
 				t->factory_ = factories_[i];
 				return t;
 			}

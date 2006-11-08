@@ -16,7 +16,7 @@ namespace se_basic {
 	}
 
 
-	Thing* SimplePlayerFactory
+	SimComposite* SimplePlayerFactory
 	::create() const {
 		Player* a = new Player(name_->get());
 
@@ -30,6 +30,7 @@ namespace se_basic {
 		if(script_) {
 			a->setDefaultScript(script_);
 		}
+		a->setTag(tag_);
 
 		return a;
 	}
