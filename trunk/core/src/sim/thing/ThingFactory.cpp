@@ -30,7 +30,7 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_core {
-
+	/*
 	ThingFactory
 	::ThingFactory(short type, String* name)
 			: name_(name), type_(type), singleValues_(0), multiSimObjects_(0), attributes_(0) {
@@ -79,5 +79,5 @@ namespace se_core {
 		return attributes_[type];
 	}
 
-
+	*/
 }

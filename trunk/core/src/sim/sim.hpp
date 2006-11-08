@@ -31,6 +31,7 @@ namespace se_core {
 	class SimObject;
 	class SimComponent;
 	class SimComposite;
+	class SimCompositeFactory;
 	class PosNode;
 
 	enum SimObjectType {
@@ -42,7 +43,7 @@ namespace se_core {
 		got_USER_DEFINED
 	};
 
-	enum SimComponentType { sct_UNDEFINED, sct_ACTION, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS, sct_SPAWN, sct_STAT, sct_RENDER, sct_SOUND };
+	enum SimComponentType { sct_UNDEFINED, sct_ACTION, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS, sct_SPAWN, sct_STAT, sct_RENDER, sct_SOUND, sct_ODE };
 
 }
 

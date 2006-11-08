@@ -6,7 +6,7 @@ namespace se_basic {
 
 	SimpleActorFactory
 	::SimpleActorFactory(String* name)
-		: ThingFactory(got_ACTOR, name)
+		: SimCompositeFactory(got_ACTOR, name)
 		, radius_(COOR_RES)
 		, isPickable_(false)
 		, isCollideable_(false)
@@ -28,7 +28,7 @@ namespace se_basic {
 	}
 
 
-	Thing* SimpleActorFactory
+	SimComposite* SimpleActorFactory
 	::create() const {
 		Actor* a = new Actor(name_->get());
 
@@ -42,6 +42,7 @@ namespace se_basic {
 			LogMsg(defaultAction_->action()->name());
 			a->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
 		}
+		a->setTag(tag_);
 
 		if(script_) {
 			a->setDefaultScript(script_);

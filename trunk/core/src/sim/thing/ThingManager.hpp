@@ -34,10 +34,10 @@ namespace se_core {
 		ThingManager() : factoryCount_(0), destructionCount_(0)
 					   , nextDestructionCount_(0) {}
 		virtual ~ThingManager();
-		void addFactory(ThingFactory* factory);
+		void addFactory(SimCompositeFactory* factory);
 		void addCutscene(const char* name, Cutscene* cutscene);
 		void addCutsceneMembership(const char* name, Cutscene* cutscene);
-		ThingFactory* factory(const char* name);
+		SimCompositeFactory* factory(const char* name);
 		Thing* create(const char* name);
 		void scheduleForDestruction(Thing& thing);
 		void neutraliseDestructions();
@@ -49,7 +49,7 @@ namespace se_core {
 		int destructionCount_;
 		int nextDestructionCount_;
 		static const int MAX_FACTORIES = MAX_GAME_TYPES;
-		ThingFactory* factories_[ MAX_FACTORIES ];
+		SimCompositeFactory* factories_[ MAX_FACTORIES ];
 		static const int MAX_THINGS_FOR_DESTRUCTION = MAX_GAME_OBJECTS;
 		Thing* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
 	};

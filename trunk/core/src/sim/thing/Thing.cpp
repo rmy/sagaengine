@@ -48,7 +48,7 @@ namespace se_core {
 	Thing
 	::Thing(enum SimObjectType type, const char* name)
 			: PosNode(type, name)
-			  , isPickable_(false) {
+			, isPickable_(false) {
 		DebugExec(++refCount);
 	}
 
@@ -107,7 +107,5 @@ namespace se_core {
 			spawner_.reset();
 		}
 	}
-
-
 
 }

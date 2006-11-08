@@ -11,7 +11,7 @@ namespace se_basic {
 		SimplePlayerFactory(se_core::String* name);
 		~SimplePlayerFactory();
 
-		se_core::Thing* create() const;
+		se_core::SimComposite* create() const;
 	};
 
 }

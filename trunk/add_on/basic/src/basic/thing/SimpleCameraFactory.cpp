@@ -16,7 +16,7 @@ namespace se_basic {
 	}
 
 
-	Thing* SimpleCameraFactory
+	SimComposite* SimpleCameraFactory
 	::create() const {
 		Camera* a = new Camera(name_->get());
 
@@ -31,6 +31,7 @@ namespace se_basic {
 		if(script_) {
 			a->setDefaultScript(script_);
 		}
+		a->setTag(tag_);
 
 		return a;
 	}

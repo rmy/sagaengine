@@ -28,10 +28,17 @@ rune@skalden.com
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
+#include "../SimCompositeFactory.hpp"
 
 namespace se_core {
 
-	class _SeCoreExport ThingFactory {
+	class _SeCoreExport ThingFactory : public SimCompositeFactory {
+	public:
+		ThingFactory(short type, String* name)
+			: SimCompositeFactory(type, name) {
+		}
+	};
+	/*
 	public:
 		ThingFactory(short type, String* name);
 		virtual ~ThingFactory();
@@ -52,6 +59,7 @@ namespace se_core {
 		MultiSimObject** multiSimObjects_;
 		String* attributes_;
 	};
+	*/
 
 }
 

@@ -127,9 +127,6 @@ namespace se_core {
 		////////////////////////////////////////
 
 	protected:
-		friend class ThingManager;
-		ThingFactory* factory_;
-
 		/**
 		 * The actor who spawned this thing.
 		 * A bow shooter will for example spawn arrows when shooting. This

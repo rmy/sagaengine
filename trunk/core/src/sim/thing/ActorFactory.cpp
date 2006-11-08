@@ -26,7 +26,7 @@ rune@skalden.com
 
 
 namespace se_core {
-
+	/*
 	ActorFactory
 	::ActorFactory(String* name) : ThingFactory(got_ACTOR, name) {
 	}
@@ -42,35 +42,9 @@ namespace se_core {
 		Thing* t;
 		Actor* a;
 		t = a = new Actor(name_->get());
-		/*
-		  a->setPickable(isPickable_);
-		  a->setQuickMenuAction(quickMenuAction_);
-		  a->setUseAction(useAction_);
-		  a->abilities()->setBases(abilities_);
-		  a->setDefaultPhysics(physics_);
-		  a->setCollide(collide_);
-
-		t->nextPos().setRadius(radius_);
-		t->nextPos().changeDirection(singleValues_[SV_DIRECTION]);
-		t->nextPos().setFaceDirection(singleValues_[SV_DIRECTION]);
-		//LogMsg((sprintf(log_msg(), "%s: %d", t->name(), singleValues_[SV_DIRECTION]), log_msg()));
-
-		for(int i = 0; i < SV_COUNT; ++i) {
-			if(!singleValues_[i]) continue;
-			t->setSingleValue(i, singleValues_[i]);
-			//printf("Setting single value: %d, %d\n", i, singleValues[i]);
-		}
-		for(int i = 0; i < MGO_COUNT; ++i) {
-			if(!multiSimObjects_[i]) continue;
-			t->multiSimObject(i).add(*multiSimObjects_[i]);
-		}
-		if(script_) {
-		a->setDefaultScript(SimSchema::sortedSimObjectList().script(script_->get()));
-			}
-		*/
 
 		return t;
 	}
-
+	*/
 }
 

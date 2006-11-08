@@ -5,12 +5,12 @@
 
 namespace se_basic {
 
-	class _SeBasicExport SimpleActorFactory : public se_core::ThingFactory {
+	class _SeBasicExport SimpleActorFactory : public se_core::SimCompositeFactory {
 	public:
 		SimpleActorFactory(se_core::String* name);
 		~SimpleActorFactory();
 
-		se_core::Thing* create() const;
+		se_core::SimComposite* create() const;
 
 		void setRadius(float r);
 		void setScript(const char* name);

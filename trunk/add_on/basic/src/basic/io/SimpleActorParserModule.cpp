@@ -73,6 +73,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'T': // Tag
+				{
+					int t = in.readDictionaryWord(DE_TAG);
+					factory->setTag(t);
+				}
+				break;
+
 			case 'D': // Default action
 				{
 					String actionName;
