@@ -30,6 +30,7 @@ rune@skalden.com
 #include "io/schema/IoSchema.hpp"
 #include "sim/thing/Player.hpp"
 #include <fmod_errors.h>
+#include <cstdio>
 
 using namespace se_core;
 
