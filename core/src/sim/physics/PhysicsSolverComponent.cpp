@@ -34,6 +34,7 @@ namespace se_core {
 	PhysicsSolverComponent
 	::PhysicsSolverComponent(SimComposite* owner) 
 		: SimComponent(sct_PHYSICS, owner)
+		, collisionGrid_(0)
 		, moverCount_(0) {
 	}
 
