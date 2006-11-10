@@ -201,7 +201,7 @@ namespace se_core {
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }
 		bool hasTarget() const { return !target_.isNull(); }
-		void setTarget(Actor* target) { target_.set(target->ptr()); }
+		void setTarget(Actor* target) { target_.set(*target); }
 		void resetTarget() { target_.reset(); }
 
 		virtual bool isPlayer() { return false; }

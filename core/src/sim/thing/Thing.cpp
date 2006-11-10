@@ -93,7 +93,7 @@ namespace se_core {
 	void Thing
 	::setSpawner(Actor* spawner) {
 		Assert(spawner != 0);
-		spawner_.set(spawner->ptr());
+		spawner_.set(*spawner);
 		spawner->incSpawnCount();
 		Assert(!spawner_.isNull());
 	}

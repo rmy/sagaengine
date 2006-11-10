@@ -72,7 +72,6 @@ char* log_msg() {
 }
 
 
-#if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
 namespace se_err {
 	/*
 	Log& Log
@@ -216,7 +215,6 @@ namespace se_err {
 
 
 }
-#endif
 
 #ifdef new
 #undef new

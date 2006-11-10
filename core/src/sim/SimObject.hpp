@@ -38,14 +38,14 @@ namespace se_core {
 	 *
 	 * Maintains name, id and type identifiers.
 	 */
-	class _SeCoreExport SimObject {
+	class _SeCoreExport SimObject : public SimPtr {
 	public:
 		/**
 		 * Construct unnamed SimObject.
 		 *
 		 * @param type The type of SimObject (got_ACTION, got_THING, etc)
 		 */
-		SimObject(enum SimObjectType type) : type_(type), ptr_(this) {
+		SimObject(enum SimObjectType type) : SimPtr(true), type_(type) {
 			id_ = createId();
 		}
 
@@ -56,7 +56,7 @@ namespace se_core {
 		 * @param name The name of the game object
 		 */
 		SimObject(enum SimObjectType type, const char* name)
-			: type_(type), name_(name), ptr_(this) {
+			: SimPtr(true), type_(type), name_(name) {
 			id_ = createId();
 		}
 

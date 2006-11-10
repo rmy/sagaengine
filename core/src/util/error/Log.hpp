@@ -28,8 +28,6 @@ rune@skalden.com
 extern _SeCoreExport char* log_msg();
 
 
-#if defined(DEBUG_LEVEL_1) || defined(DEBUG_LEVEL_2)
-
 namespace se_err {
 	/** Must be defined in platform dependent module */
 	extern _SeCoreExport void scream3(const char* file, int line, const char* msg2);
@@ -88,7 +86,6 @@ namespace se_err {
 
 	extern _SeCoreExport Log& log();
 }
-#endif
 
 #ifdef DEBUG_LEVEL_2
 #include <cstdio>
