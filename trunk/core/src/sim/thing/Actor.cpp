@@ -48,14 +48,13 @@ namespace se_core {
 	Actor
 	::Actor(const char* name)
 			: Thing(got_ACTOR, name)
-			  , showingCutscene_(0)
-			  , collide_(&tcDefault)
-			  , spawnCount_(0) {
+			, showingCutscene_(0)
+			, collide_(&tcDefault)
+			, spawnCount_(0) {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		physicsComponent_ = new PhysicsComponent(this);
 		statComponent_ = new StatComponent(this);
-
 	}
 
 
@@ -75,7 +74,6 @@ namespace se_core {
 		scriptComponent_->clearScripts();
 		Thing::cleanup();
 	}
-
 
 
 	void Actor

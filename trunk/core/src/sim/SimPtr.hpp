@@ -110,12 +110,13 @@ namespace se_core {
 		}
 
 
-	private:
-		friend class SimObject;
-		SimPtr(void* ptr)
-			: ptr_(new Ptr(ptr)), isOwner_(true) {
+	protected:
+		SimPtr(bool isOwner)
+			: isOwner_(isOwner) {
+			ptr_ = new Ptr(this);
 		}
 
+	private:
 		/**
 		 */
 		Ptr* ptr_;

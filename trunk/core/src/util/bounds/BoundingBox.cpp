@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "BoundingBox.hpp"
+#include <cstdio>
 
 namespace se_core {
 	se_err::Log& operator<< (se_err::Log& log, const BoundingBox& b) {

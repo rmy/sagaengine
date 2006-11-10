@@ -399,9 +399,11 @@ namespace se_core {
 
 	float Perlin
 	::noise( const Vector3& v, const unsigned int freq, bool tile) {
-		return noise(CoorT::toFloat(v.x_), freq, tile,
-					 CoorT::toFloat(v.y_), freq, tile,
-					 CoorT::toFloat(v.z_), freq, tile);
+		return noise(CoorT::toFloat(v.x_),
+					 CoorT::toFloat(v.y_),
+					 CoorT::toFloat(v.z_),
+					 freq, freq, freq,
+					 tile, tile, tile);
 	}
 
 
