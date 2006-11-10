@@ -23,11 +23,24 @@ rune@skalden.com
 #define util_bounds_BoundingBox_hpp
 
 #include "../type/util_type.hpp"
+#include "../vecmath/Point3.hpp"
+#include "util/error/Log.hpp"
+
 
 namespace se_core {
 	class _SeCoreExport BoundingBox {
 	public:
 		BoundingBox() : minX_(0), minY_(0), minZ_(0), maxX_(0), maxY_(0), maxZ_(0) {}
+
+		BoundingBox(const Point3& p, coor_t radius)
+			: minX_(p.x_ - radius), minY_(p.y_ - radius), minZ_(p.z_ - radius)
+			, maxX_(p.x_ + radius), maxY_(p.y_ + radius), maxZ_(p.z_ + radius) {
+		}
+
+		BoundingBox(const Point3& p, coor_t radius, coor_t height)
+			: minX_(p.x_ - radius), minY_(p.y_), minZ_(p.z_ - radius)
+			, maxX_(p.x_ + radius), maxY_(p.y_ + height), maxZ_(p.z_ + radius) {
+		}
 
 		inline void setMin(coor_t x, coor_t y, coor_t z) {
 			minX_ = x;
@@ -49,10 +62,12 @@ namespace se_core {
 
 
 		void merge(BoundingBox &b) {
+			/*
 			if(isNull()) {
 				*this = b;
 				return;
 			}
+			*/
 
 			if(b.minX_ < minX_) minX_ = b.minX_;
 			if(b.minY_ < minY_) minY_ = b.minY_;
@@ -70,6 +85,28 @@ namespace se_core {
 					&& z >= minZ_ && z < maxZ_);
 		}
 
+
+		bool doesIntersect(BoundingBox& b) {
+			if(b.maxX_ < minX_
+				   || b.minX_ > maxX_
+				   || maxX_ < b.minX_
+				   || minX_ > b.maxX_)
+				return false;
+
+			if(b.maxY_ < minY_
+				   || b.minY_ > maxY_
+				   || maxY_ < b.minY_
+				   || minY_ > b.maxY_)
+				return false;
+
+			if(b.maxZ_ < minZ_
+				   || b.minZ_ > maxZ_
+				   || maxZ_ < b.minZ_
+				   || minZ_ > b.maxZ_)
+				return false;
+			return true;
+		}
+
 		coor_t radius() {
 #ifdef SE_FIXED_POINT
 			return (maxY_ - minY_) >> 1;
@@ -81,6 +118,9 @@ namespace se_core {
 		coor_t minX_, minY_, minZ_;
 		coor_t maxX_, maxY_, maxZ_;
 	};
+
+	se_err::Log& operator<< (se_err::Log& log, const BoundingBox& b);
+
 }
 
 #endif

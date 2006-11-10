@@ -24,12 +24,13 @@ rune@skalden.com
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
+#include "util/bounds/BoundingBox.hpp"
 #include "../thing/Actor.hpp"
 
 
 
 namespace se_core {
-	static coor_t MAX_SPEED = 64 * COOR_STEP + COOR_RES;
+	static coor_t MAX_SPEED = 64 * COOR_STEP + 2 * COOR_RES;
 
 	PhysicsSolverComponent
 	::PhysicsSolverComponent(SimComposite* owner) 
@@ -75,6 +76,7 @@ namespace se_core {
 	}
 
 
+	/*
 	inline bool _testActor2ThingCollision(Actor& actor1,
 							  Thing& thing2) {
 		// How close must the things be before colliding?
@@ -94,6 +96,31 @@ namespace se_core {
 		// Inside collision range. Definitely collide.
 		return actor1.pushThing(thing2);
 	}
+	*/
+
+
+	inline bool _testActor2ThingCollision(Actor& pn1,
+							  Thing& pn2) {
+		// How close must the things be before colliding?
+		// Double for pow 2 further down
+		coor_t r = pn1.pos().radius();
+		BoundingBox b1(pn1.pos().worldCoor(), r, 2 * r);
+		r = pn1.nextPos().radius();
+		b1.merge(BoundingBox(pn1.nextPos().worldCoor(), r, 2 * r));
+
+		r = pn2.pos().radius();
+		BoundingBox b2(pn2.pos().worldCoor(), r, 2 * r);
+		r = pn2.nextPos().radius();
+		b2.merge(BoundingBox(pn2.nextPos().worldCoor(), r, 2 * r));
+
+		//LogMsg("Collision: " << pn1.name() << ", " << pn2.name() << b1 << b2);
+
+		if(!b1.doesIntersect(b2))
+			return false;
+
+		// Inside collision range. Definitely collide.
+		return pn1.pushThing(pn2);
+	}
 
 
 	void PhysicsSolverComponent
@@ -106,6 +133,8 @@ namespace se_core {
 
 		for(int outer = 0; outer < moverCount; ++outer) {
 			Actor* a = movers[ outer ];
+			if(!a->isPusher())
+				continue;
 
 			// Get collision candidates in this and all
 			// neighbouring areas
@@ -129,7 +158,6 @@ namespace se_core {
 				// Test for collision
 				if(_testActor2ThingCollision(*a, *things[ inner ])) {
 					a->resetFutureCoor();
-					LogMsg("Collision: " << a->name() << ", " << things[ inner ]->name());
 					break;
 				}
 			}

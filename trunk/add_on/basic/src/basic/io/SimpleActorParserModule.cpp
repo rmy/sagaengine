@@ -123,7 +123,9 @@ namespace se_basic {
 		}
 
 		factory->setSpawnPoints(spawnPointCount, spawnPoints);
-		factory->setCollide(collide.get());
+		if(!collide.equals("none")) {
+			factory->setCollide(collide.get());
+		}
 		SimSchema::thingManager().addFactory(factory);
 	}
 
