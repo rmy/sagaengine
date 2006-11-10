@@ -7,7 +7,6 @@ namespace se_basic {
 	SimpleActorFactory
 	::SimpleActorFactory(String* name)
 		: SimCompositeFactory(got_ACTOR, name)
-		, radius_(COOR_RES)
 		, isPickable_(false)
 		, isCollideable_(false)
 		, script_(0)
@@ -37,7 +36,7 @@ namespace se_basic {
 		a->setCollideable(isCollideable_);
 		a->setDefaultPhysics(physics_);
 		a->setCollide(collide_);
-		a->nextPos().setRadius(radius_);
+		a->nextPos().setBounds(bounds_);
 		a->setSpawnPoints(spawnPointCount_, spawnPoints_);
 		if(defaultAction_ && defaultAction_->hasAction()) {
 			LogMsg(defaultAction_->action()->name());
@@ -54,8 +53,8 @@ namespace se_basic {
 
 
 	void SimpleActorFactory
-	::setRadius(float r) {
-		radius_ = static_cast<coor_t>(r * COOR_RES);
+	::setBounds(const BoundingBox& b) {
+		bounds_ = b;
 	}
 
 
@@ -63,6 +62,7 @@ namespace se_basic {
 	::setPickable(bool isPickable) {
 		isPickable_ = isPickable;
 	}
+
 
 	void SimpleActorFactory
 	::setCollideable(bool isCollideable) {

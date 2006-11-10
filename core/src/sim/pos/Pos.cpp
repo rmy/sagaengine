@@ -36,7 +36,6 @@ namespace se_core {
 	Pos
 	::Pos()	: area_(0)
 			, parent_(0)
-			, radius_(COOR_RES / 5)
 			, index_(-1)
 			, isGrounded_(true)
 	{
@@ -143,7 +142,7 @@ namespace se_core {
 		parent_ = original.parent_;
 		index_ = original.index_;
 		isGrounded_ = original.isGrounded_;
-		radius_ = original.radius_;
+		bounds_ = original.bounds_;
 		for(int i = 0; i < MAX_ANIMS; ++i)
 			anim_[i] = original.anim_[i];
 	}
@@ -165,7 +164,6 @@ namespace se_core {
 		worldCoor().z_ = original.worldCoor().z_;
 		area_ = original.area_;
 	}
-
 
 
 	void Pos

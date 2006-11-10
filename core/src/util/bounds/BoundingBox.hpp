@@ -42,6 +42,16 @@ namespace se_core {
 			, maxX_(p.x_ + radius), maxY_(p.y_ + height), maxZ_(p.z_ + radius) {
 		}
 
+		BoundingBox(const Point3& p, const BoundingBox& b)
+			: minX_(p.x_ + b.minX_), minY_(p.y_ + b.minY_), minZ_(p.z_ + b.minZ_)
+			, maxX_(p.x_ + b.maxX_), maxY_(p.y_ + b.maxY_), maxZ_(p.z_ + b.maxZ_) {
+		}
+
+		void reset() {
+			minX_ = minY_ = minZ_ = 0;
+			maxX_ = maxY_ = maxZ_ = 0;
+		}
+
 		inline void setMin(coor_t x, coor_t y, coor_t z) {
 			minX_ = x;
 			minY_ = y;
@@ -86,7 +96,7 @@ namespace se_core {
 		}
 
 
-		bool doesIntersect(BoundingBox& b) {
+		bool isTouching(BoundingBox& b) {
 			if(b.maxX_ < minX_
 				   || b.minX_ > maxX_
 				   || maxX_ < b.minX_

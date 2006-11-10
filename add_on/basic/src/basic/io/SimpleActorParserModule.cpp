@@ -53,7 +53,24 @@ namespace se_basic {
 			case 'R': // Radius
 				{
 					float radius = in.readFloat();
-					factory->setRadius(radius);
+					BoundingBox b;
+					b.setMin(-radius, 0, -radius);
+					b.setMax(radius, 2 * radius, radius);
+					factory->setBounds(b);
+				}
+				break;
+
+			case 'B': // Bounds
+				{
+					BoundingBox b;
+					b.minX_ = in.readFloat();
+					b.minY_ = in.readFloat();
+					b.minZ_ = in.readFloat();
+
+					b.maxX_ = in.readFloat();
+					b.maxY_ = in.readFloat();
+					b.maxZ_ = in.readFloat();
+					factory->setBounds(b);
 				}
 				break;
 

@@ -24,7 +24,7 @@ namespace se_basic {
 		a->setCollideable(isCollideable_);
 		a->setDefaultPhysics(physics_);
 		a->setCollide(collide_);
-		a->nextPos().setRadius(radius_);
+		a->nextPos().setBounds(bounds_);
 		LogMsg(spawnPointCount_ << " " << name());
 		a->setSpawnPoints(spawnPointCount_, spawnPoints_);
 

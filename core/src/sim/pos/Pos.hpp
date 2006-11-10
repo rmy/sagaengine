@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "Anim.hpp"
 #include "util/vecmath/ViewPoint.hpp"
+#include "util/bounds/BoundingBox.hpp"
 #include "../sim.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"
@@ -275,7 +276,7 @@ namespace se_core {
 		/**
 		 * Get the radius of the position.
 		 */
-		inline coor_t radius() const { return radius_; }
+		inline coor_t radius() const { return bounds_.maxX_; }
 
 
 		/**
@@ -283,7 +284,24 @@ namespace se_core {
 		 *
 		 * @param r The new radius (as coor_t, fixed point decimal ).
 		 */
-		inline void setRadius(coor_t r) { radius_ = r; }
+		inline void setRadius(coor_t radius) {
+			bounds_.setMin(-radius, 0, -radius);
+			bounds_.setMax(radius, 2 * radius, radius);
+		}
+
+		inline void setBounds(coor_t radius) {
+			bounds_.setMin(-radius, 0, -radius);
+			bounds_.setMax(radius, 2 * radius, radius);
+		}
+
+		inline void setBounds(coor_t radius, coor_t height) {
+			bounds_.setMin(-radius, 0, -radius);
+			bounds_.setMax(radius, height, radius);
+		}
+
+		inline void setBounds(const BoundingBox& b) {
+			bounds_ = b;
+		}
 
 
 		/**
@@ -390,7 +408,7 @@ namespace se_core {
 			parent_ = 0;
 			local_.setIdentity();
 			world_.setIdentity();
-			radius_ = 0;
+			bounds_.reset();
 			index_ = -1;
 			isGrounded_ = false;
 			anim_[0].setMovementMode(0, 0);
@@ -415,7 +433,9 @@ namespace se_core {
 		Anim anim_[MAX_ANIMS];
 
 		/** The radius of the position in coor_t units. */
-		coor_t radius_;
+		//coor_t radius_;
+		/** Axis aligned bounding box */
+		BoundingBox bounds_;
 
 		/** Area's id of the layer that this position is resting on. */
 		short index_;
