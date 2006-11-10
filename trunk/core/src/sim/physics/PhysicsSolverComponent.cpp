@@ -103,6 +103,7 @@ namespace se_core {
 							  Thing& pn2) {
 		// How close must the things be before colliding?
 		// Double for pow 2 further down
+		/*
 		coor_t r = pn1.pos().radius();
 		BoundingBox b1(pn1.pos().worldCoor(), r, 2 * r);
 		r = pn1.nextPos().radius();
@@ -112,10 +113,15 @@ namespace se_core {
 		BoundingBox b2(pn2.pos().worldCoor(), r, 2 * r);
 		r = pn2.nextPos().radius();
 		b2.merge(BoundingBox(pn2.nextPos().worldCoor(), r, 2 * r));
+		*/
+		BoundingBox b1(pn1.pos().worldCoor(), pn1.pos().bounds_);
+		b1.merge(BoundingBox(pn1.pos().worldCoor(), pn1.pos().bounds_));
+		BoundingBox b2(pn2.pos().worldCoor(), pn2.pos().bounds_);
+		b2.merge(BoundingBox(pn2.pos().worldCoor(), pn2.pos().bounds_));
 
 		//LogMsg("Collision: " << pn1.name() << ", " << pn2.name() << b1 << b2);
 
-		if(!b1.doesIntersect(b2))
+		if(!b1.isTouching(b2))
 			return false;
 
 		// Inside collision range. Definitely collide.

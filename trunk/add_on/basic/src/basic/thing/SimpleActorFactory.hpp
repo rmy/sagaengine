@@ -12,7 +12,7 @@ namespace se_basic {
 
 		se_core::SimComposite* create() const;
 
-		void setRadius(float r);
+		void setBounds(const se_core::BoundingBox& b);
 		void setScript(const char* name);
 		void setPhysics(const char* name);
 		void setCollide(const char* name);
@@ -26,7 +26,8 @@ namespace se_basic {
 		void setSpawnPoints(int count, se_core::ViewPoint* const* spawnPoints);
 
 	protected:
-		coor_t radius_;
+		// Bounding cylinder
+		se_core::BoundingBox bounds_;
 		bool isPickable_;
 		bool isCollideable_;
 		const se_core::Script* script_;
