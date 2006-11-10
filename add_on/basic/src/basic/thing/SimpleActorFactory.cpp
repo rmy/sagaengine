@@ -12,6 +12,7 @@ namespace se_basic {
 		, isCollideable_(false)
 		, script_(0)
 		, physics_(0)
+		, collide_(0)
 		, defaultAction_(0)
 		, spawnPointCount_(0)
 		, spawnPoints_(0) {

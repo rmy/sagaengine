@@ -65,7 +65,6 @@ namespace se_err {
 			return log;
 		}
 
-	private:
 		void copy(const char* msg) {
 			while(msgPos_ < MAX_MSG_SIZE - 1 && *msg != 0) {
 				msg_[ msgPos_++ ] = *(msg++);
@@ -73,6 +72,11 @@ namespace se_err {
 			msg_[msgPos_] = 0;
 		}
 
+		char* tmp() {
+			return tmp_;
+		}
+
+	private:
 		static const short MAX_MSG_SIZE = 512;
 		short msgPos_;
 		char msg_[MAX_MSG_SIZE];

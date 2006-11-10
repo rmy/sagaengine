@@ -22,5 +22,14 @@ rune@skalden.com
 #include "BoundingBox.hpp"
 
 namespace se_core {
+	se_err::Log& operator<< (se_err::Log& log, const BoundingBox& b) {
+		sprintf(log.tmp(), " BoundingBox{(%f,%f,%f)(%f,%f,%f)}",
+			b.minX_, b.minY_, b.minZ_,
+			b.maxX_, b.maxY_, b.maxZ_
+		);
+		log.copy(log.tmp());
+		return log;
+	}
+
 }
 
