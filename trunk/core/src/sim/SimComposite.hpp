@@ -27,6 +27,7 @@ rune@skalden.com
 #include "util/template/HashTable.hpp"
 #include "stat/MultiSimComponent.hpp"
 #include "stat/MultiSimObject.hpp"
+#include "SimPtr.hpp"
 
 
 namespace se_core {
@@ -38,9 +39,11 @@ namespace se_core {
 	class _SeCoreExport SimComposite : public SimObject {
 	protected:
 		SimComposite(enum SimObjectType type, const char* name);
+		SimPtr& ptr() { return ptr_; }
 
 	public:
 		SimComposite(const char* name);
+
 		SimComponent* component(int type);
 		void addComponent();
 
@@ -63,6 +66,8 @@ namespace se_core {
 		void addComponent(SimComponent& c);
 
 	protected:
+		SimPtr ptr_;
+
 		int tag_;
 		friend class ThingManager;
 		SimCompositeFactory* factory_;
@@ -73,6 +78,7 @@ namespace se_core {
 
 		bool isActive_;
 		bool isDead_;
+
 	};
 
 }

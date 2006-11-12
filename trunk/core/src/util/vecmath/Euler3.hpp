@@ -454,6 +454,8 @@ namespace se_core {
 		const char* toLog() const;
 	};
 
+	se_err::Log& operator<< (se_err::Log& log, const Euler3& t);
+
 } // Namespace
 
 inline

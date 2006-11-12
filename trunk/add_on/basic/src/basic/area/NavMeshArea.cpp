@@ -92,9 +92,29 @@ namespace se_basic {
 
 	void NavMeshArea
 	::path(const Pos& from, const Pos& to, Point3& out) const {
-		// In different areas
+		// In different areas - search for triangles in this navmesh that
+		// is inside the other
 		if(from.area() != to.area()) {
-			return out.set(from.localCoor());
+			WasHere();
+			if(!from.hasArea() || !to.hasArea()) {
+				out.set(from.localCoor());
+				return;
+			}
+			Point3 p(to.area()->pos().worldCoor());
+			p.sub(from.area()->pos().worldCoor());
+			BoundingBox toArea(p, to.area()->pos().bounds_);
+			short toIndex = navMesh_->findExit(toArea, out);
+			LogMsg(name() << p << toArea << " - " << out);
+
+			// Already in same triangle
+			if(from.index() == toIndex) {
+				// Out is already set
+				return;
+			}
+			short via = navMesh_->path(from.index(), toIndex);
+			navMesh_->center(via, out);
+
+			return;
 		}
 		// Already in same triangle
 		if(from.index() == to.index()) {

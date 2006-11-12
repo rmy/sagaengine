@@ -116,8 +116,9 @@ namespace se_basic {
 			//applies the math, but we don't need speed since this is a
 			//pre-processing step
 
-			float a1, b1, c1, // constants of linear equations
-				a2, b2, c2,
+			// b1 and b2 unused
+			float a1, c1, // constants of linear equations
+				a2, c2,
 				det_inv,  // the inverse of the determinant of the coefficie matrix
 				m1, m2;    // the slopes of each line
 
@@ -367,7 +368,9 @@ namespace se_basic {
 			}
 			return tri;
 		}
-		
+
+		short findExit(const se_core::BoundingBox& bounds, se_core::Point3& out) const;
+
 	protected:
 		short controlPointCount_;
 		short triangleCount_;

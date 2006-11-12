@@ -51,8 +51,6 @@ namespace se_basic {
 	}
 
 
-
-
 	bool NavMesh
 	::isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const {
 		static const short corners[][2] =
@@ -88,6 +86,45 @@ namespace se_basic {
 		}
 		return true;
 	}
+
+
+	short NavMesh
+	::findExit(const BoundingBox& wantedAreaBounds, Point3& out) const {
+		out.reset();
+		int match = 0;
+		/*
+		for(int i = 0; i < controlPointCount_; ++i) {
+			if(wantedAreaBounds.isTouching(controlPoints_[ i ])) {
+				// Is outside on right side??
+				out.add(controlPoints_[ i ]);
+				++match;
+			}
+		}
+		*/
+
+
+		for(int i = 0; i < triangleCount_; ++i) {
+			out.reset();
+			match = 0;
+			for(int j = 0; j < 3; ++j) {
+				if(wantedAreaBounds.isTouching(controlPoints_[ triangles_[i].controlPoints_[j] ])) {
+					// Is outside on right side??
+					out.add(controlPoints_[ triangles_[ i ].controlPoints_[j] ]);
+					++match;
+				}
+				if(match >= 2) {
+					out.scale(0.999f / (float)match);
+					Point3 c;
+					wantedAreaBounds.center(c);
+					c.scale(0.001);
+					out.add(c);
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
 
 }
 

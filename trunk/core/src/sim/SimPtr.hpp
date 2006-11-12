@@ -109,11 +109,8 @@ namespace se_core {
 			return ptr_->ptr_;
 		}
 
-
-	protected:
-		SimPtr(bool isOwner)
-			: isOwner_(isOwner) {
-			ptr_ = new Ptr(this);
+		SimPtr(void* ptr)
+			: ptr_(new Ptr(ptr)), isOwner_(true) {
 		}
 
 	private:
