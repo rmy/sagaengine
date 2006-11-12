@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../thing/MultiO3dThingComponent.hpp"
+#include "O3dAreaComponent.hpp"
 #include "O3dPre.hpp"
 
 namespace se_ogre {
@@ -56,14 +57,14 @@ namespace se_ogre {
 			isAreaGeomCentreAligned_ = flag;
 		}
 
-	protected: // Helper methods
+		static bool hasMesh(se_core::Thing& thing);
+		static bool hasStaticGeometry(se_core::Thing& thing);
 		void compileAllStaticGeometry();
+
+	protected: // Helper methods
 		Ogre::StaticGeometry* compileStaticGeometry(se_core::Area* a);
-		bool hasMesh(se_core::Thing& thing);
-		bool hasStaticGeometry(se_core::Thing& thing);
 		void updateStats(void);
 		int findArea(int id);
-		void getAreaOffset(se_core::Area& area, Ogre::Vector3& dest);
 
 	private:
 		//
@@ -78,6 +79,7 @@ namespace se_ogre {
 		// 
 		enum { AREA_RANGE = 3, AREA_SIDE = 2 * (AREA_RANGE + 1) };
 		enum { MAX_AREAS = 3 * AREA_SIDE * AREA_SIDE * AREA_SIDE };
+		/*
 		struct {
 			int id_;
 			se_core::Area* area_;
@@ -89,6 +91,8 @@ namespace se_ogre {
 			//ThingMOList::iterator_type firstThingMO_;
 			MultiO3dThingComponent moList_;
 		} areas_[ MAX_AREAS ];
+		*/
+		O3dAreaComponent* areas_[ MAX_AREAS ];
 		int areaCount_;
 		bool isAreaGeomCentreAligned_;
 	};

@@ -115,9 +115,11 @@ namespace se_core {
 		b2.merge(BoundingBox(pn2.nextPos().worldCoor(), r, 2 * r));
 		*/
 		BoundingBox b1(pn1.pos().worldCoor(), pn1.pos().bounds_);
-		b1.merge(BoundingBox(pn1.pos().worldCoor(), pn1.pos().bounds_));
+		BoundingBox btmp(pn1.pos().worldCoor(), pn1.pos().bounds_);
+		b1.merge(btmp);
 		BoundingBox b2(pn2.pos().worldCoor(), pn2.pos().bounds_);
-		b2.merge(BoundingBox(pn2.pos().worldCoor(), pn2.pos().bounds_));
+		BoundingBox b2tmp(pn2.pos().worldCoor(), pn2.pos().bounds_);
+		b2.merge(b2tmp);
 
 		//LogMsg("Collision: " << pn1.name() << ", " << pn2.name() << b1 << b2);
 

@@ -52,4 +52,27 @@ namespace se_core {
 		components_.remove(c);
 	}
 
+
+	void SimComposite
+	::addChild(SimComposite& node) {
+		children_.add(node);
+	}
+
+
+	void SimComposite
+	::removeChild(SimComposite& node) {
+		children_.remove(node);
+	}
+
+
+	void SimComposite
+	::setParent(SimComposite& p) {
+		p.addChild(*this);
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			c.setParent(p);
+		}
+	}
+
 }

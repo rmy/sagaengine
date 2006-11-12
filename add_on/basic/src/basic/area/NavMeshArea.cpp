@@ -95,7 +95,6 @@ namespace se_basic {
 		// In different areas - search for triangles in this navmesh that
 		// is inside the other
 		if(from.area() != to.area()) {
-			WasHere();
 			if(!from.hasArea() || !to.hasArea()) {
 				out.set(from.localCoor());
 				return;
@@ -104,7 +103,12 @@ namespace se_basic {
 			p.sub(from.area()->pos().worldCoor());
 			BoundingBox toArea(p, to.area()->pos().bounds_);
 			short toIndex = navMesh_->findExit(toArea, out);
-			LogMsg(name() << p << toArea << " - " << out);
+			//LogMsg(name() << p << toArea << " - " << out);
+
+			if(toIndex < 0) {
+				out.set(to.localCoor());
+				return;
+			}
 
 			// Already in same triangle
 			if(from.index() == toIndex) {
