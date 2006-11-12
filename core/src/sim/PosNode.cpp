@@ -79,10 +79,13 @@ namespace se_core {
 	::changeParent() {
 		leaveCurrentParent();
 
+
 		if(nextPos().hasParent()) {
+			setParent(*nextPos().parent());
 			nextPos().parent()->addChildPosNode(*this);
 		}
 		else {
+			resetParent();
 			return false;
 		}
 		return true;

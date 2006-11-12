@@ -6,13 +6,13 @@
 namespace se_core {
    	SimComposite
 	::SimComposite(enum SimObjectType type, const char* name)
-		: SimObject(type, name), ptr_(this), tag_(0), isActive_(false), isDead_(false) {
+		: SimObject(type, name), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
 	}
 
 
    	SimComposite
 	::SimComposite(const char* name)
-			: SimObject(got_SIM_COMPOSITE_OWNER, name), ptr_(this), tag_(0), isActive_(false), isDead_(false) {
+		: SimObject(got_SIM_COMPOSITE_OWNER, name), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
 	}
 
 
@@ -66,13 +66,33 @@ namespace se_core {
 
 
 	void SimComposite
-	::setParent(SimComposite& p) {
-		p.addChild(*this);
+	::resetParent() {
+		if(parent_)
+			parent_->removeChild(*this);
+
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
-			c.setParent(p);
+			c.parentChanged(0, parent_);
 		}
+
+		parent_ = 0;
+	}
+
+
+	void SimComposite
+	::setParent(SimComposite& p) {
+		if(parent_)
+			parent_->removeChild(*this);
+
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			c.parentChanged(&p, parent_);
+		}
+
+		parent_ = &p;
+		parent_->addChild(*this);
 	}
 
 }

@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 	PhysicsComponent
 	::PhysicsComponent(Actor* owner) 
-		: SimComponent(sct_PHYSICS, owner), currentPhysics_(0) {
+		: SimNodeComponent(sct_PHYSICS, owner), currentPhysics_(0) {
 		physics_[currentPhysics_] = 0;
 	}
 

@@ -45,7 +45,8 @@ namespace se_core {
 	class _SeCoreExport SimNodeComponent : public SimComponent {
 	public:
 
-		SimNodeComponent(Actor* owner);
+		SimNodeComponent(SimComposite* owner);
+		SimNodeComponent(enum SimComponentType type, SimComposite* owner);
 		virtual ~SimNodeComponent();
 
 		/**
@@ -69,7 +70,7 @@ namespace se_core {
 		 * @param doKeepWorldCoor wether the local viewpoint should be updated
 		 *   to maintain the world viewpoint
 		 */
-		void resetParent() { parent_ = 0; }
+		void resetParent();
 
 		/**
 		 * Add a SimNodeComponent as a child.
@@ -81,21 +82,12 @@ namespace se_core {
 		 */
 		void removeChild(SimNodeComponent& node);
 
-		/**
-		 * Remove the SimNodeComponent from the child list of its parent.
-		 * You don't call this method directly. It is called automatically
-		 * by the SagaEngine during the flip phase of a new simulation step.
-		 */
-		virtual void leaveCurrentParent();
 
-		/**
-		 * Move this SimNodeComponent from the child list of the old parent, to the child list of the new.
-		 * You don't call this method directly. It is called automatically
-		 * by the SagaEngine during the flip phase of a new simulation step.
-		 */
-		virtual bool changeParent();
+		void setParent(SimNodeComponent& p);
 
 	protected:
+		void parentChanged(SimComposite* oldParent, SimComposite* newParent);
+
 		/** The parent of this position */
 		SimNodeComponent* parent_;
 
