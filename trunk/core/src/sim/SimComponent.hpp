@@ -70,6 +70,7 @@ namespace se_core {
 			return type_;
 		}
 
+
 		bool isActive();
 		bool isDead();
 
@@ -81,7 +82,7 @@ namespace se_core {
 
 		/** Called by SimComposite
 		 */
-		void setParent(SimComposite& p) {}
+		void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
 
 
 		/**

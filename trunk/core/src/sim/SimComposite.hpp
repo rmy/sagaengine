@@ -48,16 +48,23 @@ namespace se_core {
 		void addComponent();
 
 
-		void setParent(SimComposite& p);
 		/**
-		 * Add a SimComposite as a child.
+		 * Does the Pos have a parent?
 		 */
-		void addChild(SimComposite& node);
+		bool hasParent() const { return parent_ != 0; }
 
 		/**
-		 * Add a SimComposite as a child.
+		 * Get parent.
 		 */
-		void removeChild(SimComposite& node);
+		SimComposite* parent() {
+			return parent_;
+		}
+
+		/**
+		 *
+		 */
+		void setParent(SimComposite& p);
+		void resetParent();
 
 
 		bool isActive() { return isActive_; }
@@ -79,6 +86,19 @@ namespace se_core {
 		void addComponent(SimComponent& c);
 
 	protected:
+
+		/**
+		 * Add a SimComposite as a child.
+		 * Called by the childs setParent.
+		 */
+		void addChild(SimComposite& node);
+
+		/**
+		 * Add a SimComposite as a child.
+		 * Called by the childs setParent.
+		 */
+		void removeChild(SimComposite& node);
+
 		SimPtr ptr_;
 
 		int tag_;

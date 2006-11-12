@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "Physics.hpp"
 #include "../SimComponent.hpp"
+#include "../SimNodeComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
 #include "../area/sim_area.hpp"
@@ -32,7 +33,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsComponent : public SimComponent {
+	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
 		 */

@@ -22,7 +22,7 @@ rune@skalden.com
 #include "SimComponent.hpp"
 #include "SimNodeComponent.hpp"
 #include "SimObject.hpp"
-#include "thing/Actor.hpp"
+#include "SimComposite.hpp"
 #include "schema/SimSchema.hpp"
 #include "stat/SimComponentList.hpp"
 #include "util/error/Log.hpp"
@@ -31,8 +31,14 @@ rune@skalden.com
 namespace se_core {
 
 	SimNodeComponent
-	::SimNodeComponent(Actor* owner)
+	::SimNodeComponent(SimComposite* owner)
 		: SimComponent(sct_NODE, owner) {
+	}
+
+
+	SimNodeComponent
+	::SimNodeComponent(enum SimComponentType type, SimComposite* owner)
+		: SimComponent(type, owner) {
 	}
 
 
@@ -41,27 +47,23 @@ namespace se_core {
 	}
 
 
-	bool SimNodeComponent
-	::changeParent() {
-		leaveCurrentParent();
+	void SimNodeComponent
+	::resetParent() {
+		if(parent_)
+			parent_->removeChild(*this);
 
-		if(hasParent()) {
-			parent()->addChild(*this);
-		}
-		else {
-			return false;
-		}
-		return true;
+		parent_ = 0;
 	}
 
 
 	void SimNodeComponent
-	::leaveCurrentParent() {
-		if(hasParent()) {
-			parent()->removeChild(*this);
-		}
-	}
+	::setParent(SimNodeComponent& p) {
+		if(parent_)
+			parent_->removeChild(*this);
 
+		parent_ = &p;
+		parent_->addChild(*this);
+	}
 
 	void SimNodeComponent
 	::addChild(SimNodeComponent& node) {
@@ -74,6 +76,19 @@ namespace se_core {
 	void SimNodeComponent
 	::removeChild(SimNodeComponent& node) {
 		children_.remove(node);
+	}
+
+
+	void SimNodeComponent
+	::parentChanged(SimComposite* oldParent, SimComposite* newParent) {
+		if(newParent) {
+			SimNodeComponent* n = static_cast<SimNodeComponent*>(owner_->component(type_));
+			if(n)
+				setParent(*n);
+		}
+		else {
+			resetParent();
+		}
 	}
 
 }
