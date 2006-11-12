@@ -25,6 +25,7 @@ rune@skalden.com
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/Euler3.hpp"
 #include "util/vecmath/Quat4.hpp"
+#include "util/error/Log.hpp"
 
 namespace se_core {
 
@@ -116,6 +117,8 @@ namespace se_core {
 		#endif
 		Point3 coor_;
 	};
+
+	se_err::Log& operator<< (se_err::Log& log, const ViewPoint& vp);
 
 }
 

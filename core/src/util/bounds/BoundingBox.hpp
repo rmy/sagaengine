@@ -66,7 +66,7 @@ namespace se_core {
 		}
 
 
-		bool isNull() {
+		bool isNull() const {
 			return (minX_ == maxX_ && minY_ == maxY_ && minZ_ == maxZ_);
 		}
 
@@ -89,14 +89,33 @@ namespace se_core {
 		}
 
 
-		bool hasInside(coor_t x, coor_t y, coor_t z) {
+		bool hasInside(coor_t x, coor_t y, coor_t z) const {
 			return (x >= minX_ && x < maxX_
 					&& y >= minY_ && y < maxY_
 					&& z >= minZ_ && z < maxZ_);
 		}
 
 
-		bool isTouching(BoundingBox& b) {
+		bool hasInside(const Point3& p) const {
+			return (p.x_ >= minX_ && p.x_ < maxX_
+					&& p.y_ >= minY_ && p.y_ < maxY_
+					&& p.z_ >= minZ_ && p.z_ < maxZ_);
+		}
+
+		bool isTouching(const Point3& p) const {
+			return (p.x_ >= minX_ && p.x_ <= maxX_
+					&& p.y_ >= minY_ && p.y_ <= maxY_
+					&& p.z_ >= minZ_ && p.z_ <= maxZ_);
+		}
+
+		void center(Point3& out) const {
+			out.x_ = CoorT::half(minX_ + maxX_);
+			out.y_ = CoorT::half(minX_ + maxY_);
+			out.z_ = CoorT::half(minX_ + maxZ_);
+		}
+
+
+		bool isTouching(BoundingBox& b) const {
 			if(b.maxX_ < minX_
 				   || b.minX_ > maxX_
 				   || maxX_ < b.minX_
@@ -117,7 +136,7 @@ namespace se_core {
 			return true;
 		}
 
-		coor_t radius() {
+		coor_t radius() const {
 #ifdef SE_FIXED_POINT
 			return (maxY_ - minY_) >> 1;
 #else

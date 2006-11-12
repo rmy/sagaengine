@@ -12,6 +12,10 @@ namespace se_core {
 			(CoorT::abs(t1.z_ - z_) <= epsilon);
 	}
 
+	se_err::Log& operator<< (se_err::Log& log, const Tuple3& t) {
+		log << "(" << t.x_ << ", " << t.y_ << ", " << t.z_ << ")";
+		return log;
+	}
 
 	char* Tuple3
 	::toString(char* buffer) const {

@@ -19,6 +19,11 @@ namespace se_core {
 		return buffer;
 	}
 
+	se_err::Log& operator<< (se_err::Log& log, const Euler3& t) {
+		t.toString(log.tmp());
+		log.copy(log.tmp());
+		return log;
+	}
 
 	bool Euler3
 	::epsilonEquals(const Euler3& a1, bray_t epsilon) const {

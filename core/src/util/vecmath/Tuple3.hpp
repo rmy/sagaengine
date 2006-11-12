@@ -467,6 +467,8 @@ namespace se_core {
 
 	};
 
+	se_err::Log& operator<< (se_err::Log& log, const Tuple3& b);
+
 } // Namespace
 
 

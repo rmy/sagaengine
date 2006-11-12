@@ -76,6 +76,7 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::setActive(bool state) {
+		LogMsg(owner()->name() << ": " << state);
 		if(!state)
 			resetAreaList();
 	}
@@ -144,6 +145,7 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::add(ThingMO& tmo) {
+		LogMsg(firstThingMO_);
 		O3dSchema::thingMOList.add(&tmo, firstThingMO_);
 		tmo.setParentNode(node_);
 	}

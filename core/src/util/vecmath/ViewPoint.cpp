@@ -27,6 +27,17 @@ rune@skalden.com
 
 namespace se_core {
 
+	se_err::Log& operator<< (se_err::Log& log, const ViewPoint& vp) {
+		log << "ViewPoint" << vp.face_ << vp.coor_;
+		/*
+		vp.face_.toString(log.tmp());
+		log.copy(log.tmp());
+		vp.coor_.toString(log.tmp());
+		log.copy(log.tmp());
+		*/
+		return log;
+	}
+
 	const char* ViewPoint
 	::toLog() const {
 		static char buffer[256];

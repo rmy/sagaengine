@@ -45,12 +45,18 @@ namespace se_core {
 			: PosNode(got_AREA, name->get()), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
-		  //, collisionGrid_(0)
 			, factory_(0) {
 
 		// Init to default position
 		position_.reset();
 		nextPosition_.reset();
+
+		coor_t ySize = CoorT::fromTile(w);
+		BoundingBox b;
+		b.setMin(0, 0, 0);
+		b.setMax(CoorT::fromTile(w), ySize, CoorT::fromTile(h));
+		position_.setBounds(b);
+		nextPosition_.setBounds(b);
 
 		// Singly linked list containing all things in area. Listeners
 		// my subscribe to get events when a members is removed

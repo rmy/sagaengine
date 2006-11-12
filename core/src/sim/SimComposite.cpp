@@ -6,13 +6,13 @@
 namespace se_core {
    	SimComposite
 	::SimComposite(enum SimObjectType type, const char* name)
-		: SimObject(type, name), tag_(0), isActive_(false), isDead_(false) {
+		: SimObject(type, name), ptr_(this), tag_(0), isActive_(false), isDead_(false) {
 	}
 
 
    	SimComposite
 	::SimComposite(const char* name)
-			: SimObject(got_SIM_COMPOSITE_OWNER, name), tag_(0) {
+			: SimObject(got_SIM_COMPOSITE_OWNER, name), ptr_(this), tag_(0), isActive_(false), isDead_(false) {
 	}
 
 
