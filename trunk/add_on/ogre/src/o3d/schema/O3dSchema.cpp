@@ -131,6 +131,8 @@ namespace se_ogre {
 				Assert(O3dSchema::renderEngine);
 				LogMsg("Register ogre add-on as sim engine listener");
 				SimSchema::engineListeners().addListener(*O3dSchema::renderEngine);
+
+				O3dSchema::worldManager->compileAllStaticGeometry();
 			}
 
 			void cleanupGameEvent() {

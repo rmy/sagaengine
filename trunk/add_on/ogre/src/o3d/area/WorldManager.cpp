@@ -56,12 +56,7 @@ namespace se_ogre {
 	void WorldManager
 	::clearWorld() {
 		for(int i = 0; i < areaCount_; ++i) {
-			MultiO3dThingComponent::Iterator it(areas_[i].moList_);
-			while(it.hasNext()) {
-				O3dThingComponent* tc = &it.next();
-				O3dSchema::thingMOManager.release(tc);
-			}
-			areas_[i].moList_.clear();
+			areas_[i]->clear();
 		}
 	}
 
@@ -71,94 +66,16 @@ namespace se_ogre {
 		int c = SimSchema::areaManager.areaCount();
 		for(int i = 0; i < c; ++i) {
 			Area* a = SimSchema::areaManager.area(i);
-			compileStaticGeometry(a);
+			O3dAreaComponent* c = new O3dAreaComponent(a);
+			c->init();
 		}
-	}
-
-	Ogre::StaticGeometry* WorldManager
-	::compileStaticGeometry(Area* a) {
-		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(a->name());
-		Ogre::Entity* entity;
-
-		Ogre::Vector3 offset;
-		getAreaOffset(*a, offset);
-		sg->setOrigin(offset);
-
-		
-		// Area geometry
-		const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
-		Ogre::String type(areaType);
-		if(O3dSchema::sceneManager->hasEntity(type)) {
-			entity = O3dSchema::sceneManager->getEntity(type);
-		}
-		else {
-			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
-			entity->setNormaliseNormals(true);
-		}
-		sg->addEntity(entity, offset, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
-
-		// Add static things
-		se_core::SimObjectIterator nit(a->reportingThings());
-		while(nit.hasNext()) {
-			Thing& thing = nit.nextThing();
-			if(!hasStaticGeometry(thing)) {
-				continue;
-			}
-
-			// Create entity
-			const ThingMOInfo* info = O3dSchema::thingMOManager.info(thing.name());
-			Ogre::Entity* entity;
-			if(O3dSchema::sceneManager->hasEntity(thing.name())) {
-				entity = O3dSchema::sceneManager->getEntity(thing.name());
-			}
-			else {
-				Ogre::MovableObject* mo = O3dSchema::sceneManager->createMovableObject(thing.name(), Ogre::EntityFactory::FACTORY_TYPE_NAME, &info->params_);
-				entity = static_cast<Ogre::Entity*>(mo);
-				entity->setNormaliseNormals(true);
-			}
-
-
-			ViewPoint& nextPos = thing.nextPos().world_;
-			Ogre::Vector3 pos(
-				CoorT::toFloat(nextPos.coor_.x_),
-				CoorT::toFloat(nextPos.coor_.y_),
-				CoorT::toFloat(nextPos.coor_.z_)
-				);
-
-			Quat4 face(nextPos.face_);
-			Ogre::Quaternion rot(
-				QuatT::toFloat(face.w_),
-				QuatT::toFloat(face.x_),
-				QuatT::toFloat(face.y_),
-				QuatT::toFloat(face.z_)
-				);
-
-			Ogre::Real scale = info->scale_;
-			// If radius scales the model
-			if(info->doScaleByRadius_) {
-				// Interpolate between present radius and next radius
-				scale *= CoorT::toFloat(thing.nextPos().radius());
-			}
-
-			Ogre::Vector3 s(scale, scale, scale);
-			sg->addEntity(entity, pos, rot, s);
-		}
-
-		sg->setCastShadows(false);
-		sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
-		sg->setRenderingDistance(1024);
-		sg->setRenderQueueGroup(Ogre::RENDER_QUEUE_WORLD_GEOMETRY_1);
-		sg->setVisible(false);
-		sg->build();
-
-		return sg;
 	}
 
 
 	int WorldManager
 	::findArea(int id) {
 		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[i].id_ == id)
+			if(areas_[i]->owner()->id() == id)
 				return i;
 		}
 		return -1;
@@ -166,22 +83,9 @@ namespace se_ogre {
 
 
 	void WorldManager
-	::getAreaOffset(se_core::Area& area, Ogre::Vector3& dest) {
-		dest.x = area.pos().localCoor().x_;
-		dest.y = area.pos().localCoor().y_;
-		dest.z = area.pos().localCoor().z_;
-		
-		if(isAreaGeomCentreAligned_) {
-			dest.x += area.width() / 2.0f;
-			dest.z += area.height() / 2.0f;
-		}
-	}
-
-
-	void WorldManager
 	::cameraEnteredAreaEvent(se_core::Area& area) {
 		for(int i = 0; i < areaCount_; ++i) {
-			areas_[i].shouldKeep_ = false;
+			areas_[i]->shouldKeep_ = false;
 		}
 
 		// Build terrain
@@ -192,113 +96,29 @@ namespace se_ogre {
 		catch(...) {
 			LogMsg("Couldn't load geometry for area: " << area.name());
 
-			for(short relZ = -AREA_RANGE; relZ <= AREA_RANGE; ++relZ) {
-				for(short relX = -AREA_RANGE; relX <= AREA_RANGE; ++relX) {
-					Area* a = area.neighbour(relX, 0, relZ);
-					if(!a) continue;
-					int index = findArea(a->id());
-					if(index >= 0) {
-						areas_[ index ].shouldKeep_ = true;
-						continue;
-					}
-
-					const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
-
-					Ogre::String type(areaType);
-					Ogre::String name(a->name());
-
-					try {
-						static int pool = 0;
-						static char buffer[128];
-						sprintf(buffer, "%s.%d", a->name(), pool++);
-
-						index = areaCount_++;
-						getAreaOffset(*a, areas_[ index ].offset_);
-						areas_[ index ].node_ = O3dSchema::sceneManager->createSceneNode();
-						areas_[ index ].node_->setPosition(areas_[ index ].offset_);
-						O3dSchema::sceneManager->getRootSceneNode()->addChild(areas_[ index ].node_);
-
-						areas_[ index ].area_ = a;
-						areas_[ index ].shouldKeep_ = true;
-						areas_[ index ].isNew_ = true;
-						areas_[ index ].moList_.clear();
-						areas_[ index ].id_ = a->id();
-
-						if(!O3dSchema::sceneManager->hasStaticGeometry(a->name())) {
-							try {
-								compileAllStaticGeometry();
-							}
-							catch(...) {
-							}
-						}
-						areas_[ index ].staticGeometry_ = O3dSchema::sceneManager->getStaticGeometry(a->name());
-						areas_[ index ].staticGeometry_->setVisible(true);
-
-						/*
-						if(O3dSchema::sceneManager->hasEntity(type)) {
-							Ogre::Entity* entity = O3dSchema::sceneManager->getEntity(type);
-							areas_[ index ].node_->attachObject(entity);
-						}
-						*/
-
-
-
-						/*
-						Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(buffer, type + ".mesh");
-						*/
-						areas_[ index ].node_->_updateBounds();
-					}
-					catch(...) {
-						LogMsg("Couldn't load area mesh " << areaType << ".mesh for " << a->name() );
-					}
-				}
-			}
-		}
-
-		// Add area things in new areas
-		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[i].isNew_) {
-				Area* a = areas_[i].area_;
-
-				// Add things
-				se_core::SimObjectIterator nit(a->reportingThings());
-				while(nit.hasNext()) {
-					Thing& thing = nit.nextThing();
-					if(!hasMesh(thing)) {
-						continue;
-					}
-
-					O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
-					tc->setParentNode(areas_[ i ].node_);
-					tc->setAreaList(areas_[ i ].moList_);
+			int c = SimSchema::areaManager.areaCount();
+			for(int i = 0; i < c; ++i) {
+				Area* a = SimSchema::areaManager.area(i);
+				//if(!a->isActive())
+				//	continue;
+				int index = findArea(a->id());
+				if(index >= 0) {
+					areas_[ index ]->shouldKeep_ = true;
+					continue;
 				}
 
-				if(areas_[i].node_)
-					areas_[i].node_->_updateBounds();
-				areas_[i].isNew_ = false;
+				index = areaCount_++;
+				areas_[ index ] = static_cast<O3dAreaComponent*>(a->component(sct_RENDER));
+				areas_[ index ]->shouldKeep_ = true;
+				areas_[ index ]->setVisible(true);
 			}
 		}
-
 
 		// Throw away areas that shouldn't be kept
 		for(int i = 0; i < areaCount_; ++i) {
-			if(!areas_[i].shouldKeep_) {
+			if(!areas_[i]->shouldKeep_) {
 				// Destroy static geometry
-				if(areas_[ i].staticGeometry_) {
-					areas_[ i].staticGeometry_->setVisible(false);
-				}
-
-				// Remove things
-				MultiO3dThingComponent::Iterator it(areas_[i].moList_);
-				while(it.hasNext()) {
-					O3dThingComponent* tc = &it.next();
-					tc->resetAreaList();
-					O3dSchema::thingMOManager.release(tc);
-				}
-				areas_[i].moList_.clear();
-
-				// Remove area from scene graph
-				O3dSchema::sceneManager->getRootSceneNode()->removeAndDestroyChild(areas_[i].node_->getName());
+				areas_[ i ]->setVisible(false);
 
 				// Move last area in array to here
 				areas_[i] = areas_[ --areaCount_];
@@ -328,8 +148,8 @@ namespace se_ogre {
 
 		// Add thing
 		O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
-		tc->setParentNode(areas_[ index ].node_);
-		tc->setAreaList(areas_[ index ].moList_);
+		tc->setParentNode(areas_[ index ]->node_);
+		tc->setAreaList(areas_[ index ]->children_);
 	}
 
 
@@ -375,8 +195,8 @@ namespace se_ogre {
 		if(nextIndex >= 0) {
 			if(tc == 0)
 				tc = O3dSchema::thingMOManager.create(thing);
-			tc->setParentNode(areas_[ nextIndex ].node_);
-			tc->setAreaList(areas_[nextIndex].moList_);
+			tc->setParentNode(areas_[ nextIndex ]->node_);
+			tc->setAreaList(areas_[nextIndex]->children_);
 		}
 	}
 
@@ -440,11 +260,7 @@ namespace se_ogre {
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
 		for(int i = 0; i < areaCount_; ++i) {
-			MultiO3dThingComponent::Iterator it(areas_[i].moList_);
-			while(it.hasNext()) {
-				O3dThingComponent* tc = &it.next();
-				tc->move(renderClock, stepDelta, timeSinceLastFrame);
-			}
+			areas_[i]->move(renderClock, stepDelta, timeSinceLastFrame);
 		}
 
 		// Store time

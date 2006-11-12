@@ -51,6 +51,7 @@ namespace se_core {
 		inline Actor* owner() {
 			return reinterpret_cast<Actor*>(owner_);
 		}
+
 		inline Actor* actor() {
 			return reinterpret_cast<Actor*>(owner_);
 		}
@@ -77,6 +78,11 @@ namespace se_core {
 		/** Called by SimComposite
 		 */
 		virtual void setActive(bool state) {}
+
+		/** Called by SimComposite
+		 */
+		void setParent(SimComposite& p) {}
+
 
 		/**
 		 * The type of SimComponent.

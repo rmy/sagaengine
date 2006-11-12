@@ -47,6 +47,19 @@ namespace se_core {
 		SimComponent* component(int type);
 		void addComponent();
 
+
+		void setParent(SimComposite& p);
+		/**
+		 * Add a SimComposite as a child.
+		 */
+		void addChild(SimComposite& node);
+
+		/**
+		 * Add a SimComposite as a child.
+		 */
+		void removeChild(SimComposite& node);
+
+
 		bool isActive() { return isActive_; }
 
 		/** Returns true if Thing is scheduled for destruction.
@@ -72,7 +85,7 @@ namespace se_core {
 		friend class ThingManager;
 		SimCompositeFactory* factory_;
 		SimComposite* parent_;
-		MultiSimObject childComposites_;
+		MultiSimObject children_;
 
 		MultiSimComponent components_;
 
