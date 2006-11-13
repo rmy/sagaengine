@@ -31,6 +31,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/math/CoorT.hpp"
+#include "util/bounds/BoundingBox.hpp"
 #include "util/vecmath/util_vecmath.hpp"
 #include "sim/config/sim_config.hpp"
 #include "../physics/sim_physics.hpp"
@@ -128,10 +129,11 @@ namespace se_core {
 		}
 
 		bool isLegalCoor(const Point3& worldCoor) const {
-			return (worldCoor.x_ >= nextPosition_.localCoor().x_
-					&& worldCoor.z_ >= nextPosition_.localCoor().z_
-					&& worldCoor.xTile() < nextPosition_.localCoor().xTile() + width_
-					&& worldCoor.zTile() < nextPosition_.localCoor().zTile() + height_);
+			//return pos().bounds_.hasInside(worldCoor);
+			return (worldCoor.x_ >= nextPos().localCoor().x_
+					&& worldCoor.z_ >= nextPos().localCoor().z_
+					&& worldCoor.xTile() < nextPos().localCoor().xTile() + width_
+					&& worldCoor.zTile() < nextPos().localCoor().zTile() + height_);
 		}
 
 		virtual short terrainStyle(const Point3& coor, short index = -1) const = 0;

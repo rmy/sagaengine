@@ -45,8 +45,7 @@ namespace se_core {
 	void PosComponent
 	::flip() {
 		if(position_.parent() != nextPosition_.parent()) {
-			//TODO:
-			//node_->changeParent();
+			changeParent();
 		}
 		if(position_.area() != nextPosition_.area()) {
 			changeArea();
@@ -103,6 +102,32 @@ namespace se_core {
 		dest.coor_.interpolate(nextPosition_.worldCoor(), alpha);
 		dest.face_.interpolate(nextPosition_.worldFace(), alpha);
 	}
+
+
+	void PosComponent
+	::leaveCurrentParent() {
+		if(position_.hasParent()) {
+			owner_->resetParent();
+		}
+	}
+
+
+	bool PosComponent
+	::changeParent() {
+		leaveCurrentParent();
+
+
+		if(nextPos().hasParent()) {
+			owner_->setParent(*nextPos().parent());
+		}
+		else {
+			owner_->resetParent();
+			return false;
+		}
+		return true;
+	}
+
+
 
 
 	void PosComponent

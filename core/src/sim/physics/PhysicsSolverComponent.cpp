@@ -211,7 +211,7 @@ namespace se_core {
 			}
 
 			// Do the flip
-			p->flip();
+			ph.flip();
 
 			// Stack overflowing?
 			Assert(sp < MAX_STACK_DEPTH - 1);

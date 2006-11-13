@@ -96,6 +96,21 @@ namespace se_core {
 		 */
 		void flip();
 
+		/**
+		 * Remove the PosNode from the child list of its parent.
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
+		virtual void leaveCurrentParent();
+
+		/**
+		 * Move this PosNode from the child list of the old parent, to the child list of the new.
+		 * You don't call this method directly. It is called automatically
+		 * by the SagaEngine during the flip phase of a new simulation step.
+		 */
+		virtual bool changeParent();
+
+
 		/** Remove the PosComponent from its area.
 		 *
 		 * You don't call this method directly. It is called automatically

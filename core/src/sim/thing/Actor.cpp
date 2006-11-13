@@ -53,7 +53,7 @@ namespace se_core {
 			, spawnCount_(0) {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
-		physicsComponent_ = new PhysicsComponent(this);
+		physicsComponent_ = new PhysicsComponent(this, posComponent_);
 		statComponent_ = new StatComponent(this);
 	}
 
@@ -208,10 +208,10 @@ namespace se_core {
 		// Calculate area coor of spawn point
 		const PosNode* node = this;
 		vp.add(pos().world_);
-		vp.sub(position_.area()->pos().world_);
+		vp.sub(pos().area()->pos().world_);
 
 		// Spawn it in area (with area as parent)
-		Thing* t = position_.area()->spawn(thingName, vp, deniedTsMask);
+		Thing* t = const_cast<Pos&>(pos()).area()->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
 		if(t) t->setSpawner(this);

@@ -27,6 +27,7 @@ rune@skalden.com
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
+#include "./pos/PosComponent.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
@@ -54,7 +55,8 @@ namespace se_core {
 		/** Cleanup this PosNode.
 		 * Resets the parent, and removes it from child lists.
 		 */
-		virtual void cleanup();
+		virtual void cleanup() {
+		}
 
 
 		/** Returns true if object is or inherits from the given type
@@ -76,13 +78,13 @@ namespace se_core {
 		 * testing.
 		 */
 		inline const Pos& pos() const {
-			return position_;
+			return posComponent_->pos();
 		}
 
 		/** Does the PosNode move during this simulation step?
 		 */
 		bool didMove() const {
-			return didMove_;
+			return posComponent_->didMove();
 		}
 
 		/**
@@ -90,13 +92,11 @@ namespace se_core {
 		 * Sets the next coordinate to be the same as the present one.
 		 */
 		inline void resetFutureCoor() {
-			didMove_ = false;
-			nextPos().setPos(position_);
+			posComponent_->resetFutureCoor();
 		}
 
 		inline void resetFutureXZCoor() {
-			// Revert back to original area if necessary
-			nextPosition_.setXZ(position_);
+			posComponent_->resetFutureXZCoor();
 		}
 
 
@@ -133,7 +133,11 @@ namespace se_core {
 		 * of the next (and the end of this) initiative.
 		 */
 		inline Pos& nextPos() {
-			return nextPosition_;
+			return posComponent_->nextPos();
+		}
+
+		inline const Pos& nextPos() const {
+			return const_cast<PosComponent*>(posComponent_)->nextPos();
 		}
 
 		/** Flip from Pos() to nextPos()
@@ -142,17 +146,19 @@ namespace se_core {
 		 * This method is called by
 		 * the Area the beginning of a new AI step.
 		 */
-		void flip();
+		void flip() {
+			return posComponent_->flip();
+		}
 
 		/**
 		 * Add a PosNode as a child.
 		 */
-		void addChildPosNode(PosNode& node);
+		//void addChildPosNode(PosNode& node);
 
 		/**
 		 * Add a PosNode from the child list.
 		 */
-		void removeChildPosNode(PosNode& node);
+		//void removeChildPosNode(PosNode& node);
 
 		/**
 		 * Get the list of child PosNodes.
@@ -166,14 +172,18 @@ namespace se_core {
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
-		virtual void leaveCurrentParent();
+		virtual void leaveCurrentParent() {
+			posComponent_->leaveCurrentParent();
+		}
 
 		/**
 		 * Move this PosNode from the child list of the old parent, to the child list of the new.
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
-		virtual bool changeParent();
+		virtual bool changeParent() {
+			return posComponent_->changeParent();
+		}
 
 
 		/** Remove the PosNode from its area.
@@ -181,14 +191,18 @@ namespace se_core {
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
-		virtual void leaveCurrentArea();
+		virtual void leaveCurrentArea() {
+			return posComponent_->leaveCurrentArea();
+		}
 
 		/** Move the PosNode from one area to another.
 		 *
 		 * You don't call this method directly. It is called automatically
 		 * by the SagaEngine during the flip phase of a new simulation step.
 		 */
-		virtual bool changeArea();
+		virtual bool changeArea() {
+			return posComponent_->changeArea();
+		}
 
 
 		/** Set wether this thing can be collided with.
@@ -206,58 +220,67 @@ namespace se_core {
 		 *
 		 * Updates the world_ attribute in nextPos() make it harmonize with local_.
 		 */
-		void updateWorldViewPoint();
+		void updateWorldViewPoint() {
+			posComponent_->updateWorldViewPoint();
+		}
 
 		/** World coor interpolated between now and next.
 		 *
 		 * @param alpha Interpolation value. 0 gets the coordinate at pos(), 1 at nextPos()
 		 * @param dest output value
 		 */
-		void worldCoor(scale_t alpha, Point3& dest) const;
+		void worldCoor(scale_t alpha, Point3& dest) const {
+			posComponent_->worldCoor(alpha, dest);
+		}
 
 		/** World viewpoint interpolated between now and next.
 		 *
 		 * @param alpha Interpolation value. 0 gets the coordinate at pos(), 1 at nextPos()
 		 * @param dest output value
 		 */
-		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
+		void worldViewPoint(scale_t alpha, ViewPoint& dest) const {
+			posComponent_->worldViewPoint(alpha, dest);
+		}
 
 		/** Set the list of spawn points associated with this PosNode.
 		 *
 		 * @param count the number of spawn points
 		 * @param spawnPoints the list of spawn points
 		 */
-		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints);
+		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints) {
+			posComponent_->setSpawnPoints(count, spawnPoints);
+		}
 
 		/** Get the reference to a spawn point
 		 *
 		 * @param id the id of the sapwn points
 		 */
-		const ViewPoint* spawnPoint(short id) const;
+		const ViewPoint* spawnPoint(short id) const {
+			return posComponent_->spawnPoint(id);
+		}
 
 	protected:
+		PosComponent* posComponent_;
+
 		/** Position of the PosNode at the beginning of the current simulation step */
-		Pos position_;
+		//Pos position_;
 
 		/** Position of the PosNode at the beginning of the next simulation step */
-		Pos nextPosition_;
+		//Pos nextPosition_;
 
 		/** Flag which indicates that the PosNode moves between the current and the next simulation step. */
-		bool didMove_;
+		//bool didMove_;
 
 		/** Flag that indicated wether other PosNodes can collide with this PosNode.
 		 * Used by the Area class to decide wether the PosNode should be inserted into a collision grid. 
 		 */
 		bool isCollideable_;
 
-		/** List of child PosNodes  */
-		MultiSimObject childPosNodes_;
-
 		/** The number of spawn points */
-		int spawnPointCount_;
+		//int spawnPointCount_;
 
 		/** List of spawn points associated this this PosNode */
-		const ViewPoint* const* spawnPoints_;
+		//const ViewPoint* const* spawnPoints_;
 	};
 
 }

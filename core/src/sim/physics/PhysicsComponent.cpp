@@ -29,8 +29,8 @@ rune@skalden.com
 
 namespace se_core {
 	PhysicsComponent
-	::PhysicsComponent(Actor* owner) 
-			: SimNodeComponent(sct_PHYSICS, owner), currentPhysics_(0) {
+	::PhysicsComponent(Actor* owner, PosComponent* posComponent) 
+		: SimNodeComponent(sct_PHYSICS, owner), currentPhysics_(0), posComponent_(posComponent) {
 		physics_[currentPhysics_] = 0;
 	}
 
@@ -75,10 +75,10 @@ namespace se_core {
 		move_ = nextMove_;
 
 		nextMove_.flick();
-		physics().calcNext(*owner(), owner()->pos(), owner()->nextPos(), move(), nextMove());
+		physics().calcNext(*owner(), posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
 
 		//
-		didMove_ = owner()->nextPos().didParentMove() || !owner()->nextPos().localEquals(owner()->pos());
+		didMove_ = posComponent_->nextPos().didParentMove() || !posComponent_->nextPos().localEquals(posComponent_->pos());
 		return didMove_;
 	}
 
@@ -90,6 +90,10 @@ namespace se_core {
 	}
 
 
+	void PhysicsComponent
+	::flip() {
+		posComponent_->flip();
+	}
 
 }
 
