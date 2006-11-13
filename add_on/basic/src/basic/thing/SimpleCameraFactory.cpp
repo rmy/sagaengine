@@ -33,6 +33,8 @@ namespace se_basic {
 		}
 		a->setTag(tag_);
 
+		createComponents(a);
+
 		return a;
 	}
 

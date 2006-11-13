@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef SimCompositeFactory_hpp
-#define SimCompositeFactory_hpp
+#ifndef SimComponentFactory_hpp
+#define SimComponentFactory_hpp
 
 #include "sim.hpp"
 #include "util/type/util_type.hpp"
@@ -30,29 +30,15 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport SimCompositeFactory {
+	class _SeCoreExport SimComponentFactory {
 	public:
-		SimCompositeFactory(short type, String* name);
-		virtual ~SimCompositeFactory();
-		const char* name() const;
-		virtual SimComposite* create() const = 0;
-		virtual void release(SimComposite* t) const;
-
-		void addComponent(SimComponentFactory* f);
-
-		void setTag(int t) { tag_ = t; }
-		int tag() { return tag_; }
+		SimComponentFactory(short type);
+		virtual ~SimComponentFactory();
+		virtual SimComponent* create(SimComposite* owner) const = 0;
+		virtual void release(SimComponent* t) const;
 
 	protected:
-		String* name_;
 		short type_;
-		int tag_;
-		
-		void createComponents(SimComposite* owner) const;
-
-		static const int MAX_COMPONENTS = 12;
-		int componentCount_;
-		SimComponentFactory* components_[ MAX_COMPONENTS ];
 	};
 
 }

@@ -3,8 +3,8 @@
 
 namespace se_core {
 	SimComponent
-	::SimComponent(enum SimComponentType type, SimComposite* owner)
-			: type_(type), owner_(owner) {
+	::SimComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory)
+			: type_(type), owner_(owner), factory_(factory) {
 		owner_->addComponent(*this);
 	}
 

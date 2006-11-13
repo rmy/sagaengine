@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "SimCompositeFactory.hpp"
 #include "SimComposite.hpp"
+#include "SimComponentFactory.hpp"
 #include "./config/all.hpp"
 #include "./stat/all.hpp"
 #include "util/type/all.hpp"
@@ -32,7 +33,7 @@ namespace se_core {
 
 	SimCompositeFactory
 	::SimCompositeFactory(short type, String* name)
-		: name_(name), type_(type), tag_(0) {
+		: name_(name), type_(type), tag_(0), componentCount_(0) {
 	}
 
 
@@ -42,8 +43,16 @@ namespace se_core {
 	}
 
 
+	SimComposite* SimCompositeFactory
+	::create() const {
+		SimComposite* c = new SimComposite(name());
+		createComponents(c);
+	}
+
+
 	void SimCompositeFactory
-	::release(SimComposite* t) {
+	::release(SimComposite* t) const {
+		t->releaseComponents();
 		delete t;
 	}
 
@@ -54,5 +63,18 @@ namespace se_core {
 	}
 
 
+	void SimCompositeFactory
+	::addComponent(SimComponentFactory* f) {
+		Assert(componentCount_ < MAX_COMPONENTS);
+		components_[ componentCount_++ ] = f;
+	}
+
+
+	void SimCompositeFactory
+	::createComponents(SimComposite* owner) const {
+		for(int i = 0; i < componentCount_; ++i) {
+			components_[ i ]->create(owner);
+		}
+	}
 
 }

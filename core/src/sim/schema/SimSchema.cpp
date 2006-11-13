@@ -120,6 +120,5 @@ namespace se_core {
 		void touch() {
 			// The core has no dependencies
 		}
-
 	}
 }

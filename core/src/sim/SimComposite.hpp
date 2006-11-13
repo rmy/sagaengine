@@ -43,10 +43,9 @@ namespace se_core {
 
 	public:
 		SimComposite(const char* name);
+		virtual ~SimComposite();
 
 		SimComponent* component(int type);
-		void addComponent();
-
 
 		/**
 		 * Does the Pos have a parent?
@@ -78,6 +77,8 @@ namespace se_core {
 
 		void setTag(int t) { tag_ = t; }
 		int tag() { return tag_; }
+
+		void releaseComponents();
 
 	private:
 		friend class SimComponent;
