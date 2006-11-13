@@ -52,7 +52,7 @@ namespace se_core {
 	::leaveCurrentArea() {
 		if(!pos().hasArea()) return;
 		Actor::leaveCurrentArea();
-		if(handler_) handler_->cameraLeftAreaEvent(*this, *position_.area());
+		if(handler_) handler_->cameraLeftAreaEvent(*this, *const_cast<Pos&>(pos()).area());
 	}
 
 

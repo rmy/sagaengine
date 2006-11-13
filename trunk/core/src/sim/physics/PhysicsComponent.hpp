@@ -31,13 +31,14 @@ rune@skalden.com
 #include "../custom/sim_custom.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
+#include "../pos/PosComponent.hpp"
 
 namespace se_core {
 	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
 		 */
-		PhysicsComponent(Actor* owner);
+		PhysicsComponent(Actor* owner, PosComponent* posComponent);
 		~PhysicsComponent();
 
 		const char* name() { return "PhysicsSolver"; }
@@ -65,6 +66,8 @@ namespace se_core {
 
 		bool isMover() const;
 
+		void flip();
+
 	private:
 		inline bool hasPhysics() const {
 			return (physics_[0] != 0);
@@ -80,6 +83,7 @@ namespace se_core {
 		short currentPhysics_;
 		static const short MAX_PHYSICS_STACK_SIZE = 3;
 		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
+		PosComponent* posComponent_;
 
 		Move move_, nextMove_;
 

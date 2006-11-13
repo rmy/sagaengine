@@ -33,8 +33,8 @@ namespace se_basic {
 		//Assert(nextPosition_.face().isIdentity() 
 		//	   && "Rotation of area not supported");
 
-		Point2 p(worldCoor.x_ - nextPosition_.world_.coor_.x_
-				 , worldCoor.z_ - nextPosition_.world_.coor_.z_);
+		Point2 p(worldCoor.x_ - nextPos().world_.coor_.x_
+				 , worldCoor.z_ - nextPos().world_.coor_.z_);
 
 		//LogMsg(p.x_ << ", " << p.y_);
 

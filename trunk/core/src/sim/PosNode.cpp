@@ -38,15 +38,20 @@ namespace se_core {
 	::PosNode(enum SimObjectType type, const char* name)
 			: SimComposite(type, name)
 			, isCollideable_(false)
-			, didMove_(false)
-			, spawnPoints_(0) {		
+			 //, didMove_(false)
+			 //, spawnPoints_(0) 
+		
+	{ 
+		posComponent_ = new PosComponent(this);
 	}
 
 
 	PosNode
 	::~PosNode() {
+		delete posComponent_;
 	}
 
+	/*
 
 	void PosNode
 	::cleanup() {
@@ -71,7 +76,7 @@ namespace se_core {
 	void PosNode
 	::leaveCurrentParent() {
 		if(position_.hasParent()) {
-			position_.parent()->removeChildPosNode(*this);
+			//position_.parent()->removeChildPosNode(*this);
 			resetParent();
 		}
 	}
@@ -84,7 +89,7 @@ namespace se_core {
 
 		if(nextPos().hasParent()) {
 			setParent(*nextPos().parent());
-			nextPos().parent()->addChildPosNode(*this);
+			//nextPos().parent()->addChildPosNode(*this);
 		}
 		else {
 			resetParent();
@@ -119,33 +124,6 @@ namespace se_core {
 		return true;
 	}
 
-
-	void PosNode
-	::addChildPosNode(PosNode& node) {
-		// Static pos nodes should have the area as
-		// parent.
-		if(node.isMover()) {
-			// Only actors supported as movers
-			Assert(node.isType(got_ACTOR));
-			childPosNodes_.add(node);
-		}
-		else {
-			// Non-movers are probably static
-			// things or actors added to area.
-			// Might as well freeze their coordinates
-			// in world space, saving traversal overhead.
-
-			node.nextPos().updateWorldViewPoint();
-			// Freeze at world viewpoint
-			node.nextPos().resetParent(true);
-		}
-	}
-
-
-	void PosNode
-	::removeChildPosNode(PosNode& node) {
-		childPosNodes_.remove(node);
-	}
 
 
 	void PosNode
@@ -188,5 +166,6 @@ namespace se_core {
 		Assert(spawnPoints_[id] != 0);
 		return spawnPoints_[id];
 	}
+	*/
 
 }

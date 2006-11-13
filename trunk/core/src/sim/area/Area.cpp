@@ -48,15 +48,16 @@ namespace se_core {
 			, factory_(0) {
 
 		// Init to default position
-		position_.reset();
-		nextPosition_.reset();
+		//position_.reset();
+		//nextPosition_.reset();
 
+		nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
 		BoundingBox b;
 		b.setMin(0, 0, 0);
 		b.setMax(CoorT::fromTile(w), ySize, CoorT::fromTile(h));
-		position_.setBounds(b);
-		nextPosition_.setBounds(b);
+		nextPos().setBounds(b);
+		flip();
 
 		// Singly linked list containing all things in area. Listeners
 		// my subscribe to get events when a members is removed
@@ -357,7 +358,7 @@ namespace se_core {
 	void Area
 	::reset() {
 		// Get newly spawned objects into allThings()
-		flipSpawns();
+		flip();
 
 		// Shedule all things for destruction, and flip
 		// it out of area
