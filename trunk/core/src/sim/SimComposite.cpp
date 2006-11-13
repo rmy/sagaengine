@@ -1,5 +1,6 @@
 #include "SimComposite.hpp"
 #include "SimComponent.hpp"
+#include "SimComponentFactory.hpp"
 #include "stat/MultiSimComponent.hpp"
 #include "sim.hpp"
 
@@ -12,7 +13,12 @@ namespace se_core {
 
    	SimComposite
 	::SimComposite(const char* name)
-		: SimObject(got_SIM_COMPOSITE_OWNER, name), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+		: SimObject(got_SIM_COMPOSITE, name), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+	}
+
+
+	SimComposite
+	::~SimComposite() {
 	}
 
 
@@ -40,6 +46,19 @@ namespace se_core {
 		//return composites_.lookup(type);
 		return 0;
 	}
+
+
+	void SimComposite
+	::releaseComponents() {
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			if(c.factory()) {
+				c.factory()->release(&c);
+			}
+		}
+	}
+
 
 
 	void SimComposite

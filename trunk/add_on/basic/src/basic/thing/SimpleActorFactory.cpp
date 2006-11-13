@@ -48,6 +48,8 @@ namespace se_basic {
 			a->setDefaultScript(script_);
 		}
 
+		createComponents(a);
+
 		return a;
 	}
 

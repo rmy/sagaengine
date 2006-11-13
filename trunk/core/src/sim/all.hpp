@@ -12,6 +12,7 @@
 #include "SimNodeComponent.hpp"
 #include "SimEngine.hpp"
 #include "SimComponent.hpp"
+#include "SimComponentFactory.hpp"
 #include "SimComponentManager.hpp"
 
 #endif
