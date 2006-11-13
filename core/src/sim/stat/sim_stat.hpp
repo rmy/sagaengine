@@ -30,12 +30,12 @@ namespace se_core {
 
 	class MultiSimObject;
 	class MultiSimComponent;
+	class MultiSimNodeComponent;
 	class ReportingMultiSimObject;
 	class ReportingMGOHandler;
 	class MultiSimObjectListener;
 
 	class MultiSimObjectIterator;
-	class MultiSimComponentIterator;
 	class ThingIterator;
 
 	// Use with util/template/HashTable ?

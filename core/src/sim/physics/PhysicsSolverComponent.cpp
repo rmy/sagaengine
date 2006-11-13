@@ -34,7 +34,7 @@ namespace se_core {
 
 	PhysicsSolverComponent
 	::PhysicsSolverComponent(SimComposite* owner) 
-		: SimComponent(sct_PHYSICS, owner)
+		: SimNodeComponent(sct_PHYSICS, owner)
 		, collisionGrid_(0)
 		, moverCount_(0) {
 	}
@@ -70,50 +70,14 @@ namespace se_core {
 			didDelete = collisionGrid_->remove(thing.nextPos().worldCoor(), speedAndRadius, thing);
 			if(!didDelete) LogMsg("Couldn't remove " << thing.name() << " from collision grid");
 		}
-		//LogMsg(thing.name());
+
 		// TODO: This assert fails?
 		DbgAssert(didDelete);
 	}
 
 
-	/*
-	inline bool _testActor2ThingCollision(Actor& actor1,
-							  Thing& thing2) {
-		// How close must the things be before colliding?
-		// Double for pow 2 further down
-		coor_t radSum = actor1.pos().radius() + thing2.pos().radius();
-		coor_double_t radSumSq = radSum;
-		radSumSq *= radSumSq;
-
-		// If not colliding when taking the movement of both things
-		// into account, then no collision
-		if((actor1.nextPos().worldCoor().xzDistanceSquared(thing2.nextPos().worldCoor()) > radSumSq)
-				|| (actor1.nextPos().worldCoor().yDistance(thing2.nextPos().worldCoor()) > radSum)
-				) {
-			return false;
-		}
-
-		// Inside collision range. Definitely collide.
-		return actor1.pushThing(thing2);
-	}
-	*/
-
-
 	inline bool _testActor2ThingCollision(Actor& pn1,
 							  Thing& pn2) {
-		// How close must the things be before colliding?
-		// Double for pow 2 further down
-		/*
-		coor_t r = pn1.pos().radius();
-		BoundingBox b1(pn1.pos().worldCoor(), r, 2 * r);
-		r = pn1.nextPos().radius();
-		b1.merge(BoundingBox(pn1.nextPos().worldCoor(), r, 2 * r));
-
-		r = pn2.pos().radius();
-		BoundingBox b2(pn2.pos().worldCoor(), r, 2 * r);
-		r = pn2.nextPos().radius();
-		b2.merge(BoundingBox(pn2.nextPos().worldCoor(), r, 2 * r));
-		*/
 		BoundingBox b1(pn1.pos().worldCoor(), pn1.pos().bounds_);
 		BoundingBox btmp(pn1.pos().worldCoor(), pn1.pos().bounds_);
 		b1.merge(btmp);
@@ -121,18 +85,16 @@ namespace se_core {
 		BoundingBox b2tmp(pn2.pos().worldCoor(), pn2.pos().bounds_);
 		b2.merge(b2tmp);
 
-		//LogMsg("Collision: " << pn1.name() << ", " << pn2.name() << b1 << b2);
-
 		if(!b1.isTouching(b2))
 			return false;
 
-		// Inside collision range. Definitely collide.
+		// Inside collision range. Collide.
 		return pn1.pushThing(pn2);
 	}
 
 
 	void PhysicsSolverComponent
-	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
+	::testActors2ThingsCollisions(PhysicsComponent** movers, short moverCount) {
 		// Create buffer to temporarily hold collision candidates
 		static const int MAX_THINGS = 256;
 		// PS! Not thread safe, but takes less space on GBA stack
@@ -140,7 +102,7 @@ namespace se_core {
 		Area* self = toArea();
 
 		for(int outer = 0; outer < moverCount; ++outer) {
-			Actor* a = movers[ outer ];
+			Actor* a = movers[ outer ]->actor();
 			if(!a->isPusher())
 				continue;
 
@@ -211,58 +173,58 @@ namespace se_core {
 
 	void PhysicsSolverComponent
 	::flipChildren() {
-		static const int MAX_STACK_DEPTH = 10;
-		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
+		if(children_.isEmpty())
+			return;
 
 		Thing* t;
 
+
+		static const int MAX_STACK_DEPTH = 10;
+		MultiSimNodeComponent::Iterator itStack[ MAX_STACK_DEPTH ];
 		int sp = 0;
-		itStack[ 0 ] = toArea()->childPosNodes().iterator();
-		if(itStack[ 0 ] != SimObjectList::end()) {
-			do {
-				// Get next in chain
-				PosNode* p = SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
-				Assert(p);
-				// Move to new position in collision grid
-				if(collisionGrid_
-				   && p->isCollideable()
-				   && p->pos().area() == p->nextPos().area()) {
+		itStack[ 0 ].init(children_);
+		do {
+			// Get next in chain
+			PhysicsComponent& ph = static_cast<PhysicsComponent&>(itStack[ sp ].next());
+			PosNode* p = ph.owner(); //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
+			Assert(p);
+			// Move to new position in collision grid
+			if(collisionGrid_
+			   && p->isCollideable()
+			   && p->pos().area() == p->nextPos().area()) {
 
-					// TODO: Make CollisionGrid handle PosNodes
-					Assert(p->isType(got_POS_NODE));
-					t = static_cast<Thing*>(p);
+				// TODO: Make CollisionGrid handle PosNodes
+				Assert(p->isType(got_POS_NODE));
+				t = static_cast<Thing*>(p);
 
-					// TODO: Real speed instead of max speed...
-					static const coor_t speed = MAX_SPEED;
-					coor_t speedAndRadius = p->pos().radius() + speed;
-					const Point3& wc = p->pos().worldCoor();
+				// TODO: Real speed instead of max speed...
+				static const coor_t speed = MAX_SPEED;
+				coor_t speedAndRadius = p->pos().radius() + speed;
+				const Point3& wc = p->pos().worldCoor();
 
-					// TODO: Real speed instead of max speed...
-					static const coor_t nextSpeed =  MAX_SPEED;
-					coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-					const Point3& nextWC = p->nextPos().worldCoor();
+				// TODO: Real speed instead of max speed...
+				static const coor_t nextSpeed =  MAX_SPEED;
+				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
+				const Point3& nextWC = p->nextPos().worldCoor();
 
-					collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
-				}
+				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
+			}
 
-				// Do the flip
-				p->flip();
+			// Do the flip
+			p->flip();
 
-				// Push child chain as next chain on stack
-				itStack[ ++sp ] = p->childPosNodes().iterator();
+			// Stack overflowing?
+			Assert(sp < MAX_STACK_DEPTH - 1);
 
-				// Stack overflowed?
-				Assert(sp < MAX_STACK_DEPTH);
+			// Push child chain as next chain on stack
+			itStack[ ++sp ].init(ph.children());
 
-				// Pop all completed chain
-				while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
-					--sp;
-				}
-				// Continue if unpopped chains
-			} while(sp >= 0);
-		}
-
-		toArea()->flipChildren();
+			// Pop all completed chain
+			while(sp >= 0 && !itStack[ sp ].hasNext()) {
+				--sp;
+			}
+			// Continue if unpopped chains
+		} while(sp >= 0);
 	}
 
 
@@ -278,5 +240,48 @@ namespace se_core {
 			PhysicsComponentManager::singleton().setSolverInactive(this);
 		}
 	}
+
+
+	int PhysicsSolverComponent
+	::performChildPhysics(PhysicsComponent** movers) {
+		if(children_.isEmpty()) {
+			// No children at all
+			return 0;
+		}
+
+		int moverCount = 0;
+		static const int MAX_STACK_DEPTH = 10;
+		MultiSimNodeComponent::Iterator itStack[ MAX_STACK_DEPTH ];
+		int sp = 0;
+		itStack[ 0 ].init(children_);
+
+		do {
+			// Get next in chain
+			PhysicsComponent& p = static_cast<PhysicsComponent&>(itStack [ sp ].next());
+
+			// Calc next position
+			if(p.calcNextCoor()) {
+				// Add to movers
+				movers[moverCount++] = &p;
+			}
+
+
+			// Push child chain as next chain on stack
+			itStack[ ++sp ].init(p.children());
+
+			// Stack overflowed?
+			Assert(sp < MAX_STACK_DEPTH);
+
+			// Pop all completed chain
+			while(sp >= 0 && !itStack[ sp ].hasNext()) {
+				--sp;
+			}
+
+			// Continue if there are still incomplete chains
+		} while(sp >= 0);
+
+		return moverCount;
+	}
+
 
 }

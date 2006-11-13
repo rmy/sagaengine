@@ -44,6 +44,7 @@ namespace se_core {
 
 	void SimComposite
 	::addComponent(SimComponent& c) {
+		Assert(component(c.type()) == 0);
 		components_.add(c);
 	}
 
@@ -82,6 +83,7 @@ namespace se_core {
 
 	void SimComposite
 	::setParent(SimComposite& p) {
+		WasHere();
 		if(parent_)
 			parent_->removeChild(*this);
 

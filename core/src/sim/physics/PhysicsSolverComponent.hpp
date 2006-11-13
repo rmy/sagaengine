@@ -23,17 +23,19 @@ rune@skalden.com
 #define engine_physics_PhysicsSolverComponent_hpp
 
 #include "Physics.hpp"
-#include "../SimComponent.hpp"
+#include "../SimNodeComponent.hpp"
 #include "../area/CollisionGrid.hpp"
 #include "../area/Area.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsSolverComponent : public SimComponent {
+	class _SeCoreExport PhysicsSolverComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
 		 */
 		PhysicsSolverComponent(SimComposite* owner);
 		~PhysicsSolverComponent();
+
+		const char* name() { return "PhysicsSolver"; }
 
 
 		/**
@@ -53,7 +55,8 @@ namespace se_core {
 		 * @see setCollisionGrid
 		 */
 		void resetCollisionGrid();
-		void testActors2ThingsCollisions(Actor** movers, short moverCount);
+		void testActors2ThingsCollisions(PhysicsComponent** movers, short moverCount);
+		int performChildPhysics(PhysicsComponent** movers);
 
 		void addCollideable(Thing& posNode);
 		void removeCollideable(Thing& posNode);
@@ -70,7 +73,7 @@ namespace se_core {
 		 * used by the collision detector.
 		 */
 		friend class PhysicsComponentManager;
-		Actor** movers_;
+		PhysicsComponent** movers_;
 
 		/** Number of movers presently in the movers_ array */
 		short moverCount_;

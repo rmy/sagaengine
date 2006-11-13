@@ -111,7 +111,6 @@ namespace se_core {
 
 		bool isActive_;
 		bool isDead_;
-
 	};
 
 }

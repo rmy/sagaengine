@@ -51,6 +51,7 @@ namespace se_core {
 	void PosNode
 	::cleanup() {
 		nextPos().resetParent();
+		resetParent();
 		flip();
 	}
 
@@ -71,6 +72,7 @@ namespace se_core {
 	::leaveCurrentParent() {
 		if(position_.hasParent()) {
 			position_.parent()->removeChildPosNode(*this);
+			resetParent();
 		}
 	}
 

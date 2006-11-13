@@ -66,7 +66,6 @@ namespace se_core {
 		void flip(long when);
 		void affect(long when);
 		void performPhysics(long when);
-		int performChildPhysics(Area* area, Actor** movers);
 		void testCollisions(long startWhen, long endWhen);
 
 
@@ -80,7 +79,7 @@ namespace se_core {
 		 * List of movers this step. Updated by the coordinate precalcer and
 		 * used by the collision detector.
 		 */
-		Actor** movers_;
+		PhysicsComponent** movers_;
 
 		/** Number of movers presently in the movers_ array */
 		short moverCount_;

@@ -357,7 +357,7 @@ namespace se_core {
 	void Area
 	::reset() {
 		// Get newly spawned objects into allThings()
-		flipChildren();
+		flipSpawns();
 
 		// Shedule all things for destruction, and flip
 		// it out of area
@@ -465,132 +465,7 @@ namespace se_core {
 
 
 	void Area
-	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
-		physicsSolverComponent_->testActors2ThingsCollisions(movers, moverCount);
-	}
-
-	/*
-
-	inline bool _testActor2ThingCollision(Actor& actor1,
-							  Thing& thing2) {
-		// How close must the things be before colliding?
-		// Double for pow 2 further down
-		coor_t radSum = actor1.pos().radius() + thing2.pos().radius();
-		coor_double_t radSumSq = radSum;
-		radSumSq *= radSumSq;
-
-		// If not colliding when taking the movement of both things
-		// into account, then no collision
-		if((actor1.nextPos().worldCoor().xzDistanceSquared(thing2.nextPos().worldCoor()) > radSumSq)
-				|| (actor1.nextPos().worldCoor().yDistance(thing2.nextPos().worldCoor()) > radSum)
-				) {
-			return false;
-		}
-
-		// Inside collision range. Definitely collide.
-		return actor1.pushThing(thing2);
-	}
-
-	void Area
-	::testActors2ThingsCollisions(Actor** movers, short moverCount) {
-		Assert(collisionGrid_);
-
-		// Create buffer to temporarily hold collision candidates
-		static const int MAX_THINGS = 256;
-		// PS! Not thread safe, but takes less space on GBA stack
-		static Thing* things[MAX_THINGS] VAR_IN_EWRAM;
-
-		for(int outer = 0; outer < moverCount_; ++outer) {
-			Actor* a = movers[ outer ];
-
-			// Get collision candidates in this and all
-			// neighbouring areas
-			short innerCount = 0;
-			for(int n = 0; n < MAX_NEIGHBOURS; ++n) {
-				Area* area = neighbours_[ n ];
-				if(!area || !area->collisionGrid_) continue;
-
-				innerCount += area->collisionGrid_->collisionCandidates
-					(a->nextPos().worldCoor(), a->nextPos().radius() + COOR_RES
-					 , &things[innerCount], MAX_THINGS - innerCount);
-			}
-
-			// Test collision with all collision candidates
-			for(int inner = 0; inner < innerCount; ++inner) {
-				// Don't test collision with self
-				if(things[ inner ] == a) {
-					continue;
-				}
-
-				// Test for collision
-				if(_testActor2ThingCollision(*a, *things[ inner ])) {
-					a->resetFutureCoor();
-					LogMsg("Collision: " << a->name() << ", " << things[ inner ]->name());
-					break;
-				}
-			}
-		}
-	}
-	*/
-
-
-	void Area
-	::flipChildren(void) {
-		//physicsSolverComponent_->flipChildren();
-		/*
-		static const int MAX_STACK_DEPTH = 10;
-		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
-
-		Thing* t;
-
-		int sp = 0;
-		itStack[ 0 ] = childPosNodes().iterator();
-		if(itStack[ 0 ] != SimObjectList::end()) {
-			do {
-				// Get next in chain
-				PosNode* p = SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
-				Assert(p);
-				// Move to new position in collision grid
-				if(collisionGrid_
-				   && p->isCollideable()
-				   && p->pos().area() == p->nextPos().area()) {
-
-					// TODO: Make CollisionGrid handle PosNodes
-					Assert(p->isType(got_POS_NODE));
-					t = static_cast<Thing*>(p);
-
-					// TODO: Real speed instead of max speed...
-					static const coor_t speed = MAX_SPEED;
-					coor_t speedAndRadius = p->pos().radius() + speed;
-					const Point3& wc = p->pos().worldCoor();
-
-					// TODO: Real speed instead of max speed...
-					static const coor_t nextSpeed =  MAX_SPEED;
-					coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-					const Point3& nextWC = p->nextPos().worldCoor();
-
-					collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
-				}
-
-				// Do the flip
-				p->flip();
-
-				// Push child chain as next chain on stack
-				itStack[ ++sp ] = p->childPosNodes().iterator();
-
-				// Stack overflowed?
-				Assert(sp < MAX_STACK_DEPTH);
-
-				// Pop all completed chain
-				while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
-					--sp;
-				}
-				// Continue if unpopped chains
-			} while(sp >= 0);
-		}
-		*/
-
-
+	::flipSpawns(void) {
 		// Flip new spawns into area
 		SimObjectList::iterator_type it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
 		while(it != SimObjectList::end()) {

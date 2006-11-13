@@ -33,7 +33,7 @@ namespace se_core {
 	PhysicsComponentManager
 	::PhysicsComponentManager()
 			: SimComponentManager(sct_PHYSICS) 
-			, movers_(new Actor*[MAX_MOVER_COUNT]), moverCount_(0)
+			, movers_(new PhysicsComponent*[MAX_MOVER_COUNT]), moverCount_(0)
 			, activeSolverCount_(0)
 			, gridCount_(0), gridPoolCount_(0) {
 		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
@@ -107,42 +107,24 @@ namespace se_core {
 		moverCount_ = 0;
 	}
 
+
 	void PhysicsComponentManager
 	::flip(long when) {
-		/*
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			area->flipChildren();
-		}
-		*/
 		for(int i = 0; i < activeSolverCount_; ++i) {
 			PhysicsSolverComponent* s = activeSolvers_[i];
 			s->flipChildren();
+			s->toArea()->flipSpawns();
 		}
 	}
 
 
 	void PhysicsComponentManager
 	::performPhysics(long when) {
-		Actor** m = movers_;
+		PhysicsComponent** m = movers_;
 		moverCount_ = 0;
-		/*
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			int c = performChildPhysics(area, m);
-
-			area->moverCount_ = c;
-			area->movers_ = m;
-
-			m += c;
-			moverCount_ += c;
-
-		}
-		*/
-
 		for(int i = 0; i < activeSolverCount_; ++i) {
 			PhysicsSolverComponent* s = activeSolvers_[i];
-			int c = performChildPhysics(s->toArea(), m);
+			int c = s->performChildPhysics(m);
 
 			s->moverCount_ = c;
 			s->movers_ = m;
@@ -153,56 +135,9 @@ namespace se_core {
 	}
 
 
-	int PhysicsComponentManager
-	::performChildPhysics(Area* area, Actor** movers) {
-		int moverCount = 0;
-
-		static const int MAX_STACK_DEPTH = 10;
-		SimObjectList::iterator_type itStack[ MAX_STACK_DEPTH ];
-
-		int sp = 0;
-		itStack[ 0 ] = area->childPosNodes().iterator();
-		if(itStack[ 0 ] == SimObjectList::end())
-			// No children at all
-			return 0;
-
-		do {
-			// Get next in chain
-			Actor* a = SimSchema::simObjectList.nextActor(itStack [ sp ]);
-
-			// Calc next position
-			if(a->calcNextCoor()) {
-				// Add to movers
-				movers[moverCount++] = a;
-			}
-
-
-			// Push child chain as next chain on stack
-			itStack[ ++sp ] = a->childPosNodes().iterator();
-
-			// Stack overflowed?
-			Assert(sp < MAX_STACK_DEPTH);
-
-			// Pop all completed chain
-			while(sp >= 0 && itStack[ sp ] == SimObjectList::end()) {
-				--sp;
-			}
-
-			// Continue if there are still incomplete chains
-		} while(sp >= 0);
-
-		return moverCount;
-	}
-
 
 	void PhysicsComponentManager
 	::testCollisions(long startWhen, long endWhen) {
-		/*
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			area->testActors2ThingsCollisions(area->movers_, area->moverCount_);
-		}
-		*/
 		for(int i = 0; i < activeSolverCount_; ++i) {
 			PhysicsSolverComponent* s = activeSolvers_[i];
 			s->testActors2ThingsCollisions(s->movers_, s->moverCount_);
@@ -219,12 +154,11 @@ namespace se_core {
 			// be placed in move(), because flip may move
 			// the actor into a new area or no area. Placing it
 			// here should have no unwanted side effects.
-			Actor* a = movers_[i];
-			a->affect();
+			PhysicsComponent* p = movers_[i];
+			p->affect();
 		}
 
 	}
-
 
 
 	CollisionGrid* PhysicsComponentManager
@@ -249,12 +183,10 @@ namespace se_core {
 	}
 
 
-
 	void PhysicsComponentManager
 	::releaseCollisionGrid(CollisionGrid* g) {
 		g->clear();
 		gridPool_[ gridPoolCount_++ ] = g;
 	}
-
 
 }

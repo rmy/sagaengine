@@ -24,7 +24,6 @@ rune@skalden.com
 #include "SimObject.hpp"
 #include "SimComposite.hpp"
 #include "schema/SimSchema.hpp"
-#include "stat/SimComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,13 +31,13 @@ namespace se_core {
 
 	SimNodeComponent
 	::SimNodeComponent(SimComposite* owner)
-		: SimComponent(sct_NODE, owner) {
+		: SimComponent(sct_NODE, owner), parent_(0) {
 	}
 
 
 	SimNodeComponent
 	::SimNodeComponent(enum SimComponentType type, SimComposite* owner)
-		: SimComponent(type, owner) {
+		: SimComponent(type, owner), parent_(0) {
 	}
 
 
@@ -65,6 +64,7 @@ namespace se_core {
 		parent_->addChild(*this);
 	}
 
+
 	void SimNodeComponent
 	::addChild(SimNodeComponent& node) {
 		// Static pos nodes should have the area as
@@ -80,11 +80,12 @@ namespace se_core {
 
 
 	void SimNodeComponent
-	::parentChanged(SimComposite* oldParent, SimComposite* newParent) {
+	::parentChanged(SimComposite* newParent, SimComposite* oldParent) {
 		if(newParent) {
-			SimNodeComponent* n = static_cast<SimNodeComponent*>(owner_->component(type_));
-			if(n)
+			SimNodeComponent* n = static_cast<SimNodeComponent*>(newParent->component(type()));
+			if(n) {
 				setParent(*n);
+			}
 		}
 		else {
 			resetParent();
