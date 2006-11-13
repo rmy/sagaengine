@@ -166,15 +166,13 @@ namespace se_core {
 		bool addNeighbour(Area* area);
 		bool isNeighbour(Area& area);
 
-		void testActors2ThingsCollisions(Actor** movers, short moverCount);
-
 		/**
 		 * Flip all moving things in this area, making
 		 * their nextPos() their pos(). This method
 		 * is called on active areas by the SimEngine
 		 * class in the beginning of each step.
 		 */
-		void flipChildren(void);
+		void flipSpawns(void);
 
 		/**
 		 * Call affect on all moving things, then calculate

@@ -28,7 +28,7 @@ rune@skalden.com
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
-#include "./stat/SimComponentList.hpp"
+#include "./stat/MultiSimNodeComponent.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
 #include "util/vecmath/Point3.hpp"
@@ -72,27 +72,34 @@ namespace se_core {
 		 */
 		void resetParent();
 
+		void setParent(SimNodeComponent& p);
+
+		MultiSimNodeComponent& children() {
+			return children_;
+		}
+
+	protected:
+		void parentChanged(SimComposite* newParent, SimComposite* oldParent);
+
 		/**
 		 * Add a SimNodeComponent as a child.
+		 * Called by setParent of child.
 		 */
 		void addChild(SimNodeComponent& node);
 
 		/**
 		 * Add a SimNodeComponent from the child list.
+		 * Called by setParent of child.
 		 */
 		void removeChild(SimNodeComponent& node);
 
 
-		void setParent(SimNodeComponent& p);
-
-	protected:
-		void parentChanged(SimComposite* oldParent, SimComposite* newParent);
 
 		/** The parent of this position */
 		SimNodeComponent* parent_;
 
 		/** List of child SimNodeComponents  */
-		MultiSimComponent children_;
+		MultiSimNodeComponent children_;
 	};
 
 }

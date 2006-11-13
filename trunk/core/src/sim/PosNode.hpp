@@ -157,9 +157,9 @@ namespace se_core {
 		/**
 		 * Get the list of child PosNodes.
 		 */
-		MultiSimObject& childPosNodes() {
-			return childPosNodes_;
-		}
+		//MultiSimObject& childPosNodes() {
+		//	return childPosNodes_;
+		//}
 
 		/**
 		 * Remove the PosNode from the child list of its parent.

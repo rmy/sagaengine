@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef MultiSimComponent_hpp
-#define MultiSimComponent_hpp
+#ifndef MultiSimNodeComponent_hpp
+#define MultiSimNodeComponent_hpp
 
 #include "sim_stat.hpp"
 #include "VoidList.hpp"
@@ -29,24 +29,24 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport MultiSimComponent {
-		friend class MultiSimComponentIterator;
+	class _SeCoreExport MultiSimNodeComponent {
+		friend class MultiSimNodeComponentIterator;
 
 	public:
 		typedef VoidList::iterator_type iterator_type;
 		class _SeCoreExport Iterator {
 		public:
 			Iterator();
-			Iterator(MultiSimComponent& mgo);
-			void init(MultiSimComponent& mgo);
+			Iterator(MultiSimNodeComponent& mgo);
+			void init(MultiSimNodeComponent& mgo);
 			void init(short firstNode);
 
 			inline bool hasNext() {
 				return it_ != VoidList::end();
 			}
 
-			inline SimComponent& next() {
-				return *static_cast<SimComponent*>(SimSchema::voidList.next(it_));
+			inline SimNodeComponent& next() {
+				return *static_cast<SimNodeComponent*>(SimSchema::voidList.next(it_));
 			}
 
 		private:
@@ -54,16 +54,16 @@ namespace se_core {
 		};
 
 
-		MultiSimComponent();
-		virtual ~MultiSimComponent();
-		virtual void add(SimComponent& value);
-		void add(MultiSimComponent& msc);
-		virtual void remove(SimComponent& value);
+		MultiSimNodeComponent();
+		virtual ~MultiSimNodeComponent();
+		virtual void add(SimNodeComponent& value);
+		void add(MultiSimNodeComponent& msc);
+		virtual void remove(SimNodeComponent& value);
 		void initIterator(VoidList::iterator_type& iterator) const;
 		inline VoidList::iterator_type iterator() const { return firstNode_; }
-		bool contains(SimComponent& value) const;
-		bool contains(MultiSimComponent& msc) const;
-		bool sharesAny(MultiSimComponent& msc) const;
+		bool contains(SimNodeComponent& value) const;
+		bool contains(MultiSimNodeComponent& msc) const;
+		bool sharesAny(MultiSimNodeComponent& msc) const;
 		bool isEmpty() const;
 		void destroyMembersAndClear();
 		void clear();

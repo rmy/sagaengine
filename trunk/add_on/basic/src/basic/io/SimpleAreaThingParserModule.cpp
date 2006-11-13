@@ -85,7 +85,7 @@ namespace se_basic {
 				areas[i]->setSpawnPoints(spawnPointCount, spawnPoints);
 			}
 			//LogMsg("Flip children for: " << areas[i]->name());
-			areas[i]->flipChildren();
+			areas[i]->flipSpawns();
 		}
 		//LogMsg("Parsed things for: " << area->name());
 	}

@@ -40,6 +40,7 @@ namespace se_core {
 		PhysicsComponent(Actor* owner);
 		~PhysicsComponent();
 
+		const char* name() { return "PhysicsSolver"; }
 		bool calcNextCoor();
 
 		void affect() {

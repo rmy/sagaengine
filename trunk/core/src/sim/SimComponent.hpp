@@ -42,6 +42,8 @@ namespace se_core {
 		 */
 		SimComponent(enum SimComponentType type, SimComposite* owner);
 
+		virtual const char* name() { return "Unkown"; }
+
 		/**
 		 * Destructor.
 		 */
@@ -82,7 +84,7 @@ namespace se_core {
 
 		/** Called by SimComposite
 		 */
-		void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
+		virtual void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
 
 
 		/**
