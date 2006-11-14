@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "O3dConfigParserModule.hpp"
 #include "../schema/O3dSchema.hpp"
-#include "../area/WorldManager.hpp"
+#include "../area/O3dManager.hpp"
 #include "../RenderEngine.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"

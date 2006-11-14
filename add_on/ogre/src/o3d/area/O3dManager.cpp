@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "O3dPre.hpp"
-#include "WorldManager.hpp"
+#include "O3dManager.hpp"
 #include "all.hpp"
 #include "../config/o3d_config.hpp"
 #include "../input/InputHandler.hpp"
@@ -39,196 +39,33 @@ using namespace se_client;
 using namespace se_core;
 
 namespace se_ogre {
-	WorldManager
-	::WorldManager() 
-		: playerEntity_(0), shouldStop_(false), debugOverlay_(0)
-		, lastRenderClock_(0), areaCount_(0), isAreaGeomCentreAligned_(false) {
+	O3dManager
+	::O3dManager() 
+		: SimComponentManager(sct_RENDER), shouldStop_(false), debugOverlay_(0)
+		, lastRenderClock_(0) {
 		showDebugOverlay(false);
 	}
 
 
-	WorldManager
-	::~WorldManager() {
-		clearWorld();
+	O3dManager
+	::~O3dManager() {
+		//clear();
 	}
 
 
-	void WorldManager
-	::clearWorld() {
-		for(int i = 0; i < areaCount_; ++i) {
-			areas_[i]->clear();
-		}
-	}
-
-
-	void WorldManager
-	::compileAllStaticGeometry() {
-		int c = SimSchema::areaManager.areaCount();
-		for(int i = 0; i < c; ++i) {
-			Area* a = SimSchema::areaManager.area(i);
-			O3dAreaComponent* c = new O3dAreaComponent(a);
-			c->init();
-		}
-	}
-
-
-	int WorldManager
-	::findArea(int id) {
-		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[i]->owner()->id() == id)
-				return i;
-		}
-		return -1;
-	}
-
-
-	void WorldManager
-	::cameraEnteredAreaEvent(se_core::Area& area) {
-		for(int i = 0; i < areaCount_; ++i) {
-			areas_[i]->shouldKeep_ = false;
-		}
-
-		// Build terrain
-		try {
-			const char* areaType = (area.factory() != 0) ? area.factory()->name() : area.name();
-			O3dSchema::sceneManager->setWorldGeometry(Ogre::String(areaType));
-		}
-		catch(...) {
-			LogMsg("Couldn't load geometry for area: " << area.name());
-
-			int c = SimSchema::areaManager.areaCount();
-			for(int i = 0; i < c; ++i) {
-				Area* a = SimSchema::areaManager.area(i);
-				//if(!a->isActive())
-				//	continue;
-				int index = findArea(a->id());
-				if(index >= 0) {
-					areas_[ index ]->shouldKeep_ = true;
-					continue;
-				}
-
-				index = areaCount_++;
-				areas_[ index ] = static_cast<O3dAreaComponent*>(a->component(sct_RENDER));
-				areas_[ index ]->shouldKeep_ = true;
-				areas_[ index ]->setVisible(true);
-			}
-		}
-
-		// Throw away areas that shouldn't be kept
-		for(int i = 0; i < areaCount_; ++i) {
-			if(!areas_[i]->shouldKeep_) {
-				// Destroy static geometry
-				areas_[ i ]->setVisible(false);
-
-				// Move last area in array to here
-				areas_[i] = areas_[ --areaCount_];
-				// Do this index again (as it now contains a new area)
-				--i;
-			}
+	void O3dManager
+	::clear() {
+		MultiSimNodeComponent::TreeIterator it(children_);
+		while(it.hasNext()) {
+			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
+			c.clear();
 		}
 
 	}
 
 
-	void WorldManager
-	::cameraLeftAreaEvent(se_core::Area& area) {
-	}
 
-
-	void WorldManager
-	::thingEnteredActiveZoneEvent(se_core::Thing& thing) {
-		/*
-		//LogMsg("Thing entered active zone: " << thing.name());
-		if(!hasMesh(thing)) {
-			return;
-		}
-
-		// 
-		int index = findArea(thing.nextPos().area()->id());
-		if(index < 0) return;
-
-		// Add thing
-		O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
-		tc->setParentNode(areas_[ index ]->node_);
-		tc->setAreaList(areas_[ index ]->children_);
-		*/
-	}
-
-
-	void WorldManager
-	::thingLeftActiveZoneEvent(se_core::Thing& thing) {
-		/*
-		if(!hasMesh(thing)) {
-			return;
-		}
-
-		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
-		if(tc) {
-			tc->resetAreaList();
-			O3dSchema::thingMOManager.release(tc);
-		}
-		*/
-	}
-
-
-
-	void WorldManager
-	::thingSwitchedActiveAreaEvent(se_core::Thing& thing) {
-		if(!hasMesh(thing)) {
-			return;
-		}
-
-		/*
-		// Find new area
-		int nextIndex = -1;
-		if(thing.nextPos().hasArea()) {
-			nextIndex = findArea(thing.nextPos().area()->id());
-		}
-
-		// Remove from existing area
-		O3dThingComponent* tc = static_cast<O3dThingComponent*>(thing.component(sct_RENDER));
-		if(tc) {
-			tc->resetAreaList();
-			// Destroy if new area is *not* visible
-			if(nextIndex < 0) {
-				O3dSchema::thingMOManager.release(tc);
-			}
-		}
-
-
-		// Add to new area if it is visible
-		if(nextIndex >= 0) {
-			if(tc == 0)
-				tc = O3dSchema::thingMOManager.create(thing);
-			tc->setParentNode(areas_[ nextIndex ]->node_);
-			tc->setAreaList(areas_[nextIndex]->children_);
-		}
-		*/
-	}
-
-
-	bool WorldManager
-	::hasMesh(se_core::Thing& thing) {
-		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
-		if(index < 0)
-			return false;
-
-		return !O3dSchema::thingMOManager.info(index)->isStatic_;
-	}
-
-
-	bool WorldManager
-	::hasStaticGeometry(se_core::Thing& thing) {
-		// Find which mesh this thing should use
-		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
-		if(index < 0)
-			return false;
-
-		return O3dSchema::thingMOManager.info(index)->isStatic_;
-	}
-
-
-	bool WorldManager
+	bool O3dManager
 	::frameStarted(const Ogre::FrameEvent& evt) {
 		// Any in game events caused the game to end?
 		if(SimSchema::simEngine.isGameOver()) {
@@ -265,8 +102,10 @@ namespace se_ogre {
 		float timeSinceLastFrame = (renderClock - lastRenderClock_) / 1000.0f;
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
-		for(int i = 0; i < areaCount_; ++i) {
-			areas_[i]->move(renderClock, stepDelta, timeSinceLastFrame);
+		MultiSimNodeComponent::TreeIterator it(children_);
+		while(it.hasNext()) {
+			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
+			c.move(renderClock, stepDelta, timeSinceLastFrame);
 		}
 
 		// Store time
@@ -277,7 +116,7 @@ namespace se_ogre {
 	}
 
 
-	bool WorldManager
+	bool O3dManager
 	::frameEnded(const Ogre::FrameEvent& evt) {
 		// Any in game events caused the game to end?
 		if(SimSchema::simEngine.isGameOver()) {
@@ -298,7 +137,7 @@ namespace se_ogre {
 	}
 
 
-	void WorldManager
+	void O3dManager
 	::moveCamera(float stepDelta) {
 		if(O3dSchema::inputManager().active()) {
 			if(O3dSchema::inputManager().active()->moveCamera(stepDelta)) {
@@ -326,7 +165,7 @@ namespace se_ogre {
 	}
 
 
-	void WorldManager
+	void O3dManager
 	::showDebugOverlay(bool show) {
 		if (show) {
 			if (!debugOverlay_) {
@@ -343,7 +182,7 @@ namespace se_ogre {
 	}
 
 
-	void WorldManager
+	void O3dManager
 	::updateStats(void) {
 		using namespace Ogre;
 

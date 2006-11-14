@@ -24,20 +24,19 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "../thing/MultiO3dThingComponent.hpp"
+#include "../O3dNodeComponent.hpp"
 #include "o3d_area.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dAreaComponent  : public se_core::SimComponent {
+	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent {
 	public:
 		O3dAreaComponent(se_core::SimComposite* owner);
 		~O3dAreaComponent();
-		void clear() { setVisible(false); }
+		void clear();
 		void setActive(bool state);
 		void setVisible(bool state);
 
 		void move(long when, float stepDelta, float timeSinceLastFrame);
-		void addChild(O3dThingComponent& c);
-		void removeChild(O3dThingComponent& c);
 
 		void areaOffset(Ogre::Vector3& dest);
 
@@ -48,14 +47,11 @@ namespace se_ogre {
 		Ogre::StaticGeometry* compileStaticGeometry();
 
 		friend class WorldManager;
-		Ogre::SceneNode* node_;
 		Ogre::StaticGeometry* staticGeometry_;
 		Ogre::Vector3 offset_;
 		bool shouldKeep_, isNew_;
 		bool isInitialized_;
 		bool isVisible_;
-
-		MultiO3dThingComponent children_;
 	};
 
 }

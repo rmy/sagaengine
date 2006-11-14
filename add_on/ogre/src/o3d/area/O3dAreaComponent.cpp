@@ -34,23 +34,14 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::O3dAreaComponent(SimComposite* owner)
-		: SimComponent(sct_RENDER, owner), isVisible_(false), isInitialized_(false) {
+		: O3dNodeComponent(sct_RENDER, owner), isVisible_(false), isInitialized_(false) {
 
-		areaOffset(offset_);
-
-		// Create areas node, and add it to scene manager
-		node_ = O3dSchema::sceneManager->createSceneNode();
-		node_->setPosition(offset_);
 	}
 
 
 	O3dAreaComponent
 	::~O3dAreaComponent() {
-		setVisible(false);
-
-		node_->removeAndDestroyAllChildren();
-		O3dSchema::sceneManager->destroySceneNode(node_->getName());
-		node_ = 0;
+		clear();
 	}
 
 
@@ -58,51 +49,47 @@ namespace se_ogre {
 	::init() {
 		if(isInitialized_)
 			return;
-
 		isInitialized_ = true;
 
+		areaOffset(offset_);
+
+		// Create areas node, and add it to scene manager
+		node_ = O3dSchema::sceneManager->createSceneNode();
+		node_->setPosition(offset_);
+
 		LogMsg(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
-
 		staticGeometry_ = compileStaticGeometry();
-		initThings();
-
-		node_->_updateBounds();
 	}
 
 
 	void O3dAreaComponent
-	::initThings() {
-		// Add things
-		Area* a = toArea();
-		se_core::SimObjectIterator nit(a->reportingThings());
-		while(nit.hasNext()) {
-			Thing& thing = nit.nextThing();
-			if(!WorldManager::hasMesh(thing)) {
-				continue;
-			}
+	::clear() {
+		if(!isInitialized_)
+			return;
+		isInitialized_ = false;
 
-			O3dThingComponent* tc = O3dSchema::thingMOManager.create(thing);
-			tc->setParentNode(node_);
-			tc->setAreaList(children_);
-		}
-
+		setVisible(false);
 	}
-
-	void O3dAreaComponent
-	::addChild(O3dThingComponent& c) {
-		children_.add(c);
-	}
-
-
-	void O3dAreaComponent
-	::removeChild(O3dThingComponent& c) {
-		children_.remove(c);
-	}
-
 
 	void O3dAreaComponent
 	::setActive(bool state) {
+
 		LogMsg(owner()->name() << ": " << state);
+		if(state) {
+			init();
+			/*
+			MultiSimNodeComponent::TreeIterator it(children_);
+			while(it.hasNext()) {
+				O3dThingComponent* tc = static_cast<O3dThingComponent*>(&it.next());
+				LogMsg(tc->owner()->name());
+				tc->setParentNode(node_);
+				//tc->setParentNode(O3dSchema::sceneManager->getRootSceneNode());
+			}
+			*/
+			LogMsg(owner()->name());
+			node_->_updateBounds();
+		}
+		setVisible(state);
 	}
 
 
@@ -115,7 +102,6 @@ namespace se_ogre {
 		if(isVisible_) {
 			LogMsg("Now visible");
 			init();
-			initThings();
 			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
 			staticGeometry_->setVisible(true);
 		}
@@ -128,9 +114,9 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::areaOffset(Ogre::Vector3& dest) {
-		dest.x = owner()->pos().worldCoor().x_;
-		dest.y = owner()->pos().worldCoor().y_;
-		dest.z = owner()->pos().worldCoor().z_;
+		dest.x = toArea()->pos().worldCoor().x_;
+		dest.y = toArea()->pos().worldCoor().y_;
+		dest.z = toArea()->pos().worldCoor().z_;
 		// TODO:
 		//if(isAreaGeomCentreAligned_) {
 			dest.x += toArea()->width() / 2.0f;
@@ -220,9 +206,9 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
-		MultiO3dThingComponent::Iterator it(children_);
+		MultiSimNodeComponent::TreeIterator it(children_);
 		while(it.hasNext()) {
-			O3dThingComponent* tc = &it.next();
+			O3dThingComponent* tc = static_cast<O3dThingComponent*>(&it.next());
 			tc->move(when, stepDelta, timeSinceLastFrame);
 		}
 	}

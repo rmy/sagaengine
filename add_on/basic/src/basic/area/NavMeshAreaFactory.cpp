@@ -44,11 +44,15 @@ namespace se_basic {
 	Area* NavMeshAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ) const {
 		NavMeshArea* a = new NavMeshArea(name, width_, height_, navMesh_);
+		createComponents(a);
+		createGenericComponents(a);
+
 		a->setPage(pageX, pageY, pageZ);
 		a->nextPos().localCoor().x_ = pageX * a->width();
 		a->nextPos().localCoor().z_ = pageZ * a->height();
 		a->nextPos().world_.setViewPoint(a->nextPos().local_);
 		a->flip();
+
 		return a;
 	}
 

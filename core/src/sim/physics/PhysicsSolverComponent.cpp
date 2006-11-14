@@ -102,7 +102,7 @@ namespace se_core {
 		Area* self = toArea();
 
 		for(int outer = 0; outer < moverCount; ++outer) {
-			Actor* a = movers[ outer ]->actor();
+			Actor* a = movers[ outer ]->toActor();
 			if(!a->isPusher())
 				continue;
 
@@ -186,7 +186,7 @@ namespace se_core {
 		do {
 			// Get next in chain
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(itStack[ sp ].next());
-			PosNode* p = ph.owner(); //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
+			PosNode* p = ph.toActor(); //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
 			Assert(p);
 			// Move to new position in collision grid
 			if(collisionGrid_

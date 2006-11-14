@@ -32,7 +32,7 @@ namespace se_basic {
 
 	void Spawn
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.owner();
+		Actor& performer = *perf.toActor();
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		//Thing* child =
 		performer.spawn(p->thingType_, p->spawnPoint_);

@@ -46,6 +46,11 @@ namespace se_client {
 		void cameraEnteredAreaEvent(se_core::Camera& caster, se_core::Area& area);
 
 		void setCamera(se_core::Camera* newCamera);
+
+		void setActive(bool state);
+
+	private:
+		bool isActive_;
 	};
 
 }

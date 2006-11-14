@@ -28,19 +28,21 @@ rune@skalden.com
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
+#include "../SimCompositeFactory.hpp"
+#include "../SimComponentFactory.hpp"
+#include "../SimComposite.hpp"
 
 namespace se_core {
 
-	class _SeCoreExport AreaFactory {
+	class _SeCoreExport AreaFactory : public SimCompositeFactory {
 	public:
 		AreaFactory(String* name);
 		virtual ~AreaFactory();
-		const char* name() const;
 		virtual Area* create(String* name, int pageX, int pageY, int pageZ) const = 0;
-		virtual void release(Area* a) const;
 
-	protected:
-		String* name_;
+		void createGenericComponents(SimComposite* owner) const;
+
+		static SimComponentFactory* genericComponent_;
 	};
 
 }

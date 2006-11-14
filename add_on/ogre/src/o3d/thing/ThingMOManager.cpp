@@ -188,41 +188,19 @@ namespace se_ogre {
 	}
 
 
-	O3dThingComponent* ThingMOManager
-	::create(se_core::PosNode& t) {
-		const ThingMOInfoList* inf = infoList(t.name());
-		if(!inf || inf->infoCount_ < 1) {
-			LogMsg(t.name());
-			return 0;
-		}
-
-		/*
-		if(inf->infoCount_ == 1) {
-			const char* factoryType = inf->infos_[0]->movableObjectType_.get();
-			const ThingMOFactory* f = factory(factoryType);
-			if(!f) {
-				LogWarning("Movable object factory type " << factoryType << " does not exist for " << t.name());	
-				return 0;
-			}
-			return f->create(t, *inf->infos_[0]);
-		}
-
-		static ThingMOInfo dummy;
-		*/
-		
-		//ThingMultiMO* parent = static_cast<ThingMultiMO*>(factory("multi")->create(t, dummy));
-		O3dThingComponent* parent = new O3dThingComponent(static_cast<se_core::Actor*>(&t));
+	void ThingMOManager
+	::create(O3dThingComponent* parent) {
+		const ThingMOInfoList* inf = infoList(parent->owner()->name());
 		for(int i = 0; i < inf->infoCount_; ++i) {
 			const char* factoryType	= inf->infos_[i]->movableObjectType_.get();
 			const ThingMOFactory* f = factory(factoryType);
 			if(!f) {
-				LogWarning("Movable object factory type " << factoryType << " does not exist for " << t.name());	
+				LogWarning("Movable object factory type " << factoryType << " does not exist for " << parent->owner()->name());	
 				continue;
 			}
-			ThingMO* child = f->create(t, *inf->infos_[i]);
+			ThingMO* child = f->create(*parent->toActor(), *inf->infos_[i]);
 			parent->add(*child);
 		}
-		return parent;
 	}
 
 

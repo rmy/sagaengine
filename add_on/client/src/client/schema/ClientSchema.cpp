@@ -71,6 +71,14 @@ namespace se_client {
 				// Player and camera objects are initialised from data file.
 			}
 
+			void startGameEvent() {
+				clientEventBridge.setActive(true);
+			}
+
+			void stopGameEvent() {
+				clientEventBridge.setActive(false);
+			}
+
 			void cleanupGameEvent() {
 				if(ClientSchema::player) {
 					ClientSchema::player->leaveCurrentArea();

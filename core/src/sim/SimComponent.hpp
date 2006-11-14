@@ -50,14 +50,14 @@ namespace se_core {
 		virtual ~SimComponent();
 
 
-		inline Actor* owner() {
-			return reinterpret_cast<Actor*>(owner_);
+		inline SimComposite* owner() {
+			return owner_;
 		}
 
-		inline Actor* actor() {
+		inline Actor* toActor() {
 			return reinterpret_cast<Actor*>(owner_);
 		}
-		inline const Actor* actor() const {
+		inline const Actor* toActor() const {
 			return reinterpret_cast<Actor*>(owner_);
 		}
 		inline Area* toArea() {
@@ -82,6 +82,7 @@ namespace se_core {
 
 	protected:
 		friend class SimComposite;
+
 		/** Called by SimComposite
 		 */
 		virtual void setActive(bool state) {}

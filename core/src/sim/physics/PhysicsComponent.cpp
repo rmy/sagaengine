@@ -75,7 +75,7 @@ namespace se_core {
 		move_ = nextMove_;
 
 		nextMove_.flick();
-		physics().calcNext(*owner(), posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
+		physics().calcNext(*toActor(), posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
 
 		//
 		didMove_ = posComponent_->nextPos().didParentMove() || !posComponent_->nextPos().localEquals(posComponent_->pos());

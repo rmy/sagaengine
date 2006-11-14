@@ -37,7 +37,7 @@ namespace se_basic {
 
 	void EnterTo
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.owner();
+		Actor& performer = *perf.toActor();
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		const char* name = p->areaName_;
 		short id = p->id_;

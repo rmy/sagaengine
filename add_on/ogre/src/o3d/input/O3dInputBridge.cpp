@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "O3dInputBridge.hpp"
-#include "o3d/area/WorldManager.hpp"
+#include "o3d/area/O3dManager.hpp"
 #include "o3d/config/o3d_config.hpp"
 #include "o3d/input/InputHandler.hpp"
 #include "o3d/input/InputManager.hpp"

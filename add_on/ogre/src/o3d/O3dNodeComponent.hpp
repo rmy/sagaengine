@@ -19,20 +19,24 @@ rune@skalden.com
 */
 
 
-#include "StopScript.hpp"
-#include "sim/thing/Actor.hpp"
+#ifndef O3dNodeComponent_hpp
+#define O3dNodeComponent_hpp
 
+#include "O3dPre.hpp"
 
-using namespace se_core;
+namespace se_ogre {
+	class _SeOgreExport O3dNodeComponent  : public se_core::SimNodeComponent {
+	public:
+		O3dNodeComponent(enum se_core::SimComponentType type, se_core::SimComposite* owner);
+		~O3dNodeComponent();
 
-namespace se_basic {
+		Ogre::SceneNode* node() {
+			return node_;
+		}
 
-	void StopScript
-	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
-		performer.stopScript();
-		//performer.removeFromShowingCutscene();
-	}
-
-	const StopScript actionStopScript;
+	protected:
+		Ogre::SceneNode* node_;
+	};
 }
+
+#endif

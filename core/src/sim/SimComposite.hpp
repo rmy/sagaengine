@@ -26,6 +26,7 @@ rune@skalden.com
 #include "sim.hpp"
 #include "util/template/HashTable.hpp"
 #include "stat/MultiSimComponent.hpp"
+#include "stat/MultiSimComposite.hpp"
 #include "stat/MultiSimObject.hpp"
 #include "SimPtr.hpp"
 
@@ -73,7 +74,7 @@ namespace se_core {
 		 * @see scheduleForDestruction
 		 */
 		bool isDead() { return isDead_; }
-		void setActive(bool state);
+		void setActive(bool state, bool doTraverseChildren = true);
 
 		void setTag(int t) { tag_ = t; }
 		int tag() { return tag_; }
@@ -106,8 +107,7 @@ namespace se_core {
 		friend class ThingManager;
 		SimCompositeFactory* factory_;
 		SimComposite* parent_;
-		MultiSimObject children_;
-
+		MultiSimComposite children_;
 		MultiSimComponent components_;
 
 		bool isActive_;

@@ -24,13 +24,17 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "ThingMOList.hpp"
+#include "../O3dNodeComponent.hpp"
 #include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dThingComponent  : public se_core::SimComponent {
+	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent {
 	public:
 		O3dThingComponent(se_core::SimComposite* owner);
 		~O3dThingComponent();
+		void init();
+		void clear();
+
 		void setActive(bool state);
 		void setVisible(bool state);
 
@@ -39,19 +43,14 @@ namespace se_ogre {
 
 		void add(ThingMO& tmo);
 		void remove(ThingMO& tmo);
-		void setAreaList(MultiO3dThingComponent& al);
-		void resetAreaList();
-
 
 	protected:
 		Ogre::SceneNode* parentNode_;
-		Ogre::SceneNode* node_;
 		se_core::ViewPoint last_;
 		bool isVisible_;
+		bool isInitialized_;
 
 		ThingMOList::iterator_type firstThingMO_;
-
-		MultiO3dThingComponent* o3dAreaThings_;
 	};
 
 }

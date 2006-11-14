@@ -60,6 +60,10 @@ namespace se_core {
 		 */
 		virtual void cleanupGameEvent() = 0;
 
+
+		virtual void startGameEvent() {}
+		virtual void stopGameEvent() {}
+
 	};
 
 }

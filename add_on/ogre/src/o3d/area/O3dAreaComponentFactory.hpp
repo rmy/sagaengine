@@ -19,20 +19,22 @@ rune@skalden.com
 */
 
 
-#include "StopScript.hpp"
-#include "sim/thing/Actor.hpp"
+#ifndef O3dAreaComponentFactory_hpp
+#define O3dAreaComponentFactory_hpp
+
+#include "O3dPre.hpp"
+#include "o3d_area.hpp"
 
 
-using namespace se_core;
+namespace se_ogre {
+	class _SeOgreExport O3dAreaComponentFactory  : public se_core::SimComponentFactory {
+	public:
+		O3dAreaComponentFactory();
+		se_core::SimComponent* create(se_core::SimComposite* owner) const;
+		
+	protected:
+	};
 
-namespace se_basic {
-
-	void StopScript
-	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
-		performer.stopScript();
-		//performer.removeFromShowingCutscene();
-	}
-
-	const StopScript actionStopScript;
 }
+
+#endif

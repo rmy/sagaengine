@@ -225,6 +225,7 @@ namespace se_core {
 	}
 
 
+
 	void AreaManager
 	::resetActive() {
 		while(activeCount_ > 0) {

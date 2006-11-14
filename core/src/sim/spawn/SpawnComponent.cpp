@@ -52,7 +52,7 @@ namespace se_core {
 		ViewPoint vp(*sp);
 
 		// Calculate area coor of spawn point
-		const PosNode* node = owner();
+		const PosNode* node = toActor();
 		const Pos& pos = pos_->pos();
 		vp.add(pos.world_);
 		vp.sub(pos.area()->pos().world_);
@@ -61,7 +61,7 @@ namespace se_core {
 		Thing* t = const_cast<Area*>(pos.area())->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
-		if(t) t->setSpawner(owner());
+		if(t) t->setSpawner(toActor());
 
 		return t;
 	}

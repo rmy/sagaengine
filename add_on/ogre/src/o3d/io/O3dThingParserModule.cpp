@@ -24,6 +24,7 @@ rune@skalden.com
 #include "../thing/ThingMOInfo.hpp"
 #include "../thing/ThingMOInfoList.hpp"
 #include "../thing/O3dAnimation.hpp"
+#include "../thing/O3dThingComponentFactory.hpp"
 #include "../io/all.hpp"
 #include "io/parse/all.hpp"
 #include "io/stream/all.hpp"
@@ -74,6 +75,11 @@ namespace se_ogre {
 		}
 
 		O3dSchema::thingMOManager.addInfoList(infoList);
+		if(infoList->infoCount_ > 0) {
+			SimCompositeFactory* f = SimSchema::thingManager().factory(infoList->thingType_.get());
+			static O3dThingComponentFactory otcf;
+			f->addComponent(&otcf);
+		}
 	}
 
 

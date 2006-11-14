@@ -43,7 +43,8 @@ namespace se_core {
 		void resetActive();
 		void setActive(Area* area);
 		void setActive(Area* area, int pages);
-		void setInactive(Area* area);
+		void setInactive(Area* area);	
+		void setInactive();
 		int areaCount() { return areaCount_; }
 		Area* area(int index) { return areas_[index]; }
 

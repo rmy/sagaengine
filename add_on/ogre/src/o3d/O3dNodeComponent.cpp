@@ -19,20 +19,25 @@ rune@skalden.com
 */
 
 
-#include "StopScript.hpp"
-#include "sim/thing/Actor.hpp"
-
+#include "O3dPre.hpp"
+#include "O3dNodeComponent.hpp"
+#include "schema/O3dSchema.hpp"
 
 using namespace se_core;
+using namespace se_client;
 
-namespace se_basic {
+namespace se_ogre {
 
-	void StopScript
-	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
-		performer.stopScript();
-		//performer.removeFromShowingCutscene();
+	O3dNodeComponent
+	::O3dNodeComponent(enum se_core::SimComponentType type, SimComposite* owner)
+		: SimNodeComponent(type, owner), node_(0) {
 	}
 
-	const StopScript actionStopScript;
+	O3dNodeComponent
+	::~O3dNodeComponent() {
+		node_->removeAndDestroyAllChildren();
+		O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		node_ = 0;
+	}
+
 }
