@@ -24,6 +24,9 @@ rune@skalden.com
 
 namespace se_ogre {
 	class WorldManager;
+	class O3dManager;
+	class O3dAreaComponent;
+	class O3dAreaComponentFactory;
 };
 
 

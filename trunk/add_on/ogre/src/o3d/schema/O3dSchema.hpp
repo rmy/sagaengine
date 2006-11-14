@@ -64,7 +64,7 @@ namespace se_ogre {
 		/**
 		 * The manager object that controls what ogre should render.
 		 */
-		extern _SeOgreExport WorldManager* worldManager;
+		extern _SeOgreExport O3dManager* worldManager;
 
 		/**
 		 * Manager for input event listeners.

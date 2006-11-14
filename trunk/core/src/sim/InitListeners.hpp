@@ -88,6 +88,19 @@ namespace se_core {
 
 
 
+		void castStartGameEvent() {
+			for(int i = 0; i < listenerCount_; ++i) {
+				listeners_[ i ]->startGameEvent();
+			}
+		}
+
+		void castStopGameEvent() {
+			for(int i = 0; i < listenerCount_; ++i) {
+				listeners_[ i ]->startGameEvent();
+			}
+		}
+
+
 		/**
 		 * Remove all listeners.
 		 */

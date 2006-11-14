@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef MultiSimNodeComponent_hpp
-#define MultiSimNodeComponent_hpp
+#ifndef MultiSimComposite_hpp
+#define MultiSimComposite_hpp
 
 #include "sim_stat.hpp"
 #include "VoidList.hpp"
@@ -29,24 +29,24 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport MultiSimNodeComponent {
-		friend class MultiSimNodeComponentIterator;
+	class _SeCoreExport MultiSimComposite {
+		friend class MultiSimCompositeIterator;
 
 	public:
 		typedef VoidList::iterator_type iterator_type;
 		class _SeCoreExport Iterator {
 		public:
 			Iterator();
-			Iterator(MultiSimNodeComponent& mgo);
-			void init(MultiSimNodeComponent& mgo);
+			Iterator(MultiSimComposite& mgo);
+			void init(MultiSimComposite& mgo);
 			void init(short firstNode);
 
 			inline bool hasNext() {
 				return it_ != VoidList::end();
 			}
 
-			inline SimNodeComponent& next() {
-				return *static_cast<SimNodeComponent*>(SimSchema::voidList.next(it_));
+			inline SimComposite& next() {
+				return *static_cast<SimComposite*>(SimSchema::voidList.next(it_));
 			}
 
 		private:
@@ -54,32 +54,16 @@ namespace se_core {
 		};
 
 
-		class _SeCoreExport TreeIterator {
-		public:
-			TreeIterator();
-			TreeIterator(MultiSimNodeComponent& mgo);
-			void init(MultiSimNodeComponent& mgo);
-
-			bool hasNext();
-			SimNodeComponent& next();
-
-		private:
-			static const int MAX_STACK_DEPTH = 10;
-			MultiSimNodeComponent::Iterator itStack_[ MAX_STACK_DEPTH ];
-			short stackPointer_;
-		};
-
-
-		MultiSimNodeComponent();
-		virtual ~MultiSimNodeComponent();
-		virtual void add(SimNodeComponent& value);
-		void add(MultiSimNodeComponent& msc);
-		virtual void remove(SimNodeComponent& value);
+		MultiSimComposite();
+		virtual ~MultiSimComposite();
+		virtual void add(SimComposite& value);
+		void add(MultiSimComposite& msc);
+		virtual void remove(SimComposite& value);
 		void initIterator(VoidList::iterator_type& iterator) const;
 		inline VoidList::iterator_type iterator() const { return firstNode_; }
-		bool contains(SimNodeComponent& value) const;
-		bool contains(MultiSimNodeComponent& msc) const;
-		bool sharesAny(MultiSimNodeComponent& msc) const;
+		bool contains(SimComposite& value) const;
+		bool contains(MultiSimComposite& msc) const;
+		bool sharesAny(MultiSimComposite& msc) const;
 		bool isEmpty() const;
 		void destroyMembersAndClear();
 		void clear();

@@ -31,16 +31,44 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::O3dThingComponent(SimComposite* owner)
-		: SimComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false)
-		, firstThingMO_(ThingMOList::end()), o3dAreaThings_(0) {
-
-		// Create things node, and add it to scene manager
+		: O3dNodeComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false)
+		, isInitialized_(false)
+		, firstThingMO_(ThingMOList::end()) {
 		node_ = O3dSchema::sceneManager->createSceneNode();
 	}
 
-
 	O3dThingComponent
 	::~O3dThingComponent() {
+		clear();
+	}
+
+
+	void O3dThingComponent
+	::init() {
+		if(isInitialized_)
+			return;
+		isInitialized_ = true;
+
+		if(!parentNode_) {
+			Area* a = const_cast<Area*>(toActor()->nextPos().area());
+			Assert(a);
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(a->component(type()));
+			Assert(c);
+			LogMsg(c->owner()->name() << " - " << owner()->name());
+			Assert(c->node());
+			setParentNode(c->node());
+		}
+
+		O3dSchema::thingMOManager.create(this);
+	}
+
+
+	void O3dThingComponent
+	::clear() {
+		if(!isInitialized_)
+			return;
+		isInitialized_ = false;
+
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
@@ -49,36 +77,19 @@ namespace se_ogre {
 
 		setVisible(false);
 
-		node_->removeAndDestroyAllChildren();
-		O3dSchema::sceneManager->destroySceneNode(node_->getName());
-		node_ = 0;
-
-		resetAreaList();
-	}
-
-
-	void O3dThingComponent
-	::resetAreaList() {
-		if(o3dAreaThings_) {
-			o3dAreaThings_->remove(*this);
-			o3dAreaThings_ = 0;
-		}
-	}
-
-
-	void O3dThingComponent
-	::setAreaList(MultiO3dThingComponent& al) {
-		resetAreaList();
-		o3dAreaThings_ = &al;
-		o3dAreaThings_->add(*this);
 	}
 
 
 	void O3dThingComponent
 	::setActive(bool state) {
 		LogMsg(owner()->name() << ": " << state);
-		if(!state)
-			resetAreaList();
+		if(state) {
+			init();
+		}
+		else {
+			clear();
+		}
+		setVisible(state);
 	}
 
 
@@ -100,7 +111,7 @@ namespace se_ogre {
 		// Are interpolations meaningful at all?
 		if(owner() == 0)
 			return;
-		if(isDead() || !isActive() || !owner()->pos().isKeyFramePath(owner()->nextPos())) {
+		if(isDead() || !isActive() || !toActor()->pos().isKeyFramePath(toActor()->nextPos())) {
 			// If not skip it
 			setVisible(false);
 			return;
@@ -108,7 +119,7 @@ namespace se_ogre {
 
 		setVisible(true);
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		owner()->worldViewPoint(alpha, last_);
+		toActor()->worldViewPoint(alpha, last_);
 
 		// Translate from Euler3 if necessary
 		Quat4 face(last_.face_);

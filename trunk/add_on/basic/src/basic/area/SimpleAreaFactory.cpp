@@ -42,11 +42,15 @@ namespace se_basic {
 	Area* SimpleAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ) const {
 		SimpleArea* a = new SimpleArea(name, width_, height_);
+		createComponents(a);
+		createGenericComponents(a);
+
 		a->setPage(pageX, pageY, pageZ);
 		a->nextPos().localCoor().x_ = pageX * a->width();
 		a->nextPos().localCoor().z_ = pageZ * a->height();
 		a->nextPos().world_.setViewPoint(a->nextPos().local_);
 		a->flip();
+
 		return a;
 	}
 

@@ -194,9 +194,9 @@ namespace se_core {
 
 
 	protected:
-		friend class AreaManager;
+		//friend class AreaManager;
 
-		void setActive(bool state);
+		//void setActive(bool state);
 
 	protected:
 		coor_tile_t width_, height_;

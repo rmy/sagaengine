@@ -50,6 +50,7 @@ namespace se_core {
 		// Init to default position
 		//position_.reset();
 		//nextPosition_.reset();
+		setParent(SimComponentManager::inactiveRoot());
 
 		nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
@@ -80,6 +81,7 @@ namespace se_core {
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
+
 	}
 
 
@@ -311,6 +313,7 @@ namespace se_core {
 	}
 
 
+	/*
 	void Area
 	::setActive(bool state) {
 		if(state == isActive_) return;
@@ -326,6 +329,7 @@ namespace se_core {
 			}
 		}
 	}
+	*/
 
 
 	void Area

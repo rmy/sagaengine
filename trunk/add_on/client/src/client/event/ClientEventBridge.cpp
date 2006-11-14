@@ -43,7 +43,7 @@ using namespace se_core;
 namespace se_client {
 
 	ClientEventBridge
-	::ClientEventBridge() {
+	::ClientEventBridge() : isActive_(false) {
 	}
 
 
@@ -84,7 +84,9 @@ namespace se_client {
 
 	void ClientEventBridge
 	::cameraEnteredAreaEvent(Camera& caster, Area& area) {
-		WasHere();
+		if(!isActive_)
+			return;
+
 		SimSchema::areaManager.setActive(&area, 2);
 		// Cast camera entered area event
 		ClientSchema::clientListeners.castCameraEnteredAreaEvent(area);
@@ -92,12 +94,14 @@ namespace se_client {
 			//LogMsg(SimSchema::areaManager.active(i)->name());
 			SimSchema::areaManager.active(i)->reportingThings().setHandler(this);
 		}
-		WasHere();
 	}
 
 
 	void ClientEventBridge
 	::cameraLeftAreaEvent(Camera& caster, Area& area) {
+		if(!isActive_)
+			return;
+
 		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
 			SimSchema::areaManager.active(i)->reportingThings().setHandler(0);
 		}
@@ -138,5 +142,25 @@ namespace se_client {
 		WasHere();
 	}
 
+
+	void ClientEventBridge
+	::setActive(bool state) {
+		if(isActive_ == state)
+			return;
+		isActive_ = state;
+
+		if(isActive_) {
+			Assert(ClientSchema::camera);
+			Area* a = const_cast<Area*>(ClientSchema::camera->pos().area());
+			Assert(a);
+			SimSchema::areaManager.setActive(a, 2);
+		}
+		else {
+			for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
+				SimSchema::areaManager.active(i)->reportingThings().setHandler(0);
+			}
+			SimSchema::areaManager.resetActive();
+		}
+	}
 
 }

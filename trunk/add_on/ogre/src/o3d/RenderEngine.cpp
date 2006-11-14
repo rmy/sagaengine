@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "RenderEngine.hpp"
-#include "./area/WorldManager.hpp"
+#include "./area/O3dManager.hpp"
 #include "./config/o3d_config.hpp"
 #include "./event/RenderEventListeners.hpp"
 #include "./input/O3dInputBridge.hpp"
@@ -153,7 +153,7 @@ namespace se_ogre {
 		createInputBridge();
 		
 		// Create world manager
-		O3dSchema::worldManager = new WorldManager();
+		O3dSchema::worldManager = new O3dManager();
 		LogMsg("Created world manager");
 
 		// Configure this from file

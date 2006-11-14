@@ -35,7 +35,7 @@ namespace se_core {
 		SimCompositeFactory(short type, String* name);
 		virtual ~SimCompositeFactory();
 		const char* name() const;
-		virtual SimComposite* create() const = 0;
+		virtual SimComposite* create() const;
 		virtual void release(SimComposite* t) const;
 
 		void addComponent(SimComponentFactory* f);
@@ -50,7 +50,7 @@ namespace se_core {
 		
 		void createComponents(SimComposite* owner) const;
 
-		static const int MAX_COMPONENTS = 12;
+		static const int MAX_COMPONENTS = 32;
 		int componentCount_;
 		SimComponentFactory* components_[ MAX_COMPONENTS ];
 	};

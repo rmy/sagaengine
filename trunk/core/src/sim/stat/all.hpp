@@ -5,6 +5,7 @@
 #include "DictionaryEntry.hpp"
 #include "SimComponentList.hpp"
 #include "MultiSimObject.hpp"
+#include "MultiSimNodeComponent.hpp"
 #include "MultiValue.hpp"
 #include "SimObjectIterator.hpp"
 #include "Property.hpp"

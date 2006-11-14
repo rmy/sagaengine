@@ -19,20 +19,23 @@ rune@skalden.com
 */
 
 
-#include "StopScript.hpp"
-#include "sim/thing/Actor.hpp"
-
+#include "O3dAreaComponentFactory.hpp"
+#include "O3dAreaComponent.hpp"
 
 using namespace se_core;
 
-namespace se_basic {
 
-	void StopScript
-	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
-		performer.stopScript();
-		//performer.removeFromShowingCutscene();
+namespace se_ogre {
+
+	O3dAreaComponentFactory
+	::O3dAreaComponentFactory()
+			: SimComponentFactory(sct_RENDER) {
+		AreaFactory::genericComponent_ = this;
 	}
 
-	const StopScript actionStopScript;
+	se_core::SimComponent* O3dAreaComponentFactory
+	::create(SimComposite* owner) const {
+		return new O3dAreaComponent(owner);
+	}
+
 }

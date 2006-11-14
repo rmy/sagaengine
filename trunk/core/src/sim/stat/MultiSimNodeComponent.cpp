@@ -133,7 +133,6 @@ namespace se_core {
 	}
 
 
-
 	MultiSimNodeComponent::Iterator
 	::Iterator()
 		: it_(VoidList::end()) {
@@ -155,6 +154,61 @@ namespace se_core {
 	void MultiSimNodeComponent::Iterator
 	::init(short firstNode) {
 		it_ = firstNode;
+	}
+
+
+	/// TreeIterator
+	MultiSimNodeComponent::TreeIterator
+	::TreeIterator()
+		: stackPointer_(-1) {
+	}
+
+
+	MultiSimNodeComponent::TreeIterator
+	::TreeIterator(MultiSimNodeComponent& msc) {
+		if(msc.isEmpty()) {
+			stackPointer_ = -1;
+			return;
+		}
+		itStack_[ 0 ].init(msc);
+		stackPointer_ = 0;
+	}
+
+
+	void MultiSimNodeComponent::TreeIterator
+	::init(MultiSimNodeComponent& msc) {
+		if(msc.isEmpty()) {
+			stackPointer_ = -1;
+			return;
+		}
+		itStack_[ 0 ].init(msc);
+		stackPointer_ = 0;
+	}
+
+
+	bool MultiSimNodeComponent::TreeIterator
+	::hasNext() {
+		return (stackPointer_ >= 0);
+	}
+
+
+	SimNodeComponent& MultiSimNodeComponent::TreeIterator
+	::next() {
+		// Get next in chain
+		SimNodeComponent& c = itStack_[ stackPointer_ ].next();
+
+		// Stack overflowed?
+		Assert(stackPointer_ < MAX_STACK_DEPTH - 1);
+
+		// Push child chain as next chain on stack
+		itStack_[ ++stackPointer_ ].init(c.children());
+
+		// Pop all completed chains
+		while(stackPointer_ >= 0 && !itStack_[ stackPointer_ ].hasNext()) {
+			--stackPointer_;
+		}
+
+		return c;
 	}
 
 

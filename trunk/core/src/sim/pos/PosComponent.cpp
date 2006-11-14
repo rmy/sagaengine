@@ -57,9 +57,7 @@ namespace se_core {
 	void PosComponent
 	::leaveCurrentArea() {
 		if(position_.hasArea()) {
-			//LogMsg(pos().worldCoor().toLog());
-			//LogMsg(nextPos().worldCoor().toLog());
-			position_.area()->removePosNode(*owner());
+			position_.area()->removePosNode(*toActor());
 		}
 	}
 
@@ -71,7 +69,7 @@ namespace se_core {
 		}
 
 		if(nextPos().hasArea()) {
-			nextPos().area()->addPosNode(*owner());
+			nextPos().area()->addPosNode(*toActor());
 		}
 		else {
 			return false;
@@ -119,9 +117,11 @@ namespace se_core {
 
 		if(nextPos().hasParent()) {
 			owner_->setParent(*nextPos().parent());
+			owner_->setActive(nextPos().parent()->isActive());
 		}
 		else {
 			owner_->resetParent();
+			owner_->setActive(false);
 			return false;
 		}
 		return true;

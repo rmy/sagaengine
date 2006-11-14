@@ -32,28 +32,26 @@ rune@skalden.com
 
 namespace se_core {
 
+	SimComponentFactory* AreaFactory
+	::genericComponent_ = 0;
+
 	AreaFactory
 	::AreaFactory(String* name)
-			: name_(name) {
+		: SimCompositeFactory(got_AREA, name) {
 	}
 
 
 	AreaFactory
 	::~AreaFactory() {
-		delete name_;
 	}
 
 
 	void AreaFactory
-	::release(Area* a) const {
-		delete a;
+	::createGenericComponents(SimComposite* owner) const {
+		if(genericComponent_)
+			genericComponent_->create(owner);
 	}
 
-
-	const char* AreaFactory
-	::name() const {
-		return name_->get();
-	}
 
 
 }
