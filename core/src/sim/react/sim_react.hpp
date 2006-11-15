@@ -22,4 +22,7 @@ rune@skalden.com
 namespace se_core {
 	class ThingCollide;
 	class DefaultTC;
+	class CollisionGrid;
+	class CollisionAreaComponent;
+	class CollisionComponent;
 }

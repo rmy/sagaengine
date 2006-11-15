@@ -19,7 +19,26 @@ rune@skalden.com
 */
 
 
-#include "CameraHandler.hpp"
+#ifndef CameraComponent_hpp
+#define CameraComponent_hpp
 
-namespace se_core {
+#include "sim/SimComponent.hpp"
+#include "sim/pos/PosComponent.hpp"
+
+namespace se_client {
+	class _SeCoreExport CameraComponent : public se_core::SimComponent {
+	public:
+		CameraComponent(se_core::SimComposite* owner);
+		virtual ~CameraComponent();
+
+		void setActive(bool state);
+		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void grabFocus();
+
+	protected:
+		se_core::PosComponent* posComponent_;
+	};
+
 }
+
+#endif

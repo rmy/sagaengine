@@ -19,33 +19,35 @@ rune@skalden.com
 */
 
 
-#ifndef Camera_hpp
-#define Camera_hpp
-
-#include "Actor.hpp"
-#include "sim_thing.hpp"
-#include "sim/stat/sim_stat.hpp"
+#include "SimComponent.hpp"
+#include "AreaChildComponent.hpp"
+#include "SimObject.hpp"
+#include "SimComposite.hpp"
+#include "schema/SimSchema.hpp"
+#include "util/error/Log.hpp"
 
 
 namespace se_core {
-	class _SeCoreExport Camera : public Actor {
-	public:
-		Camera(const char* name);
-		virtual ~Camera();
-		bool isType(enum SimObjectType type) const {
-			if(type == got_CAMERA) return true;
-			return Actor::isType(type);
-		}
-		void setActive(bool state);
-		bool isMover() { return false; }
-		void setCameraHandler(CameraHandler* handler) { handler_ = handler; }
-		void leaveCurrentArea();
-		bool changeArea();
 
-	private:
-		CameraHandler* handler_;
-	};
+	AreaChildComponent
+	::AreaChildComponent(enum SimComponentType type, SimComposite* owner)
+		: SimNodeComponent(type, owner) {
+	}
+
+
+	AreaChildComponent
+	::~AreaChildComponent() {
+	}
+
+
+	void AreaChildComponent
+	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+		if(newArea) {
+			setParent(*this);
+		}
+		else {
+			resetParent();
+		}
+	}
 
 }
-
-#endif

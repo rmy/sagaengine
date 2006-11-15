@@ -6,6 +6,7 @@
 #include "PhysicsUtil.hpp"
 #include "sim_physics.hpp"
 #include "PhysicsComponent.hpp"
+#include "PhysicsSolverComponent.hpp"
 #include "PhDefault.hpp"
 
 #endif

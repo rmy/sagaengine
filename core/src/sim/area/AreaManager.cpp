@@ -22,7 +22,6 @@ rune@skalden.com
 #include "AreaManager.hpp"
 #include "Area.hpp"
 #include "AreaFactory.hpp"
-#include "CollisionGrid.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../thing/Thing.hpp"
 #include "../../util/error/Log.hpp"

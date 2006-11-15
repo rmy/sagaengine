@@ -206,7 +206,7 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
-		MultiSimNodeComponent::TreeIterator it(children_);
+		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dThingComponent* tc = static_cast<O3dThingComponent*>(&it.next());
 			tc->move(when, stepDelta, timeSinceLastFrame);

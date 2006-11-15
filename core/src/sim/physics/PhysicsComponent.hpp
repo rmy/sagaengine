@@ -32,6 +32,7 @@ rune@skalden.com
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../pos/PosComponent.hpp"
+#include "../react/ThingCollide.hpp"
 
 namespace se_core {
 	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
@@ -66,6 +67,19 @@ namespace se_core {
 
 		bool isMover() const;
 
+		bool isPusher() {
+			return collide_ != 0;
+		}
+
+		void setCollide(const ThingCollide* collide) {
+			collide_ = collide; 
+		}
+
+		inline bool pushThing(PosComponent& pushedThing) {
+			return collide_->collide(*this, pushedThing);
+		}
+
+
 		void flip();
 
 	private:
@@ -83,7 +97,9 @@ namespace se_core {
 		short currentPhysics_;
 		static const short MAX_PHYSICS_STACK_SIZE = 3;
 		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
+		friend class PhysicsSolverComponent;
 		PosComponent* posComponent_;
+		const ThingCollide* collide_;
 
 		Move move_, nextMove_;
 

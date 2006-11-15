@@ -34,22 +34,13 @@ namespace se_core {
 	::PhysicsComponentManager()
 			: SimComponentManager(sct_PHYSICS) 
 			, movers_(new PhysicsComponent*[MAX_MOVER_COUNT]), moverCount_(0)
-			, activeSolverCount_(0)
-			, gridCount_(0), gridPoolCount_(0) {
-		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
-		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
+			, activeSolverCount_(0) {
 		activeSolvers_ = new PhysicsSolverComponent*[ MAX_ACTIVE ];
 	}
 
 
 	PhysicsComponentManager
 	::~PhysicsComponentManager() {
-		for(int i = 0; i < gridCount_; ++i) {
-			delete collisionGrids_[i];
-		}
-		gridCount_ = 0;
-		LogMsg("Destroyed area grids");
-
 		delete[] movers_;
 	}
 
@@ -161,32 +152,5 @@ namespace se_core {
 	}
 
 
-	CollisionGrid* PhysicsComponentManager
-	::grabCollisionGrid() {
-		// Create grid object if necessary
-		coor_tile_t maxWidth = 1, maxHeight = 1;
-		if(!gridPoolCount_) {
-			Assert(gridCount_ < MAX_ACTIVE);
-
-			coor_tile_t maxWidth = SimSchema::areaManager.maxWidth();
-			coor_tile_t maxHeight = SimSchema::areaManager.maxHeight();
-			short d = 2;
-			while((1 << (d + 1)) < maxWidth / 4 && (1 << (d + 1)) < maxHeight / 4)
-				++d;
-
-			CollisionGrid* g = new CollisionGrid(maxWidth, maxHeight, d);
-			gridPool_[ gridPoolCount_++ ] = g;
-			collisionGrids_[ gridCount_++ ] = g;
-		}
-
-		return gridPool_[ --gridPoolCount_ ];
-	}
-
-
-	void PhysicsComponentManager
-	::releaseCollisionGrid(CollisionGrid* g) {
-		g->clear();
-		gridPool_[ gridPoolCount_++ ] = g;
-	}
-
 }
+

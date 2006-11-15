@@ -38,8 +38,6 @@ rune@skalden.com
 
 
 namespace se_core {
-	typedef SinglyLinkedList<class SimNodeComponent, MAX_GAME_OBJECTS, 27> Children;
-
 	/** Container class for SimObjects that exists in the game world.
 	 */
 	class _SeCoreExport SimNodeComponent : public SimComponent {

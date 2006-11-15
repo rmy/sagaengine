@@ -40,9 +40,13 @@ namespace se_ogre {
 
 		void move(long when, float stepDelta, float timeSinceLastFrame);
 		void setParentNode(Ogre::SceneNode* sn);
+		void resetParentNode();
 
 		void add(ThingMO& tmo);
 		void remove(ThingMO& tmo);
+
+		void parentChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea) {}
+		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
 
 	protected:
 		Ogre::SceneNode* parentNode_;

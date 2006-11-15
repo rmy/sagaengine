@@ -22,5 +22,4 @@ rune@skalden.com
 namespace se_client {
 	class ClientListener;
 	class ClientListeners;
-	class ClientEventBridge;
 }

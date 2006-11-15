@@ -36,7 +36,6 @@ rune@skalden.com
 #include "./thing/Thing.hpp"
 #include "./thing/ThingManager.hpp"
 #include "./thing/Actor.hpp"
-#include "./thing/Camera.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/system/RealClock.hpp"
 #include "util/error/Log.hpp"

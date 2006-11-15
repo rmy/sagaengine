@@ -19,20 +19,13 @@ rune@skalden.com
 */
 
 
-#ifndef CameraHandler_hpp
-#define CameraHandler_hpp
+#ifndef client_thing_hpp
+#define client_thing_hpp
 
-#include "sim_thing.hpp"
-#include "../area/sim_area.hpp"
-
-namespace se_core {
-	class _SeCoreExport CameraHandler {
-	public:
-		virtual ~CameraHandler() {} // Gets rid of warning
-		virtual void cameraLeftAreaEvent(Camera& caster, Area& area) {;}
-		virtual void cameraEnteredAreaEvent(Camera& caster, Area& area) {;}
-	};
-
+namespace se_client {
+	class CameraComponent;
+	class PlayerComponent;
 }
+
 
 #endif

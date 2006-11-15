@@ -28,7 +28,7 @@ rune@skalden.com
 #include "sim/message/SoundCentral.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "io/schema/IoSchema.hpp"
-#include "sim/thing/Player.hpp"
+#include "sim/pos/PosComponent.hpp"
 #include <fmod_errors.h>
 #include <cstdio>
 

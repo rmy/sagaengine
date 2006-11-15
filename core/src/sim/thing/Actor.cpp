@@ -49,7 +49,6 @@ namespace se_core {
 	::Actor(const char* name)
 			: Thing(got_ACTOR, name)
 			, showingCutscene_(0)
-			, collide_(&tcDefault)
 			, spawnCount_(0) {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
@@ -87,19 +86,7 @@ namespace se_core {
 	}
 
 
-	void Actor
-	::leaveCurrentArea() {
-		/*
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			clearPlannedAction(i);
-		}
-		disrupt();
-		setTerrainMode(TS_VOID);
-		*/
-		Thing::leaveCurrentArea();
-	}
-
-
+	/*
 	bool Actor
 	::changeArea() {
 		if(Thing::changeArea()) {
@@ -112,6 +99,7 @@ namespace se_core {
 		}
 		return false;
 	}
+	*/
 
 
 	/*

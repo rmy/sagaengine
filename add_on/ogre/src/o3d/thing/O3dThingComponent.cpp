@@ -186,4 +186,33 @@ namespace se_ogre {
 			parentNode_->addChild(node_);
 	}
 
+
+	void O3dThingComponent
+	::resetParentNode() {
+		if(0 == parentNode_)
+			return;
+
+		if(isVisible_)
+			parentNode_->removeChild(node_);
+		node_->setPosition(node_->getPosition() + parentNode_->getPosition());
+
+		parentNode_ = 0;
+	}
+
+
+	void O3dThingComponent
+	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+		if(newArea) {
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(newArea->component(type()));
+			Assert(c);
+			setParent(*c);
+			setParentNode(c->node());
+		}
+		else {
+			setVisible(false);
+			resetParent();
+			resetParentNode();
+		}
+	}
+
 }

@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "Area.hpp"
 #include "AreaManager.hpp"
-#include "CollisionGrid.hpp"
 #include "util/error/all.hpp"
 #include "util/math/all.hpp"
 #include "util/system/util_system.hpp"
@@ -36,6 +35,7 @@ rune@skalden.com
 #include "sim/stat/all.hpp"
 #include "sim/thing/all.hpp"
 #include "../physics/PhysicsSolverComponent.hpp"
+#include "../react/CollisionAreaComponent.hpp"
 #include <cstdio>
 
 
@@ -76,7 +76,8 @@ namespace se_core {
 		// Add self in center
 		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
 
-		physicsSolverComponent_ = new PhysicsSolverComponent(this);
+		collisionAreaComponent_ = new CollisionAreaComponent(this);
+		physicsSolverComponent_ = new PhysicsSolverComponent(this, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		// Register with area manager
@@ -198,21 +199,6 @@ namespace se_core {
 		if(thing.isMover())
 			multiSimObjects_[ MGOA_MOVING_THINGS ].add(thing);
 
-		if(thing.isCollideable()) {
-			physicsSolverComponent_->addCollideable(thing);
-			/*
-			if(isActive_) {
-				// TODO: Should use speed + radius
-				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
-				collisionGrid_->insert(thing.nextPos().worldCoor(), speedAndRadius, thing);
-			}
-			multiSimObjects_[ MGOA_PUSHABLE_THINGS ].add(thing);
-			*/
-		}
-
-		//if(thing.isPusher())
-		//	multiSimObjects_[ MGOA_PUSHING_THINGS ].add(thing);
-
 		if(!thing.isType(got_ACTOR))
 			multiSimObjects_[ MGOA_ACTORS ].add(thing);
 	}
@@ -235,10 +221,10 @@ namespace se_core {
 			// TODO: This assert fails?
 			DbgAssert(didDelete);
 		}
-		*/
 		if(thing.isCollideable()) {
 			physicsSolverComponent_->removeCollideable(thing);
 		}
+		*/
 
 		multiSimObjects_[ MGOA_MOVING_THINGS ].remove(thing);
 		multiSimObjects_[ MGOA_PICKABLE_THINGS ].remove(thing);
@@ -248,6 +234,7 @@ namespace se_core {
 	}
 
 
+	/*
 	Thing* Area
 	::findPickTarget(Player& actor) const {
 		actor.setPickTarget(0);
@@ -289,13 +276,11 @@ namespace se_core {
 			if(a->cutscenes().isEmpty()) continue;
 			if(nearest < 0 || coor.xzDistanceSquared(a->pos().localCoor()) < nearest) {
 				// TODO:
-				/*
-				if(pos.hasInFront(a->pos().localCoor()) && actor.findRunnableCutscene(*a)) {
-					nearest = coor.xzDistanceSquared(a->pos().localCoor());
-					actor.setTarget(a);
-					actor.setPickTarget(a);
-				}
-				*/
+				//if(pos.hasInFront(a->pos().localCoor()) && actor.findRunnableCutscene(*a)) {
+				//	nearest = coor.xzDistanceSquared(a->pos().localCoor());
+				//	actor.setTarget(a);
+				//	actor.setPickTarget(a);
+				//}
 			}
 		}
 		//TODO:
@@ -305,12 +290,7 @@ namespace se_core {
 
 		return actor.pickTarget();
 	}
-
-
-	CollisionGrid* Area
-	::collisionGrid() {
-		return physicsSolverComponent_->collisionGrid(); 
-	}
+	*/
 
 
 	/*

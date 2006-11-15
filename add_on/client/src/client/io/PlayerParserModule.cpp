@@ -22,14 +22,16 @@ rune@skalden.com
 #include "PlayerParserModule.hpp"
 #include "io/stream/InputStream.hpp"
 #include "io/schema/IoSchema.hpp"
-#include "client/event/ClientEventBridge.hpp"
 #include "client/schema/ClientSchema.hpp"
+#include "client/thing/all.hpp"
 #include "sim/sim.hpp"
 #include "sim/SimEngine.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/all.hpp"
 #include "sim/area/all.hpp"
 #include "sim/thing/all.hpp"
+#include "client/thing/all.hpp"
+#include "sim/pos/all.hpp"
 #include "util/error/Log.hpp"
 #include "util/math/CoorT.hpp"
 #include "util/type/String.hpp"
@@ -58,26 +60,38 @@ namespace se_client {
 		int code = ' ';
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
-			case 'P': // Player
-				in.readString(tempString);
-				LogMsg(tempString.get());
-				ClientSchema::player = static_cast<Player*>(SimSchema::thingManager().create(tempString.get()));
-				Assert(ClientSchema::player != 0);
-				// TODO: ClientSchema::player->nextPos().changeMovement(0, 0);
-				readInfo(in, ClientSchema::player);
-				LogMsg("Pos - read:" << ClientSchema::player->nextPos().area()->name());
-				ClientSchema::player->flip();
-				LogMsg("Pos - flip");
+			case 'P': 
+				{ // Player
+					in.readString(tempString);
+					LogMsg(tempString.get());
+					SimComposite* a = SimSchema::thingManager().create(tempString.get());
+					Assert(a);
+					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
+					Assert(pos);
+					CameraComponent* camera = new CameraComponent(a);
+					ClientSchema::playerX = new PlayerComponent(a);
+					Assert(ClientSchema::playerX != 0);
+					ClientSchema::player = pos;
+					Assert(ClientSchema::player != 0);
+					readInfo(in, pos, camera);
+					pos->flip();
+				}
 				break;
 
 			case 'C': // Camera
-				// Init camera object
-				in.readString(tempString);
-				LogMsg(tempString.get());
-				ClientSchema::floatingCamera = static_cast<Camera*>(SimSchema::thingManager().create(tempString.get()));
-				Assert(ClientSchema::floatingCamera != 0);
-				readInfo(in, ClientSchema::floatingCamera);
-				ClientSchema::floatingCamera->flip();
+				{
+					// Init camera object
+					in.readString(tempString);
+					SimComposite* a = SimSchema::thingManager().create(tempString.get());
+					Assert(a);
+					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
+					Assert(pos);
+					CameraComponent* camera = new CameraComponent(a);
+					ClientSchema::floatingCamera = pos;
+					Assert(ClientSchema::floatingCamera != 0);
+					readInfo(in, pos, camera);
+					pos->flip();
+				}
 				break;
 			}
 		}
@@ -85,7 +99,8 @@ namespace se_client {
 
 
 	void PlayerParserModule
-	::readInfo(InputStream& in, Camera* camera) const {
+	::readInfo(InputStream& in, PosComponent* pos, CameraComponent* camera) const {
+
 		String tempString;
 		Area* area;
 		int value, id;
@@ -97,48 +112,32 @@ namespace se_client {
 				in.readString(tempString);
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
-				camera->nextPos().localCoor().x_ = CoorT::fromFloat(in.readFloat());
-				camera->nextPos().localCoor().z_ = CoorT::fromFloat(in.readFloat());
-				camera->nextPos().localFace().setIdentity();
-				camera->nextPos().setArea(*area);
+				pos->nextPos().localCoor().x_ = CoorT::fromFloat(in.readFloat());
+				pos->nextPos().localCoor().z_ = CoorT::fromFloat(in.readFloat());
+				pos->nextPos().localFace().setIdentity();
+				pos->nextPos().setArea(*area);
 				break;
 
-			case 'E': { // Entrance 
-				in.readString(tempString);
-				value = in.readShort();
-				LogMsg(tempString.get());
-				area = SimSchema::areaManager.area(tempString.get());
-				Assert(area);
-				const ViewPoint* sp = area->spawnPoint(value);
-				Assert(sp);
-				camera->nextPos().setArea(*area, *sp);
-				LogMsg("Pos - read:" << camera->nextPos().area()->name());
+			case 'E': 
+				{ // Entrance 
+					in.readString(tempString);
+					value = in.readShort();
+					LogMsg(tempString.get());
+					area = SimSchema::areaManager.area(tempString.get());
+					Assert(area);
+					const ViewPoint* sp = area->spawnPoint(value);
+					Assert(sp);
+					pos->nextPos().setArea(*area, *sp);
 				}
 				break;
 
-				/*
-			case 'S': // Statistic
-				id = in.readDictionaryWord(DE_SINGLE_VALUE);
-				value = in.readInt();
-				camera->setSingleValue(id, value);
-				break;
-
-			case 'A': // Attribute
-				id = in.readDictionaryWord(DE_ATTRIBUTE);
-				stringValue = new String();
-				//in.readString(*stringValue);
-				//camera->attribute(id).set(stringValue);
-				in.readString(camera->attribute(id));
-				break;
-				*/
-
 			case 'V': // ViewPort
-				ClientSchema::clientEventBridge.setCamera(camera);
+				camera->grabFocus();
 				break;
 
 			case 'T': // Camera tracking player
-				Assert(camera != ClientSchema::player && "Player cannot track player");
-				camera->nextPos().setParent(*ClientSchema::player);
+				Assert(pos != ClientSchema::player && "Player cannot track player");
+				pos->nextPos().setParent(*ClientSchema::playerX->toActor());
 				break;
 			}
 		}

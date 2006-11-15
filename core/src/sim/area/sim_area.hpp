@@ -27,7 +27,6 @@ namespace se_core {
 	class Area;
 	class AreaFactory;
 	class AreaManager;
-	class CollisionGrid;
 }
 
 #endif

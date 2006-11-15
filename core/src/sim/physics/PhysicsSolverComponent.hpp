@@ -24,56 +24,38 @@ rune@skalden.com
 
 #include "Physics.hpp"
 #include "../SimNodeComponent.hpp"
-#include "../area/CollisionGrid.hpp"
+#include "../react/CollisionGrid.hpp"
+#include "../react/sim_react.hpp"
 #include "../area/Area.hpp"
+#include "../pos/PosComponent.hpp"
 
 namespace se_core {
 	class _SeCoreExport PhysicsSolverComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
 		 */
-		PhysicsSolverComponent(SimComposite* owner);
+		PhysicsSolverComponent(SimComposite* owner, CollisionAreaComponent* cac);
 		~PhysicsSolverComponent();
 
 		const char* name() { return "PhysicsSolver"; }
 
 
-		/**
-		 * Sets the grid used to speed up the collisions detection.
-		 * Often there an area is inactive much of the time, and a fine grained grid
-		 * may take up quite a lot of memory. So the grid is passed around from
-		 * one active area to the next.
-		 */
-		void setCollisionGrid(CollisionGrid* grid);
-
-		CollisionGrid* collisionGrid() {
-			return collisionGrid_; 
-		}
-
-		/**
-		 * Resets collision grid.
-		 * @see setCollisionGrid
-		 */
-		void resetCollisionGrid();
 		void testActors2ThingsCollisions(PhysicsComponent** movers, short moverCount);
 		int performChildPhysics(PhysicsComponent** movers);
-
-		void addCollideable(Thing& posNode);
-		void removeCollideable(Thing& posNode);
 
 		void flipChildren();
 
 		void setActive(bool state);
 
 	private:
-		CollisionGrid* collisionGrid_;
-
 		/**
 		 * List of movers this step. Updated by the coordinate precalcer and
 		 * used by the collision detector.
 		 */
 		friend class PhysicsComponentManager;
 		PhysicsComponent** movers_;
+
+		CollisionAreaComponent* collisionAreaComponent_;
 
 		/** Number of movers presently in the movers_ array */
 		short moverCount_;

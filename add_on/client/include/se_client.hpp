@@ -26,5 +26,6 @@ rune@skalden.com
 #include "../src/client/lang/all.hpp"
 #include "../src/client/event/all.hpp"
 #include "../src/client/io/all.hpp"
+#include "../src/client/thing/all.hpp"
 
 #endif

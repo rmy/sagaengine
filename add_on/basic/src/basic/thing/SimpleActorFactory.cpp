@@ -48,6 +48,10 @@ namespace se_basic {
 			a->setDefaultScript(script_);
 		}
 
+		if(isCollideable_) {
+			new CollisionComponent(a);
+		}
+
 		createComponents(a);
 
 		return a;
