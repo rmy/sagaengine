@@ -83,6 +83,7 @@ namespace se_core {
 	void CollisionGrid
 	::setSize(int width, int height) {
 		rootNodeSize_ = (width > height) ? width : height;
+		Assert(indexAtLevel(width - 1, height - 1, depth_ - 1) < totalNodeCount_);
 	}
 
 

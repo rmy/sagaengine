@@ -30,8 +30,6 @@ namespace se_core {
 	::setActive(bool state, bool doTraverseChildren) {
 		if(state == isActive_) return;
 
-		LogMsg(name());
-
 		isActive_ = state;
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
@@ -127,8 +125,6 @@ namespace se_core {
 
 	void SimComposite
 	::setParent(SimComposite& p) {
-		LogMsg(name() << " - " << p.name());
-
 		if(parent_ == &p)
 			return;
 
@@ -153,7 +149,6 @@ namespace se_core {
 
 	void SimComposite
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
-		LogMsg(name()); if(newArea) LogMsg(newArea->name());
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();

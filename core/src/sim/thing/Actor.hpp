@@ -80,10 +80,6 @@ namespace se_core {
 			actionComponent_->planAction(channel, action, parameter);
 		}
 
-		virtual void performDefaultMovementAction() const {
-			WasHere();
-		}
-
 		void disrupt() {
 			actionComponent_->disrupt();
 		}
@@ -192,6 +188,7 @@ namespace se_core {
 		//virtual void setActive(bool state);
 
 		void setCollide(const ThingCollide* collide) { physicsComponent_->setCollide(collide); }
+		bool isPusher() { return physicsComponent_->isPusher(); }
 
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }

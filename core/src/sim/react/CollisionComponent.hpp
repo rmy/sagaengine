@@ -62,7 +62,6 @@ namespace se_core {
 			return *posComponent_;
 		}
 
-		void setActive(bool state);
 		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 

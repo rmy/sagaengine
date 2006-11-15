@@ -103,6 +103,7 @@ namespace se_core {
 		 * for a coordinate at a given level.
 		 */
 		inline int indexAtLevel(coor_tile_t x, coor_tile_t z, short level) {
+			Assert(level < depth_);
 			coor_tile_t nodeX = shiftRight(x, (rootNodeShift_ - level));
 			coor_tile_t nodeZ = shiftRight(z, (rootNodeShift_ - level));
 			return nodeX + nodeZ * lineOffset(level);
@@ -113,6 +114,7 @@ namespace se_core {
 		 * for a coordinate at a given level.
 		 */
 		inline int indexAtLevelAndNode(coor_tile_t nodeX, coor_tile_t nodeZ, short level) {
+			Assert(level < depth_);
 			return nodeX + nodeZ * lineOffset(level);
 		}
 
