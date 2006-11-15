@@ -84,11 +84,9 @@ namespace se_core {
 		MultiSimNodeComponent::TreeIterator it(children_);
 		while(it.hasNext()) {
 			SimNodeComponent& c = it.next();
-			LogMsg(c.owner()->name());
 		}
 
 		if(newParent) {
-			LogMsg(owner()->name() << " - " << newParent->name() << "; " << type());
 			SimNodeComponent* n = static_cast<SimNodeComponent*>(newParent->component(type()));
 			if(n) {
 				setParent(*n);

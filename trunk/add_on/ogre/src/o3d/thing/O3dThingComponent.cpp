@@ -54,7 +54,6 @@ namespace se_ogre {
 			Assert(a);
 			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(a->component(type()));
 			Assert(c);
-			LogMsg(c->owner()->name() << " - " << owner()->name());
 			Assert(c->node());
 			setParentNode(c->node());
 		}
@@ -82,7 +81,6 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::setActive(bool state) {
-		LogMsg(owner()->name() << ": " << state);
 		if(state) {
 			init();
 		}
@@ -156,7 +154,6 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::add(ThingMO& tmo) {
-		LogMsg(firstThingMO_);
 		O3dSchema::thingMOList.add(&tmo, firstThingMO_);
 		tmo.setParentNode(node_);
 	}
@@ -172,7 +169,6 @@ namespace se_ogre {
 	::setParentNode(Ogre::SceneNode* sn) {
 		if(sn == parentNode_)
 			return;
-		LogMsg(owner()->name());
 
 		if(parentNode_) {
 			if(isVisible_)

@@ -29,8 +29,6 @@ namespace se_core {
 
 	void SimComponent
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
-		LogMsg(owner()->name() << " - " << type());
-		if(newArea) LogMsg(newArea->name());
 	}
 
 }

@@ -60,23 +60,4 @@ namespace se_core {
 		}
 	}
 
-
-	void CollisionComponent
-	::setActive(bool state) {
-		Area* area = const_cast<Area*>(posComponent_->pos().area());
-		if(state) {
-			if(area) {
-				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(type()));
-				cac->addCollideable(*this);
-			}
-
-		}
-		else {
-			if(area) {
-				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(type()));
-				cac->removeCollideable(*this);
-			}
-		}
-	}
-
 }
