@@ -87,7 +87,11 @@ namespace se_core {
 		void removeComponent(SimComponent& c);
 		void addComponent(SimComponent& c);
 
+
 	protected:
+		friend class PosComponent;
+		// Called during flip is area is changed from pos to nextPos
+		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 		/**
 		 * Add a SimComposite as a child.

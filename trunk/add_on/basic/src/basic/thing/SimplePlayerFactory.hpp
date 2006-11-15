@@ -10,8 +10,6 @@ namespace se_basic {
 	public:
 		SimplePlayerFactory(se_core::String* name);
 		~SimplePlayerFactory();
-
-		se_core::SimComposite* create() const;
 	};
 
 }

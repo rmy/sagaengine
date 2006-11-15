@@ -24,9 +24,6 @@ rune@skalden.com
 
 namespace se_core {
 	class Actor;
-	class Camera;
-	class CameraHandler;
-	class Player;
 	class Thing;
 	class ThingFactory;
 	class ThingDefinition;

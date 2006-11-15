@@ -24,7 +24,8 @@ rune@skalden.com
 
 #include "../event/client_event.hpp"
 #include "../lang/client_lang.hpp"
-#include "sim/thing/sim_thing.hpp"
+#include "sim/pos/sim_pos.hpp"
+#include "client/thing/client_thing.hpp"
 #include "util/system/util_system.hpp"
 
 /**
@@ -40,20 +41,20 @@ namespace se_client {
 		/** Manager for client listeners. */
 		extern _SeClientExport ClientListeners clientListeners;
 		
-		/** Bridge for events between the core and client application + set the present camera throught this class. */
-		extern _SeClientExport ClientEventBridge clientEventBridge;
-		
 		/** Look up dictionary that contains phrases in several languages. */
 		extern _SeClientExport Phrase phrases;
 
 		/** The current player object */
-		extern _SeClientExport se_core::Player* player;
+		extern _SeClientExport PlayerComponent* playerX;
 
 		/** A camera object (actor) that can float free of the player object. */
-		extern _SeClientExport se_core::Camera* floatingCamera;
+		extern _SeClientExport se_core::PosComponent* player;
+
+		/** A camera object (actor) that can float free of the player object. */
+		extern _SeClientExport se_core::PosComponent* floatingCamera;
 
 		/** The object that the camera is attached to. Probably the player or the floatingCamera */
-		extern _SeClientExport se_core::Camera* camera;
+		extern _SeClientExport se_core::PosComponent* camera;
 
 		/** Force linking of dependencies */
 		void _SeClientExport touch();

@@ -118,11 +118,6 @@ namespace se_core {
 			return false;
 		}
 
-		/** Can other PosNodes collide with this PosNode?
-		 */
-		bool isCollideable() const {
-			return isCollideable_;
-		}
 
 
 		////// Methods that may be used by scripts - end //////
@@ -186,32 +181,18 @@ namespace se_core {
 		}
 
 
-		/** Remove the PosNode from its area.
-		 *
-		 * You don't call this method directly. It is called automatically
-		 * by the SagaEngine during the flip phase of a new simulation step.
-		 */
-		virtual void leaveCurrentArea() {
-			return posComponent_->leaveCurrentArea();
-		}
-
-		/** Move the PosNode from one area to another.
-		 *
-		 * You don't call this method directly. It is called automatically
-		 * by the SagaEngine during the flip phase of a new simulation step.
-		 */
-		virtual bool changeArea() {
-			return posComponent_->changeArea();
-		}
-
-
 		/** Set wether this thing can be collided with.
 		 * 
 		 * This is a hint to the engine that this should be included
 		 * in the collison space.
 		 */
 		void setCollideable(bool isCollideable) {
-			isCollideable_ = isCollideable;
+			posComponent_->setCollideable(isCollideable);
+		}
+
+
+		bool isCollideable() const {
+			return posComponent_->isCollideable();
 		}
 
 		////////////////////////////////////////
@@ -271,10 +252,6 @@ namespace se_core {
 		/** Flag which indicates that the PosNode moves between the current and the next simulation step. */
 		//bool didMove_;
 
-		/** Flag that indicated wether other PosNodes can collide with this PosNode.
-		 * Used by the Area class to decide wether the PosNode should be inserted into a collision grid. 
-		 */
-		bool isCollideable_;
 
 		/** The number of spawn points */
 		//int spawnPointCount_;

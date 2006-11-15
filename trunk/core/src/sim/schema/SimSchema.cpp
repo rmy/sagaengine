@@ -37,6 +37,7 @@ rune@skalden.com
 #include "../area/AreaManager.hpp"
 #include "../thing/ThingManager.hpp"
 #include "../physics/all.hpp"
+#include "../react/all.hpp"
 #include "../action/all.hpp"
 #include "../stat/Dictionary.hpp"
 #include "../stat/DictionaryEntry.hpp"
@@ -110,6 +111,9 @@ namespace se_core {
 			static DictionaryEntry dThingType(DE_DICTIONARY_TYPE, DE_THING_TYPE, "THING_TYPE", false);
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);
 			return simEngine.init();
+
+			PhysicsComponentManager::singleton();
+			CollisionManager::singleton();
 		}
 
 		void cleanup() {

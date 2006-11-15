@@ -35,6 +35,7 @@ rune@skalden.com
 #include "util/vecmath/util_vecmath.hpp"
 #include "sim/config/sim_config.hpp"
 #include "../physics/sim_physics.hpp"
+#include "../react/sim_react.hpp"
 
 
 namespace se_core {
@@ -118,7 +119,6 @@ namespace se_core {
 		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
 		MultiSimObject& allThings() const;
 		ReportingMultiSimObject& reportingThings();
-		CollisionGrid* collisionGrid();
 
 		void addThing(Thing& thing);
 		void removeThing(Thing& thing);
@@ -145,8 +145,8 @@ namespace se_core {
 		/// Line of sight utility method
 		virtual long touchedTerrain(const Point3& from, const Point3& to) const;
 
-		Thing* findPickTarget(Player& actor) const;
-		Thing* findDefaultActionTarget(Player& actor) const;
+		//Thing* findPickTarget(Player& actor) const;
+		//Thing* findDefaultActionTarget(Player& actor) const;
 		bool isActive() const { return isActive_; }
 		void enter(Actor& performer);
 		void reset();
@@ -216,6 +216,7 @@ namespace se_core {
 
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
+		CollisionAreaComponent* collisionAreaComponent_;
 		PhysicsSolverComponent* physicsSolverComponent_;
 	};
 

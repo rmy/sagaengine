@@ -33,6 +33,7 @@ namespace se_core {
 	::PosComponent(SimComposite* owner)
 			: SimComponent(sct_POS, owner)
 			, didMove_(false)
+			, isCollideable_(false)
 			, spawnPoints_(0) {		
 	}
 
@@ -48,33 +49,9 @@ namespace se_core {
 			changeParent();
 		}
 		if(position_.area() != nextPosition_.area()) {
-			changeArea();
+			owner()->areaChanged(nextPosition_.area(), position_.area());
 		}
 		position_.setPos(nextPosition_);
-	}
-
-
-	void PosComponent
-	::leaveCurrentArea() {
-		if(position_.hasArea()) {
-			position_.area()->removePosNode(*toActor());
-		}
-	}
-
-
-	bool PosComponent
-	::changeArea() {
-		if(position_.hasArea()) {
-			leaveCurrentArea();
-		}
-
-		if(nextPos().hasArea()) {
-			nextPos().area()->addPosNode(*toActor());
-		}
-		else {
-			return false;
-		}
-		return true;
 	}
 
 
@@ -146,5 +123,6 @@ namespace se_core {
 		Assert(spawnPoints_[id] != 0);
 		return spawnPoints_[id];
 	}
+
 
 }

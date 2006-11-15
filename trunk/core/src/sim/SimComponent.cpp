@@ -26,4 +26,11 @@ namespace se_core {
 		return owner_->isDead();
 	}
 
+
+	void SimComponent
+	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+		LogMsg(owner()->name() << " - " << type());
+		if(newArea) LogMsg(newArea->name());
+	}
+
 }

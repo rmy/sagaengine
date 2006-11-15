@@ -23,6 +23,7 @@ rune@skalden.com
 #include "PhysicsComponentManager.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
+#include "../react/CollisionAreaComponent.hpp"
 #include "util/error/Log.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "../thing/Actor.hpp"
@@ -33,9 +34,9 @@ namespace se_core {
 	static coor_t MAX_SPEED = 64 * COOR_STEP + 2 * COOR_RES;
 
 	PhysicsSolverComponent
-	::PhysicsSolverComponent(SimComposite* owner) 
+	::PhysicsSolverComponent(SimComposite* owner, CollisionAreaComponent* cac) 
 		: SimNodeComponent(sct_PHYSICS, owner)
-		, collisionGrid_(0)
+		, collisionAreaComponent_(cac)
 		, moverCount_(0) {
 	}
 
@@ -45,39 +46,9 @@ namespace se_core {
  	}
 
 
-	void PhysicsSolverComponent
-	::addCollideable(Thing& thing) {
-		if(thing.isCollideable()) {
-			if(collisionGrid_) {
-				// TODO: Should use speed + radius
-				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
-				collisionGrid_->insert(thing.nextPos().worldCoor(), speedAndRadius, thing);
-			}
-		}
- 	}
 
-
-	void PhysicsSolverComponent
-	::removeCollideable(Thing& thing) {
-		if(!collisionGrid_)
-			return;
-
-		// TODO: Should use speed + radius
-		coor_t speedAndRadius = thing.pos().radius() + MAX_SPEED;
-		bool didDelete = collisionGrid_->remove(thing.pos().worldCoor(), speedAndRadius, thing);
-		if(!didDelete) {
-			coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
-			didDelete = collisionGrid_->remove(thing.nextPos().worldCoor(), speedAndRadius, thing);
-			if(!didDelete) LogMsg("Couldn't remove " << thing.name() << " from collision grid");
-		}
-
-		// TODO: This assert fails?
-		DbgAssert(didDelete);
-	}
-
-
-	inline bool _testActor2ThingCollision(Actor& pn1,
-							  Thing& pn2) {
+	inline bool _testActor2ThingCollision(PosComponent& pn1,
+							  PosComponent& pn2) {
 		BoundingBox b1(pn1.pos().worldCoor(), pn1.pos().bounds_);
 		BoundingBox btmp(pn1.pos().worldCoor(), pn1.pos().bounds_);
 		b1.merge(btmp);
@@ -89,7 +60,7 @@ namespace se_core {
 			return false;
 
 		// Inside collision range. Collide.
-		return pn1.pushThing(pn2);
+		return true;
 	}
 
 
@@ -98,7 +69,7 @@ namespace se_core {
 		// Create buffer to temporarily hold collision candidates
 		static const int MAX_THINGS = 256;
 		// PS! Not thread safe, but takes less space on GBA stack
-		static Thing* things[MAX_THINGS] VAR_IN_EWRAM;
+		static PosComponent* things[MAX_THINGS] VAR_IN_EWRAM;
 		Area* self = toArea();
 
 		for(int outer = 0; outer < moverCount; ++outer) {
@@ -111,9 +82,11 @@ namespace se_core {
 			short innerCount = 0;
 			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {
 				Area* area = self->neighbours_[ n ];
-				if(!area || !area->collisionGrid()) continue;
+				if(!area) continue;
+				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(sct_COLLISION));
+				if(!cac || !cac->collisionGrid()) continue;
 
-				innerCount += area->collisionGrid()->collisionCandidates
+				innerCount += cac->collisionGrid()->collisionCandidates
 					(a->nextPos().worldCoor(), a->nextPos().radius() + COOR_RES
 					 , &things[innerCount], MAX_THINGS - innerCount);
 			}
@@ -121,54 +94,24 @@ namespace se_core {
 			// Test collision with all collision candidates
 			for(int inner = 0; inner < innerCount; ++inner) {
 				// Don't test collision with self
-				if(things[ inner ] == a) {
+				if(things[ inner ]->toActor() == a) {
 					continue;
 				}
 
 				// Test for collision
-				if(_testActor2ThingCollision(*a, *things[ inner ])) {
-					a->resetFutureCoor();
-					break;
+				PhysicsComponent& pn1 = *movers_[ outer ];
+				PosComponent& pn2 = *things[ inner ];
+				if(_testActor2ThingCollision(*pn1.posComponent_, pn2)) {
+					//pn1.pushThing(pn2.toActor());
+					if(pn1.pushThing(pn2)) {
+						pn1.posComponent_->resetFutureCoor();
+						break;
+					}
 				}
 			}
 		}
 	}
 
-
-	void PhysicsSolverComponent
-	::setCollisionGrid(CollisionGrid* grid) {
-		collisionGrid_ = grid;
-
-		// Make sure the grid does not have any members
-		// from previous usage
-		collisionGrid_->clear();
-
-		// Align the grid coordinate system with
-		// this areas coordinate system
-		collisionGrid_->setSize(toArea()->width(), toArea()->height());
-
-		collisionGrid_->setOffset(toArea()->pos().worldCoor());
-
-		// Add moving elements to grid
-		SimObjectList::iterator_type it = toArea()->allThings().iterator();
-		while(it != SimObjectList::end()) {
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			if(t->isCollideable()) {
-				//LogMsg(t->name() << ": " << t->nextPos().worldCoor().toLog());
-				collisionGrid_->insert(t->nextPos().worldCoor(), t->nextPos().radius(), *t);
-			}
-		}
-	}
-
-
-	void PhysicsSolverComponent
-	::resetCollisionGrid() {
-		CollisionGrid* g = collisionGrid_;
-		if(collisionGrid_) {
-			PhysicsComponentManager::singleton().releaseCollisionGrid(collisionGrid_);
-			collisionGrid_ = 0;
-		}
-	}
 
 
 	void PhysicsSolverComponent
@@ -176,8 +119,7 @@ namespace se_core {
 		if(children_.isEmpty())
 			return;
 
-		Thing* t;
-
+		CollisionGrid* grid = collisionAreaComponent_->collisionGrid();
 
 		static const int MAX_STACK_DEPTH = 10;
 		MultiSimNodeComponent::Iterator itStack[ MAX_STACK_DEPTH ];
@@ -186,16 +128,12 @@ namespace se_core {
 		do {
 			// Get next in chain
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(itStack[ sp ].next());
-			PosNode* p = ph.toActor(); //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
+			PosComponent* p = ph.posComponent_; //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
 			Assert(p);
 			// Move to new position in collision grid
-			if(collisionGrid_
+			if(grid
 			   && p->isCollideable()
 			   && p->pos().area() == p->nextPos().area()) {
-
-				// TODO: Make CollisionGrid handle PosNodes
-				Assert(p->isType(got_POS_NODE));
-				t = static_cast<Thing*>(p);
 
 				// TODO: Real speed instead of max speed...
 				static const coor_t speed = MAX_SPEED;
@@ -207,7 +145,7 @@ namespace se_core {
 				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
 				const Point3& nextWC = p->nextPos().worldCoor();
 
-				collisionGrid_->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *t);
+				grid->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *p);
 			}
 
 			// Do the flip
@@ -231,12 +169,10 @@ namespace se_core {
 	void PhysicsSolverComponent
 	::setActive(bool state) {
 		if(state) {
-			setCollisionGrid(PhysicsComponentManager::singleton().grabCollisionGrid());
 			PhysicsComponentManager::singleton().setSolverActive(this);
 		}
 		else {
 			moverCount_ = 0;
-			resetCollisionGrid();
 			PhysicsComponentManager::singleton().setSolverInactive(this);
 		}
 	}

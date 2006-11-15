@@ -10,8 +10,6 @@ namespace se_basic {
 	public:
 		SimpleCameraFactory(se_core::String* name);
 		~SimpleCameraFactory();
-
-		se_core::SimComposite* create() const;
 	};
 
 }

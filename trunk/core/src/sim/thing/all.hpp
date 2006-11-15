@@ -3,12 +3,9 @@
 
 #include "ActorFactory.hpp"
 #include "ThingFactory.hpp"
-#include "CameraHandler.hpp"
-#include "Player.hpp"
 #include "Thing.hpp"
 #include "sim_thing.hpp"
 #include "Actor.hpp"
-#include "Camera.hpp"
 #include "ThingManager.hpp"
 
 #endif

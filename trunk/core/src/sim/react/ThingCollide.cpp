@@ -48,6 +48,13 @@ namespace se_core {
 		return true;
 	}
 
+
+	bool ThingCollide
+	::collide(PhysicsComponent& pusher, PosComponent& target) const {
+		collide(*pusher.toActor(), *target.toActor());
+	}
+
+
 }
 
 

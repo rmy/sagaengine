@@ -24,8 +24,11 @@ rune@skalden.com
 
 #include "io/parse/ParserModule.hpp"
 #include "io/stream/io_stream.hpp"
+#include "../thing/client_thing.hpp"
 #include "sim/area/sim_area.hpp"
 #include "sim/stat/sim_stat.hpp"
+#include "sim/pos/sim_pos.hpp"
+#include "sim/sim.hpp"
 #include "sim/thing/sim_thing.hpp"
 
 
@@ -37,7 +40,7 @@ namespace se_client {
 		void parse(se_core::InputStream& in);
 
 	private:
-		void readInfo(se_core::InputStream& in, se_core::Camera* camera) const;
+		void readInfo(se_core::InputStream& in, se_core::PosComponent* pos, CameraComponent* camera) const;
 	};
 
 }

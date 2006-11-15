@@ -19,13 +19,27 @@ rune@skalden.com
 */
 
 
-#ifndef sim_pos_hpp
-#define sim_pos_hpp
+#ifndef sim_AreaChildComponent_hpp
+#define sim_AreaChildComponent_hpp
+
+#include "./SimNodeComponent.hpp"
+
 
 namespace se_core {
-	class Anim;
-	class Pos;
-	class PosComponent;
+	/** Container class for SimObjects that exists in the game world.
+	 */
+	class _SeCoreExport AreaChildComponent : public SimNodeComponent {
+	public:
+		AreaChildComponent(enum SimComponentType type, SimComposite* owner);
+		virtual ~AreaChildComponent();
+
+	protected:
+		/** Override SimNodeComponent with empty handler */
+		void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
+		/** AreaChild should have area as parent */
+		void areaChanged(SimComposite* newParent, SimComposite* oldParent);
+	};
+
 }
 
 #endif

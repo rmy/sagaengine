@@ -24,6 +24,8 @@ rune@skalden.com
 
 #include "../thing/sim_thing.hpp"
 #include "../SimObject.hpp"
+#include "../physics/sim_physics.hpp"
+#include "../pos/sim_pos.hpp"
 
 namespace se_core {
 	/** Base reaction class for actor vs thing collisions. */
@@ -35,7 +37,10 @@ namespace se_core {
 		 * @return true if the collision blocks the movement of the collider.
 		 */
 		virtual bool collide(Actor& pusher
-					 , Thing& target) const = 0;
+							 , Thing& target) const {}
+
+		virtual bool collide(PhysicsComponent& pusher
+					 , PosComponent& target) const;
 
 		//static const int PUSHED_TYPE_COUNT = 5;
 	protected:

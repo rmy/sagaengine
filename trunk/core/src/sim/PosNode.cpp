@@ -37,7 +37,6 @@ namespace se_core {
 	PosNode
 	::PosNode(enum SimObjectType type, const char* name)
 			: SimComposite(type, name)
-			, isCollideable_(false)
 			 //, didMove_(false)
 			 //, spawnPoints_(0) 
 		

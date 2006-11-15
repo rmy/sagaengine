@@ -182,8 +182,6 @@ namespace se_core {
 
 		///////////////////////////////////////
 
-		bool isPusher() const { return collide_ != 0; }
-
 		void setShowingCutscene(ShowingCutscene* sc, const Script* script);
 		ShowingCutscene* showingCutscene() { return showingCutscene_; }
 
@@ -193,10 +191,7 @@ namespace se_core {
 
 		//virtual void setActive(bool state);
 
-		void setCollide(const ThingCollide* collide) { collide_ = collide; }
-		inline bool pushThing(Thing& pushedThing) {
-			return collide_->collide(*this, pushedThing);
-		}
+		void setCollide(const ThingCollide* collide) { physicsComponent_->setCollide(collide); }
 
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }
@@ -258,7 +253,6 @@ namespace se_core {
 		MultiSimObject cutsceneMemberships_;
 		MultiSimObject questGoals_;
 
-		const ThingCollide* collide_;
 		SimPtr target_;
 
 		int spawnCount_;

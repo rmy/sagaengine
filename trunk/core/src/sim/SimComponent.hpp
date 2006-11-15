@@ -91,6 +91,9 @@ namespace se_core {
 		 */
 		virtual void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
 
+		/** Called by SimComposite
+		 */
+		virtual void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 		/**
 		 * The type of SimComponent.

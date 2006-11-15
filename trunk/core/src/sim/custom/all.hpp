@@ -6,6 +6,7 @@
 #include "Abilities.hpp"
 #include "ActorData.hpp"
 #include "Health.hpp"
+#include "StatComponent.hpp"
 #include "Move.hpp"
 
 #endif
