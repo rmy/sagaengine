@@ -141,13 +141,13 @@ namespace se_core {
 
 
 	MultiSimComposite::Iterator
-	::Iterator(MultiSimComposite& msc) {
+	::Iterator(const MultiSimComposite& msc) {
 		(*this).init(msc);
 	}
 
 
 	void MultiSimComposite::Iterator
-	::init(MultiSimComposite& msc) {
+	::init(const MultiSimComposite& msc) {
 		msc.initIterator(it_);
 	}
 

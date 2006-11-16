@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim_action.hpp"
 #include "../SimComponent.hpp"
+#include "../SimComposite.hpp"
 #include "../sim.hpp"
 #include "Action.hpp"
 #include "ActionQueue.hpp"
@@ -43,6 +44,19 @@ namespace se_core {
 		 */
 		ActionComponent(SimComposite* owner);
 		~ActionComponent();
+
+
+		static ActionComponent* get(SimComposite& composite) {
+			ActionComponent* c = static_cast<ActionComponent*>(composite.component(se_core::sct_ACTION));
+			return c;
+		}
+
+		static ActionComponent* get(SimComponent& component) {
+			ActionComponent* c = static_cast<ActionComponent*>(component.owner()->component(se_core::sct_ACTION));
+			return c;
+		}
+
+
 
 		void cleanup();
 

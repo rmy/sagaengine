@@ -23,6 +23,7 @@ rune@skalden.com
 #define PlayerComponent_hpp
 
 #include "sim/SimComponent.hpp"
+#include "sim/SimComposite.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/action/Action.hpp"
@@ -74,6 +75,11 @@ namespace se_client {
 		void planDefaultMovementAction() const;
 		void performDefaultMovementAction() const;
 
+
+		static PlayerComponent* get(se_core::SimComposite& composite) {
+			PlayerComponent* c = static_cast<PlayerComponent*>(composite.component(se_core::sct_PLAYER));
+			return c;
+		}
 
 	protected:
 		// Sibling shortcut

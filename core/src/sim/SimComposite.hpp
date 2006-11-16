@@ -66,6 +66,8 @@ namespace se_core {
 		void setParent(SimComposite& p);
 		void resetParent();
 
+		const MultiSimComposite& children() const { return children_; }
+
 
 		bool isActive() { return isActive_; }
 
