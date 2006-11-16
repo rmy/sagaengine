@@ -23,6 +23,7 @@ rune@skalden.com
 #define sim_PosComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../SimComposite.hpp"
 #include "../sim.hpp"
 #include "Pos.hpp"
 #include "../config/sim_config.hpp"
@@ -44,6 +45,17 @@ namespace se_core {
 	public:
 		PosComponent(SimComposite* owner);
 		virtual ~PosComponent();
+
+		static PosComponent* get(SimComposite& composite) {
+			PosComponent* c = static_cast<PosComponent*>(composite.component(se_core::sct_POS));
+			return c;
+		}
+
+		static PosComponent* get(SimComponent& component) {
+			PosComponent* c = static_cast<PosComponent*>(component.owner()->component(se_core::sct_POS));
+			return c;
+		}
+
 
 		/** Return a const reference to the current position of the thing.
 		 *

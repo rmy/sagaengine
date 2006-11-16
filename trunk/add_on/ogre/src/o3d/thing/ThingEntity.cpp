@@ -190,8 +190,8 @@ namespace se_ogre {
 				}
 				pos *= state_[i]->getLength() * speed_[i];
 				// If same state are in more channels, interpolate between their positions
-				Assert(!state_[i]->getEnabled() && "Using the same animation twice at once");
 				if(a.weight() > 0) {
+					Assert(!state_[i]->getEnabled() && "Using the same animation twice at once");
 					//state_[i]->setTimePosition(pos);
 					state_[i]->setTimePosition(pos);
 					float w = a.weight();

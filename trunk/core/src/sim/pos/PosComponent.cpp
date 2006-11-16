@@ -34,7 +34,7 @@ namespace se_core {
 			: SimComponent(sct_POS, owner)
 			, didMove_(false)
 			, isCollideable_(false)
-			, spawnPoints_(0) {		
+			, spawnPoints_(0) {
 	}
 
 

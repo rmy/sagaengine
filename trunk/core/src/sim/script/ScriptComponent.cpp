@@ -23,6 +23,8 @@ rune@skalden.com
 #include "ScriptComponent.hpp"
 #include "../action/all.hpp"
 #include "../thing/Actor.hpp"
+#include "../schema/SimSchema.hpp"
+#include "../stat/SortedSimObjectList.hpp"
 #include "util/type/String.hpp"
 #include "util/error/Log.hpp"
 
@@ -104,13 +106,12 @@ namespace se_core {
 	}
 
 
-	// TODO:
-	//void ScriptComponent
-	//::pushScript(const char* name) {
-	//	// Asser(!isDead_);
-	//	const Script* s = SimSchema::sortedSimObjectList().script(name);
-	//	pushScript(s);
-	//}
+	void ScriptComponent
+	::pushScript(const char* name) {
+		// Asser(!isDead_);
+		const Script* s = SimSchema::sortedSimObjectList().script(name);
+		pushScript(s);
+	}
 
 
 	void ScriptComponent

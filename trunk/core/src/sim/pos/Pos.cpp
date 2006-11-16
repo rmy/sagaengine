@@ -39,6 +39,7 @@ namespace se_core {
 			, index_(-1)
 			, isGrounded_(true)
 	{
+		anim(0).setWeight(1);
 		local_.setIdentity();
 		world_.setIdentity();
 	}

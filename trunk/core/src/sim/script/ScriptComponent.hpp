@@ -23,6 +23,7 @@ rune@skalden.com
 #define ScriptComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../SimComposite.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionFeed.hpp"
 #include "../action/sim_action.hpp"
@@ -34,6 +35,13 @@ namespace se_core {
 	public:
 		ScriptComponent(SimComposite* owner, ActionComponent* consumer);
 		virtual ~ScriptComponent();
+
+		static ScriptComponent* get(SimComposite& composite) {
+			ScriptComponent* c = static_cast<ScriptComponent*>(composite.component(se_core::sct_SCRIPT));
+			return c;
+		}
+
+
 
 		void cleanup();
 
@@ -124,6 +132,7 @@ namespace se_core {
 		const Script* scriptStack_[SCRIPT_STACK_SIZE];
 		ScriptData* scriptData_[SCRIPT_STACK_SIZE];
 	};
+
 
 }
 

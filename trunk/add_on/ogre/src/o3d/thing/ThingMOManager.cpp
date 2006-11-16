@@ -26,6 +26,7 @@ rune@skalden.com
 #include "ThingMOFactory.hpp"
 #include "ThingMovableObjectFactory.hpp"
 #include "ThingEntityFactory.hpp"
+#include "ThingParticleFactory.hpp"
 #include "ThingMultiMOFactory.hpp"
 #include "ThingLightFactory.hpp"
 #include "ThingBillboardFactory.hpp"
@@ -45,6 +46,7 @@ namespace se_ogre {
 		static ThingLightFactory tmofLight;
 		static ThingBillboardFactory tmofBillboard;
 		static ThingStaticGeometryFactory tmofStaticGeometry;
+		static ThingParticleFactory tmofParticle;
 		static ThingMultiMOFactory tmofMultiMO;
 	}
 
