@@ -35,7 +35,7 @@ namespace se_ogre {
 
 	protected:
 		friend class ThingImpostorFactory;
-		ThingImpostor(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingImpostor(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingImpostor();
 
 	private:

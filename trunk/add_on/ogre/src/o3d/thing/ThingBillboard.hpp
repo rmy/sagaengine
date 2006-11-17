@@ -35,7 +35,7 @@ namespace se_ogre {
 
 	protected:
 		friend class ThingBillboardFactory;
-		ThingBillboard(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingBillboard(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingBillboard();
 
 	private:

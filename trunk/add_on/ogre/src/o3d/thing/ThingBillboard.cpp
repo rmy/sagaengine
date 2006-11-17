@@ -31,7 +31,7 @@ using namespace se_core;
 namespace se_ogre {
 
 	ThingBillboard
-	::ThingBillboard(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingBillboard(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 			: ThingMO(thing, info, factory) {
 
 		const char* bbsName = info_.defaultMaterial_.get();

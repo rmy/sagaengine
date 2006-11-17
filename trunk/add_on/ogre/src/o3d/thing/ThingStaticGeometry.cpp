@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	ThingStaticGeometry
-	::ThingStaticGeometry(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingStaticGeometry(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory), entity_(0) {
 
 		// Create a unique entity name

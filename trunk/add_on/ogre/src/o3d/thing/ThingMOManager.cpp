@@ -33,6 +33,8 @@ rune@skalden.com
 #include "ThingStaticGeometryFactory.hpp"
 #include "O3dThingComponent.hpp"
 
+using namespace se_core;
+
 namespace se_ogre {
 
 	ThingMOManager
@@ -200,7 +202,7 @@ namespace se_ogre {
 				LogWarning("Movable object factory type " << factoryType << " does not exist for " << parent->owner()->name());	
 				continue;
 			}
-			ThingMO* child = f->create(*parent->toActor(), *inf->infos_[i]);
+			ThingMO* child = f->create(*PosComponent::get(*parent), *inf->infos_[i]);
 			parent->add(*child);
 		}
 	}

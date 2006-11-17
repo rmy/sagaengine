@@ -28,12 +28,12 @@ rune@skalden.com
 namespace se_ogre {
 
 	ThingMovableObject
-	::ThingMovableObject(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingMovableObject(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory) {
 
 		// Create a unique entity name
 		char name[128];
-		sprintf(name, "%d-%s", thing_.id(), thing_.name());
+		sprintf(name, "%d-%s", thing_.owner()->id(), thing_.name());
 
 		// Set the mesh
 		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);

@@ -36,18 +36,18 @@ namespace se_ogre {
 		void move(long when, float stepDelta, float timeSinceLastFrame);
 		void resetPos();
 		virtual void animate(long when, float stepDelta, float timeSinceLastFrame) = 0;
-		bool hasThing(se_core::Thing& thing) { return thing_.id() == thing.id(); }
+		bool hasThing(se_core::Thing& thing) { return thing_.owner()->id() == thing.id(); }
 		void setParentNode(Ogre::SceneNode* sn);
 		const char* name() { return thing_.name(); }
 
 	protected:
 		friend class ThingMOFactory;
-		ThingMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingMO(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		virtual ~ThingMO();
 
 
 	protected:
-		se_core::PosNode& thing_;
+		se_core::PosComponent& thing_;
 
 		friend class ThingMOManager;
 		const ThingMOFactory& factory_;

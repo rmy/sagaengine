@@ -31,7 +31,7 @@ using namespace se_core;
 namespace se_ogre {
 
 	ThingMO
-	::ThingMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory) 
+	::ThingMO(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory) 
 		: thing_(thing), factory_(factory), info_(info), hasAnimation_(false), isVisible_(false), currentScale_(1) {
 
 		parentNode_ = O3dSchema::sceneManager->getRootSceneNode();

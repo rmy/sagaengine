@@ -35,7 +35,7 @@ namespace se_ogre {
 
 	protected:
 		friend class ThingParticleFactory;
-		ThingParticle(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingParticle(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingParticle();
 
 	private:

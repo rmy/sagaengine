@@ -35,7 +35,7 @@ namespace se_ogre {
 
 	protected:
 		friend class ThingMovableObjectFactory;
-		ThingMovableObject(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingMovableObject(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingMovableObject();
 
 	private:
