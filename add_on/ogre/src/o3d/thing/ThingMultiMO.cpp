@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_ogre {
 
 	ThingMultiMO
-	::ThingMultiMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingMultiMO(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory), firstThingMO_(ThingMOList::end()) {
 		hasAnimation_ = true;
 	}

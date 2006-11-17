@@ -45,7 +45,7 @@ namespace se_ogre {
 
 	protected:
 		friend class ThingMultiMOFactory;
-		ThingMultiMO(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingMultiMO(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingMultiMO();
 
 	private:

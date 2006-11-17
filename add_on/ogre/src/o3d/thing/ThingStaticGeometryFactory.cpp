@@ -39,7 +39,7 @@ namespace se_ogre {
 
 
 	ThingMO* ThingStaticGeometryFactory
-	::create(se_core::PosNode& thing, const ThingMOInfo& info) const {
+	::create(se_core::PosComponent& thing, const ThingMOInfo& info) const {
 		return new ThingStaticGeometry(thing, info, *this);
 	}
 

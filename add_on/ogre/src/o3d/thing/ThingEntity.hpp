@@ -38,7 +38,7 @@ namespace se_ogre {
 		/**
 		 * @param thing The thing that this entity is visually representing.
 		 */
-		ThingEntity(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingEntity(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingEntity();
 
 		/**

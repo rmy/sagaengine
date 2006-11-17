@@ -42,7 +42,7 @@ namespace se_ogre {
 		/**
 		 * @param thing The thing that this entity is visually representing.
 		 */
-		ThingStaticGeometry(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
+		ThingStaticGeometry(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory);
 		~ThingStaticGeometry();
 		void addToStaticGeometry(const char* name);
 

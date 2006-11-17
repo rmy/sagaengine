@@ -31,7 +31,7 @@ using namespace se_core;
 namespace se_ogre {
 
 	ThingImpostor
-	::ThingImpostor(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingImpostor(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory) {
 
 		const char* bbsName = thing_.pos().area()->owner()->name();

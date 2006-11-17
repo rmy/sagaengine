@@ -34,7 +34,7 @@ namespace se_ogre {
 		virtual ~ThingMOFactory();
 
 		const se_core::String& type() const;
-		virtual ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const = 0;
+		virtual ThingMO* create(se_core::PosComponent& thing, const ThingMOInfo& info) const = 0;
 		virtual void release(ThingMO* tmo) const;
 
 	private:

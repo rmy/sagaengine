@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	ThingEntity
-	::ThingEntity(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingEntity(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory), entity_(0) {
 
 		// Create a unique entity name

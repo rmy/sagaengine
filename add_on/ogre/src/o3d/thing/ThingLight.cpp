@@ -34,7 +34,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	ThingLight
-	::ThingLight(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
+	::ThingLight(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory), light_(0) {
 
 		// Create a unique entity name

@@ -34,7 +34,7 @@ namespace se_ogre {
 		ThingParticleFactory();
 		~ThingParticleFactory();
 
-		ThingMO* create(se_core::PosNode& thing, const ThingMOInfo& info) const;
+		ThingMO* create(se_core::PosComponent& thing, const ThingMOInfo& info) const;
 	};
 
 }

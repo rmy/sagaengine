@@ -40,7 +40,7 @@ namespace se_ogre {
 
 	
 	ThingMO* ThingLightFactory
-	::create(se_core::PosNode& thing, const ThingMOInfo& info) const {
+	::create(se_core::PosComponent& thing, const ThingMOInfo& info) const {
 		return new ThingLight(thing, info, *this);
 	}
 
