@@ -51,7 +51,7 @@ namespace se_core {
 
 	bool ThingCollide
 	::collide(PhysicsComponent& pusher, PosComponent& target) const {
-		collide(*pusher.toActor(), *target.toActor());
+		return collide(*pusher.toActor(), *target.toActor());
 	}
 
 

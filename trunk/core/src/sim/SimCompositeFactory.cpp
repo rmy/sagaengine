@@ -47,6 +47,7 @@ namespace se_core {
 	::create() const {
 		SimComposite* c = new SimComposite(name());
 		createComponents(c);
+		return c;
 	}
 
 

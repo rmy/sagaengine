@@ -37,7 +37,7 @@ namespace se_core {
 		 * @return true if the collision blocks the movement of the collider.
 		 */
 		virtual bool collide(Actor& pusher
-							 , Thing& target) const {}
+							 , Thing& target) const { return false; }
 
 		virtual bool collide(PhysicsComponent& pusher
 					 , PosComponent& target) const;
