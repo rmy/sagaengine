@@ -31,23 +31,21 @@ namespace se_core {
 		if(state == isActive_) return;
 
 		isActive_ = state;
+
+		if(!state && doTraverseChildren) {
+			MultiSimComposite::Iterator composites(children_);
+			while(composites.hasNext()) {
+				SimComposite& c = composites.next();
+				c.setActive(state);
+			}
+		}
+
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			it.next().setActive(state);
 		}
 
-		// Root container nodes should have parent inactiveRoot, and
-		// they area autmatically attached to activeRoot when active
-		/*
-		if(isActive_ && parent_ == &SimComponentManager::inactiveRoot()) {
-			setParent(SimComponentManager::activeRoot());
-		}
-		if(!isActive_ && parent_ == &SimComponentManager::activeRoot()) {
-			setParent(SimComponentManager::inactiveRoot());
-		}
-		*/
-
-		if(doTraverseChildren) {
+		if(state && doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
 			while(composites.hasNext()) {
 				SimComposite& c = composites.next();
@@ -159,18 +157,38 @@ namespace se_core {
 
 
 	void SimComposite
-	::init() {
+	::init(bool doTraverseChildren) {
+		// Init self first...
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
 			c.init();
 		}
+
+		// ... then children
+		if(doTraverseChildren) {
+			MultiSimComposite::Iterator composites(children_);
+			while(composites.hasNext()) {
+				SimComposite& c = composites.next();
+				c.init();
+			}
+		}
 	}
 
 
 	void SimComposite
-	::cleanup() {
-		setActive(false);
+	::cleanup(bool doTraverseChildren) {
+		setActive(false, true);
+		// Cleanup children first...
+		if(doTraverseChildren) {
+			MultiSimComposite::Iterator composites(children_);
+			while(composites.hasNext()) {
+				SimComposite& c = composites.next();
+				c.cleanup();
+			}
+		}
+
+		// ... then self
 		resetParent();
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {

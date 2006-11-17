@@ -62,17 +62,6 @@ namespace se_core {
 		LogMsg("Destroying SimEngine");
 	}
 
-	/*
-
-	inline void SimEngine
-	::flip(long when) {
-		for(int i = 0; i < SimSchema::areaManager.activeCount(); ++i) {
-			Area* area = SimSchema::areaManager.active(i);
-			area->flipChildren();
-		}
-	}
-	*/
-
 
 	void SimEngine
 	::setMultiplePerformsPerStepEnabled(bool state) {
@@ -102,6 +91,7 @@ namespace se_core {
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
 		SimSchema::activeRoot().setActive(false, true);
+		SimSchema::activeRoot().cleanup(true);
 		SimSchema::initListeners().castStopGameEvent();
 	}
 
@@ -198,10 +188,8 @@ namespace se_core {
 		SimSchema::realClock->reset();
 		// Begin game with game over flag not set
 		setGameOver(false);
-		ScriptComponentManager::singleton().initGame();
-
 		SimSchema::initListeners().castInitGameEvent();
-
+		SimSchema::activeRoot().init(false);
 	}
 
 
@@ -215,14 +203,12 @@ namespace se_core {
 
 	void SimEngine
 	::cleanupGame() {
+		SimSchema::activeRoot().cleanup(false);
+		SimSchema::areaManager.resetThings();
+		SimSchema::thingManager().reset();
 		SimSchema::initListeners().castCleanupGameEvent();
 
-		//perform(SimEngine::when() + TIMESTEP_INTERVAL);
-		SimSchema::areaManager.resetThings();
-		//
-		ActionComponentManager::singleton().cleanupGame();
-		SimSchema::thingManager().reset();
-		ScriptComponentManager::singleton().cleanupGame();
+
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;

@@ -53,10 +53,10 @@ namespace se_core {
 
 		virtual void step(long when) = 0;
 
-		virtual void init() {}
+		virtual void init() { initGame(); }
 		virtual void initGame() {}
 		virtual void cleanupGame() {}
-		virtual void cleanup() {}
+		virtual void cleanup() { cleanupGame(); }
 
 	};
 

@@ -231,7 +231,7 @@ namespace se_core {
 	void Area
 	::reset() {
 		// Get newly spawned objects into allThings()
-		flip();
+		flipSpawns();
 
 		// Shedule all things for destruction, and flip
 		// it out of area
@@ -239,29 +239,9 @@ namespace se_core {
 			MultiSimComposite::Iterator it(children());
 			while(it.hasNext()) {
 				SimComposite* t = &it.next();
-
 				t->scheduleForDestruction();
-				// Flip thing out of area
-				//PosComponent* pc = PosComponent::get(*t);
-				//if(pc) pc->flip();
 			}
 		}
-
-
-		{
-			SimObjectList::iterator_type it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
-			while(it != SimObjectList::end()) {
-				// Spawned things doesn't have to be actors
-				Thing* t = SimSchema::simObjectList.nextThing(it);
-				//LogMsg("Destroy spawn " << name() << ": " << t->name());
-
-				delete t;
-				//t->scheduleForDestruction();
-				//t->flip();
-			}
-		}
-		// New spawn are no longer new spawns once they are flipped
-		multiSimObjects_[ MGOA_SPAWNS ].clear();
 	}
 
 

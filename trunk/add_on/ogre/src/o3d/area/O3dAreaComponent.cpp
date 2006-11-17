@@ -106,7 +106,7 @@ namespace se_ogre {
 		}
 		else {
 			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
-			staticGeometry_->setVisible(true);
+			staticGeometry_->setVisible(false);
 		}
 	}
 

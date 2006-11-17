@@ -46,8 +46,8 @@ namespace se_core {
 		SimComposite(const char* name);
 		virtual ~SimComposite();
 
-		void init();
-		void cleanup();
+		void init(bool doTraverseChildren = true);
+		void cleanup(bool doTraverseChildren = true);
 
 		SimComponent* component(int type);
 
