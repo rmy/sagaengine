@@ -48,6 +48,7 @@ namespace se_ogre {
 		light_->setType(Ogre::Light::LT_POINT);
 		light_->setCastShadows(info.isShadowCaster_);
 		light_->setDiffuseColour(Ogre::ColourValue(.7, .7, .7));
+		light_->setSpecularColour(Ogre::ColourValue(.7, .7, .7));
 		node_->attachObject(light_);
 
 		float range = 128;
