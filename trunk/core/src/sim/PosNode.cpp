@@ -36,17 +36,15 @@ namespace se_core {
 
 	PosNode
 	::PosNode(enum SimObjectType type, const char* name)
-			: SimComposite(type, name)
-			 //, didMove_(false)
-			 //, spawnPoints_(0) 
-		
-	{ 
+			: SimComposite(type, name) { 
 		posComponent_ = new PosComponent(this);
+		spawnComponent_ = new SpawnComponent(this, posComponent_);
 	}
 
 
 	PosNode
 	::~PosNode() {
+		delete spawnComponent_;
 		delete posComponent_;
 	}
 

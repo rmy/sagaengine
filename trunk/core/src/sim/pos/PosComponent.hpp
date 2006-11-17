@@ -46,6 +46,13 @@ namespace se_core {
 		PosComponent(SimComposite* owner);
 		virtual ~PosComponent();
 
+		static PosComponent* get(SimComposite* composite) {
+			if(!composite)
+				return 0;
+			PosComponent* c = static_cast<PosComponent*>(composite->component(se_core::sct_POS));
+			return c;
+		}
+
 		static PosComponent* get(SimComposite& composite) {
 			PosComponent* c = static_cast<PosComponent*>(composite.component(se_core::sct_POS));
 			return c;
@@ -100,6 +107,10 @@ namespace se_core {
 			return nextPosition_;
 		}
 
+		inline const Pos& nextPos() const {
+			return nextPosition_;
+		}
+
 		/** Flip from Pos() to nextPos()
 		 *
 		 * Make the next position the current position.
@@ -145,35 +156,11 @@ namespace se_core {
 		 */
 		void worldViewPoint(scale_t alpha, ViewPoint& dest) const;
 
-		/** Set the list of spawn points associated with this PosComponent.
-		 *
-		 * @param count the number of spawn points
-		 * @param spawnPoints the list of spawn points
-		 */
-		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints);
-
-		/** Get the reference to a spawn point
-		 *
-		 * @param id the id of the sapwn points
-		 */
-		const ViewPoint* spawnPoint(short id) const;
-
-		/** Can other PosNodes collide with this PosNode?
-		 */
-		bool isCollideable() const {
-			return isCollideable_;
-		}
-
-		/** Set wether this thing can be collided with.
-		 * 
-		 * This is a hint to the engine that this should be included
-		 * in the collison space.
-		 */
-		void setCollideable(bool isCollideable) {
-			isCollideable_ = isCollideable;
-		}
 
 	protected:
+		virtual void cleanup();
+
+
 		/** Position of the PosComponent at the beginning of the current simulation step */
 		Pos position_;
 
@@ -187,12 +174,6 @@ namespace se_core {
 		 * Used by the Area class to decide wether the PosNode should be inserted into a collision grid. 
 		 */
 		bool isCollideable_;
-
-		/** The number of spawn points */
-		int spawnPointCount_;
-
-		/** List of spawn points associated this this PosComponent */
-		const ViewPoint* const* spawnPoints_;
 	};
 
 }

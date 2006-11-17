@@ -28,6 +28,7 @@ rune@skalden.com
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
 #include "./pos/PosComponent.hpp"
+#include "./spawn/SpawnComponent.hpp"
 #include "./stat/MultiSimObject.hpp"
 #include "./stat/sim_stat.hpp"
 #include "./area/sim_area.hpp"
@@ -181,20 +182,6 @@ namespace se_core {
 		}
 
 
-		/** Set wether this thing can be collided with.
-		 * 
-		 * This is a hint to the engine that this should be included
-		 * in the collison space.
-		 */
-		void setCollideable(bool isCollideable) {
-			posComponent_->setCollideable(isCollideable);
-		}
-
-
-		bool isCollideable() const {
-			return posComponent_->isCollideable();
-		}
-
 		////////////////////////////////////////
 
 		/** Update the world viewpoint.
@@ -229,7 +216,7 @@ namespace se_core {
 		 * @param spawnPoints the list of spawn points
 		 */
 		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints) {
-			posComponent_->setSpawnPoints(count, spawnPoints);
+			spawnComponent_->setSpawnPoints(count, spawnPoints);
 		}
 
 		/** Get the reference to a spawn point
@@ -237,11 +224,12 @@ namespace se_core {
 		 * @param id the id of the sapwn points
 		 */
 		const ViewPoint* spawnPoint(short id) const {
-			return posComponent_->spawnPoint(id);
+			return spawnComponent_->spawnPoint(id);
 		}
 
 	protected:
 		PosComponent* posComponent_;
+		SpawnComponent* spawnComponent_;
 
 		/** Position of the PosNode at the beginning of the current simulation step */
 		//Pos position_;

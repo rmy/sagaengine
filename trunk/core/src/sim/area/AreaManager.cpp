@@ -142,7 +142,7 @@ namespace se_core {
 		}
 
 		active_[ activeCount_ ] = area;
-		active_[ activeCount_ ]->setActive(true);
+		active_[ activeCount_ ]->setParent(SimSchema::activeRoot());
 		++activeCount_;
 
 		DebugExec(integrity());
@@ -174,7 +174,7 @@ namespace se_core {
 					// Make it active
 					index = activeCount_;
 					active_[ index ] = a;
-					active_[ index ]->setActive(true);
+					a->setParent(SimSchema::activeRoot());
 					++activeCount_;
 				}
 				
@@ -191,7 +191,7 @@ namespace se_core {
 			if(!shouldKeep_[i]) {
 				Area* a = active_[i];
 				Assert(a);
-				a->setActive(false);
+				a->setParent(SimSchema::inactiveRoot());
 
 				// Delete current by moving last to here
 				--activeCount_;
@@ -212,7 +212,7 @@ namespace se_core {
 	::setInactive(Area* area) {
 		for(int i = 0; i < activeCount_; ++i) {
 			if(area == active_[i]) {
-				area->setActive(false);
+				area->setParent(SimSchema::inactiveRoot());
 
 				--activeCount_;
 				active_[ i ] = active_[ activeCount_ ];
@@ -291,7 +291,6 @@ namespace se_core {
 		resetThings();
 
 		for(int i = 0; i < areaCount_; ++i) {
-			// TODO: release through factory
 			if(areas_[i]->factory())
 				areas_[i]->factory()->release(areas_[i]);
 			else
@@ -305,7 +304,6 @@ namespace se_core {
 		}
 		factoryCount_ = 0;
 		LogMsg("Destroyed area factories");
-
 	}
 
 

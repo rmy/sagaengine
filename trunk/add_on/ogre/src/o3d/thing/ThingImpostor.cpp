@@ -34,7 +34,7 @@ namespace se_ogre {
 	::ThingImpostor(se_core::PosNode& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
 		: ThingMO(thing, info, factory) {
 
-		const char* bbsName = thing_.pos().area()->name();
+		const char* bbsName = thing_.pos().area()->owner()->name();
 		Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
 
 		Ogre::Vector3 pos
@@ -54,7 +54,7 @@ namespace se_ogre {
 
 	ThingImpostor
 	::~ThingImpostor() {
-		const char* bbsName = thing_.pos().area()->name();
+		const char* bbsName = thing_.pos().area()->owner()->name();
 		Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
 		bbs->removeBillboard(billboard_);
 		billboard_ = 0;
@@ -77,7 +77,7 @@ namespace se_ogre {
 			// Interpolate between present radius and next radius
 			const float scale = currentScale_;
 
-			const char* bbsName = thing_.pos().area()->name();
+			const char* bbsName = thing_.pos().area()->owner()->name();
 			Ogre::BillboardSet* bbs = O3dSchema::sceneManager->getBillboardSet(bbsName);
 			billboard_->setDimensions( bbs->getDefaultWidth() * scale
 										   , bbs->getDefaultHeight() * scale);

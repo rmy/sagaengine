@@ -50,7 +50,6 @@ namespace se_core {
 	public:
 		Thing(const char* name);
 		virtual ~Thing();
-		virtual void cleanup();
 
 
 		/** Schedule the Thing for destruction.

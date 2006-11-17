@@ -38,12 +38,14 @@ namespace se_core {
 
 		// Root container nodes should have parent inactiveRoot, and
 		// they area autmatically attached to activeRoot when active
+		/*
 		if(isActive_ && parent_ == &SimComponentManager::inactiveRoot()) {
 			setParent(SimComponentManager::activeRoot());
 		}
 		if(!isActive_ && parent_ == &SimComponentManager::activeRoot()) {
 			setParent(SimComponentManager::inactiveRoot());
 		}
+		*/
 
 		if(doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
@@ -120,6 +122,8 @@ namespace se_core {
 		}
 
 		parent_ = 0;
+
+		setActive(false, true);
 	}
 
 
@@ -128,10 +132,6 @@ namespace se_core {
 		if(parent_ == &p)
 			return;
 
-		Assert(this != &SimComponentManager::activeRoot());
-		Assert(this != &SimComponentManager::inactiveRoot());
-
-		WasHere();
 		if(parent_)
 			parent_->removeChild(*this);
 
@@ -144,6 +144,7 @@ namespace se_core {
 		parent_ = &p;
 		parent_->addChild(*this);
 
+		setActive(parent_->isActive(), true);
 	}
 
 
@@ -153,6 +154,28 @@ namespace se_core {
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
 			c.areaChanged(newArea, oldArea);
+		}
+	}
+
+
+	void SimComposite
+	::init() {
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			c.init();
+		}
+	}
+
+
+	void SimComposite
+	::cleanup() {
+		setActive(false);
+		resetParent();
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			c.cleanup();
 		}
 	}
 

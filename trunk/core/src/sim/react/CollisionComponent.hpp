@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim_react.hpp"
 #include "../SimComponent.hpp"
+#include "../SimComposite.hpp"
 #include "../AreaChildComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
@@ -41,6 +42,18 @@ namespace se_core {
 		CollisionComponent(Actor* owner, PosComponent* posComponent);
 		CollisionComponent(Actor* owner);
 		~CollisionComponent();
+
+		static CollisionComponent* get(SimComposite& composite) {
+			CollisionComponent* c = static_cast<CollisionComponent*>(composite.component(se_core::sct_COLLISION));
+			return c;
+		}
+
+		static CollisionComponent* get(SimComponent& component) {
+			CollisionComponent* c = static_cast<CollisionComponent*>(component.owner()->component(se_core::sct_COLLISION));
+			return c;
+		}
+
+
 
 		/** Can other PosNodes collide with this PosNode?
 		 */

@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "Pos.hpp"
 #include "Anim.hpp"
-#include "../PosNode.hpp"
+#include "PosComponent.hpp"
 #include "../area/Area.hpp"
 #include "../sim.hpp"
 #include "../schema/SimSchema.hpp"
@@ -49,14 +49,14 @@ namespace se_core {
 	::terrainStyle() const {
 		if(!hasArea())
 			return TS_VOID;
-		return area()->terrainStyle(this->localCoor(), index());
+		return area()->toArea()->terrainStyle(this->localCoor(), index());
 	}
 
 	long Pos
 	::touchedTerrain() const {
 		if(!hasArea())
 			return TSM_VOID;
-		return area()->touchedTerrain(this->localCoor(), radius());
+		return area()->toArea()->touchedTerrain(this->localCoor(), radius());
 	}
 
 
@@ -72,7 +72,7 @@ namespace se_core {
 			return true;
 
 		// Are pages not neighbours?
-		if(!(area_->isNeighbour(*other.area_)))
+		if(!(area()->toArea()->isNeighbour(*(other.area_->toArea()))))
 			return false;
 
 		// All negative cases eliminated
@@ -186,7 +186,7 @@ namespace se_core {
 	}
 
 	void Pos
-	::setParent(PosNode& p, bool doKeepWorldCoor) {
+	::setParent(PosComponent& p, bool doKeepWorldCoor) {
 		parent_ = &p;
 		if(doKeepWorldCoor) {
 			local_.setViewPoint(world_);
@@ -196,7 +196,7 @@ namespace se_core {
 
 
 	void Pos
-	::setArea(Area& area, bool doKeepWorldCoor) {
+	::setArea(PosComponent& area, bool doKeepWorldCoor) {
 		//LogMsg(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
@@ -207,7 +207,7 @@ namespace se_core {
 	}
 
 	void Pos
-	::setArea(Area& area, const ViewPoint& vp, bool isLocalViewPoint) {
+	::setArea(PosComponent& area, const ViewPoint& vp, bool isLocalViewPoint) {
 		if(parent_ == area_) {
 			// Area is the root parent node
 			parent_ = &area;
@@ -221,6 +221,35 @@ namespace se_core {
 			world_.setViewPoint(vp);
 			updateLocalViewPoint();
 		}
+	}
+
+
+	bool Pos
+	::hasArea(SimComposite& area) const {
+		return area_ != 0 && area_->owner() == &area; 
+	}
+
+
+	PosComponent* Pos
+	::updateArea() {
+		// Entered new area?
+		PosComponent* old = area_;
+		Area* next = area_->toArea();
+		if(!next->isLegalCoor(worldCoor())) {
+			Area* a = next->neighbour(worldCoor());
+			if(a) {
+				// Change area, keep world viewpoint
+				setArea(*PosComponent::get(*a), true);
+				next = a;
+				// Cannot use old index as hint for index in new area
+				setNoIndex();
+			}
+		}
+
+		// Calc navigation mesh triangle id
+		short newIndex = next->index(worldCoor(), index());
+		setIndex(newIndex);
+		return area_;
 	}
 
 
@@ -278,7 +307,7 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(isGrounded() && area_) {
-			localCoor().y_ = area_->groundHeight(this->localCoor());
+			localCoor().y_ = area()->toArea()->groundHeight(this->localCoor());
 		}
 	}
 

@@ -32,6 +32,25 @@ namespace se_ogre {
 	public:
 		O3dThingComponent(se_core::SimComposite* owner);
 		~O3dThingComponent();
+
+		static O3dThingComponent* get(se_core::SimComposite* composite) {
+			Assert(composite);
+			O3dThingComponent* c = static_cast<O3dThingComponent*>(composite->component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dThingComponent* get(se_core::SimComposite& composite) {
+			O3dThingComponent* c = static_cast<O3dThingComponent*>(composite.component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dThingComponent* get(se_core::SimComponent& component) {
+			O3dThingComponent* c = static_cast<O3dThingComponent*>(component.owner()->component(se_core::sct_RENDER));
+			return c;
+		}
+
+
+
 		void init();
 		void clear();
 

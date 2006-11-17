@@ -65,6 +65,9 @@ namespace se_core {
 		 */
 		extern _SeCoreExport SimEngine simEngine;
 
+		extern _SeCoreExport SimComposite& activeRoot();
+		extern _SeCoreExport SimComposite& inactiveRoot();
+
 		/**
 		 * Manager for areas.
 		 *

@@ -45,10 +45,11 @@ namespace se_basic {
 
 		performer.nextMove().resetSpeed();
 		Area* area = SimSchema::areaManager.area(name);
+		Assert(area);
 		const ViewPoint* sp = area->spawnPoint(id);
 		performer.nextPos().local_.setViewPoint( *sp );
-		if(area != performer.pos().area()) {
-			performer.nextPos().setArea(*area);
+		if(!performer.pos().hasArea(*area)) {
+			performer.nextPos().setArea(*PosComponent::get(area));
 		}
 	}
 

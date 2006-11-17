@@ -92,7 +92,7 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readThing(InputStream& in, int areaCount, se_core::Area** areas, PosNode** parents) {
+	::readThing(InputStream& in, int areaCount, se_core::Area** areas, SimComposite** parents) {
 		String thingName;
 		in.readString(thingName);
 
@@ -145,16 +145,19 @@ namespace se_basic {
 			}
 		}
 
-		PosNode** siblings = new PosNode*[areaCount];
+		SimComposite** siblings = new SimComposite*[areaCount];
 		for(int i = 0; i < areaCount; ++i) {
-			PosNode* parent = (parents) ? parents[i] : 0;
-			Thing* thing = areas[i]->spawn(thingName.get(), vp, 0, parent);
+			SimComposite* parent = (parents) ? parents[i] : 0;
+			PosComponent* parentPos = PosComponent::get(parent);
+			SimComposite* thing = areas[i]->spawn(thingName.get(), vp, 0, parentPos);
+			PosComponent* p = PosComponent::get(thing);
+			Assert(p);
 			if(isScaled) {
 				// Scale relative to the default raidus of the thing
-				float r = CoorT::toFloat(thing->nextPos().radius()) * radius;
-				thing->nextPos().setRadius(r);
+				float r = CoorT::toFloat(p->nextPos().radius()) * radius;
+				p->nextPos().setRadius(r);
 			}
-			thing->nextPos().setGrounded(isGrounded);
+			p->nextPos().setGrounded(isGrounded);
 			siblings[i] = thing;
 		}
 
@@ -174,7 +177,7 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readChildren(InputStream& in, int areaCount, Area** areas, PosNode** parents) {
+	::readChildren(InputStream& in, int areaCount, Area** areas, SimComposite** parents) {
 		int code;
 		while((code = in.readInfoCode()) != ']') {
 			//LogMsg("Code: " << (char)code);

@@ -112,10 +112,11 @@ namespace se_client {
 				in.readString(tempString);
 				LogMsg(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
+				Assert(area);
 				pos->nextPos().localCoor().x_ = CoorT::fromFloat(in.readFloat());
 				pos->nextPos().localCoor().z_ = CoorT::fromFloat(in.readFloat());
 				pos->nextPos().localFace().setIdentity();
-				pos->nextPos().setArea(*area);
+				pos->nextPos().setArea(*PosComponent::get(*area));
 				break;
 
 			case 'E': 
@@ -127,7 +128,7 @@ namespace se_client {
 					Assert(area);
 					const ViewPoint* sp = area->spawnPoint(value);
 					Assert(sp);
-					pos->nextPos().setArea(*area, *sp);
+					pos->nextPos().setArea(*PosComponent::get(*area), *sp);
 				}
 				break;
 
@@ -137,7 +138,7 @@ namespace se_client {
 
 			case 'T': // Camera tracking player
 				Assert(pos != ClientSchema::player && "Player cannot track player");
-				pos->nextPos().setParent(*ClientSchema::playerX->toActor());
+				pos->nextPos().setParent(*ClientSchema::player);
 				break;
 			}
 		}

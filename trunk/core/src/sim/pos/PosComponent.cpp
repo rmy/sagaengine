@@ -32,9 +32,7 @@ namespace se_core {
 	PosComponent
 	::PosComponent(SimComposite* owner)
 			: SimComponent(sct_POS, owner)
-			, didMove_(false)
-			, isCollideable_(false)
-			, spawnPoints_(0) {
+			, didMove_(false) {
 	}
 
 
@@ -49,7 +47,15 @@ namespace se_core {
 			changeParent();
 		}
 		if(position_.area() != nextPosition_.area()) {
-			owner()->areaChanged(nextPosition_.area(), position_.area());
+			Area* from = 0;
+			if(nextPosition_.hasArea()) {
+				from = nextPosition_.area()->toArea();
+			}
+			Area* to = 0;
+			if(position_.hasArea()) {
+				to = position_.area_->toArea();
+			}
+			owner()->areaChanged(from, to);
 		}
 		position_.setPos(nextPosition_);
 	}
@@ -86,6 +92,13 @@ namespace se_core {
 		}
 	}
 
+	void PosComponent
+	::cleanup() {
+		leaveCurrentParent();
+		nextPos().resetArea();
+		flip();
+	}
+
 
 	bool PosComponent
 	::changeParent() {
@@ -93,7 +106,7 @@ namespace se_core {
 
 
 		if(nextPos().hasParent()) {
-			owner_->setParent(*nextPos().parent());
+			owner_->setParent(*nextPos().parent()->owner());
 			owner_->setActive(nextPos().parent()->isActive());
 		}
 		else {
@@ -103,26 +116,5 @@ namespace se_core {
 		}
 		return true;
 	}
-
-
-
-
-	void PosComponent
-	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
-		if(spawnPoints_ != 0)
-			LogFatal("Spawn points set twice: " << owner()->name());
-
-		spawnPointCount_ = count;
-		spawnPoints_ = spawnPoints;
-	}
-
-
-	const ViewPoint* PosComponent
-	::spawnPoint(short id) const {
-		Assert(id >= 0 && id < spawnPointCount_);
-		Assert(spawnPoints_[id] != 0);
-		return spawnPoints_[id];
-	}
-
 
 }

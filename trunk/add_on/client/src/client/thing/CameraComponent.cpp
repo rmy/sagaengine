@@ -73,9 +73,14 @@ namespace se_client {
 
 		SimComposite* oldArea = 0;
 		if(ClientSchema::camera) {
-			oldArea = const_cast<Area*>(ClientSchema::camera->pos().area());
+			if(ClientSchema::camera->pos().hasArea()) {
+				oldArea = const_cast<SimComposite*>(ClientSchema::camera->pos().area()->owner());
+			}
 		}
-		SimComposite* newArea = const_cast<Area*>(posComponent_->pos().area());
+		SimComposite* newArea = 0;
+		if(posComponent_->pos().hasArea()) {
+			newArea = const_cast<SimComposite*>(posComponent_->pos().area()->owner());
+		}
 
 		ClientSchema::camera = posComponent_;
 		areaChanged(newArea, oldArea);

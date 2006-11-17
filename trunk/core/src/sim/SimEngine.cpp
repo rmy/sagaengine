@@ -83,6 +83,8 @@ namespace se_core {
 	void SimEngine
 	::go() {
 		SimSchema::initListeners().castStartGameEvent();
+		SimSchema::activeRoot().setActive(true, true);
+
 		while(true) {
 			// Any in game events caused the game to end?
 			if(SimSchema::simEngine.isGameOver()) {
@@ -99,6 +101,7 @@ namespace se_core {
 			// Tell registered render modules to render
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
+		SimSchema::activeRoot().setActive(false, true);
 		SimSchema::initListeners().castStopGameEvent();
 	}
 
@@ -198,6 +201,7 @@ namespace se_core {
 		ScriptComponentManager::singleton().initGame();
 
 		SimSchema::initListeners().castInitGameEvent();
+
 	}
 
 
@@ -229,7 +233,7 @@ namespace se_core {
 	void SimEngine
 	::resetAll() {
 		//SimSchema::thingManager.reset();
-		SimSchema::areaManager.resetAll();
 		SimSchema::thingManager().reset();
+		SimSchema::areaManager.resetAll();
 	}
 }

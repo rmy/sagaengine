@@ -30,6 +30,22 @@ namespace se_ogre {
 		O3dNodeComponent(enum se_core::SimComponentType type, se_core::SimComposite* owner);
 		~O3dNodeComponent();
 
+		static O3dNodeComponent* get(se_core::SimComposite* composite) {
+			Assert(composite);
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(composite->component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dNodeComponent* get(se_core::SimComposite& composite) {
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(composite.component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dNodeComponent* get(se_core::SimComponent& component) {
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(component.owner()->component(se_core::sct_RENDER));
+			return c;
+		}
+
 		Ogre::SceneNode* node() {
 			return node_;
 		}

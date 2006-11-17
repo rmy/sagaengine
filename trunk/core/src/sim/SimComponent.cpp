@@ -31,4 +31,14 @@ namespace se_core {
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
 	}
 
+
+	void SimComponent
+	::init() {
+	}
+
+
+	void SimComponent
+	::cleanup() {
+	}
+
 }

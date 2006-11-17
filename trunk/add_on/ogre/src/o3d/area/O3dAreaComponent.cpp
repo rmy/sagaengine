@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "O3dAreaComponent.hpp"
-#include "WorldManager.hpp"
 #include "../schema/O3dSchema.hpp"
 #include "../thing/ThingMO.hpp"
 #include "../thing/ThingMOInfo.hpp"
@@ -125,6 +124,18 @@ namespace se_ogre {
 	}
 
 
+	bool O3dAreaComponent
+	::hasStaticGeometry(se_core::SimComposite& thing) {
+		// Find which mesh this thing should use
+		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
+		if(index < 0)
+			return false;
+
+		return O3dSchema::thingMOManager.info(index)->isStatic_;
+	}
+
+
+
 	Ogre::StaticGeometry* O3dAreaComponent
 	::compileStaticGeometry() {
 		Area* a = toArea();
@@ -146,10 +157,11 @@ namespace se_ogre {
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
 
 		// Add static things
-		se_core::SimObjectIterator nit(a->reportingThings());
-		while(nit.hasNext()) {
-			Thing& thing = nit.nextThing();
-			if(!WorldManager::hasStaticGeometry(thing)) {
+		MultiSimComposite::Iterator it(owner()->children());
+		while(it.hasNext()) {
+			SimComposite& thing = it.next();
+
+			if(!hasStaticGeometry(thing)) {
 				continue;
 			}
 
@@ -167,7 +179,9 @@ namespace se_ogre {
 			}
 
 
-			ViewPoint& nextPos = thing.nextPos().world_;
+			PosComponent* p = PosComponent::get(thing);
+			Assert(p);
+			ViewPoint& nextPos = p->nextPos().world_;
 			Ogre::Vector3 pos(
 				CoorT::toFloat(nextPos.coor_.x_),
 				CoorT::toFloat(nextPos.coor_.y_),
@@ -186,7 +200,7 @@ namespace se_ogre {
 			// If radius scales the model
 			if(info->doScaleByRadius_) {
 				// Interpolate between present radius and next radius
-				scale *= CoorT::toFloat(thing.nextPos().radius());
+				scale *= CoorT::toFloat(p->nextPos().radius());
 			}
 
 			Ogre::Vector3 s(scale, scale, scale);

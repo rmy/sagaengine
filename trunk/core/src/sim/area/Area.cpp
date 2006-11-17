@@ -34,6 +34,7 @@ rune@skalden.com
 #include "sim/script/all.hpp"
 #include "sim/stat/all.hpp"
 #include "sim/thing/all.hpp"
+#include "sim/pos/PosComponent.hpp"
 #include "../physics/PhysicsSolverComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include <cstdio>
@@ -45,25 +46,20 @@ namespace se_core {
 			: PosNode(got_AREA, name->get()), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
-			, factory_(0) {
+			{
 
 		// Init to default position
-		//position_.reset();
-		//nextPosition_.reset();
 		setParent(SimComponentManager::inactiveRoot());
 
 		nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
 		BoundingBox b;
-		b.setMin(0, 0, 0);
+		// Must be below 0, because things that has gravity is constantly falling
+		// Floor adjustments are often done after wall collision tests
+		b.setMin(0, -ySize, 0);
 		b.setMax(CoorT::fromTile(w), ySize, CoorT::fromTile(h));
 		nextPos().setBounds(b);
 		flip();
-
-		// Singly linked list containing all things in area. Listeners
-		// my subscribe to get events when a members is removed
-		// or added.
-		allThings_ = new ReportingMultiSimObject(*this, RMGOA_ALL_THINGS);
 
 		// Stored for destruction purposed.
 		// TODO: fix this mess?
@@ -89,7 +85,6 @@ namespace se_core {
 	Area
 	::~Area() {
 		delete[] multiSimObjects_;
-		delete allThings_;
 		delete nameString_;
 		delete physicsSolverComponent_;
 		delete scriptComponent_;
@@ -115,6 +110,7 @@ namespace se_core {
 		*/
 
 		// Things
+			/*
 		SimObjectList::iterator_type it = this->allThings().iterator();
 		Thing* t;
 		SimCompositeFactory* td;
@@ -125,7 +121,6 @@ namespace se_core {
 			Dump((sprintf(log_msg(), "O %s %.2f %.2f", t->name(), CoorT::toFloat(c.x_), CoorT::toFloat(c.y_)), log_msg()));
 
 			// Statistics
-			/*
 			for(int i = 0; i < SV_COUNT; ++i) {
 				if(td->singleValue(i) == t->singleValue(i)) continue;
 				Dump((sprintf(log_msg(), "S %d %d", i, t->singleValue(i)), log_msg()));
@@ -137,100 +132,13 @@ namespace se_core {
 				if(t->attribute(i).get()[0] == '\0') continue;
 				Dump((sprintf(log_msg(), "A %d %s", i, t->attribute(i).get()), log_msg()));
 			}
-			*/
-
 
 			Dump("/");
 		}
 
 		// End of file
 		Dump("Q");
-	}
-
-
-	MultiSimObject& Area
-	::allThings() const {
-		return *allThings_;
-	}
-
-
-	ReportingMultiSimObject& Area
-	::reportingThings() {
-		return *allThings_;
-	}
-
-
-	//MultiSimObject& Area
-	//::movingThings() {
-	//	return multiSimObjects_[ MGOA_MOVING_THINGS ];
-	//}
-
-
-	void Area
-	::addPosNode(PosNode& posNode) {
-		if(posNode.isType(got_THING)) {
-			Thing* t = static_cast<Thing*>(&posNode);
-			addThing(*t);
-		}
-	}
-
-
-	void Area
-	::removePosNode(PosNode& posNode) {
-		if(posNode.isType(got_THING)) {
-			Thing* t = static_cast<Thing*>(&posNode);
-			removeThing(*t);
-		}
-	}
-
-
-	void Area
-	::addThing(Thing& thing) {
-		//LogMsg(thing.name());
-		allThings_->add(thing);
-
-		// Things area added from Actor::flip(), during
-		// changeArea, just before the nextPos() is
-		// flipped into pos
-
-		if(thing.isPickable())
-			multiSimObjects_[ MGOA_PICKABLE_THINGS ].add(thing);
-
-		if(thing.isMover())
-			multiSimObjects_[ MGOA_MOVING_THINGS ].add(thing);
-
-		if(!thing.isType(got_ACTOR))
-			multiSimObjects_[ MGOA_ACTORS ].add(thing);
-	}
-
-
-	void Area
-	::removeThing(Thing& thing) {
-		allThings_->remove(thing);
-		/*
-		if(isActive_ && thing.isCollideable()) {
-			// TODO: Should use speed + radius
-			coor_t speedAndRadius = thing.pos().radius() + MAX_SPEED;
-			bool didDelete = collisionGrid_->remove(thing.pos().worldCoor(), speedAndRadius, thing);
-			if(!didDelete) {
-				coor_t speedAndRadius = thing.nextPos().radius() + MAX_SPEED;
-				didDelete = collisionGrid_->remove(thing.nextPos().worldCoor(), speedAndRadius, thing);
-				if(!didDelete) LogMsg("Couldn't remove " << thing.name() << " from collision grid");
-			}
-			//LogMsg(thing.name());
-			// TODO: This assert fails?
-			DbgAssert(didDelete);
-		}
-		if(thing.isCollideable()) {
-			physicsSolverComponent_->removeCollideable(thing);
-		}
-		*/
-
-		multiSimObjects_[ MGOA_MOVING_THINGS ].remove(thing);
-		multiSimObjects_[ MGOA_PICKABLE_THINGS ].remove(thing);
-		//multiSimObjects_[ MGOA_PUSHABLE_THINGS ].remove(thing);
-		//multiSimObjects_[ MGOA_PUSHING_THINGS ].remove(thing);
-		multiSimObjects_[ MGOA_ACTORS ].remove(thing);
+			*/
 	}
 
 
@@ -293,25 +201,6 @@ namespace se_core {
 	*/
 
 
-	/*
-	void Area
-	::setActive(bool state) {
-		if(state == isActive_) return;
-		isActive_ = state;
-		physicsSolverComponent_->setActive(state);
-
-		SimObjectList::iterator_type it = allThings_->iterator();
-		while(it != SimObjectList::end()) {
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			if(t->isType(got_ACTOR)) {
-				Actor* a = reinterpret_cast<Actor*>(t);
-				a->setActive(isActive_);
-			}
-		}
-	}
-	*/
-
-
 	void Area
 	::enter(Actor& performer) {
 		Cutscene* c = 0;
@@ -346,25 +235,30 @@ namespace se_core {
 
 		// Shedule all things for destruction, and flip
 		// it out of area
-		SimObjectList::iterator_type it = allThings().iterator();
-		while(it != SimObjectList::end()) {
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			// Put thing into ThingFactories destruction queue
-			//LogMsg("Destroy " << name() << ": " <<t->name());
-			t->scheduleForDestruction();
-			// Flip thing out of area
-			t->flip();
+		{
+			MultiSimComposite::Iterator it(children());
+			while(it.hasNext()) {
+				SimComposite* t = &it.next();
+
+				t->scheduleForDestruction();
+				// Flip thing out of area
+				//PosComponent* pc = PosComponent::get(*t);
+				//if(pc) pc->flip();
+			}
 		}
 
-		it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
-		while(it != SimObjectList::end()) {
-			// Spawned things doesn't have to be actors
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			//LogMsg("Destroy spawn " << name() << ": " << t->name());
 
-			delete t;
-			//t->scheduleForDestruction();
-			//t->flip();
+		{
+			SimObjectList::iterator_type it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
+			while(it != SimObjectList::end()) {
+				// Spawned things doesn't have to be actors
+				Thing* t = SimSchema::simObjectList.nextThing(it);
+				//LogMsg("Destroy spawn " << name() << ": " << t->name());
+
+				delete t;
+				//t->scheduleForDestruction();
+				//t->flip();
+			}
 		}
 		// New spawn are no longer new spawns once they are flipped
 		multiSimObjects_[ MGOA_SPAWNS ].clear();
@@ -372,7 +266,7 @@ namespace se_core {
 
 
 	bool Area
-	::isNeighbour(Area& area) {
+	::isNeighbour(Area& area) const {
 		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
 			return false;
 		if(area.pageX_ < 0 || pageY_ < 0 || area.pageZ_ < 0)
@@ -438,8 +332,6 @@ namespace se_core {
 		if(CoorT::tile(x) >= width()) relX = 1;
 
 		int relY = 0;
-		//if(y < 0) relY = -1;
-		//if(CoorT::tile(y) >= width()) relY = 1;
 	
 		int relZ = 0;
 		if(z < 0) relZ = -1;
@@ -470,8 +362,8 @@ namespace se_core {
 
 
 
-	Thing* Area
-	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosNode* parent) {
+	SimComposite* Area
+	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosComponent* parent) {
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
 			// Tried to spawn on denied terrain type
 			LogMsg((int)(tsMask(terrainStyle(vp.coor_))));
@@ -479,18 +371,20 @@ namespace se_core {
 		}
 
 		// Create the thing
-		Thing* thing = SimSchema::thingManager().create(thingName);
+		SimComposite* thing = SimSchema::thingManager().create(thingName);
+		PosComponent* p = PosComponent::get(*thing);
+		Assert(p);
 
 		// Set position and direction
-		thing->nextPos().setArea(*this, vp);
+		p->nextPos().setArea(*posComponent_, vp);
 
 		if(parent) {
-			thing->nextPos().setParent(*parent);
+			p->nextPos().setParent(*parent);
 		}
 
 		// Initial index, if area type is using it
-		thing->nextPos().updateWorldViewPoint();
-		thing->nextPos().setIndex( index(thing->nextPos().worldCoor()) );
+		p->nextPos().updateWorldViewPoint();
+		p->nextPos().setIndex( index(p->nextPos().worldCoor()) );
 
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);

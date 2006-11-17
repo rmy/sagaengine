@@ -78,6 +78,9 @@ namespace se_core {
 
 	protected:
 		void parentChanged(SimComposite* newParent, SimComposite* oldParent);
+		void cleanup() {
+			resetParent();
+		}
 
 		/**
 		 * Add a SimNodeComponent as a child.

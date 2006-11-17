@@ -58,8 +58,6 @@ namespace se_core {
 
 
 
-		void cleanup();
-
 		/**
 		 * Plan a new action.
 		 * Plan an Action that will be scheduled when the present one is
@@ -111,6 +109,8 @@ namespace se_core {
 
 	protected:
 		friend class ActionQueue;
+
+		void cleanup();
 
 		/**
 		 * Perform an already scheduled Action.

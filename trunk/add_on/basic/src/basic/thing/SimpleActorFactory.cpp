@@ -33,7 +33,7 @@ namespace se_basic {
 		Actor* a = new Actor(name_->get());
 
 		a->setPickable(isPickable_);
-		a->setCollideable(isCollideable_);
+		//a->setCollideable(isCollideable_);
 		a->setDefaultPhysics(physics_);
 		a->setCollide(collide_);
 		a->nextPos().setBounds(bounds_);

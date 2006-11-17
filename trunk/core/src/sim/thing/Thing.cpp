@@ -61,14 +61,6 @@ namespace se_core {
 
 
 	void Thing
-	::cleanup() {
-		nextPos().resetParent();
-		nextPos().resetArea();
-		flip();
-	}
-
-
-	void Thing
 	::scheduleForDestruction() {
 		if(isDead_) return;
 

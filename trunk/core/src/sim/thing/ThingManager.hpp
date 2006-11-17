@@ -38,8 +38,8 @@ namespace se_core {
 		void addCutscene(const char* name, Cutscene* cutscene);
 		void addCutsceneMembership(const char* name, Cutscene* cutscene);
 		SimCompositeFactory* factory(const char* name);
-		Thing* create(const char* name);
-		void scheduleForDestruction(Thing& thing);
+		SimComposite* create(const char* name);
+		void scheduleForDestruction(SimComposite& thing);
 		void neutraliseDestructions();
 		void performDestructions();
 		void reset();
@@ -51,7 +51,7 @@ namespace se_core {
 		static const int MAX_FACTORIES = MAX_GAME_TYPES;
 		SimCompositeFactory* factories_[ MAX_FACTORIES ];
 		static const int MAX_THINGS_FOR_DESTRUCTION = MAX_GAME_OBJECTS;
-		Thing* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
+		SimComposite* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
 	};
 
 }

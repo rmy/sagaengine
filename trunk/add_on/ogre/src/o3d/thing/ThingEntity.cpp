@@ -81,7 +81,8 @@ namespace se_ogre {
 
 	ThingEntity
 	::~ThingEntity() {
-		O3dSchema::sceneManager->destroyMovableObject(entity_);
+		if(O3dSchema::sceneManager)
+			O3dSchema::sceneManager->destroyMovableObject(entity_);
 		entity_ = 0;
 	}
 

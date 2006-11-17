@@ -32,6 +32,23 @@ namespace se_ogre {
 	public:
 		O3dAreaComponent(se_core::SimComposite* owner);
 		~O3dAreaComponent();
+
+		static O3dAreaComponent* get(se_core::SimComposite* composite) {
+			Assert(composite);
+			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(composite->component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dAreaComponent* get(se_core::SimComposite& composite) {
+			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(composite.component(se_core::sct_RENDER));
+			return c;
+		}
+
+		static O3dAreaComponent* get(se_core::SimComponent& component) {
+			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(component.owner()->component(se_core::sct_RENDER));
+			return c;
+		}
+
 		void clear();
 		void setActive(bool state);
 		void setVisible(bool state);
@@ -39,6 +56,8 @@ namespace se_ogre {
 		void move(long when, float stepDelta, float timeSinceLastFrame);
 
 		void areaOffset(Ogre::Vector3& dest);
+
+		static bool hasStaticGeometry(se_core::SimComposite& thing);
 
 	protected:
 		void init();
