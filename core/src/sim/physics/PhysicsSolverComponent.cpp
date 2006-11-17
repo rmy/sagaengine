@@ -24,6 +24,7 @@ rune@skalden.com
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../react/CollisionAreaComponent.hpp"
+#include "../react/CollisionComponent.hpp"
 #include "util/error/Log.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "../thing/Actor.hpp"
@@ -132,7 +133,7 @@ namespace se_core {
 			Assert(p);
 			// Move to new position in collision grid
 			if(grid
-			   && p->isCollideable()
+			   && CollisionComponent::get(*p) != 0
 			   && p->pos().area() == p->nextPos().area()) {
 
 				// TODO: Real speed instead of max speed...

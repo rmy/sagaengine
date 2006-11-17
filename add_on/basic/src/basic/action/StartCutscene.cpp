@@ -51,7 +51,7 @@ namespace se_basic {
 			performer.questGoals().add(*(c->questGoal()));
 		}
 
-		if(c) c->setScripts(*performer.nextPos().area(), performer, a);
+		if(c) c->setScripts(*performer.nextPos().area()->toArea(), performer, a);
 	}
 
 

@@ -47,8 +47,10 @@ namespace se_ogre {
 
 	ThingMO
 	::~ThingMO() {
-		node_->removeAndDestroyAllChildren();
-		O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		if(O3dSchema::sceneManager) {
+			node_->removeAndDestroyAllChildren();
+			O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		}
 		node_ = 0;
 	}
 

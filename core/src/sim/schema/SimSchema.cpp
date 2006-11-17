@@ -23,6 +23,8 @@ rune@skalden.com
 #include "../InitListeners.hpp"
 #include "../SimListeners.hpp"
 #include "../SimEngine.hpp"
+#include "../SimComposite.hpp"
+#include "../SimComponentManager.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"
 #include "../script/ShowingCutscene.hpp"
@@ -55,6 +57,16 @@ namespace se_core {
 			static ThingManager thingManager;
 			return thingManager;
 		}
+
+
+		extern _SeCoreExport SimComposite& activeRoot() {
+			return SimComponentManager::activeRoot();
+		}
+
+		extern _SeCoreExport SimComposite& inactiveRoot() {
+			return SimComponentManager::inactiveRoot();
+		}
+
 
 		InitListeners& initListeners() {
 			static InitListeners initListeners;

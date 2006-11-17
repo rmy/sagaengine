@@ -41,10 +41,6 @@ namespace se_core {
 			return c;
 		}
 
-
-
-		void cleanup();
-
 		//
 		// Override from ActionFeed
 		void nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out);
@@ -125,6 +121,10 @@ namespace se_core {
 		void stopScript();
 
 	protected:
+		void cleanup();
+
+
+
 		short currentScript_;
 
 		ActionComponent* consumer_;

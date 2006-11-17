@@ -76,6 +76,8 @@ namespace se_core {
 		}
 
 		inline bool pushThing(PosComponent& pushedThing) {
+			Assert(toActor());
+			Assert(pushedThing.toActor());
 			return collide_->collide(*this, pushedThing);
 		}
 

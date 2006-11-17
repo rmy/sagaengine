@@ -49,7 +49,7 @@ namespace se_basic {
 
 		Area* area = SimSchema::areaManager.area(p->areaName_);
 		const ViewPoint* sp = area->spawnPoint(p->entranceId_);
-		performer.nextPos().setArea(*area, *sp);
+		performer.nextPos().setArea(*PosComponent::get(*area), *sp);
 
 	}
 

@@ -68,20 +68,10 @@ namespace se_core {
 
 
 	void Actor
-	::cleanup() {
-		actionComponent_->cleanup();
-		scriptComponent_->clearScripts();
-		Thing::cleanup();
-	}
-
-
-	void Actor
 	::scheduleForDestruction() {
 		// Don't schedule for destruction twice
 		if(isDead_) return;
 		// Stop any scripts and release memory held by them
-		actionComponent_->cleanup();
-		scriptComponent_->clearScripts();
 		Thing::scheduleForDestruction();
 	}
 
@@ -186,8 +176,10 @@ namespace se_core {
 	*/
 
 
-	Thing* Actor
+	SimComposite* Actor
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
+		return spawnComponent_->spawn(thingName, spawnPointId, deniedTsMask);
+		/*
 		// Get spawn point displace and face direction
 		const ViewPoint* sp = spawnPoint(spawnPointId);
 		Assert(sp && "Spawn point does not exist");
@@ -199,12 +191,13 @@ namespace se_core {
 		vp.sub(pos().area()->pos().world_);
 
 		// Spawn it in area (with area as parent)
-		Thing* t = const_cast<Pos&>(pos()).area()->spawn(thingName, vp, deniedTsMask);
+		SimComposite* t = const_cast<Pos&>(pos()).area()->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
-		if(t) t->setSpawner(this);
+		if(t) static_cast<Actor*>(t)->setSpawner(this);
 
 		return t;
+		*/
 	}
 
 

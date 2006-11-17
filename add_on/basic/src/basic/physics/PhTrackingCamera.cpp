@@ -25,13 +25,13 @@ namespace se_basic {
 		}
 
 		// Always stay in the same area as the player
-		Area* a = ClientSchema::player->nextPos().area();
+		PosComponent* a = ClientSchema::player->nextPos().area();
 		if(a != 0 && a != nextPos.area()) {
 			nextPos.setArea(*a);
 		}
 
 		// Stay glued to the players spawn point 0
-		const ViewPoint* sp = ClientSchema::player->spawnPoint(0);
+		const ViewPoint* sp = SpawnComponent::get(*ClientSchema::player)->spawnPoint(0);
 		nextPos.local_.setViewPoint(*sp);
 		
 		nextPos.updateWorldViewPoint();

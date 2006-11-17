@@ -216,8 +216,8 @@ namespace se_ogre {
 			//guiDbg->setCaption(O3dSchema::window->getDebugText());
 			static char buffer[255];
 			se_core::ViewPoint& vp = ClientSchema::player->nextPos().local_;
-			Area* a = ClientSchema::player->nextPos().area();
-			sprintf(buffer, "Area: %s (%s) T(%.2f, %.2f, %.2f) R(%.2f, %.2f, %.2f)", a->name(), a->factory()->name(), vp.coor_.x_, vp.coor_.y_, vp.coor_.z_, vp.face_.yaw_ / (float)(BRAY_RES), vp.face_.pitch_ / (float)(BRAY_RES), vp.face_.roll_ / (float)(BRAY_RES));
+			PosComponent* a = ClientSchema::player->nextPos().area();
+			sprintf(buffer, "Area: %s (%s) T(%.2f, %.2f, %.2f) R(%.2f, %.2f, %.2f)", a->owner()->name(), a->owner()->factory()->name(), vp.coor_.x_, vp.coor_.y_, vp.coor_.z_, vp.face_.yaw_ / (float)(BRAY_RES), vp.face_.pitch_ / (float)(BRAY_RES), vp.face_.roll_ / (float)(BRAY_RES));
 			guiDbg->setCaption(buffer);
 		}
 		catch(...) {

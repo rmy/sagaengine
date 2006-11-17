@@ -46,7 +46,13 @@ namespace se_core {
 		SimComposite(const char* name);
 		virtual ~SimComposite();
 
+		void init();
+		void cleanup();
+
 		SimComponent* component(int type);
+
+		const SimCompositeFactory* factory() { return factory_; }
+		void setFactory(const SimCompositeFactory* f) { factory_ = f; }
 
 		/**
 		 * Does the Pos have a parent?
@@ -83,6 +89,18 @@ namespace se_core {
 
 		void releaseComponents();
 
+		/** Schedule the Composite for destruction.
+		 *
+		 * The destruction will be delayed one or two AI steps before it
+		 * is actually destroyed, to make sure that any reference to
+		 * and Action upon the Thing in the world has a chance to be resolved
+		 * first.
+		 */
+		virtual void scheduleForDestruction() {
+			// Todo: Attach do "dead" root
+			resetParent();
+		}
+
 	private:
 		friend class SimComponent;
 		// The SimComponent adds and removes itself
@@ -111,7 +129,7 @@ namespace se_core {
 
 		int tag_;
 		friend class ThingManager;
-		SimCompositeFactory* factory_;
+		const SimCompositeFactory* factory_;
 		SimComposite* parent_;
 		MultiSimComposite children_;
 		MultiSimComponent components_;

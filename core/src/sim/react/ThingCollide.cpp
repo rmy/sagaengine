@@ -41,10 +41,8 @@ namespace se_core {
 		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		if(distanceWithPusherMoving > beforeDistance) {
-			// Not closer, any collision is not caused by this thing
 			return false;
 		}
-		//LogMsg("Guilty " << pusher.name() << " vs " << target.name());
 		return true;
 	}
 

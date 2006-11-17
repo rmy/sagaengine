@@ -54,6 +54,10 @@ namespace se_core {
 			return owner_;
 		}
 
+		inline const SimComposite* owner() const {
+			return owner_;
+		}
+
 		inline Actor* toActor() {
 			return reinterpret_cast<Actor*>(owner_);
 		}
@@ -94,6 +98,13 @@ namespace se_core {
 		/** Called by SimComposite
 		 */
 		virtual void areaChanged(SimComposite* newArea, SimComposite* oldArea);
+
+		/** Called by SimComposite
+		 */
+		virtual void init();
+		/** Called by SimComposite
+		 */
+		virtual void cleanup();
 
 		/**
 		 * The type of SimComponent.

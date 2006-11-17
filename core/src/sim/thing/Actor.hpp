@@ -141,10 +141,6 @@ namespace se_core {
 
 		void scheduleForDestruction();
 
-		/** Reset any scripts and do Thing::cleanup().
-		 */
-		void cleanup();
-
 		/**
 		 * Ask if this class will safely cast to a spcific
 		 * SimObject subclass.
@@ -185,8 +181,6 @@ namespace se_core {
 		void stopShowingCutscene();
 
 
-		//virtual void setActive(bool state);
-
 		void setCollide(const ThingCollide* collide) { physicsComponent_->setCollide(collide); }
 		bool isPusher() { return physicsComponent_->isPusher(); }
 
@@ -198,7 +192,7 @@ namespace se_core {
 
 		virtual bool isPlayer() { return false; }
 
-		Thing* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
+		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() { return spawnCount_; }

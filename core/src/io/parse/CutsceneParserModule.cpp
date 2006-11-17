@@ -228,6 +228,7 @@ namespace se_core {
 				delete name;
 				break;
 			}
+			//TODO:
 			SimSchema::areaManager.area(name->get())->multiSimObject(Area::MGOA_CUTSCENES).add(*cutscene);
 			delete name;
 		}

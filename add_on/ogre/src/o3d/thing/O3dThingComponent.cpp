@@ -50,9 +50,9 @@ namespace se_ogre {
 		isInitialized_ = true;
 
 		if(!parentNode_) {
-			Area* a = const_cast<Area*>(toActor()->nextPos().area());
+			PosComponent* a = toActor()->nextPos().area();
 			Assert(a);
-			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(a->component(type()));
+			O3dNodeComponent* c = O3dNodeComponent::get(*a);
 			Assert(c);
 			Assert(c->node());
 			setParentNode(c->node());
@@ -73,21 +73,22 @@ namespace se_ogre {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
 			O3dSchema::thingMOManager.release(te);
 		}
+		O3dSchema::thingMOList.removeChain(firstThingMO_);
 
 		setVisible(false);
-
 	}
 
 
 	void O3dThingComponent
 	::setActive(bool state) {
 		if(state) {
-			init();
+			init();	
+			setVisible(true);
 		}
 		else {
+			setVisible(false);
 			clear();
 		}
-		setVisible(state);
 	}
 
 

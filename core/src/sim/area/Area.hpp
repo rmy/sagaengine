@@ -43,19 +43,9 @@ namespace se_core {
 	class _SeCoreExport Area : public PosNode {
 	public:
 		enum MultiSimObjectType {
-			MGOA_PICKABLE_THINGS = 0,
-			MGOA_MOVING_THINGS,
-			//			MGOA_PUSHABLE_THINGS,
-			//			MGOA_PUSHING_THINGS,
-			MGOA_ACTORS,
 			MGOA_CUTSCENES,
 			MGOA_SPAWNS,
 			MGOA_COUNT
-		};
-
-		enum ReportingMultiSimObjectType {
-			RMGOA_ALL_THINGS = 0,
-			RMGOA_COUNT
 		};
 
 		/**
@@ -93,8 +83,6 @@ namespace se_core {
 		 */
 		void saveThings(/* stream */);
 
-		const AreaFactory* factory() { return factory_; }
-		void setFactory(const AreaFactory* f) { factory_ = f; }
 
 	public:
 		virtual void force(const Point3& coor, Vector3& dest) const = 0;
@@ -117,13 +105,7 @@ namespace se_core {
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
 		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
-		MultiSimObject& allThings() const;
-		ReportingMultiSimObject& reportingThings();
 
-		void addThing(Thing& thing);
-		void removeThing(Thing& thing);
-		void addPosNode(PosNode& thing);
-		void removePosNode(PosNode& thing);
 		bool isLegalCoor(coor_tile_t x, coor_tile_t y) const {
 			return (x >= 0 && y >= 0 && x < width_ && y < height_);
 		}
@@ -166,7 +148,7 @@ namespace se_core {
 		 * @return true if the passed in area is a neighbour
 		 */
 		bool addNeighbour(Area* area);
-		bool isNeighbour(Area& area);
+		bool isNeighbour(Area& area) const;
 
 		/**
 		 * Flip all moving things in this area, making
@@ -190,13 +172,8 @@ namespace se_core {
 		 * this way, because a thing not belonging to an area will
 		 * never be flip()'ed.
 		 */
-		Thing* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosNode* parent = 0);
+		SimComposite* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosComponent* parent = 0);
 
-
-	protected:
-		//friend class AreaManager;
-
-		//void setActive(bool state);
 
 	protected:
 		coor_tile_t width_, height_;
@@ -206,13 +183,11 @@ namespace se_core {
 		String* nameString_; // For proper destruction of content only
 
 		MultiSimObject* multiSimObjects_;
-		ReportingMultiSimObject* allThings_;
+		//ReportingMultiSimObject* allThings_;
 
 		friend class PhysicsSolverComponent;
 		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
 		Area* neighbours_[ MAX_NEIGHBOURS ];
-
-		const AreaFactory* factory_;
 
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;

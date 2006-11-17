@@ -23,6 +23,7 @@ rune@skalden.com
 #define SpawnComponent_hpp
 
 #include "../SimComponent.hpp"
+#include "../SimComposite.hpp"
 #include "../sim.hpp"
 #include "../pos/PosComponent.hpp"
 #include "util/type/all.hpp"
@@ -34,9 +35,20 @@ namespace se_core {
 		SpawnComponent(SimComposite* owner, PosComponent* pos);
 		virtual ~SpawnComponent();
 
+		static SpawnComponent* get(SimComposite& composite) {
+			SpawnComponent* c = static_cast<SpawnComponent*>(composite.component(se_core::sct_SPAWN));
+			return c;
+		}
+
+		static SpawnComponent* get(SimComponent& component) {
+			SpawnComponent* c = static_cast<SpawnComponent*>(component.owner()->component(se_core::sct_SPAWN));
+			return c;
+		}
+
+
 		void cleanup();
 
-		Thing* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
+		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() { return spawnCount_; }

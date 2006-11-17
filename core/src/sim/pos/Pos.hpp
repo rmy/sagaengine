@@ -25,6 +25,7 @@ rune@skalden.com
 #include "Anim.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 #include "util/bounds/BoundingBox.hpp"
+#include "sim_pos.hpp"
 #include "../sim.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"
@@ -136,7 +137,7 @@ namespace se_core {
 		 * @param doKeepWorldCoor wether the local viewpoint should be updated
 		 *   to maintain the world coordinate
 		 */
-		void setArea(Area& area, bool doKeepWorldCoor = false);
+		void setArea(PosComponent& area, bool doKeepWorldCoor = false);
 
 		/**
 		 * Set area and viewpoint.
@@ -144,7 +145,7 @@ namespace se_core {
 		 * @param vp new viewpoint
 		 * @param isLocalViewPoint wether vp is a viewpoint in local space or world space
 		 */
-		void setArea(Area& area, const ViewPoint& vp, bool isLocalViewPoint = true);
+		void setArea(PosComponent& area, const ViewPoint& vp, bool isLocalViewPoint = true);
 
 		/**
 		 * Leave any area.
@@ -157,7 +158,7 @@ namespace se_core {
 		 * @param doKeepWorldCoor wether the local viewpoint should be updated
 		 *   to maintain the world viewpoint
 		 */
-		void setParent(PosNode& p, bool doKeepWorldCoor = false);
+		void setParent(PosComponent& p, bool doKeepWorldCoor = false);
 
 		/**
 		 * Set parent to none.
@@ -182,12 +183,12 @@ namespace se_core {
 		/**
 		 * Get parent.
 		 */
-		PosNode* parent() { return parent_; }
+		PosComponent* parent() { return parent_; }
 		/**
 		 * Get parent.
 		 * const version.
 		 */
-		const PosNode* parent() const { return parent_; }
+		const PosComponent* parent() const { return parent_; }
 
 		/**
 		 * Update the world_ viewpoint according to the 
@@ -205,19 +206,22 @@ namespace se_core {
 		/**
 		 * The area the Pos is presently in.
 		 */
-		Area* area() { return area_; }
+		PosComponent* area() { return area_; }
 
 		/**
 		 * The area the Pos is presently in.
 		 * const version.
 		 */
-		const Area* area() const { return area_; }
+		const PosComponent* area() const { return area_; }
 
 
 		/**
 		 * Does the Pos have an area?
 		 */
 		bool hasArea() const { return area_ != 0; }
+
+		bool hasArea(SimComposite& area) const;
+		bool hasArea(PosComponent& area) const { return area_ != 0 && area_ == &area; }
 
 		/**
 		 * The terrain style at the present position.
@@ -303,6 +307,9 @@ namespace se_core {
 			bounds_ = b;
 		}
 
+		inline bool hasInside(const Point3& p) const {
+			return bounds_.hasInside(worldCoor(), p);
+		}
 
 		/**
 		 * Check if two positions are inside collition range.
@@ -367,6 +374,7 @@ namespace se_core {
 		 */
 		inline void setNoIndex() { index_ = -1; }
 
+		PosComponent* updateArea();
 
 		/**
 		 * Animation state.
@@ -417,10 +425,10 @@ namespace se_core {
 
 	public:
 		/** The area this position is inside */
-		Area* area_;
+		PosComponent* area_;
 
 		/** The parent of this position */
-		PosNode* parent_;
+		PosComponent* parent_;
 
 		/** The position in local coordinates */
 		ViewPoint local_;

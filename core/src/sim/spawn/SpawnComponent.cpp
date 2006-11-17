@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 	SpawnComponent
 	::SpawnComponent(SimComposite* owner, PosComponent* pos)
-		: SimComponent(sct_SCRIPT, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0) {
+		: SimComponent(sct_SPAWN, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
 
@@ -44,7 +44,7 @@ namespace se_core {
 	}
 
 
-	Thing* SpawnComponent
+	SimComposite* SpawnComponent
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
 		// Get spawn point displace and face direction
 		const ViewPoint* sp = spawnPoint(spawnPointId);
@@ -58,10 +58,14 @@ namespace se_core {
 		vp.sub(pos.area()->pos().world_);
 
 		// Spawn it in area (with area as parent)
-		Thing* t = const_cast<Area*>(pos.area())->spawn(thingName, vp, deniedTsMask);
+		SimComposite* t = const_cast<Area*>(pos.area()->toArea())->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
-		if(t) t->setSpawner(toActor());
+		// TODO: Invent a better way
+		//if(t) {
+		//	t->setSpawner(toActor());
+		//}
+		if(t) static_cast<Actor*>(t)->setSpawner(toActor());
 
 		return t;
 	}

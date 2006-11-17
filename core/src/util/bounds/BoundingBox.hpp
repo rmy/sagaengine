@@ -108,6 +108,14 @@ namespace se_core {
 					&& p.z_ >= minZ_ && p.z_ <= maxZ_);
 		}
 
+
+		bool hasInside(const Point3& offset, const Point3& p) const {
+			return (p.x_ >= offset.x_ + minX_ && p.x_ < offset.x_ + maxX_
+					&& p.y_ >= offset.y_ + minY_ && p.y_ < offset.y_ + maxY_
+					&& p.z_ >= offset.z_ + minZ_ && p.z_ < offset.z_ + maxZ_);
+		}
+
+
 		void center(Point3& out) const {
 			out.x_ = CoorT::half(minX_ + maxX_);
 			out.y_ = CoorT::half(minX_ + maxY_);

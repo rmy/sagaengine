@@ -90,11 +90,11 @@ namespace se_core {
 	}
 
 
-	Thing* ThingManager
+	SimComposite* ThingManager
 	::create(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
-				Thing* t =  static_cast<Thing*>(factories_[i]->create());
+				SimComposite* t =  factories_[i]->create();
 				t->factory_ = factories_[i];
 				return t;
 			}
@@ -105,7 +105,7 @@ namespace se_core {
 
 
 	void ThingManager
-	::scheduleForDestruction(Thing& thing) {
+	::scheduleForDestruction(SimComposite& thing) {
 		Assert(nextDestructionCount_ < MAX_THINGS_FOR_DESTRUCTION || "Too many things scheduled for destruction already.");
 
 		// TODO: The below is debug code, remove for performance increase when stable
@@ -131,7 +131,7 @@ namespace se_core {
 	::performDestructions() {
 		while(destructionCount_ > 0) {
 			//LogMsg("Dest count: " << destructionCount_);
-			Thing* t = thingsScheduledForDestruction_[ --destructionCount_ ];
+			SimComposite* t = thingsScheduledForDestruction_[ --destructionCount_ ];
 			Assert(t->factory_);
 			// Let the facory that created the object do the deletion.
 			t->factory_->release(t);
