@@ -55,11 +55,13 @@ namespace se_ogre {
 
 	void O3dManager
 	::clear() {
-		MultiSimNodeComponent::TreeIterator it(children_);
+		/*
+		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
 			c.clear();
 		}
+		*/
 
 	}
 

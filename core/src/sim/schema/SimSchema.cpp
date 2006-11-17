@@ -27,7 +27,9 @@ rune@skalden.com
 #include "../SimComponentManager.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"
+#include "../action/ActionComponentManager.hpp"
 #include "../script/ShowingCutscene.hpp"
+#include "../script/ScriptComponentManager.hpp"
 #include "../message/MessageCentral.hpp"
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
@@ -125,6 +127,8 @@ namespace se_core {
 			return simEngine.init();
 
 			PhysicsComponentManager::singleton();
+			ScriptComponentManager::singleton();
+			ActionComponentManager::singleton();
 			CollisionManager::singleton();
 		}
 

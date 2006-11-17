@@ -75,7 +75,6 @@ namespace se_ogre {
 		}
 		O3dSchema::thingMOList.removeChain(firstThingMO_);
 
-		setVisible(false);
 	}
 
 
