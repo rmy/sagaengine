@@ -23,7 +23,7 @@ rune@skalden.com
 #include "../system/util_system.hpp"
 #include <malloc.h>
 #ifdef _WINDOWS
-#include <windows.h>
+#include <Windows.h>
 #endif
 #include <cstdio>
 

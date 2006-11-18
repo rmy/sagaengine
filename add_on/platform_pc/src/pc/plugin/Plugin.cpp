@@ -22,7 +22,7 @@ rune@skalden.com
 #include "Plugin.hpp"
 #include "util/error/Log.hpp"
 #ifdef _WINDOWS
-#include <windows.h>
+#include <Windows.h>
 #else
 #include <dlfcn.h>
 #endif
