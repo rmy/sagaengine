@@ -35,8 +35,8 @@ namespace se_core {
 		virtual ~Abilities();
 		void setLevel(short level);
 		short modified(enum AbilityType type) const { return bases_[ type ] + modifiers_[ type ]; }
-		void addModifier(enum AbilityType, short modifier) { modifiers_[ ABILITY_COUNT ] += modifier; }
-		void subtractModifier(enum AbilityType, short modifier) { modifiers_[ ABILITY_COUNT ] -= modifier; }
+		void addModifier(enum AbilityType type, short modifier) { modifiers_[ type ] += modifier; }
+		void subtractModifier(enum AbilityType type, short modifier) { modifiers_[ type ] -= modifier; }
 
 		void addModifier(Abilities& abilities) {
 			for(int i = 0; i < ABILITY_COUNT; ++i)

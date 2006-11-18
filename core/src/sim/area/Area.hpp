@@ -62,7 +62,7 @@ namespace se_core {
 		 * Return true if parameter is got_AREA.
 		 * Inherited from GameObject class.
 		 */
-		virtual bool isType(enum SimObjectType type) {
+		virtual bool isType(enum SimObjectType type) const {
 			if(type == got_AREA) return true;
 			return false;
 		}
