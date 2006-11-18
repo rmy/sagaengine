@@ -182,7 +182,7 @@ namespace se_core {
 
 
 		void setCollide(const ThingCollide* collide) { physicsComponent_->setCollide(collide); }
-		bool isPusher() { return physicsComponent_->isPusher(); }
+		bool isPusher() const { return physicsComponent_->isPusher(); }
 
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }
