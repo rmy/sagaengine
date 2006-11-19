@@ -178,6 +178,8 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				OutputManifestFile="$(OutDir)\$(TargetFileName).embed.manifest"
+				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"			/>
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
