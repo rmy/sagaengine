@@ -24,6 +24,7 @@ mkdir include/fmod
 cp /c/OgreSDK/lib/* lib/release/
 mv lib/release/*.pdb lib/debug
 mv lib/release/*_d.* lib/debug
+cp lib/release/ode.* lib/debug
 cp -R /c/OgreSDK/lib/opt/* lib
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/lib/fmodex_vc.lib lib/release/fmodex.lib
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/lib/fmodex_vc.lib lib/debug/fmodex.lib
