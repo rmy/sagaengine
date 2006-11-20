@@ -60,7 +60,7 @@ namespace se_fmod {
 	}
 
 	void Sounds
-	::add(unsigned short language, SoundType type, String* nameC, String* soundC) {
+	::add(unsigned short language, SoundType type, String* nameC, float volume, String* soundC) {
 		Assert(soundCount_ < MAX_SOUNDS);
 
 		const char* name = nameC->get();
@@ -83,6 +83,7 @@ namespace se_fmod {
 		sounds_[ index ].nameC_ = nameC;
 		sounds_[ index ].soundC_ = soundC;
 		sounds_[ index ].name_ = name;
+		sounds_[ index ].volume_ = volume;
 
 		Assert(FmodSchema::soundPlayer && "Sound player object not created");
 		sounds_[ index ].sound_ = sound;
@@ -121,7 +122,7 @@ namespace se_fmod {
 
 
 	FMOD_SOUND* Sounds
-	::get(SoundType type, const char* name) {
+	::get(SoundType type, const char* name, float& volumeOut) {
 		// Is there a language specific sound?
 		short index = find(type, name, currentLanguage_);
 		if(!isFound(index, type, name, currentLanguage_)) {
@@ -133,6 +134,7 @@ namespace se_fmod {
 			}
 		}
 		LogMsg(sounds_[index].language_ << " " << type << " " << name);
+		volumeOut = sounds_[ index ].volume_;
 		return sounds_[ index ].sound_;
 	}
 

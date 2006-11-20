@@ -76,12 +76,14 @@ namespace se_fmod {
 	void SoundPlayer
 	::ambienceEvent(char* snd) {
 		FMOD_RESULT result;
-		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::MUSIC, snd);
+		float volume;
+		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::MUSIC, snd, volume);
 		if(!s) {
 			LogWarning("Couldn't play ambience: " << snd);
 			return;
 		}
 		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
+		FMOD_Channel_SetVolume(channel_, volume);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
@@ -89,7 +91,8 @@ namespace se_fmod {
 	void SoundPlayer
 	::soundEvent(Actor& speaker, const char* snd) {
 		FMOD_RESULT result;
-		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::SOUND, snd);
+		float volume;
+		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::SOUND, snd, volume);
 		if(!s) {
 			LogWarning("Couldn't play sound: " << snd);
 			return;
@@ -106,7 +109,7 @@ namespace se_fmod {
 		//result = FMOD_Channel_Set3DAttributes(channel_, &pos, &vel);
 		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
-		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .25;
+		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .1;
 		if(d < .5f) { 
 			d = 1;
 		}
@@ -114,7 +117,7 @@ namespace se_fmod {
 			d = .5f / d;
 		}
 
-		FMOD_Channel_SetVolume(channel_, d);
+		FMOD_Channel_SetVolume(channel_, d * volume);
 
 
         result = FMOD_Channel_SetPaused(channel_, false);

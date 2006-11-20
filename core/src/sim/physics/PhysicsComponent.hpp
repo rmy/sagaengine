@@ -37,6 +37,19 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
 	public:
+		static PhysicsComponent* get(SimComposite& composite) {
+			PhysicsComponent* c = static_cast<PhysicsComponent*>(composite.component(se_core::sct_PHYSICS));
+			return c;
+		}
+
+		static PhysicsComponent* get(SimComponent& component) {
+			PhysicsComponent* c = static_cast<PhysicsComponent*>(component.owner()->component(se_core::sct_PHYSICS));
+			return c;
+		}
+
+
+
+
 		/** Constructor.
 		 */
 		PhysicsComponent(Actor* owner, PosComponent* posComponent);
@@ -46,6 +59,8 @@ namespace se_core {
 		bool calcNextCoor();
 
 		void affect() {
+			if(!hasPhysics())
+				return;
 			physics().affect(*toActor());
 		}
 

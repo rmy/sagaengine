@@ -30,6 +30,7 @@ namespace se_core {
 	class _SeCoreExport ReentrantData : public ScriptData {
 	public:
 		ReentrantData() : rp(0) {}
+		void restartScript() { rp = 0; }
 		long rp; // Reentrance pointer
 	};
 

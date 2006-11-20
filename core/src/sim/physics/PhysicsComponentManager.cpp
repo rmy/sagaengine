@@ -138,6 +138,11 @@ namespace se_core {
 
 	void PhysicsComponentManager
 	::affect(long when) {
+		for(int i = 0; i < activeSolverCount_; ++i) {
+			PhysicsSolverComponent* s = activeSolvers_[i];
+			s->affectChildren();
+		}
+		/*
 		for(int i = 0; i < moverCount_; ++i) {
 			// Affect actors with the effects of the terrain
 			// they are standing on.
@@ -148,6 +153,7 @@ namespace se_core {
 			PhysicsComponent* p = movers_[i];
 			p->affect();
 		}
+		*/
 
 	}
 
