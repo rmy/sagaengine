@@ -73,7 +73,7 @@ namespace se_core {
 		if(!didDelete) {
 			coor_t speedAndRadius = pos.nextPos().radius() + MAX_SPEED;
 			didDelete = collisionGrid_->remove(pos.nextPos().worldCoor(), speedAndRadius, pos);
-			if(!didDelete) LogMsg("Couldn't remove " << pos.owner()->name() << " from collision grid");
+			AssertMsg(didDelete, "Couldn't remove " << pos.owner()->name() << " from collision grid");
 		}
 
 		if(!didDelete) {

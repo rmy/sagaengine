@@ -36,7 +36,7 @@ using namespace se_core;
 
 namespace se_fmod {
 	void ERRCHECK(FMOD_RESULT result) {
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -46,13 +46,13 @@ namespace se_fmod {
 
 		//enum { MEM_SIZE = 1024 * 1024 * 256 };
 		//result = FMOD_Memory_Initialize(new unsigned char[ MEM_SIZE ], MEM_SIZE, 0, 0, 0);
-		//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		result = FMOD_System_Create(&system_);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		result = FMOD_System_Init(system_, 32, FMOD_INIT_NORMAL, NULL);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		SimSchema::soundCentral.addListener(*this);
 	}
@@ -69,7 +69,7 @@ namespace se_fmod {
 		*/
 
 		result = FMOD_System_Close(system_);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -78,11 +78,11 @@ namespace se_fmod {
 		FMOD_RESULT result;
 		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::MUSIC, snd);
 		if(!s) {
-			LogMsg("Couldn't play ambience: " << snd);
+			LogWarning("Couldn't play ambience: " << snd);
 			return;
 		}
 		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -91,12 +91,12 @@ namespace se_fmod {
 		FMOD_RESULT result;
 		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::SOUND, snd);
 		if(!s) {
-			LogMsg("Couldn't play sound: " << snd);
+			LogWarning("Couldn't play sound: " << snd);
 			return;
 		}
 
 		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, true, &channel_);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		se_core::Point3 c(speaker.pos().worldCoor());
 		c.sub(se_client::ClientSchema::player->pos().worldCoor());
@@ -104,23 +104,21 @@ namespace se_fmod {
         //FMOD_VECTOR pos = { c.x_, c.y_, c.z_ };
         //FMOD_VECTOR vel = { 0.0f,  0.0f, 0.0f };
 		//result = FMOD_Channel_Set3DAttributes(channel_, &pos, &vel);
-		//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .25;
-		if(d < .5) { 
+		if(d < .5f) { 
 			d = 1;
 		}
 		else {
-			d = .5 / d;
+			d = .5f / d;
 		}
 
 		FMOD_Channel_SetVolume(channel_, d);
 
 
         result = FMOD_Channel_SetPaused(channel_, false);
-		if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
-
-
+		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
@@ -135,9 +133,9 @@ namespace se_fmod {
 		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
 		LogMsg(buffer);
 		//result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE, 0, &snd);
-		result = FMOD_System_CreateSound(system_, buffer, FMOD_HARDWARE | FMOD_3D, 0, &snd);
+		result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE | FMOD_3D, 0, &snd);
 		if (result != FMOD_OK) {
-			LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+			AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 			snd = 0;
 		}
 

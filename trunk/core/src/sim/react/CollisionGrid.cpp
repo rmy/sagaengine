@@ -100,10 +100,10 @@ namespace se_core {
 		const coor_tile_t z = c.zTile() - zOffset_;
 		short level = calcLevel(CoorT::tile(size) + 1);
 
-		if(indexAtLevel(x, z, level) < 0) LogFatal(thing.owner()->name());
-		if(indexAtLevel(x, z, level) >= totalNodeCount_) LogFatal(thing.owner()->name());
-		if(x < 0 || x >= rootNodeSize_) LogFatal(thing.owner()->name());
-		if(z < 0 || z >= rootNodeSize_) LogFatal(thing.owner()->name()); 
+		AssertMsg((indexAtLevel(x, z, level) >= 0), thing.owner()->name());
+		AssertMsg((indexAtLevel(x, z, level) < totalNodeCount_, thing.owner()->name());
+		AssertMsg((x >= 0 || x < rootNodeSize_), thing.owner()->name());
+		AssertMsg(z >= 0 || z < rootNodeSize_), thing.owner()->name()); 
 
 		Assert(x < rootNodeSize_);
 		Assert(z < rootNodeSize_);

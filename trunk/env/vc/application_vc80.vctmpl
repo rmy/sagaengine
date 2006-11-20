@@ -68,7 +68,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SagaEngine)\bin\$(ConfigurationName);$(SagaEngine)\dependencies\lib\$(ConfigurationName)"
 				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
-				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.DebugCRT&apos; version=&apos;8.0.50608.0&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
+				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.DebugCRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -78,14 +78,16 @@
 				OptimizeForWindows98="1"
 				ResourceOnlyDLL="false"
 				TargetMachine="1"
-			/>
+				FixedBaseAddress="1"
+				/>
 			<Tool
 				Name="VCALinkTool"
 			/>
 			<Tool
 				Name="VCManifestTool"
 				OutputManifestFile="$(OutDir)\$(TargetFileName).embed.manifest"
-				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"			/>
+				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"
+				/>
 			<Tool
 				Name="VCXDCMakeTool"
 			/>
@@ -162,6 +164,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SagaEngine)\bin\$(ConfigurationName);$(SagaEngine)\dependencies\lib\$(ConfigurationName)"
 				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
+				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.CRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
 				GenerateDebugInformation="false"
 				GenerateMapFile="true"
@@ -172,14 +175,15 @@
 				OptimizeForWindows98="1"
 				ResourceOnlyDLL="false"
 				TargetMachine="1"
-			/>
+				FixedBaseAddress="1"
+				/>
 			<Tool
 				Name="VCALinkTool"
 			/>
 			<Tool
 				Name="VCManifestTool"
 				OutputManifestFile="$(OutDir)\$(TargetFileName).embed.manifest"
-				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"			/>
+				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
