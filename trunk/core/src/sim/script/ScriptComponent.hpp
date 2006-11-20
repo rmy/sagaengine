@@ -41,6 +41,11 @@ namespace se_core {
 			return c;
 		}
 
+		static ScriptComponent* get(SimComponent& component) {
+			ScriptComponent* c = static_cast<ScriptComponent*>(component.owner()->component(se_core::sct_SCRIPT));
+			return c;
+		}
+
 		//
 		// Override from ActionFeed
 		void nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out);

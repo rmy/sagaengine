@@ -57,10 +57,12 @@ namespace se_fmod {
 					name = new String();
 					in.readString(*name);
 					LogMsg(name->get());
+
+					float volume = in.readFloat();
 					file = new String();
 					in.readString(*file);
 					LogMsg(language << " " << soundType << ": " << name->get());
-					FmodSchema::sounds.add(language, static_cast<Sounds::SoundType>(soundType), name, file);
+					FmodSchema::sounds.add(language, static_cast<Sounds::SoundType>(soundType), name, volume, file);
 					LogMsg(name->get());
 				}
 				break;

@@ -23,6 +23,7 @@ rune@skalden.com
 #include "PhysicsComponentManager.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
+#include "../stat/MultiSimNodeComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../react/CollisionComponent.hpp"
 #include "util/error/Log.hpp"
@@ -179,6 +180,7 @@ namespace se_core {
 	}
 
 
+	/*
 	int PhysicsSolverComponent
 	::performChildPhysics(PhysicsComponent** movers) {
 		if(children_.isEmpty()) {
@@ -197,10 +199,13 @@ namespace se_core {
 			PhysicsComponent& p = static_cast<PhysicsComponent&>(itStack [ sp ].next());
 
 			// Calc next position
-			if(p.calcNextCoor()) {
+			p.calcNextCoor();
+			movers[moverCount++] = &p;
+
+			//if(p.calcNextCoor()) {
 				// Add to movers
-				movers[moverCount++] = &p;
-			}
+			//	movers[moverCount++] = &p;
+				//}
 
 
 			// Push child chain as next chain on stack
@@ -218,6 +223,34 @@ namespace se_core {
 		} while(sp >= 0);
 
 		return moverCount;
+	}
+	*/
+
+
+	int PhysicsSolverComponent
+	::performChildPhysics(PhysicsComponent** movers) {
+		int moverCount = 0;
+		MultiSimNodeComponent::TreeIterator it(children());
+		while(it.hasNext()) {
+			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
+			ph.affect();
+
+			// Calc next position
+			ph.calcNextCoor();
+			movers[moverCount++] = &ph;
+
+		}
+		return moverCount;
+	}
+
+
+	void PhysicsSolverComponent
+	::affectChildren() {
+		MultiSimNodeComponent::TreeIterator it(children());
+		while(it.hasNext()) {
+			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
+			ph.affect();
+		}
 	}
 
 

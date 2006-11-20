@@ -44,6 +44,7 @@ namespace se_core {
 		int performChildPhysics(PhysicsComponent** movers);
 
 		void flipChildren();
+		void affectChildren();
 
 		void setActive(bool state);
 
