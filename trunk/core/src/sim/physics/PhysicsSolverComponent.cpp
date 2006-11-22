@@ -241,7 +241,6 @@ namespace se_core {
 			// Calc next position
 			ph.calcNextCoor();
 			movers[moverCount++] = &ph;
-
 		}
 		return moverCount;
 	}
