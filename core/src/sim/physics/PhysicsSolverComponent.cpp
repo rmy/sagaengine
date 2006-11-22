@@ -106,6 +106,8 @@ namespace se_core {
 				if(_testActor2ThingCollision(*pn1.posComponent_, pn2)) {
 					//pn1.pushThing(pn2.toActor());
 					if(pn1.pushThing(pn2)) {
+						Assert(CollisionComponent::get(pn1)->isCollideable());
+						Assert(CollisionComponent::get(pn2)->isCollideable());
 						pn1.posComponent_->resetFutureCoor();
 						break;
 					}
@@ -133,7 +135,8 @@ namespace se_core {
 			PosComponent* p = ph.posComponent_; //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
 			Assert(p);
 			// Move to new position in collision grid
-			if(grid
+			CollisionComponent* cc = CollisionComponent::get(*p);
+			if(grid && cc != 0 && cc->isCollideable()
 			   && CollisionComponent::get(*p) != 0
 			   && p->pos().area() == p->nextPos().area()) {
 

@@ -47,8 +47,6 @@ namespace se_core {
 
 	void CollisionAreaComponent
 	::addCollideable(CollisionComponent& cc) {
-		addChild(cc);
-
 		if(collisionGrid_) {
 			PosComponent& pos = cc.posComponent();
 			// TODO: Should use speed + radius
@@ -60,8 +58,6 @@ namespace se_core {
 
 	void CollisionAreaComponent
 	::removeCollideable(CollisionComponent& cc) {
-		removeChild(cc);
-
 		if(!collisionGrid_)
 			return;
 
@@ -103,6 +99,8 @@ namespace se_core {
 		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* c = static_cast<CollisionComponent*>(&it.next());
+			if(!c->isCollideable())
+				continue;
 			PosComponent* p = static_cast<PosComponent*>(c->owner()->component(sct_POS));
 			LogMsg(p->pos().worldCoor() << " - " << p->pos().localCoor());
 			LogMsg(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
@@ -130,7 +128,5 @@ namespace se_core {
 			resetCollisionGrid();
 		}
 	}
-
-
 
 }

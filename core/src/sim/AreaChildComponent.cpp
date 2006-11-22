@@ -43,7 +43,8 @@ namespace se_core {
 	void AreaChildComponent
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
 		if(newArea) {
-			setParent(*this);
+			SimNodeComponent* n = static_cast<SimNodeComponent*>(newArea->component(type()));
+			setParent(*n);
 		}
 		else {
 			resetParent();

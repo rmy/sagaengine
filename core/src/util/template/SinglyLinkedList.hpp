@@ -103,7 +103,7 @@ namespace se_core {
 		 * @TODO: This should be protected.
 		 */
 		ElementType* remove(iterator_type &iterator, const iterator_type &previousElement) {
-			Assert(nodes_[0] != 0);
+			//Assert(nodes_[0] != 0);
 			// Store the reference to the element after the iterator
 			iterator_type tmp = nextNodes_[ iterator ];
 
@@ -155,10 +155,11 @@ namespace se_core {
 		 *    is a new or empty list)
 		 */
 		bool remove(ElementType* element, iterator_type &firstNode) {
-			Assert(nodes_[0] != 0);
 			//DbgAssert(!isFree(firstNode));
 			iterator_type iterator = firstNode;
 			iterator_type prev = end();
+			//Assert(nodes_[0] != 0 || firstNode == end());
+
 			while(iterator != end()) {
 				if(nodes_[ iterator ] == element) {
 					if(iterator == firstNode) {
