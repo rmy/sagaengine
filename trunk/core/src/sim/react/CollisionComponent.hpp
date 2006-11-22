@@ -66,9 +66,7 @@ namespace se_core {
 		 * This is a hint to the engine that this should be included
 		 * in the collison space.
 		 */
-		void setCollideable(bool isCollideable) {
-			isCollideable_ = isCollideable;
-		}
+		void setCollideable(bool isCollideable);
 
 
 		PosComponent& posComponent() {

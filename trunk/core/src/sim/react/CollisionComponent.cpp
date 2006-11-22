@@ -32,13 +32,15 @@ namespace se_core {
 	CollisionComponent
 	::CollisionComponent(Actor* owner, PosComponent* posComponent)
 		: AreaChildComponent(sct_COLLISION, owner)
-		, posComponent_(posComponent) {
+		, posComponent_(posComponent)
+		, isCollideable_(false) {
 	}
 
 
 	CollisionComponent
 	::CollisionComponent(Actor* owner)
-		: AreaChildComponent(sct_COLLISION, owner) {
+		: AreaChildComponent(sct_COLLISION, owner)
+		, isCollideable_(false) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
 	}
@@ -48,15 +50,39 @@ namespace se_core {
 	}
 
 
+	void  CollisionComponent
+	::setCollideable(bool isCollideable) {
+		if(isCollideable_ == isCollideable)
+			return;
+
+		isCollideable_ = isCollideable;
+		if(parent_) {
+			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(parent_);
+			if(isCollideable_) {
+				cac->addCollideable(*this);
+			}
+			else {
+				cac->removeCollideable(*this);
+			}
+		}
+	}
+
+
 	void CollisionComponent
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
 		if(oldArea) {
-			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(oldArea->component(type()));
-			cac->removeCollideable(*this);
+			resetParent();
+			if(isCollideable_) {
+				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(oldArea->component(type()));
+				cac->removeCollideable(*this);
+			}
 		}
 		if(newArea) {
 			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(newArea->component(type()));
-			cac->addCollideable(*this);
+			setParent(*cac);
+			if(isCollideable_) {
+				cac->addCollideable(*this);
+			}
 		}
 	}
 
