@@ -160,7 +160,6 @@ namespace se_core {
 
 		// Move things and check for collisions
 		PhysicsComponentManager::singleton().step(when);
-
 	}
 
 
@@ -222,4 +221,5 @@ namespace se_core {
 		SimSchema::thingManager().reset();
 		SimSchema::areaManager.resetAll();
 	}
+
 }
