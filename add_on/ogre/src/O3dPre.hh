@@ -9,6 +9,7 @@
 #include <OgreKeyEvent.h>
 #include <OgreMouseEvent.h>
 #include <OgreEventListeners.h>
+#include <OIS.h>
 
 /*
 #ifndef NO_CEGUI

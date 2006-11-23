@@ -35,6 +35,21 @@ namespace se_basic {
 					grid.addDefinition(name, (const unsigned char*)wang.get());
 				}
 				break;
+
+			case 'R':
+				{
+					short z = in.readShort();
+					Assert(z < zSize);
+					int c = in.readInfoCode();
+					Assert(c == '{');
+					int x = 0;
+					while(x < xSize) {
+						int def = in.readShort();
+						grid.setArea(x, z, def);
+					}
+					c = in.readInfoCode();
+					Assert(c == '}');
+				}
 			}
 		}
 

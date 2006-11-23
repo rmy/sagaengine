@@ -80,9 +80,15 @@ namespace se_basic {
 		unsigned char wantedWang[4];
 		for(int z = 0; z < zSize_; ++z) {
 			for(int x = 0; x < xSize_; ++x) {
+				// Already defined?
+				int myDef = getDefinition(x, z);
+				if(myDef >= 0)
+					continue;
+
+				//
 				wantedWang[0] = getSide(x, z - 1, 2);
-				wantedWang[1] = 0;
-				wantedWang[2] = 0;
+				wantedWang[1] = getSide(x + 1, z, 2);
+				wantedWang[2] = getSide(x, z + 1, 2);
 				wantedWang[3] = getSide(x - 1, z, 1);
 
 				int def = findMatch(wantedWang, x * z % 19);
