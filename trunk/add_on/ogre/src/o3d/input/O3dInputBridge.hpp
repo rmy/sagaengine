@@ -56,6 +56,9 @@ namespace se_ogre {
 		bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
 		bool povMoved (const OIS::JoyStickEvent &, int) { return false; }
 
+		void step();
+
+		void initOIS();
 
 	private: // Attributes
 		//

@@ -87,6 +87,9 @@ namespace se_ogre {
 		// WorldManager::frameStarted is called before rendering
 		O3dSchema::root->renderOneFrame();
 		// WorldManager::frameEnded is called after rendering
+		if(inputBridge_) {
+			inputBridge_->step();
+		}	
 	}
 
 
