@@ -26,9 +26,12 @@ rune@skalden.com
 
 namespace se_ogre {
 	// Event handler to add ability to alter curvature
-	class _SeOgreExport O3dInputBridge : public Ogre::KeyListener
-						 , public Ogre::MouseListener
-						 , public Ogre::MouseMotionListener {
+	class _SeOgreExport O3dInputBridge 
+		: public Ogre::KeyListener
+		, public Ogre::MouseListener
+		, public Ogre::MouseMotionListener
+		, public OIS::JoyStickListener {
+
 	public:
 		O3dInputBridge(Ogre::RenderWindow* win);
 		~O3dInputBridge();
@@ -47,8 +50,19 @@ namespace se_ogre {
 		void mouseDragged(Ogre::MouseEvent* e);
 		void mouseDragMoved(Ogre::MouseEvent* e) {}
 
+		bool buttonPressed (const OIS::JoyStickEvent &arg, int button);
+		bool buttonReleased (const OIS::JoyStickEvent &arg, int button);
+		bool axisMoved (const OIS::JoyStickEvent &arg, int axis) { return false; }
+		bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
+		bool povMoved (const OIS::JoyStickEvent &, int) { return false; }
+
 
 	private: // Attributes
+		//
+		OIS::Mouse* mouse_;
+		OIS::Keyboard* keyboard_;
+		OIS::JoyStick* joy_;
+
 		//
 		Ogre::EventProcessor* eventProcessor_;
 

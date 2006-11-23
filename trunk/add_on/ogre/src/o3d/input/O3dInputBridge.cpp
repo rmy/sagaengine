@@ -42,6 +42,37 @@ namespace se_ogre {
 		eventProcessor_->addKeyListener(this);
 		eventProcessor_->addMouseListener(this);
 		eventProcessor_->addMouseMotionListener(this);
+
+
+		// BEGIN INPUT INITIALIZATION
+		bool bufferedKeys = false;
+		bool bufferedMouse = false;
+		bool bufferedJoy = true;
+
+		OIS::ParamList pl;	
+		size_t windowHnd = 0;
+		std::ostringstream windowHndStr;
+#if defined OIS_WIN32_PLATFORM
+		win->getCustomAttribute("HWND", &windowHnd);
+#elif defined OIS_LINUX_PLATFORM
+		win->getCustomAttribute("GLXWINDOW", &windowHnd);
+#endif
+		//Both x11 and Win32 use handle of some sort..
+		windowHndStr << windowHnd;
+		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+
+		OIS::InputManager &im = *OIS::InputManager::createInputSystem( pl );
+		//keyboard_ = static_cast<OIS::Keyboard*>(im.createInputObject( OIS::OISKeyboard, bufferedKeys ));
+		//mouse_ = static_cast<OIS::Mouse*>(im.createInputObject( OIS::OISMouse, bufferedMouse ));
+		try
+		{
+			joy_ = static_cast<OIS::JoyStick*>(im.createInputObject( OIS::OISJoyStick, bufferedJoy ));
+			joy_->setEventCallback(this);
+		}
+		catch(...)
+		{
+			joy_ = 0;
+		}
 	}
 
 
@@ -140,6 +171,17 @@ namespace se_ogre {
 		else if(O3dSchema::inputManager().active()) {
 			O3dSchema::inputManager().active()->mouseDragged(e);
 		}
+	}
+
+
+	bool O3dInputBridge
+	::buttonPressed (const OIS::JoyStickEvent &arg, int button) {
+		return O3dSchema::inputManager().active()->buttonPressed(arg, button);
+	}
+
+	bool O3dInputBridge
+	::buttonReleased (const OIS::JoyStickEvent &arg, int button) {
+		return O3dSchema::inputManager().active()->buttonReleased(arg, button);
 	}
 
 }
