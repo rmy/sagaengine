@@ -72,7 +72,6 @@ namespace se_ogre {
 		catch(...)
 		{
 			joy_ = 0;
-			throw 0.0f;
 		}
 	}
 
@@ -80,6 +79,14 @@ namespace se_ogre {
 	O3dInputBridge
 	::~O3dInputBridge() {
 		delete eventProcessor_;
+	}
+
+
+	void O3dInputBridge
+	::step() {
+		if(joy_) {
+			joy_->capture();
+		}
 	}
 
 
