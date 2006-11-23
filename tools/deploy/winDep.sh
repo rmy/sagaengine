@@ -8,6 +8,8 @@ cp /c/OgreSDK/bin/debug/*.dll bin/debug
 cp /c/OgreSDK/bin/release/*.dll bin/release
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/fmodex.dll bin/release
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/fmodex.dll bin/debug
+cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS.dll bin/release
+cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS_d.dll bin/debug
 
 mkdir dependencies
 cd dependencies
@@ -26,8 +28,8 @@ cp /c/OgreSDK/lib/* lib/release/
 mv lib/release/*.pdb lib/debug
 mv lib/release/*_d.* lib/debug
 cp lib/release/ode.* lib/debug
-cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS_static.lib lib/release
-cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS_static_d.lib lib/debug
+cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS.lib lib/release
+cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS_d.lib lib/debug
 cp -R /c/OgreSDK/lib/opt/* lib
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/lib/fmodex_vc.lib lib/release/fmodex.lib
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API/api/lib/fmodex_vc.lib lib/debug/fmodex.lib

@@ -18,7 +18,6 @@
 #pragma warning (disable : 4267)
 #endif
 #include <OgreCEGUIRenderer.h>
-#include <OgreNoMemoryMacros.h>
 #include <CEGUI/CEGUIImageset.h>
 #include <CEGUI/CEGUISystem.h>
 #include <CEGUI/CEGUILogger.h>
