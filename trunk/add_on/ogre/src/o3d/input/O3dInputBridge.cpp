@@ -43,22 +43,22 @@ namespace se_ogre {
 		eventProcessor_->addMouseListener(this);
 		eventProcessor_->addMouseMotionListener(this);
 
-
 		// BEGIN INPUT INITIALIZATION
 		bool bufferedKeys = false;
 		bool bufferedMouse = false;
-		bool bufferedJoy = true;
+		bool bufferedJoy = false;
 
-		OIS::ParamList pl;	
 		size_t windowHnd = 0;
-		std::ostringstream windowHndStr;
 #if defined OIS_WIN32_PLATFORM
 		win->getCustomAttribute("HWND", &windowHnd);
 #elif defined OIS_LINUX_PLATFORM
 		win->getCustomAttribute("GLXWINDOW", &windowHnd);
 #endif
 		//Both x11 and Win32 use handle of some sort..
+		std::ostringstream windowHndStr;
 		windowHndStr << windowHnd;
+
+		OIS::ParamList pl;	
 		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
 		OIS::InputManager &im = *OIS::InputManager::createInputSystem( pl );
@@ -72,6 +72,7 @@ namespace se_ogre {
 		catch(...)
 		{
 			joy_ = 0;
+			throw 0.0f;
 		}
 	}
 
