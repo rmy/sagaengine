@@ -45,7 +45,7 @@ namespace se_basic {
 					int x = 0;
 					while(x < xSize) {
 						int def = in.readShort();
-						grid.setArea(x, z, def);
+						grid.setArea(z, x, def);
 						++x;
 					}
 					c = in.readInfoCode();
