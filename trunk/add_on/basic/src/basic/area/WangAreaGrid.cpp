@@ -29,11 +29,10 @@ namespace se_basic {
 	::setArea(int x, int z, int defIndex) {
 		char buffer[32];
 		
-
 		//LogMsg(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
 		// TODO: !!!!
 		sprintf(buffer, "%d.%d", x, z);
-		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), z, 0, x);
+		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), x, 0, z);
 
 		areas_[ x + z * xSize_ ].area_ = a;
 		areas_[ x + z * xSize_ ].definitionIndex_ = defIndex;
