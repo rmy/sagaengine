@@ -52,9 +52,9 @@ namespace se_ogre {
 
 		bool buttonPressed (const OIS::JoyStickEvent &arg, int button);
 		bool buttonReleased (const OIS::JoyStickEvent &arg, int button);
-		bool axisMoved (const OIS::JoyStickEvent &arg, int axis) { return false; }
-		bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
-		bool povMoved (const OIS::JoyStickEvent &, int) { return false; }
+		bool axisMoved (const OIS::JoyStickEvent &arg, int axis);
+		bool sliderMoved (const OIS::JoyStickEvent &, int) { return true; }
+		bool povMoved (const OIS::JoyStickEvent &, int) { return true; }
 
 		void step();
 

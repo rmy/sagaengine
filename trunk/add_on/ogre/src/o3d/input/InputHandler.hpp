@@ -41,11 +41,11 @@ namespace se_ogre {
 		virtual void mouseMoved(Ogre::MouseEvent* e)	{}
 
 
-		bool buttonPressed (const OIS::JoyStickEvent &arg, int button) { return false; }
-		bool buttonReleased (const OIS::JoyStickEvent &arg, int button) { return false; }
-		bool axisMoved (const OIS::JoyStickEvent &arg, int axis) { return false; }
-		bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
-		bool povMoved (const OIS::JoyStickEvent &, int) { return false; }
+		virtual bool buttonPressed (const OIS::JoyStickEvent &arg, int button) = 0; // { return false; }
+		virtual bool buttonReleased (const OIS::JoyStickEvent &arg, int button) { return false; }
+		virtual bool axisMoved (const OIS::JoyStickEvent &arg, int axis) { return false; }
+		virtual bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
+		virtual bool povMoved (const OIS::JoyStickEvent &, int) { return false; }
 
 /*
 		virtual void keyPressed(Ogre::KeyEvent* e) = 0;
