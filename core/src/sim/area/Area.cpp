@@ -78,7 +78,6 @@ namespace se_core {
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
-
 	}
 
 
