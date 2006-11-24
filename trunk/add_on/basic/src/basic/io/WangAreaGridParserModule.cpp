@@ -46,6 +46,7 @@ namespace se_basic {
 					while(x < xSize) {
 						int def = in.readShort();
 						grid.setArea(x, z, def);
+						++x;
 					}
 					c = in.readInfoCode();
 					Assert(c == '}');
