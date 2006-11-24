@@ -36,6 +36,7 @@ namespace se_ogre {
 	O3dInputBridge
 	::O3dInputBridge(Ogre::RenderWindow* win)
 			: keyState_(0) {
+
 		eventProcessor_ = new Ogre::EventProcessor();
 		eventProcessor_->initialise(win);
 		eventProcessor_->startProcessingEvents();
@@ -44,9 +45,9 @@ namespace se_ogre {
 		eventProcessor_->addMouseMotionListener(this);
 
 		// BEGIN INPUT INITIALIZATION
-		bool bufferedKeys = false;
-		bool bufferedMouse = false;
-		bool bufferedJoy = false;
+		bool bufferedKeys = true;
+		bool bufferedMouse = true;
+		bool bufferedJoy = true;
 
 		size_t windowHnd = 0;
 #if defined OIS_WIN32_PLATFORM
@@ -190,6 +191,11 @@ namespace se_ogre {
 	bool O3dInputBridge
 	::buttonReleased (const OIS::JoyStickEvent &arg, int button) {
 		return O3dSchema::inputManager().active()->buttonReleased(arg, button);
+	}
+
+	bool O3dInputBridge
+	::axisMoved (const OIS::JoyStickEvent &arg, int axis) {
+		return O3dSchema::inputManager().active()->axisMoved(arg, axis);
 	}
 
 }
