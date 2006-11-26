@@ -31,7 +31,7 @@ namespace se_basic {
 		
 		//LogMsg(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
 		// TODO: !!!!
-		sprintf(buffer, "%d.%d", x, z);
+		sprintf(buffer, "%d.%d", z, x);
 		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), x, 0, z);
 
 		areas_[ x + z * xSize_ ].area_ = a;
