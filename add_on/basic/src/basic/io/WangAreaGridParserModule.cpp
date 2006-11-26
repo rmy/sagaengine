@@ -36,7 +36,7 @@ namespace se_basic {
 				}
 				break;
 
-			case 'R':
+			case 'C':
 				{
 					short z = in.readShort();
 					Assert(z < zSize);
@@ -45,7 +45,7 @@ namespace se_basic {
 					int x = 0;
 					while(x < xSize) {
 						int def = in.readShort();
-						grid.setArea(z, x, def);
+						grid.setArea(x, z, def);
 						++x;
 					}
 					c = in.readInfoCode();
