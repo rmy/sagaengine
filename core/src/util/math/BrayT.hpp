@@ -63,6 +63,21 @@ namespace se_core {
 			return mask(b1 - b2);
 		}
 
+
+		inline static bray_t towards(bray_t from, bray_t to, bray_t d) {
+			bray_t diff = from - to;
+			if(abs(diff) <= d)
+				return to;
+
+			if(mask(diff) < DEG180) {
+				return sub(from, d);
+			}
+			else {
+				return add(from, d);
+			}
+		}
+
+
 		inline static float toRad(bray_t bray) {
 			return bray * PI * 2 / static_cast<float>(BRAY_RANGE);
 		}
