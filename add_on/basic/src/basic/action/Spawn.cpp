@@ -32,17 +32,19 @@ namespace se_basic {
 
 	void Spawn
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
+		//Actor& performer = *perf.toActor();
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		//Thing* child =
-		performer.spawn(p->thingType_, p->spawnPoint_);
+
+		SpawnComponent* perfSpawn = SpawnComponent::get(perf);
+		perfSpawn->spawn(p->thingType_, p->spawnPoint_);
 	}
 
 
-	void Spawn
-	::param(const char* thingType, short spawnPoint, Parameter& out) {
+	const Spawn& Spawn
+	::param(const char* thingType, short spawnPoint, Parameter& out) const {
 		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
 		*p = Param(thingType, spawnPoint);
+		return *this;
 	}
 
 

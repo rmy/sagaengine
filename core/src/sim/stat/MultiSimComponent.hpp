@@ -37,8 +37,8 @@ namespace se_core {
 		class _SeCoreExport Iterator {
 		public:
 			Iterator();
-			Iterator(MultiSimComponent& mgo);
-			void init(MultiSimComponent& mgo);
+			Iterator(const MultiSimComponent& mgo);
+			void init(const MultiSimComponent& mgo);
 			void init(short firstNode);
 
 			inline bool hasNext() {

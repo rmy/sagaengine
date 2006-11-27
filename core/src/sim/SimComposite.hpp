@@ -50,6 +50,7 @@ namespace se_core {
 		void cleanup(bool doTraverseChildren = true);
 
 		SimComponent* component(int type);
+		const SimComponent* component(int type) const;
 
 		const SimCompositeFactory* factory() { return factory_; }
 		void setFactory(const SimCompositeFactory* f) { factory_ = f; }
