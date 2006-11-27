@@ -45,13 +45,18 @@ namespace se_core {
 			return c;
 		}
 
+		static const SpawnComponent* get(const SimComponent& component) {
+			const SpawnComponent* c = static_cast<const SpawnComponent*>(component.owner()->component(se_core::sct_SPAWN));
+			return c;
+		}
+
 
 		void cleanup();
 
 		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
-		int spawnCount() { return spawnCount_; }
+		int spawnCount() const { return spawnCount_; }
 
 		/** Set the list of spawn points associated with this PosNode.
 		 *

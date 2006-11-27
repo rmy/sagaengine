@@ -193,9 +193,9 @@ namespace se_core {
 		virtual bool isPlayer() { return false; }
 
 		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
-		void incSpawnCount() { ++spawnCount_; }
-		void decSpawnCount() { --spawnCount_; }
-		int spawnCount() { return spawnCount_; }
+		void incSpawnCount() { spawnComponent_->incSpawnCount(); }
+		void decSpawnCount() { spawnComponent_->decSpawnCount(); }
+		int spawnCount() { return spawnComponent_->spawnCount(); }
 
 		MultiSimObject& cutscenes() { return cutscenes_; }
 		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
@@ -245,8 +245,6 @@ namespace se_core {
 		MultiSimObject questGoals_;
 
 		SimPtr target_;
-
-		int spawnCount_;
 
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;

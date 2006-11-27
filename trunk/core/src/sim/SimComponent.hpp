@@ -72,7 +72,7 @@ namespace se_core {
 		}
 
 
-		enum SimComponentType type() {
+		enum SimComponentType type() const {
 			return type_;
 		}
 

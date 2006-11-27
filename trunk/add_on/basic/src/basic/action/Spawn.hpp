@@ -44,7 +44,7 @@ namespace se_basic {
 
 		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
-		void param(const char* thingType, short spawnPoint, se_core::Parameter& out);
+		const Spawn& param(const char* thingType, short spawnPoint, se_core::Parameter& out) const;
 
 	private:
 		struct Param {

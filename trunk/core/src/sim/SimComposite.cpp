@@ -70,6 +70,20 @@ namespace se_core {
 	}
 
 
+	const SimComponent*  SimComposite
+	::component(int type) const {
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			const SimComponent& c = it.next();
+			if(c.type() == type) {
+				return &c;
+			}
+		}
+		//return composites_.lookup(type);
+		return 0;
+	}
+
+
 	void SimComposite
 	::releaseComponents() {
 		MultiSimComponent::Iterator it(components_);

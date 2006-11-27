@@ -48,8 +48,7 @@ namespace se_core {
 	Actor
 	::Actor(const char* name)
 			: Thing(got_ACTOR, name)
-			, showingCutscene_(0)
-			, spawnCount_(0) {
+			, showingCutscene_(0) {
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		physicsComponent_ = new PhysicsComponent(this, posComponent_);
