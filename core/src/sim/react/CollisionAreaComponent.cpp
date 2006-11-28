@@ -48,10 +48,16 @@ namespace se_core {
 	void CollisionAreaComponent
 	::addCollideable(CollisionComponent& cc) {
 		if(collisionGrid_) {
-			PosComponent& pos = cc.posComponent();
-			// TODO: Should use speed + radius
-			coor_t speedAndRadius = pos.nextPos().radius() + MAX_SPEED;
-			collisionGrid_->insert(pos.nextPos().worldCoor(), speedAndRadius, cc.posComponent());
+			Point3 p;
+			cc.areaCovered().center(p);
+			coor_t speedAndRadius = cc.areaCovered().radius();
+
+			PosComponent* pc = &cc.posComponent();
+			//LogMsg(pc->pos().worldCoor() << " - " << pc->pos().localCoor());
+			//LogMsg(pc->nextPos().worldCoor() << " - " << pc->nextPos().localCoor());
+			//LogMsg(p << " - " << speedAndRadius);
+
+			collisionGrid_->insert(p, speedAndRadius, cc.posComponent());
 		}
  	}
 
@@ -61,23 +67,12 @@ namespace se_core {
 		if(!collisionGrid_)
 			return;
 
-		PosComponent& pos = cc.posComponent();
+		Point3 p;
+		cc.areaCovered().center(p);
+		coor_t speedAndRadius = cc.areaCovered().radius();
+		bool didDelete = collisionGrid_->remove(p, speedAndRadius, cc.posComponent());
 
-		// TODO: Should use speed + radius
-		coor_t speedAndRadius = pos.pos().radius() + MAX_SPEED;
-		bool didDelete = collisionGrid_->remove(pos.pos().worldCoor(), speedAndRadius, pos);
-		if(!didDelete) {
-			coor_t speedAndRadius = pos.nextPos().radius() + MAX_SPEED;
-			didDelete = collisionGrid_->remove(pos.nextPos().worldCoor(), speedAndRadius, pos);
-			AssertMsg(didDelete, "Couldn't remove " << pos.owner()->name() << " from collision grid");
-		}
-
-		if(!didDelete) {
-			LogMsg(collisionGrid_->find(pos));
-		}
-
-		// TODO: This assert fails?
-		DbgAssert(didDelete);
+		AssertMsg(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc.posComponent()) << ")");
 	}
 
 
@@ -98,13 +93,22 @@ namespace se_core {
 		// Add collideable elements to grid
 		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
-			CollisionComponent* c = static_cast<CollisionComponent*>(&it.next());
-			if(!c->isCollideable())
+			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
+			if(!cc->isCollideable())
 				continue;
-			PosComponent* p = static_cast<PosComponent*>(c->owner()->component(sct_POS));
-			LogMsg(p->pos().worldCoor() << " - " << p->pos().localCoor());
-			LogMsg(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
-			collisionGrid_->insert(p->nextPos().worldCoor(), p->nextPos().radius(), *p);
+
+			cc->updateAreaCovered();
+
+			Point3 newPos;
+			cc->areaCovered().center(newPos);
+			coor_t newRadius = cc->areaCovered().radius();
+
+
+			PosComponent* p = &cc->posComponent();
+			//LogMsg(p->pos().worldCoor() << " - " << p->pos().localCoor());
+			//LogMsg(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
+			//LogMsg(newPos << " - " << newRadius);
+			collisionGrid_->insert(newPos, newRadius, cc->posComponent());
 		}
 	}
 
@@ -128,5 +132,66 @@ namespace se_core {
 			resetCollisionGrid();
 		}
 	}
+
+
+	void CollisionAreaComponent
+	::getCollisionList() {
+		if(!collisionGrid_)
+			return;
+
+		static const int MAX_THINGS = 256;
+		static PosComponent* candidates[MAX_THINGS];
+		Area* self = toArea();
+
+		MultiSimNodeComponent::Iterator it(children_);
+		while(it.hasNext()) {
+			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
+			if(!cc->isCollideable())
+				continue;
+
+			short innerCount = 0;
+			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {
+				Area* area = self->neighbours_[ n ];
+				if(!area) continue;
+				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(sct_COLLISION));
+				if(!cac || !cac->collisionGrid()) continue;
+
+				Point3 p;
+				cc->areaCovered().center(p);
+				coor_t speedAndRadius = cc->areaCovered().radius();
+				
+				innerCount += cac->collisionGrid()->collisionCandidates
+					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
+
+
+				// Test collision with all collision candidates
+				for(int inner = 0; inner < innerCount; ++inner) {
+					// Don't test collision with self
+					//if(things[ inner ]->toActor() == a) {
+					//	continue;
+					//}
+
+					// Test for collision
+					/*
+					PosComponent& pn2 = *things[ inner ];
+					if(_testCollision(*pn1.posComponent_, pn2)) {
+						//pn1.pushThing(pn2.toActor());
+						if(pn1.pushThing(pn2)) {
+							pn1.posComponent_->resetFutureCoor();
+							break;
+						}
+					}
+					*/
+				}
+
+			}
+
+		}
+
+
+
+	}
+
+
 
 }

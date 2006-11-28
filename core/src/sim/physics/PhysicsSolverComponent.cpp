@@ -125,49 +125,15 @@ namespace se_core {
 
 		CollisionGrid* grid = collisionAreaComponent_->collisionGrid();
 
-		static const int MAX_STACK_DEPTH = 10;
-		MultiSimNodeComponent::Iterator itStack[ MAX_STACK_DEPTH ];
-		int sp = 0;
-		itStack[ 0 ].init(children_);
-		do {
-			// Get next in chain
-			PhysicsComponent& ph = static_cast<PhysicsComponent&>(itStack[ sp ].next());
+		MultiSimNodeComponent::TreeIterator it(children());
+		while(it.hasNext()) {
+			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
 			PosComponent* p = ph.posComponent_; //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
 			Assert(p);
-			// Move to new position in collision grid
-			CollisionComponent* cc = CollisionComponent::get(*p);
-			if(grid && cc != 0 && cc->isCollideable()
-			   && CollisionComponent::get(*p) != 0
-			   && p->pos().area() == p->nextPos().area()) {
-
-				// TODO: Real speed instead of max speed...
-				static const coor_t speed = MAX_SPEED;
-				coor_t speedAndRadius = p->pos().radius() + speed;
-				const Point3& wc = p->pos().worldCoor();
-
-				// TODO: Real speed instead of max speed...
-				static const coor_t nextSpeed =  MAX_SPEED;
-				coor_t nextSpeedAndRadius = p->nextPos().radius() + nextSpeed;
-				const Point3& nextWC = p->nextPos().worldCoor();
-
-				grid->move(wc, speedAndRadius, nextWC, nextSpeedAndRadius, *p);
-			}
 
 			// Do the flip
 			ph.flip();
-
-			// Stack overflowing?
-			Assert(sp < MAX_STACK_DEPTH - 1);
-
-			// Push child chain as next chain on stack
-			itStack[ ++sp ].init(ph.children());
-
-			// Pop all completed chain
-			while(sp >= 0 && !itStack[ sp ].hasNext()) {
-				--sp;
-			}
-			// Continue if unpopped chains
-		} while(sp >= 0);
+		}
 	}
 
 
@@ -181,53 +147,6 @@ namespace se_core {
 			PhysicsComponentManager::singleton().setSolverInactive(this);
 		}
 	}
-
-
-	/*
-	int PhysicsSolverComponent
-	::performChildPhysics(PhysicsComponent** movers) {
-		if(children_.isEmpty()) {
-			// No children at all
-			return 0;
-		}
-
-		int moverCount = 0;
-		static const int MAX_STACK_DEPTH = 10;
-		MultiSimNodeComponent::Iterator itStack[ MAX_STACK_DEPTH ];
-		int sp = 0;
-		itStack[ 0 ].init(children_);
-
-		do {
-			// Get next in chain
-			PhysicsComponent& p = static_cast<PhysicsComponent&>(itStack [ sp ].next());
-
-			// Calc next position
-			p.calcNextCoor();
-			movers[moverCount++] = &p;
-
-			//if(p.calcNextCoor()) {
-				// Add to movers
-			//	movers[moverCount++] = &p;
-				//}
-
-
-			// Push child chain as next chain on stack
-			itStack[ ++sp ].init(p.children());
-
-			// Stack overflowed?
-			Assert(sp < MAX_STACK_DEPTH);
-
-			// Pop all completed chain
-			while(sp >= 0 && !itStack[ sp ].hasNext()) {
-				--sp;
-			}
-
-			// Continue if there are still incomplete chains
-		} while(sp >= 0);
-
-		return moverCount;
-	}
-	*/
 
 
 	int PhysicsSolverComponent

@@ -75,9 +75,13 @@ namespace se_core {
 
 		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
+		const BoundingBox& areaCovered() const { return areaCovered_; }
+		void updateAreaCovered();
+		void move();
 
 	private:
 		PosComponent* posComponent_;
+		BoundingBox areaCovered_;
 
 		/** Flag that indicated wether other PosNodes can collide with this PosNode.
 		 * Used by the Area class to decide wether the PosNode should be inserted into a collision grid. 
