@@ -134,6 +134,19 @@ namespace se_core {
 	}
 
 
+	inline bool _testCollision(CollisionComponent& pn1,
+							  CollisionComponent& pn2) {
+		if(!pn1.areaCovered().isTouching(pn2.areaCovered()))
+			return false;
+
+		// TODO: Investigate shape primitives
+
+		return true;
+	}
+
+
+
+
 	void CollisionAreaComponent
 	::getCollisionList() {
 		if(!collisionGrid_)
@@ -166,22 +179,14 @@ namespace se_core {
 
 				// Test collision with all collision candidates
 				for(int inner = 0; inner < innerCount; ++inner) {
-					// Don't test collision with self
-					//if(things[ inner ]->toActor() == a) {
-					//	continue;
-					//}
-
-					// Test for collision
-					/*
-					PosComponent& pn2 = *things[ inner ];
-					if(_testCollision(*pn1.posComponent_, pn2)) {
-						//pn1.pushThing(pn2.toActor());
-						if(pn1.pushThing(pn2)) {
-							pn1.posComponent_->resetFutureCoor();
-							break;
-						}
+					if(candidates[ inner ]->toActor() == cc->toActor()) {
+						continue;
 					}
-					*/
+
+					CollisionComponent* pn2 = CollisionComponent::get(*candidates[ inner ]);
+					if(_testCollision(*cc, *pn2)) {
+						// TODO: Add contact joint
+					}
 				}
 
 			}
