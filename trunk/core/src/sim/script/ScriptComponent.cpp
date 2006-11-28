@@ -144,6 +144,8 @@ namespace se_core {
 	void ScriptComponent
 	::popScript() {
 		// Asser(!isDead_);
+		const char* popScript = script()->name();
+
 		consumer_->setScriptActive(false);
 		if(currentScript_ == 0) {
 			Assert(script());
@@ -157,7 +159,7 @@ namespace se_core {
 		--currentScript_;
 		if(!script()) return;
 
-		script()->reinit(*this, scriptData());
+		script()->reinitPop(*this, scriptData(), popScript);
 		if(!isActive())
 			return;
 		consumer_->setScriptActive(true);

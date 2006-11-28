@@ -118,8 +118,8 @@ namespace se_core {
 
 		void center(Point3& out) const {
 			out.x_ = CoorT::half(minX_ + maxX_);
-			out.y_ = CoorT::half(minX_ + maxY_);
-			out.z_ = CoorT::half(minX_ + maxZ_);
+			out.y_ = CoorT::half(minY_ + maxY_);
+			out.z_ = CoorT::half(minZ_ + maxZ_);
 		}
 
 
@@ -145,11 +145,7 @@ namespace se_core {
 		}
 
 		coor_t radius() const {
-#ifdef SE_FIXED_POINT
-			return (maxY_ - minY_) >> 1;
-#else
-			return (maxY_ - minY_) / 2;
-#endif
+			return CoorT::half(maxY_ - minY_);
 		}
 
 		coor_t minX_, minY_, minZ_;

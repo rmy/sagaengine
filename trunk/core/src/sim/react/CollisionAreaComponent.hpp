@@ -46,6 +46,8 @@ namespace se_core {
 		void addCollideable(CollisionComponent& cc);
 		void removeCollideable(CollisionComponent& cc);
 
+		void getCollisionList();
+
 	private:
 		/**
 		 * Sets the grid used to speed up the collisions detection.

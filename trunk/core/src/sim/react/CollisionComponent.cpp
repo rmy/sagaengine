@@ -59,6 +59,7 @@ namespace se_core {
 		if(parent_) {
 			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(parent_);
 			if(isCollideable_) {
+				updateAreaCovered();
 				cac->addCollideable(*this);
 			}
 			else {
@@ -81,9 +82,38 @@ namespace se_core {
 			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(newArea->component(type()));
 			setParent(*cac);
 			if(isCollideable_) {
+				updateAreaCovered();
 				cac->addCollideable(*this);
 			}
 		}
+	}
+
+
+	void CollisionComponent
+	::updateAreaCovered() {
+ 		BoundingBox toBox(posComponent_->nextPos().worldCoor(), posComponent_->nextPos().bounds_);
+		areaCovered_ = toBox;
+		if(posComponent_->pos().area() == posComponent_->nextPos().area()) {
+			BoundingBox fromBox(posComponent_->pos().worldCoor(), posComponent_->pos().bounds_);
+			areaCovered_.merge(fromBox);
+		}
+	}
+
+
+	void CollisionComponent
+	::move() {
+		Point3 oldPos, newPos;
+		coor_t oldRadius = areaCovered().radius();
+		areaCovered().center(oldPos);
+
+		updateAreaCovered();
+
+		coor_t newRadius = areaCovered().radius();
+		areaCovered().center(newPos);
+
+		CollisionAreaComponent* const cac = static_cast<CollisionAreaComponent*>(parent_);
+		Assert(cac->collisionGrid());
+		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *posComponent_);
 	}
 
 }

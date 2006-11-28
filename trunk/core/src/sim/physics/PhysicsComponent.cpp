@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "PhysicsComponent.hpp"
+#include "../react/CollisionComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
@@ -79,6 +80,13 @@ namespace se_core {
 
 		//
 		didMove_ = posComponent_->nextPos().didParentMove() || !posComponent_->nextPos().localEquals(posComponent_->pos());
+
+		// Move to new position in collision grid
+		CollisionComponent* cc = CollisionComponent::get(*this);
+		if(cc && cc->isCollideable() && posComponent_->pos().area() == posComponent_->nextPos().area()) {
+			cc->move();
+		}
+
 		return didMove_;
 	}
 
