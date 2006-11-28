@@ -79,6 +79,7 @@ namespace se_core {
 		void updateAreaCovered();
 		void move();
 
+
 	private:
 		PosComponent* posComponent_;
 		BoundingBox areaCovered_;

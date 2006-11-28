@@ -123,7 +123,7 @@ namespace se_core {
 		}
 
 
-		bool isTouching(BoundingBox& b) const {
+		bool isTouching(const BoundingBox& b) const {
 			if(b.maxX_ < minX_
 				   || b.minX_ > maxX_
 				   || maxX_ < b.minX_
