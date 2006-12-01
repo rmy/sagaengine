@@ -40,9 +40,9 @@ namespace se_core {
 	class _SeCoreExport SimComposite : public SimObject {
 	protected:
 		SimComposite(enum SimObjectType type, const char* name);
-		SimPtr& ptr() { return ptr_; }
 
 	public:
+		SimPtr& ptr() { return ptr_; }
 		SimComposite(const char* name);
 		virtual ~SimComposite();
 

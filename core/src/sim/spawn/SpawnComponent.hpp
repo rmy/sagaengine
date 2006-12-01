@@ -53,6 +53,14 @@ namespace se_core {
 
 		void cleanup();
 
+		/** Returns pointer to the spawner of a thing, or null for no spawner.
+		 *
+		 * A Thing cannot (by definition) collide with an Actor that spawned
+		 * it. (TODO: Can a Thing be spawned? Will not all spawned things have
+		 * the ability to perform Action?)
+		 */
+		Actor* spawner() const;
+
 		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
@@ -71,10 +79,27 @@ namespace se_core {
 		 */
 		const ViewPoint* spawnPoint(short id) const;
 
+		void setSpawner(Actor* spawner);
+		void resetSpawner();
+
 	protected:
 		PosComponent* pos_;
 
+		/**
+		 * The actor who spawned this thing.
+		 * A bow shooter will for example spawn arrows when shooting. This
+		 * variable is useful for making the shooter immune to shoots from
+		 * his own arrows.
+		 *
+		 * This variable also makes it possible to maintain a spawn counter
+		 * which indicates how many *living* children an actor has spawned.
+		 * This enables monster spawner's to create new children whenever
+		 * they fall below a certain count.
+		 */
+		SimPtr spawner_;
+
 		int spawnCount_;
+
 
 		/** The number of spawn points */
 		int spawnPointCount_;

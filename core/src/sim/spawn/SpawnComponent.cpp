@@ -41,6 +41,7 @@ namespace se_core {
 
 	void SpawnComponent
 	::cleanup() {
+		resetSpawner();
 	}
 
 
@@ -85,6 +86,34 @@ namespace se_core {
 		Assert(id >= 0 && id < spawnPointCount_);
 		Assert(spawnPoints_[id] != 0);
 		return spawnPoints_[id];
+	}
+
+
+	Actor* SpawnComponent
+	::spawner() const {
+		if(spawner_.isNull()) {
+			return 0;
+		}
+		return static_cast<Actor*>(spawner_.object());
+	}
+
+
+	void SpawnComponent
+	::setSpawner(Actor* spawner) {
+		Assert(spawner != 0);
+		spawner_.set(spawner->ptr());
+		spawner->incSpawnCount();
+		Assert(!spawner_.isNull());
+	}
+
+
+	void SpawnComponent
+	::resetSpawner() {
+		if(!spawner_.isNull()) {
+			Actor* s = static_cast<Actor*>(spawner_.object());
+			s->decSpawnCount();
+			spawner_.reset();
+		}
 	}
 
 }

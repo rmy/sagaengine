@@ -66,15 +66,6 @@ namespace se_core {
 	}
 
 
-	void Actor
-	::scheduleForDestruction() {
-		// Don't schedule for destruction twice
-		if(isDead_) return;
-		// Stop any scripts and release memory held by them
-		Thing::scheduleForDestruction();
-	}
-
-
 	/*
 	bool Actor
 	::changeArea() {
