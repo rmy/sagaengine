@@ -64,40 +64,9 @@ namespace se_core {
 	::scheduleForDestruction() {
 		if(isDead_) return;
 
-		nextPos().resetArea();
-		if(spawner()) {
-			spawner()->decSpawnCount();
-		}
 		SimSchema::thingManager().scheduleForDestruction(*this);
 		isDead_ = true;
 	}
 
-
-	Actor* Thing
-	::spawner() const {
-		if(spawner_.isNull()) {
-			return 0;
-		}
-		return static_cast<Actor*>(spawner_.object());
-	}
-
-
-	void Thing
-	::setSpawner(Actor* spawner) {
-		Assert(spawner != 0);
-		spawner_.set(spawner->ptr());
-		spawner->incSpawnCount();
-		Assert(!spawner_.isNull());
-	}
-
-
-	void Thing
-	::resetSpawner() {
-		if(!spawner_.isNull()) {
-			Actor* s = static_cast<Actor*>(spawner_.object());
-			s->decSpawnCount();
-			spawner_.reset();
-		}
-	}
 
 }

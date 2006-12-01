@@ -70,14 +70,6 @@ namespace se_core {
 		}
 
 
-		/** Returns pointer to the spawner of a thing, or null for no spawner.
-		 *
-		 * A Thing cannot (by definition) collide with an Actor that spawned
-		 * it. (TODO: Can a Thing be spawned? Will not all spawned things have
-		 * the ability to perform Action?)
-		 */
-		Actor* spawner() const;
-
 		/** Returns true if the thing is pickable.
 		 *
 		 * The Area classes can search after the nearest Thing that are pickable
@@ -105,6 +97,9 @@ namespace se_core {
 		 */
 		//bool isCollideable() const { return isCollideable_; }
 
+		Actor* spawner() const { return spawnComponent_->spawner(); }
+		void resetSpawner() { spawnComponent_->resetSpawner(); }
+		void setSpawner(Actor* spawner) { spawnComponent_->setSpawner(spawner); }
 
 		////// Methods that may be used by scripts - end //////
 
@@ -120,25 +115,9 @@ namespace se_core {
 		 */
 		//void setCollideable(bool isCollideable) { isCollideable_ = isCollideable; }
 
-		void setSpawner(Actor* spawner);
-		void resetSpawner();
-
 		////////////////////////////////////////
 
 	protected:
-		/**
-		 * The actor who spawned this thing.
-		 * A bow shooter will for example spawn arrows when shooting. This
-		 * variable is useful for making the shooter immune to shoots from
-		 * his own arrows.
-		 *
-		 * This variable also makes it possible to maintain a spawn counter
-		 * which indicates how many *living* children an actor has spawned.
-		 * This enables monster spawner's to create new children whenever
-		 * they fall below a certain count.
-		 */
-		SimPtr spawner_;
-
 		bool isPickable_;
 		//bool isCollideable_;
 

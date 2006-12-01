@@ -139,8 +139,6 @@ namespace se_core {
 		Actor(const char* name);
 		~Actor();
 
-		void scheduleForDestruction();
-
 		/**
 		 * Ask if this class will safely cast to a spcific
 		 * SimObject subclass.
