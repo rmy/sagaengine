@@ -45,6 +45,10 @@ namespace se_err {
 		sprintf(buffer, "Fat: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 
+#	ifdef _WINDOWS
+		sprintf(buffer, "(%s-%d)", file, line);
+		::MessageBox (0, msg, buffer, MB_ICONEXCLAMATION | MB_OK);
+#	endif
 		// Unhandled exception throws to debugger in Visual C++.
 		throw 0.0f;
 	}

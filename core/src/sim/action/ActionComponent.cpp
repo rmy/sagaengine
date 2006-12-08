@@ -43,8 +43,12 @@ namespace se_core {
 
 	void ActionComponent
 	::cleanup() {
-		setActive(false);
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			clearPlannedAction(i);
+		}
+		disrupt();
 	}
+
 
 	void ActionComponent
 	::scheduleNextAction(short channel) {
