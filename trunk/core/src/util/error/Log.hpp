@@ -131,7 +131,7 @@ namespace se_err {
 
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
 #define AssertMsg(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
-#define AssertWarning(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
+#define AssertWarning(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).say(); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
 #define LogFatal(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).scream()
 #define DbgLogFatal(n)

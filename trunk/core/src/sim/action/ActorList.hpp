@@ -26,7 +26,7 @@ rune@skalden.com
 #include "../thing/sim_thing.hpp"
 
 namespace se_core {
-	typedef SinglyLinkedList<class ActionComponent, 200, 1> AL;
+	typedef SinglyLinkedList<class ActionComponent, 2048, 1> AL;
 	class _SeCoreExport ActorList : public AL {
 	public:
 		ActorList() : AL(__FILE__) {}
