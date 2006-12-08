@@ -70,8 +70,9 @@ namespace se_ogre {
 			joy_ = static_cast<OIS::JoyStick*>(im.createInputObject( OIS::OISJoyStick, bufferedJoy ));
 			joy_->setEventCallback(this);
 		}
-		catch(...)
+		catch(OIS::Exception& e)
 		{
+			LogWarning(e.eText);
 			joy_ = 0;
 		}
 	}
