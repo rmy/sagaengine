@@ -110,6 +110,14 @@ namespace se_ogre {
 				}
 				break;
 
+			case 'T': // Translation offset
+				{
+					info->offset_.x = in.readFloat();
+					info->offset_.y = in.readFloat();
+					info->offset_.z = in.readFloat();
+				}
+				break;
+
 			case 'B': // Billboard
 				{
 					in.readString(info->defaultMaterial_);

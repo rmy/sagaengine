@@ -38,6 +38,7 @@ namespace se_ogre {
 
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
+		node_->setPosition(info_.offset_);
 
 		// Scale all children of this node
 		Ogre::Real s = info_.scale_;
@@ -57,15 +58,6 @@ namespace se_ogre {
 
 	void ThingMO
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
-		/*
-		// Are interpolations meaningful at all?
-		if(!thing_.pos().isKeyFramePath(thing_.nextPos())) {
-			// If not skip it
-			setVisible(false);
-			return;
-		}
-		*/
-
 		// Check if mesh entity is visible
 		const Point3& playerCoor = ClientSchema::player->pos().worldCoor();
 		coor_double_t distSq = playerCoor.distanceSquared(thing_.pos().worldCoor());
@@ -76,34 +68,6 @@ namespace se_ogre {
 		if(!isVisible) {
 			return;
 		}
-
-		/*
-		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		thing_.worldViewPoint(alpha, last_);
-
-		// Translate from Euler3 if necessary
-		Quat4 face(last_.face_);
-
-		Ogre::Vector3 pos(
-				CoorT::toFloat(last_.coor_.x_),
-				CoorT::toFloat(last_.coor_.y_),
-				CoorT::toFloat(last_.coor_.z_)
-				);
-
-		Ogre::Quaternion rot(
-				QuatT::toFloat(face.w_),
-				QuatT::toFloat(face.x_),
-				QuatT::toFloat(face.y_),
-				QuatT::toFloat(face.z_)
-				);
-
-
-		// Set the new position
-		node_->setPosition(pos - parentNode_->getPosition());
-
-		// Set new orientation
-		node_->setOrientation(rot);
-		*/
 
 		// If radius scales the model
 		if(info_.doScaleByRadius_) {
@@ -146,7 +110,6 @@ namespace se_ogre {
 	::setParentNode(Ogre::SceneNode* sn) {
 		if(sn == parentNode_)
 			return;
-		LogMsg(thing_.name());
 
 		if(isVisible_)
 			parentNode_->removeChild(node_);
@@ -159,9 +122,10 @@ namespace se_ogre {
 			parentNode_->addChild(node_);
 	}
 
+
 	void ThingMO
 	::resetPos() {
-		node_->setPosition(0, 0, 0);
+		node_->setPosition(info_.offset_);
 		node_->resetOrientation();
 	}
 

@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "CollisionGrid.hpp"
 #include "../SimComposite.hpp"
-#include "../pos/PosComponent.hpp"
+#include "CollisionComponent.hpp"
 #include "util/error/Log.hpp"
 #include "util/vecmath/Point3.hpp"
 #include <cstdio>
@@ -55,15 +55,15 @@ namespace se_core {
 		}
 
 		// Create node array
-		nodes_ = new CollisionGridPosComponentList::iterator_type[ totalNodeCount_ ];
+		nodes_ = new CollisionGridCollisionComponentList::iterator_type[ totalNodeCount_ ];
 		// Init nodes to empty
 		for(int i = 0; i < totalNodeCount_; ++i) {
-			nodes_[i] = CollisionGridPosComponentList::end();
+			nodes_[i] = CollisionGridCollisionComponentList::end();
 		}
 
 		// Create and init array with pointers to
 		// beginning of each node level
-		nodeLevels_ = new CollisionGridPosComponentList::iterator_type*[ depth_ ];
+		nodeLevels_ = new CollisionGridCollisionComponentList::iterator_type*[ depth_ ];
 		int nodePos = 0;
 		for(short i = 0; i < depth_; ++i) {
 			nodeLevels_[ i ] = &nodes_[ nodePos ];
@@ -95,15 +95,15 @@ namespace se_core {
 
 
 	void CollisionGrid
-	::insert(const Point3& c, coor_t size, PosComponent& thing) {
+	::insert(const Point3& c, coor_t size, CollisionComponent& thing) {
 		const coor_tile_t x = c.xTile() - xOffset_;
 		const coor_tile_t z = c.zTile() - zOffset_;
 		short level = calcLevel(CoorT::tile(size) + 1);
 
-		AssertMsg(indexAtLevel(x, z, level) >= 0, thing.owner()->name());
-		AssertMsg(indexAtLevel(x, z, level) < totalNodeCount_, thing.owner()->name());
-		AssertMsg(x >= 0 || x < rootNodeSize_, thing.owner()->name());
-		AssertMsg(z >= 0 || z < rootNodeSize_, thing.owner()->name()); 
+		AssertFatal(indexAtLevel(x, z, level) >= 0, thing.owner()->name());
+		AssertFatal(indexAtLevel(x, z, level) < totalNodeCount_, thing.owner()->name());
+		AssertFatal(x >= 0 || x < rootNodeSize_, thing.owner()->name());
+		AssertFatal(z >= 0 || z < rootNodeSize_, thing.owner()->name()); 
 
 		Assert(x < rootNodeSize_);
 		Assert(z < rootNodeSize_);
@@ -113,7 +113,7 @@ namespace se_core {
 		// Reference to first element pointer. Element pointer may change.
 		Assert(indexAtLevel(x, z, level) >= 0);
 		Assert(indexAtLevel(x, z, level) < totalNodeCount_);
-		CollisionGridPosComponentList::iterator_type& it
+		CollisionGridCollisionComponentList::iterator_type& it
 			= nodeLevels_[ level ][ indexAtLevel(x, z, level) ];
 
 		// Insert the element. The element will bed inserted at
@@ -122,7 +122,7 @@ namespace se_core {
 		thingList().add(&thing, it);
 
 		Assert(nodeLevels_[ level ][ indexAtLevel(x, z, level) ] !=
-			   CollisionGridPosComponentList::end());
+			   CollisionGridCollisionComponentList::end());
 	}
 
 
@@ -135,7 +135,7 @@ namespace se_core {
 
 
 	bool CollisionGrid
-	::remove(const Point3& c, coor_t size, PosComponent& thing) {
+	::remove(const Point3& c, coor_t size, CollisionComponent& thing) {
 		const coor_tile_t x = c.xTile() - xOffset_;
 		const coor_tile_t z = c.zTile() - zOffset_;
 		const coor_tile_t s = CoorT::tile(size) + 1;
@@ -151,7 +151,7 @@ namespace se_core {
 		Assert(indexAtLevel(x, z, level) >= 0);
 		Assert(indexAtLevel(x, z, level) < (1L << level) * (1L << level));
 
-		CollisionGridPosComponentList::iterator_type& it = nodeLevels_[level][index];
+		CollisionGridCollisionComponentList::iterator_type& it = nodeLevels_[level][index];
 
 		return thingList().remove(&thing, it);
 	}
@@ -160,7 +160,7 @@ namespace se_core {
 	void CollisionGrid
 	::move(const Point3& from, coor_t oldSize
 		   , const Point3& to, coor_t newSize
-		   , PosComponent& thing) {
+		   , CollisionComponent& thing) {
 
 		const coor_tile_t os = CoorT::tile(oldSize) + 1;
 		const coor_tile_t ox = from.xTile() - xOffset_;
@@ -180,10 +180,10 @@ namespace se_core {
 			return;
 
 		// Different cell, move
-		CollisionGridPosComponentList::iterator_type& oldIt
+		CollisionGridCollisionComponentList::iterator_type& oldIt
 			= nodeLevels_[oldLevel][ oldIndex ];
 		bool didDelete = thingList().remove(&thing, oldIt);
-		CollisionGridPosComponentList::iterator_type& newIt
+		CollisionGridCollisionComponentList::iterator_type& newIt
 			= nodeLevels_[newLevel][ newIndex ];
 		thingList().add(&thing, newIt);
 		return;
@@ -191,7 +191,7 @@ namespace se_core {
 
 
 	short CollisionGrid
-	::collisionCandidates(const Point3& c, coor_t size, PosComponent* things[], short max) {
+	::collisionCandidates(const Point3& c, coor_t size, CollisionComponent* things[], short max) {
 		// Calculate bounds to check inside
 		coor_tile_t xFrom = CoorT::tile(c.x_ - size) - xOffset_;
 		coor_tile_t zFrom = CoorT::tile(c.z_ - size) - zOffset_;
@@ -227,11 +227,11 @@ namespace se_core {
 					// The first element pointer of this node.
 					DbgAssert(indexAtLevelAndNode(x, z, level) >= 0);
 					DbgAssert(indexAtLevelAndNode(x, z, level) < totalNodeCount_);
-					CollisionGridPosComponentList::iterator_type it
+					CollisionGridCollisionComponentList::iterator_type it
 						= nodeLevels_[level][ indexAtLevelAndNode(x, z, level) ];
 
 					// Add members of node to the candidates list
-					while(it != CollisionGridPosComponentList::end()) {
+					while(it != CollisionGridCollisionComponentList::end()) {
 						Assert(count < max - 1);
 						things[ count++ ] =
 							thingList().next(it);
@@ -246,7 +246,7 @@ namespace se_core {
 
 
 	bool CollisionGrid
-	::find(PosComponent& thing) {
+	::find(CollisionComponent& thing) {
 		/*
 		for(int level = 0; level < depth_; ++ level) {
 			for(int z = 0; z < (1L << level); ++z) {
@@ -281,7 +281,7 @@ namespace se_core {
 		*/
 
 		for(int i = 0; i < totalNodeCount_; ++i) {
-			CollisionGridPosComponentList::iterator_type it = nodes_[i];
+			CollisionGridCollisionComponentList::iterator_type it = nodes_[i];
 			if(thingList().hasElement(&thing, it)) {
 				thingList().remove(&thing, nodes_[i]);
 				return true;

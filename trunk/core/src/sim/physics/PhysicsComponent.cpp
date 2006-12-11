@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	PhysicsComponent
 	::PhysicsComponent(Actor* owner, PosComponent* posComponent) 
-		: SimNodeComponent(sct_PHYSICS, owner), currentPhysics_(0), posComponent_(posComponent) {
+		: SimNodeComponent(sct_PHYSICS, owner), currentPhysics_(0), affect_(0), posComponent_(posComponent) {
 		physics_[currentPhysics_] = 0;
 	}
 
@@ -70,6 +70,7 @@ namespace se_core {
 	::calcNextCoor() {
 		if(!hasPhysics()) {
 			didMove_ = false;
+			affect_ = 0;
 			return false;
 		}
 
@@ -86,6 +87,7 @@ namespace se_core {
 		if(cc && cc->isCollideable() && posComponent_->pos().area() == posComponent_->nextPos().area()) {
 			cc->move();
 		}
+		affect_ = &physics();
 
 		return didMove_;
 	}

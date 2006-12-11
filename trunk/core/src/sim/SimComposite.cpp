@@ -98,8 +98,8 @@ namespace se_core {
 
 	void SimComposite
 	::addComponent(SimComponent& c) {
-		LogMsg("Added component of type " << c.type() << " to " << c.owner()->name());
-		Assert(component(c.type()) == 0);
+		//LogMsg("Added component of type " << c.type() << " to " << c.owner()->name());
+		AssertFatal(component(c.type()) == 0, name() << ": " << c.type());
 		components_.add(c);
 	}
 

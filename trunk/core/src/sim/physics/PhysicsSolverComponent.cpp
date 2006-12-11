@@ -71,7 +71,7 @@ namespace se_core {
 		// Create buffer to temporarily hold collision candidates
 		static const int MAX_THINGS = 256;
 		// PS! Not thread safe, but takes less space on GBA stack
-		static PosComponent* things[MAX_THINGS] VAR_IN_EWRAM;
+		static CollisionComponent* things[MAX_THINGS] VAR_IN_EWRAM;
 		Area* self = toArea();
 
 		for(int outer = 0; outer < moverCount; ++outer) {
@@ -102,7 +102,7 @@ namespace se_core {
 
 				// Test for collision
 				PhysicsComponent& pn1 = *movers_[ outer ];
-				PosComponent& pn2 = *things[ inner ];
+				PosComponent& pn2 = things[ inner ]->posComponent();
 				if(_testActor2ThingCollision(*pn1.posComponent_, pn2)) {
 					//pn1.pushThing(pn2.toActor());
 					if(pn1.pushThing(pn2)) {
@@ -155,7 +155,6 @@ namespace se_core {
 		MultiSimNodeComponent::TreeIterator it(children());
 		while(it.hasNext()) {
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
-			ph.affect();
 
 			// Calc next position
 			ph.calcNextCoor();

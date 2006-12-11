@@ -39,9 +39,9 @@ namespace se_core {
 	// Typedef of singly linked lists container that
 	// will hold members of all singly linked lists
 	// of all grid containers.
-	typedef SinglyLinkedList<class PosComponent, MAX_GAME_OBJECTS, 243> CGTL;
-	struct CollisionGridPosComponentList : public CGTL {
-		CollisionGridPosComponentList(const char* name) : CGTL(name) {}
+	typedef SinglyLinkedList<class CollisionComponent, MAX_GAME_OBJECTS, 243> CGTL;
+	struct CollisionGridCollisionComponentList : public CGTL {
+		CollisionGridCollisionComponentList(const char* name) : CGTL(name) {}
 	};
 
 	class _SeCoreExport CollisionGrid {
@@ -121,18 +121,18 @@ namespace se_core {
 		/**
 		 * Insert a thing in the collision grid.
 		 */
-		void insert(const Point3& c, coor_t size, PosComponent& thing);
+		void insert(const Point3& c, coor_t size, CollisionComponent& thing);
 
 		/**
 		 * Remove a thing from the collision grid.
 		 */
-		bool remove(const Point3& c, coor_t size, PosComponent& thing);
+		bool remove(const Point3& c, coor_t size, CollisionComponent& thing);
 
 		/**
 		 * Move a thing in the collision grid.
 		 */
 		void move(const Point3& from, coor_t oldSize
-				  , const Point3& to, coor_t newSize, PosComponent& thing);
+				  , const Point3& to, coor_t newSize, CollisionComponent& thing);
 
 		/**
 		 * Return all things in grid that a thing with the given Coor and
@@ -140,9 +140,9 @@ namespace se_core {
 		 * be (n^2) - 1.
 		 */
 		short collisionCandidates(const Point3& c, coor_t size
-									, PosComponent* things[], short max);
+									, CollisionComponent* things[], short max);
 
-		bool find(PosComponent& thing);
+		bool find(CollisionComponent& thing);
 
 		/**
 		 * Delete all members from the collision grid.
@@ -175,14 +175,14 @@ namespace se_core {
 
 		/// Array of all nodes. Elements contain a pointer to
 		/// the first node in a singly list.
-		CollisionGridPosComponentList::iterator_type* nodes_;
+		CollisionGridCollisionComponentList::iterator_type* nodes_;
 		short totalNodeCount_;
 
 		/// Array of nodes for each level.
-		CollisionGridPosComponentList::iterator_type** nodeLevels_;
+		CollisionGridCollisionComponentList::iterator_type** nodeLevels_;
 
-		static CollisionGridPosComponentList& thingList() {
-			static CollisionGridPosComponentList instance(__FILE__);
+		static CollisionGridCollisionComponentList& thingList() {
+			static CollisionGridCollisionComponentList instance(__FILE__);
 			return instance;
 		}
 

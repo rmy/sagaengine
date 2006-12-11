@@ -59,9 +59,9 @@ namespace se_core {
 		bool calcNextCoor();
 
 		void affect() {
-			if(!hasPhysics())
+			if(!affect_)
 				return;
-			physics().affect(*toActor());
+			affect_->affect(*toActor());
 		}
 
 		void pushPhysics(const char* name);
@@ -114,6 +114,7 @@ namespace se_core {
 		short currentPhysics_;
 		static const short MAX_PHYSICS_STACK_SIZE = 3;
 		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
+		const Physics* affect_;
 		friend class PhysicsSolverComponent;
 		PosComponent* posComponent_;
 		const ThingCollide* collide_;

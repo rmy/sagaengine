@@ -83,8 +83,6 @@ namespace se_err {
 		const char* file_;
 		int line_;
 	};
-
-	extern _SeCoreExport Log& log();
 }
 
 #ifdef DEBUG_LEVEL_2
@@ -99,7 +97,7 @@ void * operator new[](size_t size, char const * file, int line);
 
 #define Assert(b) if(!(b)) { se_err::debugStop(); se_err::scream3(__FILE__, __LINE__, # b); }
 #define DbgAssert(b) if(!(b)) { se_err::debugStop(); se_err::scream3(__FILE__, __LINE__, # b); }
-#define AssertMsg(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
+#define AssertFatal(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
 #define AssertWarning(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).say(); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
 //#define DbgLogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
@@ -130,7 +128,7 @@ namespace se_err {
 #include <cstdlib>
 
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
-#define AssertMsg(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
+#define AssertFatal(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
 #define AssertWarning(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).say(); }
 //#define LogFatal(n) se_err::scream3(__FILE__, __LINE__, n)
 #define LogFatal(msg) (se_err::Log::singleton().file(__FILE__, __LINE__) << msg ).scream()
@@ -154,7 +152,7 @@ namespace se_err {
 }
 #ifndef Assert
 #define Assert(b)
-#define AssertMsg(b, m)
+#define AssertFatal(b, m)
 #define AssertWarning(b, m)
 #define LogFatal(n)
 #define DbgLogFatal(n)

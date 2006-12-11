@@ -66,6 +66,8 @@ namespace se_ogre {
 		OIS::Keyboard* keyboard_;
 		OIS::JoyStick* joy_;
 
+		int oldJoyButtons_;
+
 		//
 		Ogre::EventProcessor* eventProcessor_;
 

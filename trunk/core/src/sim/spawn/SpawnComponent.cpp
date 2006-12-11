@@ -39,6 +39,7 @@ namespace se_core {
 		cleanup();
 	}
 
+
 	void SpawnComponent
 	::cleanup() {
 		resetSpawner();
@@ -74,7 +75,7 @@ namespace se_core {
 
 	void SpawnComponent
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
-		AssertMsg(spawnPoints_ == 0, "Spawn points set twice: " << owner()->name());
+		AssertFatal(spawnPoints_ == 0, "Spawn points set twice: " << owner()->name());
 
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;
@@ -83,8 +84,8 @@ namespace se_core {
 
 	const ViewPoint* SpawnComponent
 	::spawnPoint(short id) const {
-		Assert(id >= 0 && id < spawnPointCount_);
-		Assert(spawnPoints_[id] != 0);
+		AssertFatal(id >= 0 && id < spawnPointCount_, ": Id=" << id << " Count=" << spawnPointCount_);
+		AssertFatal(spawnPoints_[id] != 0, ": Id=" << id);
 		return spawnPoints_[id];
 	}
 
