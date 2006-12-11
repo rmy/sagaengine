@@ -100,11 +100,14 @@ namespace se_ogre {
 
 		}
 
+		const scale_t alpha = ScaleT::fromFloat(stepDelta);
+		thing_.worldViewPoint(alpha, last_);
 		billboard_->setPosition(
 								CoorT::toFloat(last_.coor_.x_),
 								CoorT::toFloat(last_.coor_.y_),
 								CoorT::toFloat(last_.coor_.z_)
 								);
+		//billboard_->setPosition(node_->_getDerivedPosition());
 
 		//billboard_->setRotation( Ogre::Radian(BrayT::toRad(last_.face_.roll_)) );
 	}
