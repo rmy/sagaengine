@@ -76,8 +76,8 @@ namespace se_core {
 			DebugExec(if(firstFreeNode_ == end())) LogMsg(name_ << ": " << MAX_ELEMENTS << " - " << count_);
 			DebugExec(if(firstFreeNode_ == end())) LogMsg("Size: " << size(firstNode));
 
-			AssertMsg(firstFreeNode_ != end(), name_ << " Max size: " << MAX_ELEMENTS << " Chain size: " << size(firstNode));
-			AssertMsg((element) != 0, name_);
+			AssertFatal(firstFreeNode_ != end(), name_ << " Max size: " << MAX_ELEMENTS << " Chain size: " << size(firstNode));
+			AssertFatal((element) != 0, name_);
 			//DbgAssert(!isFree(firstNode));
 
 			// Store pointer to the second node in free node chain
