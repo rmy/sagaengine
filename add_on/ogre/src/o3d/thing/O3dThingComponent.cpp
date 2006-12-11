@@ -37,6 +37,7 @@ namespace se_ogre {
 		node_ = O3dSchema::sceneManager->createSceneNode();
 	}
 
+
 	O3dThingComponent
 	::~O3dThingComponent() {
 		clear();

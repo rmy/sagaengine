@@ -35,7 +35,7 @@ namespace se_ogre {
 
 	O3dInputBridge
 	::O3dInputBridge(Ogre::RenderWindow* win)
-			: keyState_(0) {
+			: oldJoyButtons_(0), keyState_(0) {
 
 		eventProcessor_ = new Ogre::EventProcessor();
 		eventProcessor_->initialise(win);
@@ -88,6 +88,22 @@ namespace se_ogre {
 	::step() {
 		if(joy_) {
 			joy_->capture();
+
+			int buttonCount = joy_->buttons();
+			int buttons = joy_->getJoyStickState().buttons;
+			for(int i = 0; i < buttons; ++i) {
+				int mask = (1L << i);
+				if((buttons & mask) != (oldJoyButtons_ & mask)) {
+					if((buttons & mask) == 0) {
+						O3dSchema::inputManager().active()->joyButtonPressed(i);
+					}
+					else {
+						O3dSchema::inputManager().active()->joyButtonReleased(i);
+					}
+				}
+			}
+
+			oldJoyButtons_ = buttons;
 		}
 	}
 

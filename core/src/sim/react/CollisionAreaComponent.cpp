@@ -57,7 +57,7 @@ namespace se_core {
 			//LogMsg(pc->nextPos().worldCoor() << " - " << pc->nextPos().localCoor());
 			//LogMsg(p << " - " << speedAndRadius);
 
-			collisionGrid_->insert(p, speedAndRadius, cc.posComponent());
+			collisionGrid_->insert(p, speedAndRadius, cc);
 		}
  	}
 
@@ -70,9 +70,9 @@ namespace se_core {
 		Point3 p;
 		cc.areaCovered().center(p);
 		coor_t speedAndRadius = cc.areaCovered().radius();
-		bool didDelete = collisionGrid_->remove(p, speedAndRadius, cc.posComponent());
+		bool didDelete = collisionGrid_->remove(p, speedAndRadius, cc);
 
-		AssertMsg(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc.posComponent()) << ")");
+		AssertFatal(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc) << ")");
 	}
 
 
@@ -108,7 +108,7 @@ namespace se_core {
 			//LogMsg(p->pos().worldCoor() << " - " << p->pos().localCoor());
 			//LogMsg(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
 			//LogMsg(newPos << " - " << newRadius);
-			collisionGrid_->insert(newPos, newRadius, cc->posComponent());
+			collisionGrid_->insert(newPos, newRadius, *cc);
 		}
 	}
 
@@ -153,7 +153,7 @@ namespace se_core {
 			return;
 
 		static const int MAX_THINGS = 256;
-		static PosComponent* candidates[MAX_THINGS];
+		static CollisionComponent* candidates[MAX_THINGS];
 		Area* self = toArea();
 
 		MultiSimNodeComponent::Iterator it(children_);

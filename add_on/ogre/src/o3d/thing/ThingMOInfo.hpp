@@ -41,6 +41,9 @@ namespace se_ogre {
 		Ogre::NameValuePairList params_;
 		se_core::String defaultMaterial_;
 
+		// Offset
+		Ogre::Vector3 offset_;
+
 		// Level of Detail
 		float scale_;
 		float popInSq_;

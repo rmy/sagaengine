@@ -31,7 +31,7 @@ namespace se_ogre {
 
 	ThingMOInfo
 	::ThingMOInfo()
-		: doScaleByRadius_(false), scale_(1.0f), popInSq_(0), popOutSq_(0), animationChannels_(0), channelCount_(0), isStatic_(0), isShadowCaster_(true) {
+		: doScaleByRadius_(false), offset_(0, 0, 0), scale_(1.0f), popInSq_(0), popOutSq_(0), animationChannels_(0), channelCount_(0), isStatic_(0), isShadowCaster_(true) {
 	}
 
 

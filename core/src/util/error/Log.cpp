@@ -342,12 +342,14 @@ void operator delete (void * p) {
 	free (((Alloc*)p) - 0);
 }
 
+
 void * operator new[] (size_t size, char const * file, int line) {
 	Alloc* p = (Alloc*)malloc (size);
 	++arrays;
 	addP(file, line, p, size);
 	return p + 0;
 }
+
 
 void * operator new[] (size_t size) {
 	Alloc* p = (Alloc*)malloc (size);
@@ -369,5 +371,6 @@ void operator delete[] (void * p) {
 	delP(p);
 	free (((Alloc*)p) - 0);
 }
+
 #endif
 

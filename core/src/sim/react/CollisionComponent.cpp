@@ -45,6 +45,7 @@ namespace se_core {
 		Assert(posComponent_);
 	}
 
+
 	CollisionComponent
 	::~CollisionComponent() {
 	}
@@ -113,7 +114,7 @@ namespace se_core {
 
 		CollisionAreaComponent* const cac = static_cast<CollisionAreaComponent*>(parent_);
 		Assert(cac->collisionGrid());
-		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *posComponent_);
+		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *this);
 	}
 
 }
