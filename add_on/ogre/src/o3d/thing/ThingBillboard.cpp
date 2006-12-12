@@ -87,6 +87,12 @@ namespace se_ogre {
 			billboard_->setTexcoordIndex(0);
 		}
 		*/
+		Ogre::Real currentScale_ = info_.scale_;
+		// If radius scales the model
+		if(info_.doScaleByRadius_) {
+			// Interpolate between present radius and next radius
+			currentScale_ *= CoorT::toFloat(thing_.nextPos().radius());
+		}
 
 		// If scale has changed
 		if(currentScale_ != currentBillboardScale_) {
@@ -97,7 +103,6 @@ namespace se_ogre {
 
 			// Store scale for future scale change checks
 			currentBillboardScale_ = scale;
-
 		}
 
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
@@ -107,8 +112,8 @@ namespace se_ogre {
 								CoorT::toFloat(last_.coor_.y_),
 								CoorT::toFloat(last_.coor_.z_)
 								);
-		//billboard_->setPosition(node_->_getDerivedPosition());
 
+		//billboard_->setPosition(node_->_getDerivedPosition());
 		//billboard_->setRotation( Ogre::Radian(BrayT::toRad(last_.face_.roll_)) );
 	}
 
