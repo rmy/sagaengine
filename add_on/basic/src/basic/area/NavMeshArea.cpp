@@ -89,6 +89,18 @@ namespace se_basic {
 		return navMesh_->isInLineOfSight(from, to);
 	}
 
+	void NavMeshArea
+	::farthestLineOfSight(const Pos& from, const Pos& to, Point3& dest) {
+		Point2 p;
+		Point3 toPoint(to.worldCoor());
+		short toIndex = index(toPoint, -1);
+		toPoint.sub(nextPos().worldCoor());
+		
+		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
+		dest.x_ = p.x_ + nextPos().worldCoor().x_;
+		dest.z_ = p.y_ + nextPos().worldCoor().z_;
+	}
+
 
 	void NavMeshArea
 	::path(const Pos& from, const Pos& to, Point3& out) const {

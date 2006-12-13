@@ -21,17 +21,19 @@ namespace se_basic {
 		return (s1 < 0 && s2 < 0);
 	}
 
+
 	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1
 						  , se_core::Point2* out) {
+		// http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
 		coor_t ua =
-			((b1.x_ - b0.x_) * (b0.z_ - a0.z_)
-			 - (b1.z_ - b0.z_) * (b0.x_ - a0.x_))
+			((b1.x_ - b0.x_) * (a0.z_ - b0.z_)
+			 - (b1.z_ - b0.z_) * (a0.x_ - b0.x_))
 			/
-			((a1.z_ - a0.z_) * (b1.x_ - b0.x_)
-			 - (a1.x_ - a0.x_) * (b1.z_ - b0.z_));
+			((b1.z_ - b0.z_) * (a1.x_ - a0.x_)
+			 - (b1.x_ - b0.x_) * (a1.z_ - a0.z_));
 
 
 		coor_t ub =
@@ -41,24 +43,25 @@ namespace se_basic {
 			((b1.z_ - b0.z_) * (a1.x_ - a0.x_)
 			 - (b1.x_ - b0.x_) * (a1.z_ - a0.z_));
 
-		if(out) {
+		bool res = (ua >= 0 && ua < 1 && ub >= 0 && ub < 1);
+		if(res && out) {
 			out->x_ = a0.x_ + ua * (a1.x_ - a0.x_);
 			out->y_ = a0.z_ + ua * (a1.z_ - a0.z_);
 		}
 		//if(ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
+		AssertWarning(res == doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
 		//LogMsg(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
-		return(ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1);
+		return res;
 	}
 
 
 	bool NavMesh
 	::isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const {
-		static const short corners[][2] =
-			{
-				{ 1, 2 },
-				{ 2, 0 },
-				{ 0, 1 }
-			};
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
 
 		short via = from.index();
 		short prev = -1;
@@ -72,7 +75,8 @@ namespace se_basic {
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
-					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to.localCoor())) {
+					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ]
+										  , from.localCoor(), to.localCoor())) {
 						next = link;
 					}
 				}
@@ -85,6 +89,45 @@ namespace se_basic {
 			via = next;
 		}
 		return true;
+	}
+
+
+	void NavMesh
+	::farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, Point2& dest) const {
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
+
+		short via = from.index();
+		short prev = -1;
+		dest.set(from.localCoor().x_, from.localCoor().z_);
+		while(via != toIndex) {
+			Point3* b[] = {
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+			};
+			short next = -1;
+			for(int i = 0; i < 3; ++i) {
+				short link = triangles_[ via ].linkTo_[ i ];
+				if(link != prev) {
+					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
+						next = link;
+						//LogMsg("Found link: " << via << ", " << next << ", " << toIndex << " (" << dest.x_ << ", " << dest.y_ << ")");
+					}
+				}
+			}
+			if(next < 0) {
+				//LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
+				return;
+			}
+
+			prev = via;
+			via = next;
+		}
+		dest.set(to.x_, to.z_);
 	}
 
 

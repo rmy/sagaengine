@@ -214,6 +214,7 @@ namespace se_basic {
 
 
 		bool isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const;
+		void farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, se_core::Point2& dest) const;
 
 		/**
 		 * Returns index of neighbour to go via.
