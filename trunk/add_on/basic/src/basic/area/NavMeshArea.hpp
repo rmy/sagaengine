@@ -26,6 +26,7 @@ namespace se_basic {
 		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);
 
 		bool isLineOfSight(const se_core::Pos& from, const se_core::Pos& to);
+		void farthestLineOfSight(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& dest);
 		void path(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& out) const;
 
 	private:

@@ -1,6 +1,6 @@
 /*
 SagaEngine library
-Copyright (c) 2002-2006 Skalden Studio AS
+Cpyright (c) 2002-2006 Skalden Studio AS
 
 This software is provided 'as-is', without any express or implied 
 warranty. In no event will the authors be held liable for any 

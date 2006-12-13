@@ -45,8 +45,7 @@ namespace se_core {
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
 			: PosNode(got_AREA, name->get()), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
-			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1)
-			{
+			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
 
 		// Init to default position
 		setParent(SimComponentManager::inactiveRoot());
