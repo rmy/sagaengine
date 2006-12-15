@@ -48,12 +48,15 @@ namespace se_core {
 		virtual ~CollisionManager();
 
 
-		void step(long when) {}
+		void step(long when);
 
 		static CollisionManager& singleton();
 
 		CollisionGrid* grabCollisionGrid();
 		void releaseCollisionGrid(CollisionGrid* g);
+
+		void resolveContacts();
+		void getContactList();
 
 
 	private:
@@ -61,6 +64,10 @@ namespace se_core {
 		int gridCount_, gridPoolCount_;
 		CollisionGrid** collisionGrids_;
 		CollisionGrid** gridPool_;
+
+		static const int MAX_CONTACTS = 1024;
+		int contactCount_;
+		Contact* contactList_;
 	};
 
 }

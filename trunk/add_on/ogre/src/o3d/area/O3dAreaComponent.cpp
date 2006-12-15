@@ -34,7 +34,6 @@ namespace se_ogre {
 	O3dAreaComponent
 	::O3dAreaComponent(SimComposite* owner)
 		: O3dNodeComponent(sct_RENDER, owner), isVisible_(false), isInitialized_(false) {
-
 	}
 
 

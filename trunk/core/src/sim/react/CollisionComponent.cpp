@@ -117,4 +117,28 @@ namespace se_core {
 		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *this);
 	}
 
+
+	bool CollisionComponent
+	::doesGeometryCollide(const CollisionComponent& other) const {
+		// Only cylinder support at the moment
+		const PosComponent& pusher = posComponent();
+		const PosComponent& target = other.posComponent();
+
+		// Is this thing's movement bringing it closer, or farther away?
+		coor_double_t beforeDistanceSq = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
+		coor_double_t afterDistanceSq = pusher.nextPos().worldCoor().xzDistanceSquared(target.nextPos().worldCoor());
+		if(beforeDistanceSq < afterDistanceSq) {
+			//LogMsg(pusher.owner()->name() << " - " << target.owner()->name());
+			// Moving away
+			return false;
+		}
+
+		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
+		if(afterDistanceSq > radiusSum * radiusSum) {
+			LogMsg(pusher.owner()->name() << " - " << target.owner()->name() << " - " << radiusSum << " - " << afterDistanceSq);
+			return false;
+		}
+		return true;
+	}
+
 }

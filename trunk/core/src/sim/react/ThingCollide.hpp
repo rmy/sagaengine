@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef engine_react_ThingCollide_hpp
 #define engine_react_ThingCollide_hpp
 
+#include "sim_react.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../SimObject.hpp"
 #include "../physics/sim_physics.hpp"
@@ -39,8 +40,9 @@ namespace se_core {
 		virtual bool collide(Actor& pusher
 							 , Thing& target) const { return false; }
 
-		virtual bool collide(PhysicsComponent& pusher
-					 , PosComponent& target) const;
+		virtual bool collide(CollisionComponent& pusher
+					 , CollisionComponent& target) const;
+		bool doesGeometryCollide(const CollisionComponent& pusher, const CollisionComponent& target) const;
 
 		//static const int PUSHED_TYPE_COUNT = 5;
 	protected:

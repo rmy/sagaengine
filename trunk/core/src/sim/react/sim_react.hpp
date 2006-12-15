@@ -25,4 +25,5 @@ namespace se_core {
 	class CollisionGrid;
 	class CollisionAreaComponent;
 	class CollisionComponent;
+	class Contact;
 }

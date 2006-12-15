@@ -82,21 +82,6 @@ namespace se_core {
 
 		bool isMover() const;
 
-		bool isPusher() {
-			return collide_ != 0;
-		}
-
-		void setCollide(const ThingCollide* collide) {
-			collide_ = collide; 
-		}
-
-		inline bool pushThing(PosComponent& pushedThing) {
-			Assert(toActor());
-			Assert(pushedThing.toActor());
-			return collide_->collide(*this, pushedThing);
-		}
-
-
 		void flip();
 
 	private:
@@ -117,7 +102,6 @@ namespace se_core {
 		const Physics* affect_;
 		friend class PhysicsSolverComponent;
 		PosComponent* posComponent_;
-		const ThingCollide* collide_;
 
 		Move move_, nextMove_;
 

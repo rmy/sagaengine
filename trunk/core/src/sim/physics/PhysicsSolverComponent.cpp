@@ -49,16 +49,22 @@ namespace se_core {
 
 
 
-	inline bool _testActor2ThingCollision(PosComponent& pn1,
-							  PosComponent& pn2) {
+	inline bool _testActor2ThingCollision(CollisionComponent& cc1,
+							  CollisionComponent& cc2) {
+		PosComponent& pn1 = cc1.posComponent();
+		PosComponent& pn2 = cc2.posComponent();
+
 		BoundingBox b1(pn1.pos().worldCoor(), pn1.pos().bounds_);
-		BoundingBox btmp(pn1.pos().worldCoor(), pn1.pos().bounds_);
+		BoundingBox btmp(pn1.nextPos().worldCoor(), pn1.nextPos().bounds_);
 		b1.merge(btmp);
 		BoundingBox b2(pn2.pos().worldCoor(), pn2.pos().bounds_);
-		BoundingBox b2tmp(pn2.pos().worldCoor(), pn2.pos().bounds_);
+		BoundingBox b2tmp(pn2.nextPos().worldCoor(), pn2.nextPos().bounds_);
 		b2.merge(b2tmp);
 
 		if(!b1.isTouching(b2))
+			return false;
+
+		if(!cc1.doesGeometryCollide(cc2))
 			return false;
 
 		// Inside collision range. Collide.
@@ -76,7 +82,7 @@ namespace se_core {
 
 		for(int outer = 0; outer < moverCount; ++outer) {
 			Actor* a = movers[ outer ]->toActor();
-			if(!a->isPusher())
+			if(!CollisionComponent::get(*a))
 				continue;
 
 			// Get collision candidates in this and all
@@ -101,29 +107,29 @@ namespace se_core {
 				}
 
 				// Test for collision
-				PhysicsComponent& pn1 = *movers_[ outer ];
-				PosComponent& pn2 = things[ inner ]->posComponent();
-				if(_testActor2ThingCollision(*pn1.posComponent_, pn2)) {
-					//pn1.pushThing(pn2.toActor());
-					if(pn1.pushThing(pn2)) {
-						Assert(CollisionComponent::get(pn1)->isCollideable());
-						Assert(CollisionComponent::get(pn2)->isCollideable());
-						pn1.posComponent_->resetFutureCoor();
-						break;
-					}
+				CollisionComponent& cc1 = *CollisionComponent::get(*movers_[ outer ]);
+				CollisionComponent& cc2 = *things[ inner ];
+
+				// Only collide once (and at least once)
+				if(&cc1 < &cc2 && cc1.isCollideable() && cc2.isCollideable()) {
+					continue;
+				}
+
+				// Does collide
+				if(_testActor2ThingCollision(cc1, cc2)) {
+					// Event
+					cc1.pushThing(cc2);
+					cc2.pushThing(cc1);
 				}
 			}
 		}
 	}
 
 
-
 	void PhysicsSolverComponent
 	::flipChildren() {
 		if(children_.isEmpty())
 			return;
-
-		CollisionGrid* grid = collisionAreaComponent_->collisionGrid();
 
 		MultiSimNodeComponent::TreeIterator it(children());
 		while(it.hasNext()) {
@@ -153,7 +159,7 @@ namespace se_core {
 	::performChildPhysics(PhysicsComponent** movers) {
 		int moverCount = 0;
 		MultiSimNodeComponent::TreeIterator it(children());
-		while(it.hasNext()) {
+ 		while(it.hasNext()) {
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
 
 			// Calc next position

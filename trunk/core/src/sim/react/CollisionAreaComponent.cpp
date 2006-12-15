@@ -53,10 +53,6 @@ namespace se_core {
 			coor_t speedAndRadius = cc.areaCovered().radius();
 
 			PosComponent* pc = &cc.posComponent();
-			//LogMsg(pc->pos().worldCoor() << " - " << pc->pos().localCoor());
-			//LogMsg(pc->nextPos().worldCoor() << " - " << pc->nextPos().localCoor());
-			//LogMsg(p << " - " << speedAndRadius);
-
 			collisionGrid_->insert(p, speedAndRadius, cc);
 		}
  	}
@@ -127,30 +123,37 @@ namespace se_core {
 	::setActive(bool state) {
 		if(state) {
 			setCollisionGrid(CollisionManager::singleton().grabCollisionGrid());
+			setParent(CollisionManager::singleton());
 		}
 		else {
+			resetParent();
 			resetCollisionGrid();
 		}
 	}
 
 
-	inline bool _testCollision(CollisionComponent& pn1,
-							  CollisionComponent& pn2) {
-		if(!pn1.areaCovered().isTouching(pn2.areaCovered()))
+	inline bool _testCollision(CollisionComponent& cc1,
+							  CollisionComponent& cc2) {
+		if(!cc1.areaCovered().isTouching(cc2.areaCovered()))
 			return false;
 
-		// TODO: Investigate shape primitives
 
+		if(!cc1.doesGeometryCollide(cc2))
+			return false;
+
+		// Inside collision range. Collide.
 		return true;
 	}
 
 
 
 
-	void CollisionAreaComponent
-	::getCollisionList() {
+	int CollisionAreaComponent
+	::getContactList(Contact* list, int maxCollisions) {
+		int count = 0;
+
 		if(!collisionGrid_)
-			return;
+			return count;
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
@@ -159,8 +162,6 @@ namespace se_core {
 		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
-			if(!cc->isCollideable())
-				continue;
 
 			short innerCount = 0;
 			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {
@@ -175,28 +176,38 @@ namespace se_core {
 				
 				innerCount += cac->collisionGrid()->collisionCandidates
 					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
+			}
 
 
-				// Test collision with all collision candidates
-				for(int inner = 0; inner < innerCount; ++inner) {
-					if(candidates[ inner ]->toActor() == cc->toActor()) {
-						continue;
-					}
+			// Test collision with all collision candidates
+			for(int inner = 0; inner < innerCount; ++inner) {
+				// Don't test collision with self
+				if(candidates[ inner ]->toActor() == cc->toActor()) {
+					continue;
+				}
 
-					CollisionComponent* pn2 = CollisionComponent::get(*candidates[ inner ]);
-					if(_testCollision(*cc, *pn2)) {
-						// TODO: Add contact joint
-					}
+				// Test for collision
+				CollisionComponent& cc2 = *candidates[ inner ];
+
+				// Only collide once (and at least once)
+				if(cc < &cc2 && cc->isCollideable() && cc2.isCollideable()) {
+					continue;
+				}
+
+
+				if(_testCollision(*cc, cc2)) {
+					Assert(count < maxCollisions);
+					list[ count ].cc1_ = cc;
+					list[ count ].cc2_ = &cc2;
+					++count;
 				}
 
 			}
 
 		}
 
-
-
+		return count;
 	}
-
 
 
 }

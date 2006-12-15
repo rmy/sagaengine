@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "ThingCollide.hpp"
+#include "CollisionComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../pos/Pos.hpp"
@@ -46,9 +47,14 @@ namespace se_core {
 		return true;
 	}
 
+	bool ThingCollide
+	::doesGeometryCollide(const CollisionComponent& pusher, const CollisionComponent& target) const {
+		return pusher.doesGeometryCollide(target);
+	}
+
 
 	bool ThingCollide
-	::collide(PhysicsComponent& pusher, PosComponent& target) const {
+	::collide(CollisionComponent& pusher, CollisionComponent& target) const {
 		return collide(*pusher.toActor(), *target.toActor());
 	}
 

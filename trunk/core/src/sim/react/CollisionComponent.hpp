@@ -23,6 +23,7 @@ rune@skalden.com
 #define engine_physics_CollisionComponent_hpp
 
 #include "sim_react.hpp"
+#include "ThingCollide.hpp"
 #include "../SimComponent.hpp"
 #include "../SimComposite.hpp"
 #include "../AreaChildComponent.hpp"
@@ -45,6 +46,11 @@ namespace se_core {
 
 		static CollisionComponent* get(SimComposite& composite) {
 			CollisionComponent* c = static_cast<CollisionComponent*>(composite.component(se_core::sct_COLLISION));
+			return c;
+		}
+
+		static const CollisionComponent* get(const SimComposite& composite) {
+			const CollisionComponent* c = static_cast<const CollisionComponent*>(composite.component(se_core::sct_COLLISION));
 			return c;
 		}
 
@@ -77,6 +83,26 @@ namespace se_core {
 			return *posComponent_;
 		}
 
+		void setCollide(const ThingCollide* collide) {
+			collide_ = collide; 
+		}
+
+		inline bool pushThing(CollisionComponent& pushedThing) {
+			if(!collide_)
+				return false;
+
+			if(!pushedThing.isCollideable())
+				return false;
+
+			return collide_->collide(*this, pushedThing);
+		}
+
+		bool isPusher() const {
+			return collide_ != 0;
+		}
+
+		bool doesGeometryCollide(const CollisionComponent& other) const;
+
 		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 		const BoundingBox& areaCovered() const { return areaCovered_; }
@@ -93,6 +119,8 @@ namespace se_core {
 		 * inserted into a collision grid.
 		 */
 		bool isCollideable_;
+
+		const ThingCollide* collide_;
 	};
 }
 

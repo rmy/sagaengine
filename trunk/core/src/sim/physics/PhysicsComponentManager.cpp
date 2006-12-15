@@ -77,6 +77,9 @@ namespace se_core {
 
 	void PhysicsComponentManager
 	::step(long when) {
+		// Affect thing with effects of movements
+		affect(when + TIMESTEP_INTERVAL);
+
 		// Flip coors for next physics step
 		flip(when);
 
@@ -85,10 +88,8 @@ namespace se_core {
 
 		// Test and resolve collisions between game things and between
 		// game things and walls or other terrain obstructions.
-		testCollisions(when, when + TIMESTEP_INTERVAL);
+		//testCollisions(when, when + TIMESTEP_INTERVAL);
 
-		// Affect thing with effects of movements
-		affect(when + TIMESTEP_INTERVAL);
 	}
 
 
