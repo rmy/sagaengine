@@ -25,6 +25,7 @@ rune@skalden.com
 //#include "./action/ActionQueue.hpp"
 #include "./action/ActionComponentManager.hpp"
 #include "./physics/PhysicsComponentManager.hpp"
+#include "./react/CollisionManager.hpp"
 #include "./script/ScriptComponentManager.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./pos/Pos.hpp"
@@ -160,6 +161,9 @@ namespace se_core {
 
 		// Move things and check for collisions
 		PhysicsComponentManager::singleton().step(when);
+
+		// Move things and check for collisions
+		CollisionManager::singleton().step(when);
 	}
 
 

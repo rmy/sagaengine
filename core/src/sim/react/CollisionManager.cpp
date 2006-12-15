@@ -32,9 +32,10 @@ namespace se_core {
 	CollisionManager
 	::CollisionManager()
 			: SimComponentManager(sct_POS) 
-			, gridCount_(0), gridPoolCount_(0) {
+			, gridCount_(0), gridPoolCount_(0), contactCount_(0) {
 		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
 		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
+		contactList_ = new Contact[ MAX_CONTACTS ];
 	}
 
 
@@ -44,6 +45,9 @@ namespace se_core {
 			delete collisionGrids_[i];
 		}
 		gridCount_ = 0;
+		delete[] collisionGrids_;
+		delete[] gridPool_;
+		delete[] contactList_;
 		LogMsg("Destroyed area grids");
 	}
 
@@ -54,6 +58,12 @@ namespace se_core {
 		return instance;
 	}
 
+
+	void CollisionManager
+	::step(long when) {
+		getContactList();
+		resolveContacts();
+	}
 
 	CollisionGrid* CollisionManager
 	::grabCollisionGrid() {
@@ -82,5 +92,28 @@ namespace se_core {
 		g->clear();
 		gridPool_[ gridPoolCount_++ ] = g;
 	}
+
+
+	void CollisionManager
+	::getContactList() {
+		contactCount_ = 0;
+
+		MultiSimNodeComponent::Iterator it(children());
+		while(it.hasNext()) {
+			CollisionAreaComponent& cac = static_cast<CollisionAreaComponent&>(it.next());
+			contactCount_ += cac.getContactList(&contactList_[ contactCount_ ], MAX_CONTACTS - contactCount_);
+		}
+	}
+
+	void CollisionManager
+	::resolveContacts() {
+		for(int i = 0; i < contactCount_; ++i) {
+			Contact& c = contactList_[i];
+			c.cc1_->pushThing(*c.cc2_);
+			c.cc2_->pushThing(*c.cc1_);
+		}
+	}
+
+
 
 }

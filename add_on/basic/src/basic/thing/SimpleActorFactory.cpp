@@ -32,9 +32,14 @@ namespace se_basic {
 	::create() const {
 		Actor* a = new Actor(name_->get());
 
+		if(isCollideable_) {
+			CollisionComponent* cc = new CollisionComponent(a);
+			cc->setCollide(collide_);
+			cc->setCollideable(true);
+		}
+
 		a->setPickable(isPickable_);
 		a->setDefaultPhysics(physics_);
-		a->setCollide(collide_);
 		a->nextPos().setBounds(bounds_);
 		a->setSpawnPoints(spawnPointCount_, spawnPoints_);
 		if(defaultAction_ && defaultAction_->hasAction()) {
@@ -45,11 +50,6 @@ namespace se_basic {
 
 		if(script_) {
 			a->setDefaultScript(script_);
-		}
-
-		if(isCollideable_) {
-			CollisionComponent* cc = new CollisionComponent(a);
-			cc->setCollideable(true);
 		}
 
 		createComponents(a);

@@ -39,6 +39,7 @@ rune@skalden.com
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionAndParameter.hpp"
 #include "../physics/PhysicsComponent.hpp"
+#include "../react/CollisionComponent.hpp"
 #include "../custom/StatComponent.hpp"
 
 
@@ -178,9 +179,6 @@ namespace se_core {
 		void removeFromShowingCutscene();
 		void stopShowingCutscene();
 
-
-		void setCollide(const ThingCollide* collide) { physicsComponent_->setCollide(collide); }
-		bool isPusher() const { return physicsComponent_->isPusher(); }
 
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }

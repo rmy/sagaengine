@@ -113,14 +113,6 @@ namespace se_core {
 			return false;
 		}
 
-		/** Returns false, signifying that a PosNode is not a pusher.
-		 */
-		virtual bool isPusher() const {
-			return false;
-		}
-
-
-
 		////// Methods that may be used by scripts - end //////
 
 		/** Get the next coordinate.

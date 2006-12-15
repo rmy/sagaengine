@@ -24,9 +24,17 @@ rune@skalden.com
 
 #include "../SimNodeComponent.hpp"
 #include "CollisionGrid.hpp"
+#include "CollisionComponent.hpp"
 #include "../area/Area.hpp"
 
 namespace se_core {
+	class _SeCoreExport Contact {
+	public:
+		CollisionComponent* cc1_;
+		CollisionComponent* cc2_;
+	};
+
+
 	class _SeCoreExport CollisionAreaComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
@@ -46,7 +54,7 @@ namespace se_core {
 		void addCollideable(CollisionComponent& cc);
 		void removeCollideable(CollisionComponent& cc);
 
-		void getCollisionList();
+		int getContactList(Contact* list, int maxCollisions);
 
 	private:
 		/**
