@@ -42,9 +42,7 @@ namespace se_core {
 
 		virtual bool collide(CollisionComponent& pusher
 					 , CollisionComponent& target) const;
-		bool doesGeometryCollide(const CollisionComponent& pusher, const CollisionComponent& target) const;
 
-		//static const int PUSHED_TYPE_COUNT = 5;
 	protected:
 		/**
 		 * Returns true if the pusher caused the collision.
@@ -54,6 +52,8 @@ namespace se_core {
 		bool isGuilty(Actor& pusher
 					 , Thing& target) const;
 
+		bool isGuilty(PosComponent& pusher
+					 , PosComponent& target) const;
 
 	};
 }

@@ -59,6 +59,11 @@ namespace se_core {
 			return c;
 		}
 
+		int tag();
+		bool shouldIgnore(CollisionComponent& cc);
+		void setIgnore(CollisionComponent& cc) {
+			ignore_ = &cc;
+		}
 
 
 		/** Can other PosNodes collide with this PosNode?
@@ -119,8 +124,9 @@ namespace se_core {
 		 * inserted into a collision grid.
 		 */
 		bool isCollideable_;
-
 		const ThingCollide* collide_;
+
+		CollisionComponent* ignore_;
 	};
 }
 

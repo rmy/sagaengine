@@ -33,7 +33,8 @@ namespace se_core {
 	::CollisionComponent(Actor* owner, PosComponent* posComponent)
 		: AreaChildComponent(sct_COLLISION, owner)
 		, posComponent_(posComponent)
-		, isCollideable_(false) {
+		, isCollideable_(false)
+		, ignore_(0) {
 	}
 
 
@@ -139,6 +140,18 @@ namespace se_core {
 			return false;
 		}
 		return true;
+	}
+
+
+	int CollisionComponent
+	::tag() {
+		return owner()->tag();
+	}
+
+	
+	bool CollisionComponent 
+	::shouldIgnore(CollisionComponent& cc) {
+		return &cc == ignore_ || cc.ignore_ == this;
 	}
 
 }
