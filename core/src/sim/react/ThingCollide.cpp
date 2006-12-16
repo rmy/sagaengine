@@ -48,8 +48,14 @@ namespace se_core {
 	}
 
 	bool ThingCollide
-	::doesGeometryCollide(const CollisionComponent& pusher, const CollisionComponent& target) const {
-		return pusher.doesGeometryCollide(target);
+	::isGuilty(PosComponent& pusher, PosComponent& target) const {
+		// Is this thing's movement bringing it closer, or farther away?
+		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
+		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
+		if(distanceWithPusherMoving > beforeDistance) {
+			return false;
+		}
+		return true;
 	}
 
 
