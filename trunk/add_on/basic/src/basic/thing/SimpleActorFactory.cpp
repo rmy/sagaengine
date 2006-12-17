@@ -32,10 +32,10 @@ namespace se_basic {
 	::create() const {
 		Actor* a = new Actor(name_->get());
 
-		if(isCollideable_) {
+		if(isCollideable_ || collide_) {
 			CollisionComponent* cc = new CollisionComponent(a);
 			cc->setCollide(collide_);
-			cc->setCollideable(true);
+			cc->setCollideable(isCollideable_);
 		}
 
 		a->setPickable(isPickable_);
