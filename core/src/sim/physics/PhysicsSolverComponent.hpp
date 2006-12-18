@@ -40,7 +40,6 @@ namespace se_core {
 		const char* name() { return "PhysicsSolver"; }
 
 
-		void testActors2ThingsCollisions(PhysicsComponent** movers, short moverCount);
 		int performChildPhysics(PhysicsComponent** movers);
 
 		void flipChildren();

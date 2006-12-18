@@ -200,9 +200,7 @@ namespace se_core {
 					list[ count ].cc2_ = &cc2;
 					++count;
 				}
-
 			}
-
 		}
 
 		return count;

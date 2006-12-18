@@ -62,7 +62,6 @@ namespace se_core {
 		void flip(long when);
 		void affect(long when);
 		void performPhysics(long when);
-		void testCollisions(long startWhen, long endWhen);
 
 
 		/**
