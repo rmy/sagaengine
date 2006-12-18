@@ -182,7 +182,7 @@ namespace se_core {
 			// Test collision with all collision candidates
 			for(int inner = 0; inner < innerCount; ++inner) {
 				// Don't test collision with self
-				if(candidates[ inner ]->toActor() == cc->toActor()) {
+				if(candidates[ inner ] == cc) {
 					continue;
 				}
 
@@ -193,7 +193,6 @@ namespace se_core {
 				if(cc < &cc2 && cc->isCollideable() && cc2.isCollideable()) {
 					continue;
 				}
-
 
 				if(_testCollision(*cc, cc2)) {
 					Assert(count < maxCollisions);
