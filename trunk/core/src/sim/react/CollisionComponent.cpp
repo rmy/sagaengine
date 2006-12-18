@@ -126,17 +126,19 @@ namespace se_core {
 		const PosComponent& target = other.posComponent();
 
 		// Is this thing's movement bringing it closer, or farther away?
-		coor_double_t beforeDistanceSq = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		coor_double_t afterDistanceSq = pusher.nextPos().worldCoor().xzDistanceSquared(target.nextPos().worldCoor());
+		/*
+		coor_double_t beforeDistanceSq = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		if(beforeDistanceSq < afterDistanceSq) {
 			//LogMsg(pusher.owner()->name() << " - " << target.owner()->name());
 			// Moving away
 			return false;
 		}
+		*/
 
 		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
 		if(afterDistanceSq > radiusSum * radiusSum) {
-			LogMsg(pusher.owner()->name() << " - " << target.owner()->name() << " - " << radiusSum << " - " << afterDistanceSq);
+			//LogMsg(pusher.owner()->name() << " - " << target.owner()->name() << " - " << radiusSum << " - " << afterDistanceSq);
 			return false;
 		}
 		return true;

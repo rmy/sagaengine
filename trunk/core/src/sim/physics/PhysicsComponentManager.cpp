@@ -128,14 +128,6 @@ namespace se_core {
 
 
 
-	void PhysicsComponentManager
-	::testCollisions(long startWhen, long endWhen) {
-		for(int i = 0; i < activeSolverCount_; ++i) {
-			PhysicsSolverComponent* s = activeSolvers_[i];
-			s->testActors2ThingsCollisions(s->movers_, s->moverCount_);
-		}
-	}
-
 
 	void PhysicsComponentManager
 	::affect(long when) {
