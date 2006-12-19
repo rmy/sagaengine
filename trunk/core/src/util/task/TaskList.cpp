@@ -34,4 +34,9 @@ namespace se_core {
 		return w;
 	}
 
+	void TaskList
+	::add(Task& t) {
+		tasks_.push(&t);
+	}
+
 }

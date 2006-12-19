@@ -23,5 +23,4 @@ rune@skalden.com
 
 namespace se_core {
 
-
 }

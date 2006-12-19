@@ -59,9 +59,7 @@ namespace se_ogre {
 
 		static bool hasStaticGeometry(se_core::SimComposite& thing);
 
-		void perform() {
-			init();
-		}
+		void perform();
 
 	protected:
 		void init();
