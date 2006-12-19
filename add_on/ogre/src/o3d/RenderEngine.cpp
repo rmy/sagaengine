@@ -80,6 +80,10 @@ namespace se_ogre {
 		LogMsg("Destroyed ogre root");
 	}
 
+	void RenderEngine
+	::postSimTickEvent(long when) {
+		O3dSchema::taskList.perform(10);
+	}
 
 
 	void RenderEngine

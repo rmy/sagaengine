@@ -37,7 +37,7 @@ namespace se_ogre {
 
 		void renderEvent(long when) { renderFrame(); }
 		void preSimTickEvent(long when) {}
-		void postSimTickEvent(long when) {}
+		void postSimTickEvent(long when);
 
 
 		static RenderEngine* singleton();
