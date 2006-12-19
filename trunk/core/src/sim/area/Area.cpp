@@ -244,7 +244,7 @@ namespace se_core {
 
 
 	bool Area
-	::isNeighbour(Area& area) const {
+	::isNeighbour(const Area& area) const {
 		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
 			return false;
 		if(area.pageX_ < 0 || pageY_ < 0 || area.pageZ_ < 0)
@@ -263,17 +263,15 @@ namespace se_core {
 
 	bool Area
 	::addNeighbour(Area* area) {
-		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
-			return false;
-		if(area->pageX_ < 0  || area->pageY_ < 0 || area->pageZ_ < 0)
+		if(!isNeighbour(*area))
 			return false;
 
 		short relX = area->pageX_ - pageX_;
 		short relY = area->pageY_ - pageY_;
 		short relZ = area->pageZ_ - pageZ_;
-		if(relX < -1 || relX > 1) return false;
-		if(relY < -1 || relY > 1) return false;
-		if(relZ < -1 || relZ > 1) return false;
+		Assert(relX >= -1 && relX <= 1);
+		Assert(relY >= -1 && relY <= 1);
+		Assert(relZ >= -1 && relZ <= 1);
 
 		Assert(neighbours_[(relX + 1) + 3 * (relY + 1) + 9 * (relZ + 1)] == 0);
 

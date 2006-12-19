@@ -195,10 +195,20 @@ namespace se_core {
 				}
 
 				if(_testCollision(*cc, cc2)) {
-					Assert(count < maxCollisions);
-					list[ count ].cc1_ = cc;
-					list[ count ].cc2_ = &cc2;
-					++count;
+					bool didAlready = false;
+					for(int i = 0; i < count; ++i) {
+						if(list[ i ].cc1_ == &cc2 && list[ i ].cc2_ == cc) {
+							didAlready = true;
+							break;
+						}
+					}
+
+					if(!didAlready) {
+						Assert(count < maxCollisions);
+						list[ count ].cc1_ = cc;
+						list[ count ].cc2_ = &cc2;
+						++count;
+					}
 				}
 			}
 		}

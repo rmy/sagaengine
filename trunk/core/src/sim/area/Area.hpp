@@ -148,7 +148,7 @@ namespace se_core {
 		 * @return true if the passed in area is a neighbour
 		 */
 		bool addNeighbour(Area* area);
-		bool isNeighbour(Area& area) const;
+		virtual bool isNeighbour(const Area& area) const;
 
 		/**
 		 * Flip all moving things in this area, making

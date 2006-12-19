@@ -66,7 +66,11 @@ namespace se_core {
 
 		// Init neighbours
 		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[i]->addNeighbour( area )) {
+			if(areas_[i]->isNeighbour( *area )) {
+				areas_[i]->addNeighbour( area );
+			}
+
+			if(area->isNeighbour( *areas_[i] )) {
 				area->addNeighbour(areas_[i]);
 			}
 		}
@@ -201,6 +205,9 @@ namespace se_core {
 
 				// Do this index again, as it now contains new area
 				--i;
+			}
+			else {
+				LogWarning(active_[i]->name());
 			}
 		}
 

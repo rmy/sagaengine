@@ -17,6 +17,20 @@ namespace se_basic {
 	}
 
 
+	bool NavMeshArea
+	::isNeighbour(const Area& area) const {
+		if(!Area::isNeighbour(area))
+			return false;
+
+		Point3 p(area.pos().worldCoor());
+		p.sub(pos().worldCoor());
+		BoundingBox toArea(p, area.pos().bounds_);
+
+		Point3 tmp;
+		short index = navMesh_->findExit(toArea, tmp);
+		return (index >= 0);
+	}
+
 	coor_t NavMeshArea
 	::groundHeight(const Point3& coor, short index) const {
 		static Tuple3 b;

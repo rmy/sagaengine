@@ -59,10 +59,11 @@ namespace se_fmod {
 					LogMsg(name->get());
 
 					float volume = in.readFloat();
+					bool shouldLoop = (in.readInfoCode() == '+');
 					file = new String();
 					in.readString(*file);
 					LogMsg(language << " " << soundType << ": " << name->get());
-					FmodSchema::sounds.add(language, static_cast<Sounds::SoundType>(soundType), name, volume, file);
+					FmodSchema::sounds.add(language, static_cast<Sounds::SoundType>(soundType), name, volume, file, shouldLoop);
 					LogMsg(name->get());
 				}
 				break;

@@ -23,7 +23,7 @@ rune@skalden.com
 #define SoundPlayer_hpp
 
 #include "sim/message/SoundListener.hpp"
-#include <fmod.h>
+#include <fmod.hpp>
 
 
 namespace se_fmod {
@@ -35,12 +35,11 @@ namespace se_fmod {
 		void ambienceEvent(char* snd);
 		void soundEvent(se_core::Actor& speaker, const char* snd);
 
-		FMOD_SOUND* loadSound(const char* filename);
+		FMOD::Sound* loadSound(const char* filename, bool shouldLoop);
 
 	private:
-		FMOD_SYSTEM *system_;
-		FMOD_CHANNEL *channel_;
-		//FMOD_CHANNEL *channel = 0;
+		FMOD::System *system_;
+		FMOD::Channel *channel_;
 	};
 
 }
