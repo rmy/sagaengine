@@ -27,12 +27,15 @@ rune@skalden.com
 #include "sim/thing/Actor.hpp"
 #include "sim/message/SoundCentral.hpp"
 #include "sim/schema/SimSchema.hpp"
+#include "sim/area/Area.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "client/schema/ClientSchema.hpp"
 #include <fmod_errors.h>
 #include <cstdio>
 
 using namespace se_core;
+using namespace se_client;
 
 namespace se_fmod {
 	void ERRCHECK(FMOD_RESULT result) {
@@ -48,11 +51,13 @@ namespace se_fmod {
 		//result = FMOD_Memory_Initialize(new unsigned char[ MEM_SIZE ], MEM_SIZE, 0, 0, 0);
 		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
-		result = FMOD_System_Create(&system_);
+		result = FMOD::System_Create(&system_);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
-		result = FMOD_System_Init(system_, 32, FMOD_INIT_NORMAL, NULL);
+		result = system_->init(32, FMOD_INIT_NORMAL, NULL);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+
+		system_->setSoftwareChannels(128);
 
 		SimSchema::soundCentral.addListener(*this);
 	}
@@ -61,14 +66,7 @@ namespace se_fmod {
 	SoundPlayer
 	::~SoundPlayer() {
 		FMOD_RESULT result;
-		/*
-		result = FMOD_Sound_Release(music_);
-		ERRCHECK(result);
-		result = FMOD_Sound_Release(sound_);
-		ERRCHECK(result);
-		*/
-
-		result = FMOD_System_Close(system_);
+		result = system_->close();
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
@@ -77,13 +75,14 @@ namespace se_fmod {
 	::ambienceEvent(char* snd) {
 		FMOD_RESULT result;
 		float volume;
-		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::MUSIC, snd, volume);
+		FMOD::Sound *s = FmodSchema::sounds.get(Sounds::MUSIC, snd, volume);
 		if(!s) {
 			LogWarning("Couldn't play ambience: " << snd);
 			return;
 		}
-		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, 0, &channel_);
-		FMOD_Channel_SetVolume(channel_, volume);
+		result = system_->playSound(FMOD_CHANNEL_FREE, s, 0, &channel_);
+		channel_->setVolume(volume);
+		channel_->setPriority(0);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
@@ -92,24 +91,44 @@ namespace se_fmod {
 	::soundEvent(Actor& speaker, const char* snd) {
 		FMOD_RESULT result;
 		float volume;
-		FMOD_SOUND *s = FmodSchema::sounds.get(Sounds::SOUND, snd, volume);
+		FMOD::Sound *s = FmodSchema::sounds.get(Sounds::SOUND, snd, volume);
 		if(!s) {
 			LogWarning("Couldn't play sound: " << snd);
 			return;
 		}
 
-		result = FMOD_System_PlaySound(system_, FMOD_CHANNEL_FREE, s, true, &channel_);
+		result = system_->playSound(FMOD_CHANNEL_FREE, s, true, &channel_);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
 		se_core::Point3 c(speaker.pos().worldCoor());
 		c.sub(se_client::ClientSchema::player->pos().worldCoor());
 		//c.scale(0.125);
-        //FMOD_VECTOR pos = { c.x_, c.y_, c.z_ };
-        //FMOD_VECTOR vel = { 0.0f,  0.0f, 0.0f };
-		//result = FMOD_Channel_Set3DAttributes(channel_, &pos, &vel);
-		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+		FMOD_VECTOR pos = { c.x_, c.y_, c.z_ };
+		FMOD_VECTOR vel = { 0.0f,  0.0f, 0.0f };
+		result = channel_->set3DAttributes(&pos, &vel);
+		if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 
-		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .1;
+		scale_t d = 1;
+		int priority = 1;
+		if(speaker.nextPos().area() != ClientSchema::camera->pos().area()) {
+			d = .5f;
+			priority = 2;
+			
+			if(speaker.nextPos().hasArea() && ClientSchema::camera->pos().hasArea()) {
+				if(!speaker.nextPos().area()->toArea()->isNeighbour(*ClientSchema::camera->pos().area()->toArea())) {
+					d = .25f;
+					priority = 3;
+				}
+			}
+			else {
+				d = 0;
+				priority = 255;
+			}
+		}
+		channel_->setPriority(priority);
+		/*
+
+		coor_t d = speaker.pos().worldCoor().distance(se_client::ClientSchema::player->pos().worldCoor()) * .1f;
 		if(d < .5f) { 
 			d = 1;
 		}
@@ -117,26 +136,28 @@ namespace se_fmod {
 			d = .5f / d;
 		}
 
-		FMOD_Channel_SetVolume(channel_, d * volume);
+		*/
+		channel_->setVolume(volume * d);
+		channel_->setLoopCount(0);
 
 
-        result = FMOD_Channel_SetPaused(channel_, false);
+		result = channel_->setPaused(false);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
-	FMOD_SOUND* SoundPlayer
-	::loadSound(const char* filename) {
+	FMOD::Sound* SoundPlayer
+	::loadSound(const char* filename, bool shouldLoop) {
 		FMOD_RESULT result;
-		FMOD_SOUND* snd;
+		FMOD::Sound* snd;
 		char buffer[256];
 
 		// TODO: Load path from datapath.txt
 		const char* dirname = IoSchema::dataPath;
 		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
 		LogMsg(buffer);
-		//result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE, 0, &snd);
-		result = FMOD_System_CreateSound(system_, buffer, FMOD_SOFTWARE | FMOD_3D, 0, &snd);
+
+		result = system_->createSound(buffer, FMOD_SOFTWARE | FMOD_3D | (shouldLoop ? 0 : FMOD_LOOP_NORMAL), 0, &snd);
 		if (result != FMOD_OK) {
 			AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 			snd = 0;

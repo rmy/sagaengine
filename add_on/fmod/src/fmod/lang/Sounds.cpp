@@ -40,7 +40,7 @@ namespace se_fmod {
 
 	Sounds
 	::~Sounds() {
-		FMOD_RESULT result;
+		//FMOD_RESULT result;
 
 		while(soundCount_ > 0) {
 			--soundCount_;
@@ -60,11 +60,11 @@ namespace se_fmod {
 	}
 
 	void Sounds
-	::add(unsigned short language, SoundType type, String* nameC, float volume, String* soundC) {
+	::add(unsigned short language, SoundType type, String* nameC, float volume, String* soundC, bool shouldLoop) {
 		Assert(soundCount_ < MAX_SOUNDS);
 
 		const char* name = nameC->get();
-		FMOD_SOUND *sound = FmodSchema::soundPlayer->loadSound(soundC->get());
+		FMOD::Sound *sound = FmodSchema::soundPlayer->loadSound(soundC->get(), shouldLoop);
 		if(!sound) {
 			LogMsg("Couldn't load sound: " << soundC->get());
 			return;
@@ -84,6 +84,7 @@ namespace se_fmod {
 		sounds_[ index ].soundC_ = soundC;
 		sounds_[ index ].name_ = name;
 		sounds_[ index ].volume_ = volume;
+		sounds_[ index ].shouldLoop_ = shouldLoop;
 
 		Assert(FmodSchema::soundPlayer && "Sound player object not created");
 		sounds_[ index ].sound_ = sound;
@@ -121,7 +122,7 @@ namespace se_fmod {
 	}
 
 
-	FMOD_SOUND* Sounds
+	FMOD::Sound* Sounds
 	::get(SoundType type, const char* name, float& volumeOut) {
 		// Is there a language specific sound?
 		short index = find(type, name, currentLanguage_);

@@ -23,7 +23,7 @@ rune@skalden.com
 #define Sounds_hpp
 
 #include "util/type/util_type.hpp"
-#include <fmod.h>
+#include <fmod.hpp>
 
 namespace se_fmod {
 	class Sounds {
@@ -36,9 +36,9 @@ namespace se_fmod {
 		static const unsigned short NORWEGIAN = 'N' * 256 + 'O';
 		static const unsigned short FRENCH = 'F' * 256 + 'R';
 
-		void add(unsigned short language, SoundType type, se_core::String* name, float volume, se_core::String* filename);
+		void add(unsigned short language, SoundType type, se_core::String* name, float volume, se_core::String* filename, bool shouldLoop);
 		short find(SoundType type, const char* name, unsigned short lang);
-		FMOD_SOUND* get(SoundType type, const char* name, float& volumeOut);
+		FMOD::Sound* get(SoundType type, const char* name, float& volumeOut);
 		void setLanguage(unsigned short language);
 		static unsigned short languageId(const char* language);
 		bool isFound(short index, SoundType type, const char* name, unsigned short lang);
@@ -53,8 +53,9 @@ namespace se_fmod {
 			const char* name_;
 			se_core::String* soundC_;
 			se_core::String* filename_;
-			FMOD_SOUND *sound_;
+			FMOD::Sound *sound_;
 			float volume_;
+			bool shouldLoop_;
 		} *sounds_;
 
 		short soundCount_;
