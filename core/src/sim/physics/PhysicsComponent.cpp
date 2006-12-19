@@ -47,10 +47,15 @@ namespace se_core {
 		--currentPhysics_;
 	}
 
+	void PhysicsComponent
+	::clearPhysics() {
+		currentPhysics_ = 0;
+		physics_[0] = 0;
+	}
 
 	void PhysicsComponent
 	::pushPhysics(const Physics* ph) {
-		if(hasPhysics() && physics().isStacker()) {
+		if(hasDefaultPhysics() && physics().isStacker()) {
 			// Increase script counter
 			++currentPhysics_;
 		}
@@ -68,7 +73,7 @@ namespace se_core {
 
 	bool PhysicsComponent
 	::calcNextCoor() {
-		if(!hasPhysics()) {
+		if(!hasDefaultPhysics()) {
 			didMove_ = false;
 			affect_ = 0;
 			return false;
@@ -96,7 +101,7 @@ namespace se_core {
 	bool PhysicsComponent
 	::isMover() const {
 		// Actors that has physics can move
-		return hasPhysics();
+		return hasDefaultPhysics();
 	}
 
 

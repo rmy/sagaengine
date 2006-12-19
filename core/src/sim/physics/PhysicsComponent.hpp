@@ -67,6 +67,7 @@ namespace se_core {
 		void pushPhysics(const char* name);
 		void pushPhysics(const Physics *ph);
 		void popPhysics();
+		void clearPhysics();
 
 		inline const Move& move() const {
 			return move_;
@@ -84,8 +85,12 @@ namespace se_core {
 
 		void flip();
 
+		//inline bool hasPhysics() const {
+		//	return (currentPhysics_ >= 0 && physics_[currentPhysics_] != 0);
+		//}
+
 	private:
-		inline bool hasPhysics() const {
+		inline bool hasDefaultPhysics() const {
 			return (physics_[0] != 0);
 		}
 
