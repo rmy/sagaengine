@@ -44,6 +44,7 @@ namespace se_ogre {
 
 		RaySceneQuery* raySceneQuery = 0;
 		ThingMOList thingMOList(2);
+		se_core::TaskList taskList;
 
 		Ogre::Root* root = 0;
 		Ogre::SceneManager* sceneManager = 0;

@@ -69,25 +69,25 @@ namespace se_ogre {
 		setVisible(false);
 	}
 
+
+	void O3dAreaComponent
+	::perform() {
+		init();
+		LogMsg(owner()->name());
+		node_->_updateBounds();
+		setVisible(true);
+	}
+
+
 	void O3dAreaComponent
 	::setActive(bool state) {
-
 		LogMsg(owner()->name() << ": " << state);
 		if(state) {
-			init();
-			/*
-			MultiSimNodeComponent::TreeIterator it(children_);
-			while(it.hasNext()) {
-				O3dThingComponent* tc = static_cast<O3dThingComponent*>(&it.next());
-				LogMsg(tc->owner()->name());
-				tc->setParentNode(node_);
-				//tc->setParentNode(O3dSchema::sceneManager->getRootSceneNode());
-			}
-			*/
-			LogMsg(owner()->name());
-			node_->_updateBounds();
+			O3dSchema::taskList.add(*this);
 		}
-		setVisible(state);
+		else {
+			setVisible(false);
+		}
 	}
 
 
