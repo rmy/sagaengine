@@ -206,9 +206,6 @@ namespace se_core {
 				// Do this index again, as it now contains new area
 				--i;
 			}
-			else {
-				LogWarning(active_[i]->name());
-			}
 		}
 
 		DebugExec(integrity());

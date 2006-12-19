@@ -28,7 +28,7 @@ rune@skalden.com
 #include "o3d_area.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent {
+	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
 		O3dAreaComponent(se_core::SimComposite* owner);
 		~O3dAreaComponent();
@@ -58,6 +58,10 @@ namespace se_ogre {
 		void areaOffset(Ogre::Vector3& dest);
 
 		static bool hasStaticGeometry(se_core::SimComposite& thing);
+
+		void perform() {
+			init();
+		}
 
 	protected:
 		void init();

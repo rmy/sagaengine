@@ -50,8 +50,11 @@ namespace se_ogre {
 		 */
 		extern _SeOgreExport ThingMOList thingMOList;
 
+		extern _SeOgreExport se_core::TaskList taskList;
+
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
-		
+
+
 		/**
 		 * The Ogre::Root singleton.
 		 */

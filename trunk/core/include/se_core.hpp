@@ -43,6 +43,7 @@ rune@skalden.com
 #include "../src/util/system/all.hpp"
 #include "../src/util/type/all.hpp"
 #include "../src/util/math/all.hpp"
+#include "../src/util/task/all.hpp"
 #include "../src/util/template/all.hpp"
 #include "../src/util/vecmath/all.hpp"
 #include "../src/util/error/all.hpp"
