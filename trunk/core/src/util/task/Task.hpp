@@ -29,22 +29,32 @@ namespace se_core {
 	class _SeCoreExport Task {
 	public:
 		Task(int priority, int weight) : priority_(priority), weight_(0) { }
-		Task() : priority_(1), weight_(256) {}
+		Task() : priority_(1), weight_(256), isInProgress_(false) {}
 		virtual void perform() = 0;
-		int priority() {
+
+		int priority() const {
 			return priority_;
 		}
-		int weight() {
+		void setPriority(int p) {
+			priority_ = p;
+		}
+		void setWeight(int w) {
+			weight_ = w;
+		}
+		int weight() const {
 			return weight_;
 		}
-		bool operator<(Task const &op) {
-			return priority_ < op.priority_;
-		}
 
-		private:
-			int priority_;
-			int weight_;
+	private:
+		int next();
+
+		int priority_;
+		int weight_;
+
+		friend class TaskList;
+		bool isInProgress_;
 	};
+
 }
 
 #endif

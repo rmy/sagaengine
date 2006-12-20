@@ -31,7 +31,7 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::O3dThingComponent(SimComposite* owner)
-		: O3dNodeComponent(sct_RENDER, owner), parentNode_(0), isVisible_(false)
+		: O3dNodeComponent(sct_RENDER, owner), Task(2, 8), parentNode_(0), isVisible_(false)
 		, isInitialized_(false)
 		, firstThingMO_(ThingMOList::end()) {
 		node_ = O3dSchema::sceneManager->createSceneNode();
@@ -49,6 +49,7 @@ namespace se_ogre {
 		if(isInitialized_)
 			return;
 		isInitialized_ = true;
+
 
 		if(!parentNode_) {
 			PosComponent* a = toActor()->nextPos().area();
@@ -69,6 +70,10 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
+		if(PlayerComponent::get(*this->owner()) != 0) {
+			LogWarning("!");
+		}
+
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
@@ -78,14 +83,28 @@ namespace se_ogre {
 
 	}
 
+	void O3dThingComponent
+	::perform() {
+		if(!isActive())
+			return;
+		init();	
+		setVisible(true);
+	}
+
 
 	void O3dThingComponent
 	::setActive(bool state) {
 		if(state) {
-			init();	
-			setVisible(true);
+			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)->nextPos().area()) {
+				this->setPriority(1);
+			}
+			else {
+				this->setPriority(5);
+			}
+			O3dSchema::taskList.add(*this);
 		}
 		else {
+			O3dSchema::taskList.remove(*this);
 			setVisible(false);
 			clear();
 		}
@@ -110,6 +129,10 @@ namespace se_ogre {
 		// Are interpolations meaningful at all?
 		if(owner() == 0)
 			return;
+
+		if(!isInitialized_)
+			return;
+
 		if(isDead() || !isActive() || !toActor()->pos().isKeyFramePath(toActor()->nextPos())) {
 			// If not skip it
 			setVisible(false);

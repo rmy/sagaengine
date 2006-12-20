@@ -25,18 +25,66 @@ namespace se_core {
 
 	int TaskList
 	::perform(int weight) {
-		int w = tasks_.top()->weight();
-		do {
-			tasks_.top()->perform();
-			tasks_.pop();
-			w +=  tasks_.top()->weight();
-		} while(w <= weight);
+		int n = next();
+		if(n < 0) {
+			freePoints_ = 0;
+			return 0;
+		}
+		int w = 0;
+		freePoints_ += (n >= 0) ? weight : -freePoints_;
+		/*
+		if((n >= 0) && (w + tasks_[n]->weight() < freePoints_)) {
+			tasks_[n]->perform();
+			w += tasks_[n]->weight();
+			tasks_[n] = tasks_[ --taskCount_ ];
+			freePoints_ = 0;
+		}
+		*/
+		while(n >= 0 && w + tasks_[n]->weight() < freePoints_) {
+			tasks_[n]->perform();
+			w += tasks_[n]->weight();
+			tasks_[n]->isInProgress_ = false;
+			tasks_[n] = tasks_[ --taskCount_ ];
+			n = next();
+		}
+		freePoints_ -= w;
 		return w;
+	}
+
+	int TaskList
+	::next() {
+		int n = -1;
+		int p = 65536;
+		for(int i = 0; i < taskCount_; ++i) {
+			if(tasks_[i]->priority() < p) {
+				n = i;
+				p = tasks_[i]->priority();
+			}
+		}
+		return n;
 	}
 
 	void TaskList
 	::add(Task& t) {
-		tasks_.push(&t);
+		if(t.isInProgress_) {
+			remove(t);
+		}
+		t.isInProgress_ = true;
+		tasks_[ taskCount_++ ] = &t;
 	}
 
+
+	void TaskList
+	::remove(Task& t) {
+		if(!t.isInProgress_)
+			return;
+
+		for(int i = 0; i < taskCount_; ++i) {
+			if(tasks_[ i ] == &t) {
+				tasks_[ i ] = tasks_[ --taskCount_ ];
+				tasks_[ i ]->isInProgress_ = false;
+				--i;
+			}
+		}
+	}
 }

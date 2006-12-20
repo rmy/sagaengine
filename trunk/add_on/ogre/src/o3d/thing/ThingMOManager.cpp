@@ -63,7 +63,7 @@ namespace se_ogre {
 		delete[] factories_;
 	}
 
-	/*
+	/*23283940 Elin Bjelkerud
 	void ThingMOManager
 	::addInfo(ThingMOInfo* info) {
 		// Insert - keep sorted

@@ -33,7 +33,10 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::O3dAreaComponent(SimComposite* owner)
-		: O3dNodeComponent(sct_RENDER, owner), isVisible_(false), isInitialized_(false) {
+		: O3dNodeComponent(sct_RENDER, owner), Task(0, 32), isVisible_(false), isInitialized_(false) {
+			setPriority(0);
+			setWeight(0);
+			O3dSchema::taskList.add(*this);
 	}
 
 
@@ -74,6 +77,8 @@ namespace se_ogre {
 	::perform() {
 		init();
 		LogMsg(owner()->name());
+		if(!isActive())
+			return;
 		node_->_updateBounds();
 		setVisible(true);
 	}
@@ -83,9 +88,18 @@ namespace se_ogre {
 	::setActive(bool state) {
 		LogMsg(owner()->name() << ": " << state);
 		if(state) {
+			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)) {
+				setPriority(0);
+				setWeight(0);
+			}
+			else {
+				setPriority(2);
+				setWeight(isInitialized_ ? 16 : 64);
+			}
 			O3dSchema::taskList.add(*this);
 		}
 		else {
+			O3dSchema::taskList.remove(*this);
 			setVisible(false);
 		}
 	}
@@ -139,6 +153,7 @@ namespace se_ogre {
 	::compileStaticGeometry() {
 		Area* a = toArea();
 		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(owner()->name());
+
 		Ogre::Entity* entity;
 
 		sg->setOrigin(offset_);
@@ -153,6 +168,7 @@ namespace se_ogre {
 			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
 			entity->setNormaliseNormals(true);
 		}
+
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
 
 		// Add static things

@@ -28,7 +28,7 @@ rune@skalden.com
 #include "o3d_thing.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent {
+	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
 		O3dThingComponent(se_core::SimComposite* owner);
 		~O3dThingComponent();
@@ -49,9 +49,8 @@ namespace se_ogre {
 			return c;
 		}
 
-
-
 		void init();
+		void perform();
 		void clear();
 
 		void setActive(bool state);
