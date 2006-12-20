@@ -104,6 +104,9 @@ namespace se_core {
 
 	void CollisionComponent
 	::move() {
+		if(!parent_)
+			return;
+
 		Point3 oldPos, newPos;
 		coor_t oldRadius = areaCovered().radius();
 		areaCovered().center(oldPos);

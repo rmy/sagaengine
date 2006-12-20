@@ -70,10 +70,6 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
-		if(PlayerComponent::get(*this->owner()) != 0) {
-			LogWarning("!");
-		}
-
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
