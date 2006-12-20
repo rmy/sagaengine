@@ -92,10 +92,12 @@ namespace se_ogre {
 	::setActive(bool state) {
 		if(state) {
 			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)->nextPos().area()) {
-				this->setPriority(4);
+				this->setPriority(1);
+				this->setWeight(0);
 			}
 			else {
 				this->setPriority(5);
+				this->setWeight(8);
 			}
 			O3dSchema::taskList.add(*this);
 		}
