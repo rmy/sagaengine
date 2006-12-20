@@ -102,9 +102,6 @@ namespace se_core {
 
 	bool PosComponent
 	::changeParent() {
-		leaveCurrentParent();
-
-
 		if(nextPos().hasParent()) {
 			owner_->setParent(*nextPos().parent()->owner());
 			owner_->setActive(nextPos().parent()->isActive());

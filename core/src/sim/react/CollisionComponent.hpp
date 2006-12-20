@@ -61,6 +61,9 @@ namespace se_core {
 
 		int tag();
 		bool shouldIgnore(CollisionComponent& cc);
+		void resetIgnore() {
+			ignore_ = 0;
+		}
 		void setIgnore(CollisionComponent& cc) {
 			ignore_ = &cc;
 		}

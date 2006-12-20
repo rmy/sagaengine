@@ -82,9 +82,17 @@ namespace se_core {
 
 		// Align the grid coordinate system with
 		// this areas coordinate system
-		collisionGrid_->setSize(toArea()->width(), toArea()->height());
+		const coor_tile_t w = toArea()->width();
+		const coor_tile_t h = toArea()->height();
 
-		collisionGrid_->setOffset(toArea()->pos().worldCoor());
+		// TODO: Improve this desperate solution for border creatures (* 2)
+		// see aldo CollisionManager
+		collisionGrid_->setSize(w * 2, h * 2);
+
+		Point3 offset(toArea()->pos().worldCoor());
+		offset.sub(Point3(CoorT::fromTile(w), 0, CoorT::fromTile(h)));
+
+		collisionGrid_->setOffset(offset);
 
 		// Add collideable elements to grid
 		MultiSimNodeComponent::Iterator it(children_);

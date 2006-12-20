@@ -5,6 +5,7 @@
 #include "stat/MultiSimComponent.hpp"
 #include "stat/MultiSimComposite.hpp"
 #include "sim.hpp"
+#include "O3dPre.hpp"
 
 namespace se_core {
    	SimComposite

@@ -28,13 +28,18 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport TaskList {
 	public:
-		TaskList() { }
+		TaskList() : taskCount_(0), freePoints_(0) { }
 
 		void add(Task& task);
+		void remove(Task& task);
 		int perform(int weight);
 	
 	private:
-		std::priority_queue<Task*> tasks_;
+		int next();
+
+		int taskCount_, freePoints_;
+		static const int MAX_TASKS = 256;
+		Task* tasks_[MAX_TASKS];
 	};
 }
 

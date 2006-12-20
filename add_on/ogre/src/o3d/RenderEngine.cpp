@@ -82,7 +82,7 @@ namespace se_ogre {
 
 	void RenderEngine
 	::postSimTickEvent(long when) {
-		O3dSchema::taskList.perform(10);
+		O3dSchema::taskList.perform(1);
 	}
 
 

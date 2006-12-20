@@ -78,7 +78,9 @@ namespace se_core {
 			while((1 << (d + 1)) < maxWidth / 4 && (1 << (d + 1)) < maxHeight / 4)
 				++d;
 
-			CollisionGrid* g = new CollisionGrid(maxWidth, maxHeight, d);
+			// TODO: Fix this desperate solution for border creatures (* 2)
+			// See also CollisionAreaManager
+			CollisionGrid* g = new CollisionGrid(maxWidth * 2, maxHeight * 2, d);
 			gridPool_[ gridPoolCount_++ ] = g;
 			collisionGrids_[ gridCount_++ ] = g;
 		}
