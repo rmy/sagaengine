@@ -92,7 +92,7 @@ namespace se_ogre {
 	::setActive(bool state) {
 		if(state) {
 			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)->nextPos().area()) {
-				this->setPriority(1);
+				this->setPriority(4);
 			}
 			else {
 				this->setPriority(5);
