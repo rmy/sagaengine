@@ -40,6 +40,7 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::~O3dThingComponent() {
+		O3dSchema::taskList.remove(*this);
 		clear();
 	}
 
