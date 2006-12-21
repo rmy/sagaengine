@@ -92,7 +92,7 @@ namespace se_core {
 				}
 				else {
 					if(yp >= 0)
-						angle = BrayT::DEG180;
+						angle = BrayT::DEG90;
 					else
 						angle = BrayT::DEG270;
 				}
