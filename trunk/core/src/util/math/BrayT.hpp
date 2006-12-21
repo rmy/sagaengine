@@ -65,11 +65,11 @@ namespace se_core {
 
 
 		inline static bray_t towards(bray_t from, bray_t to, bray_t d) {
-			bray_t diff = from - to;
+			bray_t diff = mask(from - to);
 			if(abs(diff) <= d)
 				return to;
 
-			if(mask(diff) < DEG180) {
+			if(diff < DEG180) {
 				return sub(from, d);
 			}
 			else {
