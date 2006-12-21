@@ -83,7 +83,7 @@ namespace se_ogre {
 	::perform() {
 		if(!isActive() || isDead())
 			return;
-		init();	
+		init();
 		setVisible(true);
 	}
 
@@ -97,7 +97,7 @@ namespace se_ogre {
 			}
 			else {
 				this->setPriority(5);
-				this->setWeight(8);
+				this->setWeight(1);
 			}
 			O3dSchema::taskList.add(*this);
 		}

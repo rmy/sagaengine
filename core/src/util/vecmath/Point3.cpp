@@ -52,7 +52,7 @@ namespace se_core {
 	::yawTowards(const Point3& c) const {
 		coor_t xp = c.x_ - x_;
 		coor_t yp = c.z_ - z_;
-		return Trig::atan2(yp, -xp);
+		return Trig::atan2(-yp, xp);
 	}
 
 
@@ -61,7 +61,6 @@ namespace se_core {
 		coor_t xp = c.x_ - x_;
 		coor_t zp = c.z_ - z_;
 		dest.yaw_ = Trig::atan2(-zp, xp);
-
 
 		coor_t xzp = CoorT::sqrt(xp * xp + zp * zp);
 		coor_t yp = c.y_ - y_;

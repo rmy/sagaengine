@@ -56,6 +56,7 @@ namespace se_core {
 		Euler3 torque_; // Torque - forces changing rotation
 
 		scale_t friction_;
+		coor_t threshold_;
 
 		// The physics object is free to interpret these values as they like
 		struct WorkVars {
