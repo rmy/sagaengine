@@ -81,7 +81,7 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::perform() {
-		if(!isActive())
+		if(!isActive() || isDead())
 			return;
 		init();	
 		setVisible(true);

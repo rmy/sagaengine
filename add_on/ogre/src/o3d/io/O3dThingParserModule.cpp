@@ -118,6 +118,23 @@ namespace se_ogre {
 				}
 				break;
 
+			case 'F': // Translation offset
+				{
+					se_core::Euler3 eTmp;
+					eTmp.yaw_ = BrayT::fromDeg(in.readFloat());
+					eTmp.pitch_ = BrayT::fromDeg(in.readFloat());
+					eTmp.roll_ = BrayT::fromDeg(in.readFloat());
+
+					se_core::Quat4 qTmp(eTmp);
+
+					info->rot_.w = QuatT::toFloat(qTmp.w_);
+					info->rot_.x = QuatT::toFloat(qTmp.x_);
+					info->rot_.y = QuatT::toFloat(qTmp.y_);
+					info->rot_.z = QuatT::toFloat(qTmp.z_);
+
+				}
+				break;
+
 			case 'B': // Billboard
 				{
 					in.readString(info->defaultMaterial_);
