@@ -136,6 +136,7 @@ namespace se_ogre {
 				SimSchema::engineListeners().addListener(*O3dSchema::renderEngine);
 
 				//O3dSchema::worldManager->compileAllStaticGeometry();
+				O3dSchema::taskList.perform(1024);
 			}
 
 			void cleanupGameEvent() {

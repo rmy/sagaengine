@@ -71,7 +71,7 @@ namespace se_core {
 
 
 	void Move
-	::flick() {
+	::resetForces() {
 		// Forces must be reapplied every step
 		force_.reset();
 		torque_.reset();

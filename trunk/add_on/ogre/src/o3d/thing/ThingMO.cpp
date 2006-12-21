@@ -39,6 +39,7 @@ namespace se_ogre {
 		// Create things node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
 		node_->setPosition(info_.offset_);
+		node_->setOrientation(info_.rot_);
 
 		// Scale all children of this node
 		Ogre::Real s = info_.scale_;
@@ -126,7 +127,7 @@ namespace se_ogre {
 	void ThingMO
 	::resetPos() {
 		node_->setPosition(info_.offset_);
-		node_->resetOrientation();
+		node_->setOrientation(info_.rot_);
 	}
 
 }

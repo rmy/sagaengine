@@ -55,6 +55,8 @@ namespace se_core {
 		Vector3 force_; // Forces applied (acceleration)
 		Euler3 torque_; // Torque - forces changing rotation
 
+		scale_t friction_;
+
 		// The physics object is free to interpret these values as they like
 		struct WorkVars {
 			coor_t speed_;
@@ -105,7 +107,7 @@ namespace se_core {
 		 * now. Performed by the SimEngine just before it precalculates coordinates
 		 * for the next step.
 		 */
-		void flick();
+		void resetForces();
 
 
 		/**

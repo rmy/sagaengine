@@ -131,9 +131,9 @@ namespace se_ogre {
 			LogMsg("Your card does not support vertex programs.");
 		}
 
-        // Setup animation default
-        Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
-        Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
+		// Setup animation default
+		Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
+		Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
 		LogMsg("Initialized interpolation of animations.");
 
 		if(IS_CONSOLE_ENABLED) {

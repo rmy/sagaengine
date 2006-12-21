@@ -43,6 +43,7 @@ namespace se_ogre {
 
 		// Offset
 		Ogre::Vector3 offset_;
+		Ogre::Quaternion rot_;
 
 		// Level of Detail
 		float scale_;
