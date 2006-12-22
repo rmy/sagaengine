@@ -42,6 +42,7 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::~O3dAreaComponent() {
+		O3dSchema::taskList.remove(*this);
 		clear();
 	}
 
