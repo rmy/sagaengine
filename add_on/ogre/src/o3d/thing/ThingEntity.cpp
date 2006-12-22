@@ -141,6 +141,9 @@ namespace se_ogre {
 			O3dAnimation* a = info_.animation(channel, animId);
 			if(a && !a->name_.isEmpty()) {
 				// Set the animation state
+				AssertFatal(entity_->hasSkeleton() || entity_->hasVertexAnimation(), "Can't find skeleton or vertex animation for " << thing_.owner()->name());
+				AssertFatal(entity_->getAllAnimationStates()->hasAnimationState(a->name_.get()),
+						"Couldn't set up animation " << a->name_.get() << " for " << thing_.owner()->name());
 				state_[channel] = entity_->getAnimationState(a->name_.get());
 
 				// Enable looping
