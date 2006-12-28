@@ -101,7 +101,7 @@ namespace se_basic {
 		};
 
 		short via = from.index();
-		short prev = -1;
+		short prev = -2;
 		dest.set(from.localCoor().x_, from.localCoor().z_);
 		while(via != toIndex) {
 			Point3* b[] = {
@@ -114,13 +114,16 @@ namespace se_basic {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {
 					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
+						if(next != -1) {
+							LogWarning("!");
+						}
 						next = link;
 						//LogMsg("Found link: " << via << ", " << next << ", " << toIndex << " (" << dest.x_ << ", " << dest.y_ << ")");
 					}
 				}
 			}
 			if(next < 0) {
-				//LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
+				LogWarning("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
 				return;
 			}
 
