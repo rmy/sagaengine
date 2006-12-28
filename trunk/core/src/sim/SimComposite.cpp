@@ -24,6 +24,7 @@ namespace se_core {
 
 	SimComposite
 	::~SimComposite() {
+		releaseComponents();
 	}
 
 

@@ -280,7 +280,7 @@ namespace se_core {
 		/**
 		 * Get the radius of the position.
 		 */
-		inline coor_t radius() const { return bounds_.maxX_; }
+		inline coor_t radius() const { return bounds_.radius(); }
 
 
 		/**

@@ -50,6 +50,7 @@ namespace se_ogre {
 		}
 
 		void init();
+		void cleanup();
 		void perform();
 		void clear();
 

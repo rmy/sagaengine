@@ -185,6 +185,7 @@ namespace se_core {
 		return parent_ != 0 && parent_->didMove();
 	}
 
+
 	void Pos
 	::setParent(PosComponent& p, bool doKeepWorldCoor) {
 		parent_ = &p;

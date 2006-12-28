@@ -131,7 +131,7 @@ namespace se_basic {
 	}
 
 
-	void NavMeshArea
+	coor_t NavMeshArea
 	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, Point3& dest) {
 		coor_t len = farthestLineOfSight(from, yaw, maxLen, maxOffNavMesh);
 		Point3 toPoint;
@@ -142,6 +142,7 @@ namespace se_basic {
 			dest.z_ = toPoint.z_;
 		}
 
+		return len;
 	}
 
 
