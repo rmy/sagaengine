@@ -43,9 +43,7 @@ namespace se_pc {
 
 	PcFileManager
 	::~PcFileManager() {
-		while(fileCount_ > 0) {
-			delete files_[ --fileCount_ ];
-		}
+		clear();
 	}
 
 
@@ -69,11 +67,11 @@ namespace se_pc {
 
 
 	void PcFileManager
-	::init() {
+	::init(const char** files) {
+		clear();
+
 		InputStream* is;
 		String* s = new String();
-
-		const char* files[] = { "logic/files.txt", "ogre/files.txt", 0 };
 
 		for(const char** f = files; *f != 0; ++f) {
 			is = open(*f);
@@ -96,11 +94,23 @@ namespace se_pc {
 	}
 
 
+	void PcFileManager
+	::clear() {
+		while(fileCount_ > 0) {
+			delete files_[ --fileCount_ ];
+		}
+	}
+
+
 	bool PcFileManager
 	::isBinaryFile(const char* filename) {
 		const char* s = filename;
 		short len = static_cast<short>(strlen(s));
+		if(len < 4)
+			return false;
 
+		if(s[ len - 4 ] != '.')
+			return false;
 		if(s[ len - 3 ] != 'b')
 			return false;
 		if(s[ len - 2 ] != 'i')

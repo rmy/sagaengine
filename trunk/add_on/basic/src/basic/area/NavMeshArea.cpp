@@ -103,9 +103,52 @@ namespace se_basic {
 		return navMesh_->isInLineOfSight(from, to);
 	}
 
+
+
+	coor_t NavMeshArea
+	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) {
+		Point2 p;
+
+		Point3 toPoint;
+		toPoint.setForward(maxLen, yaw);
+		toPoint.add(from.worldCoor());
+		short toIndex = index(toPoint, -1);
+		toPoint.sub(nextPos().worldCoor());
+
+		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
+		toPoint.x_ = p.x_ + nextPos().worldCoor().x_;
+		toPoint.z_ = p.y_ + nextPos().worldCoor().z_;
+
+		Vector3 dist;
+		dist.sub(from.worldCoor(), toPoint);
+		dist.y_ = 0;
+		coor_t len = dist.length();
+		len += maxOffNavMesh;
+		if(len > maxLen)
+			len = maxLen;
+
+		return len;
+	}
+
+
+	void NavMeshArea
+	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, Point3& dest) {
+		coor_t len = farthestLineOfSight(from, yaw, maxLen, maxOffNavMesh);
+		Point3 toPoint;
+		toPoint.setForward(len, yaw);
+		toPoint.add(from.worldCoor());
+		if(toPoint.xzDistanceSquared(from.worldCoor()) < dest.xzDistanceSquared(from.worldCoor())) {
+			dest.x_ = toPoint.x_;
+			dest.z_ = toPoint.z_;
+		}
+
+	}
+
+
 	void NavMeshArea
 	::farthestLineOfSight(const Pos& from, const Pos& to, Point3& dest) {
 		Point2 p;
+
 		Point3 toPoint(to.worldCoor());
 		short toIndex = index(toPoint, -1);
 		toPoint.sub(nextPos().worldCoor());

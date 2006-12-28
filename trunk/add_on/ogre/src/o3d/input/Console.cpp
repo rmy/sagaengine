@@ -49,7 +49,7 @@ namespace se_ogre {
 
 	Console
 	::Console()
-		: isFocused_(false), handler_(0)
+		: isFocused_(true), handler_(0)
 		, inCount_(0), outCount_(0)
 #ifndef NO_CEGUI
 		, guiRenderer_(0), guiSystem_(0), editorGuiSheet_(0)
@@ -124,11 +124,12 @@ namespace se_ogre {
 	::setupGuiSystem() {
 #ifndef NO_CEGUI
 		// setup GUI system
-		guiRenderer_ = new CEGUI::OgreCEGUIRenderer(O3dSchema::window, Ogre::RENDER_QUEUE_OVERLAY, false, 3000);
+		guiRenderer_ = new CEGUI::OgreCEGUIRenderer(O3dSchema::window, Ogre::RENDER_QUEUE_OVERLAY, false, 3000, O3dSchema::sceneManager);
 		guiSystem_ = new CEGUI::System(guiRenderer_);
 		CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
 		LogMsg("Initialized CEGUI logger");
 
+		/*
 		// Setup Render To Texture for preview window
 		rttTexture_ = Ogre::Root::getSingleton().getRenderSystem()->createRenderTexture( "ceguiTex", 512, 512, Ogre::TEX_TYPE_2D, Ogre::PF_A8R8G8B8 );
 		LogMsg("Created CEGUI render texture");
@@ -136,7 +137,9 @@ namespace se_ogre {
 		// Update when needed
 		rttTexture_->setActive(false);
 		rttTexture_->setAutoUpdated(false);
+		*/
 
+		/*
 		{
 			Ogre::Camera* rttCam = O3dSchema::sceneManager->createCamera("CeguiCam");
 			Ogre::SceneNode* camNode = O3dSchema::sceneManager->getSceneNode("MainSceneNode")->createChildSceneNode("ceguiCamNode");
@@ -148,6 +151,14 @@ namespace se_ogre {
 			v->setClearEveryFrame(true);
 			v->setBackgroundColour(Ogre::ColourValue::Black);
 		}
+		*/
+		{
+			CEGUI::SchemeManager::getSingleton().loadScheme((CEGUI::utf8*)"TaharezLook.scheme");
+			guiSystem_->setDefaultMouseCursor((CEGUI::utf8*)"TaharezLook", (CEGUI::utf8*)"MouseArrow");
+			CEGUI::MouseCursor::getSingleton().setImage("TaharezLook", "MouseMoveCursor");
+			guiSystem_->setDefaultFont((CEGUI::utf8*)"Tahoma-12");
+		}
+		/*
 		LogMsg("Created CEGUI viewport");
 
 		// Retrieve CEGUI texture for the RTT
@@ -164,7 +175,15 @@ namespace se_ogre {
 		//CEGUI::Font *font = CEGUI::FontManager::getSingleton().createFont((CEGUI::utf8*)"verdana.font");
 		//guiSystem_->setDefaultFont(font);
 		guiSystem_->setDefaultFont((CEGUI::utf8*)"Tahoma-12");
+		*/
 
+#endif
+	}
+
+	void Console
+	::renderGui() {
+#ifndef NO_CEGUI
+		guiSystem_->renderGUI();
 #endif
 	}
 
@@ -293,37 +312,37 @@ namespace se_ogre {
 	void Console
 	::mouseMoved (Ogre::MouseEvent *e) {
 #ifndef NO_CEGUI
-       CEGUI::System::getSingleton().injectMouseMove(
-               e->getRelX() * guiRenderer_->getWidth(),
-               e->getRelY() * guiRenderer_->getHeight());
-       e->consume();
+		CEGUI::System::getSingleton().injectMouseMove(
+			e->getRelX() * guiRenderer_->getWidth(),
+			e->getRelY() * guiRenderer_->getHeight());
+		e->consume();
 #endif
-   }
+	}
 
 
-   void Console
-   ::mouseDragged (Ogre::MouseEvent *e) {
-       mouseMoved(e);
-   }
+	void Console
+	::mouseDragged (Ogre::MouseEvent *e) {
+		mouseMoved(e);
+	}
 
 
-   void Console
-   ::mousePressed (Ogre::MouseEvent *e) {
+	void Console
+	::mousePressed (Ogre::MouseEvent *e) {
 #ifndef NO_CEGUI
-       CEGUI::System::getSingleton().injectMouseButtonDown(
-         convertOgreButtonToCegui(e->getButtonID()));
-       e->consume();
+		CEGUI::System::getSingleton().injectMouseButtonDown(
+				convertOgreButtonToCegui(e->getButtonID()));
+		e->consume();
 #endif
-   }
+	}
 
 
-   void Console
-   ::mouseReleased (Ogre::MouseEvent *e) {
+	void Console
+	::mouseReleased (Ogre::MouseEvent *e) {
 #ifndef NO_CEGUI
-       CEGUI::System::getSingleton().injectMouseButtonUp(
-         convertOgreButtonToCegui(e->getButtonID()));
-       e->consume();
+		CEGUI::System::getSingleton().injectMouseButtonUp(
+				convertOgreButtonToCegui(e->getButtonID()));
+		e->consume();
 #endif
-   }
+	}
 
 }

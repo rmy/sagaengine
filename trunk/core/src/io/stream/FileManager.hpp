@@ -38,7 +38,7 @@ namespace se_core {
 	public:
 		FileManager();
 		virtual ~FileManager();
-		virtual void init() {}
+		virtual void init(const char** files) {}
 		virtual void cleanup() {}
 
 		virtual InputStream* open(const char* filename) = 0;

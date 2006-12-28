@@ -31,7 +31,8 @@ namespace se_pc {
 	public:
 		PcFileManager(const char* dataPathFile);
 		~PcFileManager();
-		void init();
+		void init(const char** files);
+		void clear();
 
 		void loadDatapath(const char* dataPathFile);
 

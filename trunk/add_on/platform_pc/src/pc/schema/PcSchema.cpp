@@ -67,7 +67,6 @@ namespace se_pc {
 			void initEngineEvent() {
 				// Register some file loaders
 				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
-				IoSchema::fileManager->init();
 			}
 
 			void cleanupEngineEvent() {

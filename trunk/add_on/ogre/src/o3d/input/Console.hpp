@@ -61,6 +61,7 @@ namespace se_ogre {
 		bool isFocused() { return (isFocused_); /* && handler_); */ }
 		void setFocus(bool newState) { isFocused_ = newState; }
 		void flipFocus();
+		void renderGui();
 
 	protected:
 		void clearInput();

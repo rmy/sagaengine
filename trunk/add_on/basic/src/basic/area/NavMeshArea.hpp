@@ -27,6 +27,9 @@ namespace se_basic {
 
 		bool isLineOfSight(const se_core::Pos& from, const se_core::Pos& to);
 		void farthestLineOfSight(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& dest);
+		void farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, se_core::Point3& dest);
+		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh);
+
 		void path(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& out) const;
 		bool isNeighbour(const Area& area) const;
 
