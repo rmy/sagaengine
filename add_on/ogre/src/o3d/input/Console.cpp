@@ -49,7 +49,7 @@ namespace se_ogre {
 
 	Console
 	::Console()
-		: isFocused_(true), handler_(0)
+		: isFocused_(false), handler_(0)
 		, inCount_(0), outCount_(0)
 #ifndef NO_CEGUI
 		, guiRenderer_(0), guiSystem_(0), editorGuiSheet_(0)

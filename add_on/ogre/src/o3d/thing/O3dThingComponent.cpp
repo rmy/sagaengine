@@ -40,7 +40,6 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::~O3dThingComponent() {
-		O3dSchema::taskList.remove(*this);
 		clear();
 	}
 
@@ -64,6 +63,10 @@ namespace se_ogre {
 		O3dSchema::thingMOManager.create(this);
 	}
 
+	void O3dThingComponent
+	::cleanup() {
+		O3dSchema::taskList.remove(*this);
+	}
 
 	void O3dThingComponent
 	::clear() {
