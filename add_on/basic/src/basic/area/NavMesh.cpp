@@ -11,7 +11,7 @@ namespace se_basic {
 	}
 
 
-	bool _doLinesIntersectXZ(const se_core::Point3& a0
+	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1) {
@@ -39,12 +39,12 @@ namespace se_basic {
 			 - (b1.x_ - b0.x_) * (a1.z_ - a0.z_));
 
 		if(numeratorA == 0 && numeratorB == 0 && divisor == 0) {
-			AssertWarning(!_doLinesIntersectXZ(a0, a1, b0, b1), divisor);
+			AssertWarning(!doLinesIntersectXZ(a0, a1, b0, b1), divisor);
 			return false;
 		}
 
 		if(divisor == 0) {
-			AssertWarning(!_doLinesIntersectXZ(a0, a1, b0, b1), divisor);
+			AssertWarning(!doLinesIntersectXZ(a0, a1, b0, b1), divisor);
 			return false;
 		}
 
@@ -57,7 +57,7 @@ namespace se_basic {
 			out->y_ = a0.z_ + ua * (a1.z_ - a0.z_);
 		}
 		//if(ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
-		AssertWarning(res == _doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
+		AssertWarning(res == doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
 		//LogMsg(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
 		return res;
 	}

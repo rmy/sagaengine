@@ -9,9 +9,9 @@ namespace se_basic {
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1
-						  , se_core::Point2* out = 0);
+						  , se_core::Point2* out);
 
-	bool _doLinesIntersectXZ(const se_core::Point3& a0
+	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1);
