@@ -86,7 +86,7 @@ namespace se_core {
 		void setActive(bool state, bool doTraverseChildren = true);
 
 		void setTag(int t) { tag_ = t; }
-		int tag() { return tag_; }
+		int tag() const { return tag_; }
 
 		void releaseComponents();
 

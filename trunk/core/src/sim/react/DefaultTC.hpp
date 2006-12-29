@@ -28,8 +28,8 @@ namespace se_core {
 	class _SeCoreExport DefaultTC : public ThingCollide {
 	public:
 		DefaultTC();
-		bool collide(Actor& pusher
-					 , Thing& target) const;
+		bool collide(CollisionComponent& pusher
+					 , const CollisionComponent& target) const;
 
 	private:
 	};

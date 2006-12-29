@@ -26,7 +26,6 @@ namespace se_basic {
 		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);
 
 		bool isLineOfSight(const se_core::Pos& from, const se_core::Pos& to);
-		void farthestLineOfSight(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& dest);
 		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, se_core::Point3& dest);
 		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh);
 

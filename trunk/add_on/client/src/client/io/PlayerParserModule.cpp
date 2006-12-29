@@ -103,8 +103,6 @@ namespace se_client {
 
 		String tempString;
 		Area* area;
-		int value, id;
-		String* stringValue;
 		int code = 'X';
 		while((code = in.readInfoCode()) != '/') {
 			switch(code) {
@@ -122,7 +120,7 @@ namespace se_client {
 			case 'E': 
 				{ // Entrance 
 					in.readString(tempString);
-					value = in.readShort();
+					int value = in.readShort();
 					LogMsg(tempString.get());
 					area = SimSchema::areaManager.area(tempString.get());
 					Assert(area);

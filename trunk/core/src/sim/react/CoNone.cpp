@@ -33,7 +33,7 @@ namespace se_core {
 	}
 
 	bool CoNone
-	::collide(Actor& pusher, Thing& target) const {
+	::collide(CollisionComponent& pusher, const CollisionComponent& target) const {
 		return false;
 	}
 

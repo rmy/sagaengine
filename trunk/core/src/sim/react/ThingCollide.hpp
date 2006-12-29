@@ -37,11 +37,8 @@ namespace se_core {
 		/**
 		 * @return true if the collision blocks the movement of the collider.
 		 */
-		virtual bool collide(Actor& pusher
-							 , Thing& target) const { return false; }
-
 		virtual bool collide(CollisionComponent& pusher
-					 , CollisionComponent& target) const;
+					 , const CollisionComponent& target) const = 0;
 
 	protected:
 		/**
@@ -49,11 +46,11 @@ namespace se_core {
 		 * Utility function that is meant to be used from collide
 		 * method in subclasses.
 		 */
-		bool isGuilty(Actor& pusher
-					 , Thing& target) const;
+		bool isGuilty(CollisionComponent& pusher
+					 , const CollisionComponent& target) const;
 
 		bool isGuilty(PosComponent& pusher
-					 , PosComponent& target) const;
+					 , const PosComponent& target) const;
 
 	};
 }
