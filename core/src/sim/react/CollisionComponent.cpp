@@ -149,13 +149,13 @@ namespace se_core {
 
 
 	int CollisionComponent
-	::tag() {
+	::tag() const {
 		return owner()->tag();
 	}
 
 	
 	bool CollisionComponent 
-	::shouldIgnore(CollisionComponent& cc) {
+	::shouldIgnore(const CollisionComponent& cc) const {
 		return &cc == ignore_ || cc.ignore_ == this;
 	}
 

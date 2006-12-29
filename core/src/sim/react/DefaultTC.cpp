@@ -33,8 +33,8 @@ namespace se_core {
 	}
 
 	bool DefaultTC
-	::collide(Actor& pusher, Thing& target) const {
-		if(target.spawner() == &pusher)
+	::collide(CollisionComponent& pusher, const CollisionComponent& target) const {
+		if(pusher.shouldIgnore(target))
 			return false;
 		if(isGuilty(pusher, target)) {
 			return true;

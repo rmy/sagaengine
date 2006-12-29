@@ -37,7 +37,12 @@ namespace se_core {
 
 
 	bool ThingCollide
-	::isGuilty(Actor& pusher, Thing& target) const {
+	::isGuilty(CollisionComponent& pusher, const CollisionComponent& target) const {
+		return isGuilty(pusher.posComponent(), target.posComponent());
+	}
+
+	bool ThingCollide
+	::isGuilty(PosComponent& pusher, const PosComponent& target) const {
 		// Is this thing's movement bringing it closer, or farther away?
 		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
@@ -47,22 +52,6 @@ namespace se_core {
 		return true;
 	}
 
-	bool ThingCollide
-	::isGuilty(PosComponent& pusher, PosComponent& target) const {
-		// Is this thing's movement bringing it closer, or farther away?
-		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
-		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
-		if(distanceWithPusherMoving > beforeDistance) {
-			return false;
-		}
-		return true;
-	}
-
-
-	bool ThingCollide
-	::collide(CollisionComponent& pusher, CollisionComponent& target) const {
-		return collide(*pusher.toActor(), *target.toActor());
-	}
 
 
 }

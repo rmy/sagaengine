@@ -58,11 +58,20 @@ namespace se_core {
 			return c;
 		}
 
+		static const PosComponent* get(const SimComposite& composite) {
+			const PosComponent* c = static_cast<const PosComponent*>(composite.component(se_core::sct_POS));
+			return c;
+		}
+
 		static PosComponent* get(SimComponent& component) {
 			PosComponent* c = static_cast<PosComponent*>(component.owner()->component(se_core::sct_POS));
 			return c;
 		}
 
+		static const PosComponent* get(const SimComponent& component) {
+			const PosComponent* c = static_cast<const PosComponent*>(component.owner()->component(se_core::sct_POS));
+			return c;
+		}
 
 		/** Return a const reference to the current position of the thing.
 		 *

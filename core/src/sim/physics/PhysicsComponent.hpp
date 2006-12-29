@@ -42,11 +42,20 @@ namespace se_core {
 			return c;
 		}
 
+		static const PhysicsComponent* get(const SimComposite& composite) {
+			const PhysicsComponent* c = static_cast<const PhysicsComponent*>(composite.component(se_core::sct_PHYSICS));
+			return c;
+		}
+
 		static PhysicsComponent* get(SimComponent& component) {
 			PhysicsComponent* c = static_cast<PhysicsComponent*>(component.owner()->component(se_core::sct_PHYSICS));
 			return c;
 		}
 
+		static const PhysicsComponent* get(const SimComponent& component) {
+			const PhysicsComponent* c = static_cast<const PhysicsComponent*>(component.owner()->component(se_core::sct_PHYSICS));
+			return c;
+		}
 
 
 

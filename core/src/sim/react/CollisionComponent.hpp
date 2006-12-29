@@ -59,12 +59,12 @@ namespace se_core {
 			return c;
 		}
 
-		int tag();
-		bool shouldIgnore(CollisionComponent& cc);
+		int tag() const;
+		bool shouldIgnore(const CollisionComponent& cc) const;
 		void resetIgnore() {
 			ignore_ = 0;
 		}
-		void setIgnore(CollisionComponent& cc) {
+		void setIgnore(const CollisionComponent& cc) {
 			ignore_ = &cc;
 		}
 
@@ -129,7 +129,7 @@ namespace se_core {
 		bool isCollideable_;
 		const ThingCollide* collide_;
 
-		CollisionComponent* ignore_;
+		const CollisionComponent* ignore_;
 	};
 }
 
