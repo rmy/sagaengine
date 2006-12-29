@@ -79,6 +79,7 @@ namespace se_core {
 			return false;
 		}
 
+		move_ = nextMove_;
 		physics().calcNext(*toActor(), posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
 		move_ = nextMove_;
 		nextMove_.resetForces();

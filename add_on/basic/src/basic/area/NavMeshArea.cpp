@@ -106,7 +106,7 @@ namespace se_basic {
 
 
 	coor_t NavMeshArea
-	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) {
+	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const {
 		Point2 p;
 
 		Point3 toPoint;
@@ -132,7 +132,7 @@ namespace se_basic {
 
 
 	coor_t NavMeshArea
-	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, Point3& dest) {
+	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, Point3& dest) const {
 		coor_t len = farthestLineOfSight(from, yaw, maxLen, maxOffNavMesh);
 		Point3 toPoint;
 		toPoint.setForward(len, yaw);
@@ -143,6 +143,20 @@ namespace se_basic {
 		}
 
 		return len;
+	}
+
+
+	void NavMeshArea
+	::farthestLineOfSight(const Pos& from, const Pos& to, Point3& dest) const {
+
+		Point3 toPoint(to.worldCoor());
+		short toIndex = index(toPoint, from.index());
+		toPoint.sub(nextPos().worldCoor());
+
+		Point2 p;
+		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
+		dest.x_ = p.x_ + nextPos().worldCoor().x_;
+		dest.z_ = p.y_ + nextPos().worldCoor().z_;
 	}
 
 
@@ -189,6 +203,13 @@ namespace se_basic {
 		short via = navMesh_->path(from.index(), to.index());
 		//LogMsg("D:" << from.index() << ", " << to.index() << ": " << via);
 		navMesh_->center(via, out);
+	}
+
+
+	bray_t NavMeshArea
+	::slideAngle(const se_core::Pos& from, const se_core::Point3& to) const {
+		bray_t angle = navMesh_->slideAngle(from.localCoor(), from.index(), to);
+		return angle;
 	}
 
 }

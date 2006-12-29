@@ -26,11 +26,14 @@ namespace se_basic {
 		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);
 
 		bool isLineOfSight(const se_core::Pos& from, const se_core::Pos& to);
-		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, se_core::Point3& dest);
-		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh);
+		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, se_core::Point3& dest) const;
+		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const;
+		void farthestLineOfSight(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& dest) const;
 
 		void path(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& out) const;
 		bool isNeighbour(const Area& area) const;
+
+		bray_t slideAngle(const se_core::Pos& from, const se_core::Point3& to) const;
 
 	private:
 		const NavMesh* navMesh_;

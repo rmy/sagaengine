@@ -9,9 +9,9 @@ namespace se_basic {
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1
-						  , se_core::Point2* out);
+						  , se_core::Point2* out = 0);
 
-	bool doLinesIntersectXZ(const se_core::Point3& a0
+	bool _doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1);
@@ -215,6 +215,7 @@ namespace se_basic {
 
 		bool isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const;
 		void farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, se_core::Point2& dest) const;
+		bray_t slideAngle(const se_core::Point3& from, short fromIndex, const se_core::Point3& to) const;
 
 		/**
 		 * Returns index of neighbour to go via.
@@ -290,16 +291,16 @@ namespace se_basic {
 		}
 
 		/** Clockwise test */
-		bool isInsideTriangle(se_core::Point2& q, se_core::Point3* c) const {
+		bool isInsideTriangle(se_core::Point2& q, se_core::Point3* corners) const {
 			using namespace se_core;
 
 			static int index1[] = { 1, 2, 0 };
 			static int index2[] = { 2, 0, 1 };
 
 			for(int i = 0; i < 3; ++i) {
-				Point3& c0 = c[ i ];
-				Point3& c1 = c[ index1[ i ] ];
-				Point3& c2 = c[ index2[ i ] ];
+				Point3& c0 = corners[ i ];
+				Point3& c1 = corners[ index1[ i ] ];
+				Point3& c2 = corners[ index2[ i ] ];
 
 				Vector2 n(-(c1.z_ - c0.z_), c1.x_ - c0.x_);
 				Vector2 F(c2.x_ - c0.x_, c2.z_ - c0.z_);
