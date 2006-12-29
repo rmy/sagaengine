@@ -125,13 +125,11 @@ namespace se_core {
 		 */
 		void stopScript();
 
+		void touch(void* param = 0);
+
 	protected:
 		void cleanup();
-
-
-
 		short currentScript_;
-
 		ActionComponent* consumer_;
 		static const short SCRIPT_STACK_SIZE = 6;
 		const Script* scriptStack_[SCRIPT_STACK_SIZE];

@@ -65,6 +65,13 @@ namespace se_core {
 		if(!script()) return;
 		Parameter& p = aap.parameter();
 		const Action* a = script()->nextAction(*this, channel, scriptData(), p);
+
+		int s = currentScript_;
+		while(!a && s > 0 && scriptStack_[ s ]->isTransparent()) {
+			--s;
+			a = scriptStack_[ s ]->nextAction(*this, channel, scriptData_[ s ], p);
+		}
+
 		if(a) {
 			aap.setAction(*a);
 		}
@@ -124,7 +131,7 @@ namespace se_core {
 			popScript();
 		}
 
-		if(currentScript_ == 0 && scriptStack_[currentScript_] != 0) {
+		if(scriptStack_[currentScript_] != 0) {
 			++currentScript_;
 		}
 
@@ -135,9 +142,7 @@ namespace se_core {
 		scriptData_[currentScript_] = script()->init(*this);
 
 		// If owner is active
-		if(isActive()) {
-			consumer_->setScriptActive(true);
-		}
+		consumer_->setScriptActive(true);
 	}
 
 
@@ -146,7 +151,9 @@ namespace se_core {
 		// Asser(!isDead_);
 		const char* popScript = script()->name();
 
+		bool isTransparent = script()->isTransparent();
 		consumer_->setScriptActive(false);
+
 		if(currentScript_ == 0) {
 			Assert(script());
 			script()->release(scriptData_[currentScript_]);
@@ -160,9 +167,10 @@ namespace se_core {
 		if(!script()) return;
 
 		script()->reinitPop(*this, scriptData(), popScript);
-		if(!isActive())
-			return;
-		consumer_->setScriptActive(true);
+
+		if(isActive()) {
+			consumer_->setScriptActive(true);
+		}
 	}
 
 
@@ -199,5 +207,9 @@ namespace se_core {
 	}
 
 
+	void ScriptComponent
+	::touch(void* param) {
+		script()->touched(*this, scriptData(), param);
+	}
 
 }

@@ -159,6 +159,7 @@ namespace se_core {
 	int CollisionAreaComponent
 	::getContactList(Contact* list, int maxCollisions) {
 		int count = 0;
+		int outer = 0;
 
 		if(!collisionGrid_)
 			return count;
@@ -170,6 +171,7 @@ namespace se_core {
 		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
+			++outer;
 
 			short innerCount = 0;
 			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {

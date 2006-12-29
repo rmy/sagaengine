@@ -31,31 +31,24 @@ rune@skalden.com
 namespace se_core {
 
 	ReentrantScript
-	::ReentrantScript(const char* name) : Script(name) {
+	::ReentrantScript(const char* name, int channel) : Script(name), channel_(channel) {
 	}
 
 
 	const Action* ReentrantScript
 	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const {
-		Assert(sd);
-		ReentrantData& rd = static_cast<ReentrantData&>(*sd);
-		const Action* a;
-
 		// No simultaneous actions for reentrant scripts. Always
-		// put actions i action queue channel 0.
-		if(channel != 0)
+		// put actions in action queue channel 0.
+		if(channel != channel_)
 			return 0;
 
-		a = transition(performer, rd, out);
+		Assert(sd);
+		ReentrantData& rd = static_cast<ReentrantData&>(*sd);
+		const Action* a = transition(performer, rd, out);
 		if(!a) {
 			a = sequence(performer, rd, out);
 		}
-		if(a) {
-			return  a;
-		}
-
-		// Keep one action thread running...
-		return &actionIdle;
+		return a;
 	}
 
 }
