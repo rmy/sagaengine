@@ -52,6 +52,7 @@ namespace se_core {
 		virtual ScriptData* init(const ScriptComponent& performer) const { return 0; }
 		virtual void reinit(const ScriptComponent& performer, ScriptData* sd) const {}
 		virtual void reinitPop(const ScriptComponent& performer, ScriptData* sd, const char* fromScript) const {}
+		virtual void touched(const ScriptComponent& performer, ScriptData* sd, void* param) const {}
 		void release(ScriptData* &sd) const { delete sd; sd = 0; }
 		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const = 0;
 		void trackUserFeedback() const;
@@ -61,6 +62,7 @@ namespace se_core {
 		 *	be popped before any is pushed on top of it.
 		 */
 		virtual bool isStacker() const { return true; }
+		virtual bool isTransparent() const { return false; }
 
 	private:
 		String nameString_; // For proper destruction of name strings

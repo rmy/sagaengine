@@ -37,7 +37,7 @@ namespace se_core {
 
 	class _SeCoreExport ReentrantScript : public Script {
 	public:
-		ReentrantScript(const char* name);
+		ReentrantScript(const char* name, int channel = 0);
 		const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const;
 
 		virtual ScriptData* init(const ScriptComponent& performer) const = 0;
@@ -46,6 +46,7 @@ namespace se_core {
 		virtual const Action* transition(const ScriptComponent& performer, ReentrantData& _, Parameter& out) const = 0;
 
 	private:
+		int channel_;
 	};
 }
 
