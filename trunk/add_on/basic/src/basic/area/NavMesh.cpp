@@ -11,14 +11,15 @@ namespace se_basic {
 	}
 
 
-	bool doLinesIntersectXZ(const se_core::Point3& a0
+	bool _doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1) {
 		float s1 = left( b0, b1, a0) * left( b0, b1, a1);
 		float s2 = left( a0, a1, b0) * left( a0, a1, b1);
-		//LogMsg("Side: " << s1 << " - " << s2);
-		return (s1 < 0 && s2 < 0);
+		return (s1 <= 0 && s2 < 0);
+
+		return doLinesIntersectXZ(a0, a1, b0, b1, 0);
 	}
 
 
@@ -28,20 +29,27 @@ namespace se_basic {
 						  , const se_core::Point3& b1
 						  , se_core::Point2* out) {
 		// http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
-		coor_t ua =
-			((b1.x_ - b0.x_) * (a0.z_ - b0.z_)
-			 - (b1.z_ - b0.z_) * (a0.x_ - b0.x_))
-			/
-			((b1.z_ - b0.z_) * (a1.x_ - a0.x_)
+
+		coor_t numeratorA = ((b1.x_ - b0.x_) * (a0.z_ - b0.z_)
+			 - (b1.z_ - b0.z_) * (a0.x_ - b0.x_));
+		coor_t numeratorB = ((a1.x_ - a0.x_) * (a0.z_ - b0.z_)
+			 - (a1.z_ - a0.z_) * (a0.x_ - b0.x_));
+
+		coor_t divisor = ((b1.z_ - b0.z_) * (a1.x_ - a0.x_)
 			 - (b1.x_ - b0.x_) * (a1.z_ - a0.z_));
 
+		if(numeratorA == 0 && numeratorB == 0 && divisor == 0) {
+			AssertWarning(!_doLinesIntersectXZ(a0, a1, b0, b1), divisor);
+			return false;
+		}
 
-		coor_t ub =
-			((a1.x_ - a0.x_) * (a0.z_ - b0.z_)
-			 - (a1.z_ - a0.z_) * (a0.x_ - b0.x_))
-			/
-			((b1.z_ - b0.z_) * (a1.x_ - a0.x_)
-			 - (b1.x_ - b0.x_) * (a1.z_ - a0.z_));
+		if(divisor == 0) {
+			AssertWarning(!_doLinesIntersectXZ(a0, a1, b0, b1), divisor);
+			return false;
+		}
+
+		coor_t ua = numeratorA / divisor;
+		coor_t ub = numeratorB / divisor;
 
 		bool res = (ua >= 0 && ua < 1 && ub >= 0 && ub < 1);
 		if(res && out) {
@@ -49,7 +57,7 @@ namespace se_basic {
 			out->y_ = a0.z_ + ua * (a1.z_ - a0.z_);
 		}
 		//if(ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
-		AssertWarning(res == doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
+		AssertWarning(res == _doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
 		//LogMsg(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
 		return res;
 	}
@@ -114,16 +122,13 @@ namespace se_basic {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {
 					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
-						if(next != -1) {
-							LogWarning("!");
-						}
 						next = link;
 						//LogMsg("Found link: " << via << ", " << next << ", " << toIndex << " (" << dest.x_ << ", " << dest.y_ << ")");
 					}
 				}
 			}
 			if(next < 0) {
-				LogWarning("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
+				LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
 				return;
 			}
 
@@ -131,6 +136,51 @@ namespace se_basic {
 			via = next;
 		}
 		dest.set(to.x_, to.z_);
+	}
+
+
+	bray_t NavMesh
+	::slideAngle(const se_core::Point3& from, short fromIndex, const se_core::Point3& to) const {
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
+		bray_t currentYaw = from.yawTowards(to);
+
+		short via = fromIndex;
+		short prev = -2;
+		while(via != -1) {
+			Point3* b[] = {
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+			};
+			short next = -1;
+			for(int i = 0; i < 3; ++i) {
+				short link = triangles_[ via ].linkTo_[ i ];
+				if(link != prev) {
+					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to)) {
+						if(link < 0) {
+							// NOTE: Found edge - exiting!!!
+							bray_t slideYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) > BrayT::DEG90) {
+								slideYaw = BrayT::invert(slideYaw);
+							}
+							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) >= 96 * BRAY_RES) {
+								return currentYaw;
+							}
+							return slideYaw;
+						}
+						next = link;
+					}
+				}
+			}
+
+			prev = via;
+			via = next;
+		}
+		return currentYaw;
 	}
 
 
@@ -162,7 +212,7 @@ namespace se_basic {
 					out.scale(0.999f / (float)match);
 					Point3 c;
 					wantedAreaBounds.center(c);
-					c.scale(0.001);
+					c.scale(0.001f);
 					out.add(c);
 					return i;
 				}

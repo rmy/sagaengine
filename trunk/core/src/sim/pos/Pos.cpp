@@ -308,7 +308,7 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(isGrounded() && area_) {
-			localCoor().y_ = area()->toArea()->groundHeight(this->localCoor());
+			localCoor().y_ = area()->toArea()->groundHeight(localCoor(), index_);
 		}
 	}
 
