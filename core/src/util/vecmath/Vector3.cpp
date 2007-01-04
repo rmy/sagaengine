@@ -29,6 +29,12 @@ namespace se_core {
 	}
 
 
+	bray_t Vector3
+	::yaw() const {
+		return Trig::atan2(-z_, x_);
+	}
+
+
 	void Vector3
 	::setForward(const coor_t len, const bray_t yaw) {
 		x_ = Trig::sinScale(len, yaw);

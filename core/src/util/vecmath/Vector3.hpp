@@ -143,6 +143,7 @@ namespace se_core {
 		 */
 		bray_t angle(const Vector3& v1) const;
 
+		bray_t yaw() const;
 
 		void rotate(const Quat4& q);
 		void rotate(const Vector3& v, const Quat4& q);

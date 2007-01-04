@@ -89,4 +89,16 @@ namespace se_core {
 		return 0;
 	}
 
+	bool Dictionary
+	::hasId(short type, short id) const {
+		for(int i = 0; i < entryCount_; ++i) {
+			if(entries_[i]->type_ == type && entries_[i]->id_ == id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
 }
