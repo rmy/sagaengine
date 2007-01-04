@@ -124,6 +124,7 @@ namespace se_core {
 			static DictionaryEntry dTagType(DE_DICTIONARY_TYPE, DE_TAG, "TAG", false);
 			static DictionaryEntry dThingType(DE_DICTIONARY_TYPE, DE_THING_TYPE, "THING_TYPE", false);
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);
+			static DictionaryEntry dFirstUserType(DE_DICTIONARY_TYPE, DE_FIRST_USER_TYPE, "FIRST_USER_TYPE", false);
 			return simEngine.init();
 
 			PhysicsComponentManager::singleton();
