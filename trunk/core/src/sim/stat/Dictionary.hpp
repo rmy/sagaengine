@@ -32,6 +32,7 @@ namespace se_core {
 		short id(short type, const char* name);
 		const char* name(short type, short id);
 		short highestId(short type) const;
+		bool hasId(short type, short id) const;
 
 	private:
 		friend class DictionaryEntry;

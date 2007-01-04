@@ -53,7 +53,7 @@ namespace se_basic {
 			LogFatal("Unkown area type code: " << (char)(code));
 		}
 
-		while((code = in.readInfoCode()) != 'Q') {
+		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
 			case 'A': // object (thing or actor)
 				readThing(in, areaCount, areas);

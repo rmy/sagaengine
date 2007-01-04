@@ -145,8 +145,10 @@ namespace se_core {
 		if(!cc1.areaCovered().isTouching(cc2.areaCovered()))
 			return false;
 
-
 		if(!cc1.doesGeometryCollide(cc2))
+			return false;
+
+		if(cc1.shouldIgnore(cc2))
 			return false;
 
 		// Inside collision range. Collide.
