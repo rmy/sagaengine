@@ -131,15 +131,22 @@ namespace se_ogre {
 		case Ogre::KC_ESCAPE:
 			SimSchema::simEngine.setGameOver(true);
 			break;
-		case Ogre::KC_1:
-			O3dSchema::playerCamera->setPolygonMode(Ogre::PM_WIREFRAME);
+		case Ogre::KC_SCROLL:
+			O3dSchema::worldManager->flipDebugOverlay();
 			break;
-		case Ogre::KC_2:
-			O3dSchema::worldManager->showDebugOverlay(true);
-			break;
-		case Ogre::KC_0:
-			O3dSchema::worldManager->showDebugOverlay(false);
-			O3dSchema::playerCamera->setPolygonMode(Ogre::PM_SOLID);
+		case Ogre::KC_PAUSE:
+			{
+				Ogre::PolygonMode mode = O3dSchema::playerCamera->getPolygonMode();
+				switch(mode) {
+				case Ogre::PM_SOLID:
+					mode = Ogre::PM_WIREFRAME;
+					break;
+				case Ogre::PM_WIREFRAME:
+					mode = Ogre::PM_SOLID;
+					break;
+				}
+				O3dSchema::playerCamera->setPolygonMode(mode);
+			}
 			break;
 		}
 	}

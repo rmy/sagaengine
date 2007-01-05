@@ -43,6 +43,13 @@ namespace se_ogre {
 
 		// Debug overlay
 		void showDebugOverlay(bool show);
+		void flipDebugOverlay() {
+			if(!debugOverlay_) {
+				showDebugOverlay(true);
+				return;
+			}
+			showDebugOverlay(!debugOverlay_->isVisible());
+		}
 
 		void step(long when) {}
 

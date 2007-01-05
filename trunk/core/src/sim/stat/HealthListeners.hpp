@@ -23,16 +23,17 @@ rune@skalden.com
 #define HealthListeners_hpp
 
 #include "../thing/Actor.hpp"
+#include "../custom/StatComponent.hpp"
 
 namespace se_core {
 	class _SeCoreExport HealthListeners {
 	public:
 		HealthListeners();
 		virtual ~HealthListeners();
-		void add(Actor& actor, HealthListener& l);
+		void add(StatComponent& actor, HealthListener& l);
 		void add(HealthListener& l);
 		void remove(HealthListener& l);
-		void castHealthChangedEvent(Actor& actor, long when, short change);
+		void castHealthChangedEvent(StatComponent& actor, short change);
 
 	private:
 		static const int MAX_LISTENERS = 20;

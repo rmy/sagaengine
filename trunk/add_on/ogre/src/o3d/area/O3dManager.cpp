@@ -164,6 +164,7 @@ namespace se_ogre {
 		Ogre::Quaternion f(face.w_, face.x_, face.y_, face.z_);
 		O3dSchema::playerCamera->setOrientation(f);
 		O3dSchema::playerCamera->setPosition(camera.coor_.x_, camera.coor_.y_, camera.coor_.z_);
+
 	}
 
 
@@ -172,6 +173,7 @@ namespace se_ogre {
 		if (show) {
 			if (!debugOverlay_) {
 				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
+
 			}
 
 			debugOverlay_->show();

@@ -24,12 +24,14 @@ rune@skalden.com
 #include "../stat/HealthListeners.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../thing/Actor.hpp"
+#include "../SimEngine.hpp"
+#include "StatComponent.hpp"
 
 
 namespace se_core {
 
 	Health
-	::Health() : when_(0), maxHitpoints_(15), currentHitpoints_(15), hitpointRecoveryRate_(13) {
+	::Health() : when_(0), maxHitpoints_(12), currentHitpoints_(12) {
 	}
 
 
@@ -40,22 +42,23 @@ namespace se_core {
 
 
 	short Health
-	::currentHitpoints(long when) const {
-		if(when_ == 0)
-			return currentHitpoints_;
-		int ch = currentHitpoints_ + ((when - when_) >> hitpointRecoveryRate_);
-		if(ch > maxHitpoints_)
-			ch = maxHitpoints_;
-		return ch;
+	::currentHitpoints() const {
+		return currentHitpoints_;
 	}
 
 
 	void Health
-	::adjustHitpoints(Actor& actor, long when, int amount) {
-		currentHitpoints_ = currentHitpoints(when);
+	::adjustHitpoints(StatComponent& actor, int amount) {
 		currentHitpoints_ += amount;
-		when_ = when;
-		SimSchema::healthListeners().castHealthChangedEvent(actor, when, amount);
+		SimSchema::healthListeners().castHealthChangedEvent(actor, amount);
+	}
+
+
+	void Health
+	::adjustMaxHitpoints(StatComponent& actor, int amount) {
+		maxHitpoints_ += amount;
+		currentHitpoints_ = maxHitpoints_;
+		SimSchema::healthListeners().castHealthChangedEvent(actor, amount);
 	}
 }
 
