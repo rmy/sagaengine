@@ -39,7 +39,6 @@ namespace se_core {
 		void adjustMaxHitpoints(StatComponent& actor, int amount);
 
 	private:
-		long when_;
 		short maxHitpoints_, currentHitpoints_;
 	};
 

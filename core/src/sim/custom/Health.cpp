@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 
 	Health
-	::Health() : when_(0), maxHitpoints_(12), currentHitpoints_(12) {
+	::Health() : maxHitpoints_(12), currentHitpoints_(12) {
 	}
 
 
