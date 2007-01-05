@@ -29,6 +29,8 @@ namespace se_core {
 	class Move;
 	class Abilities;
 	class Health;
+
+	class StatComponent;
 }
 
 #endif

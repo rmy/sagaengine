@@ -31,11 +31,28 @@ rune@skalden.com
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
+#include "../SimComposite.hpp"
+#include "../SimComponent.hpp"
 #include "util/type/util_type.hpp"
 
 namespace se_core {
 	class _SeCoreExport StatComponent  : public SimComponent {
 	public:
+		static StatComponent* get(SimComposite& composite) {
+			StatComponent* c = static_cast<StatComponent*>(composite.component(se_core::sct_SPAWN));
+			return c;
+		}
+
+		static StatComponent* get(SimComponent& component) {
+			StatComponent* c = static_cast<StatComponent*>(component.owner()->component(se_core::sct_SPAWN));
+			return c;
+		}
+
+		static const StatComponent* get(const SimComponent& component) {
+			const StatComponent* c = static_cast<const StatComponent*>(component.owner()->component(se_core::sct_SPAWN));
+			return c;
+		}
+
 		StatComponent(Actor* owner);
 		void setAbilities(short* abilities);
 		void setQuickMenuAction(const Action* a);

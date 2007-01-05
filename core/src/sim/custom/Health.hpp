@@ -27,21 +27,20 @@ rune@skalden.com
 #ifndef SE_OWN_HEALTH
 
 #include "../thing/sim_thing.hpp"
+#include "sim_custom.hpp"
 
 namespace se_core {
 	class _SeCoreExport Health {
 	public:
 		Health();
 		short maxHitpoints() const;
-		short currentHitpoints(long when) const;
-		void adjustHitpoints(Actor& actor, long when, int amount);
+		short currentHitpoints() const;
+		void adjustHitpoints(StatComponent& actor, int amount);
+		void adjustMaxHitpoints(StatComponent& actor, int amount);
 
 	private:
 		long when_;
 		short maxHitpoints_, currentHitpoints_;
-		short hitpointRecoveryRate_;
-		//int maxMana_, currentMana_;
-		//int manaRecoveryRate_;
 	};
 
 }

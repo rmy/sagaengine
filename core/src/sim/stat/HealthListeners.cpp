@@ -41,9 +41,9 @@ namespace se_core {
 
 
 	void HealthListeners
-	::add(Actor& actor, HealthListener& l) {
+	::add(StatComponent& actor, HealthListener& l) {
 		listeners_[ listenerCount_ ] = &l;
-		actorIds_[ listenerCount_ ] = actor.id();
+		actorIds_[ listenerCount_ ] = actor.owner()->id();
 		++listenerCount_;
 	}
 
@@ -69,10 +69,10 @@ namespace se_core {
 
 
 	void HealthListeners
-	::castHealthChangedEvent(Actor& actor, long when, short change) {
+	::castHealthChangedEvent(StatComponent& actor, short change) {
 		for(int i = 0; i < listenerCount_; ++i) {
-			if(actorIds_[ i ] < 0 || actor.id() == actorIds_[ i ]) {
-				listeners_[ i ]->healthChangedEvent(actor, when, change);
+			if(actorIds_[ i ] < 0 || actor.owner()->id() == actorIds_[ i ]) {
+				listeners_[ i ]->healthChangedEvent(actor, change);
 			}
 		}
 	}
