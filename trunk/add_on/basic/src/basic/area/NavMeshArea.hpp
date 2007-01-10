@@ -36,6 +36,8 @@ namespace se_basic {
 		bray_t slideAngle(const se_core::Pos& from, const se_core::Point3& to) const;
 
 	private:
+		short farthestLos(const se_core::Point3& from, short fromIndex, short toIndex) const;
+
 		const NavMesh* navMesh_;
 	};
 

@@ -48,11 +48,11 @@ namespace se_core {
 			return ::sin(BrayT::toRad(bray));
 		}
 
-		inline static trig_t cosScale(coor_t len, bray_t bray) {
+		inline static coor_t cosScale(coor_t len, bray_t bray) {
 			return ::cos(BrayT::toRad(bray)) * len;
 		}
 
-		inline static trig_t sinScale(coor_t len, bray_t bray) {
+		inline static coor_t sinScale(coor_t len, bray_t bray) {
 			return ::sin(BrayT::toRad(bray)) * len;
 		}
 

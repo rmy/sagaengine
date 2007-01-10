@@ -65,15 +65,21 @@ namespace se_basic {
 
 	bool NavMesh
 	::isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const {
+		return isInLineOfSight(from.localCoor(), from.index(), to.localCoor(), to.index());
+	}
+
+
+	bool NavMesh
+	::isInLineOfSight(const se_core::Point3& from, short fromIndex, const se_core::Point3& to, short toIndex) const {
 		static const short corners[][2] = {
 			{ 1, 2 },
 			{ 2, 0 },
 			{ 0, 1 }
 		};
 
-		short via = from.index();
+		short via = fromIndex;
 		short prev = -1;
-		while(via != to.index()) {
+		while(via != toIndex) {
 			Point3* b[] = {
 				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
 				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
@@ -84,7 +90,7 @@ namespace se_basic {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
 					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ]
-										  , from.localCoor(), to.localCoor())) {
+										  , from, to)) {
 						next = link;
 					}
 				}

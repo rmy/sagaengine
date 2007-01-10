@@ -31,6 +31,7 @@ namespace se_basic {
 		return (index >= 0);
 	}
 
+
 	coor_t NavMeshArea
 	::groundHeight(const Point3& coor, short index) const {
 		static Tuple3 b;
@@ -160,6 +161,33 @@ namespace se_basic {
 	}
 
 
+	short NavMeshArea
+	::farthestLos(const Point3& from, short fromIndex, short toIndex) const {
+		Point3 c;
+		if(fromIndex == toIndex) {
+			return toIndex;
+		}
+
+		short via = navMesh_->path(fromIndex, toIndex);
+		if(via == toIndex)
+			return via;
+		navMesh_->center(via, c);
+		Assert(navMesh_->isInLineOfSight(from, fromIndex, c, via));
+
+		short next = navMesh_->path(via, toIndex);
+		navMesh_->center(next, c);
+		while(navMesh_->isInLineOfSight(from, fromIndex, c, next)) {
+			via = next;
+			if(via == toIndex)
+				break;
+
+			next = navMesh_->path(via, toIndex);
+			navMesh_->center(next, c);
+		}
+		return via;
+	}
+
+
 	void NavMeshArea
 	::path(const Pos& from, const Pos& to, Point3& out) const {
 		// In different areas - search for triangles in this navmesh that
@@ -182,10 +210,16 @@ namespace se_basic {
 
 			// Already in same triangle
 			if(from.index() == toIndex) {
+				// At exit - walk to center of next area
+				toArea.center(out);
+				return;
+			}
+			if(navMesh_->isInLineOfSight(from.localCoor(), from.index(), out, toIndex)) {
 				// Out is already set
 				return;
 			}
-			short via = navMesh_->path(from.index(), toIndex);
+			//short via = navMesh_->path(from.index(), toIndex);
+			short via = farthestLos(from.localCoor(), from.index(), toIndex);
 			navMesh_->center(via, out);
 
 			return;
@@ -195,12 +229,17 @@ namespace se_basic {
 			out.set(to.localCoor());
 			return;
 		}
+		if(to.index() < 0) {
+			out.set(to.localCoor());
+			return;
+		}
 		// In line of sight
 		if(navMesh_->isInLineOfSight(from, to)) {
 			out.set(to.localCoor());
 			return;
 		}
-		short via = navMesh_->path(from.index(), to.index());
+		short via = farthestLos(from.localCoor(), from.index(), to.index());
+		//short via = navMesh_->path(from.index(), to.index());
 		//LogMsg("D:" << from.index() << ", " << to.index() << ": " << via);
 		navMesh_->center(via, out);
 	}

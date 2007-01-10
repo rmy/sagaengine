@@ -58,6 +58,8 @@ namespace se_core {
 		scale_t friction_;
 		coor_t threshold_;
 
+		int affectCode_;
+
 		// The physics object is free to interpret these values as they like
 		struct WorkVars {
 			coor_t speed_;

@@ -63,6 +63,10 @@ namespace se_core {
 			return mask(b1 - b2);
 		}
 
+		inline static bray_t diff(bray_t b1, bray_t b2) {
+			return abs(b1 - b2);
+		}
+
 
 		inline static bray_t towards(bray_t from, bray_t to, bray_t d) {
 			bray_t diff = mask(from - to);
