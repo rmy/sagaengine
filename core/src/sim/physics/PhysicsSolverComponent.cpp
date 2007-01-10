@@ -45,8 +45,7 @@ namespace se_core {
 
 	PhysicsSolverComponent
 	::~PhysicsSolverComponent() {
- 	}
-
+	}
 
 
 	void PhysicsSolverComponent
