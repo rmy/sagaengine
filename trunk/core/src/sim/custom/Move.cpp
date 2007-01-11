@@ -32,7 +32,9 @@ rune@skalden.com
 namespace se_core {
 
 	Move
-	::Move() : velocity_(0, 0, 0), mass_(SCALE_RES), friction_(CoorT::half(COOR_STEP)), threshold_(COOR_STEP), affectCode_(0) {
+	::Move() : velocity_(0, 0, 0), mass_(SCALE_STEP)
+			, velocityFriction_(.5f * SCALE_STEP), angularFriction_(SCALE_STEP)
+			, threshold_(COOR_STEP), affectCode_(0) {
 		angularVelocity_.setIdentity();
 		torque_.setIdentity();
 		force_.reset();

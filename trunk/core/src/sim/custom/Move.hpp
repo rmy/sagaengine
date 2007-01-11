@@ -55,7 +55,8 @@ namespace se_core {
 		Vector3 force_; // Forces applied (acceleration)
 		Euler3 torque_; // Torque - forces changing rotation
 
-		scale_t friction_;
+		scale_t velocityFriction_;
+		scale_t angularFriction_;
 		coor_t threshold_;
 
 		int affectCode_;

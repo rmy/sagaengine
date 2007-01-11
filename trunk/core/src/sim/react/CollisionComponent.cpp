@@ -130,14 +130,6 @@ namespace se_core {
 
 		// Is this thing's movement bringing it closer, or farther away?
 		coor_double_t afterDistanceSq = pusher.nextPos().worldCoor().xzDistanceSquared(target.nextPos().worldCoor());
-		/*
-		coor_double_t beforeDistanceSq = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
-		if(beforeDistanceSq < afterDistanceSq) {
-			//LogMsg(pusher.owner()->name() << " - " << target.owner()->name());
-			// Moving away
-			return false;
-		}
-		*/
 
 		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
 		if(afterDistanceSq > radiusSum * radiusSum) {
@@ -145,6 +137,34 @@ namespace se_core {
 			return false;
 		}
 		return true;
+	}
+
+
+	scale_t CollisionComponent
+	::whenDoesGeometryCollide(const CollisionComponent& other) const {
+		// Only cylinder support at the moment
+		const PosComponent& pusher = posComponent();
+		const PosComponent& target = other.posComponent();
+
+		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
+		coor_t radiusSumSq = radiusSum * radiusSum;
+
+		scale_t min = 0, max = 1;
+		Point3 mp, mt;
+		for(int i = 0; i < 8; ++i) {
+			scale_t middle = (min + max) / 2;
+			pusher.worldCoor(middle, mp);
+			target.worldCoor(middle, mt);
+
+			coor_double_t dSq = mp.xzDistanceSquared(mt);
+			if(dSq > radiusSumSq) {
+				min = middle;
+			}
+			else {
+				max = middle;
+			}
+		}
+		return min;
 	}
 
 

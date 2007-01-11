@@ -32,7 +32,8 @@ namespace se_core {
 	CollisionManager
 	::CollisionManager()
 			: SimComponentManager(sct_POS) 
-			, gridCount_(0), gridPoolCount_(0), contactCount_(0) {
+			, gridCount_(0), gridPoolCount_(0) 
+			, isGodModeOn_(false), contactCount_(0) {
 		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
 		gridPool_ = new CollisionGrid*[ MAX_ACTIVE ];
 		contactList_ = new Contact[ MAX_CONTACTS ];
@@ -61,6 +62,8 @@ namespace se_core {
 
 	void CollisionManager
 	::step(long when) {
+		if(isGodModeOn_)
+			return;
 		getContactList();
 		resolveContacts();
 	}
