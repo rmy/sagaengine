@@ -41,6 +41,7 @@ namespace se_core {
 		return isGuilty(pusher.posComponent(), target.posComponent());
 	}
 
+
 	bool ThingCollide
 	::isGuilty(PosComponent& pusher, const PosComponent& target) const {
 		// Is this thing's movement bringing it closer, or farther away?

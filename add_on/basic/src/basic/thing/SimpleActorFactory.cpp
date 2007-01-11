@@ -9,6 +9,7 @@ namespace se_basic {
 		: SimCompositeFactory(got_ACTOR, name)
 		, isPickable_(false)
 		, isCollideable_(false)
+		, mass_(SCALE_RES)
 		, script_(0)
 		, physics_(0)
 		, collide_(0)
@@ -52,6 +53,8 @@ namespace se_basic {
 			a->setDefaultScript(script_);
 		}
 
+		PhysicsComponent* pPhysics = PhysicsComponent::get(*a);
+		pPhysics->nextMove().mass_ = mass_ * SCALE_RES;
 		createComponents(a);
 
 		return a;
@@ -111,5 +114,13 @@ namespace se_basic {
 			spawnPoints_[ i ] = spawnPoints[ i ];
 		}
 	}
+
+	void SimpleActorFactory
+	::setMass(scale_t m) {
+		mass_ = m;
+	}
+
+
+
 
 }

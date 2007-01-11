@@ -110,6 +110,7 @@ namespace se_core {
 		}
 
 		bool doesGeometryCollide(const CollisionComponent& other) const;
+		scale_t whenDoesGeometryCollide(const CollisionComponent& other) const;
 
 		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 

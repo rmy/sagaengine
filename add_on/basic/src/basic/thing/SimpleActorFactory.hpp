@@ -19,6 +19,7 @@ namespace se_basic {
 		void setPickable(bool isPickable);
 		void setCollideable(bool isCollideable);
 		void setDefaultAction(const char* name);
+		void setMass(float m);
 
 		/**
 		 * Copy spawn points.
@@ -30,6 +31,7 @@ namespace se_basic {
 		se_core::BoundingBox bounds_;
 		bool isPickable_;
 		bool isCollideable_;
+		scale_t mass_;
 		const se_core::Script* script_;
 		const se_core::Physics* physics_;
 		const se_core::ThingCollide* collide_;

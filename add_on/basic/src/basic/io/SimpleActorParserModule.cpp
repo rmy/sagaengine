@@ -105,16 +105,20 @@ namespace se_basic {
 				}
 				break;
 
-			case 'C': // Collide
-				in.readString(collide);
-				break;
-
 			case 'I': // pIckable
 				factory->setPickable(true);
 				break;
 
+			case 'C': // Collide
+				in.readString(collide);
+				break;
+
 			case 'O': // cOllideable
 				factory->setCollideable(true);
+				break;
+
+			case 'M': // cOllideable
+				factory->setMass(in.readFloat());
 				break;
 
 			case 'E': 
