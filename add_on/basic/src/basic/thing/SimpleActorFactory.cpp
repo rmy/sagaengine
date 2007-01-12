@@ -116,7 +116,7 @@ namespace se_basic {
 
 	void SimpleActorFactory
 	::setMass(scale_t m) {
-		move_.mass_ = m;
+		move_.mass_ = m * SCALE_RES;
 	}
 
 

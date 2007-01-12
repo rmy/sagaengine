@@ -47,7 +47,7 @@ namespace se_core {
 		// Is this thing's movement bringing it closer, or farther away?
 		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
-		if(distanceWithPusherMoving > beforeDistance) {
+		if(distanceWithPusherMoving >= beforeDistance) {
 			return false;
 		}
 		return true;
