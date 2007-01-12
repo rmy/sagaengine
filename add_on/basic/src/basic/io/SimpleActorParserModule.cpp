@@ -121,6 +121,15 @@ namespace se_basic {
 				factory->setMass(in.readFloat());
 				break;
 
+			case 'F': // Friction
+				{
+					float linear = in.readFloat();
+					float angular = in.readFloat();
+					float bounceDecay = in.readFloat();
+					factory->setFriction(linear, angular, bounceDecay);
+				}
+				break;
+
 			case 'E': 
 				{ // entrance
 					short id = in.readShort();

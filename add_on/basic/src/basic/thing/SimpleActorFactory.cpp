@@ -9,7 +9,6 @@ namespace se_basic {
 		: SimCompositeFactory(got_ACTOR, name)
 		, isPickable_(false)
 		, isCollideable_(false)
-		, mass_(SCALE_RES)
 		, script_(0)
 		, physics_(0)
 		, collide_(0)
@@ -54,7 +53,7 @@ namespace se_basic {
 		}
 
 		PhysicsComponent* pPhysics = PhysicsComponent::get(*a);
-		pPhysics->nextMove().mass_ = mass_ * SCALE_RES;
+		pPhysics->nextMove() = move_;
 		createComponents(a);
 
 		return a;
@@ -117,10 +116,15 @@ namespace se_basic {
 
 	void SimpleActorFactory
 	::setMass(scale_t m) {
-		mass_ = m;
+		move_.mass_ = m;
 	}
 
 
-
+	void SimpleActorFactory
+	::setFriction(float linear, float angular, float bounceDecay) {
+		move_.linearFriction_ = linear * SCALE_STEP;
+		move_.angularFriction_ = angular * SCALE_STEP;
+		move_.bounceMaintain_ = 1 - bounceDecay;
+	}
 
 }
