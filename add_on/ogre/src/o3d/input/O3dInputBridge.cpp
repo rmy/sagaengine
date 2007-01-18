@@ -117,15 +117,17 @@ namespace se_ogre {
 			}
 		}
 
+		bool isProcessed = false;
 		// If console is focused, send input there
 		if(O3dSchema::console && O3dSchema::console->isFocused()) {
 			O3dSchema::console->keyPressed(e);
+			isProcessed = true;
 		}
 		// If not, send to game input handler
 		else if(O3dSchema::inputManager().active()) {
 			O3dSchema::inputManager().active()->keyPressed(e);
+			isProcessed = true;
 		}
-
 
 		switch(e->getKey()) {
 		case Ogre::KC_ESCAPE:
