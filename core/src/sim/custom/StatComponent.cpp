@@ -36,7 +36,7 @@ namespace se_core {
 
 	coor_t StatComponent
 	::walkSpeed() const {
-		return (abilities()->modified(Abilities::SPEED) * COOR_RES) / (coor_t)TIMESTEPS_PER_SECOND;
+		return (abilities()->modified(Abilities::SPEED) * CoorT::half(COOR_STEP));
 	}
 
 
