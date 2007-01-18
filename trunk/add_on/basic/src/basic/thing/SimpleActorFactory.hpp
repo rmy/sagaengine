@@ -21,6 +21,7 @@ namespace se_basic {
 		void setDefaultAction(const char* name);
 		void setMass(float m);
 		void setFriction(float linear, float angular, float bounceDecay);
+		void setAbilities(short speed, short attack, short defence, short level);
 
 		/**
 		 * Copy spawn points.
@@ -37,6 +38,7 @@ namespace se_basic {
 		const se_core::Physics* physics_;
 		const se_core::ThingCollide* collide_;
 		se_core::ActionAndParameter* defaultAction_;
+		se_core::Abilities abilities_;
 
 		int spawnPointCount_;
 		se_core::ViewPoint** spawnPoints_;

@@ -56,6 +56,9 @@ namespace se_basic {
 		pPhysics->nextMove() = move_;
 		createComponents(a);
 
+		StatComponent* pStats = StatComponent::get(*a);
+		pStats->abilities()->setBases(&abilities_);
+
 		return a;
 	}
 
@@ -71,6 +74,17 @@ namespace se_basic {
 		isPickable_ = isPickable;
 	}
 
+
+	void SimpleActorFactory
+	::setAbilities(short speed, short attack, short defense, short level) {
+		short bases[4];
+		bases[0] = speed;
+		bases[1] = attack;
+		bases[2] = defense;
+		bases[3] = level;
+
+		abilities_.setBases(bases);
+	}
 
 	void SimpleActorFactory
 	::setCollideable(bool isCollideable) {

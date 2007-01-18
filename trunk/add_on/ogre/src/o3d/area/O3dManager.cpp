@@ -172,8 +172,7 @@ namespace se_ogre {
 	::showDebugOverlay(bool show) {
 		if (show) {
 			if (!debugOverlay_) {
-				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
-
+				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/Explanation");
 			}
 
 			debugOverlay_->show();
