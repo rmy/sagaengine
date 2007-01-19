@@ -33,12 +33,12 @@ namespace se_core {
 			   || minY_ > b.maxY_)
 			return false;
 
-		if(b.maxX_ - radius_ < centerX_
-			   || b.minX_ + radius_ > centerX_)
+		if(b.maxX_ + radius_ < centerX_
+			   || b.minX_ - radius_ > centerX_)
 			return false;
 
-		if(b.maxZ_ - radius_ < centerZ_
-			   || b.minZ_ + radius_ > centerZ_)
+		if(b.maxZ_ + radius_ < centerZ_
+			   || b.minZ_ - radius_ > centerZ_)
 			return false;
 		return true;
 	}
