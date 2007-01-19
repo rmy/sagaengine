@@ -19,39 +19,26 @@ rune@skalden.com
 */
 
 
-#ifndef OdeManager_hpp
-#define OdeManager_hpp
+#ifndef OdeAreaComponent_hpp
+#define OdeAreaComponent_hpp
 
 #include "OdePre.hpp"
 
 namespace se_ode {
-	class _SeOdeExport OdeManager : public se_core::SimComponentManager {
+	class _SeOdeExport OdeAreaComponent  : public se_core::SimNodeComponent {
 	public:
-		OdeManager();
-		~OdeManager();
+		OdeAreaComponent(se_core::SimComposite* owner);
+		~OdeAreaComponent();
 
-		void step(long when);
-		dBodyID createBody();
-		void destroyBody(dBodyID id);
-
-		dSpaceID createSpace();
-		void destroySpace(dSpaceID id);
-
-		static OdeManager& singleton();
-
-		void collision(dGeomID o1, dGeomID o2);
-		void applyForces();
+		void setActive(bool state);
 		void update();
+		void applyForces();
 
 	protected:
-		dWorldID worldId_;
 		dSpaceID spaceId_;
-		dJointGroupID collisionJointGroup_;
-
-		static const int MAX_CONTACTS = 32;
-		int contactCount_, activeContactCount_;
-		dContact contacts_[MAX_CONTACTS];
+		dGeomID geomId_;
 	};
+
 }
 
 #endif

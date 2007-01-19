@@ -19,39 +19,32 @@ rune@skalden.com
 */
 
 
-#ifndef OdeManager_hpp
-#define OdeManager_hpp
+#include "OdeAreaComponentFactory.hpp"
+#include "OdeAreaComponent.hpp"
+#include "sim/area/AreaFactory.hpp"
 
-#include "OdePre.hpp"
+using namespace se_core;
 
 namespace se_ode {
-	class _SeOdeExport OdeManager : public se_core::SimComponentManager {
-	public:
-		OdeManager();
-		~OdeManager();
+	const OdeAreaComponentFactory odeAreaComponentFactory;
 
-		void step(long when);
-		dBodyID createBody();
-		void destroyBody(dBodyID id);
 
-		dSpaceID createSpace();
-		void destroySpace(dSpaceID id);
+	OdeAreaComponentFactory
+	::OdeAreaComponentFactory()
+		: SimComponentFactory(sct_ODE) {
+		AreaFactory::addGenericComponent(this);
+	}
 
-		static OdeManager& singleton();
 
-		void collision(dGeomID o1, dGeomID o2);
-		void applyForces();
-		void update();
+	OdeAreaComponentFactory
+	::~OdeAreaComponentFactory() {
+	}
 
-	protected:
-		dWorldID worldId_;
-		dSpaceID spaceId_;
-		dJointGroupID collisionJointGroup_;
 
-		static const int MAX_CONTACTS = 32;
-		int contactCount_, activeContactCount_;
-		dContact contacts_[MAX_CONTACTS];
-	};
+	SimComponent* OdeAreaComponentFactory
+	::create(SimComposite* owner) const {
+		return new OdeAreaComponent(owner);
+	}
+
+
 }
-
-#endif

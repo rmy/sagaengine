@@ -2,6 +2,6 @@
 #define OdePre_hh
 
 #include <se_core.hpp>
-#include <ode.h>
+#include <ode/ode.h>
 
 #endif
