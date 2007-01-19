@@ -38,6 +38,12 @@ namespace se_core {
 
 	bool ThingCollide
 	::isGuilty(CollisionComponent& pusher, const CollisionComponent& target) const {
+		if(target.geometryType() == CollisionComponent::geom_BOX) {
+			if(pusher.doesGeometryCollide(target) && !pusher.didGeometryCollide(target)) {
+				return true;
+			}
+		}
+
 		return isGuilty(pusher.posComponent(), target.posComponent());
 	}
 
@@ -52,8 +58,6 @@ namespace se_core {
 		}
 		return true;
 	}
-
-
 
 }
 

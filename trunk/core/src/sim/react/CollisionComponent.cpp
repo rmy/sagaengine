@@ -26,6 +26,8 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "../thing/Actor.hpp"
 #include "../react/all.hpp"
+#include "util/bounds/BoundingBox.hpp"
+#include "util/bounds/BoundingCylinder.hpp"
 
 
 namespace se_core {
@@ -34,7 +36,8 @@ namespace se_core {
 		: AreaChildComponent(sct_COLLISION, owner)
 		, posComponent_(posComponent)
 		, isCollideable_(false)
-		, ignore_(0) {
+		, ignore_(0)
+		, geometryType_(geom_CYLINDER) {
 	}
 
 
@@ -128,14 +131,64 @@ namespace se_core {
 		const PosComponent& pusher = posComponent();
 		const PosComponent& target = other.posComponent();
 
-		// Is this thing's movement bringing it closer, or farther away?
-		coor_double_t afterDistanceSq = pusher.nextPos().worldCoor().xzDistanceSquared(target.nextPos().worldCoor());
-
-		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
-		if(afterDistanceSq > radiusSum * radiusSum) {
-			//LogMsg(pusher.owner()->name() << " - " << target.owner()->name() << " - " << radiusSum << " - " << afterDistanceSq);
-			return false;
+		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
+			BoundingCylinder b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			BoundingCylinder b2(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			return b2.isTouching(b1);
 		}
+
+		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
+			BoundingBox b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			BoundingCylinder b2(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			return b2.isTouching(b1);
+		}
+
+		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
+			BoundingCylinder b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			BoundingBox b2(target.nextPos().worldCoor(), target.nextPos().bounds_);
+			return b1.isTouching(b2);
+		}
+
+		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
+			BoundingBox b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			BoundingBox b2(target.nextPos().worldCoor(), target.nextPos().bounds_);
+			return b1.isTouching(b2);
+		}
+
+		return true;
+	}
+
+
+	bool CollisionComponent
+	::didGeometryCollide(const CollisionComponent& other) const {
+		// Only cylinder support at the moment
+		const Pos& pusher = posComponent().pos();
+		const Pos& target = other.posComponent().pos();
+
+		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
+			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingCylinder b2(pusher.worldCoor(), pusher.bounds_);
+			return b2.isTouching(b1);
+		}
+
+		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
+			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingCylinder b2(pusher.worldCoor(), pusher.bounds_);
+			return b2.isTouching(b1);
+		}
+
+		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
+			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingBox b2(target.worldCoor(), target.bounds_);
+			return b1.isTouching(b2);
+		}
+
+		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
+			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingBox b2(target.worldCoor(), target.bounds_);
+			return b1.isTouching(b2);
+		}
+
 		return true;
 	}
 
