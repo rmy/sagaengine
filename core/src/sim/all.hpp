@@ -12,6 +12,7 @@
 #include "PosNode.hpp"
 #include "InitListeners.hpp"
 #include "SimComponentFactory.hpp"
+#include "AreaComponent.hpp"
 #include "SimNodeComponent.hpp"
 #include "SimEngine.hpp"
 #include "SimCompositeFactory.hpp"
