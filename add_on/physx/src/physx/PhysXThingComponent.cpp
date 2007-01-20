@@ -55,7 +55,7 @@ namespace se_physx {
 			actorDesc.body = &bodyDesc;
 			actorDesc.density = 10;
 			const Point3& p = pPos->pos().worldCoor();
-			actorDesc.globalPose.t = NxVec3(p.x_, p.y_ + 5, p.z_);
+			actorDesc.globalPose.t = NxVec3(p.x_, p.y_, p.z_);
 			Assert(actorDesc.isValid());
 
 			actor_ = PhysXManager::singleton().createActor(actorDesc);
@@ -91,6 +91,7 @@ namespace se_physx {
 		const Vector3& f = pPhysics->nextMove().force_;
 		NxVec3 nxF(f.x_, f.y_, f.z_);
 		actor_->addForce(nxF);
+		actor_->addTorque(nxF);
 	}
 
 }

@@ -19,22 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef PhysXThingComponentFactory_hpp
-#define PhysXThingComponentFactory_hpp
+#ifndef PhysXThingComponent_hpp
+#define PhysXThingComponent_hpp
 
 #include "PhysXPre.hpp"
 
 namespace se_physx {
-	class _SePhysXExport PhysXThingComponentFactory  : public se_core::SimComponentFactory {
+	class _SePhysXExport PhysXThingParserModule  : public se_core::ParserModule {
 	public:
-		PhysXThingComponentFactory();
-		~PhysXThingComponentFactory();
-
-		se_core::SimComponent* create(se_core::SimComposite* owner) const;
-
-	protected:
-		NxActorDesc actorDesc_;
-		NxBodyDesc bodyDesc_;
+		PhysXThingParserModule(se_core::Parser& parser);
+		void parse(se_core::InputStream& in);
 	};
 
 }
