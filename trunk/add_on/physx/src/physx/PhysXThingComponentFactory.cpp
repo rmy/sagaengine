@@ -29,6 +29,7 @@ namespace se_physx {
 	PhysXThingComponentFactory
 	::PhysXThingComponentFactory()
 		: SimComponentFactory(sct_ODE) {
+		actorDesc_.setToDefault();
 	}
 
 

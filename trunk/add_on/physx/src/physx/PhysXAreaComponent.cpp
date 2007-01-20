@@ -44,9 +44,10 @@ namespace se_physx {
 			// Create a plane with default descriptor
 			NxPlaneShapeDesc planeDesc;
 			NxActorDesc actorDesc;
- 			actorDesc.shapes.pushBack(&planeDesc);
+
+			planeDesc.normal.set(0, 1, 0);
+			actorDesc.shapes.pushBack(&planeDesc);
 			groundPlane_ = PhysXManager::singleton().createActor(actorDesc);
-			//spaceId_ = PhysXManager::singleton().createSpace();
 
 			setParent(PhysXManager::singleton());
 		}

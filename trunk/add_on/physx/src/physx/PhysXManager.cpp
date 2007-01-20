@@ -36,7 +36,7 @@ namespace se_physx {
 		sdk_->getFoundationSDK().getRemoteDebugger()->connect ("localhost", 5425);
 
 		// Set the physics parameters
-		sdk_->setParameter(NX_SKIN_WIDTH, 0.01);
+		sdk_->setParameter(NX_SKIN_WIDTH, 0.01f);
 
 		// Set the debug visualization parameters
 		sdk_->setParameter(NX_VISUALIZATION_SCALE, 1);
@@ -46,7 +46,7 @@ namespace se_physx {
 		// Create the scene
 		NxSceneDesc sceneDesc;
 		sceneDesc.simType = NX_SIMULATION_HW;
-		const NxVec3 GRAVITY(0, -1, 0);
+		const NxVec3 GRAVITY(0, -9.8f, 0);
 		sceneDesc.gravity = GRAVITY;
 		scene_ = sdk_->createScene(sceneDesc);	
 		if(!scene_){
@@ -104,7 +104,6 @@ namespace se_physx {
 		// Take a simulation step. 
 		scene_->simulate(SCALE_STEP);
 		scene_->flushStream();
-		while (!scene_->fetchResults(NX_RIGID_BODY_FINISHED, false));
 		//dWorldStep(worldId_, SCALE_STEP);
 
 		// Remove all joints in the contact joint group.
@@ -131,6 +130,7 @@ namespace se_physx {
 
 	void PhysXManager
 	::update() {
+		while (!scene_->fetchResults(NX_RIGID_BODY_FINISHED, false));
 		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			PhysXAreaComponent* oac = static_cast<PhysXAreaComponent*>(&it.next());
