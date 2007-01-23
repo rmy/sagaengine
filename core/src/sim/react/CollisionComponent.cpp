@@ -255,7 +255,8 @@ namespace se_core {
 		coor_t zSize = b.maxZ_ - b.minZ_;
 
 		Point3 p1, p2;
-		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
+		Point3 c;
+		posComponent().worldCoor(alpha, c);
 		if(xSize > zSize) {
 			coor_t radius = CoorT::half(xSize - zSize);
 			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
@@ -269,12 +270,11 @@ namespace se_core {
 			p2.z_ = b.maxZ_ - radius;
 		}
 		else {
-			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
-			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
+			dest.set(c);
+			return;
 		}
+		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
 
-		Point3 c;
-		posComponent().worldCoor(alpha, c);
 		p1.add(c);
 		p2.add(c);
 		dest.nearestPoint(p1, p2, testPoint);
