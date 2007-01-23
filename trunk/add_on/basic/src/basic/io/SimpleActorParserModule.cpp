@@ -3,6 +3,8 @@
 #include "../thing/SimplePlayerFactory.hpp"
 #include "../thing/SimpleCameraFactory.hpp"
 #include "../thing/SimpleActorFactory.hpp"
+//TODO!!!
+//#include "physx/PhysXThingComponentFactory.hpp"
 
 using namespace se_core;
 
@@ -163,6 +165,7 @@ namespace se_basic {
 		if(!collide.equals("none")) {
 			factory->setCollide(collide.get());
 		}
+		//factory->addComponent(new se_physx::PhysXThingComponentFactory());
 		SimSchema::thingManager().addFactory(factory);
 	}
 

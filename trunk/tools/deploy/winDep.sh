@@ -10,6 +10,7 @@ cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API\ win32/api/fmodex.dl
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API\ win32/api/fmodex.dll bin/debug
 cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS.dll bin/release
 cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/libs/VC8/OIS_d.dll bin/debug
+cp /c/ode-0.7/lib/releasedll/*.dll bin/release/
 
 mkdir dependencies
 cd dependencies
@@ -24,7 +25,9 @@ mkdir include/ogre/samples
 mkdir include/fmod
 mkdir include/ois
 
+
 cp /c/OgreSDK/lib/* lib/release/
+cp /c/ode-0.7/lib/releasedll/* lib/release/
 mv lib/release/*.pdb lib/debug
 mv lib/release/*_d.* lib/debug
 cp lib/release/ode.* lib/debug
@@ -35,6 +38,8 @@ cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API\ win32/api/lib/fmode
 cp /c/Programfiler/FMOD\ SoundSystem/FMOD\ Programmers\ API\ win32/api/lib/fmodex_vc.lib lib/debug/fmodex.lib
 
 cp -R /c/OgreSDK/include/* include/ogre
+rm -f include/ogre/ode/*
+cp -R /c/ode-0.7/include/ode/* include/ogre/ode/
 cp /c/OgreSDK/samples/include/OgreCEGUI*.h include/ogre/samples
-cp ${PROGRAMFILES}/FMOD\ SoundSystem/FMOD\ Programmers\ API\ win32/api/inc/* include/fmod/
+cp ${PROGRAMFILES}/FMOD/ SoundSystem/FMOD\ Programmers\ API\ win32/api/inc/* include/fmod/
 cp ${PROGRAMFILES}/Wreckedgames/OIS_SDK/includes/* include/ois/

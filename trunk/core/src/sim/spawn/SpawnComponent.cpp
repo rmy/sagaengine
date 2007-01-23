@@ -57,10 +57,12 @@ namespace se_core {
 		const PosNode* node = toActor();
 		const Pos& pos = pos_->pos();
 		vp.add(pos.world_);
-		vp.sub(pos.area()->pos().world_);
 
 		// Spawn it in area (with area as parent)
-		SimComposite* t = const_cast<Area*>(pos.area()->toArea())->spawn(thingName, vp, deniedTsMask);
+		Area* area = const_cast<Area*>(pos.area()->toArea());
+		area = area->neighbour(vp.coor_);
+		vp.sub(area->pos().world_);
+		SimComposite* t = area->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
 		// TODO: Invent a better way
