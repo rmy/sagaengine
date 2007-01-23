@@ -2,7 +2,6 @@
 #define SimpleActorParserModule_hpp
 
 #include "BasicPre.hpp"
-#include "../thing/SimpleActorFactory.hpp"
 
 namespace se_basic {
 
@@ -13,7 +12,6 @@ namespace se_basic {
 		void readMultiCutscene(se_core::InputStream& in, se_core::MultiSimObject& mgo);
 		void readMultiQuest(se_core::InputStream& in, se_core::MultiSimObject& mgo);
 		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
-		void parseStats(se_core::InputStream& in, SimpleActorFactory* factory);
 	};
 
 };

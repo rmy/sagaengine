@@ -49,7 +49,6 @@ namespace se_core {
 		bool isGuilty(CollisionComponent& pusher
 					 , const CollisionComponent& target) const;
 
-	private:
 		bool isGuilty(PosComponent& pusher
 					 , const PosComponent& target) const;
 

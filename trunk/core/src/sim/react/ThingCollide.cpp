@@ -38,24 +38,21 @@ namespace se_core {
 
 	bool ThingCollide
 	::isGuilty(CollisionComponent& pusher, const CollisionComponent& target) const {
-		if(pusher.doesGeometryCollide(target) && !pusher.didGeometryCollide(target)) {
-			return true;
-		}
-
 		return isGuilty(pusher.posComponent(), target.posComponent());
 	}
-
 
 	bool ThingCollide
 	::isGuilty(PosComponent& pusher, const PosComponent& target) const {
 		// Is this thing's movement bringing it closer, or farther away?
 		coor_double_t beforeDistance = pusher.pos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
 		coor_double_t distanceWithPusherMoving = pusher.nextPos().worldCoor().xzDistanceSquared(target.pos().worldCoor());
-		if(distanceWithPusherMoving >= beforeDistance) {
+		if(distanceWithPusherMoving > beforeDistance) {
 			return false;
 		}
 		return true;
 	}
+
+
 
 }
 

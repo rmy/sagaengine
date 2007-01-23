@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport Abilities {
 	public:
-		enum AbilityType { SPEED, ATTACK, DEFENSE, XP_LEVEL, ABILITY_COUNT };
+		enum AbilityType { ATTACK, DEFENSE, SPEED, XP_LEVEL, ABILITY_COUNT };
 
 		Abilities();
 		virtual ~Abilities();
@@ -47,7 +47,7 @@ namespace se_core {
 				modifiers_[ i ] -= abilities.bases_[ i ] + abilities.modifiers_[ i ];
 		}
 		void setBases(short* bases);
-		void setBases(const Abilities* src);
+		void setBases(Abilities* src);
 
 	private:
 		short bases_[ ABILITY_COUNT ];

@@ -52,12 +52,7 @@ namespace se_basic {
 			a->setDefaultScript(script_);
 		}
 
-		PhysicsComponent* pPhysics = PhysicsComponent::get(*a);
-		pPhysics->nextMove() = move_;
 		createComponents(a);
-
-		StatComponent* pStats = StatComponent::get(*a);
-		pStats->abilities()->setBases(&abilities_);
 
 		return a;
 	}
@@ -74,17 +69,6 @@ namespace se_basic {
 		isPickable_ = isPickable;
 	}
 
-
-	void SimpleActorFactory
-	::setAbilities(short speed, short attack, short defense, short level) {
-		short bases[4];
-		bases[0] = speed;
-		bases[1] = attack;
-		bases[2] = defense;
-		bases[3] = level;
-
-		abilities_.setBases(bases);
-	}
 
 	void SimpleActorFactory
 	::setCollideable(bool isCollideable) {
@@ -126,19 +110,6 @@ namespace se_basic {
 		for(int i = 0; i < spawnPointCount_; ++i) {
 			spawnPoints_[ i ] = spawnPoints[ i ];
 		}
-	}
-
-	void SimpleActorFactory
-	::setMass(scale_t m) {
-		move_.mass_ = m * SCALE_RES;
-	}
-
-
-	void SimpleActorFactory
-	::setFriction(float linear, float angular, float bounceDecay) {
-		move_.linearFriction_ = linear * SCALE_STEP;
-		move_.angularFriction_ = angular * SCALE_STEP;
-		move_.bounceMaintain_ = 1 - bounceDecay;
 	}
 
 }

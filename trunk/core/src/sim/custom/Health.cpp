@@ -50,8 +50,6 @@ namespace se_core {
 	void Health
 	::adjustHitpoints(StatComponent& actor, int amount) {
 		currentHitpoints_ += amount;
-		if(currentHitpoints_ > maxHitpoints_)
-			currentHitpoints_ = maxHitpoints_;
 		SimSchema::healthListeners().castHealthChangedEvent(actor, amount);
 	}
 

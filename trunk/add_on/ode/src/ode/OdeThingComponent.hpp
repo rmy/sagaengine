@@ -25,20 +25,12 @@ rune@skalden.com
 #include "OdePre.hpp"
 
 namespace se_ode {
-	class _SeOdeExport OdeThingComponent  : public se_core::SimNodeComponent {
+	class _SeOdeExport OdeThingComponent  : public se_core::SimComponent {
 	public:
 		OdeThingComponent(se_core::SimComposite* owner);
 		~OdeThingComponent();
 
-		void setActive(bool state);
-
-		void applyForces();
-		void update();
-
-
 	protected:
-		dBodyID bodyId_;
-		dGeomID geomId_;
 	};
 
 }

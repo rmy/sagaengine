@@ -32,9 +32,6 @@ namespace se_core {
 	SimNodeComponent
 	::SimNodeComponent(SimComposite* owner)
 		: SimComponent(sct_NODE, owner), parent_(0) {
-		if(owner->hasParent()) {
-			parentChanged(owner->parent(), 0);
-		}
 	}
 
 
@@ -84,6 +81,11 @@ namespace se_core {
 
 	void SimNodeComponent
 	::parentChanged(SimComposite* newParent, SimComposite* oldParent) {
+		MultiSimNodeComponent::TreeIterator it(children_);
+		while(it.hasNext()) {
+			SimNodeComponent& c = it.next();
+		}
+
 		if(newParent) {
 			SimNodeComponent* n = static_cast<SimNodeComponent*>(newParent->component(type()));
 			if(n) {

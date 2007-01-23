@@ -33,17 +33,17 @@ namespace se_ogre {
 
 		virtual bool moveCamera(float stepDelta) { return false; }
 
-		virtual void keyPressed(Ogre::KeyEvent* e) {};
-		virtual void keyReleased(Ogre::KeyEvent* e) {}
-		virtual void mousePressed(Ogre::MouseEvent* e) {e->consume();}
-		virtual void mouseReleased(Ogre::MouseEvent* e) {e->consume();}
-		virtual void mouseDragged(Ogre::MouseEvent* e) {}
-		virtual void mouseMoved(Ogre::MouseEvent* e) {}
+		virtual void keyPressed(Ogre::KeyEvent* e)		{};
+		virtual void keyReleased(Ogre::KeyEvent* e)		{}
+		virtual void mousePressed(Ogre::MouseEvent* e)	{e->consume();}
+		virtual void mouseReleased(Ogre::MouseEvent* e)	{e->consume();}
+		virtual void mouseDragged(Ogre::MouseEvent* e)	{}
+		virtual void mouseMoved(Ogre::MouseEvent* e)	{}
 
 
 		virtual bool joyButtonPressed (int button) { return false; }
 		virtual bool joyButtonReleased (int button) { return false; }
-		virtual bool buttonPressed (const OIS::JoyStickEvent &arg, int button) { return false; }
+		virtual bool buttonPressed (const OIS::JoyStickEvent &arg, int button) = 0; // { return false; }
 		virtual bool buttonReleased (const OIS::JoyStickEvent &arg, int button) { return false; }
 		virtual bool axisMoved (const OIS::JoyStickEvent &arg, int axis) { return false; }
 		virtual bool sliderMoved (const OIS::JoyStickEvent &, int) { return false; }
