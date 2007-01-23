@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef basic_area_SimpleAreaParserModule_hpp
-#define basic_area_SimpleAreaParserModule_hpp
+#ifndef basic_io_SimpleAreaParserModule_hpp
+#define basic_io_SimpleAreaParserModule_hpp
 
 #include <se_core.hpp>
 
@@ -30,6 +30,7 @@ namespace se_basic {
 	public:
 		SimpleAreaParserModule(se_core::Parser& parser);
 		void parse(se_core::InputStream& in);
+
 	};
 
 }

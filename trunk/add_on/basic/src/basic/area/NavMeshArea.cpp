@@ -172,7 +172,10 @@ namespace se_basic {
 		if(via == toIndex)
 			return via;
 		navMesh_->center(via, c);
-		Assert(navMesh_->isInLineOfSight(from, fromIndex, c, via));
+		if(!navMesh_->isInLineOfSight(from, fromIndex, c, via)) {
+			LogWarning("Gave path that was not in LOS");
+			return fromIndex;
+		}
 
 		short next = navMesh_->path(via, toIndex);
 		navMesh_->center(next, c);

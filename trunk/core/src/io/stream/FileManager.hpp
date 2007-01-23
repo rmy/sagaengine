@@ -45,6 +45,7 @@ namespace se_core {
 		virtual void close(InputStream*& is) = 0;
 
 		void load(const char* filename);
+		virtual bool exists(const char* filename) = 0;
 
 		/**
 		 * Load and parse all the files in this

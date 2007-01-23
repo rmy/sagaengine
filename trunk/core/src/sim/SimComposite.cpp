@@ -34,6 +34,7 @@ namespace se_core {
 
 		isActive_ = state;
 
+		// Children is inactive before *this
 		if(!state && doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
 			while(composites.hasNext()) {
@@ -47,6 +48,7 @@ namespace se_core {
 			it.next().setActive(state);
 		}
 
+		// Children goes active after *this
 		if(state && doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
 			while(composites.hasNext()) {
