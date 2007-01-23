@@ -74,6 +74,18 @@ namespace se_ogre {
 			}
 		}
 
+
+		// Debug
+		/*
+		String mesh("puck.mesh");
+		ThingMOInfo* info = new ThingMOInfo();
+		info->movableObjectType_.set(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
+		info->params_["mesh"] = mesh.get();
+		info->doScaleByRadius_ = true;
+		infoList->add(info);
+		*/
+
+
 		O3dSchema::thingMOManager.addInfoList(infoList);
 		if(infoList->infoCount_ > 0) {
 			SimCompositeFactory* f = SimSchema::thingManager().factory(infoList->thingType_.get());

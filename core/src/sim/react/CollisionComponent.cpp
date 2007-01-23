@@ -128,31 +128,41 @@ namespace se_core {
 	bool CollisionComponent
 	::doesGeometryCollide(const CollisionComponent& other) const {
 		// Only cylinder support at the moment
-		const PosComponent& pusher = posComponent();
-		const PosComponent& target = other.posComponent();
+		const Pos& pusher = posComponent().pos();
+		const Pos& target = other.posComponent().pos();
 
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
-			BoundingCylinder b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
-			BoundingCylinder b2(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingCylinder b2(target.worldCoor(), target.bounds_);
 			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
-			BoundingBox b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
-			BoundingCylinder b2(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
+			Point3 nearest;
+			bouncePoint(target.worldCoor(), nearest);
+			nearest.y_ = target.bounds_.minY_;
+			BoundingCylinder b1(nearest, pusher.bounds_);
+			BoundingCylinder b2(target.worldCoor(), target.bounds_);
 			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
-			BoundingCylinder b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
-			BoundingBox b2(target.nextPos().worldCoor(), target.nextPos().bounds_);
-			return b1.isTouching(b2);
+			Point3 nearest;
+			other.bouncePoint(pusher.worldCoor(), nearest);
+			nearest.y_ = pusher.bounds_.minY_;
+			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingCylinder b2(nearest, target.bounds_);
+			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
-			BoundingBox b1(pusher.nextPos().worldCoor(), pusher.nextPos().bounds_);
-			BoundingBox b2(target.nextPos().worldCoor(), target.nextPos().bounds_);
+			LogFatal("BOX vs BOX not supported!");
+			/*
+			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
+			BoundingBox b2(target.worldCoor(), target.bounds_);
 			return b1.isTouching(b2);
+			*/
+			return false;
 		}
 
 		return true;
@@ -167,26 +177,34 @@ namespace se_core {
 
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
 			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(pusher.worldCoor(), pusher.bounds_);
+			BoundingCylinder b2(target.worldCoor(), target.bounds_);
 			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
-			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(pusher.worldCoor(), pusher.bounds_);
+			Point3 nearest;
+			bouncePoint(target.worldCoor(), nearest);
+			BoundingCylinder b1(nearest, pusher.bounds_);
+			BoundingCylinder b2(target.worldCoor(), target.bounds_);
 			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
+			Point3 nearest;
+			other.bouncePoint(pusher.worldCoor(), nearest);
 			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingBox b2(target.worldCoor(), target.bounds_);
-			return b1.isTouching(b2);
+			BoundingCylinder b2(nearest, target.bounds_);
+			return b2.isTouching(b1);
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
+			LogFatal("BOX vs BOX not supported!");
+			/*
 			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
 			BoundingBox b2(target.worldCoor(), target.bounds_);
 			return b1.isTouching(b2);
+			*/
+			return false;
 		}
 
 		return true;
@@ -202,12 +220,15 @@ namespace se_core {
 		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
 		coor_t radiusSumSq = radiusSum * radiusSum;
 
+		Point3 tNow, tNext;
+
 		scale_t min = 0, max = 1;
 		Point3 mp, mt;
 		for(int i = 0; i < 8; ++i) {
 			scale_t middle = (min + max) / 2;
 			pusher.worldCoor(middle, mp);
-			target.worldCoor(middle, mt);
+			//target.worldCoor(middle, mt);
+			other.bouncePoint(mp, mt, middle);
 
 			coor_double_t dSq = mp.xzDistanceSquared(mt);
 			if(dSq > radiusSumSq) {
@@ -226,7 +247,40 @@ namespace se_core {
 		return owner()->tag();
 	}
 
-	
+
+	void CollisionComponent
+	::bouncePoint(const Point3& testPoint, Point3& dest, scale_t alpha) const {
+		const BoundingBox& b = posComponent().nextPos().bounds_;
+		coor_t xSize = b.maxX_ - b.minX_;
+		coor_t zSize = b.maxZ_ - b.minZ_;
+
+		Point3 p1, p2;
+		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
+		if(xSize > zSize) {
+			coor_t radius = CoorT::half(xSize - zSize);
+			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
+			p1.x_ = b.minX_ + radius;
+			p2.x_ = b.maxX_ - radius;
+		}
+		else if(zSize > xSize) {
+			coor_t radius = CoorT::half(zSize - xSize);
+			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
+			p1.z_ = b.minZ_ + radius;
+			p2.z_ = b.maxZ_ - radius;
+		}
+		else {
+			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
+			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
+		}
+
+		Point3 c;
+		posComponent().worldCoor(alpha, c);
+		p1.add(c);
+		p2.add(c);
+		dest.nearestPoint(p1, p2, testPoint);
+	}
+
+
 	bool CollisionComponent 
 	::shouldIgnore(const CollisionComponent& cc) const {
 		return &cc == ignore_ || cc.ignore_ == this;

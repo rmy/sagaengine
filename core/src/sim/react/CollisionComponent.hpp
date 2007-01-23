@@ -127,6 +127,8 @@ namespace se_core {
 			return geom_BOX;
 		}
 
+		void bouncePoint(const Point3& testPoint, Point3& dest, scale_t alpha = SCALE_RES) const;
+
 
 	private:
 		PosComponent* posComponent_;
