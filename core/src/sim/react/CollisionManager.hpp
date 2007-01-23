@@ -58,22 +58,16 @@ namespace se_core {
 		void resolveContacts();
 		void getContactList();
 
-		void flipGodMode() {
-			isGodModeOn_ = !isGodModeOn_;
-		}
-
 
 	private:
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 		int gridCount_, gridPoolCount_;
-		bool isGodModeOn_;
 		CollisionGrid** collisionGrids_;
 		CollisionGrid** gridPool_;
 
 		static const int MAX_CONTACTS = 1024;
 		int contactCount_;
 		Contact* contactList_;
-
 	};
 
 }

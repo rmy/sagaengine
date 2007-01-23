@@ -57,8 +57,7 @@ namespace se_core {
 			, LOGIC = 'L'
 			, UI = 'U'
 			, GAME = 'X'
-			, FMOD = 'F'
-			, PHYSX = 'P'
+			, FMOD = 'F' 
 		};
 
 		ParserModule(Parser &parser, unsigned char group, unsigned char code, int version);

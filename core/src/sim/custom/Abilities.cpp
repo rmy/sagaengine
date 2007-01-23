@@ -26,12 +26,12 @@ rune@skalden.com
 namespace se_core {
 	const short Abilities
 	::autoBases_[][ABILITY_COUNT] = {
-		{  8,  8,  8, 0 },
-		{ 12, 12, 12, 1 },
-		{ 16, 16, 16, 2 },
+		{  5,  5,  5, 0 },
+		{ 10, 10, 10, 1 },
+		{ 15, 15, 15, 2 },
 		{ 20, 20, 20, 3 },
-		{ 24, 24, 24, 4 },
-		{ 28, 28, 28, 5 }
+		{ 25, 25, 25, 4 },
+		{ 30, 30, 30, 5 }
 	};
 
 
@@ -66,7 +66,7 @@ namespace se_core {
 
 
 	void Abilities
-	::setBases(const Abilities* src) {
+	::setBases(Abilities* src) {
 		if(src) {
 			for(int i = 0; i < ABILITY_COUNT; ++i) {
 				bases_[ i ] = src->bases_[ i ];

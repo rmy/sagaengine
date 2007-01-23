@@ -173,6 +173,7 @@ namespace se_ogre {
 		if (show) {
 			if (!debugOverlay_) {
 				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
+
 			}
 
 			debugOverlay_->show();

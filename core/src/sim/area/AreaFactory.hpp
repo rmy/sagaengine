@@ -41,15 +41,8 @@ namespace se_core {
 		virtual Area* create(String* name, int pageX, int pageY, int pageZ) const = 0;
 
 		void createGenericComponents(SimComposite* owner) const;
-		
-		static void addGenericComponent(SimComponentFactory* f) {
-			genericComponents_[ genericComponentCount_++ ] = f;
-		}
 
-	private:
-		static const int MAX_GENERIC_COMPONENTS = 4;
-		static int genericComponentCount_;
-		static SimComponentFactory* genericComponents_[MAX_GENERIC_COMPONENTS];
+		static SimComponentFactory* genericComponent_;
 	};
 
 }

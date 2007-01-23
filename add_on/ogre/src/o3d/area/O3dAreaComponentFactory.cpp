@@ -30,7 +30,7 @@ namespace se_ogre {
 	O3dAreaComponentFactory
 	::O3dAreaComponentFactory()
 			: SimComponentFactory(sct_RENDER) {
-		AreaFactory::addGenericComponent(this);
+		AreaFactory::genericComponent_ = this;
 	}
 
 	se_core::SimComponent* O3dAreaComponentFactory

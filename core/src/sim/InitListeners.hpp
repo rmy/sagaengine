@@ -69,9 +69,8 @@ namespace se_core {
 		}
 
 		void castCleanupEngineEvent() {
-			while(nextEngineInit_ > 0) {
-				--nextEngineInit_;
-				listeners_[ nextEngineInit_ ]->cleanupEngineEvent();
+			for(int i = 0; i < listenerCount_; ++i) {
+				listeners_[ i ]->cleanupEngineEvent();
 			}
 		}
 
@@ -86,6 +85,7 @@ namespace se_core {
 				listeners_[ i ]->cleanupGameEvent();
 			}
 		}
+
 
 
 		void castStartGameEvent() {

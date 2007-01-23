@@ -109,23 +109,13 @@ namespace se_core {
 			return collide_ != 0;
 		}
 
-		bool didGeometryCollide(const CollisionComponent& other) const;
 		bool doesGeometryCollide(const CollisionComponent& other) const;
-		scale_t whenDoesGeometryCollide(const CollisionComponent& other) const;
 
 		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 		const BoundingBox& areaCovered() const { return areaCovered_; }
 		void updateAreaCovered();
 		void move();
-
-		enum GeomType { geom_CYLINDER, geom_BOX };
-
-		enum GeomType geometryType() const {
-			if(posComponent_->nextPos().bounds_.minX_ == posComponent_->nextPos().bounds_.minZ_)
-				return geom_CYLINDER;
-			return geom_BOX;
-		}
 
 
 	private:
@@ -140,7 +130,6 @@ namespace se_core {
 		const ThingCollide* collide_;
 
 		const CollisionComponent* ignore_;
-		enum GeomType geometryType_;
 	};
 }
 

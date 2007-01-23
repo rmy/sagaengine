@@ -25,7 +25,6 @@ rune@skalden.com
 namespace se_core {
 	class BoundingSquare;
 	class BoundingBox;
-	class BoundingCylinder;
 }
 
 #endif

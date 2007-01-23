@@ -37,7 +37,7 @@ namespace se_ogre {
 	::~ThingMovableObjectFactory() {
 	}
 
-
+	
 	ThingMO* ThingMovableObjectFactory
 	::create(se_core::PosComponent& thing, const ThingMOInfo& info) const {
 		return new ThingMovableObject(thing, info, *this);

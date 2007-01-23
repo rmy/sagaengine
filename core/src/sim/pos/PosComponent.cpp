@@ -92,7 +92,6 @@ namespace se_core {
 		}
 	}
 
-
 	void PosComponent
 	::cleanup() {
 		leaveCurrentParent();
