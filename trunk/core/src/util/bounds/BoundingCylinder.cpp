@@ -49,7 +49,7 @@ namespace se_core {
 		: centerX_(p.x_ + CoorT::half(b.minX_ + b.maxX_))
 		, centerZ_(p.z_ + CoorT::half(b.minZ_ + b.maxZ_))
 		, minY_(p.y_ + b.minY_), maxY_(p.y_ + b.maxY_)
-		, radius_(b.radius()) {
+		, radius_(b.smallRadius()) {
 	}
 
 

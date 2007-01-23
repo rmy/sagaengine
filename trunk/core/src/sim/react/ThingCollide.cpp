@@ -38,11 +38,16 @@ namespace se_core {
 
 	bool ThingCollide
 	::isGuilty(CollisionComponent& pusher, const CollisionComponent& target) const {
-		if(pusher.doesGeometryCollide(target) && !pusher.didGeometryCollide(target)) {
-			return true;
-		}
+		//if(!pusher.didGeometryCollide(target)) {
+		//	return true;
+		//}
+		/*
+		Point3 bouncePoint;
+		target.bouncePoint(pusher, bouncePoint);
 
 		return isGuilty(pusher.posComponent(), target.posComponent());
+		*/
+		return true;
 	}
 
 
