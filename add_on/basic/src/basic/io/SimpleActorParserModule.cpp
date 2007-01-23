@@ -60,6 +60,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'S': // Stats
+				{
+					parseStats(in, factory);
+					break;
+				}
+				break;
+
 			case 'B': // Bounds
 				{
 					BoundingBox b;
@@ -105,16 +112,29 @@ namespace se_basic {
 				}
 				break;
 
-			case 'C': // Collide
-				in.readString(collide);
-				break;
-
 			case 'I': // pIckable
 				factory->setPickable(true);
 				break;
 
+			case 'C': // Collide
+				in.readString(collide);
+				break;
+
 			case 'O': // cOllideable
 				factory->setCollideable(true);
+				break;
+
+			case 'M': // cOllideable
+				factory->setMass(in.readFloat());
+				break;
+
+			case 'F': // Friction
+				{
+					float linear = in.readFloat();
+					float angular = in.readFloat();
+					float bounceDecay = in.readFloat();
+					factory->setFriction(linear, angular, bounceDecay);
+				}
 				break;
 
 			case 'E': 
@@ -182,4 +202,23 @@ namespace se_basic {
 	}
 
 
+	void SimpleActorParserModule
+	::parseStats(InputStream& in, SimpleActorFactory* factory) {
+		int code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			// Abilites
+			case 'A':
+				{
+					int speed = in.readShort();
+					int attack = in.readShort();
+					int defense = in.readShort();
+					int level = in.readShort();
+					factory->setAbilities(speed, attack, defense, level);
+				}
+			}
+		}
+	}
 }
