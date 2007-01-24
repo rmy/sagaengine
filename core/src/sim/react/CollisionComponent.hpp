@@ -127,7 +127,8 @@ namespace se_core {
 			return geom_BOX;
 		}
 
-		void bouncePoint(const Point3& testPoint, Point3& dest, scale_t alpha = SCALE_RES) const;
+		coor_t bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const;
+		coor_t bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const;
 
 
 	private:
