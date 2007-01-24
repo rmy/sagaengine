@@ -44,9 +44,9 @@ namespace se_core {
 		PosComponent& pPos = pusher.posComponent();
 		const PosComponent& tPos = target.posComponent();
 		Point3 pNow, pNext, t;
-		target.bouncePoint(pPos.pos().worldCoor(), t, 0);
-		pusher.bouncePoint(t, pNow, 0);
-		pusher.bouncePoint(t, pNext, 1);
+		target.bouncePoint(0, pPos.pos().worldCoor(), t);
+		pusher.bouncePoint(0, t, pNow);
+		pusher.bouncePoint(SCALE_RES, t, pNext);
 
 		coor_double_t beforeDistance = pNow.xzDistanceSquared(t);
 		coor_double_t distanceWithPusherMoving = pNext.xzDistanceSquared(t);

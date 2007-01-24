@@ -127,17 +127,8 @@ namespace se_core {
 
 	bool CollisionComponent
 	::doesGeometryCollide(const CollisionComponent& other) const {
-		// Only cylinder support at the moment
-		const Pos& pusher = posComponent().nextPos();
-		const Pos& target = other.posComponent().nextPos();
-
-
 		Point3 p, t;
-		bouncePoint(target.worldCoor(), p, 1);
-		other.bouncePoint(p, t, 1);
-		p.y_ = t.y_;
-
-		coor_t radSum = pusher.bounds_.smallRadius() + target.bounds_.smallRadius();
+		coor_t radSum = bouncePoints(SCALE_RES, other, p, t);
 		//LogWarning(radSum << " > " << p.distance(t));
 		bool res = (p.xzDistanceSquared(t) < radSum * radSum);
 		//AssertWarning(res == true, owner()->name() << " - " << other.owner()->name());
@@ -185,13 +176,9 @@ namespace se_core {
 	bool CollisionComponent
 	::didGeometryCollide(const CollisionComponent& other) const {
 		// Only cylinder support at the moment
-		const Pos& pusher = posComponent().pos();
-		const Pos& target = other.posComponent().pos();
 
 		Point3 p, t;
-		bouncePoint(target.worldCoor(), p, 0);
-		other.bouncePoint(p, t, 0);
-		coor_t radSum = pusher.bounds_.smallRadius() + target.bounds_.smallRadius();
+		coor_t radSum = bouncePoints(0, other, p, t);
 		return (p.xzDistanceSquared(t) < radSum * radSum);
 		/*
 		p.y_ = t.y_;
@@ -250,7 +237,7 @@ namespace se_core {
 			scale_t middle = (min + max) / 2;
 			pusher.worldCoor(middle, mp);
 			//target.worldCoor(middle, mt);
-			other.bouncePoint(mp, mt, middle);
+			other.bouncePoint(middle, mp, mt);
 
 			coor_double_t dSq = mp.xzDistanceSquared(mt);
 			if(dSq > radiusSumSq) {
@@ -270,17 +257,18 @@ namespace se_core {
 	}
 
 
-	void CollisionComponent
-	::bouncePoint(const Point3& testPoint, Point3& dest, scale_t alpha) const {
+	coor_t CollisionComponent
+	::bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const {
 		const BoundingBox& b = posComponent().pos().bounds_;
 		coor_t xSize = b.maxX_ - b.minX_;
 		coor_t zSize = b.maxZ_ - b.minZ_;
 
 		Point3 p1, p2;
 		Point3 c;
+		coor_t radius;
 		posComponent().worldCoor(alpha, c);
 		if(xSize > zSize) {
- 			coor_t radius = CoorT::half(zSize);
+ 			radius = CoorT::half(zSize);
 			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
 			p1.x_ = b.minX_ + radius;
 			p2.x_ = b.maxX_ - radius;
@@ -288,7 +276,7 @@ namespace se_core {
 			Assert(p1.x_ < p2.x_);
 		}
 		else if(zSize > xSize) {
-			coor_t radius = CoorT::half(xSize);
+			radius = CoorT::half(xSize);
 			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
 			p1.z_ = b.minZ_ + radius;
 			p2.z_ = b.maxZ_ - radius;
@@ -296,15 +284,26 @@ namespace se_core {
 		}
 		else {
 			dest.set(c);
-			return;
+			return CoorT::half(xSize);
 		}
 
 		p1.add(c);
 		p2.add(c);
 		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
 		dest.nearestPoint(p1, p2, testPoint);
+		return radius;
 	}
 
+
+	coor_t CollisionComponent
+	::bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const {
+		Point3 tmp;
+		other.posComponent().worldCoor(alpha, tmp);
+		coor_t radSum = bouncePoint(alpha, tmp, d1);
+		radSum += other.bouncePoint(alpha, d1, d2);
+		d1.y_ = d2.y_;
+		return radSum;
+	}
 
 	bool CollisionComponent 
 	::shouldIgnore(const CollisionComponent& cc) const {
