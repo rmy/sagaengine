@@ -42,11 +42,14 @@ namespace se_core {
 			return true;
 		}
 		PosComponent& pPos = pusher.posComponent();
-		Point3 bouncePoint;
-		target.bouncePoint(pPos.pos().worldCoor(), bouncePoint, 0);
+		const PosComponent& tPos = target.posComponent();
+		Point3 pNow, pNext, t;
+		target.bouncePoint(pPos.pos().worldCoor(), t, 0);
+		pusher.bouncePoint(t, pNow, 0);
+		pusher.bouncePoint(t, pNext, 1);
 
-		coor_double_t beforeDistance = pPos.pos().worldCoor().xzDistanceSquared(bouncePoint);
-		coor_double_t distanceWithPusherMoving = pPos.nextPos().worldCoor().xzDistanceSquared(bouncePoint);
+		coor_double_t beforeDistance = pNow.xzDistanceSquared(t);
+		coor_double_t distanceWithPusherMoving = pNext.xzDistanceSquared(t);
 		if(distanceWithPusherMoving >= beforeDistance) {
 			return false;
 		}

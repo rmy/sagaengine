@@ -172,6 +172,7 @@ namespace se_core {
 
 		void eulerTowards(const Point3& c, Euler3& dest) const;
 
+		void nearestPoint(const Point3& pt1, const Point3& pt2, const Point3& testPoint);
 
 		// copy constructor and operator = is made by complier
 
