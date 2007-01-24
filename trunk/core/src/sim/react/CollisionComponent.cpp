@@ -128,9 +128,26 @@ namespace se_core {
 	bool CollisionComponent
 	::doesGeometryCollide(const CollisionComponent& other) const {
 		// Only cylinder support at the moment
-		const Pos& pusher = posComponent().pos();
-		const Pos& target = other.posComponent().pos();
+		const Pos& pusher = posComponent().nextPos();
+		const Pos& target = other.posComponent().nextPos();
 
+
+		Point3 p, t;
+		bouncePoint(target.worldCoor(), p, 1);
+		other.bouncePoint(p, t, 1);
+		p.y_ = t.y_;
+
+		coor_t radSum = pusher.bounds_.smallRadius() + target.bounds_.smallRadius();
+		//LogWarning(radSum << " > " << p.distance(t));
+		bool res = (p.xzDistanceSquared(t) < radSum * radSum);
+		//AssertWarning(res == true, owner()->name() << " - " << other.owner()->name());
+		return res;
+
+		//BoundingCylinder b1(p, pusher.bounds_);
+		//BoundingCylinder b2(t, target.bounds_);
+		//return b2.isTouching(b1);
+
+		/*
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
 			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
 			BoundingCylinder b2(target.worldCoor(), target.bounds_);
@@ -156,16 +173,12 @@ namespace se_core {
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
-			LogFatal("BOX vs BOX not supported!");
-			/*
-			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingBox b2(target.worldCoor(), target.bounds_);
-			return b1.isTouching(b2);
-			*/
+			LogMsg("BOX vs BOX not supported!");
 			return false;
 		}
 
 		return true;
+		*/
 	}
 
 
@@ -175,6 +188,19 @@ namespace se_core {
 		const Pos& pusher = posComponent().pos();
 		const Pos& target = other.posComponent().pos();
 
+		Point3 p, t;
+		bouncePoint(target.worldCoor(), p, 0);
+		other.bouncePoint(p, t, 0);
+		coor_t radSum = pusher.bounds_.smallRadius() + target.bounds_.smallRadius();
+		return (p.xzDistanceSquared(t) < radSum * radSum);
+		/*
+		p.y_ = t.y_;
+		BoundingCylinder b1(p, pusher.bounds_);
+		BoundingCylinder b2(t, target.bounds_);
+		return b2.isTouching(b1);
+		*/
+
+		/*
 		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
 			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
 			BoundingCylinder b2(target.worldCoor(), target.bounds_);
@@ -198,16 +224,12 @@ namespace se_core {
 		}
 
 		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
-			LogFatal("BOX vs BOX not supported!");
-			/*
-			BoundingBox b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingBox b2(target.worldCoor(), target.bounds_);
-			return b1.isTouching(b2);
-			*/
+			LogMsg("BOX vs BOX not supported!");
 			return false;
 		}
 
 		return true;
+		*/
 	}
 
 
@@ -217,7 +239,7 @@ namespace se_core {
 		const PosComponent& pusher = posComponent();
 		const PosComponent& target = other.posComponent();
 
-		coor_t radiusSum = pusher.nextPos().radius() + target.nextPos().radius();
+		coor_t radiusSum = pusher.nextPos().bounds_.smallRadius() + target.nextPos().bounds_.smallRadius();
 		coor_t radiusSumSq = radiusSum * radiusSum;
 
 		Point3 tNow, tNext;
@@ -250,7 +272,7 @@ namespace se_core {
 
 	void CollisionComponent
 	::bouncePoint(const Point3& testPoint, Point3& dest, scale_t alpha) const {
-		const BoundingBox& b = posComponent().nextPos().bounds_;
+		const BoundingBox& b = posComponent().pos().bounds_;
 		coor_t xSize = b.maxX_ - b.minX_;
 		coor_t zSize = b.maxZ_ - b.minZ_;
 
@@ -258,25 +280,28 @@ namespace se_core {
 		Point3 c;
 		posComponent().worldCoor(alpha, c);
 		if(xSize > zSize) {
-			coor_t radius = CoorT::half(xSize - zSize);
+ 			coor_t radius = CoorT::half(zSize);
 			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
 			p1.x_ = b.minX_ + radius;
 			p2.x_ = b.maxX_ - radius;
+
+			Assert(p1.x_ < p2.x_);
 		}
 		else if(zSize > xSize) {
-			coor_t radius = CoorT::half(zSize - xSize);
+			coor_t radius = CoorT::half(xSize);
 			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
 			p1.z_ = b.minZ_ + radius;
 			p2.z_ = b.maxZ_ - radius;
+			Assert(p1.z_ < p2.z_);
 		}
 		else {
 			dest.set(c);
 			return;
 		}
-		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
 
 		p1.add(c);
 		p2.add(c);
+		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
 		dest.nearestPoint(p1, p2, testPoint);
 	}
 

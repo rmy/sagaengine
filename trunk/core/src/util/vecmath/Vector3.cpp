@@ -153,16 +153,6 @@ namespace se_core {
 	}
 
 
-	void Vector3
-	::nearestPoint(const Vector3& pt1, const Vector3& pt2, const Vector3& testPoint) {
-		Vector3 A, u;
-		A.sub(testPoint, pt1);
-		u.sub(pt2, pt1);
-		u.normalize();
-
-		scale(A.dot(u), u);
-		add(pt1);
-	}
 
 
 

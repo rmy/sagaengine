@@ -157,7 +157,6 @@ namespace se_core {
 		void setForward(const coor_t len, const bray_t yaw, const bray_t pitch);
 		void setForward(const coor_t len, const Euler3& a1);
 
-		void nearestPoint(const Vector3& pt1, const Vector3& pt2, const Vector3& testPoint);
 
 		// copy constructor and operator = is made by complier
 

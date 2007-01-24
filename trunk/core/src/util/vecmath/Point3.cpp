@@ -68,5 +68,30 @@ namespace se_core {
 	}
 
 
+	void Point3
+	::nearestPoint(const Point3& pt1, const Point3& pt2, const Point3& testPoint) {
+		Vector3 A, u;
+		A.sub(testPoint, pt1);
+		u.sub(pt2, pt1);
+
+		// Normalize u
+		coor_t len = u.length();
+		u.scale(1 / len);
+
+		// Nearest point
+		scale_t s = A.dot(u);
+		// Clamp point between pt1 and pt2
+		if(s < 0)
+			s = 0;
+		else if(s > len)
+			s = len;
+
+		// Calc point
+		scale(s, u);
+		add(pt1);
+
+		Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt1));
+		Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt2));
+	}
 
 }
