@@ -29,32 +29,27 @@ namespace se_basic {
 			spawnPoints[i] = 0;
 		}
 
-		int code = in.readInfoCode();
-		switch(code) {
-		case 'N':
-			{
-				String tempString;
-				in.readString(tempString);
-				areas[0] = SimSchema::areaManager.area(tempString.get());
-				areaCount = 1;
-			}
-			break;
-
-		case 'F':
-			{
-				String tempString;
-				in.readString(tempString);
-				areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
-				LogMsg(areaCount);
-			}
-			break;
-
-		default:
-			LogFatal("Unkown area type code: " << (char)(code));
-		}
-
+		int code;
 		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
+			case 'N':
+				{
+					String tempString;
+					in.readString(tempString);
+					areas[0] = SimSchema::areaManager.area(tempString.get());
+					areaCount = 1;
+				}
+				break;
+
+			case 'F':
+				{
+					String tempString;
+					in.readString(tempString);
+					areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
+					LogMsg(areaCount);
+				}
+				break;
+
 			case 'A': // object (thing or actor)
 				readThing(in, areaCount, areas);
 				break;

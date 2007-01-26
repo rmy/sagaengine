@@ -44,6 +44,10 @@ namespace se_basic {
 		short terrainStyle(const se_core::Point3& coor, short index = 0) const;
 		short nextTerrainStyle(bray_t direction, const se_core::Point3& coor);
 
+		bool doesTouchVoid(const se_core::Point3 & wc, short ind, coor_t radius) const {
+			return (index(wc, ind) == -1);
+		}
+
 	private:
 	};
 
