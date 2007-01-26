@@ -77,6 +77,8 @@ namespace se_core {
 		 */
 		virtual short index(const Point3& wc, short oldIndex = -1) const = 0;
 
+		virtual bool doesTouchVoid(const Point3& wc, short index, coor_t radius) const = 0;
+
 		/**
 		 * Save area to a stream.
 		 * @todo: NOT YET IMPLEMENTED.

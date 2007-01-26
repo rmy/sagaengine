@@ -106,6 +106,62 @@ namespace se_basic {
 	}
 
 
+	bool NavMesh
+	::doesTouchVoid(const se_core::Point3& p, short pIndex, const coor_t radius) const {
+		static const int STACK_SIZE = 10;
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
+
+		Point3 nearest;
+		const coor_double_t radiusSq = CoorT::pow2(radius);
+
+		struct {
+			short index_;
+			short edge_;
+		} stack[STACK_SIZE];
+
+		int sp = 0;
+		stack[sp].index_ = pIndex;
+		stack[sp].edge_ = 0;
+		short prev = -1;
+
+		while(sp > 0 || stack[sp].edge_ <= 2) {
+			const short via = stack[sp].index_;
+			const short i = stack[sp].edge_;
+			++stack[sp].edge_;
+
+			Point3* b[] = {
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+			};
+			nearest.nearestPoint(*b[corners[ i ][ 0 ]], *b[corners[ i ][ 1 ]], p);
+			if(nearest.distanceSquared(p) < radiusSq) {
+				const short link = triangles_[ via ].linkTo_[ i ];
+				if(link == -1) {
+					return true;
+				}
+				if(link == prev) {
+					continue;
+				}
+				prev = stack[sp].index_;
+				++sp;
+				Assert(sp < STACK_SIZE);
+				stack[sp].index_ = link;
+				stack[sp].edge_ = 0;
+			}
+			while(stack[sp].edge_ > 2 && sp > 0) {
+				--sp;
+				prev = (sp > 0) ? stack[sp - 1].index_ : -1;
+			}
+		}
+		return false;
+	}
+
+
 	void NavMesh
 	::farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, Point2& dest) const {
 		static const short corners[][2] = {

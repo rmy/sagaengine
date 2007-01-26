@@ -66,6 +66,7 @@ namespace se_core {
 
 	void TaskList
 	::add(Task& t) {
+		Assert(&t != 0);
 		if(t.isInProgress_) {
 			remove(t);
 		}
@@ -81,8 +82,8 @@ namespace se_core {
 
 		for(int i = 0; i < taskCount_; ++i) {
 			if(tasks_[ i ] == &t) {
-				tasks_[ i ] = tasks_[ --taskCount_ ];
 				tasks_[ i ]->isInProgress_ = false;
+				tasks_[ i ] = tasks_[ --taskCount_ ];
 				--i;
 			}
 		}

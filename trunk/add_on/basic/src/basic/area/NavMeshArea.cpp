@@ -66,6 +66,15 @@ namespace se_basic {
 	}
 
 
+	bool NavMeshArea
+	::doesTouchVoid(const Point3& wc, short index, coor_t radius) const {
+		if(index < 0)
+			return true;
+		Point3 p(wc);
+		p.sub(nextPos().worldCoor());
+		return navMesh_->doesTouchVoid(p, index, radius);
+	}
+
 	void NavMeshArea
 	::force(const Point3& coor, Vector3& dest) const {
 		// No up or down in NavMeshArea (yet)
