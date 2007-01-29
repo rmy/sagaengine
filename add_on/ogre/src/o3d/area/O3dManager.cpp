@@ -49,6 +49,9 @@ namespace se_ogre {
 
 	O3dManager
 	::~O3dManager() {
+		if (debugOverlay_) {
+			debugOverlay_->hide();
+		}
 		//clear();
 	}
 

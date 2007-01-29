@@ -29,9 +29,14 @@ rune@skalden.com
 namespace se_core {
 
 	class _SeCoreExport InitListeners {
+		enum { init_PRIORITY_ENGINE, init_ENGINE, init_LEVEL, init_GAME, init_START, init_COUNT };
 	public:
-		InitListeners() 
-			: listenerCount_(0), nextEngineInit_(0), didAlreadyInitEngine_(false) {
+
+		InitListeners()
+				: listenerCount_(0), didAlreadyInitEngine_(false) {
+			for(int i = 0; i < init_COUNT; ++i) {
+				nextEngineInit_[i] = 0;
+			}
 		}
 
 
@@ -55,48 +60,107 @@ namespace se_core {
 			}
 		}
 
-		void castInitEngineEvent() {
-			int i = nextEngineInit_;
+		bool castPriorityInitEngineEvent() {
+			int &i = nextEngineInit_[ init_PRIORITY_ENGINE ];
 			while(i < listenerCount_) {
-				listeners_[ i ]->priorityInitEngineEvent();
+				if(!listeners_[ i ]->priorityInitEngineEvent()) {
+					castPriorityCleanupEngineEvent();
+					return false;
+				}
 				++i;
 			}
-			while(nextEngineInit_ < listenerCount_) {
-				listeners_[ nextEngineInit_ ]->initEngineEvent();
-				++nextEngineInit_;
+			return true;
+		}
+
+		void castPriorityCleanupEngineEvent() {
+			int &i = nextEngineInit_[ init_PRIORITY_ENGINE ];
+			while(i > 0) {
+				--i;
+				listeners_[ i ]->priorityCleanupEngineEvent();
+			}
+		}
+
+		bool castInitEngineEvent() {
+			int &i = nextEngineInit_[ init_ENGINE ];
+			while(i < listenerCount_) {
+				if(!listeners_[ i ]->initEngineEvent()) {
+					castCleanupEngineEvent();
+					return false;
+				}
+				++i;
 			}
 			didAlreadyInitEngine_ = true;
+			return true;
 		}
 
 		void castCleanupEngineEvent() {
-			while(nextEngineInit_ > 0) {
-				--nextEngineInit_;
-				listeners_[ nextEngineInit_ ]->cleanupEngineEvent();
+			int &i = nextEngineInit_[ init_ENGINE ];
+			while(i > 0) {
+				--i;
+				listeners_[ i ]->cleanupEngineEvent();
 			}
 		}
 
-		void castInitGameEvent() {
-			for(int i = 0; i < listenerCount_; ++i) {
-				listeners_[ i ]->initGameEvent();
+
+		bool castInitLevelEvent() {
+			int &i = nextEngineInit_[ init_LEVEL ];
+			while(i < listenerCount_) {
+				if(!listeners_[ i ]->initLevelEvent()) {
+					castCleanupLevelEvent();
+					return false;
+				}
+				++i;
 			}
+			return true;
+		}
+
+		void castCleanupLevelEvent() {
+			int &i = nextEngineInit_[ init_LEVEL ];
+			while(i > 0) {
+				--i;
+				listeners_[ i ]->cleanupLevelEvent();
+			}
+		}
+
+
+		bool castInitGameEvent() {
+			int &i = nextEngineInit_[ init_GAME ];
+			while(i < listenerCount_) {
+				if(!listeners_[ i ]->initGameEvent()) {
+					castCleanupGameEvent();
+					return false;
+				}
+				++i;
+			}
+			return true;
 		}
 
 		void castCleanupGameEvent() {
-			for(int i = 0; i < listenerCount_; ++i) {
+			int &i = nextEngineInit_[ init_GAME ];
+			while(i > 0) {
+				--i;
 				listeners_[ i ]->cleanupGameEvent();
 			}
 		}
 
 
-		void castStartGameEvent() {
-			for(int i = 0; i < listenerCount_; ++i) {
-				listeners_[ i ]->startGameEvent();
+		bool castStartGameEvent() {
+			int &i = nextEngineInit_[ init_START ];
+			while(i > 0) {
+				--i;
+				if(!listeners_[ i ]->startGameEvent()) {
+					castStopGameEvent();
+					return false;
+				}
 			}
+			return true;
 		}
 
 		void castStopGameEvent() {
-			for(int i = 0; i < listenerCount_; ++i) {
-				listeners_[ i ]->startGameEvent();
+			int &i = nextEngineInit_[ init_GAME ];
+			while(i > 0) {
+				--i;
+				listeners_[ i ]->stopGameEvent();
 			}
 		}
 
@@ -118,7 +182,7 @@ namespace se_core {
 		/** The number of listeners presently in the container */
 		short listenerCount_;
 
-		short nextEngineInit_;
+		int nextEngineInit_[init_COUNT];
 		/** Did already init engine. */
 		bool didAlreadyInitEngine_;
 	};

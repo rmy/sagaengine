@@ -85,7 +85,7 @@ namespace se_ogre {
 				LogMsg("Cleaned up Ogre add-on");
 			}
 
-			void initEngineEvent() {
+			bool initEngineEvent() {
 				//
 				SimSchema::realClock = new O3dClock();
 
@@ -94,9 +94,11 @@ namespace se_ogre {
 
 				// Setup scene
 				if(!O3dSchema::renderEngine->setup()) {
+					LogWarning("RenderEngine setup failed");
 					// Failure
-					LogFatal("RenderEngine setup failed");
-					return; // false;
+					delete O3dSchema::renderEngine;
+					delete SimSchema::realClock;
+					return false;
 				}
 
 				// Make WorldManager listen to sagaengine core events
@@ -106,6 +108,8 @@ namespace se_ogre {
 				// Make WorldManager listen to Ogre render events
 				Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
 				LogMsg("Added world manager as Ogre frame listener");
+
+				return true;
 			}
 
 			void cleanupEngineEvent() {
@@ -127,7 +131,7 @@ namespace se_ogre {
 				SimSchema::realClock = 0;
 			}
 
-			void initGameEvent() {
+			bool initGameEvent() {
 				LogMsg("Cast init event to render event listeners");
 				O3dSchema::renderEventListeners().castInit();
 
@@ -137,6 +141,8 @@ namespace se_ogre {
 
 				//O3dSchema::worldManager->compileAllStaticGeometry();
 				O3dSchema::taskList.perform(1024);
+
+				return true;
 			}
 
 			void cleanupGameEvent() {
@@ -163,6 +169,13 @@ namespace se_ogre {
 
 				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
 				O3dSchema::sceneManager = 0;
+			}
+
+			bool initLevelEvent() {
+				return true;
+			}
+
+			void cleanupLevelEvent() {
 			}
 
 		} autoInit;

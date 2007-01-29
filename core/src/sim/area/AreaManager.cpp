@@ -155,8 +155,6 @@ namespace se_core {
 
 	void AreaManager
 	::setActive(Area* area, int pages) {
-		pages = 0;
-
 		for(int i = 0; i < activeCount_; ++i)
 			shouldKeep_[i] = false;
 
