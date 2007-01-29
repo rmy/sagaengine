@@ -36,11 +36,12 @@ namespace se_core {
 	public:
 		virtual ~InitListener() {} // Gets rid of warning
 
+		virtual bool priorityInitEngineEvent() { return true; }
+		virtual void priorityCleanupEngineEvent() {}
 		/**
 		 * This event occurs when the core engine has initialised itself.
 		 */
-		virtual void initEngineEvent() = 0;
-		virtual void priorityInitEngineEvent() {}
+		virtual bool initEngineEvent() = 0;
 
 		/**
 		 * This event occurs when the core simulation engine is about to
@@ -48,11 +49,14 @@ namespace se_core {
 		 */
 		virtual void cleanupEngineEvent() = 0;
 
+		virtual bool initLevelEvent() = 0;
+		virtual void cleanupLevelEvent() {}
+
 		/**
 		 * This event occurs when the SimEngine has initialised itself
 		 * for a new game (SimEngine::initGame() method.)
 		 */
-		virtual void initGameEvent() = 0;
+		virtual bool initGameEvent() = 0;
 
 		/**
 		 * This event occurs when the SimEngine has cleaned up itself
@@ -61,7 +65,7 @@ namespace se_core {
 		virtual void cleanupGameEvent() = 0;
 
 
-		virtual void startGameEvent() {}
+		virtual bool startGameEvent() { return true; }
 		virtual void stopGameEvent() {}
 
 	};

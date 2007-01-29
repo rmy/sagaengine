@@ -69,10 +69,15 @@ namespace se_core {
 		multiplePerformsPerStepEnabled_ = state;
 	}
 
+	void SimEngine
+	::setLevel(const char* name) {
+		nextLevel_.copy(name);
+	}
 
 	void SimEngine
 	::go() {
 		SimSchema::initListeners().castStartGameEvent();
+		SimSchema::initListeners().castInitLevelEvent();
 		SimSchema::activeRoot().setActive(true, true);
 
 		while(true) {
@@ -93,6 +98,7 @@ namespace se_core {
 		}
 		SimSchema::activeRoot().setActive(false, true);
 		SimSchema::activeRoot().cleanup(true);
+		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
 	}
 
@@ -169,7 +175,10 @@ namespace se_core {
 
 	bool SimEngine
 	::init() {
-		SimSchema::initListeners().castInitEngineEvent();
+		if(!SimSchema::initListeners().castPriorityInitEngineEvent())
+			return false;
+		if(!SimSchema::initListeners().castInitEngineEvent())
+			return false;
 		// Platform module must create a clock
 		//Assert(SimSchema::realClock);
 		return true;
@@ -179,6 +188,7 @@ namespace se_core {
 	void SimEngine
 	::cleanup() {
 		SimSchema::initListeners().castCleanupEngineEvent();
+		SimSchema::initListeners().castPriorityCleanupEngineEvent();
 		resetAll();
 	}
 

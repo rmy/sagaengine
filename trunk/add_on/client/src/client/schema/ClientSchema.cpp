@@ -65,18 +65,14 @@ namespace se_client {
 			}
 
 
-			void initEngineEvent() {}
+			bool initEngineEvent() {
+				return true;
+			}
 			void cleanupEngineEvent() {}
-			void initGameEvent() {
+			bool initGameEvent() {
 				// Player and camera objects are initialised from data file.
+				return true;
 			}
-
-			void startGameEvent() {
-			}
-
-			void stopGameEvent() {
-			}
-
 			void cleanupGameEvent() {
 				/*
 				if(ClientSchema::player) {
@@ -93,6 +89,21 @@ namespace se_client {
 				ClientSchema::player = 0;
 				ClientSchema::floatingCamera = 0;
 				ClientSchema::camera = 0;
+			}
+
+
+			bool initLevelEvent() {
+				return true;
+			}
+
+			void cleanupLevelEvent() {
+			}
+
+			bool startGameEvent() {
+				return true;
+			}
+
+			void stopGameEvent() {
 			}
 
 		} autoInit;

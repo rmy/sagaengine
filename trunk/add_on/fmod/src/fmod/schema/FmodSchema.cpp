@@ -60,16 +60,25 @@ namespace se_fmod {
 			}
 
 
-			void initEngineEvent() {
+			bool initEngineEvent() {
+				return true;
 			}
 
 			void cleanupEngineEvent() {
 			}
 
-			void initGameEvent() {
+			bool initGameEvent() {
+				return true;
 			}
 
 			void cleanupGameEvent() {
+			}
+
+			bool initLevelEvent() {
+				return true;
+			}
+
+			void cleanupLevelEvent() {
 			}
 		} autoInit;
 

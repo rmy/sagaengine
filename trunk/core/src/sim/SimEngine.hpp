@@ -88,6 +88,7 @@ namespace se_core {
 		 */
 		void cleanupGame();
 
+		void setLevel(const char* name);
 
 		/**
 		 * Performs simulation step and calls listeners.
@@ -264,6 +265,7 @@ namespace se_core {
 		 */
 		long lostPerformAdjustment_;
 
+		String level_, nextLevel_;
 	};
 
 }
