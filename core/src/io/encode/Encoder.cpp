@@ -46,7 +46,7 @@ namespace se_core {
 	}
 
 	void Encoder
-	::add(const EncoderModule& m) {
+	::add(EncoderModule& m) {
 		Assert(module_ == 0);
 		module_ = &m;
 	}
