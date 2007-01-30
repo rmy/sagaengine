@@ -23,19 +23,24 @@ rune@skalden.com
 #define io_encode_EncoderModule_hpp
 
 #include "../stream/io_stream.hpp"
+#include "../encode/io_encode.hpp"
 
 namespace se_core {
 	/** Base class for encoder modules. */
 	class _SeCoreExport EncoderModule {
 	public:
+		EncoderModule(se_core::Encoder &encoder, unsigned char group, unsigned char code, int version);
 		/*
-		EncoderModule();
 		virtual ~EncoderModule();
-		virtual void encode(OutputStream& out) = 0;
 		*/
-		unsigned int headerCode(char moduleGroup, char moduleCode, int moduleVersion);
+		int headerCode() const;
+		unsigned int headerCode(char moduleGroup, char moduleCode, int moduleVersion) const;
+		virtual void encode(OutputStream& out) = 0;
 
 	private:
+		int moduleGroup_;
+		int moduleCode_;
+		int moduleVersion_;
 	};
 }
 

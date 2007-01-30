@@ -38,7 +38,7 @@ namespace se_core {
 
 
 	void Encoder
-	::encode(OutputStream& out, Actor& player) {
+	::encode(OutputStream& out, SimComposite& player) {
 		LogFatal("Not implemented");
 		//if(player.area())
 		//	areaThingEncoder.encode(out, player.area());

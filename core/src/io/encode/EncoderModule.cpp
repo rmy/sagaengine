@@ -19,30 +19,36 @@ rune@skalden.com
 */
 
 
+#include "Encoder.hpp"
 #include "EncoderModule.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstdio>
 
 namespace se_core {
-	/*
 	EncoderModule
-	::EncoderModule() {
+	::EncoderModule(Encoder &encoder, unsigned char group, unsigned char code, int version)
+		 : moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
+		encoder.add(*this);
 	}
 
+	/*
 	EncoderModule
 	::~EncoderModule() {
 	}
 	*/
 
 	unsigned int EncoderModule
-	::headerCode(char moduleGroup, char moduleCode, int moduleVersion) {
+	::headerCode(char moduleGroup, char moduleCode, int moduleVersion) const {
 		char buffer[5];
 		sprintf(buffer, "%c%c%02d", moduleGroup, moduleCode, moduleVersion);
-		unsigned int code = 1L * buffer[3] + buffer[2] * 256L + buffer[1] * 65536L + buffer[0] * 65536L * 256L;
+		int code = buffer[3] + buffer[2] * 256 + buffer[1] * 65536 + buffer[0] * 65536 * 256;
 		LogMsg((sprintf(log_msg(), "HeaderCode: %x", code), log_msg()));
-
 		return code;
 	}
 
+	int EncoderModule
+	::headerCode() const {
+		return headerCode(moduleGroup_, moduleCode_, moduleVersion_);
+	}
 }
 
