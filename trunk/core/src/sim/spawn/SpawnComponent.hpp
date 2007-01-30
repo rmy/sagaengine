@@ -40,6 +40,11 @@ namespace se_core {
 			return c;
 		}
 
+		static const SpawnComponent* get(const SimComposite& composite) {
+			const SpawnComponent* c = static_cast<const SpawnComponent*>(composite.component(se_core::sct_SPAWN));
+			return c;
+		}
+
 		static SpawnComponent* get(SimComponent& component) {
 			SpawnComponent* c = static_cast<SpawnComponent*>(component.owner()->component(se_core::sct_SPAWN));
 			return c;
@@ -78,6 +83,9 @@ namespace se_core {
 		 * @param id the id of the sapwn points
 		 */
 		const ViewPoint* spawnPoint(short id) const;
+		int spawnPointCount() const {
+			return spawnPointCount_;
+		}
 
 		void setSpawner(Actor* spawner);
 		void resetSpawner();

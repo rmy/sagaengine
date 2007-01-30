@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "FileManager.hpp"
+#include "../encode/Encoder.hpp"
 #include "../schema/IoSchema.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
@@ -45,6 +46,15 @@ namespace se_core {
 		if((is = IoSchema::fileManager->open(filename)) != 0) {
 			bool success = IoSchema::parser().parse(*is);
 			close(is);
+		}
+	}
+
+	void FileManager
+	::save(const char* filename) {
+		OutputStream* os = 0;
+		if((os = IoSchema::fileManager->openOutput(filename)) != 0) {
+			IoSchema::encoder().encode(*os);
+			closeOutput(os);
 		}
 	}
 

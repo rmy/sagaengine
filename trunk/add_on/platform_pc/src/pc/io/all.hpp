@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "PcBinaryInputStream.hpp"
 #include "PcTextInputStream.hpp"
+#include "PcTextOutputStream.hpp"
 #include "PcFile.hpp"
 #include "PcFileManager.hpp"
 

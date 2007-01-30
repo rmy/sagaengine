@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "Encoder.hpp"
+#include "EncoderModule.hpp"
 #include "../../sim/thing/Actor.hpp"
 #include "../stream/io_stream.hpp"
 #include "../stream/OutputStream.hpp"
@@ -28,7 +29,8 @@ namespace se_core {
 
 
 	Encoder
-	::Encoder() {
+	::Encoder()
+		: module_(0) {
 	}
 
 
@@ -38,10 +40,15 @@ namespace se_core {
 
 
 	void Encoder
-	::encode(OutputStream& out, SimComposite& player) {
-		LogFatal("Not implemented");
-		//if(player.area())
-		//	areaThingEncoder.encode(out, player.area());
+	::encode(OutputStream& out) {
+		Assert(module_);
+		module_->encode(out);
+	}
+
+	void Encoder
+	::add(const EncoderModule& m) {
+		Assert(module_ == 0);
+		module_ = &m;
 	}
 
 }
