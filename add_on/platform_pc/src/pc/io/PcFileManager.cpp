@@ -171,6 +171,19 @@ namespace se_pc {
 	}
 
 
+	se_core::OutputStream* PcFileManager
+	::openOutput(const char* filename) {
+		return new PcTextOutputStream(directory_, filename);
+	}
+
+
+	void PcFileManager
+	::closeOutput(OutputStream*& os) {
+		delete os;
+		os = 0;
+	}
+
+
 	bool PcFileManager
 	::exists(const char* filename) {
 		for(int i = 0; i < fileCount_; ++i) {

@@ -39,6 +39,9 @@ namespace se_pc {
 		se_core::InputStream* open(const char* filename);
 		void close(se_core::InputStream*& is);
 
+		se_core::OutputStream* openOutput(const char* filename);
+		void closeOutput(se_core::OutputStream*& is);
+
 		int fileCount();
 		const char* filename(int index);
 		static bool isBinaryFile(const char* filename);

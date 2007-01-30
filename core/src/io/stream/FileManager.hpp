@@ -44,7 +44,11 @@ namespace se_core {
 		virtual InputStream* open(const char* filename) = 0;
 		virtual void close(InputStream*& is) = 0;
 
+		virtual OutputStream* openOutput(const char* filename) = 0;
+		virtual void closeOutput(OutputStream*& is) = 0;
+
 		void load(const char* filename);
+		void save(const char* filename);
 		virtual bool exists(const char* filename) = 0;
 
 		/**

@@ -35,9 +35,8 @@ namespace se_core {
 	public:
 		Encoder();
 		virtual ~Encoder();
-		void encode(OutputStream& out, SimComposite& player);
-		void add(const EncoderModule& m) {
-		}
+		void encode(OutputStream& out);
+		void add(const EncoderModule& m);
 
 	private:
 		EncoderModule* module_;

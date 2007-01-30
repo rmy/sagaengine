@@ -32,7 +32,7 @@ namespace se_core {
 	 */
 	namespace IoSchema {
 		extern _SeCoreExport Parser& parser();
-		Encoder& encoder();
+		extern _SeCoreExport Encoder& encoder();
 		extern _SeCoreExport FileManager* fileManager;
 
 		bool _SeCoreExport init();

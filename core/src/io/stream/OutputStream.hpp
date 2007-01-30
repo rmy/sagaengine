@@ -29,15 +29,16 @@ namespace se_core {
 	public:
 		virtual ~OutputStream() {}
 		virtual void writeHeaderCode(unsigned int code) = 0;
+		virtual void writeInfoCode(int code) = 0;
 		virtual void writeInt(int value) = 0;
 		virtual void writeShort(unsigned short value) = 0;
 		virtual void writeByte(unsigned char value) = 0;
 		virtual void writeFloat(float value) = 0;
 		virtual void writeString(const char* string) = 0;
+		/*
 		virtual void writeSingleValueId(int id) = 0;
 		virtual void writeAttributeId(int id) = 0;
 
-		/*
 		virtual unsigned short writeLanguageCode() = 0;
 		virtual int writeInfoCode() = 0;
 		virtual int writeEquipmentSlotId() = 0;
