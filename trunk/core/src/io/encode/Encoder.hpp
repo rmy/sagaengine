@@ -23,7 +23,9 @@ rune@skalden.com
 #define io_encode_Encoder_hpp
 
 #include "../stream/OutputStream.hpp"
-#include "../../sim/thing/sim_thing.hpp"
+#include "sim/thing/sim_thing.hpp"
+#include "io_encode.hpp"
+#include "sim/SimComposite.hpp"
 
 namespace se_core {
 	/**
@@ -33,9 +35,12 @@ namespace se_core {
 	public:
 		Encoder();
 		virtual ~Encoder();
-		void encode(OutputStream& out, Actor& player);
+		void encode(OutputStream& out, SimComposite& player);
+		void add(const EncoderModule& m) {
+		}
 
 	private:
+		EncoderModule* module_;
 	};
 }
 
