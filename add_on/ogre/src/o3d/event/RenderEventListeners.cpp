@@ -25,17 +25,35 @@ rune@skalden.com
 
 namespace se_ogre {
 	void RenderEventListeners
-	::castInit() {
+	::castInitEngine() {
 		for(int i = 0; i < listenerCount_; ++i) {
-			listeners_[i]->init();
+			bool ret = listeners_[i]->initEngineEvent();
+			Assert(ret);
 		}
 	}
 
 
 	void RenderEventListeners
-	::castCleanup() {
+	::castInitGame() {
 		for(int i = 0; i < listenerCount_; ++i) {
-			listeners_[i]->cleanup();
+			bool ret = listeners_[i]->initGameEvent();
+			Assert(ret);
+		}
+	}
+
+
+	void RenderEventListeners
+	::castCleanupGame() {
+		for(int i = 0; i < listenerCount_; ++i) {
+			listeners_[i]->cleanupGameEvent();
+		}
+	}
+
+
+	void RenderEventListeners
+	::castCleanupEngine() {
+		for(int i = 0; i < listenerCount_; ++i) {
+			listeners_[i]->cleanupEngineEvent();
 		}
 	}
 

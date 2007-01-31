@@ -27,11 +27,13 @@ namespace se_ogre {
 	class _SeOgreExport RenderEventListener {
 	public:
 		void setActive(bool state);
-		virtual void init() {}
+		virtual bool initEngineEvent() { return true; }
+		virtual bool initGameEvent() { return true; }
+		virtual void cleanupGameEvent() {}
+		virtual void cleanupEngineEvent() {}
 		virtual void updateLights(float renderClock) {}
 		virtual void updateMaterials(float renderClock) {}
 		virtual void updateImpostors(float renderClock) {}
-		virtual void cleanup() {}
 	};
 }
 

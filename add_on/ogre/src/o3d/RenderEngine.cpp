@@ -159,10 +159,6 @@ namespace se_ogre {
 		// Create bridge between input
 		createInputBridge();
 		
-		// Create world manager
-		O3dSchema::worldManager = new O3dManager();
-		LogMsg("Created world manager");
-
 		// Configure this from file
 		//chooseSceneManager();
 		//createCamera();
@@ -189,8 +185,6 @@ namespace se_ogre {
 		inputBridge_ = 0;
 		LogMsg("Destroyed input bridge");
 
-		delete O3dSchema::worldManager;
-		O3dSchema::worldManager = 0;
 		O3dSchema::sceneManager = 0;
 		LogMsg("Destroyed world manager and scene manager");
 

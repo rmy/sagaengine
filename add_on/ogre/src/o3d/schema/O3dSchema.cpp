@@ -101,28 +101,34 @@ namespace se_ogre {
 					return false;
 				}
 
+				// Create world manager
+				O3dSchema::worldManager = new O3dManager();
+				LogMsg("Created world manager");
+
+
 				// Make WorldManager listen to sagaengine core events
 				//ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
 				LogMsg("Added world manager as SagaEngine client listener");
 
-				// Make WorldManager listen to Ogre render events
-				Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
-				LogMsg("Added world manager as Ogre frame listener");
+				LogMsg("Cast init event to render event listeners");
+				O3dSchema::renderEventListeners().castInitEngine();
 
 				return true;
 			}
 
 			void cleanupEngineEvent() {
+				LogMsg("Cast init cleanup to render event listeners");
+				O3dSchema::renderEventListeners().castCleanupEngine();
+
 				// Make WorldManager listen to sagaengine core events
 				//ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
 				LogMsg("Removed SagaEngine client listener");
 
-				// Make WorldManager listen to Ogre render events
-				Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
-				LogMsg("Removed Ogre frame listener");
-
 				// Cleanup render engine
 				O3dSchema::renderEngine->cleanup();
+
+				delete O3dSchema::worldManager;
+				O3dSchema::worldManager = 0;
 
 				delete O3dSchema::renderEngine;
 				O3dSchema::renderEngine = 0;
@@ -132,12 +138,17 @@ namespace se_ogre {
 			}
 
 			bool initGameEvent() {
-				LogMsg("Cast init event to render event listeners");
-				O3dSchema::renderEventListeners().castInit();
-
 				Assert(O3dSchema::renderEngine);
+
+				// Make WorldManager listen to Ogre render events
+				LogMsg("Add world manager as Ogre frame listener");
+				Ogre::Root::getSingleton().addFrameListener(O3dSchema::worldManager);
+
 				LogMsg("Register ogre add-on as sim engine listener");
 				SimSchema::engineListeners().addListener(*O3dSchema::renderEngine);
+
+				LogMsg("Cast init event to render event listeners");
+				O3dSchema::renderEventListeners().castInitGame();
 
 				//O3dSchema::worldManager->compileAllStaticGeometry();
 				O3dSchema::taskList.perform(1024);
@@ -146,12 +157,16 @@ namespace se_ogre {
 			}
 
 			void cleanupGameEvent() {
+				// Make WorldManager listen to Ogre render events
+				LogMsg("Remove Ogre frame listener");
+				Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
+
+				LogMsg("Cast init cleanup to render event listeners");
+				O3dSchema::renderEventListeners().castCleanupGame();
+
 				Assert(O3dSchema::renderEngine);
 				LogMsg("Remove ogre add-on as sim engine listener");
 				SimSchema::engineListeners().removeListener(*O3dSchema::renderEngine);
-
-				LogMsg("Cast cleanup event to render event listeners");
-				O3dSchema::renderEventListeners().castCleanup();
 
 				// Cleared world
 				O3dSchema::worldManager->clear();
