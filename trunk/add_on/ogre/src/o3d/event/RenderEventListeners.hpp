@@ -28,8 +28,10 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport RenderEventListeners {
 	public:
-		void castInit();
-		void castCleanup();
+		void castInitEngine();
+		void castInitGame();
+		void castCleanupGame();
+		void castCleanupEngine();
 		void castUpdateLights(float gameClock);
 		void castUpdateMaterials(float gameClock);
 		void castUpdateImpostors(float gameClock);

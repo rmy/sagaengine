@@ -124,8 +124,8 @@ namespace se_ogre {
 
 	void O3dConfigParserModule
 	::chooseSceneManager(const char* sceneManager) {
-        // Create the SceneManager, in this case a generic one
-        O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager);
+		// Create the SceneManager, in this case a generic one
+		O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager);
 		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
