@@ -220,6 +220,8 @@ namespace se_core {
 		SimSchema::areaManager.resetThings();
 		SimSchema::thingManager().reset();
 		SimSchema::initListeners().castCleanupGameEvent();
+		SimSchema::areaManager.resetAll();
+		SimSchema::thingManager().resetAll();
 
 
 		lostPerformAdjustment_ = 0;

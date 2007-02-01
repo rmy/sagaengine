@@ -40,16 +40,16 @@ namespace se_ogre {
 	ThingMOManager
 	::ThingMOManager() : infoCount_(0), factoryCount_(0) {
 		infoList_ = new ThingMOInfoList*[100];
-		factories_ = new ThingMOFactory*[100];
+		factories_ = new const ThingMOFactory*[100];
 
-		static ThingMovableObjectFactory tmofMovableObject("default");
-		static ThingMovableObjectFactory tmofParticleSystem("ParticleSystem");
-		static ThingEntityFactory tmofEntity;
-		static ThingLightFactory tmofLight;
-		static ThingBillboardFactory tmofBillboard;
-		static ThingStaticGeometryFactory tmofStaticGeometry;
-		static ThingParticleFactory tmofParticle;
-		static ThingMultiMOFactory tmofMultiMO;
+		static const ThingMovableObjectFactory tmofMovableObject("default");
+		static const ThingMovableObjectFactory tmofParticleSystem("ParticleSystem");
+		static const ThingEntityFactory tmofEntity;
+		static const ThingLightFactory tmofLight;
+		static const ThingBillboardFactory tmofBillboard;
+		static const ThingStaticGeometryFactory tmofStaticGeometry;
+		static const ThingParticleFactory tmofParticle;
+		static const ThingMultiMOFactory tmofMultiMO;
 	}
 
 
@@ -146,7 +146,7 @@ namespace se_ogre {
 
 
 	void ThingMOManager
-	::addFactory(ThingMOFactory* factory) {
+	::addFactory(const ThingMOFactory* factory) {
 		// Insert - keep sorted
 		int i = factoryCount_;
 		while(i > 0 && factory->type().compare(factories_[i - 1]->type()) < 0) {

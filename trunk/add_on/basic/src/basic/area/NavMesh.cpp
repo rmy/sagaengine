@@ -190,7 +190,7 @@ namespace se_basic {
 				}
 			}
 			if(next < 0) {
-				LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
+				//LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
 				return;
 			}
 

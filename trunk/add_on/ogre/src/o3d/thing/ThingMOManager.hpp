@@ -41,7 +41,7 @@ namespace se_ogre {
 		const ThingMOInfo* info(const char* thingType) const;
 		const ThingMOInfoList* infoList(const char* thingType) const;
 
-		void addFactory(ThingMOFactory* factory);
+		void addFactory(const ThingMOFactory* factory);
 		int factoryIndex(const char* moType) const;
 		const ThingMOFactory* factory(const char* thingType) const;
 
@@ -52,7 +52,7 @@ namespace se_ogre {
 	private:
 		ThingMOInfoList** infoList_;
 		int infoCount_;
-		ThingMOFactory** factories_;
+		const ThingMOFactory** factories_;
 		int factoryCount_;
 	};
 
