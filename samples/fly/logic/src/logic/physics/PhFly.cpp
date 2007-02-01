@@ -58,10 +58,10 @@ namespace logic {
 		nextPos.updateWorldViewPoint();
 
 		// Entered new area?
-		Area* old = nextPos.area();
+		PosComponent* old = nextPos.area();
 		if(!nextPos.area()->isLegalCoor(nextPos.worldCoor())) {
 			LogMsg("Out of bounds: "<< nextPos.area()->name() << ": " << nextPos.world_.toLog());
-			Area* a = nextPos.area()->neighbour(nextPos.worldCoor());
+			PosComponent* a = nextPos.area()->neighbour(nextPos.worldCoor());
 			if(a) {
 				// Change area, keep world viewpoint
 				nextPos.setArea(*a, true);
