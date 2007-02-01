@@ -2,6 +2,7 @@
 ../../../../dependencies/include/ogre/opt
 ../../../../dependencies/include/ogre/CEGUI
 ../../../../dependencies/include/ogre/samples
+../../../../../sf/dependencies/include/ois
 $(OGRE_HOME)/include
 $(OGRE_HOME)/include/opt
 $(OGRE_HOME)/include/CEGUI

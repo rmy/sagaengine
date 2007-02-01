@@ -29,11 +29,14 @@ using namespace se_core;
 namespace logic {
 
 	void Sprint
-	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
-		Vector3 f(0, 0, -0.75 * COOR_RES);
-		f.rotate(performer.pos().localFace());
-		performer.nextMove().clearForces();
-		performer.nextMove().addForce(f);
+	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
+		Vector3 f(0, 0, -0.75f * COOR_RES);
+		PhysicsComponent* pPhysics = PhysicsComponent::get(performer);
+		PosComponent* pPos = PosComponent::get(performer);
+		f.rotate(pPos->pos().localFace());
+
+		pPhysics->nextMove().clearForces();
+		pPhysics->nextMove().addForce(f);
 	}
 
 

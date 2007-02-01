@@ -53,7 +53,7 @@ namespace logic {
 		// Keep the camera inside the same area as the player.
 		// (This camera cannot collide, so it doesn't matter if the 
 		// camera coordinate is outside area bounds.)
-		Area* a = ClientSchema::player->nextPos().area();
+		PosComponent* a = ClientSchema::player->nextPos().area();
 		if(a != 0 && a != nextPos.area()) {
 			nextPos.setArea(*a);
 		}	
@@ -64,7 +64,8 @@ namespace logic {
 		// If they are on the same position, move camera
 		// to the players spawn coordinate 0
 		if(dist == 0) {
-			const ViewPoint* sp = ClientSchema::player->spawnPoint(0);
+			SpawnComponent* playerSpawn = SpawnComponent::get(*ClientSchema::player);
+			const ViewPoint* sp = playerSpawn->spawnPoint(0);
 			nextPos.local_.setViewPoint(*sp);
 			nextPos.updateWorldViewPoint();
 			return;
@@ -74,13 +75,13 @@ namespace logic {
 		nextPos.worldCoor().set(pos.worldCoor());
 
 		// Unless it is more than TRAIL_DISTANCE away
-		const coor_t TRAIL_DISTANCE = COOR_RES * .7;
+		const coor_t TRAIL_DISTANCE = COOR_RES * .7f;
 		if(dist > TRAIL_DISTANCE) {
 			// s is always between 0 and 1
 			scale_t s = TRAIL_DISTANCE / dist;
 
 			// Interpolate between current position and the players position
-			nextPos.worldCoor().interpolate(playerPos.worldCoor(), .5 - s * s * .5);
+			nextPos.worldCoor().interpolate(playerPos.worldCoor(), .5f - s * s * .5f);
 		}
 
 		// Log at the player

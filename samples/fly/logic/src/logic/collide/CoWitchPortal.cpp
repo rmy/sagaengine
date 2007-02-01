@@ -33,9 +33,10 @@ namespace logic {
 
 
 	bool CoWitchPortal
-	::collide(se_core::Actor& pusher
-			  , se_core::Thing& target) const {
-		pusher.planAction(CHANNEL_EXTRA, actionSprint);
+	::collide(se_core::CollisionComponent& pusher
+			  , const se_core::CollisionComponent& target) const {
+		ActionComponent* pAction = ActionComponent::get(pusher);
+		pAction->planAction(CHANNEL_EXTRA, actionSprint);
 		return false;
 	}
 

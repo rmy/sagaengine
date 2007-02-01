@@ -19,14 +19,14 @@ namespace logic {
 
 
 	ScriptData* ScCamera
-	::init(const se_core::Actor& performer) const {
+	::init(const se_core::ScriptComponent& performer) const {
 		Data* data = new Data();
 		return data;
 	}
 
 
 	const se_core::Action* ScCamera
-	::sequence(const se_core::Actor& performer, ReentrantData& rd, Parameter& out) const {
+	::sequence(const se_core::ScriptComponent& performer, ReentrantData& rd, Parameter& out) const {
 		REENTRANT(data) {
 			START;
 
@@ -40,7 +40,7 @@ namespace logic {
 
 
 	const se_core::Action* ScCamera
-	::transition(const se_core::Actor& performer, ReentrantData& rd, Parameter& out) const {
+	::transition(const se_core::ScriptComponent& performer, ReentrantData& rd, Parameter& out) const {
 		return 0;
 	}
 

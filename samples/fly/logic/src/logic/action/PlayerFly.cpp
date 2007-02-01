@@ -29,13 +29,16 @@ using namespace se_core;
 namespace logic {
 
 	void PlayerFly
-	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		performer.nextMove().torque_.set(p->torque_);
+
+		PhysicsComponent* pPhysics = PhysicsComponent::get(performer);
+		PosComponent* pPos = PosComponent::get(performer);
+		pPhysics->nextMove().torque_.set(p->torque_);
 
 		Vector3 f(0, 0, -p->speed_);
-		f.rotate(performer.pos().localFace());
-		performer.nextMove().addForce(f);
+		f.rotate(pPos->pos().localFace());
+		pPhysics->nextMove().addForce(f);
 	}
 
 

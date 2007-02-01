@@ -29,7 +29,8 @@ using namespace se_core;
 namespace logic {
 
 	void DropStone
-	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+	::perform(long when, ActionComponent& perf, se_core::Parameter& parameter) const {
+		Actor& performer = *perf.toActor();
 		performer.sound("drop_stone");
 	}
 

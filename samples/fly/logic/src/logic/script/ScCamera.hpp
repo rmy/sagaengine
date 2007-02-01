@@ -9,9 +9,9 @@ namespace logic {
 	public:
 		ScCamera();
 
-		se_core::ScriptData* init(const se_core::Actor& performer) const;
-		const se_core::Action* sequence(const se_core::Actor& performer, se_core::ReentrantData& _, se_core::Parameter& out) const;
-		const se_core::Action* transition(const se_core::Actor& performer, se_core::ReentrantData& _, se_core::Parameter& out) const;
+		se_core::ScriptData* init(const se_core::ScriptComponent& performer) const;
+		const se_core::Action* sequence(const se_core::ScriptComponent& performer, se_core::ReentrantData& _, se_core::Parameter& out) const;
+		const se_core::Action* transition(const se_core::ScriptComponent& performer, se_core::ReentrantData& _, se_core::Parameter& out) const;
 		bool isStacker() const { return false; }
 
 	private:
