@@ -117,6 +117,7 @@ namespace se_ogre {
 			}
 
 			void cleanupEngineEvent() {
+
 				LogMsg("Cast init cleanup to render event listeners");
 				O3dSchema::renderEventListeners().castCleanupEngine();
 
@@ -157,6 +158,8 @@ namespace se_ogre {
 			}
 
 			void cleanupGameEvent() {
+				O3dSchema::taskList.reset();
+
 				// Make WorldManager listen to Ogre render events
 				LogMsg("Remove Ogre frame listener");
 				Ogre::Root::getSingleton().removeFrameListener(O3dSchema::worldManager);
@@ -179,6 +182,7 @@ namespace se_ogre {
 				if(O3dSchema::playerCamera) {
 					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
 					O3dSchema::playerCamera = 0;
+					O3dSchema::window->removeAllViewports();
 					LogMsg("Destroyed camera");
 				}
 

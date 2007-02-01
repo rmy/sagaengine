@@ -43,6 +43,7 @@ namespace se_core {
 		void neutraliseDestructions();
 		void performDestructions();
 		void reset();
+		void resetAll();
 
 	private:
 		int factoryCount_;

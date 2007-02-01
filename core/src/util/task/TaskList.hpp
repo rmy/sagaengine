@@ -33,6 +33,7 @@ namespace se_core {
 		void add(Task& task);
 		void remove(Task& task);
 		int perform(int weight);
+		void reset();
 	
 	private:
 		int next();

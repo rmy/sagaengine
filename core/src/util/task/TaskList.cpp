@@ -88,4 +88,10 @@ namespace se_core {
 			}
 		}
 	}
+
+	void TaskList
+	::reset() {
+		taskCount_ = 0;
+		freePoints_ = 0;
+	}
 }

@@ -34,11 +34,7 @@ namespace se_core {
 
 	ThingManager
 	::~ThingManager() {
-		reset();
-		while(factoryCount_ > 0) {
-			delete factories_[ --factoryCount_ ];
-		}
-		factoryCount_ = 0;
+		resetAll();
 	}
 
 
@@ -149,4 +145,12 @@ namespace se_core {
 		performDestructions();
 	}
 
+	void ThingManager
+	::resetAll() {
+		reset();
+		while(factoryCount_ > 0) {
+			delete factories_[ --factoryCount_ ];
+		}
+		factoryCount_ = 0;
+	}
 }

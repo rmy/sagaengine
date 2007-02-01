@@ -137,6 +137,13 @@ namespace se_ogre {
 	void O3dConfigParserModule
 	::createCamera(float near, float far, float fovy) {
 		// Create the camera
+		if(O3dSchema::playerCamera) {
+			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
+			O3dSchema::playerCamera = 0;
+			O3dSchema::window->removeAllViewports();
+			LogMsg("Destroyed camera");
+		}
+
 		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
 		O3dSchema::playerCamera->setNearClipDistance(near);
 		O3dSchema::playerCamera->setFarClipDistance(far);
