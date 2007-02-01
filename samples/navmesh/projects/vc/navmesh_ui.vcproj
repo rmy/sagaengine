@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="navmesh_ui"
-	ProjectGUID="{3D494299-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{4BEF5F3BC2B6BD67-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="navmesh_ui"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="../../../..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -37,7 +37,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib navmesh_logic.lib se_basic.lib se_client.lib se_core.lib OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
@@ -63,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="../../../..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_ogre.lib navmesh_logic.lib se_basic.lib se_client.lib se_core.lib OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool

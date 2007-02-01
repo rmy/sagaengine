@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="se_ogre"
-	ProjectGUID="{02C89403-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{498BF97602C89403-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_ogre"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="../../../..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -37,7 +37,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_client.lib se_core.lib OgreMain_d.lib OgreGUIRenderer_d.lib CEGUIBase_d.lib "
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
@@ -63,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="../../../..\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_client.lib se_core.lib OgreMain.lib OgreGUIRenderer.lib CEGUIBase.lib "
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"/>
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -120,13 +120,19 @@
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
 			<File RelativePath="..\..\..\..\add_on\ogre\src\O3dPre.hpp"> </File>
-<Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
+<Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\O3dNodeComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\O3dNodeComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\o3d.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\use.hpp"> </File>
-<Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\WorldManager.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\WorldManager.hpp"> </File>
+<Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dManager.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\o3d_area.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\use.hpp"> </File>
@@ -185,6 +191,8 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dAnimationSet.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponent.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponentFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponentFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.cpp"> </File>
@@ -219,6 +227,10 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticle.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticle.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticleFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticleFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.cpp"> </File>

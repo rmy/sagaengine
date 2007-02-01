@@ -1,4 +1,5 @@
 #!/bin/sh
+echo on
 
 python ../../../../tools/python/createVCProjFile.py fly_ui ../../../.. library > fly_ui.vcproj
 python ../../../../tools/python/createVCProjFile.py fly_logic ../../../.. library > fly_logic.vcproj
