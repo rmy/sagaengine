@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="simple_static"
-	ProjectGUID="{39E0C451488BDA46-4364-49FF-A230-613B08B5CF82}"
+	ProjectGUID="{488BDA46-4364-49FF-A230-613B08B5CF82}"
 	RootNamespace="simple_static"
 	Keyword="Win32Proj"
 	>
@@ -66,7 +66,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
 				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.DebugCRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
@@ -163,7 +163,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
 				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
 				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.CRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
@@ -224,7 +224,6 @@
 <File RelativePath="..\..\start\src\Start.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.cpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\Ui.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\basic\src\all.hpp"> </File>
 <File RelativePath="..\..\ogre_ui\src\game_ui.cpp"> </File>
 <Filter Name="basic" Filter="cpp;hpp"><Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\basic\src\basic\action\EnterTo.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\EnterTo.hpp"> </File>

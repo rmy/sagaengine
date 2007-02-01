@@ -28,8 +28,8 @@ namespace logic {
 	class _FlyLogicExport CoWitchPortal  : public se_core::ThingCollide {
 	public:
 		CoWitchPortal();
-		bool collide(se_core::Actor& pusher
-					 , se_core::Thing& target) const;
+		bool collide(se_core::CollisionComponent& pusher
+					 , const se_core::CollisionComponent& target) const;
 
 	private:
 	};

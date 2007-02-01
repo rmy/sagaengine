@@ -1,3 +1,4 @@
 OgreGUIRenderer
 OgreMain
 CEGUIBase
+OIS
