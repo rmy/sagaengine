@@ -1,130 +1,210 @@
-<?xml version="1.0" encoding="windows-1250"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8,00"
 	Name="simple_static"
-	ProjectGUID="{488BDA46-4364-49FF-A230-613B08B5CF82}"
+	ProjectGUID="{39E0C451488BDA46-4364-49FF-A230-613B08B5CF82}"
 	RootNamespace="simple_static"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\..\sf\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm150"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				EnableFunctionLevelLinking="TRUE"
+				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer_d.lib OgreMain_d.lib CEGUIBase_d.lib "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
+				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
+				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.DebugCRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapExports="true"
 				SubSystem="2"
 				OptimizeReferences="1"
 				OptimizeForWindows98="1"
-				ResourceOnlyDLL="FALSE"
-				TargetMachine="1"/>
+				ResourceOnlyDLL="false"
+				TargetMachine="1"
+				FixedBaseAddress="1"
+				/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+				OutputManifestFile="$(OutDir)\$(TargetFileName).embed.manifest"
+				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"
+				/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\bin\$(ConfigurationName)"
+			OutputDirectory="..\..\..\..\..\sf\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
-			WholeProgramOptimization="TRUE">
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="TRUE"
+				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="TRUE"
+				OmitFramePointers="false"
+				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../core/include;../../../../core/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_X;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
-				StringPooling="TRUE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;IS_OGRE;_CRT_SECURE_NO_DEPRECATE;DEBUG_LEVEL_1;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_SimpleLogicExport=;_SimpleUiExport=;SE_STATIC;"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				BufferSecurityCheck="FALSE"
-				EnableFunctionLevelLinking="TRUE"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreGUIRenderer.lib OgreMain.lib CEGUIBase.lib "
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\..\bin\$(ConfigurationName);..\..\..\..\dependencies\lib\$(ConfigurationName)"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="../../../..\bin\$(ConfigurationName);../../../..\dependencies\lib\$(ConfigurationName)"
+				ManifestFile="$(OutDir)\$(TargetFileName).intermediate.manifest"
+				AdditionalManifestDependencies="type=&apos;win32&apos; name=&apos;Microsoft.VC80.CRT&apos; version=&apos;8.0.50727.42&apos; processorArchitecture=&apos;x86&apos; publicKeyToken=&apos;1fc8b3b9a1e18e3b&apos;"
 				IgnoreDefaultLibraryNames="libc.lib;msvcrt.lib;libcd.lib;libcmtd.lib;msvcrtd.lib"
-				GenerateDebugInformation="FALSE"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapExports="true"
 				SubSystem="2"
 				OptimizeReferences="1"
-				EnableCOMDATFolding="2"
+				EnableCOMDATFolding="1"
 				OptimizeForWindows98="1"
-				ResourceOnlyDLL="FALSE"
-				TargetMachine="1"/>
+				LinkTimeCodeGeneration="0"
+				ResourceOnlyDLL="false"
+				TargetMachine="1"
+				FixedBaseAddress="1"
+				/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+				OutputManifestFile="$(OutDir)\$(TargetFileName).embed.manifest"
+				ManifestResourceFile="$(OutDir)\$(TargetFileName).embed.manifest.res"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -132,7 +212,8 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc">
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc"
+			>
 			<File RelativePath="..\..\start\src\Application.cpp"> </File>
 <File RelativePath="..\..\start\src\Application.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\BasicPre.hpp"> </File>
@@ -155,6 +236,8 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PopScript.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PushScript.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\PushScript.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Save.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Save.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Say.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Say.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\action\Spawn.cpp"> </File>
@@ -187,6 +270,8 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleActorParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaParserModule.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingEncoderModule.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingEncoderModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\SimpleAreaThingParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\io\WangAreaGridParserModule.cpp"> </File>
@@ -207,9 +292,7 @@
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\SimplePlayerFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\basic\src\basic\thing\all.hpp"> </File>
-</Filter></Filter><Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientEventBridge.hpp"> </File>
-<File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListener.hpp"> </File>
+</Filter></Filter><Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListener.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListeners.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\ClientListeners.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\event\all.hpp"> </File>
@@ -227,6 +310,12 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\schema\ClientSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\schema\ClientSchema.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\client\src\client\schema\all.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\client\src\client\thing\CameraComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\client\src\client\thing\CameraComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\client\src\client\thing\PlayerComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\client\src\client\thing\PlayerComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\client\src\client\thing\all.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\client\src\client\thing\client_thing.hpp"> </File>
 </Filter></Filter><Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\io\encode\EncoderModule.cpp"> </File>
@@ -269,13 +358,19 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\logic\src\logic\schema\LogicSchema.cpp"> </File>
 <File RelativePath="..\..\logic\src\logic\schema\LogicSchema.hpp"> </File>
 <File RelativePath="..\..\logic\src\logic\schema\all.hpp"> </File>
-</Filter></Filter><Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
+</Filter></Filter><Filter Name="o3d" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\O3dNodeComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\O3dNodeComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\RenderEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\o3d.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\use.hpp"> </File>
-<Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\WorldManager.cpp"> </File>
-<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\WorldManager.hpp"> </File>
+<Filter Name="area" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dManager.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\O3dManager.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\all.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\o3d_area.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\area\use.hpp"> </File>
@@ -334,6 +429,8 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dAnimationSet.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponent.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponentFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\O3dThingComponentFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.cpp"> </File>
@@ -368,6 +465,10 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMO.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingMultiMOFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticle.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticle.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticleFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingParticleFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometry.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingStaticGeometryFactory.cpp"> </File>
@@ -388,6 +489,8 @@
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcFileManager.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextInputStream.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextOutputStream.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PcTextOutputStream.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\PluginParserModule.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\io\all.hpp"> </File>
@@ -398,16 +501,24 @@
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
-</Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
+</Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\AreaChildComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\AreaChildComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\AreaComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\AreaComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\InitListeners.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\PosNode.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComponent.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimComponentFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimComponentFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComponentManager.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComponentManager.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComposite.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimComposite.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimCompositeFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\SimCompositeFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimEngine.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimEngine.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\SimListener.hpp"> </File>
@@ -444,8 +555,6 @@
 <File RelativePath="..\..\..\..\core\src\sim\area\AreaFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\area\AreaManager.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\area\AreaManager.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\area\CollisionGrid.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\area\CollisionGrid.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\area\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\area\sim_area.hpp"> </File>
 </Filter><Filter Name="config" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\config\Default.cpp"> </File>
@@ -474,7 +583,8 @@
 <File RelativePath="..\..\..\..\core\src\sim\message\SoundListener.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\message\sim_message.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\physics\PhDefault.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\physics\CollisionGrid.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\physics\PhDefault.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\PhDefault.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\Physics.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\physics\Physics.hpp"> </File>
@@ -497,6 +607,14 @@
 <File RelativePath="..\..\..\..\core\src\sim\pos\sim_pos.hpp"> </File>
 </Filter><Filter Name="react" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\sim\react\CoNone.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\CoNone.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionAreaComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionAreaComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionGrid.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionGrid.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionManager.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\react\CollisionManager.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\DefaultTC.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\react\ThingCollide.cpp"> </File>
@@ -539,6 +657,10 @@
 <File RelativePath="..\..\..\..\core\src\sim\stat\HealthListeners.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimComponent.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimComponent.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimComposite.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimComposite.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimNodeComponent.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimNodeComponent.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimObject.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimObject.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\stat\MultiSimObjectListener.hpp"> </File>
@@ -563,12 +685,6 @@
 <File RelativePath="..\..\..\..\core\src\sim\thing\Actor.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\ActorFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\ActorFactory.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\Camera.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\Camera.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\CameraHandler.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\CameraHandler.hpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\Player.cpp"> </File>
-<File RelativePath="..\..\..\..\core\src\sim\thing\Player.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\Thing.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\Thing.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\sim\thing\ThingFactory.cpp"> </File>
@@ -589,6 +705,8 @@
 <File RelativePath="..\..\..\..\core\src\util\util.hpp"> </File>
 <Filter Name="bounds" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\bounds\BoundingBox.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\bounds\BoundingBox.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\bounds\BoundingCylinder.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\bounds\BoundingCylinder.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\bounds\BoundingSquare.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\bounds\BoundingSquare.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\bounds\all.hpp"> </File>
@@ -627,6 +745,11 @@
 <File RelativePath="..\..\..\..\core\src\util\system\RealClock.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\system\all.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\system\util_system.hpp"> </File>
+</Filter><Filter Name="task" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\task\Task.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\task\Task.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\task\TaskList.cpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\task\TaskList.hpp"> </File>
+<File RelativePath="..\..\..\..\core\src\util\task\all.hpp"> </File>
 </Filter><Filter Name="template" Filter="cpp;hpp"><File RelativePath="..\..\..\..\core\src\util\template\HashTable.cpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\template\HashTable.hpp"> </File>
 <File RelativePath="..\..\..\..\core\src\util\template\SinglyLinkedList.hpp"> </File>

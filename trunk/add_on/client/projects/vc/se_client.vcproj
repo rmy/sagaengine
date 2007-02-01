@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="se_client"
-	ProjectGUID="{40E2E989-C81E-451B-839E-2FDDB823B7F1}"
+	ProjectGUID="{73B19C5940E2E989-C81E-451B-839E-2FDDB823B7F1}"
 	RootNamespace="se_client"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\\bin\$(ConfigurationName)"
+			OutputDirectory="../../../../\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -37,7 +37,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_core.lib "
-				AdditionalLibraryDirectories="..\..\..\..\\bin\$(ConfigurationName);..\..\..\..\\dependencies\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../../../\bin\$(ConfigurationName);../../../../\dependencies\lib\$(ConfigurationName)"
 				GenerateDebugInformation="TRUE"
 				OptimizeReferences="1"/>
 			<Tool
@@ -63,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\\bin\$(ConfigurationName)"
+			OutputDirectory="../../../../\bin\$(ConfigurationName)"
 			IntermediateDirectory=".\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="se_core.lib "
-				AdditionalLibraryDirectories="..\..\..\..\\bin\$(ConfigurationName);..\..\..\..\\dependencies\lib\$(ConfigurationName)"/>
+				AdditionalLibraryDirectories="../../../../\bin\$(ConfigurationName);../../../../\dependencies\lib\$(ConfigurationName)"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -119,9 +119,7 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd">
-			<Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\src\client\event\ClientEventBridge.cpp"> </File>
-<File RelativePath="..\..\src\client\event\ClientEventBridge.hpp"> </File>
-<File RelativePath="..\..\src\client\event\ClientListener.hpp"> </File>
+			<Filter Name="client" Filter="cpp;hpp"><Filter Name="event" Filter="cpp;hpp"><File RelativePath="..\..\src\client\event\ClientListener.hpp"> </File>
 <File RelativePath="..\..\src\client\event\ClientListeners.cpp"> </File>
 <File RelativePath="..\..\src\client\event\ClientListeners.hpp"> </File>
 <File RelativePath="..\..\src\client\event\all.hpp"> </File>
@@ -139,6 +137,12 @@
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\client\schema\ClientSchema.cpp"> </File>
 <File RelativePath="..\..\src\client\schema\ClientSchema.hpp"> </File>
 <File RelativePath="..\..\src\client\schema\all.hpp"> </File>
+</Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\src\client\thing\CameraComponent.cpp"> </File>
+<File RelativePath="..\..\src\client\thing\CameraComponent.hpp"> </File>
+<File RelativePath="..\..\src\client\thing\PlayerComponent.cpp"> </File>
+<File RelativePath="..\..\src\client\thing\PlayerComponent.hpp"> </File>
+<File RelativePath="..\..\src\client\thing\all.hpp"> </File>
+<File RelativePath="..\..\src\client\thing\client_thing.hpp"> </File>
 </Filter></Filter>
 		</Filter>
 	</Files>
