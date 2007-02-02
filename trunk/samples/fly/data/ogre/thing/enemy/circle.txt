@@ -1,5 +1,7 @@
 OO01
 N enemy.circle
+{
 R
 B circle
+}
 Q

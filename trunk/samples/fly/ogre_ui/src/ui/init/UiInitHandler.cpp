@@ -41,8 +41,9 @@ namespace ui {
 	}
 
 
-	void UiInitHandler
+	bool UiInitHandler
 	::initEngineEvent() {
+		return true;
 	}
 
 
@@ -51,18 +52,29 @@ namespace ui {
 	}
 
 
-	void UiInitHandler
+	bool UiInitHandler
 	::initGameEvent() {
 		// Create a game controller object
 		//gameControls_ = new BlobberControls();
 
 		// Give focus to the game controller
 		UiSchema::flyControls.grabFocus();
+		return true;
 	}
 
 
 	void UiInitHandler
 	::cleanupGameEvent() {
+	}
+
+	bool UiInitHandler
+	::initLevelEvent() {
+		return true;
+	}
+
+
+	void UiInitHandler
+	::cleanupLevelEvent() {
 	}
 
 }
