@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "O3dAreaComponent.hpp"
+#include "O3dManager.hpp"
 #include "../schema/O3dSchema.hpp"
 #include "../thing/ThingMO.hpp"
 #include "../thing/ThingMOInfo.hpp"
@@ -130,11 +131,11 @@ namespace se_ogre {
 		dest.x = toArea()->pos().worldCoor().x_;
 		dest.y = toArea()->pos().worldCoor().y_;
 		dest.z = toArea()->pos().worldCoor().z_;
-		// TODO:
-		//if(isAreaGeomCentreAligned_) {
+
+		if(O3dSchema::worldManager->isAreaGeomCentreAligned_) {
 			dest.x += toArea()->width() / 2.0f;
 			dest.z += toArea()->height() / 2.0f;
-		//}
+		}
 	}
 
 
