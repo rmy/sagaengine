@@ -1,8 +1,10 @@
 OF01
 # Scenemanager (name)
 S OctreeSceneManager
+# Area geometry alignment (0 = 0,0, 1 = centre)
+A 0
 # Camera (near clip) (far clip) (degrees field of view)
-C 0.05 10000 45
+C 0.5 5000 45
 # Dome (material) (curvature) (tiling)
 D skydome 10 2
 L {

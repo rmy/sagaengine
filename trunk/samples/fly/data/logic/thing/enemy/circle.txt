@@ -1,6 +1,7 @@
 XO02
 P enemy.circle
-R 8
+B -4 -4 -4 4 4 4
 P Simple
+C none
 O
 Q
