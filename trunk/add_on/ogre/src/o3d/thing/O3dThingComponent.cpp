@@ -66,6 +66,7 @@ namespace se_ogre {
 	void O3dThingComponent
 	::cleanup() {
 		O3dSchema::taskList.remove(*this);
+		clear();
 	}
 
 	void O3dThingComponent

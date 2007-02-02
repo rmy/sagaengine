@@ -91,6 +91,9 @@ namespace se_core {
 
 	void TaskList
 	::reset() {
+		for(int i = 0; i < taskCount_; ++i) {
+			tasks_[ i ]->isInProgress_ = false;
+		}
 		taskCount_ = 0;
 		freePoints_ = 0;
 	}

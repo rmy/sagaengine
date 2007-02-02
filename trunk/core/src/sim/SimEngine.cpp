@@ -217,6 +217,9 @@ namespace se_core {
 	void SimEngine
 	::cleanupGame() {
 		SimSchema::activeRoot().cleanup(false);
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			SimSchema::actionQueue[i].reset();
+		}
 		SimSchema::areaManager.resetThings();
 		SimSchema::thingManager().reset();
 		SimSchema::initListeners().castCleanupGameEvent();

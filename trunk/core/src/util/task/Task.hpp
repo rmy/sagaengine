@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport Task {
 	public:
-		Task(int priority, int weight) : priority_(priority), weight_(0) { }
+		Task(int priority, int weight) : priority_(priority), weight_(0), isInProgress_(false) { }
 		Task() : priority_(1), weight_(256), isInProgress_(false) {}
 		virtual void perform() = 0;
 
