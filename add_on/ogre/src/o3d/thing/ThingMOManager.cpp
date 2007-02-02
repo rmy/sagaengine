@@ -39,8 +39,8 @@ namespace se_ogre {
 
 	ThingMOManager
 	::ThingMOManager() : infoCount_(0), factoryCount_(0) {
-		infoList_ = new ThingMOInfoList*[100];
-		factories_ = new const ThingMOFactory*[100];
+		infoList_ = new ThingMOInfoList*[MAX_INFOS];
+		factories_ = new const ThingMOFactory*[MAX_FACTORIES];
 
 		static const ThingMovableObjectFactory tmofMovableObject("default");
 		static const ThingMovableObjectFactory tmofParticleSystem("ParticleSystem");
@@ -55,10 +55,7 @@ namespace se_ogre {
 
 	ThingMOManager
 	::~ThingMOManager() {
-		while(infoCount_ > 0) {
-			--infoCount_;
-			delete infoList_[ infoCount_ ];
-		}
+		reset();
 		delete[] infoList_;
 		delete[] factories_;
 	}
@@ -81,6 +78,7 @@ namespace se_ogre {
 
 	void ThingMOManager
 	::addInfoList(ThingMOInfoList* infoList) {
+		Assert(infoCount_ < MAX_INFOS);
 		// Insert - keep sorted
 		int i = infoCount_;
 		while(i > 0 && infoList->thingType_.compare(infoList_[i - 1]->thingType_) < 0) {
@@ -92,6 +90,15 @@ namespace se_ogre {
 		LogMsg("Added meshinfo for: " << infoList->thingType_);
 	}
 
+
+	void ThingMOManager
+	::reset() {
+		while(infoCount_ > 0) {
+			--infoCount_;
+			delete infoList_[ infoCount_ ];
+		}
+		infoCount_ = 0;
+	}
 
 	int ThingMOManager
 	::infoIndex(const char* thingType) const {
@@ -147,6 +154,7 @@ namespace se_ogre {
 
 	void ThingMOManager
 	::addFactory(const ThingMOFactory* factory) {
+		Assert(factoryCount_ < MAX_FACTORIES);
 		// Insert - keep sorted
 		int i = factoryCount_;
 		while(i > 0 && factory->type().compare(factories_[i - 1]->type()) < 0) {

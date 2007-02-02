@@ -171,6 +171,8 @@ namespace se_ogre {
 				LogMsg("Remove ogre add-on as sim engine listener");
 				SimSchema::engineListeners().removeListener(*O3dSchema::renderEngine);
 
+				O3dSchema::thingMOManager.reset();
+
 				// Cleared world
 				O3dSchema::worldManager->clear();
 				LogMsg("Cleared world");

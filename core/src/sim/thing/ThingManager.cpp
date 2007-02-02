@@ -41,6 +41,7 @@ namespace se_core {
 	void ThingManager
 	::addFactory(SimCompositeFactory* factory) {
 		Assert(factoryCount_ < MAX_FACTORIES - 1);
+		LogWarning(factoryCount_ << ": " << factory->name());
 		factories_[ factoryCount_++ ] = factory;
 	}
 
@@ -141,6 +142,7 @@ namespace se_core {
 
 	void ThingManager
 	::reset() {
+		neutraliseDestructions();
 		performDestructions();
 		performDestructions();
 	}
@@ -151,6 +153,8 @@ namespace se_core {
 		while(factoryCount_ > 0) {
 			delete factories_[ --factoryCount_ ];
 		}
+		destructionCount_ = 0;
+		nextDestructionCount_ = 0;
 		factoryCount_ = 0;
 	}
 }

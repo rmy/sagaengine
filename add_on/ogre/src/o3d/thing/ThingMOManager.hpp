@@ -49,7 +49,11 @@ namespace se_ogre {
 		void release(ThingMO* tmo);
 		void release(O3dThingComponent* tc);
 
+		void reset();
+
 	private:
+		static const int MAX_FACTORIES = 100;
+		static const int MAX_INFOS = 100;
 		ThingMOInfoList** infoList_;
 		int infoCount_;
 		const ThingMOFactory** factories_;
