@@ -161,6 +161,7 @@ namespace se_ogre {
 
 	int ThingMOManager
 	::factoryIndex(const char* moType) const {
+		Assert(factories_[0]->type().get() != (const char*)(0x1));
 		int min = 0;
 		int max = factoryCount_ - 1;
 

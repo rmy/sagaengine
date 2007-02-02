@@ -58,17 +58,9 @@ namespace logic {
 		nextPos.updateWorldViewPoint();
 
 		// Entered new area?
+		// Entered new area?
 		PosComponent* old = nextPos.area();
-		if(!nextPos.area()->isLegalCoor(nextPos.worldCoor())) {
-			LogMsg("Out of bounds: "<< nextPos.area()->name() << ": " << nextPos.world_.toLog());
-			PosComponent* a = nextPos.area()->neighbour(nextPos.worldCoor());
-			if(a) {
-				// Change area, keep world viewpoint
-				nextPos.setArea(*a, true);
-				// Cannot use old index as hint for index in new area
-				nextPos.setNoIndex();
-			}
-		}
+		nextPos.updateArea();
 
 		if(isBlocked(actor, pos, nextPos)) {
 			// Revert back to original area if necessary
@@ -102,8 +94,8 @@ namespace logic {
 		else {
 			nextPos.anim(0).setMovementMode(2);
 		}
-		float w = BrayT::abs(y) / (float)(BRAY_RES) * 0.19;
-		if(w < 0.02) w = 0.02;
+		float w = BrayT::abs(y) / (float)(BRAY_RES) * 0.19f;
+		if(w < 0.02f) w = 0.02f;
 		// This animation should not move with time, only with turing speed
 		nextPos.anim(0).setSpeed(0);
 		nextPos.anim(0).setStartPos(w);
@@ -111,7 +103,7 @@ namespace logic {
 		nextPos.anim(0).setWeight(w);
 
 		// Scale speed to [0, 1> values, the clamp
-		float sw = nextMove.velocity_.length() * .7;
+		float sw = nextMove.velocity_.length() * .7f;
 		if(sw > 0.99999f) sw = 0.99999f;
 		nextPos.anim(1).setMovementMode(1);
 		// Animation is governed by fly speed, not time

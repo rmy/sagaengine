@@ -60,17 +60,8 @@ namespace logic {
 		nextPos.updateWorldViewPoint();
 
 		// Entered new area?
-		Area* old = nextPos.area();
-		if(!nextPos.area()->isLegalCoor(nextPos.worldCoor())) {
-			LogMsg("Out of bounds: "<< nextPos.area()->name() << ": " << nextPos.world_.toLog());
-			Area* a = nextPos.area()->neighbour(nextPos.worldCoor());
-			if(a) {
-				// Change area, keep world viewpoint
-				nextPos.setArea(*a, true);
-				// Cannot use old index as hint for index in new area
-				nextPos.setNoIndex();
-			}
-		}
+		PosComponent* old = nextPos.area();
+		nextPos.updateArea();
 		
 		if(isBlocked(actor, pos, nextPos)) {
 			// Revert back to original area if necessary
@@ -101,9 +92,9 @@ namespace logic {
 
 		float s = p.noise(pos.localCoor().x_ * 0.025f, pos.localCoor().y_ * 0.025f, pos.localCoor().y_ * 0.025f, 9, 9, 9, true, true, true) * 2;
 		Euler3 noise(
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().x_ * 0.125, pos.localCoor().y_ * 0.125, 9, 9, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().y_ * 0.125, pos.localCoor().z_ * 0.125, 9, 9, true, true))),
-					 BrayT::fromRad(.01 * (p.noise(pos.localCoor().z_ * 0.125, pos.localCoor().x_ * 0.125, 9, 9, true, true)))
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().x_ * 0.125f, pos.localCoor().y_ * 0.125f, 9, 9, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().y_ * 0.125f, pos.localCoor().z_ * 0.125f, 9, 9, true, true))),
+					 BrayT::fromRad(.01f * (p.noise(pos.localCoor().z_ * 0.125f, pos.localCoor().x_ * 0.125f, 9, 9, true, true)))
 				   );
 		/*
 		Euler3 noise(

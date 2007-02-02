@@ -53,6 +53,9 @@ namespace logic {
 #endif
 		Assert(IoSchema::fileManager);
 
+		const char* files[] = { "logic/files.txt", "ogre/files.txt", 0 };
+		IoSchema::fileManager->init(files);
+
 		// Load language files
 		IoSchema::fileManager->loadDirectory("logic/lang");
 

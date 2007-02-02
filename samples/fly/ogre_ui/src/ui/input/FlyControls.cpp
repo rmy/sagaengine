@@ -67,13 +67,6 @@ namespace ui {
 
 	void FlyControls
 	::keyPressed(Ogre::KeyEvent* e) {
-		if(ClientSchema::player->hasActiveScript()) {
-			if(O3dSchema::speechBubble)
-				O3dSchema::speechBubble->trackUserFeedback();
-			return;
-		}
-
-
 		bool doDropStone = false;
 		switch(e->getKey()) {
 		case Ogre::KC_SPACE:
@@ -132,12 +125,12 @@ namespace ui {
 
 		static Parameter p;
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
-		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
+		ClientSchema::playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
 
 		actionRotateCamera.param(dirRoll(), 0, 0, p);
-		ClientSchema::floatingCamera->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
+		ActionComponent::get(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
 
-		if(doDropStone) ClientSchema::player->planAction(CHANNEL_EXTRA, actionDropStone, &p);
+		if(doDropStone) ClientSchema::playerX->planAction(CHANNEL_EXTRA, actionDropStone, &p);
 	}
 
 
@@ -188,10 +181,10 @@ namespace ui {
 
 		static Parameter p;
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
-		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
+		ClientSchema::playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
 
 		actionRotateCamera.param(dirRoll(), 0, 0, p);
-		ClientSchema::floatingCamera->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
+		ActionComponent::get(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
 	}
 
 
