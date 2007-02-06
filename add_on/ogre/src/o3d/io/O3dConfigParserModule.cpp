@@ -210,6 +210,21 @@ namespace se_ogre {
 							}
 							break;
 
+						case 'S': // Colour
+							{
+								float r = in.readFloat();
+								float g = in.readFloat();
+								float b = in.readFloat();
+								light->setSpecularColour(Ogre::ColourValue(r, g, b));
+							}
+							break;
+
+						case 'W': // Colour
+							{
+								light->setCastShadows(true);
+							}
+							break;
+
 						default:
 							LogFatal("Unknown directional lighting code: " << (char)(code));
 						}

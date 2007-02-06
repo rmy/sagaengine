@@ -60,6 +60,9 @@ namespace se_ogre {
 		O3dAnimation* createAnimation(int channel, int id);
 		int channelCount() const { return channelCount_; }
 
+		// Light values
+		Ogre::ColourValue diffuse_, specular_;
+
 	private:
 		int channelCount_;
 	};

@@ -112,6 +112,14 @@ namespace se_ogre {
 			case 'X': // Point light
 				{
 					info->movableObjectType_.set(Ogre::LightFactory::FACTORY_TYPE_NAME.c_str());
+					float r = in.readFloat();
+					float g = in.readFloat();
+					float b = in.readFloat();
+					info->diffuse_ = Ogre::ColourValue(r, g, b);
+					r = in.readFloat();
+					g = in.readFloat();
+					b = in.readFloat();
+					info->specular_ = Ogre::ColourValue(r, g, b);
 				}
 				break;
 
