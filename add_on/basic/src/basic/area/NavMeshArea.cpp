@@ -158,7 +158,6 @@ namespace se_basic {
 
 	void NavMeshArea
 	::farthestLineOfSight(const Pos& from, const Pos& to, Point3& dest) const {
-
 		Point3 toPoint(to.worldCoor());
 		short toIndex = index(toPoint, from.index());
 		toPoint.sub(nextPos().worldCoor());
@@ -261,6 +260,14 @@ namespace se_basic {
 	::slideAngle(const se_core::Pos& from, const se_core::Point3& to) const {
 		bray_t angle = navMesh_->slideAngle(from.localCoor(), from.index(), to);
 		return angle;
+	}
+
+
+	coor_double_t NavMeshArea
+	::findNearest(const se_core::Point3& wc, se_core::Point3& out) const {
+		Point3 p(wc);
+		p.sub(nextPos().worldCoor());
+		return navMesh_->findNearest(p, out);
 	}
 
 }

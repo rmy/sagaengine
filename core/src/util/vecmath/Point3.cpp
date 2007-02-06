@@ -90,8 +90,8 @@ namespace se_core {
 		scale(s, u);
 		add(pt1);
 
-		Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt1));
-		Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt2));
+		//Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt1));
+		//Assert(testPoint.distanceSquared(*this) <= testPoint.distanceSquared(pt2));
 	}
 
 }

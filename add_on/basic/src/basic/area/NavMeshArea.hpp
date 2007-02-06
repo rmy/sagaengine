@@ -36,6 +36,8 @@ namespace se_basic {
 		bray_t slideAngle(const se_core::Pos& from, const se_core::Point3& to) const;
 		bool doesTouchVoid(const se_core::Point3& wc, short index, coor_t radius) const;
 
+		coor_double_t findNearest(const se_core::Point3& p, se_core::Point3& out) const;
+
 	private:
 		short farthestLos(const se_core::Point3& from, short fromIndex, short toIndex) const;
 
