@@ -267,7 +267,7 @@ namespace se_basic {
 			out.z_ = 1 - out.x_ - out.y_;
 		}
 
-		
+
 		coor_t height(short tri, const se_core::Tuple3& barycentric) const {
 			const se_core::Point3& c1 = controlPoints_[ triangles_[tri].controlPoints_[0] ];
 			const se_core::Point3& c2 = controlPoints_[ triangles_[tri].controlPoints_[1] ];
@@ -284,13 +284,15 @@ namespace se_basic {
 		bool isInsideTriangle(se_core::Tuple3& barycentric) const {
 			return (barycentric.x_ >= 0 && barycentric.y_ >= 0 && barycentric.z_ >= 0);
 		}
-		
+
+
 		/** Barycentric test */
 		bool isInsideTriangle(se_core::Point2& q, se_core::Point3& c1, se_core::Point3& c2, se_core::Point3& c3) const {
 			se_core::Tuple3 b;
 			barycentric(q, c1, c2, c3, b);
 			return isInsideTriangle(b);
 		}
+
 
 		/** Clockwise test */
 		bool isInsideTriangle(se_core::Point2& q, se_core::Point3* corners) const {
@@ -374,6 +376,7 @@ namespace se_basic {
 		}
 
 		short findExit(const se_core::BoundingBox& bounds, se_core::Point3& out) const;
+		coor_t findNearest(const se_core::Point3& p, se_core::Point3& out) const;
 
 	protected:
 		short controlPointCount_;
