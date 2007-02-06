@@ -287,19 +287,19 @@ namespace se_basic {
 	coor_double_t NavMesh
 	::findNearest(const Point3& p, Point3& out) const {
 		Point3 tmp;
-		coor_double_t maxDistSq = 0;
+		coor_double_t minDistSq = 0;
 
 		for(int i = 0; i < triangleCount_; ++i) {
 			for(int j = 0; j < 3; ++j) {
 				tmp.nearestPoint(controlPoints_[ triangles_[ i ].controlPoints_[j] ]
 						, controlPoints_[ triangles_[ i ].controlPoints_[(j + 1) % 3] ], p);
-				if(maxDistSq == 0 || tmp.distanceSquared(p) > maxDistSq) {
-					maxDistSq = tmp.distanceSquared(p);
+				if(minDistSq == 0 || tmp.distanceSquared(p) < minDistSq) {
+					minDistSq = tmp.distanceSquared(p);
 					out.set(tmp);
 				}
 			}
 		}
-		return maxDistSq;
+		return minDistSq;
 	}
 
 }
