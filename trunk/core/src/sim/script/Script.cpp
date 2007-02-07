@@ -61,6 +61,16 @@ namespace se_core {
 
 
 	void Script
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const {
+		Parameter& p = out.parameter();
+		const Action* a = nextAction(performer, channel, sd, p);
+		if(a) {
+			out.setAction(*a);
+		}
+	}
+
+
+	void Script
 	::trackUserFeedback() const {
 		WasHere();
 		SimSchema::didTrack = true;

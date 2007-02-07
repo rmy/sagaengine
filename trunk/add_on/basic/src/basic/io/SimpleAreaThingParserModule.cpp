@@ -73,7 +73,6 @@ namespace se_basic {
 				break;
 			}
 		}
-		Assert(areaCount);
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
 				LogMsg("Set spawn points for: " << areas[i]->name());

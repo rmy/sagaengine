@@ -63,18 +63,23 @@ namespace se_core {
 	void ScriptComponent
 	::nextScriptAction(short channel, ActionAndParameter& aap) {
 		if(!script()) return;
-		Parameter& p = aap.parameter();
-		const Action* a = script()->nextAction(*this, channel, scriptData(), p);
+		//Parameter& p = aap.parameter();
+		//const Action* a = script()->nextAction(*this, channel, scriptData(), p);
+		//ActionAndParameter aap;
+		script()->nextAction(*this, channel, scriptData(), aap);
 
 		int s = currentScript_;
-		while(!a && s > 0 && scriptStack_[ s ]->isTransparent()) {
+		while(!aap.hasAction() && s > 0 && scriptStack_[ s ]->isTransparent()) {
 			--s;
-			a = scriptStack_[ s ]->nextAction(*this, channel, scriptData_[ s ], p);
+			scriptStack_[ s ]->nextAction(*this, channel, scriptData_[ s ], aap);
 		}
 
-		if(a) {
-			aap.setAction(*a);
+		/*
+		if(aap.hasAction()) {
+			//aap.setAction(*a);
+			out.set(aap);
 		}
+		*/
 	}
 
 

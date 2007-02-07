@@ -59,6 +59,8 @@ namespace se_core {
 		 */
 		static bool init();
 
+		const char* level() { return level_.get(); }
+
 
 		/**
 		 * Cleanup the simulation engine. This should be called once,
