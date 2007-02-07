@@ -61,6 +61,10 @@ namespace se_core {
 		// Spawn it in area (with area as parent)
 		Area* area = const_cast<Area*>(pos.area()->toArea());
 		area = area->neighbour(vp.coor_);
+		if(!area) {
+			LogWarning("Area not found");
+			return 0;
+		}
 		vp.sub(area->pos().world_);
 		SimComposite* t = area->spawn(thingName, vp, deniedTsMask);
 

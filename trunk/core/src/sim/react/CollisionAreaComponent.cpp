@@ -90,7 +90,7 @@ namespace se_core {
 		collisionGrid_->setSize(w * 2, h * 2);
 
 		Point3 offset(toArea()->pos().worldCoor());
-		offset.sub(Point3(CoorT::fromTile(w), 0, CoorT::fromTile(h)));
+		offset.sub(Point3(CoorT::fromTile(w / 2), 0, CoorT::fromTile(h / 2)));
 
 		collisionGrid_->setOffset(offset);
 
