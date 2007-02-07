@@ -86,6 +86,10 @@ namespace se_core {
 			p = original;
 		}
 
+		inline const Parameter& parameter() const {
+			return parameter_;
+		}
+
 
 		inline Parameter& parameter() {
 			return parameter_;

@@ -54,7 +54,9 @@ namespace se_core {
 		virtual void reinitPop(const ScriptComponent& performer, ScriptData* sd, const char* fromScript) const {}
 		virtual void touched(const ScriptComponent& performer, ScriptData* sd, void* param) const {}
 		void release(ScriptData* &sd) const { delete sd; sd = 0; }
-		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const = 0;
+		virtual void nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const;
+		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const { return 0; }
+
 		void trackUserFeedback() const;
 
 		/**
