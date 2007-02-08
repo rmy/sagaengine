@@ -27,6 +27,9 @@ namespace se_basic {
 
 	void WangAreaGrid
 	::setArea(int x, int z, int defIndex) {
+		if(defIndex < 0)
+			return;
+
 		char buffer[32];
 		
 		//LogMsg(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
@@ -82,7 +85,7 @@ namespace se_basic {
 			for(int x = 0; x < xSize_; ++x) {
 				// Already defined?
 				int myDef = getDefinition(x, z);
-				if(myDef >= 0)
+				if(myDef >= -1)
 					continue;
 
 				//

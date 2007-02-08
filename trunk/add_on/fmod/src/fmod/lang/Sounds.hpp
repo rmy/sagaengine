@@ -47,6 +47,7 @@ namespace se_fmod {
 		unsigned short currentLanguage_;
 		static const int MAX_SOUNDS = 300;
 		struct Sound {
+			Sound() : nameC_(0), soundC_(0), name_(0) {}
 			unsigned short language_;
 			SoundType type_;
 			se_core::String* nameC_;

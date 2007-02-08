@@ -132,6 +132,7 @@ namespace se_core {
 		 * @param force The force to add
 		 */
 		void addForce(const Vector3& force) { force_.add(force); }
+		void addForce(scale_t s, const Vector3& force) { force_.scaleAdd(s, force, force_); }
 
 		/**
 		 * Subtracs a force that will work on this Pos the next step.
