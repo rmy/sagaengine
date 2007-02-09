@@ -90,15 +90,18 @@ namespace se_ogre {
 			joy_->capture();
 
 			int buttonCount = joy_->buttons();
-			int buttons = joy_->getJoyStickState().buttons;
-			for(int i = 0; i < buttons; ++i) {
+			int buttons = 0;
+			for(int i = 0; i < buttonCount; ++i) {
 				int mask = (1L << i);
+				if(joy_->getJoyStickState().buttonDown(i)) {
+					buttons |= mask;
+				}
 				if((buttons & mask) != (oldJoyButtons_ & mask)) {
 					if((buttons & mask) == 0) {
-						O3dSchema::inputManager().active()->joyButtonPressed(i);
+						O3dSchema::inputManager().active()->joyButtonReleased(i);
 					}
 					else {
-						O3dSchema::inputManager().active()->joyButtonReleased(i);
+						O3dSchema::inputManager().active()->joyButtonPressed(i);
 					}
 				}
 			}

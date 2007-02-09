@@ -166,7 +166,6 @@ namespace se_core {
 
 	void SimComposite
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
-		LogWarning(name());
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
