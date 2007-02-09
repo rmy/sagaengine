@@ -232,7 +232,7 @@ namespace se_ogre {
 			}
 		}
 
-		Assert(!info->movableObjectType_.isEmpty() && "You must define exactly one of mesh name or factory");
+		AssertFatal(!info->movableObjectType_.isEmpty(), "You must define exactly one of mesh name or factory in file " << in.name());
 
 	}
 
