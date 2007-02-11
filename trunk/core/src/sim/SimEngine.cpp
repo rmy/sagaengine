@@ -72,6 +72,7 @@ namespace se_core {
 	void SimEngine
 	::setLevel(const char* name) {
 		nextLevel_.copy(name);
+		level_.copy(name);
 	}
 
 	void SimEngine
