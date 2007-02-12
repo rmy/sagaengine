@@ -15,14 +15,19 @@ namespace se_basic {
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1) {
+		Point2 tmp;
+		return (tmp.lineIntersect(a0, a1, b0, b1) != -1);
+		/*
 		float s1 = left( b0, b1, a0) * left( b0, b1, a1);
 		float s2 = left( a0, a1, b0) * left( a0, a1, b1);
 		return (s1 <= 0 && s2 < 0);
 
-		return doLinesIntersectXZ(a0, a1, b0, b1, 0);
+		//return doLinesIntersectXZ(a0, a1, b0, b1, 0);
+		*/
 	}
 
 
+	/*
 	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
@@ -61,6 +66,7 @@ namespace se_basic {
 		//LogMsg(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
 		return res;
 	}
+	*/
 
 
 	bool NavMesh
@@ -183,7 +189,8 @@ namespace se_basic {
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {
-					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
+					if(dest.lineIntersect(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to) != -1) {
+					//if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
 						next = link;
 						//LogMsg("Found link: " << via << ", " << next << ", " << toIndex << " (" << dest.x_ << ", " << dest.y_ << ")");
 					}
@@ -228,6 +235,10 @@ namespace se_basic {
 							bray_t slideYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
 							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) > BrayT::DEG90) {
 								slideYaw = BrayT::invert(slideYaw);
+								slideYaw += BRAY_RES / 4;
+							}
+							else {
+								slideYaw -= BRAY_RES / 4;
 							}
 							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) >= 96 * BRAY_RES) {
 								return currentYaw;

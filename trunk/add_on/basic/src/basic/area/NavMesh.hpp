@@ -5,11 +5,13 @@
 
 namespace se_basic {
 
+	/*
 	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
 						  , const se_core::Point3& b0
 						  , const se_core::Point3& b1
 						  , se_core::Point2* out);
+	*/
 
 	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
