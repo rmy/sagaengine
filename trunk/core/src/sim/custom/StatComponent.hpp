@@ -64,7 +64,14 @@ namespace se_core {
 		Health& health() { return health_; }
 		const Health& health() const { return health_; }
 
+
+		enum Special { NONE, BUBBLE_POWER, SPEED };
+		void setSpecial(enum Special special, long millis);
+		enum Special special() const;
+
 	protected:
+		enum Special special_;
+		long specialWhen_;
 		Abilities abilities_;
 		Health health_;
 		const Action* quickMenuAction_;
