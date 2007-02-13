@@ -22,6 +22,7 @@ rune@skalden.com
 #include "StatComponent.hpp"
 #include "ThingData.hpp"
 #include "../sim.hpp"
+#include "../SimEngine.hpp"
 #include "../config/all.hpp"
 #include "../stat/all.hpp"
 
@@ -30,7 +31,7 @@ namespace se_core {
 
 	StatComponent
 	::StatComponent(Actor* owner)
-		: SimComponent(sct_STAT, owner) {
+		: SimComponent(sct_STAT, owner), special_(NONE), specialWhen_(0) {
 	}
 
 
@@ -54,6 +55,22 @@ namespace se_core {
 	void StatComponent
 	::setUseAction(const Action* a) {
 		useAction_ = a;
+	}
+
+
+	void StatComponent
+	::setSpecial(enum Special special, long millis) {
+		special_ = special;
+		specialWhen_ = SimSchema::simEngine.when() + millis;
+	}
+
+
+	enum StatComponent::Special StatComponent
+	::special() const {
+		if(specialWhen_ < SimSchema::simEngine.when()) {
+			return NONE;
+		}
+		return special_;
 	}
 
 }
