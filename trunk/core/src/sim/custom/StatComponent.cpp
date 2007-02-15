@@ -65,6 +65,18 @@ namespace se_core {
 	}
 
 
+	bool StatComponent
+	::isSpecialEndingSoon() const {
+		if(specialWhen_ < SimSchema::simEngine.when()) {
+			return false;
+		}
+		if(specialWhen_ < SimSchema::simEngine.when() + 4 * 1024) {
+			return true;
+		}
+		return false;
+	}
+
+
 	enum StatComponent::Special StatComponent
 	::special() const {
 		if(specialWhen_ < SimSchema::simEngine.when()) {
