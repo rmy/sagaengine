@@ -68,6 +68,7 @@ namespace se_core {
 		enum Special { NONE, BUBBLE_POWER, SPEED };
 		void setSpecial(enum Special special, long millis);
 		enum Special special() const;
+		bool isSpecialEndingSoon() const;
 
 	protected:
 		enum Special special_;
