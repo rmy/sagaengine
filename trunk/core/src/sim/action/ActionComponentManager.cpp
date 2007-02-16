@@ -31,11 +31,6 @@ namespace se_core {
 
 	void ActionComponentManager
 	::step(long when) {
-		// Performs the scheduled actions in all action channels
-		for(int i = 0; i < CHANNEL_COUNT; ++i) {
-			SimSchema::actionQueue[i].performScheduledActions(when);
-		}
-
 		// Schedule next action after after all actors have performed theirs,
 		// as to not disadvantage the AI for any actor. (Will call scripts
 		// to ask what the next action should be.)
@@ -48,6 +43,12 @@ namespace se_core {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			SimSchema::actionQueue[i].beginNextInitiative();
 		}
+
+		// Performs the scheduled actions in all action channels
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			SimSchema::actionQueue[i].performScheduledActions(when);
+		}
+
 	}
 
 
