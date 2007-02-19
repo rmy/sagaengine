@@ -109,6 +109,9 @@ namespace se_core {
 		scale_t lineIntersect(const Point2& a0, const Point2& a1, const Point2& b0, const Point2& b1);
 		scale_t lineIntersect(const Point3& a0, const Point3& a1, const Point3& b0, const Point3& b1);
 
+		bool willAIntersectB(const Point2& a0, const Point2& a1, const Point2& b0, const Point2& b1);
+		bool willAIntersectB(const Point3& a0, const Point3& a1, const Point3& b0, const Point3& b1);
+
 		// copy constructor and operator = is made by complier
 
 		Point2& operator=(const Tuple2& t) {

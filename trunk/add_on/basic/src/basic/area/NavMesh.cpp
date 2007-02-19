@@ -27,6 +27,21 @@ namespace se_basic {
 	}
 
 
+	bool willLineAIntersectBXZ(const se_core::Point3& a0
+						  , const se_core::Point3& a1
+						  , const se_core::Point3& b0
+						  , const se_core::Point3& b1) {
+		Point2 tmp;
+		return (tmp.willAIntersectB(a0, a1, b0, b1));
+		/*
+		float s1 = left( b0, b1, a0) * left( b0, b1, a1);
+		float s2 = left( a0, a1, b0) * left( a0, a1, b1);
+		return (s1 <= 0 && s2 < 0);
+
+		//return doLinesIntersectXZ(a0, a1, b0, b1, 0);
+		*/
+	}
+
 	/*
 	bool doLinesIntersectXZ(const se_core::Point3& a0
 						  , const se_core::Point3& a1
@@ -253,6 +268,50 @@ namespace se_basic {
 			prev = via;
 			via = next;
 		}
+		return currentYaw;
+	}
+
+
+	bray_t NavMesh
+	::wallAngle(const se_core::Point3& from, short fromIndex, const se_core::Point3& to) const {
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
+		bray_t currentYaw = from.yawTowards(to);
+		Point2 tmp;
+
+		short via = fromIndex;
+		short prev = -2;
+		while(via != -1) {
+			Point3* b[] = {
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
+				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+			};
+			short next = -1;
+			for(int i = 0; i < 3; ++i) {
+				short link = triangles_[ via ].linkTo_[ i ];
+				if(link != prev) {
+					if(tmp.willAIntersectB(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ])) {
+						if(link < 0) {
+							// NOTE: Found edge - exiting!!!
+							bray_t wallYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							if(BrayT::abs(BrayT::sub(currentYaw, wallYaw)) > BrayT::DEG90) {
+								wallYaw = BrayT::invert(wallYaw);
+							}
+							return wallYaw;
+						}
+						next = link;
+					}
+				}
+			}
+
+			prev = via;
+			via = next;
+		}
+		LogFatal("Couldn't find wall yaw");
 		return currentYaw;
 	}
 

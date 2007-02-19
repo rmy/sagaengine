@@ -204,6 +204,7 @@ namespace se_core {
 		setGameOver(false);
 		SimSchema::initListeners().castInitGameEvent();
 		SimSchema::activeRoot().init(false);
+		CollisionManager::singleton().resetGodMode();
 	}
 
 

@@ -113,4 +113,50 @@ namespace se_core {
 
 		return r;
 	}
+
+
+	bool Point2
+	::willAIntersectB(const Point2& a0
+					   , const Point2& a1
+					   , const Point2& b0
+					   , const Point2& b1) {
+		scale_t den = ((a1.x_-a0.x_) * (b1.y_-b0.y_)-(a1.y_-a0.y_) * (b1.x_-b0.x_));
+		if(den == 0) {
+			return false;
+		}
+		scale_t r = ((a0.y_ - b0.y_) * (b1.x_ - b0.x_) - (a0.x_ - b0.x_) * (b1.y_ - b0.y_)) / den;
+		scale_t s = ((a0.y_-b0.y_)*(a1.x_-a0.x_)-(a0.x_-b0.x_)*(a1.y_-a0.y_)) / den;
+
+		if(s < 0 || s > 1) {
+			return false;
+		}
+
+		x_ = a0.x_ + r * (a1.x_ - a0.x_);
+		y_ = a0.y_ + r * (a1.y_ - a0.y_);
+
+		return true;
+	}
+
+
+	bool Point2
+	::willAIntersectB(const Point3& a0
+					   , const Point3& a1
+					   , const Point3& b0
+					   , const Point3& b1) {
+		scale_t den = ((a1.x_-a0.x_) * (b1.z_-b0.z_)-(a1.z_-a0.z_) * (b1.x_-b0.x_));
+		if(den == 0) {
+			return false;
+		}
+		scale_t r = ((a0.z_ - b0.z_) * (b1.x_ - b0.x_) - (a0.x_ - b0.x_) * (b1.z_ - b0.z_)) / den;
+		scale_t s = ((a0.z_-b0.z_)*(a1.x_-a0.x_)-(a0.x_-b0.x_)*(a1.z_-a0.z_)) / den;
+
+		if(s < 0 || s > 1) {
+			return false;
+		}
+
+		x_ = a0.x_ + r * (a1.x_ - a0.x_);
+		y_ = a0.z_ + r * (a1.z_ - a0.z_);
+
+		return true;
+	}
 }

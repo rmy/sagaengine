@@ -29,7 +29,7 @@ namespace se_ogre {
 
 	ThingParticleFactory
 	::ThingParticleFactory() 
-		: ThingMOFactory("Particle") {
+		: ThingMOFactory("ParticleSystem") {
 	}
 
 
