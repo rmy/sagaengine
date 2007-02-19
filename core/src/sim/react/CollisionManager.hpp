@@ -62,6 +62,9 @@ namespace se_core {
 			isGodModeOn_ = !isGodModeOn_;
 		}
 
+		void resetGodMode() {
+			isGodModeOn_ = false;
+		}
 
 	private:
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);

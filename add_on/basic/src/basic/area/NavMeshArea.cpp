@@ -263,6 +263,13 @@ namespace se_basic {
 	}
 
 
+	bray_t NavMeshArea
+	::wallAngle(const se_core::Pos& from, const se_core::Point3& to) const {
+		bray_t angle = navMesh_->wallAngle(from.localCoor(), from.index(), to);
+		return angle;
+	}
+
+
 	coor_double_t NavMeshArea
 	::findNearest(const se_core::Point3& wc, se_core::Point3& out) const {
 		Point3 p(wc);

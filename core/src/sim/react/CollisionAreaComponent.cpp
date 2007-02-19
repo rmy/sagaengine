@@ -207,6 +207,7 @@ namespace se_core {
 				}
 
 				if(_testCollision(*cc, cc2)) {
+					// Only collide once (and at least once)
 					bool didAlready = false;
 					for(int i = 0; i < count; ++i) {
 						if(list[ i ].cc1_ == &cc2 && list[ i ].cc2_ == cc) {
@@ -217,6 +218,9 @@ namespace se_core {
 
 					if(!didAlready) {
 						Assert(count < maxCollisions);
+						if(count > 16) {
+							LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
+						}
 						list[ count ].cc1_ = cc;
 						list[ count ].cc2_ = &cc2;
 						++count;
