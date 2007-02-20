@@ -65,10 +65,11 @@ namespace se_core {
 		const Health& health() const { return health_; }
 
 
-		enum Special { NONE, BUBBLE_POWER, SPEED };
+		enum Special { NONE, BUBBLE_POWER, SPEED, SHOCK_WAVE };
 		void setSpecial(enum Special special, long millis);
 		enum Special special() const;
 		bool isSpecialEndingSoon() const;
+		void addCollectible() { ++collectibles_; }
 
 	protected:
 		enum Special special_;
@@ -77,6 +78,7 @@ namespace se_core {
 		Health health_;
 		const Action* quickMenuAction_;
 		const Action* useAction_;
+		int collectibles_;
 	};
 
 }

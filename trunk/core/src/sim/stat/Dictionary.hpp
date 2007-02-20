@@ -39,7 +39,7 @@ namespace se_core {
 		void add(const DictionaryEntry* entry);
 
 		short entryCount_;
-		const static int MAX_ENTRIES = 100;
+		const static int MAX_ENTRIES = 256;
 		const DictionaryEntry** entries_;
 	};
 
