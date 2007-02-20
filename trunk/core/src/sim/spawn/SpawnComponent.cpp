@@ -48,6 +48,7 @@ namespace se_core {
 
 	SimComposite* SpawnComponent
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
+		LogWarning(thingName);
 		// Get spawn point displace and face direction
 		const ViewPoint* sp = spawnPoint(spawnPointId);
 		Assert(sp && "Spawn point does not exist");
@@ -66,6 +67,7 @@ namespace se_core {
 			return 0;
 		}
 		vp.sub(area->pos().world_);
+		LogWarning(thingName);
 		SimComposite* t = area->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
