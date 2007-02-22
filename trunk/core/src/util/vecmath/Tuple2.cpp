@@ -17,4 +17,8 @@ namespace se_core {
 		return buffer;
 	}
 
+	bool Tuple2
+	::isNan() const {
+		return x_ != x_ || y_ != y_;
+	}
 }

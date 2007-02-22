@@ -280,9 +280,11 @@ namespace se_basic {
 			{ 0, 1 }
 		};
 		bray_t currentYaw = from.yawTowards(to);
+		bray_t wallYaw, thirdYaw;
 		Point2 tmp;
 
 		short via = fromIndex;
+		Assert(via != -1);
 		short prev = -2;
 		while(via != -1) {
 			Point3* b[] = {
@@ -290,24 +292,49 @@ namespace se_basic {
 				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
 				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
 			};
-			short next = -1;
+			short next = -2;
+			short count = 0;
+			thirdYaw = 0;
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {
+					if(link < 0) {
+						if(tmp.willAIntersectB(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ]), 0.25f) {
+							//LogWarning("Yaw: " << BrayT::toBray(b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ])));
+							bray_t y = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							thirdYaw += b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							++count;
+						}
+					}
 					if(tmp.willAIntersectB(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ])) {
-						if(link < 0) {
+						if(link < 0 && next != -1) {
 							// NOTE: Found edge - exiting!!!
-							bray_t wallYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							wallYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							/*
 							if(BrayT::abs(BrayT::sub(currentYaw, wallYaw)) > BrayT::DEG90) {
 								wallYaw = BrayT::invert(wallYaw);
 							}
 							return wallYaw;
+							*/
 						}
 						next = link;
 					}
 				}
 			}
 
+			if(next < 0) {
+				if(count > 1) {
+					thirdYaw = BrayT::mask(thirdYaw / 2);; 
+					LogWarning("Third yaw: " << BrayT::toBray(wallYaw) << ", " << BrayT::toBray(thirdYaw));
+					wallYaw = thirdYaw;
+				}
+				if(BrayT::abs(BrayT::sub(currentYaw, wallYaw)) > BrayT::DEG90) {
+					wallYaw = BrayT::invert(wallYaw);
+				}
+				return wallYaw;
+			}
+
+			thirdYaw = wallYaw;
 			prev = via;
 			via = next;
 		}

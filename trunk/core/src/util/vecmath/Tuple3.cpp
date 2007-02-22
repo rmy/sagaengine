@@ -51,4 +51,9 @@ namespace se_core {
 	}
 
 
+
+	bool Tuple3
+	::isNan() const {
+		return x_ != x_ || y_ != y_ || z_ != z_;
+	}
 }

@@ -70,6 +70,7 @@ namespace se_core {
 		enum Special special() const;
 		bool isSpecialEndingSoon() const;
 		void addCollectible() { ++collectibles_; }
+		int collected() { return collectibles_; }
 
 	protected:
 		enum Special special_;

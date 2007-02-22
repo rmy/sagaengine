@@ -279,6 +279,8 @@ namespace se_core {
 			return x_ == t1.x_ && y_ == t1.y_ && z_ == t1.z_ && w_ == t1.w_;
 		}
 
+		bool isNan() const;
+
 		/**
 		 * Returns true if the L-infinite distance between this tuple and tuple t1 is
 		 * less than or equal to the epsilon parameter, otherwise returns false. The L-infinite
