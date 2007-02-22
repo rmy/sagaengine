@@ -94,6 +94,10 @@ namespace se_core {
 			return bray * 360.0f / static_cast<float>(BRAY_RANGE);
 		}
 
+		inline static float toBray(bray_t bray) {
+			return bray * 256.0f / static_cast<float>(BRAY_RANGE);
+		}
+
 		inline static bray_t fromDeg(float deg) {
 			return mask(static_cast<bray_t>(deg * BRAY_RANGE / (360.0f)));
 		}

@@ -26,4 +26,9 @@ namespace se_core {
 		return log_msg();
 	}
 
+	bool Tuple4
+	::isNan() const {
+		return x_ != x_ || y_ != y_ || z_ != z_ || w_ != w_;
+	}
+
 }

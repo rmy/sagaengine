@@ -93,6 +93,9 @@ namespace se_core {
 		bool isMover() const;
 
 		void flip();
+		bool didMove() const {
+			return didMove_;
+		}
 
 		//inline bool hasPhysics() const {
 		//	return (currentPhysics_ >= 0 && physics_[currentPhysics_] != 0);

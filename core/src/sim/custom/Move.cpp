@@ -34,7 +34,7 @@ namespace se_core {
 	Move
 	::Move() : velocity_(0, 0, 0), mass_(SCALE_RES)
 			, linearFriction_(.5f * SCALE_STEP), angularFriction_(SCALE_STEP)
-			, bounceMaintain_(.5f), affectCode_(0) {
+			, didBounce_(false), bounceMaintain_(.75f), affectCode_(0) {
 		angularVelocity_.setIdentity();
 		torque_.setIdentity();
 		force_.reset();
@@ -77,6 +77,7 @@ namespace se_core {
 		// Forces must be reapplied every step
 		force_.reset();
 		torque_.reset();
+		didBounce_ = false;
 	}
 
 

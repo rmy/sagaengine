@@ -31,10 +31,8 @@ namespace se_basic {
 	SimComposite* SimpleActorFactory
 	::create() const {
 		Actor* a = new Actor(name_->get());
-		LogWarning(name_->get());
 
 		if(isCollideable_ || collide_) {
-			LogWarning(name_->get());
 			CollisionComponent* cc = new CollisionComponent(a);
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);

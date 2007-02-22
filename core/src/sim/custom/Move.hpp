@@ -57,6 +57,7 @@ namespace se_core {
 
 		scale_t linearFriction_;
 		scale_t angularFriction_;
+		bool didBounce_;
 		scale_t bounceMaintain_;
 
 		int affectCode_;
@@ -131,7 +132,10 @@ namespace se_core {
 		 *
 		 * @param force The force to add
 		 */
-		void addForce(const Vector3& force) { force_.add(force); }
+		void addForce(const Vector3& force) { 
+			force_.add(force); 
+			Assert(!force_.isNan());
+		}
 		void addForce(scale_t s, const Vector3& force) { force_.scaleAdd(s, force, force_); }
 
 		/**
