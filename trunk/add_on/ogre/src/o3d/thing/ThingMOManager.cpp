@@ -43,7 +43,6 @@ namespace se_ogre {
 		factories_ = new const ThingMOFactory*[MAX_FACTORIES];
 
 		static const ThingMovableObjectFactory tmofMovableObject("default");
-		static const ThingMovableObjectFactory tmofParticleSystem("ParticleSystem");
 		static const ThingEntityFactory tmofEntity;
 		static const ThingLightFactory tmofLight;
 		static const ThingBillboardFactory tmofBillboard;
