@@ -33,10 +33,11 @@ namespace se_ogre {
 
 		// Create a unique entity name
 		char name[128];
-		sprintf(name, "%d-%s", thing_.owner()->id(), thing_.name());
+		sprintf(name, "%d-%s", thing_.owner()->id(), thing_.owner()->name());
 
 		// Set the mesh
 		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
+		movableObject_->setCastShadows(false);
 		node_->attachObject(movableObject_);
 		particle_ = static_cast<Ogre::ParticleSystem*>(movableObject_);
 	}

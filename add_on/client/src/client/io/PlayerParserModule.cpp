@@ -130,6 +130,31 @@ namespace se_client {
 				}
 				break;
 
+			case 'P': 
+				{ // Entrance 
+					in.readString(tempString);
+					int c = in.readInfoCode();
+					Assert(c == 'T');
+
+					ViewPoint sp;
+					sp.coor_.x_ = in.readFloat();
+					sp.coor_.y_ = in.readFloat();
+					sp.coor_.z_ = in.readFloat();
+
+					c = in.readInfoCode();
+					Assert(c == 'R');
+					sp.face_.yaw_ = BrayT::fromDeg(in.readFloat());
+					sp.face_.pitch_ = BrayT::fromDeg(in.readFloat());
+					sp.face_.roll_ = BrayT::fromDeg(in.readFloat());
+
+					area = SimSchema::areaManager.area(tempString.get());
+					pos->nextPos().setArea(*PosComponent::get(*area), sp);
+
+					c = in.readInfoCode();
+					Assert(c == '/');
+				}
+				break;
+
 			case 'V': // ViewPort
 				camera->grabFocus();
 				break;
