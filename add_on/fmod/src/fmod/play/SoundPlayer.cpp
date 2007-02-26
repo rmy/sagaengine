@@ -44,7 +44,7 @@ namespace se_fmod {
 
 
 	SoundPlayer
-	::SoundPlayer() : channel_(0) {
+	::SoundPlayer() : channel_(0), ambience_(0) {
 		FMOD_RESULT result;
 
 		//enum { MEM_SIZE = 1024 * 1024 * 256 };
@@ -66,11 +66,31 @@ namespace se_fmod {
 	SoundPlayer
 	::~SoundPlayer() {
 		FMOD_RESULT result;
-		result = system_->close();
+		result = system_->release();
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 
 
+	void SoundPlayer
+	::init() {
+	}
+
+
+	void SoundPlayer
+	::cleanup() {
+		if(ambience_) {
+			ambience_->stop();
+			ambience_ = 0;
+		}
+		for(int i = 0; i < MAX_CHANNELS; ++i) {
+			system_->getChannel(i, &channel_);
+			if(channel_) {
+				channel_->stop();
+			}
+		}
+	}
+
+		
 	void SoundPlayer
 	::ambienceEvent(char* snd) {
 		FMOD_RESULT result;
@@ -80,7 +100,9 @@ namespace se_fmod {
 			LogWarning("Couldn't play ambience: " << snd);
 			return;
 		}
-		result = system_->playSound(FMOD_CHANNEL_FREE, s, 0, &channel_);
+		if(ambience_)
+			ambience_->stop();
+		result = system_->playSound(FMOD_CHANNEL_FREE, s, 0, &ambience_);
 		channel_->setVolume(volume);
 		channel_->setPriority(0);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));

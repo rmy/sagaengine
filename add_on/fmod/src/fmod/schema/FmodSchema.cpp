@@ -75,10 +75,12 @@ namespace se_fmod {
 			}
 
 			bool initLevelEvent() {
+				soundPlayer->init();
 				return true;
 			}
 
 			void cleanupLevelEvent() {
+				soundPlayer->cleanup();
 			}
 		} autoInit;
 

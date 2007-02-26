@@ -36,10 +36,13 @@ namespace se_fmod {
 		void soundEvent(se_core::Actor& speaker, const char* snd);
 
 		FMOD::Sound* loadSound(const char* filename, bool shouldLoop);
+		void init();
+		void cleanup();
 
 	private:
+		static const int MAX_CHANNELS = 32;
 		FMOD::System *system_;
-		FMOD::Channel *channel_;
+		FMOD::Channel *channel_, *ambience_;
 	};
 
 }
