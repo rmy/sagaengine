@@ -93,6 +93,12 @@ namespace se_fmod {
 		
 	void SoundPlayer
 	::ambienceEvent(char* snd) {
+		LogWarning(snd);
+		if(ambience_) {
+			ambience_->stop();
+			ambience_ = 0;
+		}
+
 		FMOD_RESULT result;
 		float volume;
 		FMOD::Sound *s = FmodSchema::sounds.get(Sounds::MUSIC, snd, volume);
@@ -100,11 +106,9 @@ namespace se_fmod {
 			LogWarning("Couldn't play ambience: " << snd);
 			return;
 		}
-		if(ambience_)
-			ambience_->stop();
 		result = system_->playSound(FMOD_CHANNEL_FREE, s, 0, &ambience_);
-		channel_->setVolume(volume);
-		channel_->setPriority(0);
+		ambience_->setVolume(volume);
+		ambience_->setPriority(0);
 		AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 	}
 

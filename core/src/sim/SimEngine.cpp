@@ -85,7 +85,7 @@ namespace se_core {
 			// Any in game events caused the game to end?
 			if(SimSchema::simEngine.isGameOver()) {
 				// Will cause renderloop to end
-				return;
+				break;
 			}
 
 			// Translate game clock to SagaEngine format
@@ -97,7 +97,6 @@ namespace se_core {
 			// Tell registered render modules to render
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
-		SimSchema::activeRoot().setActive(false, true);
 		SimSchema::activeRoot().cleanup(true);
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();

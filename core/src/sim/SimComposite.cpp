@@ -196,13 +196,13 @@ namespace se_core {
 
 	void SimComposite
 	::cleanup(bool doTraverseChildren) {
-		setActive(false, true);
+		setActive(false, false);
 		// Cleanup children first...
 		if(doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
 			while(composites.hasNext()) {
 				SimComposite& c = composites.next();
-				c.cleanup();
+				c.cleanup(true);
 			}
 		}
 
