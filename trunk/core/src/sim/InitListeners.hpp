@@ -157,7 +157,7 @@ namespace se_core {
 		}
 
 		void castStopGameEvent() {
-			int &i = nextEngineInit_[ init_GAME ];
+			int &i = nextEngineInit_[ init_START ];
 			while(i > 0) {
 				--i;
 				listeners_[ i ]->stopGameEvent();

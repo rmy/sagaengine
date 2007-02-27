@@ -33,6 +33,7 @@ rune@skalden.com
 #include "io/schema/IoSchema.hpp"
 #include "util/system/util_system.hpp"
 
+using namespace se_core;
 
 namespace se_fmod {
 	namespace FmodSchema {
@@ -41,6 +42,7 @@ namespace se_fmod {
 
 		struct AutoInit : public se_core::InitListener {
 			AutoInit() {
+
 				// Sound types
 				static const se_core::DictionaryEntry stSound(se_core::DE_SOUND_TYPE, Sounds::SOUND, "SOUND");
 				static const se_core::DictionaryEntry stMusic(se_core::DE_SOUND_TYPE, Sounds::MUSIC, "MUSIC");
@@ -51,11 +53,13 @@ namespace se_fmod {
 				static SoundParserModule soundParserModule(se_core::IoSchema::parser());
 				
 				soundPlayer = new SoundPlayer();
+				SimSchema::initListeners().addListener(*this);
 				LogMsg("Registered Fmod add-on");
 			}
 
 			~AutoInit() {
 				delete soundPlayer;
+				SimSchema::initListeners().removeListener(*this);
 				LogMsg("Cleaned up Fmod add-on");
 			}
 

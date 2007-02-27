@@ -3,6 +3,7 @@
 
 #include "client_io.hpp"
 #include "PlayerParserModule.hpp"
+#include "PlayerEncoderModule.hpp"
 #include "LanguageParserModule.hpp"
 
 #endif

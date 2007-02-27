@@ -41,7 +41,7 @@ namespace se_core {
 	void ThingManager
 	::addFactory(SimCompositeFactory* factory) {
 		Assert(factoryCount_ < MAX_FACTORIES - 1);
-		LogWarning(factoryCount_ << ": " << factory->name());
+		LogMsg(factoryCount_ << ": " << factory->name());
 		factories_[ factoryCount_++ ] = factory;
 	}
 

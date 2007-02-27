@@ -67,6 +67,7 @@ namespace se_client {
 					SimComposite* a = SimSchema::thingManager().create(tempString.get());
 					Assert(a);
 					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
+					PhysicsComponent* physics = PhysicsComponent::get(*a);
 					Assert(pos);
 					CameraComponent* camera = new CameraComponent(a);
 					ClientSchema::playerX = new PlayerComponent(a);
@@ -75,6 +76,7 @@ namespace se_client {
 					Assert(ClientSchema::player != 0);
 					readInfo(in, pos, camera);
 					pos->flip();
+					physics->nextMove().work_.vp_.face_.yaw_ = pos->nextPos().localFace().yaw_;
 				}
 				break;
 
