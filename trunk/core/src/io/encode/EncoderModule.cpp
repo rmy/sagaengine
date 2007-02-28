@@ -27,15 +27,19 @@ rune@skalden.com
 namespace se_core {
 	EncoderModule
 	::EncoderModule(Encoder &encoder, unsigned char group, unsigned char code, int version)
-		 : moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
+			: moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
 		encoder.add(*this);
 	}
 
-	/*
+
+	EncoderModule
+	::EncoderModule(unsigned char group, unsigned char code, int version)
+		 : moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
+	}
+
 	EncoderModule
 	::~EncoderModule() {
 	}
-	*/
 
 	unsigned int EncoderModule
 	::headerCode(char moduleGroup, char moduleCode, int moduleVersion) const {

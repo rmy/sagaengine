@@ -33,6 +33,7 @@ namespace se_core {
 			, AREA_THINGS = 'B'
 			, RANDOM_AREA_THINGS = 'C'
 			, DICTIONARY = 'D'
+			, EMBEDDED = 'E'
 			, CONFIG = 'F'
 			, AREA_GRID = 'G'
 			, HEIGHTMAP_AREA = 'H'

@@ -43,7 +43,13 @@ namespace se_pc {
 		void writeString(const char* string);
 
 	private:
+		void writeToken(const char* string);
+		bool open(const char* directory, const char* filename);
+		void close();
+
 		char sourceFilename_[512];
+		char tmp_[128];
+		FILE* out_;
 	};
 }
 

@@ -19,32 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef io_encode_Encoder_hpp
-#define io_encode_Encoder_hpp
+#ifndef EmbeddedParserModule_hpp
+#define EmbeddedParserModule_hpp
 
-#include "../stream/OutputStream.hpp"
-#include "sim/thing/sim_thing.hpp"
-#include "io_encode.hpp"
-#include "sim/SimComposite.hpp"
-#include "EncoderModule.hpp"
+#include "ParserModule.hpp"
+#include "../stream/io_stream.hpp"
+#include "../../sim/script/sim_script.hpp"
+#include "../../sim/stat/sim_stat.hpp"
+#include "../../sim/thing/sim_thing.hpp"
 
 namespace se_core {
-	/**
-	 * Save file encoders.  
-	 */
-	class _SeCoreExport Encoder : public EncoderModule {
+	class _SeCoreExport EmbeddedParserModule : public ParserModule {
 	public:
-		Encoder();
-		virtual ~Encoder();
-		void encode(OutputStream& out);
-		void add(EncoderModule& m);
-
-	private:
-		static const int MAX_MODULES = 12;
-		int moduleCount_;
-		EncoderModule* modules_[ MAX_MODULES ];
-		EncoderModule* lastModule_;
+		EmbeddedParserModule(Parser& parser);
+		void parse(InputStream& in);
 	};
+
 }
 
 #endif

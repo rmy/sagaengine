@@ -60,20 +60,48 @@ namespace se_client {
 
 		out.writeInfoCode('P');
 		out.writeString(ClientSchema::player->owner()->name());
-		out.writeInfoCode('E');
+
+		out.writeInfoCode('A');
 		out.writeString(ClientSchema::player->pos().area()->owner()->name());
-		out.writeShort(0);
+
+		ViewPoint vp(ClientSchema::player->pos().world_);
+		vp.sub(ClientSchema::player->pos().area()->pos().world_);
+		out.writeInfoCode('T');
+		out.writeFloat( vp.coor_.x_);
+		out.writeFloat( vp.coor_.y_);
+		out.writeFloat( vp.coor_.z_);
+		out.writeInfoCode('R');
+		out.writeFloat( vp.face_.yaw_);
+		out.writeFloat( vp.face_.pitch_);
+		out.writeFloat( vp.face_.roll_);
+		out.writeInfoCode('/');
+
 		out.writeInfoCode('G');
 		out.writeInfoCode('/');
 
 		out.writeInfoCode('C');
 		out.writeString(ClientSchema::camera->owner()->name());
-		out.writeInfoCode('E');
+
+		vp.setViewPoint(ClientSchema::camera->pos().world_);
+		vp.sub(ClientSchema::player->pos().area()->pos().world_);
+		out.writeInfoCode('A');
 		out.writeString(ClientSchema::camera->pos().area()->owner()->name());
-		out.writeShort(0);
+		out.writeInfoCode('T');
+		out.writeFloat( vp.coor_.x_);
+		out.writeFloat( vp.coor_.y_);
+		out.writeFloat( vp.coor_.z_);
+		out.writeInfoCode('R');
+		out.writeFloat( vp.face_.yaw_);
+		out.writeFloat( vp.face_.pitch_);
+		out.writeFloat( vp.face_.roll_);
+		out.writeInfoCode('/');
+
 		out.writeInfoCode('T');
 		out.writeInfoCode('V');
 		out.writeInfoCode('/');
+
+
+		out.writeInfoCode('Q');
 	}
 
 }
