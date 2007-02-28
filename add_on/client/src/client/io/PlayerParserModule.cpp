@@ -132,8 +132,8 @@ namespace se_client {
 				}
 				break;
 
-			case 'P': 
-				{ // Entrance 
+			case 'A': 
+				{ // Area
 					in.readString(tempString);
 					int c = in.readInfoCode();
 					Assert(c == 'T');

@@ -23,6 +23,7 @@ rune@skalden.com
 #define io_fs_FileManager_hpp
 
 #include "io_stream.hpp"
+#include "util/type/String.hpp"
 
 namespace se_core {
 	/** File system base class.
@@ -41,6 +42,8 @@ namespace se_core {
 		virtual void init(const char** files) {}
 		virtual void cleanup() {}
 
+		virtual bool addFileIfExists(String* filename) = 0;
+
 		virtual InputStream* open(const char* filename) = 0;
 		virtual void close(InputStream*& is) = 0;
 
@@ -49,7 +52,7 @@ namespace se_core {
 
 		void load(const char* filename);
 		void save(const char* filename);
-		virtual bool exists(const char* filename) = 0;
+		virtual bool exists(const char* filename) const = 0;
 
 		/**
 		 * Load and parse all the files in this
@@ -64,8 +67,8 @@ namespace se_core {
 		 */
 		void loadBatch(const char* batchFilename);
 
-		virtual int fileCount() = 0;
-		virtual const char* filename(int index) = 0;
+		virtual int fileCount() const = 0;
+		virtual const char* filename(int index) const = 0;
 
 	private:
 	};

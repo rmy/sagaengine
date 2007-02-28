@@ -32,6 +32,7 @@ namespace se_pc {
 		PcFileManager(const char* dataPathFile);
 		~PcFileManager();
 		void init(const char** files);
+		bool addFileIfExists(se_core::String* filename);
 		void clear();
 
 		void loadDatapath(const char* dataPathFile);
@@ -42,11 +43,11 @@ namespace se_pc {
 		se_core::OutputStream* openOutput(const char* filename);
 		void closeOutput(se_core::OutputStream*& is);
 
-		int fileCount();
-		const char* filename(int index);
+		int fileCount() const;
+		const char* filename(int index) const;
 		static bool isBinaryFile(const char* filename);
 		static bool isTextFile(const char* filename);
-		bool exists(const char* filename);
+		bool exists(const char* filename) const;
 
 	private:
 		void addFile(se_core::String* filename);

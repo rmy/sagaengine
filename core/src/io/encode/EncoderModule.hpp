@@ -30,12 +30,13 @@ namespace se_core {
 	class _SeCoreExport EncoderModule {
 	public:
 		EncoderModule(se_core::Encoder &encoder, unsigned char group, unsigned char code, int version);
-		/*
+		EncoderModule(unsigned char group, unsigned char code, int version);
 		virtual ~EncoderModule();
-		*/
+
 		int headerCode() const;
 		unsigned int headerCode(char moduleGroup, char moduleCode, int moduleVersion) const;
 		virtual void encode(OutputStream& out) = 0;
+		virtual bool isLast() const { return false; }
 
 	private:
 		int moduleGroup_;

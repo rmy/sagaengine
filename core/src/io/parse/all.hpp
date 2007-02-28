@@ -3,6 +3,7 @@
 
 #include "CutsceneParserModule.hpp"
 #include "DictionaryParserModule.hpp"
+#include "EmbeddedParserModule.hpp"
 #include "io_parse.hpp"
 #include "Parser.hpp"
 #include "ParserModule.hpp"

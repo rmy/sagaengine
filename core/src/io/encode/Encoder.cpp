@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "Encoder.hpp"
 #include "EncoderModule.hpp"
+#include "../parse/ParserModule.hpp"
 #include "../../sim/thing/Actor.hpp"
 #include "../stream/io_stream.hpp"
 #include "../stream/OutputStream.hpp"
@@ -30,7 +31,7 @@ namespace se_core {
 
 	Encoder
 	::Encoder()
-		: module_(0) {
+		: EncoderModule(ParserModule::ENGINE, ParserModule::EMBEDDED, 1), moduleCount_(0), lastModule_(0) {
 	}
 
 
@@ -41,14 +42,25 @@ namespace se_core {
 
 	void Encoder
 	::encode(OutputStream& out) {
-		Assert(module_);
-		module_->encode(out);
+		out.writeHeaderCode(headerCode());
+		for(int i = 0; i < moduleCount_; ++i) {
+			modules_[i]->encode(out);
+		}
+		if(lastModule_) {
+			lastModule_->encode(out);
+		}
 	}
+
 
 	void Encoder
 	::add(EncoderModule& m) {
-		Assert(module_ == 0);
-		module_ = &m;
+		if(m.isLast()) {
+			Assert(lastModule_ == 0);
+			lastModule_ = &m;
+		}
+		else {
+			modules_[ moduleCount_++ ] = &m;
+		}
 	}
 
 }

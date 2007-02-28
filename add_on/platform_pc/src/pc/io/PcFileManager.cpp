@@ -75,7 +75,9 @@ namespace se_pc {
 
 		for(const char** f = files; *f != 0; ++f) {
 			is = open(*f);
-			Assert(is);
+			if(!is) {
+				LogWarning("Couldn't open " << *f);
+			}
 			while(!is->eof()) {
 				is->readLine(*s);
 				if(s->isEmpty()) {
@@ -185,7 +187,7 @@ namespace se_pc {
 
 
 	bool PcFileManager
-	::exists(const char* filename) {
+	::exists(const char* filename) const {
 		for(int i = 0; i < fileCount_; ++i) {
 			if(strcmp(filename, files_[i]->get()) == 0) return true;
 		}
@@ -194,17 +196,31 @@ namespace se_pc {
 
 
 	int PcFileManager
-	::fileCount() {
+	::fileCount() const {
 		return fileCount_;
 	}
 
 
 	const char* PcFileManager
-	::filename(int index) {
+	::filename(int index) const {
 		//printf("%d %s\n", index, files_[ index ]->get());
 		return files_[ index ]->get();
 	}
 
+
+	bool PcFileManager
+	::addFileIfExists(String* filename) {
+		char buffer[512];
+		sprintf(buffer, "%s/%s", directory_, filename->get());
+		FILE* in = fopen(buffer, "r");
+		if(in) {
+			addFile(filename);
+			fclose(in);
+			return true;
+		}
+
+		return false;
+	}
 
 	void PcFileManager
 	::addFile(String* filename) {
