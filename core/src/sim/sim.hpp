@@ -40,7 +40,7 @@ namespace se_core {
 	class PosNode;
 
 	enum SimObjectType {
-		got_GAME_OBJECT, got_ACTION, got_PHYSICS, got_SIM_COMPOSITE, got_AREA,
+		got_GAME_OBJECT, got_SIGNAL, got_ACTION, got_PHYSICS, got_SIM_COMPOSITE, got_AREA,
 		got_TRIMAP_AREA, got_HEIGHTMAP_AREA, got_TERRAIN,
 		got_POS_NODE, got_THING, got_ACTOR, got_CAMERA,
 		got_PLAYER, got_SCRIPT, got_CUTSCENE,
@@ -48,7 +48,7 @@ namespace se_core {
 		got_USER_DEFINED
 	};
 
-	enum SimComponentType { sct_UNDEFINED, sct_ACTION, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS, sct_SPAWN, sct_STAT, sct_RENDER, sct_SOUND, sct_ODE, sct_PLAYER, sct_CAMERA, sct_COLLISION };
+	enum SimComponentType { sct_UNDEFINED, sct_ACTION, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS, sct_SPAWN, sct_STAT, sct_RENDER, sct_SOUND, sct_ODE, sct_PLAYER, sct_CAMERA, sct_COLLISION, sct_SIGNAL };
 
 }
 

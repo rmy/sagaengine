@@ -12,6 +12,8 @@ namespace se_core {
 	::SimComposite(enum SimObjectType type, const char* name)
 		: SimObject(type, name)
 		, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+		components_.clear();
+		children_.clear();
 	}
 
 
@@ -196,7 +198,6 @@ namespace se_core {
 
 	void SimComposite
 	::cleanup(bool doTraverseChildren) {
-		setActive(false, false);
 		// Cleanup children first...
 		if(doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
@@ -207,7 +208,9 @@ namespace se_core {
 		}
 
 		// ... then self
+		setActive(false, false);
 		resetParent();
+
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();

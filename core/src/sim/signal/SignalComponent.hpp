@@ -1,0 +1,74 @@
+/*
+SagaEngine library
+Copyright (c) 2002-2006 Skalden Studio AS
+
+This software is provided 'as-is', without any express or implied 
+warranty. In no event will the authors be held liable for any 
+damages arising from the use of this software.
+
+Permission is granted to distribute the library under the terms of the 
+Q Public License version 1.0. Be sure to read and understand the license
+before using the library. It should be included here, or you may read it
+at http://www.trolltech.com/products/qt/licenses/licensing/qpl
+
+The original version of this library can be located at:
+http://www.sagaengine.com/
+
+Rune Myrland
+rune@skalden.com
+*/
+
+
+#ifndef SignalComponent_hpp
+#define SignalComponent_hpp
+
+#include "Signal.hpp"
+#include "../AreaChildComponent.hpp"
+#include "../SimComposite.hpp"
+#include "../action/ActionComponent.hpp"
+#include "../action/ActionFeed.hpp"
+#include "../action/sim_action.hpp"
+#include "../thing/sim_thing.hpp"
+#include "util/type/all.hpp"
+
+namespace se_core {
+	class _SeCoreExport SignalComponent : public AreaChildComponent {
+	public:
+		SignalComponent(SimComposite* owner);
+		virtual ~SignalComponent();
+
+		static SignalComponent* get(SimComposite& composite) {
+			SignalComponent* c = static_cast<SignalComponent*>(composite.component(se_core::sct_SIGNAL));
+			return c;
+		}
+
+		static SignalComponent* get(SimComponent& component) {
+			SignalComponent* c = static_cast<SignalComponent*>(component.owner()->component(se_core::sct_SIGNAL));
+			return c;
+		}
+
+		void setSendId(int id) {
+			sendId_ = id;
+		}
+
+		void setRecieveId(int id) {
+			sendId_ = id;
+		}
+
+		void send(bool state);
+		void recieve(int id, bool state);
+
+
+	protected:
+		void cleanup();
+
+		bool sendState_;
+		int sendId_;
+		int recieveId_;
+		Signal* signal_;
+	};
+
+
+}
+
+#endif
