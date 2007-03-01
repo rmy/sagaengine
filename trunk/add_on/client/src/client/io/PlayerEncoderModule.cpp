@@ -71,9 +71,9 @@ namespace se_client {
 		out.writeFloat( vp.coor_.y_);
 		out.writeFloat( vp.coor_.z_);
 		out.writeInfoCode('R');
-		out.writeFloat( vp.face_.yaw_);
-		out.writeFloat( vp.face_.pitch_);
-		out.writeFloat( vp.face_.roll_);
+		out.writeFloat( BrayT::toDeg( vp.face_.yaw_ ) );
+		out.writeFloat( BrayT::toDeg( vp.face_.pitch_) );
+		out.writeFloat( BrayT::toDeg( vp.face_.roll_) );
 		out.writeInfoCode('/');
 
 		out.writeInfoCode('G');
@@ -91,9 +91,9 @@ namespace se_client {
 		out.writeFloat( vp.coor_.y_);
 		out.writeFloat( vp.coor_.z_);
 		out.writeInfoCode('R');
-		out.writeFloat( vp.face_.yaw_);
-		out.writeFloat( vp.face_.pitch_);
-		out.writeFloat( vp.face_.roll_);
+		out.writeFloat( BrayT::toDeg( vp.face_.yaw_ ) );
+		out.writeFloat( BrayT::toDeg( vp.face_.pitch_) );
+		out.writeFloat( BrayT::toDeg( vp.face_.roll_) );
 		out.writeInfoCode('/');
 
 		out.writeInfoCode('T');

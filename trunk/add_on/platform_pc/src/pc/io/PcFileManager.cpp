@@ -209,12 +209,12 @@ namespace se_pc {
 
 
 	bool PcFileManager
-	::addFileIfExists(String* filename) {
+	::addFileIfExists(const char* filename) {
 		char buffer[512];
-		sprintf(buffer, "%s/%s", directory_, filename->get());
+		sprintf(buffer, "%s/%s", directory_, filename);
 		FILE* in = fopen(buffer, "r");
 		if(in) {
-			addFile(filename);
+			addFile(new String(filename));
 			fclose(in);
 			return true;
 		}

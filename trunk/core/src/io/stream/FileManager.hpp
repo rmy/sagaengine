@@ -42,7 +42,7 @@ namespace se_core {
 		virtual void init(const char** files) {}
 		virtual void cleanup() {}
 
-		virtual bool addFileIfExists(String* filename) = 0;
+		virtual bool addFileIfExists(const char* filename) = 0;
 
 		virtual InputStream* open(const char* filename) = 0;
 		virtual void close(InputStream*& is) = 0;

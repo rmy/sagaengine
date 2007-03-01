@@ -32,7 +32,7 @@ namespace se_pc {
 		PcFileManager(const char* dataPathFile);
 		~PcFileManager();
 		void init(const char** files);
-		bool addFileIfExists(se_core::String* filename);
+		bool addFileIfExists(const char* filename);
 		void clear();
 
 		void loadDatapath(const char* dataPathFile);

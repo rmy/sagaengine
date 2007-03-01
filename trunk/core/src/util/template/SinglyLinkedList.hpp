@@ -116,6 +116,8 @@ namespace se_core {
 				nextNodes_[ previousElement ] = tmp;
 			}
 			iterator = tmp;
+			Assert(iterator >= -1);
+			Assert(iterator < MAX_ELEMENTS);
 
 			DebugExec(if(nodes_[0] == 0) LogMsg(name_));
 
