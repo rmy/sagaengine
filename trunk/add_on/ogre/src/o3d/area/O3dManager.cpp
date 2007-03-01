@@ -107,7 +107,7 @@ namespace se_ogre {
 		float timeSinceLastFrame = (renderClock - lastRenderClock_) / 1000.0f;
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
-		MultiSimNodeComponent::TreeIterator it(children_);
+		MultiSimNodeComponent::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
 			c.move(renderClock, stepDelta, timeSinceLastFrame);

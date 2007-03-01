@@ -37,6 +37,8 @@ rune@skalden.com
 #include "sim/pos/PosComponent.hpp"
 #include "../physics/PhysicsSolverComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
+#include "../signal/SignalAreaComponent.hpp"
+
 #include <cstdio>
 
 
@@ -75,6 +77,7 @@ namespace se_core {
 		physicsSolverComponent_ = new PhysicsSolverComponent(this, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
+		signalAreaComponent_ = new SignalAreaComponent(this);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
 	}

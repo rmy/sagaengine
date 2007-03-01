@@ -25,7 +25,6 @@ rune@skalden.com
 #include "../AreaComponent.hpp"
 #include "../react/CollisionGrid.hpp"
 #include "../react/sim_react.hpp"
-#include "../area/Area.hpp"
 #include "../pos/PosComponent.hpp"
 
 namespace se_core {
@@ -42,7 +41,7 @@ namespace se_core {
 		void setSignalActive(int id, bool state);
 
 		void propagate();
-		void propagate(int id);
+		void propagate(int id, bool state);
 
 	private:
 		static const int MAX_SIGNALS = 32;

@@ -22,6 +22,7 @@ rune@skalden.com
 #include "../sim.hpp"
 #include "SignalAreaComponent.hpp"
 #include "SignalManager.hpp"
+#include "SignalComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../stat/MultiSimNodeComponent.hpp"
@@ -76,7 +77,7 @@ namespace se_core {
 	::propagate() {
 		for(int i = 0; i < MAX_SIGNALS; ++i) {
 			if(changed_ & (1 << i)) {
-				propagate(i);
+				propagate(i, activeSignals_[i] == 0);
 			}
 		}
 		changed_ = 0;
@@ -84,6 +85,11 @@ namespace se_core {
 
 
 	void SignalAreaComponent
-	::propagate(int id) {
+	::propagate(int id, bool state) {
+		MultiSimNodeComponent::Iterator it(children_);
+		while(it.hasNext()) {
+			SignalComponent& c = static_cast<SignalComponent&>(it.next());
+			c.recieve(id, state);
+		}
 	}
 }

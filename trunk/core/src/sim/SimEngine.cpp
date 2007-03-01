@@ -37,6 +37,7 @@ rune@skalden.com
 #include "./thing/Thing.hpp"
 #include "./thing/ThingManager.hpp"
 #include "./thing/Actor.hpp"
+#include "./signal/SignalManager.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/system/RealClock.hpp"
 #include "util/error/Log.hpp"
@@ -170,6 +171,9 @@ namespace se_core {
 
 		// Move things and check for collisions
 		CollisionManager::singleton().step(when);
+
+		// Move things and check for collisions
+		SignalManager::singleton().step(when);
 	}
 
 

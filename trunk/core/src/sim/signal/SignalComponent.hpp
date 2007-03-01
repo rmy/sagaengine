@@ -36,6 +36,7 @@ namespace se_core {
 	public:
 		SignalComponent(SimComposite* owner);
 		virtual ~SignalComponent();
+		const char* name() { return "Signal"; }
 
 		static SignalComponent* get(SimComposite& composite) {
 			SignalComponent* c = static_cast<SignalComponent*>(composite.component(se_core::sct_SIGNAL));
@@ -51,8 +52,9 @@ namespace se_core {
 			sendId_ = id;
 		}
 
-		void setRecieveId(int id) {
-			sendId_ = id;
+		void setRecieveId(int id, const Signal* signal) {
+			recieveMask_ = (1 << id);
+			signal_ = signal;
 		}
 
 		void send(bool state);
@@ -64,8 +66,8 @@ namespace se_core {
 
 		bool sendState_;
 		int sendId_;
-		int recieveId_;
-		Signal* signal_;
+		unsigned long recieveMask_;
+		const Signal* signal_;
 	};
 
 

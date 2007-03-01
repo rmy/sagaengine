@@ -28,6 +28,7 @@ rune@skalden.com
 #include "../react/sim_react.hpp"
 #include "../physics/sim_physics.hpp"
 #include "../script/sim_script.hpp"
+#include "../signal/sim_signal.hpp"
 
 namespace se_core {
 	class _SeCoreExport SortedSimObjectList {
@@ -43,6 +44,7 @@ namespace se_core {
 		const Physics* physics(const char* name);
 		const ThingCollide* collide(const char* name);
 		const Action* action(const char* name);
+		const Signal* signal(const char* name);
 		Cutscene* cutscene(const char* name);
 		QuestGoal* questGoal(const char* name);
 

@@ -34,6 +34,7 @@ rune@skalden.com
 #include "../src/sim/physics/all.hpp"
 #include "../src/sim/pos/all.hpp"
 #include "../src/sim/stat/all.hpp"
+#include "../src/sim/signal/all.hpp"
 #include "../src/io/parse/all.hpp"
 #include "../src/io/schema/all.hpp"
 #include "../src/io/stream/all.hpp"
