@@ -27,6 +27,7 @@ rune@skalden.com
 #include "../script/Script.hpp"
 #include "../script/Cutscene.hpp"
 #include "../script/QuestGoal.hpp"
+#include "../signal/Signal.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstring>
 #include <cstdio>
@@ -110,6 +111,13 @@ namespace se_core {
 	::collide(const char* name) {
 		//LogMsg("Collide");
 		return static_cast<ThingCollide*>(get(got_THING_COLLIDE, name));
+	}
+
+
+	const Signal* SortedSimObjectList
+	::signal(const char* name) {
+		//LogMsg("Physics");
+		return static_cast<Signal*>(get(got_SIGNAL, name));
 	}
 
 

@@ -10,8 +10,8 @@
 namespace se_core {
    	SimComposite
 	::SimComposite(enum SimObjectType type, const char* name)
-		: SimObject(type, name)
-		, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+			: SimObject(type, name)
+			, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
 		components_.clear();
 		children_.clear();
 	}
@@ -19,7 +19,7 @@ namespace se_core {
 
    	SimComposite
 	::SimComposite(const char* name)
-		: SimObject(got_SIM_COMPOSITE, name)
+			: SimObject(got_SIM_COMPOSITE, name)
 		, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
 	}
 

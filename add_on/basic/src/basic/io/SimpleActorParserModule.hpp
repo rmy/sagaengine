@@ -14,6 +14,7 @@ namespace se_basic {
 		void readMultiQuest(se_core::InputStream& in, se_core::MultiSimObject& mgo);
 		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
 		void parseStats(se_core::InputStream& in, SimpleActorFactory* factory);
+		void parseSignal(se_core::InputStream& in, SimpleActorFactory* factory);
 	};
 
 };

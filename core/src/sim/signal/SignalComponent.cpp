@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	SignalComponent
 	::SignalComponent(SimComposite* owner)
-		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(1), recieveId_(1)
+		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(1), recieveMask_(0)
 		, signal_(0) {
 	}
 
@@ -57,7 +57,7 @@ namespace se_core {
 
 	void SignalComponent
 	::recieve(int id, bool state) {
-		if(recieveId_ == id) {
+		if(signal_ && (recieveMask_ & (1L << id)) != 0) {
 			signal_->recieve(id, state);
 		}
 	}

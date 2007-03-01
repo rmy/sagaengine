@@ -36,7 +36,7 @@ namespace se_core {
 		Signal(const char* name);
 		virtual ~Signal();
 
-		virtual void recieve(int id, bool state) = 0;
+		virtual void recieve(int id, bool state) const = 0;
 
 	protected:
 	};

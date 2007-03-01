@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "SignalManager.hpp"
+#include "SignalAreaComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../sim.hpp"
 #include "../config/sim_config.hpp"
@@ -45,6 +46,11 @@ namespace se_core {
 
 	void SignalManager
 	::step(long when) {
+		MultiSimNodeComponent::Iterator it(children_);
+		while(it.hasNext()) {
+			SignalAreaComponent& c = static_cast<SignalAreaComponent&>(it.next());
+			c.propagate();
+		}
 	}
 
 

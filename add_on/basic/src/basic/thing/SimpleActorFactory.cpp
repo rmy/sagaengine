@@ -14,7 +14,10 @@ namespace se_basic {
 		, collide_(0)
 		, defaultAction_(0)
 		, spawnPointCount_(0)
-		, spawnPoints_(0) {
+		, spawnPoints_(0)
+		, signalSendId_(-1)
+		, signalRecieveMask_(0)
+		, signal_(0) {
 	}
 
 
@@ -36,6 +39,16 @@ namespace se_basic {
 			CollisionComponent* cc = new CollisionComponent(a);
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
+		}
+
+		if(signalSendId_ >= 0 || signal_ != 0) {
+			SignalComponent* pSignal = new SignalComponent(a);
+			if(signalSendId_) {
+				pSignal->setSendId(signalSendId_);
+			}
+			if(signal_ >= 0) {
+				pSignal->setRecieveId(signalRecieveMask_, signal_);
+			}
 		}
 
 		a->setPickable(isPickable_);
@@ -139,6 +152,20 @@ namespace se_basic {
 		move_.linearFriction_ = linear * SCALE_STEP;
 		move_.angularFriction_ = angular * SCALE_STEP;
 		move_.bounceMaintain_ = 1 - bounceDecay;
+	}
+
+
+	void SimpleActorFactory
+	::setSendSignal(int id) {
+		signalSendId_ = id;
+	}
+
+
+	void SimpleActorFactory
+	::setRecieveSignal(unsigned long mask, const char* signal) {
+		signalRecieveMask_ = mask;
+		signal_ = SimSchema::sortedSimObjectList().signal(signal);
+
 	}
 
 }

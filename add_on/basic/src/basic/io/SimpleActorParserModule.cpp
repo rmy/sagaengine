@@ -69,6 +69,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'G': // Stats
+				{
+					parseSignal(in, factory);
+					break;
+				}
+				break;
+
 			case 'B': // Bounds
 				{
 					BoundingBox b;
@@ -221,6 +228,34 @@ namespace se_basic {
 					int level = in.readShort();
 					factory->setAbilities(speed, attack, defense, level);
 				}
+			}
+		}
+	}
+
+
+	void SimpleActorParserModule
+	::parseSignal(InputStream& in, SimpleActorFactory* factory) {
+		int code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			// Abilites
+			case 'S':
+				{
+					int id = in.readInt();
+					factory->setSendSignal(id);
+				}
+				break;
+
+			case 'R':
+				{
+					String signal;
+					int mask = in.readInt();
+					in.readString(signal);
+					factory->setRecieveSignal(mask, signal.get());
+				}
+				break;
 			}
 		}
 	}

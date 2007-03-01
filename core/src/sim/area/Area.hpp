@@ -36,6 +36,7 @@ rune@skalden.com
 #include "sim/config/sim_config.hpp"
 #include "../physics/sim_physics.hpp"
 #include "../react/sim_react.hpp"
+#include "../signal/sim_signal.hpp"
 
 
 namespace se_core {
@@ -197,6 +198,7 @@ namespace se_core {
 		ActionComponent* actionComponent_;
 		CollisionAreaComponent* collisionAreaComponent_;
 		PhysicsSolverComponent* physicsSolverComponent_;
+		SignalAreaComponent* signalAreaComponent_;
 	};
 
 }
