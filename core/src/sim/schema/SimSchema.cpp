@@ -43,6 +43,7 @@ rune@skalden.com
 #include "../physics/all.hpp"
 #include "../react/all.hpp"
 #include "../action/all.hpp"
+#include "../signal/SignalManager.hpp"
 #include "../stat/Dictionary.hpp"
 #include "../stat/DictionaryEntry.hpp"
 #include "util/system/util_system.hpp"
@@ -125,12 +126,14 @@ namespace se_core {
 			static DictionaryEntry dThingType(DE_DICTIONARY_TYPE, DE_THING_TYPE, "THING_TYPE", false);
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);
 			static DictionaryEntry dFirstUserType(DE_DICTIONARY_TYPE, DE_FIRST_USER_TYPE, "FIRST_USER_TYPE", false);
-			return simEngine.init();
 
 			PhysicsComponentManager::singleton();
 			ScriptComponentManager::singleton();
 			ActionComponentManager::singleton();
 			CollisionManager::singleton();
+			SignalManager::singleton();
+
+			return simEngine.init();
 		}
 
 		void cleanup() {

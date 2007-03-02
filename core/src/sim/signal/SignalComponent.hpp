@@ -57,8 +57,10 @@ namespace se_core {
 			signal_ = signal;
 		}
 
-		void send(bool state);
+		bool send(bool state);
+		long sentAge() const;
 		void recieve(int id, bool state);
+		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 
 	protected:
@@ -66,6 +68,7 @@ namespace se_core {
 
 		bool sendState_;
 		int sendId_;
+		long sentWhen_;
 		unsigned long recieveMask_;
 		const Signal* signal_;
 	};

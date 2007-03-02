@@ -40,7 +40,7 @@ namespace se_core {
 	::SignalAreaComponent(SimComposite* owner) 
 			: AreaComponent(sct_SIGNAL, owner), changed_(0) {
 		for(int i = 0; i < MAX_SIGNALS; ++i) {
-			activeSignals_[i] = 0;
+			inactiveSignals_[i] = 0;
 		}
 	}
 
@@ -52,6 +52,28 @@ namespace se_core {
 
 	void SignalAreaComponent
 	::setActive(bool state) {
+		if(state) {
+			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			if(c) {
+				setParent(*c);
+			}
+		}
+		else {
+			resetParent();
+		}
+	}
+
+
+	void SignalAreaComponent
+	::initSignalActive(int id, bool state) {
+		Assert(id >= 0 && id < MAX_SIGNALS);
+		if(!state) {
+			if(inactiveSignals_[id] == 0) {
+				changed_ = 1L << id;
+			}
+			++inactiveSignals_[id];
+		}
+		Assert(inactiveSignals_[id] >= 0);
 	}
 
 
@@ -59,25 +81,26 @@ namespace se_core {
 	::setSignalActive(int id, bool state) {
 		Assert(id >= 0 && id < MAX_SIGNALS);
 		if(state) {
-			if(activeSignals_[id] == 0) {
+			--inactiveSignals_[id];
+			if(inactiveSignals_[id] == 0) {
 				changed_ = 1 << id;
 			}
-			++activeSignals_[id];
 		}
 		else {
-			--activeSignals_[id];
-			if(activeSignals_[id] == 0) {
+			if(inactiveSignals_[id] == 0) {
 				changed_ = 1 << id;
 			}
+			++inactiveSignals_[id];
 		}
-		Assert(activeSignals_[id] >= 0);
+		Assert(inactiveSignals_[id] >= 0);
 	}
+
 
 	void SignalAreaComponent
 	::propagate() {
 		for(int i = 0; i < MAX_SIGNALS; ++i) {
 			if(changed_ & (1 << i)) {
-				propagate(i, activeSignals_[i] == 0);
+				propagate(i, inactiveSignals_[i] == 0);
 			}
 		}
 		changed_ = 0;
