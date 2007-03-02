@@ -74,8 +74,8 @@ namespace se_ogre {
 			}
 		}
 
-		// Debug
 		/*
+		// Debug
 		String mesh("puck.mesh");
 		ThingMOInfo* info = new ThingMOInfo();
 		info->movableObjectType_.set(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
