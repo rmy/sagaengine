@@ -32,21 +32,37 @@ namespace se_core {
 	public:
 		/** Constructor.
 		 */
+		static SignalAreaComponent* get(SimComposite& composite) {
+			SignalAreaComponent* c = static_cast<SignalAreaComponent*>(composite.component(se_core::sct_SIGNAL));
+			return c;
+		}
+
+		static const SignalAreaComponent* get(const SimComposite& composite) {
+			const SignalAreaComponent* c = static_cast<const SignalAreaComponent*>(composite.component(se_core::sct_SIGNAL));
+			return c;
+		}
+
+		static SignalAreaComponent* get(SimComponent& component) {
+			SignalAreaComponent* c = static_cast<SignalAreaComponent*>(component.owner()->component(se_core::sct_SIGNAL));
+			return c;
+		}
+
+
 		SignalAreaComponent(SimComposite* owner);
 		~SignalAreaComponent();
 
 		const char* name() { return "SignalArea"; }
 
-		void setActive(bool state);
 		void setSignalActive(int id, bool state);
+		void initSignalActive(int id, bool state);
 
 		void propagate();
 		void propagate(int id, bool state);
-
+		void setActive(bool state);
 	private:
 		static const int MAX_SIGNALS = 32;
 		unsigned long changed_;
-		int activeSignals_[MAX_SIGNALS];
+		int inactiveSignals_[MAX_SIGNALS];
 	};
 }
 

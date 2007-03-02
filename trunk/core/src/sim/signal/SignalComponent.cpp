@@ -20,6 +20,8 @@ rune@skalden.com
 
 
 #include "SignalComponent.hpp"
+#include "SignalAreaComponent.hpp"
+#include "../SimEngine.hpp"
 #include "../action/all.hpp"
 #include "../thing/Actor.hpp"
 #include "../schema/SimSchema.hpp"
@@ -31,7 +33,7 @@ rune@skalden.com
 namespace se_core {
 	SignalComponent
 	::SignalComponent(SimComposite* owner)
-		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(1), recieveMask_(0)
+		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(1), sentWhen_(0), recieveMask_(0)
 		, signal_(0) {
 	}
 
@@ -47,18 +49,48 @@ namespace se_core {
 	}
 
 
-	void SignalComponent
+	bool SignalComponent
 	::send(bool state) {
+		sentWhen_ = SimSchema::simEngine.when();
 		if(sendState_ == state)
-			return;
+			return false;
 		sendState_ = state;
+
+		SignalAreaComponent* areaSignal = SignalAreaComponent::get(*parent());
+		areaSignal->setSignalActive(sendId_, sendState_);
+		return true;
 	}
 
+	long SignalComponent
+	::sentAge() const {
+		return (SimSchema::simEngine.when() - sentWhen_);
+	}
 
 	void SignalComponent
 	::recieve(int id, bool state) {
 		if(signal_ && (recieveMask_ & (1L << id)) != 0) {
-			signal_->recieve(id, state);
+			signal_->recieve(*this, id, state);
+		}
+	}
+
+
+	void SignalComponent
+	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+		if(oldArea && !sendState_ && sendId_ >= 0) {
+			SignalAreaComponent* oAreaSignal = SignalAreaComponent::get(*oldArea);
+			oAreaSignal->setSignalActive(sendId_, sendState_);
+		}
+		if(newArea && !sendState_ && sendId_ >= 0) {
+			SignalAreaComponent* nAreaSignal = SignalAreaComponent::get(*newArea);
+			nAreaSignal->setSignalActive(sendId_, sendState_);
+		}
+
+		if(newArea) {
+			SimNodeComponent* n = static_cast<SimNodeComponent*>(newArea->component(type()));
+			setParent(*n);
+		}
+		else {
+			resetParent();
 		}
 	}
 

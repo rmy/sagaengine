@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef Signal_hpp
 #define Signal_hpp
 
+#include "sim_signal.hpp"
 #include "../SimComponent.hpp"
 #include "../SimComposite.hpp"
 #include "../action/ActionComponent.hpp"
@@ -36,7 +37,7 @@ namespace se_core {
 		Signal(const char* name);
 		virtual ~Signal();
 
-		virtual void recieve(int id, bool state) const = 0;
+		virtual void recieve(SignalComponent& reciever, int id, bool state) const = 0;
 
 	protected:
 	};
