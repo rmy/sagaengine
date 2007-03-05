@@ -37,6 +37,8 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
 	public:
+		typedef Ptr<PhysicsComponent, sct_PHYSICS> Ptr;
+
 		static PhysicsComponent* get(SimComposite& composite) {
 			PhysicsComponent* c = static_cast<PhysicsComponent*>(composite.component(se_core::sct_PHYSICS));
 			return c;

@@ -32,6 +32,8 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SpawnComponent : public SimComponent {
 	public:
+		typedef Ptr<SpawnComponent, sct_SPAWN> Ptr;
+
 		SpawnComponent(SimComposite* owner, PosComponent* pos);
 		virtual ~SpawnComponent();
 

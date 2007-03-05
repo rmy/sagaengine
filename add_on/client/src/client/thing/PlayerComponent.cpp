@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_client {
 	PlayerComponent
 	::PlayerComponent(SimComposite* owner)
-		: SimComponent(sct_PLAYER, owner) {
+		: SimComponent(sct_PLAYER, owner), deadWhen_(0) {
 		actionComponent_ = static_cast<ActionComponent*>(owner_->component(sct_ACTION));
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 	}
@@ -89,6 +89,24 @@ namespace se_client {
 			Parameter& p = defaultTurnAction_.parameter();
 			a->perform(when, *actionComponent_, p);
 		}
+	}
+
+
+	void PlayerComponent
+	::die() {
+		// Only die once
+		if(deadWhen_)
+			return;
+		deadWhen_ = SimSchema::simEngine.when();
+	}
+
+
+	long PlayerComponent
+	::deathAge() {
+		if(!deadWhen_)
+			return -1;
+
+		return SimSchema::simEngine.when() - deadWhen_;
 	}
 
 }

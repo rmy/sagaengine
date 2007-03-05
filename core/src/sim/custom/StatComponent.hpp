@@ -38,6 +38,8 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport StatComponent  : public SimComponent {
 	public:
+		typedef Ptr<StatComponent, sct_STAT> Ptr;
+
 		static StatComponent* get(SimComposite& composite) {
 			StatComponent* c = static_cast<StatComponent*>(composite.component(se_core::sct_STAT));
 			return c;

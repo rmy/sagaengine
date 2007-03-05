@@ -28,7 +28,7 @@ namespace se_core {
 	::Anim() 
 		: movementMode_(0),
 		  movementStartedWhen_(0),
-		  pos_(0),
+		  pos_(1),
 		  weight_(0),
 		  speed_(1),
 		  startPos_(0) {

@@ -87,8 +87,7 @@ namespace se_core {
 				return areas_[ i ];
 			}
 		}
-		LogFatal(name);
-		LogFatal("Couldn't find area");
+		LogFatal("Couldn't find area: " << name);
 		return 0;
 	}
 

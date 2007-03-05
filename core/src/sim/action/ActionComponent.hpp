@@ -40,6 +40,8 @@ namespace se_core {
 	 */
 	class _SeCoreExport ActionComponent : public SimComponent {
 	public:
+		typedef Ptr<ActionComponent, sct_ACTION> Ptr;
+
 		/** Constructor.
 		 */
 		ActionComponent(SimComposite* owner);

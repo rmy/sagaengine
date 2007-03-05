@@ -58,7 +58,7 @@ namespace se_client {
 		String tempString;
 
 		int code = ' ';
-		while((code = in.readInfoCode()) != 'Q') {
+		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
 			case 'P': 
 				{ // Player

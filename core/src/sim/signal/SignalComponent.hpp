@@ -34,6 +34,8 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SignalComponent : public AreaChildComponent {
 	public:
+		typedef Ptr<SignalComponent, sct_SIGNAL> Ptr;
+
 		SignalComponent(SimComposite* owner);
 		virtual ~SignalComponent();
 		const char* name() { return "Signal"; }

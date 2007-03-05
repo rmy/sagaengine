@@ -24,7 +24,7 @@ namespace se_basic {
 		WangAreaGrid grid(xSize, zSize);
 
 		int code;
-		while((code = in.readInfoCode()) != 'Q') {
+		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
 			case 'T': // Tile definition
 				{
@@ -39,9 +39,9 @@ namespace se_basic {
 			case 'C':
 				{
 					short z = in.readShort();
-					Assert(z < zSize);
+					AssertFatal(z < zSize, in.name());
 					int c = in.readInfoCode();
-					Assert(c == '{');
+					AssertFatal(c == '{', "Missing { in '" << in.name() << "' - C: " << z);
 					int x = 0;
 					while(x < xSize) {
 						short def = in.readShort();
@@ -49,7 +49,7 @@ namespace se_basic {
 						++x;
 					}
 					c = in.readInfoCode();
-					Assert(c == '}');
+					AssertFatal(c == '}', "Missing } in '" << in.name() << "' - C: " << z);
 				}
 			}
 		}
