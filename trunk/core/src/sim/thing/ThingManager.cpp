@@ -96,7 +96,7 @@ namespace se_core {
 				return t;
 			}
 		}
-		LogFatal((sprintf(log_msg(), "ThingManager.cpp: Tried to create thing with unkown name: %s - %d", name, factoryCount_), log_msg()));
+		LogFatal("Tried to create thing with unkown name: " << name);
 		return 0;
 	}
 

@@ -35,6 +35,8 @@ rune@skalden.com
 namespace se_client {
 	class _SeCoreExport PlayerComponent : public se_core::SimComponent {
 	public:
+		typedef se_core::Ptr<PlayerComponent, se_core::sct_PLAYER> Ptr;
+
 		PlayerComponent(se_core::SimComposite* owner);
 		virtual ~PlayerComponent();
 
@@ -81,6 +83,10 @@ namespace se_client {
 			return c;
 		}
 
+
+		void die();
+		long deathAge();
+
 	protected:
 		// Sibling shortcut
 		se_core::ActionComponent* actionComponent_;
@@ -90,6 +96,7 @@ namespace se_client {
 
 		mutable se_core::ActionAndParameter defaultMovementAction_;
 		mutable se_core::ActionAndParameter defaultTurnAction_;
+		long deadWhen_;
 	};
 
 }

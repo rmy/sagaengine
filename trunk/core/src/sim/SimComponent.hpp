@@ -29,7 +29,6 @@ rune@skalden.com
 #include "util/type/String.hpp"
 
 namespace se_core {
-
 	/**
 	 * Base class for functionality composites.
 	 */
@@ -115,6 +114,53 @@ namespace se_core {
 		friend class SimCompositeFactory_;
 		const SimComponentFactory* factory_;
 	};
+
+
+
+	template <class T, int type> class Ptr {
+	public:
+		Ptr(T* c) {
+			component_ = c;
+		}
+		Ptr(T& c) {
+			component_ = &c;
+		}
+		Ptr(SimComponent* c) {
+			component_ = static_cast<T*>(c->owner()->component(type));
+		}
+		Ptr(SimComponent& c) {
+			component_ = static_cast<T*>(c.owner()->component(type));
+		}
+		const Ptr(const SimComponent& c) {
+			component_ = (T*)(c.owner()->component(type));
+		}
+		Ptr(SimComposite* c) {
+			component_ = static_cast<T*>(c->component(type));
+		}
+		Ptr(SimComposite& c) {
+			component_ = static_cast<T*>(c.component(type));
+		}
+
+		inline T* operator->() {
+			return component_;
+		}
+
+		inline T& operator*() {
+			return *component_;
+		}
+
+		inline const T* operator->() const {
+			return component_;
+		}
+
+		inline const T& operator*() const {
+			return *component_;
+		}
+
+	private:
+		T* component_;
+	};
+
 
 }
 
