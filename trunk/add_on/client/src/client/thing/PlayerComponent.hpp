@@ -84,7 +84,7 @@ namespace se_client {
 		}
 
 
-		void die();
+		bool die();
 		long deathAge();
 
 	protected:
