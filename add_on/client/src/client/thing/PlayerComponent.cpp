@@ -92,12 +92,13 @@ namespace se_client {
 	}
 
 
-	void PlayerComponent
+	bool PlayerComponent
 	::die() {
 		// Only die once
 		if(deadWhen_)
-			return;
+			return false;
 		deadWhen_ = SimSchema::simEngine.when();
+		return true;
 	}
 
 
