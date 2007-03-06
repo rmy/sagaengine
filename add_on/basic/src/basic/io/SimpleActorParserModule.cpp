@@ -69,6 +69,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'A': // Pos
+				{
+					parsePos(in, factory);
+					break;
+				}
+				break;
+
 			case 'G': // Stats
 				{
 					parseSignal(in, factory);
@@ -254,6 +261,28 @@ namespace se_basic {
 					int mask = in.readInt();
 					in.readString(signal);
 					factory->setRecieveSignal(mask, signal.get());
+				}
+				break;
+			}
+		}
+	}
+
+
+	void SimpleActorParserModule
+	::parsePos(InputStream& in, SimpleActorFactory* factory) {
+		int code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			// Abilites
+			case 'A':
+				{
+					int id = in.readShort();
+					int animId = in.readDictionaryWord(DE_MOVEMENT_MODE);
+					float pos = in.readFloat();
+					float speed = in.readFloat();
+					factory->setAnim(id, animId, pos, speed);
 				}
 				break;
 			}

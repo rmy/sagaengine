@@ -85,6 +85,8 @@ namespace se_core {
 		 */
 		void disrupt();
 
+		void resume();
+
 		/**
 		 * Disrupt an action the this ActionComponent has in a given ActionQueue channel.
 		 * Actions that are performed in the on-going initiative are not
@@ -175,8 +177,10 @@ namespace se_core {
 		}
 		
 		ActionAndParameter& aap = presentAction_[channel];
-		if(aap.parameter().isFinished()) {
+		if(aap.isDisrupted()) {
 			aap.resetAction();
+			aap.setDisrupted(false);
+			return;
 		}
 
 		if(aap.hasAction() && aap.action()->isContinuing(*this, aap.parameter())) {

@@ -126,6 +126,20 @@ namespace se_core {
 	}
 
 
+	void ActionComponent
+	::resume() {
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			presentAction_[ i ].setDisrupted(false);
+			if(!presentAction_[ i ].hasAction()) {
+				nextScriptAction(i);
+				if(plannedAction_[i].hasAction()) {
+					scheduleNextAction(i);
+				}
+			}
+		}
+	}
+
+
 	bool ActionComponent
 	::disrupt(short channel) {
 		if(!presentAction_[ channel ].hasAction()) return true;
@@ -136,7 +150,7 @@ namespace se_core {
 		if(didDisrupt) {
 			presentAction_[ channel ].resetAction();
 		}
-		presentAction_[ channel ].parameter().setFinished();
+		presentAction_[ channel ].setDisrupted(true);
 		return didDisrupt;
 	}
 
@@ -166,6 +180,7 @@ namespace se_core {
 		if(state) {
 			if(feed_) {
 				for(int i = 0; i < CHANNEL_COUNT; ++i) {
+					presentAction_[i].setDisrupted(false);
 					nextScriptAction(i);
 				}
 			}

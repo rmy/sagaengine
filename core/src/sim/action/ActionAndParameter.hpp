@@ -39,21 +39,11 @@ namespace se_core {
 		void incrActionStage() { ++actionStage_; }
 		void resetActionStage() { 
 			++actionStage_ = 0;
-			isFinished_ = false;
-		}
-
-		void setFinished() {
-			isFinished_ = true;
-		}
-
-		bool isFinished() {
-			return isFinished_;
 		}
 
 	private:
 		static const short MAX_DATA_SIZE = (sizeof(coor_t) * 4 + sizeof(void*));
 		unsigned short actionStage_;
-		bool isFinished_;
 		unsigned char data_[MAX_DATA_SIZE];
 	};
 
@@ -79,9 +69,18 @@ namespace se_core {
 		inline const Action& setAction(const Action& a) {
 			action_ = &a;
 			parameter_.resetActionStage();
+			setDisrupted(false);
 			return *action_;
 		}
 
+
+		void setDisrupted(bool state) {
+			isDisrupted_ = state;
+		}
+
+		bool isDisrupted() {
+			return isDisrupted_;
+		}
 
 		inline void resetAction() {
 			action_ = 0;
@@ -114,6 +113,7 @@ namespace se_core {
 	private:
 		const Action* action_;
 		Parameter parameter_;
+		bool isDisrupted_;
 	};
 
 }

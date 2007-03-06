@@ -24,6 +24,7 @@ namespace se_basic {
 		void setAbilities(short speed, short attack, short defence, short level);
 		void setSendSignal(int id);
 		void setRecieveSignal(unsigned long mask, const char* signal);
+		void setAnim(int id, int movementMode, float pos, float speed);
 
 		/**
 		 * Copy spawn points.
@@ -49,6 +50,8 @@ namespace se_basic {
 
 		int spawnPointCount_;
 		se_core::ViewPoint** spawnPoints_;
+
+		se_core::Anim anim_[se_core::Pos::MAX_ANIMS];
 	};
 
 }
