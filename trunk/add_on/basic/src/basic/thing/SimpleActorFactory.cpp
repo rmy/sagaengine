@@ -18,6 +18,7 @@ namespace se_basic {
 		, signalSendId_(-1)
 		, signalRecieveMask_(0)
 		, signal_(0) {
+		anim_[0].setWeight(1);
 	}
 
 
@@ -71,6 +72,11 @@ namespace se_basic {
 
 		StatComponent* pStats = StatComponent::get(*a);
 		pStats->abilities()->setBases(&abilities_);
+
+		PosComponent::Ptr pPos(*a);
+		for(int i = 0; i < Pos::MAX_ANIMS; ++i) {
+			pPos->nextPos().anim(i).setAnim( anim_[i] );
+		}
 
 		return a;
 	}
@@ -168,4 +174,12 @@ namespace se_basic {
 
 	}
 
+	void SimpleActorFactory
+	::setAnim(int id, int movementMode, float pos, float speed) {
+		Assert(id >= 0 && id < Pos::MAX_ANIMS);
+		anim_[id].setMovementMode(id);
+		anim_[id].setStartPos(pos);
+		anim_[id].resetPos();
+		anim_[id].setSpeed(speed);
+	}
 }
