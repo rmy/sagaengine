@@ -109,6 +109,8 @@ namespace se_core {
 		short currentInitiative_;
 		short channel_;
 
+		bool isPerforming_;
+
 		ActorList actorList_;
 		ActorList::iterator_type* scheduleCurrentTurn_;
 		ActorList::iterator_type* scheduleFutureTurns_;

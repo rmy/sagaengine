@@ -173,8 +173,12 @@ namespace se_core {
 			presentAction_[ channel ].resetAction();
 			return;
 		}
-
+		
 		ActionAndParameter& aap = presentAction_[channel];
+		if(aap.parameter().isFinished()) {
+			aap.resetAction();
+		}
+
 		if(aap.hasAction() && aap.action()->isContinuing(*this, aap.parameter())) {
 			continueAction(when, channel);
 			return;
@@ -185,9 +189,9 @@ namespace se_core {
 		}
 
 		// No action planned?
-		if(!plannedAction_[channel].hasAction()) {
+		if(aap.hasAction() && !plannedAction_[channel].hasAction()) {
 			// Is present action repeating (until another is planned)?
-			ActionAndParameter& aap = presentAction_[channel];
+			//ActionAndParameter& aap = presentAction_[channel];
 			if(aap.action()->isRepeating(when, *this, aap.parameter())) {
 				// If, yeah - plan to do present action again
 				plannedAction_[channel] = presentAction_[channel];

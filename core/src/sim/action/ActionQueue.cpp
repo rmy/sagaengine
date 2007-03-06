@@ -36,7 +36,7 @@ namespace se_core {
 
 	ActionQueue
 	::ActionQueue() :
-		currentTurn_(0), currentInitiative_(0)
+		currentTurn_(0), currentInitiative_(0), isPerforming_(false)
 		, scheduleCurrentTurn_(new ActorList::iterator_type[INITIATIVES_PER_TURN])
 		, scheduleFutureTurns_(new ActorList::iterator_type[MAX_TURNS]) {
 		channel_ = createActionChannelId();
@@ -57,11 +57,13 @@ namespace se_core {
 
 	void ActionQueue
 	::performScheduledActions(long when) {
+		isPerforming_ = true;
 		ActorList::iterator_type it = scheduleCurrentTurn_[ currentInitiative_ ];
 		while(it != ActorList::end()) {
 			ActionComponent* a = actorList_.next(it);
 			a->perform(when, channel_);
 		}
+		isPerforming_ = false;
 	}
 
 
@@ -102,7 +104,7 @@ namespace se_core {
 			// Makes most sense that an action should not be able to disrupt an
 			// action in the same initiative, and also solves some hard
 			// concurrency problems...
-			if(initiative != currentInitiative_) {
+			if(!isPerforming_ || initiative != currentInitiative_) {
 				actorList_.remove(&actor, scheduleCurrentTurn_[ initiative ]);
 				didDisrupt = true;
 			}

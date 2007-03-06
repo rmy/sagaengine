@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "Anim.hpp"
+#include "util/error/Log.hpp"
 
 namespace se_core {
 	int Anim::MOVEMENT_MODE_COUNT = 12;
@@ -28,7 +29,7 @@ namespace se_core {
 	::Anim() 
 		: movementMode_(0),
 		  movementStartedWhen_(0),
-		  pos_(1),
+		  pos_(0),
 		  weight_(0),
 		  speed_(1),
 		  startPos_(0) {

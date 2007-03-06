@@ -37,11 +37,23 @@ namespace se_core {
 
 		inline unsigned short actionStage() { return actionStage_; }
 		void incrActionStage() { ++actionStage_; }
-		void resetActionStage() { ++actionStage_ = 0; }
+		void resetActionStage() { 
+			++actionStage_ = 0;
+			isFinished_ = false;
+		}
+
+		void setFinished() {
+			isFinished_ = true;
+		}
+
+		bool isFinished() {
+			return isFinished_;
+		}
 
 	private:
 		static const short MAX_DATA_SIZE = (sizeof(coor_t) * 4 + sizeof(void*));
 		unsigned short actionStage_;
+		bool isFinished_;
 		unsigned char data_[MAX_DATA_SIZE];
 	};
 
