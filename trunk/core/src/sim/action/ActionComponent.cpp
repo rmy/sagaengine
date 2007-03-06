@@ -136,6 +136,7 @@ namespace se_core {
 		if(didDisrupt) {
 			presentAction_[ channel ].resetAction();
 		}
+		presentAction_[ channel ].parameter().setFinished();
 		return didDisrupt;
 	}
 
