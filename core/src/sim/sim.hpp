@@ -48,7 +48,23 @@ namespace se_core {
 		got_USER_DEFINED
 	};
 
-	enum SimComponentType { sct_UNDEFINED, sct_ACTION, sct_SCRIPT, sct_PHYSICS, sct_NODE, sct_POS, sct_SPAWN, sct_STAT, sct_RENDER, sct_SOUND, sct_ODE, sct_PLAYER, sct_CAMERA, sct_COLLISION, sct_SIGNAL };
+	enum SimComponentType { 
+		sct_UNDEFINED, 
+		sct_POS, 
+		sct_PHYSICS, 
+		sct_COLLISION, 
+		sct_ACTION, 
+		sct_SCRIPT, 
+		sct_SPAWN, 
+		sct_STAT, 
+		sct_SIGNAL,
+		sct_RENDER, 
+		sct_SOUND, 
+		sct_ODE, 
+		sct_PLAYER, 
+		sct_CAMERA, 
+		sct_NODE
+	};
 
 }
 

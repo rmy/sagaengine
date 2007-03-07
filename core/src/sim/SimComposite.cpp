@@ -8,16 +8,19 @@
 #include "O3dPre.hpp"
 
 namespace se_core {
-   	SimComposite
+	SimComposite
 	::SimComposite(enum SimObjectType type, const char* name)
 			: SimObject(type, name)
 			, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+		for(int i = 0; i < FAST_COMPONENT_COUNT; ++i) {
+			fastComponents_[i] = 0;
+		}
 		components_.clear();
 		children_.clear();
 	}
 
 
-   	SimComposite
+	SimComposite
 	::SimComposite(const char* name)
 			: SimObject(got_SIM_COMPOSITE, name)
 		, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
@@ -64,6 +67,9 @@ namespace se_core {
 
 	SimComponent*  SimComposite
 	::component(int type) {
+		if(type < FAST_COMPONENT_COUNT) {
+			return fastComponents_[ type ];
+		}
 		MultiSimComponent::Iterator it(components_);
 		while(it.hasNext()) {
 			SimComponent& c = it.next();
@@ -107,11 +113,17 @@ namespace se_core {
 		//LogMsg("Added component of type " << c.type() << " to " << c.owner()->name());
 		AssertFatal(component(c.type()) == 0, name() << ": " << c.type());
 		components_.add(c);
+		if(c.type() < FAST_COMPONENT_COUNT) {
+			fastComponents_[ c.type() ] = &c;
+		}
 	}
 
 
 	void SimComposite
 	::removeComponent(SimComponent& c) {
+		if(c.type() < FAST_COMPONENT_COUNT) {
+			fastComponents_[ c.type() ] = 0;
+		}
 		components_.remove(c);
 	}
 

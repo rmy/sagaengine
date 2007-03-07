@@ -7,6 +7,7 @@
 #include "Move.hpp"
 #include "sim_custom.hpp"
 #include "StatComponent.hpp"
+#include "StatComponentFactory.hpp"
 #include "ThingData.hpp"
 
 #endif

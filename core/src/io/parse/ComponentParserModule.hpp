@@ -19,15 +19,27 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef ComponentParserModule_hpp
+#define ComponentParserModule_hpp
+
+#include "io_parse.hpp"
+#include "../stream/io_stream.hpp"
+#include "sim/SimComponentFactory.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
 
 namespace se_core {
-	class Parser;
-	class ParserModule;
-	class ComponentParserModule;
-	class DictionaryParserModule;
-	class EmbeddedParserModule;
+	class _SeCoreExport ComponentParserModule {
+	public:
+		ComponentParserModule(Parser &parser, int type, int subtype);
+		virtual ~ComponentParserModule() {}
+		int type() { return type_; }
+		int subtype() { return subType_; }
+		virtual SimComponentFactory* parse(InputStream& in) = 0;
+
+	private:
+		int type_, subType_;
+	};
+
 }
 
 #endif

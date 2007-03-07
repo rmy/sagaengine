@@ -19,15 +19,14 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#include <cstdio>
+#include "ComponentParserModule.hpp"
+#include "Parser.hpp"
 
 namespace se_core {
-	class Parser;
-	class ParserModule;
-	class ComponentParserModule;
-	class DictionaryParserModule;
-	class EmbeddedParserModule;
-}
+	ComponentParserModule::ComponentParserModule(Parser &parser, int type, int subtype)
+		: type_(type), subType_(subtype) {
+		parser.add(this);
+	}
 
-#endif
+}

@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "Parser.hpp"
 #include "ParserModule.hpp"
+#include "ComponentParserModule.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
 
@@ -29,7 +30,7 @@ namespace se_core {
 
 	Parser
 	::Parser()
-		: moduleCount_(0) {
+		: moduleCount_(0), componentModuleCount_(0) {
 	}
 
 
@@ -50,6 +51,19 @@ namespace se_core {
 		modules_[ moduleCount_++ ] = module;
 	}
 
+	void Parser
+	::add(ComponentParserModule *module) {
+		LogMsg("Added file component parser for type code: " << module->type() << ", " << module->subtype());
+		for(int i = 0; i < componentModuleCount_; ++i) {
+			if(module->type() == componentModules_[ i ]->type()
+					&& module->subtype() == componentModules_[ i ]->subtype()) {
+				LogFatal("Component module with header code " << module->type()  << ", " << module->subtype() << " already exists");
+				return;
+			}
+		}
+		componentModules_[ componentModuleCount_++ ] = module;
+	}
+
 	bool Parser
 	::parse(InputStream& in) {
 		LogMsg("Loading file: " << in.name());
@@ -66,4 +80,17 @@ namespace se_core {
 		return false;
 	}
 
+	SimComponentFactory* Parser
+	::parseComponent(InputStream& in, int type, int subtype) {
+		LogMsg("Loading component type " << type << ", " << subtype << " for " << in.name());
+
+		for(int i = 0; i < componentModuleCount_; ++i) {
+			if(type == componentModules_[ i ]->type()
+					&& subtype == componentModules_[ i ]->subtype()) {
+				return componentModules_[i]->parse(in);
+			}
+		}
+		LogWarning("The file '" << in.name() << "' had unsupported component type: " << type << ", " << subtype << ".");
+		return 0;
+	}
 };

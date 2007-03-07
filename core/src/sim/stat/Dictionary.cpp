@@ -53,6 +53,10 @@ namespace se_core {
 
 	void Dictionary
 	::add(const DictionaryEntry* entry) {
+		if(checkName(entry->type_, entry->name_, entry->id_)) {
+			// Duplicate
+			return;
+		}
 		Assert(entryCount_ < MAX_ENTRIES);
 		if(entry->type_ == DE_DICTIONARY_TYPE) {
 			LogMsg("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
@@ -77,6 +81,23 @@ namespace se_core {
 	}
 
 
+	bool Dictionary
+	::checkName(short type, const char* name, short id) {
+		for(int i = 0; i < entryCount_; ++i) {
+			if(entries_[i]->type_ == type && strcmp(entries_[i]->name_, name) == 0) {
+				if(id == entries_[i]->id_) {
+					LogMsg("Dictionary duplicate: " << type << ", " << name);
+					return true;
+				}
+				else {
+					LogWarning("Same name 2 ids: " << type << ", " << name);
+				}
+			}
+		}
+		return false;
+	}
+
+
 	const char* Dictionary
 	::name(short type, short id) {
 		for(int i = 0; i < entryCount_; ++i) {
@@ -88,6 +109,7 @@ namespace se_core {
 		LogFatal("Unkown dictionary entry: " << type << ", " << id);
 		return 0;
 	}
+
 
 	bool Dictionary
 	::hasId(short type, short id) const {

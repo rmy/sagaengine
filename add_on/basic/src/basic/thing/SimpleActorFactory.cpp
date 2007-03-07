@@ -68,7 +68,6 @@ namespace se_basic {
 
 		PhysicsComponent* pPhysics = PhysicsComponent::get(*a);
 		pPhysics->nextMove() = move_;
-		createComponents(a);
 
 		StatComponent* pStats = StatComponent::get(*a);
 		pStats->abilities()->setBases(&abilities_);
@@ -77,6 +76,8 @@ namespace se_basic {
 		for(int i = 0; i < Pos::MAX_ANIMS; ++i) {
 			pPos->nextPos().anim(i).setAnim( anim_[i] );
 		}
+
+		createComponents(a);
 
 		return a;
 	}

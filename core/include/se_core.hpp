@@ -29,6 +29,7 @@ rune@skalden.com
 #include "../src/sim/config/all.hpp"
 #include "../src/sim/action/all.hpp"
 #include "../src/sim/script/all.hpp"
+#include "../src/sim/custom/all.hpp"
 #include "../src/sim/react/all.hpp"
 #include "../src/sim/message/all.hpp"
 #include "../src/sim/physics/all.hpp"
