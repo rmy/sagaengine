@@ -55,7 +55,7 @@ namespace se_core {
 			return c;
 		}
 
-		StatComponent(SimComposite* owner);
+		StatComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
 		void setAbilities(short* abilities);
 		void setQuickMenuAction(const Action* a);
 		void setUseAction(const Action* a);

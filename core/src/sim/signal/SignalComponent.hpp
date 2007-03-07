@@ -36,7 +36,7 @@ namespace se_core {
 	public:
 		typedef Ptr<SignalComponent, sct_SIGNAL> Ptr;
 
-		SignalComponent(SimComposite* owner);
+		SignalComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
 		virtual ~SignalComponent();
 		const char* name() { return "Signal"; }
 
