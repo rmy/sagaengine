@@ -23,6 +23,7 @@ rune@skalden.com
 #define Parser_hpp
 
 #include "../stream/InputStream.hpp"
+#include "sim/sim.hpp"
 #include "io_parse.hpp"
 
 
@@ -33,12 +34,17 @@ namespace se_core {
 		Parser();
 		~Parser();
 		void add(ParserModule *module);
+		void add(ComponentParserModule *module);
 		bool parse(InputStream& in);
+		SimComponentFactory* parseComponent(InputStream& in, int type, int subtype);
 
 	private:
 		static const int MAX_ELEMENTS = 48;
-		ParserModule* modules_[ MAX_ELEMENTS ];
+		static const int MAX_COMPONENT_ELEMENTS = 48;
 		int moduleCount_;
+		int componentModuleCount_;
+		ParserModule* modules_[ MAX_ELEMENTS ];
+		ComponentParserModule* componentModules_[ MAX_COMPONENT_ELEMENTS ];
 	};
 
 }

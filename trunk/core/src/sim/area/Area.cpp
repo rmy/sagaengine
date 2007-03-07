@@ -232,8 +232,8 @@ namespace se_core {
 	void Area
 	::reset() {
 		// Get newly spawned objects into allThings()
-		//flipSpawns();
-		multiSimObjects_[ MGOA_SPAWNS ].clear();
+		flipSpawns();
+		//multiSimObjects_[ MGOA_SPAWNS ].clear();
 
 		// Shedule all things for destruction, and flip
 		// it out of area

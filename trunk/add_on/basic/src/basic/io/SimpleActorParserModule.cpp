@@ -169,6 +169,16 @@ namespace se_basic {
 				}
 				break;
 
+			case 'Z':
+				{
+					int type = in.readDictionaryWord(DE_COMPONENT_TYPE);
+					SimComponentFactory* f = IoSchema::parser().parseComponent(in, type, 0);
+					if(f) {
+						factory->addComponent(f);
+					}
+				}
+				break;
+
 			default:
 				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}
@@ -288,4 +298,45 @@ namespace se_basic {
 			}
 		}
 	}
+
+
+	SimpleComponentParserModule
+	::SimpleComponentParserModule(const char* name, int type)
+			: ComponentParserModule(IoSchema::parser(), type, 0), name_(DE_COMPONENT_TYPE, type, name, true) {
+	}
+
+
+	SimComponentFactory* StatComponentParserModule
+	::parse(InputStream& in) {
+		StatComponentFactory* factory = new StatComponentFactory();
+
+		int code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			// Abilites
+			case 'A':
+				{
+					int speed = in.readShort();
+					int attack = in.readShort();
+					int defense = in.readShort();
+					int level = in.readShort();
+					factory->setAbilities(speed, attack, defense, level);
+				}
+				break;
+
+			// Collectibles
+			case 'C':
+				{
+					int c = in.readShort();
+					factory->setCollectibles(c);
+				}
+			}
+		}
+
+		return factory;
+	}
+
+
 }

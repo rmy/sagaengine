@@ -7,5 +7,6 @@
 #include "io_parse.hpp"
 #include "Parser.hpp"
 #include "ParserModule.hpp"
+#include "ComponentParserModule.hpp"
 
 #endif

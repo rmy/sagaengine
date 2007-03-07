@@ -134,6 +134,8 @@ namespace se_core {
 		SimComposite* parent_;
 		MultiSimComposite children_;
 		MultiSimComponent components_;
+		enum { FAST_COMPONENT_COUNT = 16 };
+		SimComponent* fastComponents_[16];
 
 		bool isActive_;
 		bool isDead_;

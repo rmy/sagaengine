@@ -113,52 +113,79 @@ namespace se_core {
 
 		friend class SimCompositeFactory_;
 		const SimComponentFactory* factory_;
-	};
 
 
+	protected:
+		/**
+		 * Convenience pointer template with built in component conversion.
+		 *
+		 * Include the following in a the public part of the class declaration
+		 * of XxxComponent to get a convenient Ptr method that automatically
+		 * converts between owner compoisite and sibling components and XxxComponent.
+		 * typedef se_core::SimComponent::Ptr<XxxComponent, se_core::sct_XXX> Ptr;
+		 */
 
-	template <class T, int type> class Ptr {
-	public:
-		Ptr(T* c) {
-			component_ = c;
-		}
-		Ptr(T& c) {
-			component_ = &c;
-		}
-		Ptr(SimComponent* c) {
-			component_ = static_cast<T*>(c->owner()->component(type));
-		}
-		Ptr(SimComponent& c) {
-			component_ = static_cast<T*>(c.owner()->component(type));
-		}
-		const Ptr(const SimComponent& c) {
-			component_ = (T*)(c.owner()->component(type));
-		}
-		Ptr(SimComposite* c) {
-			component_ = static_cast<T*>(c->component(type));
-		}
-		Ptr(SimComposite& c) {
-			component_ = static_cast<T*>(c.component(type));
-		}
+		template <class T, int type> class Ptr {
+		public:
+			Ptr(T* c) {
+				component_ = c;
+			}
+			Ptr(T& c) {
+				component_ = &c;
+			}
+			Ptr(SimComponent* c) {
+				if(c)
+					component_ = static_cast<T*>(c->owner()->component(type));
+				else
+					component_ = 0;
+			}
+			Ptr(SimComponent& c) {
+				component_ = static_cast<T*>(c.owner()->component(type));
+			}
+			const Ptr(const SimComponent& c) {
+				component_ = (T*)(c.owner()->component(type));
+			}
+			Ptr(SimComposite* c) {
+				if(c)
+					component_ = static_cast<T*>(c->component(type));
+				else
+					component_ = 0;
+			}
+			Ptr(SimComposite& c) {
+				component_ = static_cast<T*>(c.component(type));
+			}
 
-		inline T* operator->() {
-			return component_;
-		}
+			const Ptr(const SimComposite& c) {
+				component_ = (T*)(c.component(type));
+			}
 
-		inline T& operator*() {
-			return *component_;
-		}
+			inline T* operator->() {
+				Assert(component_);
+				return component_;
+			}
 
-		inline const T* operator->() const {
-			return component_;
-		}
+			inline T& operator*() {
+				Assert(component_);
+				return *component_;
+			}
 
-		inline const T& operator*() const {
-			return *component_;
-		}
+			inline const T* operator->() const {
+				Assert(component_);
+				return component_;
+			}
 
-	private:
-		T* component_;
+			inline const T& operator*() const {
+				Assert(component_);
+				return *component_;
+			}
+
+			bool isNull() {
+				return component_ == 0;
+			}
+
+		private:
+			T* component_;
+		};
 	};
 
 

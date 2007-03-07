@@ -35,6 +35,8 @@ namespace se_core {
 		bool hasId(short type, short id) const;
 
 	private:
+		bool checkName(short type, const char* name, short id);
+
 		friend class DictionaryEntry;
 		void add(const DictionaryEntry* entry);
 

@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	StatComponent
-	::StatComponent(Actor* owner)
+	::StatComponent(SimComposite* owner)
 		: SimComponent(sct_STAT, owner), special_(NONE), specialWhen_(0), collectibles_(0) {
 	}
 

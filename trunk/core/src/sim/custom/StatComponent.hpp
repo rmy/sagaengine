@@ -55,7 +55,7 @@ namespace se_core {
 			return c;
 		}
 
-		StatComponent(Actor* owner);
+		StatComponent(SimComposite* owner);
 		void setAbilities(short* abilities);
 		void setQuickMenuAction(const Action* a);
 		void setUseAction(const Action* a);
@@ -75,6 +75,7 @@ namespace se_core {
 		int collected() { return collectibles_; }
 
 	protected:
+		friend class StatComponentFactory;
 		enum Special special_;
 		long specialWhen_;
 		Abilities abilities_;

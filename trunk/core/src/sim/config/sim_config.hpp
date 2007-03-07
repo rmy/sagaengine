@@ -72,6 +72,7 @@ namespace se_core {
 namespace se_core {
 	enum DictonaryType {
 		DE_DICTIONARY_TYPE,
+		DE_COMPONENT_TYPE,
 		DE_THING_TYPE,
 		DE_TAG,
 		DE_MOVEMENT_MODE,
