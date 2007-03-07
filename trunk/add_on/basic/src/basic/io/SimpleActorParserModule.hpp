@@ -23,6 +23,15 @@ namespace se_basic {
 	};
 
 
+	class _SeBasicExport SignalComponentParserModule : public SimpleComponentParserModule {
+	public:
+		SignalComponentParserModule()
+			: SimpleComponentParserModule("SIGNAL", se_core::sct_SIGNAL) {
+		}
+		se_core::SimComponentFactory* parse(se_core::InputStream& in);
+	};
+
+
 	class _SeBasicExport SimpleActorParserModule : public se_core::ParserModule {
 	public:
 		SimpleActorParserModule(se_core::Parser& parser);
@@ -36,6 +45,7 @@ namespace se_basic {
 
 	private:
 		StatComponentParserModule stat_;
+		SignalComponentParserModule signal_;
 	};
 
 };

@@ -179,8 +179,56 @@ namespace se_core {
 				return *component_;
 			}
 
+			Ptr& operator=(T& c) {
+				component_ = &c;
+				return *this;
+			}
+
+			Ptr& operator=(T* c) {
+				component_ = c;
+				return *this;
+			}
+
+			Ptr& operator=(SimComponent* c) {
+				if(c)
+					component_ = static_cast<T*>(c->owner()->component(type));
+				else
+					component_ = 0;
+				return *this;
+			}
+
+			Ptr& operator=(SimComponent& c) {
+				component_ = static_cast<T*>(c.owner()->component(type));
+				return *this;
+			}
+
+			Ptr& operator=(SimComposite* c) {
+				if(c)
+					component_ = static_cast<T*>(c->component(type));
+				else
+					component_ = 0;
+				return *this;
+			}
+
+			Ptr& operator=(SimComposite& c) {
+				component_ = static_cast<T*>(c.component(type));
+				return *this;
+			}
+
+			operator T*() {
+				return component_;
+			}
+
+			operator const T*() const {
+				return component_;
+			}
+
 			bool isNull() {
 				return component_ == 0;
+			}
+
+			bool operator==(const T* c) const {
+				return component_ == c;
 			}
 
 		private:

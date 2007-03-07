@@ -4,6 +4,7 @@
 #include "Signal.hpp"
 #include "SignalAreaComponent.hpp"
 #include "SignalComponent.hpp"
+#include "SignalComponentFactory.hpp"
 #include "SignalManager.hpp"
 
 #endif

@@ -19,49 +19,57 @@ rune@skalden.com
 */
 
 
-#include "StatComponentFactory.hpp"
-#include "StatComponent.hpp"
-#include "ThingData.hpp"
+#include "SignalComponentFactory.hpp"
+#include "SignalComponent.hpp"
+#include "Signal.hpp"
 #include "../sim.hpp"
 #include "../SimEngine.hpp"
 #include "../config/all.hpp"
 #include "../stat/all.hpp"
+#include "../schema/SimSchema.hpp"
 
 
 namespace se_core {
 
-	StatComponentFactory
-	::StatComponentFactory()
-		: SimComponentFactory(sct_STAT), collectibles_(0) {
+	SignalComponentFactory
+	::SignalComponentFactory()
+		: SimComponentFactory(sct_SIGNAL) {
 	}
 
 
-	void StatComponentFactory
-	::setAbilities(short speed, short attack, short defense, short level) {
-		short bases[4];
-		bases[0] = speed;
-		bases[1] = attack;
-		bases[2] = defense;
-		bases[3] = level;
-
-		abilities_.setBases(bases);
+	void SignalComponentFactory
+	::setSendSignal(int id) {
+		signalSendId_ = id;
 	}
 
 
-	SimComponent* StatComponentFactory
+	void SignalComponentFactory
+	::setRecieveSignal(unsigned long mask, const char* signal) {
+		signalRecieveMask_ = mask;
+		signal_ = SimSchema::sortedSimObjectList().signal(signal);
+
+	}
+
+
+	SimComponent* SignalComponentFactory
 	::create(SimComposite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).
-		StatComponent::Ptr pStats(*owner);
-		if(pStats == 0) {
+		SignalComponent::Ptr pSignal(*owner);
+		if(pSignal == 0) {
 			// Create new component
-			pStats = new StatComponent(owner, this);
+			pSignal = new SignalComponent(owner, this);
 		}
-		pStats->abilities()->setBases(&abilities_);
-		pStats->collectibles_ = collectibles_;
 
-		return pStats;
+		if(signalSendId_) {
+			pSignal->setSendId(signalSendId_);
+		}
+		if(signal_) {
+			pSignal->setRecieveId(signalRecieveMask_, signal_);
+		}
+
+		return pSignal;
 	}
 
 }

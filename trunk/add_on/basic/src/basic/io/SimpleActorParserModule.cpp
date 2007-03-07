@@ -339,4 +339,35 @@ namespace se_basic {
 	}
 
 
+	SimComponentFactory* SignalComponentParserModule
+	::parse(InputStream& in) {
+		SignalComponentFactory* factory = new SignalComponentFactory();
+
+		int code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			// Abilites
+			case 'S':
+				{
+					int id = in.readInt();
+					factory->setSendSignal(id);
+				}
+				break;
+
+			case 'R':
+				{
+					String signal;
+					int mask = in.readInt();
+					in.readString(signal);
+					factory->setRecieveSignal(mask, signal.get());
+				}
+				break;
+			}
+		}
+
+		return factory;
+	}
+
 }

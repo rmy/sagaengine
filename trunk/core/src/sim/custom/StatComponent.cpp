@@ -30,8 +30,8 @@ rune@skalden.com
 namespace se_core {
 
 	StatComponent
-	::StatComponent(SimComposite* owner)
-		: SimComponent(sct_STAT, owner), special_(NONE), specialWhen_(0), collectibles_(0) {
+	::StatComponent(SimComposite* owner, const SimComponentFactory* factory)
+		: SimComponent(sct_STAT, owner, factory), special_(NONE), specialWhen_(0), collectibles_(0) {
 	}
 
 
