@@ -39,8 +39,8 @@ namespace se_core {
 
 
 	SimNodeComponent
-	::SimNodeComponent(enum SimComponentType type, SimComposite* owner)
-		: SimComponent(type, owner), parent_(0) {
+	::SimNodeComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory)
+		: SimComponent(type, owner, factory), parent_(0) {
 	}
 
 

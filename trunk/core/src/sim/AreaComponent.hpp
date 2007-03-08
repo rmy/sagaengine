@@ -30,7 +30,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport AreaComponent : public SimNodeComponent {
 	public:
-		AreaComponent(enum SimComponentType type, SimComposite* owner);
+		AreaComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory = 0);
 		virtual ~AreaComponent();
 
 	protected:

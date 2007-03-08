@@ -1,7 +1,6 @@
 #ifndef sim_physics_all_hpp
 #define sim_physics_all_hpp
 
-#include "CollisionGrid.hpp"
 #include "PhDefault.hpp"
 #include "Physics.hpp"
 #include "PhysicsComponent.hpp"

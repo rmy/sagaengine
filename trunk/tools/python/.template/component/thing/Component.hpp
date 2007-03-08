@@ -35,6 +35,8 @@ namespace %n {
 		const char* name() { return "%s"; }
 
 	protected:
+		friend class %sComponentFactory;
+
 		void cleanup();
 	};
 

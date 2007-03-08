@@ -30,8 +30,8 @@ rune@skalden.com
 namespace se_core {
 
 	AreaComponent
-	::AreaComponent(enum SimComponentType type, SimComposite* owner)
-		: SimNodeComponent(type, owner) {
+	::AreaComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory)
+		: SimNodeComponent(type, owner, factory) {
 	}
 
 

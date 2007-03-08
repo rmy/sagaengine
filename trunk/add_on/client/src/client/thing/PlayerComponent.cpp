@@ -52,7 +52,8 @@ namespace se_client {
 	void PlayerComponent
 	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
 		if(newArea) {
-			//	lastEntrance_.setViewPoint(owner_->nextPos().local_);
+			PosComponent::Ptr pos(*newArea);
+			lastEntrance_.setViewPoint(pos->nextPos().local_);
 		}
 	}
 
@@ -60,35 +61,6 @@ namespace se_client {
 	void PlayerComponent
 	::planAction(short channel, const Action& action, const Parameter* parameter) const {
 		actionComponent_->planAction(channel, action, parameter);
-	}
-
-
-	void PlayerComponent
-	::planDefaultMovementAction() const {
-		if(defaultMovementAction_.hasAction()) {
-			actionComponent_->planActionIfNone(CHANNEL_MOVEMENT, defaultMovementAction_);
-		}
-
-		if(defaultTurnAction_.hasAction()) {
-			actionComponent_->planActionIfNone(CHANNEL_DIRECTION, defaultTurnAction_);
-		}
-	}
-
-
-	void PlayerComponent
-	::performDefaultMovementAction() const {
-		long when = SimSchema::simEngine.when();
-		if(defaultMovementAction_.hasAction()) {
-			const Action* a = defaultMovementAction_.action();
-			Parameter& p = defaultMovementAction_.parameter();
-			LogMsg(a->name());
-			a->perform(when, *actionComponent_, p);
-		}
-		if(defaultTurnAction_.hasAction()) {
-			const Action* a = defaultTurnAction_.action();
-			Parameter& p = defaultTurnAction_.parameter();
-			a->perform(when, *actionComponent_, p);
-		}
 	}
 
 

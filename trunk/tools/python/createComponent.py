@@ -7,7 +7,7 @@ import string
 # Modules are now in the modules.txt file in the script directory
 # Read it from disk
 templates = list();
-DIR = os.path.join(os.path.dirname(sys.argv[0]), ".component")
+DIR = os.path.join(os.path.dirname(sys.argv[0]), ".template", sys.argv[1])
 for f in os.listdir(DIR):
 	if f.endswith('pp'):
 		path = os.path.join(DIR, f)
@@ -15,7 +15,7 @@ for f in os.listdir(DIR):
 
 
 
-(namespace, type) = sys.argv[1].split("::")
+(namespace, type) = sys.argv[2].split("::")
 namespaceCap = ""
 np = namespace.split("_")
 for p in np:
@@ -24,9 +24,10 @@ for p in np:
 
 for t in templates:
 	fin = open(t, "r")
-	filename = "%s%s" % (type, os.path.basename(t))
+	filename = "%s%s" % (type, os.path.basename(t).lstrip("_"))
 	fout = open(filename, "w");
 	for line in fin.readlines():
+		line = line.replace("%_", type.lower())
 		line = line.replace("%s", type)
 		line = line.replace("%S", type.upper())
 		if(namespace == "se_core"):
