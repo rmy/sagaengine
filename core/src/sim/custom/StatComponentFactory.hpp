@@ -40,7 +40,6 @@ namespace se_core {
 	public:
 		StatComponentFactory();
 		void setAbilities(short speed, short attack, short defence, short level);
-		void setCollectibles(int c) { collectibles_ = c; }
 
 		virtual SimComponent* create(SimComposite* owner) const;
 

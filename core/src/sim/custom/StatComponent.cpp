@@ -31,7 +31,7 @@ namespace se_core {
 
 	StatComponent
 	::StatComponent(SimComposite* owner, const SimComponentFactory* factory)
-		: SimComponent(sct_STAT, owner, factory), special_(NONE), specialWhen_(0), collectibles_(0) {
+		: SimComponent(sct_STAT, owner, factory) {
 	}
 
 
@@ -57,7 +57,7 @@ namespace se_core {
 		useAction_ = a;
 	}
 
-
+	/*
 	void StatComponent
 	::setSpecial(enum Special special, long millis) {
 		special_ = special;
@@ -84,5 +84,5 @@ namespace se_core {
 		}
 		return special_;
 	}
-
+	*/
 }
