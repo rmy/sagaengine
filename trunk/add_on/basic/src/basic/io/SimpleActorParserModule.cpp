@@ -326,12 +326,8 @@ namespace se_basic {
 				}
 				break;
 
-			// Collectibles
-			case 'C':
-				{
-					int c = in.readShort();
-					factory->setCollectibles(c);
-				}
+			default:
+				LogFatal("Unsupported code '" << (char)(code) << "' in file " << in.name());
 			}
 		}
 
