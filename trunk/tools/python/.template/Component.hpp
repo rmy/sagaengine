@@ -26,11 +26,11 @@ rune@skalden.com
 #include "sim/AreaChildComponent.hpp"
 
 namespace %n {
-	class _%NExport %sComponent : public %n::AreaChildComponent {
+	class _%NExport %sComponent : public se_core::AreaChildComponent {
 	public:
-		typedef Ptr<%sComponent, sct_%S> Ptr;
+		typedef Ptr<%sComponent, se_core::sct_%S> Ptr;
 
-		%sComponent(%n::SimComposite* owner, const %n::SimComponentFactory* factory = 0);
+		%sComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
 		virtual ~%sComponent();
 		const char* name() { return "%s"; }
 

@@ -27,13 +27,13 @@ rune@skalden.com
 
 
 namespace %n {
-	class _%NExport %sAreaComponent : public %n::AreaComponent {
+	class _%NExport %sAreaComponent : public se_core::AreaComponent {
 	public:
-		typedef Ptr<%sComponent, sct_%S> Ptr;
+		typedef Ptr<%sAreaComponent, se_core::sct_%S> Ptr;
 		
 		/** Constructor.
 		 */
-		%sAreaComponent(%n::SimComposite* owner);
+		%sAreaComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
 		~%sAreaComponent();
 		void setActive(bool state);
 
