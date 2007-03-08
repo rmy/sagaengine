@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#include "%sComponentFactory.hpp"
-#include "%sComponent.hpp"
+#include "%sAreaComponentFactory.hpp"
+#include "%sAreaComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
@@ -33,12 +33,6 @@ namespace %n {
 	%sAreaComponentFactory
 	::%sAreaComponentFactory()
 		: SimComponentFactory(sct_%S) {
-	}
-
-
-	void %sAreaComponentFactory
-	::setSend%s(int id) {
-		signalSendId_ = id;
 	}
 
 

@@ -27,10 +27,10 @@ rune@skalden.com
 
 
 namespace %n {
-	class _%NExport %sComponentFactory : public %n::SimComponentFactory {
+	class _%NExport %sComponentFactory : public se_core::SimComponentFactory {
 	public:
 		%sComponentFactory();
-		SimComponent* create(%n::SimComposite* owner) const;
+		se_core::SimComponent* create(se_core::SimComposite* owner) const;
 
 	protected:
 	};

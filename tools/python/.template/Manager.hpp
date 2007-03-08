@@ -31,7 +31,7 @@ namespace %n {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _%NExport %sManager : public SimComponentManager {
+	class _%NExport %sManager : public se_core::SimComponentManager {
 	public:
 		/**
 		 * Construct %sManager.

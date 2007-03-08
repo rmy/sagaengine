@@ -31,7 +31,7 @@ using namespace %n;
 namespace %n {
 	%sManager
 	::%sManager()
-		: SimComponentManager(sct_%S) {
+		: SimComponentManager(se_core::sct_%S) {
 	}
 
 	%sManager
