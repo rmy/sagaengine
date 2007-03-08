@@ -63,6 +63,7 @@ namespace se_core {
 		sct_ODE, 
 		sct_PLAYER, 
 		sct_CAMERA, 
+		sct_PLAYER_LOGIC, sct_LOGIC, sct_UI,
 		sct_NODE
 	};
 

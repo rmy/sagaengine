@@ -44,7 +44,7 @@ namespace se_core {
 	public:
 
 		SimNodeComponent(SimComposite* owner);
-		SimNodeComponent(enum SimComponentType type, SimComposite* owner);
+		SimNodeComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory = 0);
 		virtual ~SimNodeComponent();
 
 		/**

@@ -39,7 +39,8 @@ namespace %n {
 
 		const char* name() { return "%sArea"; }
 
-	private:
+	protected:
+		friend class %sAreaComponentFactory;
 	};
 }
 

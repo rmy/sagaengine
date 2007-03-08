@@ -44,46 +44,6 @@ namespace se_client {
 		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
 		void planAction(short channel, const se_core::Action& action, const se_core::Parameter* parameter = 0) const;
 
-		const se_core::ActionAndParameter& defaultMovementAction() const { return defaultMovementAction_; }
-		void setDefaultMovementAction(const se_core::Action& action, const se_core::Parameter* parameter = 0) const { 
-			LogMsg(action.name());
-			defaultMovementAction_.setAction(action);
-			if(parameter) {
-				defaultMovementAction_.copyParameter(*parameter);
-			}
-		}
-		const se_core::ActionAndParameter& defaultTurnAction() const { return defaultTurnAction_; }
-		void setDefaultTurnAction(const se_core::Action& action, const se_core::Parameter* parameter = 0) const {
-			defaultTurnAction_.setAction(action);
-			if(parameter) {
-				defaultTurnAction_.copyParameter(*parameter);
-			}
-		}
-
-		/**
-		 * Plan to perform the default movement action.
-		 *
-		 * Plans the default movement action when the action that is presently
-		 * in the ActionQueue is completed, if no other action is planned
-		 * for that channel. The default movement Action is typically Walk
-		 * or Stand. This method allows the player character to resume movement
-		 * after the player has pushed a buttton to do something else.
-		 *
-		 * If you want to force planning this action, do a
-		 * clearPlannedAction(...) first.
-		 *
-		 * @see clearPlannedAction
-		 */
-		void planDefaultMovementAction() const;
-		void performDefaultMovementAction() const;
-
-
-		static PlayerComponent* get(se_core::SimComposite& composite) {
-			PlayerComponent* c = static_cast<PlayerComponent*>(composite.component(se_core::sct_PLAYER));
-			return c;
-		}
-
-
 		bool die();
 		long deathAge();
 
