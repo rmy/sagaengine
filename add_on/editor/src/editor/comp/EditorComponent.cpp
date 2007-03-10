@@ -33,12 +33,14 @@ using namespace se_core;
 namespace se_editor {
 	EditorComponent
 	::EditorComponent(SimComposite* owner, const SimComponentFactory* factory)
-			: AreaChildComponent(sct_EDITOR, owner) {
+			: AreaChildComponent(sct_EDITOR, owner), string_(0) {
 		PosComponent::Ptr pos(*this);
 		Assert(!pos.isNull());
 		start_.setViewPoint(pos->nextPos().local_);
 		isGrounded_ = pos->nextPos().isGrounded();
-
+		EditorAreaComponent::Ptr editorArea(pos->nextPos().area());
+		Assert(!editorArea.isNull());
+		string_ = editorArea->grabString();
 	}
 
 

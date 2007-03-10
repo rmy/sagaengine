@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim/sim.hpp"
 #include "sim/AreaComponent.hpp"
+#include "util/type/String.hpp"
 
 
 namespace se_editor {
@@ -38,8 +39,12 @@ namespace se_editor {
 		void setActive(bool state);
 
 		const char* name() { return "EditorArea"; }
+		se_core::String* grabString();
 
 	protected:
+		static const int MAX_STRINGS = 80;
+		int usedStrings_;
+		se_core::String strings_[ MAX_STRINGS ];
 		friend class EditorAreaComponentFactory;
 	};
 }

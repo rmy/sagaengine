@@ -26,6 +26,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
+#include "sim/SimCompositeFactory.hpp"
 
 using namespace se_core;
 
@@ -33,7 +34,7 @@ namespace se_editor {
 
 	EditorAreaComponent
 	::EditorAreaComponent(SimComposite* owner, const se_core::SimComponentFactory* factory) 
-			: AreaComponent(se_core::sct_EDITOR, owner, factory) {
+			: AreaComponent(se_core::sct_EDITOR, owner, factory), usedStrings_(0) {
 	}
 
 
@@ -53,6 +54,13 @@ namespace se_editor {
 		else {
 			resetParent();
 		}
+	}
+
+
+	se_core::String* EditorAreaComponent
+	::grabString() {
+		Assert(usedStrings_ < MAX_STRINGS);
+		return &strings_[ usedStrings_++ ];
 	}
 
 }
