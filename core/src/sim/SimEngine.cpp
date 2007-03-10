@@ -98,7 +98,7 @@ namespace se_core {
 			// Tell registered render modules to render
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
-		SimSchema::activeRoot().cleanup(true);
+		SimSchema::activeRoot().setActive(false, true);
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
 	}

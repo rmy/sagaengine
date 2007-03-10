@@ -33,7 +33,7 @@ rune@skalden.com
 namespace se_core {
 	SignalComponent
 	::SignalComponent(SimComposite* owner, const SimComponentFactory* factory)
-		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(1), sentWhen_(0), recieveMask_(0)
+		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(-1), sentWhen_(0), recieveMask_(0)
 		, signal_(0) {
 	}
 
