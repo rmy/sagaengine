@@ -130,8 +130,10 @@ namespace se_core {
 
 			Euler3& face = posComponent_->nextPos().worldFace();
 			if(!face.isIdentity()) {
-				Assert(face.pitch_ == 0);
-				Assert(face.roll_ == 0);
+				AssertWarning(face.pitch_ == 0 || face.roll_ == 0, "Pitch and roll not supported for non-cylindrical things");
+				if(face.pitch_ != 0 || face.roll_ != 0) {
+					setCollideable(false);
+				}
 				p1_.rotate(face);
 				p2_.rotate(face);
 			}
