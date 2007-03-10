@@ -33,20 +33,22 @@ rune@skalden.com
 namespace se_core {
 	CollisionComponent
 	::CollisionComponent(Actor* owner, PosComponent* posComponent)
-		: AreaChildComponent(sct_COLLISION, owner)
-		, posComponent_(posComponent)
-		, isCollideable_(false)
-		, ignore_(0)
-		, geometryType_(geom_CYLINDER) {
+			: AreaChildComponent(sct_COLLISION, owner)
+			, posComponent_(posComponent)
+			, isCollideable_(false)
+			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
+		geometryType_ = geometryType();
 	}
 
 
 	CollisionComponent
 	::CollisionComponent(Actor* owner)
-		: AreaChildComponent(sct_COLLISION, owner)
-		, isCollideable_(false) {
+			: AreaChildComponent(sct_COLLISION, owner)
+			, isCollideable_(false)
+			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
+		geometryType_ = geometryType();
 	}
 
 
@@ -96,12 +98,56 @@ namespace se_core {
 
 	void CollisionComponent
 	::updateAreaCovered() {
- 		BoundingBox toBox(posComponent_->nextPos().worldCoor(), posComponent_->nextPos().bounds_);
-		areaCovered_ = toBox;
-		if(posComponent_->pos().area() == posComponent_->nextPos().area()) {
-			BoundingBox fromBox(posComponent_->pos().worldCoor(), posComponent_->pos().bounds_);
-			areaCovered_.merge(fromBox);
+		geometryType_ = geometryType();
+		if(geometryType_ == geom_CYLINDER) {
+			p1_.reset();
+			p2_.reset();
+			radius_ = posComponent_->nextPos().bounds_.radius();
+			BoundingBox toBox(posComponent_->nextPos().worldCoor(), posComponent_->nextPos().bounds_);
+			areaCovered_ = toBox;
+			if(posComponent_->pos().isKeyFramePath(posComponent_->nextPos())) {
+				BoundingBox fromBox(posComponent_->pos().worldCoor(), posComponent_->pos().bounds_);
+				areaCovered_.merge(fromBox);
+			}
 		}
+		else if(geometryType_ == geom_LONG_CYLINDER) {
+			const BoundingBox& b = posComponent().nextPos().bounds_;
+			coor_t xSize = b.maxX_ - b.minX_;
+			coor_t zSize = b.maxZ_ - b.minZ_;
+			if(xSize > zSize) {
+	 			radius_ = CoorT::half(zSize);
+				p1_.z_ = p2_.z_ = CoorT::half(b.minZ_ + b.maxZ_);
+				p1_.x_ = b.minX_ + radius_;
+				p2_.x_ = b.maxX_ - radius_;
+			}
+			else {
+				radius_ = CoorT::half(xSize);
+				p1_.x_ = p2_.x_ = CoorT::half(b.minX_ + b.maxX_);
+				p1_.z_ = b.minZ_ + radius_;
+				p2_.z_ = b.maxZ_ - radius_;
+			}
+			p1_.y_ = p2_.y_ = b.minY_;
+
+			Euler3& face = posComponent_->nextPos().worldFace();
+			if(!face.isIdentity()) {
+				Assert(face.pitch_ == 0);
+				Assert(face.roll_ == 0);
+				p1_.rotate(face);
+				p2_.rotate(face);
+			}
+
+			Point3 wp1, wp2;
+			wp1.add(p1_, posComponent_->nextPos().worldCoor());
+			wp2.add(p2_, posComponent_->nextPos().worldCoor());
+
+			coor_t height = b.maxY_ - b.minY_;
+
+			BoundingBox b1(wp1, radius_, height);
+			BoundingBox b2(wp2, radius_, height);
+			areaCovered_ = b1;
+			areaCovered_.merge(b2);
+		}
+
 	}
 
 
@@ -129,94 +175,16 @@ namespace se_core {
 	::doesGeometryCollide(const CollisionComponent& other) const {
 		Point3 p, t;
 		coor_t radSum = bouncePoints(SCALE_RES, other, p, t);
-		//LogWarning(radSum << " > " << p.distance(t));
 		bool res = (p.xzDistanceSquared(t) < radSum * radSum);
-		//AssertWarning(res == true, owner()->name() << " - " << other.owner()->name());
 		return res;
-
-		//BoundingCylinder b1(p, pusher.bounds_);
-		//BoundingCylinder b2(t, target.bounds_);
-		//return b2.isTouching(b1);
-
-		/*
-		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
-			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(target.worldCoor(), target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
-			Point3 nearest;
-			bouncePoint(target.worldCoor(), nearest);
-			nearest.y_ = target.bounds_.minY_;
-			BoundingCylinder b1(nearest, pusher.bounds_);
-			BoundingCylinder b2(target.worldCoor(), target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
-			Point3 nearest;
-			other.bouncePoint(pusher.worldCoor(), nearest);
-			nearest.y_ = pusher.bounds_.minY_;
-			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(nearest, target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
-			LogMsg("BOX vs BOX not supported!");
-			return false;
-		}
-
-		return true;
-		*/
 	}
 
 
 	bool CollisionComponent
 	::didGeometryCollide(const CollisionComponent& other) const {
-		// Only cylinder support at the moment
-
 		Point3 p, t;
 		coor_t radSum = bouncePoints(0, other, p, t);
 		return (p.xzDistanceSquared(t) < radSum * radSum);
-		/*
-		p.y_ = t.y_;
-		BoundingCylinder b1(p, pusher.bounds_);
-		BoundingCylinder b2(t, target.bounds_);
-		return b2.isTouching(b1);
-		*/
-
-		/*
-		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_CYLINDER) {
-			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(target.worldCoor(), target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_BOX && other.geometryType() == geom_CYLINDER) {
-			Point3 nearest;
-			bouncePoint(target.worldCoor(), nearest);
-			BoundingCylinder b1(nearest, pusher.bounds_);
-			BoundingCylinder b2(target.worldCoor(), target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_CYLINDER && other.geometryType() == geom_BOX) {
-			Point3 nearest;
-			other.bouncePoint(pusher.worldCoor(), nearest);
-			BoundingCylinder b1(pusher.worldCoor(), pusher.bounds_);
-			BoundingCylinder b2(nearest, target.bounds_);
-			return b2.isTouching(b1);
-		}
-
-		if(geometryType() == geom_BOX && other.geometryType() == geom_BOX) {
-			LogMsg("BOX vs BOX not supported!");
-			return false;
-		}
-
-		return true;
-		*/
 	}
 
 
@@ -259,14 +227,21 @@ namespace se_core {
 
 	coor_t CollisionComponent
 	::bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const {
+		Point3 c;
+		posComponent().worldCoor(alpha, c);
+
+		if(geometryType_ == geom_CYLINDER) {
+			dest.set(c);
+			return radius_;
+		}
+
+		/*
 		const BoundingBox& b = posComponent().pos().bounds_;
 		coor_t xSize = b.maxX_ - b.minX_;
 		coor_t zSize = b.maxZ_ - b.minZ_;
 
 		Point3 p1, p2;
-		Point3 c;
 		coor_t radius;
-		posComponent().worldCoor(alpha, c);
 		if(xSize > zSize) {
  			radius = CoorT::half(zSize);
 			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
@@ -287,11 +262,18 @@ namespace se_core {
 			return CoorT::half(xSize);
 		}
 
-		p1.add(c);
-		p2.add(c);
 		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
-		dest.nearestPoint(p1, p2, testPoint);
-		return radius;
+		Assert(posComponent_->nextPos().worldFace().pitch_ == 0);
+		Assert(posComponent_->nextPos().worldFace().roll_ == 0);
+		p1.rotate(posComponent().nextPos().worldFace());
+		p2.rotate(posComponent().nextPos().worldFace());
+		*/
+
+		Point3 wp1, wp2;
+		wp1.add(c, p1_);
+		wp2.add(c, p2_);
+		dest.nearestPoint(wp1, wp2, testPoint);
+		return radius_;
 	}
 
 
@@ -309,5 +291,4 @@ namespace se_core {
 	::shouldIgnore(const CollisionComponent& cc) const {
 		return &cc == ignore_ || cc.ignore_ == this;
 	}
-
 }

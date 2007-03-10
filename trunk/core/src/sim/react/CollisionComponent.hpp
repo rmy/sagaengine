@@ -121,12 +121,13 @@ namespace se_core {
 		void updateAreaCovered();
 		void move();
 
-		enum GeomType { geom_CYLINDER, geom_BOX };
+		enum GeomType { geom_CYLINDER, geom_LONG_CYLINDER };
 
 		enum GeomType geometryType() const {
-			if(posComponent_->nextPos().bounds_.minX_ == posComponent_->nextPos().bounds_.minZ_)
+			BoundingBox& b = posComponent_->nextPos().bounds_;
+			if(b.minX_ == b.minZ_ && b.maxX_ == b.maxZ_)
 				return geom_CYLINDER;
-			return geom_BOX;
+			return geom_LONG_CYLINDER;
 		}
 
 		coor_t bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const;
@@ -145,7 +146,10 @@ namespace se_core {
 		const ThingCollide* collide_;
 
 		const CollisionComponent* ignore_;
+
 		enum GeomType geometryType_;
+		Point3 p1_, p2_;
+		coor_t radius_;
 	};
 }
 

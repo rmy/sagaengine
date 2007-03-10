@@ -210,6 +210,7 @@ namespace se_core {
 
 	void SimComposite
 	::cleanup(bool doTraverseChildren) {
+
 		// Cleanup children first...
 		if(doTraverseChildren) {
 			MultiSimComposite::Iterator composites(children_);
@@ -220,7 +221,7 @@ namespace se_core {
 		}
 
 		// ... then self
-		setActive(false, false);
+		setActive(false, true);
 		resetParent();
 
 		MultiSimComponent::Iterator it(components_);

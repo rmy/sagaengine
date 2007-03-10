@@ -22,8 +22,6 @@ namespace se_basic {
 		void setMass(float m);
 		void setFriction(float linear, float angular, float bounceDecay);
 		void setAbilities(short speed, short attack, short defence, short level);
-		void setSendSignal(int id);
-		void setRecieveSignal(unsigned long mask, const char* signal);
 		void setAnim(int id, int movementMode, float pos, float speed);
 
 		/**
@@ -43,10 +41,6 @@ namespace se_basic {
 		se_core::ActionAndParameter* defaultAction_;
 		se_core::Abilities abilities_;
 
-
-		int signalSendId_;
-		unsigned long signalRecieveMask_;
-		const se_core::Signal* signal_;
 
 		int spawnPointCount_;
 		se_core::ViewPoint** spawnPoints_;
