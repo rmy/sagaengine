@@ -6,7 +6,7 @@ namespace se_basic {
 
 	SimpleActorFactory
 	::SimpleActorFactory(String* name)
-		: SimCompositeFactory(got_ACTOR, name)
+			: SimCompositeFactory(got_ACTOR, SimCompositeFactory::st_THING, name)
 		, isPickable_(false)
 		, isCollideable_(false)
 		, script_(0)

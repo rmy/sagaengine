@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "EditorComponentFactory.hpp"
 #include "EditorComponent.hpp"
+#include "sim/SimCompositeFactory.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
@@ -32,7 +33,8 @@ namespace se_editor {
 
 	EditorComponentFactory
 	::EditorComponentFactory()
-		: SimComponentFactory(sct_EDITOR) {
+			: SimComponentFactory(sct_EDITOR) {
+		SimCompositeFactory::addGenericComponent(SimCompositeFactory::st_THING, this);
 	}
 
 

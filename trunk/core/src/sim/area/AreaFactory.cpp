@@ -31,30 +31,14 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_core {
-	int AreaFactory
-	::genericComponentCount_ = 0;
-
-	SimComponentFactory* AreaFactory
-	::genericComponents_[MAX_GENERIC_COMPONENTS];
-
 	AreaFactory
 	::AreaFactory(String* name)
-		: SimCompositeFactory(got_AREA, name) {
+		: SimCompositeFactory(got_AREA, st_AREA, name) {
 	}
 
 
 	AreaFactory
 	::~AreaFactory() {
 	}
-
-
-	void AreaFactory
-	::createGenericComponents(SimComposite* owner) const {
-		for(int i = 0; i < genericComponentCount_; ++i) {
-			genericComponents_[i]->create(owner);
-		}
-	}
-
-
 
 }

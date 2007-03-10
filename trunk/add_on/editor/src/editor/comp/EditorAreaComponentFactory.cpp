@@ -24,6 +24,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
+#include "sim/SimCompositeFactory.hpp"
 
 
 using namespace se_core;
@@ -32,7 +33,8 @@ namespace se_editor {
 
 	EditorAreaComponentFactory
 	::EditorAreaComponentFactory()
-		: SimComponentFactory(sct_EDITOR) {
+			: SimComponentFactory(sct_EDITOR) {
+		SimCompositeFactory::addGenericComponent(SimCompositeFactory::st_AREA, this);
 	}
 
 

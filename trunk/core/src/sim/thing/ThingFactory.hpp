@@ -35,7 +35,7 @@ namespace se_core {
 	class _SeCoreExport ThingFactory : public SimCompositeFactory {
 	public:
 		ThingFactory(short type, String* name)
-			: SimCompositeFactory(type, name) {
+			: SimCompositeFactory(type, st_THING, name) {
 		}
 	};
 	/*

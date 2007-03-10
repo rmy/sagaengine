@@ -30,10 +30,11 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_core {
+	SimCompositeFactory::Generic SimCompositeFactory::generic_;
 
 	SimCompositeFactory
-	::SimCompositeFactory(short type, String* name)
-		: name_(name), type_(type), tag_(0), componentCount_(0) {
+	::SimCompositeFactory(short type, SubType subtype, String* name)
+		: name_(name), type_(type), subtype_(subtype), tag_(0), componentCount_(0) {
 	}
 
 
@@ -47,6 +48,7 @@ namespace se_core {
 	::create() const {
 		SimComposite* c = new SimComposite(name());
 		createComponents(c);
+		createGenericComponents(c);
 		return c;
 	}
 
@@ -76,6 +78,12 @@ namespace se_core {
 		for(int i = 0; i < componentCount_; ++i) {
 			components_[ i ]->create(owner);
 		}
+	}
+
+
+	void SimCompositeFactory
+	::createGenericComponents(SimComposite* owner) const {
+		generic_.createGenericComponents(subtype_, owner);
 	}
 
 }

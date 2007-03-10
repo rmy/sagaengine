@@ -25,6 +25,7 @@ rune@skalden.com
 #include "sim/sim.hpp"
 #include "sim/AreaChildComponent.hpp"
 #include "util/vecmath/ViewPoint.hpp"
+#include "util/type/String.hpp"
 
 namespace se_editor {
 	class _SeEditorExport EditorComponent : public se_core::AreaChildComponent {
@@ -40,6 +41,7 @@ namespace se_editor {
 
 		void cleanup();
 
+		se_core::String* string_;
 		se_core::ViewPoint start_;
 		bool isGrounded_;
 	};
