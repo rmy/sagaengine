@@ -24,7 +24,7 @@ for p in np:
 
 for t in templates:
 	fin = open(t, "r")
-	filename = "%s%s" % (type, os.path.basename(t).lstrip("_"))
+	filename = "%s" % (os.path.basename(t).replace("_", type))
 	fout = open(filename, "w");
 	for line in fin.readlines():
 		line = line.replace("%_", type.lower())
