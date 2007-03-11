@@ -27,6 +27,7 @@ rune@skalden.com
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "sim/pos/Pos.hpp"
 
 using namespace se_core;
 
@@ -36,10 +37,11 @@ namespace se_editor {
 			: AreaChildComponent(sct_EDITOR, owner), string_(0) {
 		PosComponent::Ptr pos(*this);
 		Assert(!pos.isNull());
-		start_.setViewPoint(pos->nextPos().local_);
 		isGrounded_ = pos->nextPos().isGrounded();
 		EditorAreaComponent::Ptr editorArea(pos->nextPos().area());
 		Assert(!editorArea.isNull());
+		startArea_ = editorArea;
+		start_.setViewPoint(pos->nextPos().local_);
 		string_ = editorArea->grabString();
 	}
 
@@ -54,4 +56,10 @@ namespace se_editor {
 	::cleanup() {
 	}
 
+	void EditorComponent
+	::setStart(Pos& p) {
+		p.setArea(*PosComponent::Ptr(*startArea_));
+		p.local_.setViewPoint(start_);
+		p.updateWorldViewPoint();
+	}
 }
