@@ -36,6 +36,7 @@ rune@skalden.com
 #include "util/math/CoorT.hpp"
 #include "util/type/String.hpp"
 #include "sim/spawn/SpawnManager.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 #include <cstdio>
 #include <cstring>
 
@@ -127,7 +128,7 @@ namespace se_client {
 					LogMsg(tempString.get());
 					area = SimSchema::areaManager.area(tempString.get());
 					Assert(area);
-					const ViewPoint* sp = area->spawnPoint(value);
+					const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(value);
 					Assert(sp);
 					pos->nextPos().setArea(*PosComponent::get(*area), *sp);
 				}

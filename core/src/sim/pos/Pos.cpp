@@ -239,7 +239,7 @@ namespace se_core {
 		// TODO: Why enter here with (area_ == 0)
 		PosComponent* old = area_;
 		Area* next = area_->toArea();
-		if(!next->isLegalCoor(worldCoor())) {
+		if(!next->isLegalWorldCoor(worldCoor())) {
 			Area* a = next->neighbour(worldCoor());
 			if(a) {
 				// Change area, keep world viewpoint

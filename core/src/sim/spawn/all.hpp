@@ -3,5 +3,6 @@
 
 #include "SpawnManager.hpp"
 #include "SpawnComponent.hpp"
+#include "SpawnAreaComponent.hpp"
 
 #endif

@@ -22,8 +22,8 @@ rune@skalden.com
 #include "Spawn.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/pos/Pos.hpp"
-#include "sim/thing/Thing.hpp"
 #include "sim/thing/Actor.hpp"
+#include "sim/spawn/SpawnComponent.hpp"
 
 using namespace se_core;
 

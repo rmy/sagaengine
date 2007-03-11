@@ -89,7 +89,8 @@ namespace se_core {
 		// see aldo CollisionManager
 		collisionGrid_->setSize(w * 2, h * 2);
 
-		Point3 offset(toArea()->pos().worldCoor());
+		PosComponent::Ptr pos(*this);
+		Point3 offset(pos->pos().worldCoor());
 		offset.sub(Point3(CoorT::fromTile(w / 2), 0, CoorT::fromTile(h / 2)));
 
 		collisionGrid_->setOffset(offset);

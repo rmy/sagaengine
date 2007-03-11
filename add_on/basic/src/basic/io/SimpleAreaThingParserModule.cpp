@@ -1,4 +1,5 @@
 #include "SimpleAreaThingParserModule.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 #include <cstring>
 
 using namespace se_core;
@@ -78,7 +79,8 @@ namespace se_basic {
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
 				LogMsg("Set spawn points for: " << areas[i]->name());
-				areas[i]->setSpawnPoints(spawnPointCount, spawnPoints);
+				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
+				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
 			}
 			//LogMsg("Flip children for: " << areas[i]->name());
 			areas[i]->flipSpawns();

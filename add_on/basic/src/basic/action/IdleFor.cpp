@@ -24,7 +24,6 @@ rune@skalden.com
 #include "sim/config/sim_config.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/pos/Pos.hpp"
-#include "sim/thing/Thing.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "util/vecmath/Point3.hpp"

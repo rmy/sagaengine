@@ -128,9 +128,10 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::areaOffset(Ogre::Vector3& dest) {
-		dest.x = toArea()->pos().worldCoor().x_;
-		dest.y = toArea()->pos().worldCoor().y_;
-		dest.z = toArea()->pos().worldCoor().z_;
+		const Point3& c = PosComponent::Ptr(*this)->pos().worldCoor();
+		dest.x = c.x_;
+		dest.y = c.y_;
+		dest.z = c.z_;
 
 		if(O3dSchema::worldManager->isAreaGeomCentreAligned_) {
 			dest.x += toArea()->width() / 2.0f;

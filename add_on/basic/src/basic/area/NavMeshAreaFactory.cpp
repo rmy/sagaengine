@@ -48,10 +48,11 @@ namespace se_basic {
 		createGenericComponents(a);
 
 		a->setPage(pageX, pageY, pageZ);
-		a->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
-		a->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());
-		a->nextPos().world_.setViewPoint(a->nextPos().local_);
-		a->flip();
+		PosComponent::Ptr aPos(*a);
+		aPos->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
+		aPos->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());
+		aPos->nextPos().world_.setViewPoint(aPos->nextPos().local_);
+		aPos->flip();
 
 		return a;
 	}

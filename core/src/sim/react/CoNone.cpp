@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 #include "CoNone.hpp"
-#include "../thing/Thing.hpp"
 #include "../thing/Actor.hpp"
 #include "../action/all.hpp"
 

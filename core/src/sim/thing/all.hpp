@@ -4,6 +4,5 @@
 #include "Actor.hpp"
 #include "ActorFactory.hpp"
 #include "sim_thing.hpp"
-#include "Thing.hpp"
 
 #endif

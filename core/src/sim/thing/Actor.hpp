@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef engine_thing_Actor_hpp
 #define engine_thing_Actor_hpp
 
-#include "Thing.hpp"
+#include "../SimComposite.hpp"
 #include "../action/sim_action.hpp"
 #include "../custom/Move.hpp"
 #include "../physics/Physics.hpp"
@@ -33,6 +33,7 @@ rune@skalden.com
 #include "../stat/sim_stat.hpp"
 #include "../pos/Anim.hpp"
 #include "../pos/Pos.hpp"
+#include "../pos/PosComponent.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/type/String.hpp"
 #include "../script/ScriptComponent.hpp"
@@ -48,7 +49,7 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class _SeCoreExport Actor : public Thing {
+	class _SeCoreExport Actor : public SimComposite {
 	public:
 		//TODO:
 		void stopScript() {
@@ -146,7 +147,7 @@ namespace se_core {
 		 */
 		bool isType(enum SimObjectType type) const {
 			if(type == got_ACTOR) return true;
-			return Thing::isType(type);
+			return SimComposite::isType(type);
 		}
 
 		/**
@@ -185,13 +186,17 @@ namespace se_core {
 		bool hasTarget() const { return !target_.isNull(); }
 		void setTarget(Actor* target) { target_.set(target->ptr()); }
 		void resetTarget() { target_.reset(); }
+		const Pos& pos() const { return posComponent_->pos(); }
+		Pos& nextPos() const { return posComponent_->nextPos(); }
 
 		virtual bool isPlayer() { return false; }
 
+		/*
 		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { spawnComponent_->incSpawnCount(); }
 		void decSpawnCount() { spawnComponent_->decSpawnCount(); }
 		int spawnCount() { return spawnComponent_->spawnCount(); }
+		*/
 
 		MultiSimObject& cutscenes() { return cutscenes_; }
 		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
@@ -242,6 +247,8 @@ namespace se_core {
 
 		SimPtr target_;
 
+		PosComponent* posComponent_;
+		SpawnComponent* spawnComponent_;
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		PhysicsComponent* physicsComponent_;

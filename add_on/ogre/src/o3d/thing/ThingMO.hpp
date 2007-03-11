@@ -36,7 +36,7 @@ namespace se_ogre {
 		void move(long when, float stepDelta, float timeSinceLastFrame);
 		void resetPos();
 		virtual void animate(long when, float stepDelta, float timeSinceLastFrame) = 0;
-		bool hasThing(se_core::Thing& thing) { return thing_.owner()->id() == thing.id(); }
+		bool hasThing(se_core::SimComposite& thing) { return thing_.owner()->id() == thing.id(); }
 		void setParentNode(Ogre::SceneNode* sn);
 		const char* name() { return thing_.name(); }
 

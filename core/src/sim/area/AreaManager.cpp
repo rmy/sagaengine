@@ -23,7 +23,6 @@ rune@skalden.com
 #include "Area.hpp"
 #include "AreaFactory.hpp"
 #include "../stat/MultiSimObject.hpp"
-#include "../thing/Thing.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstring>
 #include <cstdio>
@@ -263,15 +262,18 @@ namespace se_core {
 
 		const AreaFactory* f = factory(factoryName);
 		Area* a = f->create(new String(name), pageX, pageY, pageZ);
-
-		// Update world coordinate
-		a->updateWorldViewPoint();
-
-		// Make sure both nextPos() and pos() are good
-		a->flip();
-
 		// Needed for proper destruction
 		a->setFactory(f);
+
+
+		PosComponent::Ptr aPos(*a);
+
+		// Update world coordinate
+		aPos->updateWorldViewPoint();
+
+		// Make sure both nextPos() and pos() are good
+		aPos->flip();
+
 
 		// Store it away
 		addArea(a);
