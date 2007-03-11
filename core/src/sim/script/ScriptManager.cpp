@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "ScriptComponentManager.hpp"
+#include "ScriptManager.hpp"
 #include "sim_script.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../sim.hpp"
@@ -27,24 +27,24 @@ rune@skalden.com
 
 
 namespace se_core {
-	ScriptComponentManager
-	::ScriptComponentManager()
+	ScriptManager
+	::ScriptManager()
 		: SimComponentManager(sct_SCRIPT) {
 	}
 
-	ScriptComponentManager
-	::~ScriptComponentManager() {
+	ScriptManager
+	::~ScriptManager() {
 	}
 
 
-	ScriptComponentManager&  ScriptComponentManager
+	ScriptManager&  ScriptManager
 	::singleton() {
-		static ScriptComponentManager instance;
+		static ScriptManager instance;
 		return instance;
 	}
 
 
-	void ScriptComponentManager
+	void ScriptManager
 	::step(long when) {
 		// Step to the next step in any performed cutscene, if one
 		// is active.
@@ -55,7 +55,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComponentManager
+	void ScriptManager
 	::initGame() {
 		// Reset in game engine variable that remembers the
 		// 'when' of the previous step
@@ -64,7 +64,7 @@ namespace se_core {
 	}
 
 
-	void ScriptComponentManager
+	void ScriptManager
 	::cleanupGame() {
 		SimSchema::didTrack = false;
 		SimSchema::scriptTracker = 0;
