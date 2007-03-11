@@ -22,7 +22,9 @@ rune@skalden.com
 #ifndef EditorComponent_hpp
 #define EditorComponent_hpp
 
+#include "EditorAreaComponent.hpp"
 #include "sim/sim.hpp"
+#include "sim/pos/sim_pos.hpp"
 #include "sim/AreaChildComponent.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 #include "util/type/String.hpp"
@@ -36,12 +38,15 @@ namespace se_editor {
 		virtual ~EditorComponent();
 		const char* name() { return "Editor"; }
 
+		void setStart(se_core::Pos& p);
+
 	protected:
 		friend class EditorComponentFactory;
 
 		void cleanup();
 
 		se_core::String* string_;
+		EditorAreaComponent* startArea_;
 		se_core::ViewPoint start_;
 		bool isGrounded_;
 	};
