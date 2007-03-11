@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef engine_physics_PhysicsSolverComponent_hpp
-#define engine_physics_PhysicsSolverComponent_hpp
+#ifndef engine_physics_PhysicsAreaComponent_hpp
+#define engine_physics_PhysicsAreaComponent_hpp
 
 #include "Physics.hpp"
 #include "../SimNodeComponent.hpp"
@@ -30,12 +30,12 @@ rune@skalden.com
 #include "../pos/PosComponent.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsSolverComponent : public SimNodeComponent {
+	class _SeCoreExport PhysicsAreaComponent : public SimNodeComponent {
 	public:
 		/** Constructor.
 		 */
-		PhysicsSolverComponent(SimComposite* owner, CollisionAreaComponent* cac);
-		~PhysicsSolverComponent();
+		PhysicsAreaComponent(SimComposite* owner, CollisionAreaComponent* cac);
+		~PhysicsAreaComponent();
 
 		const char* name() { return "PhysicsSolver"; }
 
@@ -52,7 +52,7 @@ namespace se_core {
 		 * List of movers this step. Updated by the coordinate precalcer and
 		 * used by the collision detector.
 		 */
-		friend class PhysicsComponentManager;
+		friend class PhysicsManager;
 		PhysicsComponent** movers_;
 
 		CollisionAreaComponent* collisionAreaComponent_;

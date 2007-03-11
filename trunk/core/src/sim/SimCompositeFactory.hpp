@@ -75,7 +75,7 @@ namespace se_core {
 				components_[subtype][ componentCount_[subtype]++ ] = f;
 			}
 
-			void createGenericComponents(SubType subtype, SimComposite* owner) const {
+			void createComponents(SubType subtype, SimComposite* owner) const {
 				for(int i = 0; i < componentCount_[subtype]; ++i) {
 					components_[subtype][i]->create(owner);
 				}

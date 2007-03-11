@@ -35,6 +35,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "util/math/CoorT.hpp"
 #include "util/type/String.hpp"
+#include "sim/spawn/SpawnManager.hpp"
 #include <cstdio>
 #include <cstring>
 
@@ -64,7 +65,7 @@ namespace se_client {
 				{ // Player
 					in.readString(tempString);
 					LogMsg(tempString.get());
-					SimComposite* a = SimSchema::thingManager().create(tempString.get());
+					SimComposite* a = SimSchema::spawnManager().create(tempString.get());
 					Assert(a);
 					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
 					PhysicsComponent* physics = PhysicsComponent::get(*a);
@@ -84,7 +85,7 @@ namespace se_client {
 				{
 					// Init camera object
 					in.readString(tempString);
-					SimComposite* a = SimSchema::thingManager().create(tempString.get());
+					SimComposite* a = SimSchema::spawnManager().create(tempString.get());
 					Assert(a);
 					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
 					Assert(pos);

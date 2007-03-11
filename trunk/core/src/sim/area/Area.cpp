@@ -35,9 +35,10 @@ rune@skalden.com
 #include "sim/stat/all.hpp"
 #include "sim/thing/all.hpp"
 #include "sim/pos/PosComponent.hpp"
-#include "../physics/PhysicsSolverComponent.hpp"
+#include "../physics/PhysicsAreaComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../signal/SignalAreaComponent.hpp"
+#include "../spawn/SpawnManager.hpp"
 
 #include <cstdio>
 
@@ -74,7 +75,7 @@ namespace se_core {
 		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
 
 		collisionAreaComponent_ = new CollisionAreaComponent(this);
-		physicsSolverComponent_ = new PhysicsSolverComponent(this, collisionAreaComponent_);
+		PhysicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		signalAreaComponent_ = new SignalAreaComponent(this);
@@ -87,7 +88,7 @@ namespace se_core {
 	::~Area() {
 		delete[] multiSimObjects_;
 		delete nameString_;
-		delete physicsSolverComponent_;
+		delete PhysicsAreaComponent_;
 		delete scriptComponent_;
 		delete actionComponent_;
 	}
@@ -351,7 +352,7 @@ namespace se_core {
 		}
 
 		// Create the thing
-		SimComposite* thing = SimSchema::thingManager().create(thingName);
+		SimComposite* thing = SimSchema::spawnManager().create(thingName);
 		PosComponent* p = PosComponent::get(*thing);
 		Assert(p);
 

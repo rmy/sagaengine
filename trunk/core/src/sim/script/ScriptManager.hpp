@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef ScriptComponentManager_hpp
-#define ScriptComponentManager_hpp
+#ifndef ScriptManager_hpp
+#define ScriptManager_hpp
 
 #include "../sim.hpp"
 #include "../SimComponentManager.hpp"
@@ -32,18 +32,18 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport ScriptComponentManager : public SimComponentManager {
+	class _SeCoreExport ScriptManager : public SimComponentManager {
 	public:
 		/**
-		 * Construct ScriptComponentManager.
+		 * Construct ScriptManager.
 		 */
-		ScriptComponentManager();
+		ScriptManager();
 
 
 		/**
 		 * Destructor.
 		 */
-		virtual ~ScriptComponentManager();
+		virtual ~ScriptManager();
 
 
 		void step(long when);
@@ -51,7 +51,7 @@ namespace se_core {
 		void initGame();
 		void cleanupGame();
 
-		static ScriptComponentManager& singleton();
+		static ScriptManager& singleton();
 	};
 
 }

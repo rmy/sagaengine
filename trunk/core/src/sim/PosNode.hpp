@@ -222,22 +222,6 @@ namespace se_core {
 	protected:
 		PosComponent* posComponent_;
 		SpawnComponent* spawnComponent_;
-
-		/** Position of the PosNode at the beginning of the current simulation step */
-		//Pos position_;
-
-		/** Position of the PosNode at the beginning of the next simulation step */
-		//Pos nextPosition_;
-
-		/** Flag which indicates that the PosNode moves between the current and the next simulation step. */
-		//bool didMove_;
-
-
-		/** The number of spawn points */
-		//int spawnPointCount_;
-
-		/** List of spawn points associated this this PosNode */
-		//const ViewPoint* const* spawnPoints_;
 	};
 
 }

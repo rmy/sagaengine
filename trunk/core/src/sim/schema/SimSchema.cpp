@@ -27,9 +27,9 @@ rune@skalden.com
 #include "../SimComponentManager.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"
-#include "../action/ActionComponentManager.hpp"
+#include "../action/ActionManager.hpp"
 #include "../script/ShowingCutscene.hpp"
-#include "../script/ScriptComponentManager.hpp"
+#include "../script/ScriptManager.hpp"
 #include "../message/MessageCentral.hpp"
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
@@ -39,7 +39,7 @@ rune@skalden.com
 #include "../stat/SortedSimObjectList.hpp"
 #include "../area/sim_area.hpp"
 #include "../area/AreaManager.hpp"
-#include "../thing/ThingManager.hpp"
+#include "../spawn/SpawnManager.hpp"
 #include "../physics/all.hpp"
 #include "../react/all.hpp"
 #include "../action/all.hpp"
@@ -56,11 +56,10 @@ namespace se_core {
 	namespace SimSchema {
 		SimEngine simEngine;
 		AreaManager areaManager;
-		ThingManager& thingManager() {
-			static ThingManager thingManager;
-			return thingManager;
-		}
 
+		SpawnManager& spawnManager() {
+			return SpawnManager::singleton();
+		}
 
 		extern _SeCoreExport SimComposite& activeRoot() {
 			return SimComponentManager::activeRoot();
@@ -127,9 +126,10 @@ namespace se_core {
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);
 			static DictionaryEntry dFirstUserType(DE_DICTIONARY_TYPE, DE_FIRST_USER_TYPE, "FIRST_USER_TYPE", false);
 
-			PhysicsComponentManager::singleton();
-			ScriptComponentManager::singleton();
-			ActionComponentManager::singleton();
+			PhysicsManager::singleton();
+			ScriptManager::singleton();
+			ActionManager::singleton();
+			SpawnManager::singleton();
 			CollisionManager::singleton();
 			SignalManager::singleton();
 

@@ -4,8 +4,8 @@
 #include "PhDefault.hpp"
 #include "Physics.hpp"
 #include "PhysicsComponent.hpp"
-#include "PhysicsComponentManager.hpp"
-#include "PhysicsSolverComponent.hpp"
+#include "PhysicsManager.hpp"
+#include "PhysicsAreaComponent.hpp"
 #include "PhysicsUtil.hpp"
 #include "sim_physics.hpp"
 

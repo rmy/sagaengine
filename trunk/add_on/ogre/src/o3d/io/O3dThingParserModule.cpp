@@ -34,6 +34,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/pos/Pos.hpp"
 #include "sim/pos/Anim.hpp"
+#include "sim/spawn/SpawnManager.hpp"
 #include <cstring>
 #include <cstdio>
 #include <vector>
@@ -87,7 +88,7 @@ namespace se_ogre {
 
 		O3dSchema::thingMOManager.addInfoList(infoList);
 		if(infoList->infoCount_ > 0) {
-			SimCompositeFactory* f = SimSchema::thingManager().factory(infoList->thingType_.get());
+			SimCompositeFactory* f = SimSchema::spawnManager().factory(infoList->thingType_.get());
 			static O3dThingComponentFactory otcf;
 			f->addComponent(&otcf);
 		}

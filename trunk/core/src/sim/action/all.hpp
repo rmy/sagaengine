@@ -4,7 +4,7 @@
 #include "Action.hpp"
 #include "ActionAndParameter.hpp"
 #include "ActionComponent.hpp"
-#include "ActionComponentManager.hpp"
+#include "ActionManager.hpp"
 #include "ActionFeed.hpp"
 #include "ActionQueue.hpp"
 #include "ActorList.hpp"

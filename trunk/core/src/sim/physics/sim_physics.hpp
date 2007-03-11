@@ -25,7 +25,7 @@ rune@skalden.com
 namespace se_core {
 	class Physics;
 	class PhysicsComponent;
-	class PhysicsSolverComponent;
+	class PhysicsAreaComponent;
 	class PhDefault;
 }
 

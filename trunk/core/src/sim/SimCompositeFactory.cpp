@@ -83,7 +83,7 @@ namespace se_core {
 
 	void SimCompositeFactory
 	::createGenericComponents(SimComposite* owner) const {
-		generic_.createGenericComponents(subtype_, owner);
+		generic_.createComponents(subtype_, owner);
 	}
 
 }

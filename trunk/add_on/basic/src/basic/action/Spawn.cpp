@@ -24,7 +24,6 @@ rune@skalden.com
 #include "sim/pos/Pos.hpp"
 #include "sim/thing/Thing.hpp"
 #include "sim/thing/Actor.hpp"
-#include "sim/thing/ThingManager.hpp"
 
 using namespace se_core;
 

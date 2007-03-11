@@ -23,10 +23,10 @@ rune@skalden.com
 #include "SimListeners.hpp"
 //#include "./action/Action.hpp"
 //#include "./action/ActionQueue.hpp"
-#include "./action/ActionComponentManager.hpp"
-#include "./physics/PhysicsComponentManager.hpp"
+#include "./action/ActionManager.hpp"
+#include "./physics/PhysicsManager.hpp"
 #include "./react/CollisionManager.hpp"
-#include "./script/ScriptComponentManager.hpp"
+#include "./script/ScriptManager.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./pos/Pos.hpp"
 #include "./stat/MultiSimObject.hpp"
@@ -35,9 +35,9 @@ rune@skalden.com
 #include "./area/Area.hpp"
 #include "./area/AreaManager.hpp"
 #include "./thing/Thing.hpp"
-#include "./thing/ThingManager.hpp"
 #include "./thing/Actor.hpp"
 #include "./signal/SignalManager.hpp"
+#include "./spawn/SpawnManager.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/system/RealClock.hpp"
 #include "util/error/Log.hpp"
@@ -161,13 +161,13 @@ namespace se_core {
 		// scheduled that by game rules are performed simultaneously,
 		// but by the game code performed slightly later than the destroying
 		// actions.
-		SimSchema::thingManager().performDestructions();
+		SimSchema::spawnManager().performDestructions();
 
 		// Schedules and performs the scheduled actions in all action channels
-		ActionComponentManager::singleton().step(when);
+		ActionManager::singleton().step(when);
 
 		// Move things and check for collisions
-		PhysicsComponentManager::singleton().step(when);
+		PhysicsManager::singleton().step(when);
 
 		// Move things and check for collisions
 		CollisionManager::singleton().step(when);
@@ -226,23 +226,23 @@ namespace se_core {
 			SimSchema::actionQueue[i].reset();
 		}
 		SimSchema::areaManager.resetThings();
-		SimSchema::thingManager().reset();
+		SimSchema::spawnManager().reset();
 		SimSchema::initListeners().castCleanupGameEvent();
 		SimSchema::areaManager.resetAll();
-		SimSchema::thingManager().resetAll();
+		SimSchema::spawnManager().resetAll();
 
 
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;
-		PhysicsComponentManager::singleton().cleanup();
+		PhysicsManager::singleton().cleanup();
 	}
 
 
 	void SimEngine
 	::resetAll() {
 		//SimSchema::thingManager.reset();
-		SimSchema::thingManager().reset();
+		SimSchema::spawnManager().reset();
 		SimSchema::areaManager.resetAll();
 	}
 

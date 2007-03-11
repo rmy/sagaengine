@@ -188,7 +188,7 @@ namespace se_core {
 		MultiSimObject* multiSimObjects_;
 		//ReportingMultiSimObject* allThings_;
 
-		friend class PhysicsSolverComponent;
+		friend class PhysicsAreaComponent;
 		friend class CollisionAreaComponent;
 
 		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
@@ -197,7 +197,7 @@ namespace se_core {
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		CollisionAreaComponent* collisionAreaComponent_;
-		PhysicsSolverComponent* physicsSolverComponent_;
+		PhysicsAreaComponent* PhysicsAreaComponent_;
 		SignalAreaComponent* signalAreaComponent_;
 	};
 

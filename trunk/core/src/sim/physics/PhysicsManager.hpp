@@ -19,8 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef PhysicsComponentManager_hpp
-#define PhysicsComponentManager_hpp
+#ifndef PhysicsManager_hpp
+#define PhysicsManager_hpp
 
 #include "sim_physics.hpp"
 #include "../sim.hpp"
@@ -33,30 +33,30 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport PhysicsComponentManager : public SimComponentManager {
+	class _SeCoreExport PhysicsManager : public SimComponentManager {
 	public:
 		/**
-		 * Construct PhysicsComponentManager.
+		 * Construct PhysicsManager.
 		 */
-		PhysicsComponentManager();
+		PhysicsManager();
 
 
 		/**
 		 * Destructor.
 		 */
-		virtual ~PhysicsComponentManager();
+		virtual ~PhysicsManager();
 
 
 		void step(long when);
 
 		void cleanupGame();
 
-		static PhysicsComponentManager& singleton();
+		static PhysicsManager& singleton();
 
 		//
-		friend class PhysicsSolverComponent;
-		void setSolverActive(PhysicsSolverComponent* s);
-		void setSolverInactive(PhysicsSolverComponent* s);
+		friend class PhysicsAreaComponent;
+		void setSolverActive(PhysicsAreaComponent* s);
+		void setSolverInactive(PhysicsAreaComponent* s);
 
 	private:
 		void flip(long when);
@@ -82,7 +82,7 @@ namespace se_core {
 		//
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 		int activeSolverCount_;
-		PhysicsSolverComponent** activeSolvers_;
+		PhysicsAreaComponent** activeSolvers_;
 
 	};
 
