@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "SpawnComponent.hpp"
+#include "SpawnManager.hpp"
 #include "../action/all.hpp"
 #include "../thing/Actor.hpp"
 #include "../area/Area.hpp"
@@ -54,7 +55,6 @@ namespace se_core {
 		ViewPoint vp(*sp);
 
 		// Calculate area coor of spawn point
-		const PosNode* node = toActor();
 		const Pos& pos = pos_->pos();
 		vp.add(pos.world_);
 
@@ -65,15 +65,17 @@ namespace se_core {
 			LogWarning("Area not found");
 			return 0;
 		}
-		vp.sub(area->pos().world_);
+		PosComponent::Ptr aPos(*area);
+		vp.sub(aPos->pos().world_);
 		SimComposite* t = area->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
 		// TODO: Invent a better way
-		//if(t) {
-		//	t->setSpawner(toActor());
-		//}
-		if(t) static_cast<Actor*>(t)->setSpawner(toActor());
+		if(t) {
+			SpawnComponent::Ptr tSpawn(*t);
+			Assert(!tSpawn.isNull());
+			tSpawn->setSpawner(owner());
+		}
 
 		return t;
 	}
@@ -96,20 +98,20 @@ namespace se_core {
 	}
 
 
-	Actor* SpawnComponent
+	SimComposite* SpawnComponent
 	::spawner() const {
 		if(spawner_.isNull()) {
 			return 0;
 		}
-		return static_cast<Actor*>(spawner_.object());
+		return static_cast<SimComposite*>(spawner_.object());
 	}
 
 
 	void SpawnComponent
-	::setSpawner(Actor* spawner) {
+	::setSpawner(SimComposite* spawner) {
 		Assert(spawner != 0);
 		spawner_.set(spawner->ptr());
-		spawner->incSpawnCount();
+		SpawnComponent::Ptr(*spawner)->incSpawnCount();
 		Assert(!spawner_.isNull());
 	}
 
@@ -117,10 +119,16 @@ namespace se_core {
 	void SpawnComponent
 	::resetSpawner() {
 		if(!spawner_.isNull()) {
-			Actor* s = static_cast<Actor*>(spawner_.object());
-			s->decSpawnCount();
+			SimComposite* s = static_cast<SimComposite*>(spawner_.object());
+			SpawnComponent::Ptr(*s)->decSpawnCount();
 			spawner_.reset();
 		}
+	}
+
+
+	void SpawnComponent
+	::setDead() {
+		SpawnManager::singleton().scheduleForDestruction(*this->owner());
 	}
 
 }

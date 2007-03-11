@@ -92,6 +92,10 @@ namespace se_core {
 
 		/** Called by SimComposite
 		 */
+		virtual void setDead() {}
+
+		/** Called by SimComposite
+		 */
 		virtual void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
 
 		/** Called by SimComposite

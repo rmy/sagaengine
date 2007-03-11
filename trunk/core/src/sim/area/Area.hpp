@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim_area.hpp"
 #include "../SimObject.hpp"
-#include "../PosNode.hpp"
+#include "../SimComposite.hpp"
 #include "../action/sim_action.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../stat/MultiSimObject.hpp"
@@ -34,14 +34,16 @@ rune@skalden.com
 #include "util/bounds/BoundingBox.hpp"
 #include "util/vecmath/util_vecmath.hpp"
 #include "sim/config/sim_config.hpp"
+#include "../pos/PosComponent.hpp"
 #include "../physics/sim_physics.hpp"
+#include "../spawn/sim_spawn.hpp"
 #include "../react/sim_react.hpp"
 #include "../signal/sim_signal.hpp"
 
 
 namespace se_core {
 
-	class _SeCoreExport Area : public PosNode {
+	class _SeCoreExport Area : public SimComposite {
 	public:
 		enum MultiSimObjectType {
 			MGOA_CUTSCENES,
@@ -99,11 +101,11 @@ namespace se_core {
 
 		coor_world_t pagePosX() const {
 			//TODO: Fixed point overflows possible
-			return pos().localCoor().x_;
+			return posComponent_->pos().localCoor().x_;
 		}
 		coor_world_t pagePosZ() const {
 			//TODO: Fixed point overflows possible
-			return pos().localCoor().z_;
+			return posComponent_->pos().localCoor().z_;
 		}
 
 		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
@@ -113,12 +115,21 @@ namespace se_core {
 			return (x >= 0 && y >= 0 && x < width_ && y < height_);
 		}
 
-		bool isLegalCoor(const Point3& worldCoor) const {
+		bool isLegalLocalCoor(const Point3& localCoor) const {
 			//return pos().bounds_.hasInside(worldCoor);
-			return (worldCoor.x_ >= nextPos().localCoor().x_
-					&& worldCoor.z_ >= nextPos().localCoor().z_
-					&& worldCoor.xTile() < nextPos().localCoor().xTile() + width_
-					&& worldCoor.zTile() < nextPos().localCoor().zTile() + height_);
+			const Point3& c = posComponent_->nextPos().localCoor();
+			return (localCoor.x_ >= c.x_
+					&& localCoor.z_ >= c.z_
+					&& localCoor.xTile() < c.xTile() + width_
+					&& localCoor.zTile() < c.zTile() + height_);
+		}
+
+		bool isLegalWorldCoor(const Point3& worldCoor) const {
+			const Point3& c = posComponent_->nextPos().worldCoor();
+			return (worldCoor.x_ >= c.x_
+					&& worldCoor.z_ >= c.z_
+					&& worldCoor.xTile() < c.xTile() + width_
+					&& worldCoor.zTile() < c.zTile() + height_);
 		}
 
 		virtual short terrainStyle(const Point3& coor, short index = -1) const = 0;
@@ -194,6 +205,8 @@ namespace se_core {
 		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
 		Area* neighbours_[ MAX_NEIGHBOURS ];
 
+		PosComponent* posComponent_;
+		SpawnAreaComponent* spawnAreaComponent_;
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		CollisionAreaComponent* collisionAreaComponent_;

@@ -66,7 +66,7 @@ namespace se_core {
 		 * it. (TODO: Can a Thing be spawned? Will not all spawned things have
 		 * the ability to perform Action?)
 		 */
-		Actor* spawner() const;
+		SimComposite* spawner() const;
 
 		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
@@ -89,8 +89,10 @@ namespace se_core {
 			return spawnPointCount_;
 		}
 
-		void setSpawner(Actor* spawner);
+		void setSpawner(SimComposite* spawner);
 		void resetSpawner();
+
+		virtual void setDead();
 
 	protected:
 		PosComponent* pos_;

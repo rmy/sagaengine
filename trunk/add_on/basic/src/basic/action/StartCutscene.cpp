@@ -42,6 +42,7 @@ namespace se_basic {
 	void StartCutscene
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
 		Actor& performer = *perf.toActor();
+		PosComponent::Ptr pPos(perf);
 		if(performer.target()->type() == got_THING) return;
 		Actor* a = const_cast<Actor*>(performer.target());
 

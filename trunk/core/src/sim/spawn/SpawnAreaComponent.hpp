@@ -23,6 +23,7 @@ rune@skalden.com
 #define SpawnAreaComponent_hpp
 
 #include "sim/sim.hpp"
+#include "sim/pos/sim_pos.hpp"
 #include "sim/AreaComponent.hpp"
 #include "sim/stat/MultiSimComposite.hpp"
 
@@ -38,6 +39,24 @@ namespace se_core {
 		~SpawnAreaComponent();
 		void setActive(bool state);
 		void flipSpawns(void);
+		SimComposite* spawn(const char* thingName, const ViewPoint& vp, PosComponent* parent = 0);
+
+		/** Set the list of spawn points associated with this PosNode.
+		 *
+		 * @param count the number of spawn points
+		 * @param spawnPoints the list of spawn points
+		 */
+		void setSpawnPoints(int count, const ViewPoint* const* spawnPoints);
+
+		/** Get the reference to a spawn point
+		 *
+		 * @param id the id of the sapwn points
+		 */
+		const ViewPoint* spawnPoint(short id) const;
+		int spawnPointCount() const {
+			return spawnPointCount_;
+		}
+
 
 		const char* name() { return "SpawnArea"; }
 
@@ -46,6 +65,12 @@ namespace se_core {
 
 		/** List of waiting to be spawned  */
 		MultiSimComposite newSpawns_;
+
+		/** The number of spawn points */
+		int spawnPointCount_;
+
+		/** List of spawn points associated with this SpawnComponent */
+		const ViewPoint* const* spawnPoints_;
 	};
 }
 

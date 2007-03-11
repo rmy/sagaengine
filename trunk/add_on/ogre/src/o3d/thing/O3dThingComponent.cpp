@@ -52,7 +52,7 @@ namespace se_ogre {
 
 
 		if(!parentNode_) {
-			PosComponent* a = toActor()->nextPos().area();
+			PosComponent* a = PosComponent::Ptr(*this)->nextPos().area();
 			Assert(a);
 			O3dNodeComponent* c = O3dNodeComponent::get(*a);
 			Assert(c);
@@ -136,7 +136,8 @@ namespace se_ogre {
 		if(!isInitialized_)
 			return;
 
-		if(isDead() || !isActive() || !toActor()->pos().isKeyFramePath(toActor()->nextPos())) {
+		PosComponent::Ptr tPos(*this);
+		if(isDead() || !isActive() || !tPos->pos().isKeyFramePath(tPos->nextPos())) {
 			// If not skip it
 			setVisible(false);
 			return;
@@ -144,7 +145,7 @@ namespace se_ogre {
 
 		setVisible(true);
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		toActor()->worldViewPoint(alpha, last_);
+		tPos->worldViewPoint(alpha, last_);
 
 		// Translate from Euler3 if necessary
 		Quat4 face(last_.face_);

@@ -21,5 +21,6 @@ rune@skalden.com
 
 namespace se_core {
 	class SpawnComponent;
+	class SpawnAreaComponent;
 	class SpawnManager;
 }

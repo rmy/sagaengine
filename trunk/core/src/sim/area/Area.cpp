@@ -38,6 +38,7 @@ rune@skalden.com
 #include "../physics/PhysicsAreaComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../signal/SignalAreaComponent.hpp"
+#include "../spawn/SpawnAreaComponent.hpp"
 #include "../spawn/SpawnManager.hpp"
 
 #include <cstdio>
@@ -46,22 +47,24 @@ rune@skalden.com
 namespace se_core {
 	Area
 	::Area(String* name, coor_tile_t w, coor_tile_t h)
-			: PosNode(got_AREA, name->get()), width_(w), height_(h)
+			: SimComposite(got_AREA, name->get()), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
+
+		posComponent_ = new PosComponent(this);
 
 		// Init to default position
 		setParent(SimComponentManager::inactiveRoot());
 
-		nextPos().reset();
+		posComponent_->nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
 		BoundingBox b;
 		// Must be below 0, because things that has gravity is constantly falling
 		// Floor adjustments are often done after wall collision tests
 		b.setMin(0, -ySize, 0);
 		b.setMax(CoorT::fromTile(w), ySize, CoorT::fromTile(h));
-		nextPos().setBounds(b);
-		flip();
+		posComponent_->nextPos().setBounds(b);
+		posComponent_->flip();
 
 		// Stored for destruction purposed.
 		// TODO: fix this mess?
@@ -74,6 +77,7 @@ namespace se_core {
 		// Add self in center
 		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
 
+		spawnAreaComponent_ = new SpawnAreaComponent(this);
 		collisionAreaComponent_ = new CollisionAreaComponent(this);
 		PhysicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(this);
@@ -304,9 +308,10 @@ namespace se_core {
 
 	Area* Area
 	::neighbour(const Point3& worldCoor) {
-		coor_t x = worldCoor.x_ - nextPos().worldCoor().x_;
-		coor_t y = worldCoor.y_ - nextPos().worldCoor().y_;
-		coor_t z = worldCoor.z_ - nextPos().worldCoor().z_;
+		const Point3& wc =  posComponent_->nextPos().worldCoor();
+		coor_t x = worldCoor.x_ - wc.x_;
+		coor_t y = worldCoor.y_ - wc.y_;
+		coor_t z = worldCoor.z_ - wc.z_;
 
 		int relX = 0;
 		if(x < 0) relX = -1;
@@ -324,6 +329,7 @@ namespace se_core {
 
 	void Area
 	::flipSpawns(void) {
+		/*
 		// Flip new spawns into area
 		SimObjectList::iterator_type it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
 		while(it != SimObjectList::end()) {
@@ -339,6 +345,8 @@ namespace se_core {
 		}
 		// New spawn are no longer new spawns once they are flipped
 		multiSimObjects_[ MGOA_SPAWNS ].clear();
+		*/
+		spawnAreaComponent_->flipSpawns();
 	}
 
 
@@ -351,6 +359,8 @@ namespace se_core {
 			return 0;
 		}
 
+		return spawnAreaComponent_->spawn(thingName, vp, parent);
+		/*
 		// Create the thing
 		SimComposite* thing = SimSchema::spawnManager().create(thingName);
 		PosComponent* p = PosComponent::get(*thing);
@@ -374,6 +384,7 @@ namespace se_core {
 
 		// Return the newly created thing
 		return thing;
+		*/
 	}
 
 

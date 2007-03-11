@@ -103,6 +103,10 @@ namespace se_core {
 			return type_;
 		}
 
+		virtual bool isType(enum SimObjectType type) const {
+			return (type == got_SIM_OBJECT);
+		}
+
 		/**
 		 * Register SimObject in SimSchema::sortedSimObjectList().
 		 */

@@ -114,7 +114,8 @@ namespace se_fmod {
 
 
 	void SoundPlayer
-	::soundEvent(Actor& speaker, const char* snd) {
+	::soundEvent(Actor& sp, const char* snd) {
+		PosComponent& speaker = *(PosComponent::Ptr(sp));
 		FMOD_RESULT result;
 		float volume;
 		FMOD::Sound *s = FmodSchema::sounds.get(Sounds::SOUND, snd, volume);

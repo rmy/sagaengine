@@ -39,10 +39,11 @@ namespace se_basic {
 			cc->setCollideable(isCollideable_);
 		}
 
-		a->setPickable(isPickable_);
+		//a->setPickable(isPickable_);
 		a->setDefaultPhysics(physics_);
 		a->nextPos().setBounds(bounds_);
-		a->setSpawnPoints(spawnPointCount_, spawnPoints_);
+		SpawnComponent::Ptr spawn(*a);
+		spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
 		if(defaultAction_ && defaultAction_->hasAction()) {
 			LogMsg(defaultAction_->action()->name());
 			a->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());

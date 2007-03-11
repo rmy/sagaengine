@@ -25,10 +25,10 @@ rune@skalden.com
 #include "sim/area/Area.hpp"
 #include "sim/area/AreaManager.hpp"
 #include "sim/thing/Actor.hpp"
-#include "sim/thing/Thing.hpp"
 #include "util/error/Log.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/ViewPoint.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 
 
 using namespace se_core;
@@ -46,7 +46,8 @@ namespace se_basic {
 		performer.nextMove().resetSpeed();
 		Area* area = SimSchema::areaManager.area(name);
 		Assert(area);
-		const ViewPoint* sp = area->spawnPoint(id);
+		
+		const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(id);
 		performer.nextPos().local_.setViewPoint( *sp );
 		if(!performer.pos().hasArea(*area)) {
 			performer.nextPos().setArea(*PosComponent::get(area));

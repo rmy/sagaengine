@@ -232,4 +232,17 @@ namespace se_core {
 	}
 
 
+	void SimComposite
+	::scheduleForDestruction() {
+		if(isDead_) return;
+
+		// ... then self
+		MultiSimComponent::Iterator it(components_);
+		while(it.hasNext()) {
+			SimComponent& c = it.next();
+			c.setDead();
+		}
+
+		isDead_ = true;
+	}
 }

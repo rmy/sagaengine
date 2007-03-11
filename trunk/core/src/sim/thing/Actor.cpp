@@ -35,6 +35,7 @@ rune@skalden.com
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
+#include "../spawn/SpawnComponent.hpp"
 #include "../message/all.hpp"
 #include "util/error/Log.hpp"
 #include "util/math/Math.hpp"
@@ -47,8 +48,10 @@ rune@skalden.com
 namespace se_core {
 	Actor
 	::Actor(const char* name)
-			: Thing(got_ACTOR, name)
+			: SimComposite(got_ACTOR, name)
 			, showingCutscene_(0) {
+		posComponent_ = new PosComponent(this);
+		spawnComponent_ = new SpawnComponent(this, posComponent_);
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		physicsComponent_ = new PhysicsComponent(this, posComponent_);
@@ -91,12 +94,6 @@ namespace se_core {
 			popScript();
 			showingCutscene_ = 0;
 		}
-	}
-
-
-	SimComposite* Actor
-	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
-		return spawnComponent_->spawn(thingName, spawnPointId, deniedTsMask);
 	}
 
 

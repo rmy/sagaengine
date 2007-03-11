@@ -99,10 +99,7 @@ namespace se_core {
 		 * and Action upon the Thing in the world has a chance to be resolved
 		 * first.
 		 */
-		virtual void scheduleForDestruction() {
-			// Todo: Attach do "dead" root
-			resetParent();
-		}
+		virtual void scheduleForDestruction();
 
 	private:
 		friend class SimComponent;

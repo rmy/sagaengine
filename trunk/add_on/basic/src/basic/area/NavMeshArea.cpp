@@ -21,10 +21,11 @@ namespace se_basic {
 	::isNeighbour(const Area& area) const {
 		if(!Area::isNeighbour(area))
 			return false;
-
-		Point3 p(area.pos().worldCoor());
-		p.sub(pos().worldCoor());
-		BoundingBox toArea(p, area.pos().bounds_);
+		
+		PosComponent::Ptr aPos(area);
+		Point3 p(aPos->pos().worldCoor());
+		p.sub(posComponent_->pos().worldCoor());
+		BoundingBox toArea(p, aPos->pos().bounds_);
 
 		Point3 tmp;
 		short index = navMesh_->findExit(toArea, tmp);
@@ -48,8 +49,8 @@ namespace se_basic {
 		//Assert(nextPosition_.face().isIdentity() 
 		//	   && "Rotation of area not supported");
 
-		Point2 p(worldCoor.x_ - nextPos().world_.coor_.x_
-				 , worldCoor.z_ - nextPos().world_.coor_.z_);
+		Point2 p(worldCoor.x_ - posComponent_->nextPos().world_.coor_.x_
+				 , worldCoor.z_ - posComponent_->nextPos().world_.coor_.z_);
 
 		//LogMsg(p.x_ << ", " << p.y_);
 
@@ -71,7 +72,7 @@ namespace se_basic {
 		if(index < 0)
 			return true;
 		Point3 p(wc);
-		p.sub(nextPos().worldCoor());
+		p.sub(posComponent_->nextPos().worldCoor());
 		return navMesh_->doesTouchVoid(p, index, radius);
 	}
 
@@ -123,11 +124,11 @@ namespace se_basic {
 		toPoint.setForward(maxLen, yaw);
 		toPoint.add(from.worldCoor());
 		short toIndex = index(toPoint, -1);
-		toPoint.sub(nextPos().worldCoor());
+		toPoint.sub(posComponent_->nextPos().worldCoor());
 
 		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
-		toPoint.x_ = p.x_ + nextPos().worldCoor().x_;
-		toPoint.z_ = p.y_ + nextPos().worldCoor().z_;
+		toPoint.x_ = p.x_ + posComponent_->nextPos().worldCoor().x_;
+		toPoint.z_ = p.y_ + posComponent_->nextPos().worldCoor().z_;
 
 		Vector3 dist;
 		dist.sub(from.worldCoor(), toPoint);
@@ -160,12 +161,12 @@ namespace se_basic {
 	::farthestLineOfSight(const Pos& from, const Pos& to, Point3& dest) const {
 		Point3 toPoint(to.worldCoor());
 		short toIndex = index(toPoint, from.index());
-		toPoint.sub(nextPos().worldCoor());
+		toPoint.sub(posComponent_->nextPos().worldCoor());
 
 		Point2 p;
 		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
-		dest.x_ = p.x_ + nextPos().worldCoor().x_;
-		dest.z_ = p.y_ + nextPos().worldCoor().z_;
+		dest.x_ = p.x_ + posComponent_->nextPos().worldCoor().x_;
+		dest.z_ = p.y_ + posComponent_->nextPos().worldCoor().z_;
 	}
 
 
@@ -273,7 +274,7 @@ namespace se_basic {
 	coor_double_t NavMeshArea
 	::findNearest(const se_core::Point3& wc, se_core::Point3& out) const {
 		Point3 p(wc);
-		p.sub(nextPos().worldCoor());
+		p.sub(posComponent_->nextPos().worldCoor());
 		return navMesh_->findNearest(p, out);
 	}
 

@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 #include "ActorFactory.hpp"
-#include "Thing.hpp"
 #include "Actor.hpp"
 #include "../sim.hpp"
 

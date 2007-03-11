@@ -28,7 +28,6 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/thing/Actor.hpp"
 #include "client/thing/PlayerComponent.hpp"
-#include "sim/thing/Thing.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "util/system/util_system.hpp"

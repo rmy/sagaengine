@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/area/AreaManager.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/thing/Actor.hpp"
-#include "sim/thing/Thing.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 #include "util/error/Log.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/vecmath/ViewPoint.hpp"
@@ -48,7 +48,7 @@ namespace se_basic {
 		LogMsg(p->areaName_);
 
 		Area* area = SimSchema::areaManager.area(p->areaName_);
-		const ViewPoint* sp = area->spawnPoint(p->entranceId_);
+		const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(p->entranceId_);
 		performer.nextPos().setArea(*PosComponent::get(*area), *sp);
 
 	}
