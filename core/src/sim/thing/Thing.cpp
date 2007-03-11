@@ -21,13 +21,13 @@ rune@skalden.com
 
 #include "Thing.hpp"
 #include "Actor.hpp"
-#include "ThingManager.hpp"
 #include "../config/all.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SimObjectList.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../area/Area.hpp"
 #include "../area/sim_area.hpp"
+#include "../spawn/SpawnManager.hpp"
 #include "util/error/Log.hpp"
 #include <cstring>
 
@@ -64,7 +64,7 @@ namespace se_core {
 	::scheduleForDestruction() {
 		if(isDead_) return;
 
-		SimSchema::thingManager().scheduleForDestruction(*this);
+		SimSchema::spawnManager().scheduleForDestruction(*this);
 		isDead_ = true;
 	}
 

@@ -5,7 +5,5 @@
 #include "ActorFactory.hpp"
 #include "sim_thing.hpp"
 #include "Thing.hpp"
-#include "ThingFactory.hpp"
-#include "ThingManager.hpp"
 
 #endif

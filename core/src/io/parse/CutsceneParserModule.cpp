@@ -30,7 +30,6 @@ rune@skalden.com
 #include "../../sim/stat/MultiSimObject.hpp"
 #include "../../sim/area/Area.hpp"
 #include "../../sim/area/AreaManager.hpp"
-#include "../../sim/thing/ThingManager.hpp"
 #include "../../util/type/String.hpp"
 #include "../../util/error/Log.hpp"
 #include <cstring>
@@ -196,9 +195,9 @@ namespace se_core {
 				delete name;
 				break;
 			}
-			//Assert(SimSchema::sortedSimObjectList().has(got_CUTSCENE, name->get()));
-			//mgo.add(*SimSchema::sortedSimObjectList().get(got_CUTSCENE, name->get()));
-			SimSchema::thingManager().addCutscene(name->get(), cutscene);
+			//TODO:
+			LogFatal("TODO");
+			//SimSchema::thingManager().addCutscene(name->get(), cutscene);
 			delete name;
 		}
 	}
@@ -213,7 +212,9 @@ namespace se_core {
 				delete name;
 				break;
 			}
-			SimSchema::thingManager().addCutsceneMembership(name->get(), cutscene);
+			//TODO:
+			LogFatal("TODO");
+			//SimSchema::thingManager().addCutsceneMembership(name->get(), cutscene);
 			delete name;
 		}
 	}

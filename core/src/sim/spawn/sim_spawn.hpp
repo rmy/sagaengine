@@ -19,47 +19,7 @@ rune@skalden.com
 */
 
 
-#ifndef ActionComponentManager_hpp
-#define ActionComponentManager_hpp
-
-#include "../sim.hpp"
-#include "../SimComponentManager.hpp"
-
-
 namespace se_core {
-
-	/**
-	 * Base class for functionality component managers.
-	 */
-	class _SeCoreExport ActionComponentManager : public SimComponentManager {
-	public:
-		/**
-		 * Construct ActionComponentManager.
-		 */
-		ActionComponentManager()
-			: SimComponentManager(sct_ACTION) {
-		}
-
-
-		/**
-		 * Destructor.
-		 */
-		virtual ~ActionComponentManager() {
-		}
-
-
-		void step(long when);
-
-		void cleanupGame();
-
-		static ActionComponentManager& singleton();
-
-	private:
-		/**
-		 * The type of ActionComponent.
-		 */
-	};
-
+	class SpawnComponent;
+	class SpawnManager;
 }
-
-#endif

@@ -60,7 +60,7 @@ namespace se_core {
 
 		static const int MAX_ELEMENTS = 1024 * 16;
 		static const int MAX_FACTORIES = 512;
-		friend class PhysicsComponentManager;
+		friend class PhysicsManager;
 		static const int MAX_ACTIVE = 3 * (7 * 7 * 7);
 
 		int areaCount_;

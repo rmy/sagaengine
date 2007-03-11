@@ -119,7 +119,7 @@ namespace se_core {
 		static const short MAX_PHYSICS_STACK_SIZE = 3;
 		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
 		const Physics* affect_;
-		friend class PhysicsSolverComponent;
+		friend class PhysicsAreaComponent;
 		PosComponent* posComponent_;
 
 		Move move_, nextMove_;

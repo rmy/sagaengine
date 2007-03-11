@@ -28,6 +28,7 @@ rune@skalden.com
 #include "../message/sim_message.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
+#include "../spawn/sim_spawn.hpp"
 #include "../area/sim_area.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/system/util_system.hpp"
@@ -82,8 +83,8 @@ namespace se_core {
 		 *
 		 * Responsible for creating and destroying things. You should
 		 * register your ThingFactory objects here.
-		 */		
-		extern _SeCoreExport ThingManager& thingManager();
+		 */
+		extern _SeCoreExport SpawnManager& spawnManager();
 
 		/**
 		 * Manager for init listeners.

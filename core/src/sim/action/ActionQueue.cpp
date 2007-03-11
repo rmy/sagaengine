@@ -22,7 +22,6 @@ rune@skalden.com
 #include "ActionQueue.hpp"
 #include "../schema/SimSchema.hpp"
 #include "ActionComponent.hpp"
-#include "../thing/ThingFactory.hpp"
 
 
 namespace se_core {

@@ -19,24 +19,34 @@ rune@skalden.com
 */
 
 
-#ifndef AcGrabNearest_hpp
-#define AcGrabNearest_hpp
+#ifndef SpawnAreaComponent_hpp
+#define SpawnAreaComponent_hpp
 
 #include "sim/sim.hpp"
-#include "sim/action/sim_action.hpp"
-#include "sim/action/Action.hpp"
+#include "sim/AreaComponent.hpp"
+#include "sim/stat/MultiSimComposite.hpp"
 
-namespace se_editor {
-	class _SeEditorExport AcGrabNearest : public se_core::Action {
+
+namespace se_core {
+	class _SeCoreExport SpawnAreaComponent : public AreaComponent {
 	public:
-		AcGrabNearest() ;
-		virtual ~AcGrabNearest();
-		void perform(long when, se_core::ActionComponent& perf, se_core::Parameter& parameter) const;
+		typedef Ptr<SpawnAreaComponent, sct_SPAWN> Ptr;
+		
+		/** Constructor.
+		 */
+		SpawnAreaComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		~SpawnAreaComponent();
+		void setActive(bool state);
+		void flipSpawns(void);
+
+		const char* name() { return "SpawnArea"; }
 
 	protected:
+		friend class SpawnAreaComponentFactory;
+
+		/** List of waiting to be spawned  */
+		MultiSimComposite newSpawns_;
 	};
-
-
 }
 
 #endif

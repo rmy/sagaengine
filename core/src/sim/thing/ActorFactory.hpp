@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef ActorFactory_hpp
 #define ActorFactory_hpp
 
-#include "ThingFactory.hpp"
 #include "util/type/String.hpp"
 #include "../physics/sim_physics.hpp"
 #include "../react/sim_react.hpp"

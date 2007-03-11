@@ -32,9 +32,11 @@ rune@skalden.com
 
 
 namespace se_core {
+	/*
 	typedef HashTable<class SimComposite, 200> SCOHT;
 	class _SeCoreExport Composites : public SCOHT  {
 	};
+	*/
 
 
 	class _SeCoreExport SimComposite : public SimObject {
@@ -129,7 +131,7 @@ namespace se_core {
 		SimPtr ptr_;
 
 		int tag_;
-		friend class ThingManager;
+		friend class SpawnManager;
 		const SimCompositeFactory* factory_;
 		SimComposite* parent_;
 		MultiSimComposite children_;

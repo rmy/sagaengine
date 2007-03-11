@@ -37,6 +37,8 @@ namespace se_core {
 	class SimCompositeFactory;
 	class SimComposite;
 	
+	class SimCompositeManager;
+
 	class PosNode;
 
 	enum SimObjectType {

@@ -19,30 +19,23 @@ rune@skalden.com
 */
 
 
-#include "AcGrabNearest.hpp"
-#include "sim/schema/SimSchema.hpp"
-#include "util/error/Log.hpp"
-#include "sim/action/ActionAndParameter.hpp"
-#include "sim/action/ActionComponent.hpp"
-#include "sim/pos/PosComponent.hpp"
+#ifndef SpawnComponentFactory_hpp
+#define SpawnComponentFactory_hpp
 
-using namespace se_core;
-
-namespace se_editor {
-	AcGrabNearest
-	::AcGrabNearest() : se_core::Action("GrabNearest") {
-	}
+#include "sim/sim.hpp"
+#include "sim/SimComponentFactory.hpp"
+#include "sim/stat/MultiSimNodeComponent.hpp"
 
 
-	AcGrabNearest
-	::~AcGrabNearest() {
-	}
+namespace se_core {
+	class _SeCoreExport SpawnAreaComponentFactory : public SimComponentFactory {
+	public:
+		SpawnAreaComponentFactory();
+		SimComponent* create(SimComposite* owner) const;
 
-
-	void AcGrabNearest
-	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		PosComponent::Ptr pPos(perf);
-		PosComponent::Ptr aPos(*pPos->pos().area());
-	}
+	protected:
+	};
 
 }
+
+#endif
