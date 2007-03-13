@@ -618,3 +618,57 @@ void SaveNavMesh(KFbxNode* node, float size) {
 
 }
 
+
+
+
+
+void SaveOgre(KFbxNode* node) {
+	KFbxMesh* mesh = (KFbxMesh*) node->GetNodeAttribute ();
+	DisplayString("Save ogre: ", node->GetName());
+
+
+	KString name(node->GetName());
+	name.Append("_navmesh.mesh.xml");
+	const char* filename = name.Buffer();
+	for(int colonCount = 0; *filename != 0 && colonCount < 2; ++filename) {
+		if(*filename == ':') {
+			++colonCount;
+		}
+	}
+	FILE* out = fopen(filename, "w");
+
+	int controlPointCount = mesh->GetControlPointsCount();
+	const int polygonCount = mesh->GetPolygonCount();
+
+	fprintf(out, "<mesh>\n");
+	KFbxVector4* controlPoints = mesh->GetControlPoints();
+	fprintf(out, "\t<sharedgeometry vertexcount=\"%d\">\n", controlPointCount);
+	fprintf(out, "\t\t<vertexbuffer positions=\"true\" normals=\"true\">\n");
+	for(int i = 0; i < controlPointCount; ++i) {
+		KFbxVector4& v = controlPoints[i];
+		fprintf(out, "\t\t\t<vertex>\n");
+		fprintf(out, "\t\t\t\t<position x=\"%f\" y=\"%f\" z=\"%f\" />\n", v[0], v[1], v[2]);
+		fprintf(out, "\t\t\t\t<normal x=\"0\" y=\"1\" z=\"0\" />\n");
+		fprintf(out, "\t\t\t</vertex>\n");
+	}
+	fprintf(out, "\t\t</vertexbuffer>\n");
+	fprintf(out, "\t</sharedgeometry>\n");
+
+	fprintf(out, "\t<submeshes>\n");
+	fprintf(out, "\t\t<submesh material=\"Basic_wireframe\" usesharedvertices=\"true\" use32bitindexes=\"false\" operation_type=\"triangle_list\">\n");
+	fprintf(out, "\t\t\t<faces count=\"%d\">\n", polygonCount);
+	for(int i = 0; i < polygonCount; ++i) {
+		int v[3];
+		for(int j = 0; j < 3; ++j) {
+			v[j] = mesh->GetPolygonVertex(i, j);
+		}
+		fprintf(out, "\t\t\t\t<face v1=\"%d\" v2=\"%d\" v3=\"%d\" />\n", v[0], v[1], v[2]);
+	}
+	fprintf(out, "\t\t\t</faces>\n");
+	fprintf(out, "\t\t</submesh>\n");
+	fprintf(out, "\t</submeshes>\n");
+	fprintf(out, "</mesh>\n");
+
+	fclose(out);
+}
+

@@ -7,5 +7,6 @@
 class FBXFILESDK_NAMESPACE::KFbxNode;
 
 void SaveNavMesh(FBXFILESDK_NAMESPACE::KFbxNode* node, float size);
+void SaveOgre(FBXFILESDK_NAMESPACE::KFbxNode* node);
 
 #endif // #ifndef _DISPLAY_MESH_H

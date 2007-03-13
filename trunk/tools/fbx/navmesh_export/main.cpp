@@ -154,6 +154,7 @@ void SaveContent(KFbxNode* node, float size) {
 		switch (attributeType) {
 			case KFbxNodeAttribute::eMESH:
 				SaveNavMesh(node, size);
+				SaveOgre(node);
 				break;
 	    }
 	}
