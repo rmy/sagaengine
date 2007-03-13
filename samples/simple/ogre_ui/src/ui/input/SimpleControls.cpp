@@ -47,12 +47,6 @@ namespace ui {
 
 	void SimpleControls
 	::keyPressed(Ogre::KeyEvent* e) {
-		if(ClientSchema::player->hasActiveScript()) {
-			if(O3dSchema::speechBubble)
-				O3dSchema::speechBubble->trackUserFeedback();
-			return;
-		}
-
 		switch(e->getKey()) {
 		case Ogre::KC_SPACE:
 			if(O3dSchema::speechBubble)
@@ -90,16 +84,18 @@ namespace ui {
 			break;
 		}
 
+		/*
 		static Parameter p;
 
 		actionForward.param(dirForward(), p);
-		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward, &p);
-		ClientSchema::player->setDefaultMovementAction(actionForward, &p);
+		ClientSchema::playerX->planAction(CHANNEL_MOVEMENT, actionForward, &p);
+		ClientSchema::playerX->setDefaultMovementAction(actionForward, &p);
 
 		actionRotate.param(dirLR(), 0, 0, p);
 		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
 
 		//ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionJump);
+		*/
 	}
 
 
@@ -127,14 +123,15 @@ namespace ui {
 			break;
 		}
 
+		/*
 		static Parameter p;
-
 		actionForward.param(dirForward(), p);
 		ClientSchema::player->planAction(CHANNEL_MOVEMENT, actionForward, &p);
 		//ClientSchema::player->setDefaultMovementAction(actionForward, &p);
 
 		actionRotate.param(dirLR(), 0, 0, p);
 		ClientSchema::player->planAction(CHANNEL_DIRECTION, actionRotate, &p);
+		*/
 	}
 
 

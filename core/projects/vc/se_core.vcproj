@@ -221,10 +221,14 @@
 <File RelativePath="..\..\src\io\encode\EncoderModule.hpp"> </File>
 <File RelativePath="..\..\src\io\encode\all.hpp"> </File>
 <File RelativePath="..\..\src\io\encode\io_encode.hpp"> </File>
-</Filter><Filter Name="parse" Filter="cpp;hpp"><File RelativePath="..\..\src\io\parse\CutsceneParserModule.cpp"> </File>
+</Filter><Filter Name="parse" Filter="cpp;hpp"><File RelativePath="..\..\src\io\parse\ComponentParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\ComponentParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\CutsceneParserModule.cpp"> </File>
 <File RelativePath="..\..\src\io\parse\CutsceneParserModule.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\DictionaryParserModule.cpp"> </File>
 <File RelativePath="..\..\src\io\parse\DictionaryParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\EmbeddedParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\EmbeddedParserModule.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\Parser.cpp"> </File>
 <File RelativePath="..\..\src\io\parse\Parser.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\ParserModule.cpp"> </File>
@@ -300,10 +304,10 @@
 <File RelativePath="..\..\src\sim\action\ActionAndParameter.hpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\action\ActionComponentManager.cpp"> </File>
-<File RelativePath="..\..\src\sim\action\ActionComponentManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionFeed.cpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionFeed.hpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\action\ActionManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionQueue.cpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActionQueue.hpp"> </File>
 <File RelativePath="..\..\src\sim\action\ActorList.cpp"> </File>
@@ -334,6 +338,8 @@
 <File RelativePath="..\..\src\sim\custom\Move.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\custom\StatComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\custom\StatComponentFactory.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\ThingData.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\ThingData.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\all.hpp"> </File>
@@ -346,17 +352,16 @@
 <File RelativePath="..\..\src\sim\message\SoundListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\sim_message.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\physics\CollisionGrid.hpp"> </File>
-<File RelativePath="..\..\src\sim\physics\PhDefault.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\physics\PhDefault.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhDefault.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\Physics.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\Physics.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsAreaComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\physics\PhysicsComponentManager.cpp"> </File>
-<File RelativePath="..\..\src\sim\physics\PhysicsComponentManager.hpp"> </File>
-<File RelativePath="..\..\src\sim\physics\PhysicsSolverComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\physics\PhysicsSolverComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhysicsManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhysicsUtil.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\sim_physics.hpp"> </File>
@@ -399,17 +404,36 @@
 <File RelativePath="..\..\src\sim\script\Script.hpp"> </File>
 <File RelativePath="..\..\src\sim\script\ScriptComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\script\ScriptComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\script\ScriptComponentManager.cpp"> </File>
-<File RelativePath="..\..\src\sim\script\ScriptComponentManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\script\ScriptManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\script\ScriptManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\script\ShowingCutscene.cpp"> </File>
 <File RelativePath="..\..\src\sim\script\ShowingCutscene.hpp"> </File>
 <File RelativePath="..\..\src\sim\script\TimelineScript.cpp"> </File>
 <File RelativePath="..\..\src\sim\script\TimelineScript.hpp"> </File>
 <File RelativePath="..\..\src\sim\script\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\script\sim_script.hpp"> </File>
-</Filter><Filter Name="spawn" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\spawn\SpawnComponent.cpp"> </File>
+</Filter><Filter Name="signal" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\signal\Signal.cpp"> </File>
+<File RelativePath="..\..\src\sim\signal\Signal.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalAreaComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\signal\SignalManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\signal\sim_signal.hpp"> </File>
+</Filter><Filter Name="spawn" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\spawn\SpawnAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnAreaComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\spawn\SpawnComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\SpawnManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\spawn\all.hpp"> </File>
+<File RelativePath="..\..\src\sim\spawn\sim_spawn.hpp"> </File>
 </Filter><Filter Name="stat" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\stat\Dictionary.cpp"> </File>
 <File RelativePath="..\..\src\sim\stat\Dictionary.hpp"> </File>
 <File RelativePath="..\..\src\sim\stat\DictionaryEntry.cpp"> </File>
@@ -448,12 +472,6 @@
 <File RelativePath="..\..\src\sim\thing\Actor.hpp"> </File>
 <File RelativePath="..\..\src\sim\thing\ActorFactory.cpp"> </File>
 <File RelativePath="..\..\src\sim\thing\ActorFactory.hpp"> </File>
-<File RelativePath="..\..\src\sim\thing\Thing.cpp"> </File>
-<File RelativePath="..\..\src\sim\thing\Thing.hpp"> </File>
-<File RelativePath="..\..\src\sim\thing\ThingFactory.cpp"> </File>
-<File RelativePath="..\..\src\sim\thing\ThingFactory.hpp"> </File>
-<File RelativePath="..\..\src\sim\thing\ThingManager.cpp"> </File>
-<File RelativePath="..\..\src\sim\thing\ThingManager.hpp"> </File>
 <File RelativePath="..\..\src\sim\thing\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\thing\sim_thing.hpp"> </File>
 </Filter></Filter><Filter Name="util" Filter="cpp;hpp"><File RelativePath="..\..\src\util\all.hpp"> </File>

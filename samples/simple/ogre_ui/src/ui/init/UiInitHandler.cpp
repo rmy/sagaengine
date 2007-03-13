@@ -41,8 +41,9 @@ namespace ui {
 	}
 
 
-	void UiInitHandler
+	bool UiInitHandler
 	::initEngineEvent() {
+		return true;
 	}
 
 
@@ -50,11 +51,22 @@ namespace ui {
 	::cleanupEngineEvent() {
 	}
 
+	bool UiInitHandler
+	::initLevelEvent() {
+		return true;
+	}
+
 
 	void UiInitHandler
+	::cleanupLevelEvent() {
+	}
+
+
+	bool UiInitHandler
 	::initGameEvent() {
 		// Give focus to the game controller
 		UiSchema::simpleControls.grabFocus();
+		return true;
 	}
 
 

@@ -1,3 +1,4 @@
 OgreGUIRenderer_d
 OgreMain_d
 CEGUIBase_d
+OIS_d

@@ -67,10 +67,8 @@ namespace se_client {
 					in.readString(tempString);
 					LogMsg(tempString.get());
 					SimComposite* a = SimSchema::spawnManager().create(tempString.get());
-					Assert(a);
-					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
-					PhysicsComponent* physics = PhysicsComponent::get(*a);
-					Assert(pos);
+					PosComponent::Ptr pos(*a);
+					PhysicsComponent::Ptr physics(*a);
 					CameraComponent* camera = new CameraComponent(a);
 					ClientSchema::playerX = new PlayerComponent(a);
 					Assert(ClientSchema::playerX != 0);

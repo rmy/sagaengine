@@ -2,6 +2,7 @@
 ../../../../dependencies/include/ogre/opt
 ../../../../dependencies/include/ogre/CEGUI
 ../../../../dependencies/include/ogre/samples
+../../../../dependencies/include/ois
 ../../../../core/include
 ../../../../core/src
 ../../../../add_on/client/include

@@ -84,6 +84,9 @@ namespace se_ogre {
 		info->doScaleByRadius_ = true;
 		infoList->add(info);
 		*/
+		ThingMOInfo* info = new ThingMOInfo();
+		info->movableObjectType_.set("Debug");
+		infoList->add(info);
 
 
 		O3dSchema::thingMOManager.addInfoList(infoList);

@@ -58,12 +58,21 @@ namespace se_ogre {
 		}
 		bool isAreaGeomCentreAligned_;
 
+		bool isShowingDebugInfo() {
+			return isShowingDebugInfo_;
+		}
+
+		void showDebugInfo(bool state) {
+			isShowingDebugInfo_ = state;
+		}
+
 
 	protected: // Helper methods
 		void updateStats(void);
 
 	private:
 		//
+		bool isShowingDebugInfo_;
 		bool shouldStop_;
 		//
 		Ogre::Overlay* debugOverlay_;

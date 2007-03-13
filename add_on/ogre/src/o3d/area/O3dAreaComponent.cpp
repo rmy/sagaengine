@@ -163,6 +163,7 @@ namespace se_ogre {
 		
 		// Area geometry
 		const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
+		//
 		Ogre::String type(areaType);
 		if(O3dSchema::sceneManager->hasEntity(type)) {
 			entity = O3dSchema::sceneManager->getEntity(type);
@@ -171,8 +172,20 @@ namespace se_ogre {
 			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
 			entity->setNormaliseNormals(true);
 		}
-
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
+
+#ifdef SE_INTERNAL
+		type += "_navMesh";
+		if(O3dSchema::sceneManager->hasEntity(type)) {
+			entity = O3dSchema::sceneManager->getEntity(type);
+		}
+		else {
+			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
+			entity->setNormaliseNormals(true);
+		}
+		entity->setMaterialName("Basic/NavMesh");
+		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
+#endif
 
 		// Add static things
 		MultiSimComposite::Iterator it(owner()->children());

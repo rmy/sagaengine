@@ -30,17 +30,17 @@ namespace logic {
 	public:
 		Rotate() : se_core::Action("rotate") {}
 
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const { 
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { 
 			return 1;
 		}
-		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const { 
+		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const { 
 			return false;
 		}
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const {
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
 			return true;
 		}
 
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 		void param(float dirLR, float dirUD, float dirRoll, se_core::Parameter& out) const;
 

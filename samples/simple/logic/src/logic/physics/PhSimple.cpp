@@ -63,7 +63,7 @@ namespace logic {
 		}
 
 		// Ground height at present position
-		coor_t gh = nextPos.area()->groundHeight(nextPos.localCoor());
+		coor_t gh = nextPos.area()->toArea()->groundHeight(nextPos.localCoor());
 		// If below ground, then make grounded
 		if(gh > nextPos.localCoor().y_) {
 			nextPos.setGrounded(true);
@@ -81,8 +81,8 @@ namespace logic {
 		nextPos.localFace().normalize();
 
 		// Friction
-		nextMove.velocity_.scale(0.8);
-		nextMove.angularVelocity_.scale(0.8);
+		nextMove.velocity_.scale(0.8f);
+		nextMove.angularVelocity_.scale(0.8f);
 
 		nextPos.updateWorldViewPoint();
 	}

@@ -19,33 +19,28 @@ rune@skalden.com
 */
 
 
-#include "LogicPre.hpp"
-#include "Forward.hpp"
+#include "ThingDebugFactory.hpp"
+#include "ThingMO.hpp"
+#include "ThingDebug.hpp"
 
 using namespace se_core;
 
+namespace se_ogre {
 
-namespace logic {
-
-	void Forward
-	::perform(long when, ActionComponent& performer, Parameter& parameter) const {
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		PhysicsComponent::Ptr pPhysics(performer);
-		PosComponent::Ptr pPos(performer);
-
-		Vector3 force(0, 0, 0.05f * p->speed_);
-		force.rotate(pPos->pos().localFace());
-		pPhysics->nextMove().addForce(force);
+	ThingDebugFactory
+	::ThingDebugFactory() 
+		: ThingMOFactory("Debug") { // Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str()) {
 	}
 
 
-	void Forward
-	::param(float speed, Parameter& out) const {
-		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
-		p->speed_ = speed;
+	ThingDebugFactory
+	::~ThingDebugFactory() {
 	}
 
+	
+	ThingMO* ThingDebugFactory
+	::create(se_core::PosComponent& thing, const ThingMOInfo& info) const {
+		return new ThingDebug(thing, info, *this);
+	}
 
-
-	const Forward actionForward;
 }

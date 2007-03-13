@@ -29,9 +29,11 @@ namespace ui {
 	public:
 		UiInitHandler();
 		~UiInitHandler();
-		void initEngineEvent();
+		bool initEngineEvent();
 		void cleanupEngineEvent();
-		void initGameEvent();
+		bool initLevelEvent();
+		void cleanupLevelEvent();
+		bool initGameEvent();
 		void cleanupGameEvent();
 	};
 

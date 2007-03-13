@@ -42,7 +42,7 @@ namespace se_ogre {
 	O3dManager
 	::O3dManager() 
 		: SimComponentManager(sct_RENDER), shouldStop_(false), debugOverlay_(0)
-		, lastRenderClock_(0) {
+		, lastRenderClock_(0), isShowingDebugInfo_(false) {
 		showDebugOverlay(false);
 	}
 
@@ -184,6 +184,10 @@ namespace se_ogre {
 				debugOverlay_->hide();
 			}
 		}
+		showDebugInfo(show);
+		Ogre::MaterialPtr m = Ogre::MaterialManager::getSingleton().getByName("Basic/NavMesh");
+		Ogre::CompareFunction cmp = show ? Ogre::CMPF_LESS_EQUAL : Ogre::CMPF_ALWAYS_FAIL;
+		m->setDepthFunction(cmp);
 	}
 
 

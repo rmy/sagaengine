@@ -221,6 +221,8 @@
 <File RelativePath="..\..\src\client\event\client_event.hpp"> </File>
 </Filter><Filter Name="io" Filter="cpp;hpp"><File RelativePath="..\..\src\client\io\LanguageParserModule.cpp"> </File>
 <File RelativePath="..\..\src\client\io\LanguageParserModule.hpp"> </File>
+<File RelativePath="..\..\src\client\io\PlayerEncoderModule.cpp"> </File>
+<File RelativePath="..\..\src\client\io\PlayerEncoderModule.hpp"> </File>
 <File RelativePath="..\..\src\client\io\PlayerParserModule.cpp"> </File>
 <File RelativePath="..\..\src\client\io\PlayerParserModule.hpp"> </File>
 <File RelativePath="..\..\src\client\io\all.hpp"> </File>

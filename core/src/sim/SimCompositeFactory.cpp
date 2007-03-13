@@ -30,7 +30,10 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_core {
-	SimCompositeFactory::Generic SimCompositeFactory::generic_;
+	SimCompositeFactory::Generic& SimCompositeFactory::gen() {
+		static SimCompositeFactory::Generic g;
+		return g;
+	}
 
 	SimCompositeFactory
 	::SimCompositeFactory(short type, SubType subtype, String* name)
@@ -83,7 +86,7 @@ namespace se_core {
 
 	void SimCompositeFactory
 	::createGenericComponents(SimComposite* owner) const {
-		generic_.createComponents(subtype_, owner);
+		gen().createComponents(subtype_, owner);
 	}
 
 }

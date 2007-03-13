@@ -42,13 +42,16 @@ namespace logic {
 		}
 
 
-		void initEngineEvent() {
+		bool initEngineEvent() {
 			// Create and register physics objects
 			static const PhSimple phSimple;
+			return true;
 		}
 
 		void cleanupEngineEvent() {}
-		void initGameEvent() {}
+		bool initLevelEvent() { return true; }
+		void cleanupLevelEvent() {}
+		bool initGameEvent() { return true; }
 		void cleanupGameEvent() {}
 	} autoInit;
 

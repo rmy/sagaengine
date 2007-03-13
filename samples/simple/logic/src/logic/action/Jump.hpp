@@ -29,13 +29,13 @@ namespace logic {
 	public:
 		Jump() : se_core::Action("jump") {}
 
-		short duration(se_core::Actor& performer, se_core::Parameter& parameter) const;
-		bool isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const;
-		bool isRepeating(long when, se_core::Actor &performer, se_core::Parameter& parameter) const {
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
+		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const;
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
 			return false;
 		}
 
-		void perform(long when, se_core::Actor& performer, se_core::Parameter& parameter) const;
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
 	};
 

@@ -45,6 +45,8 @@ namespace ui {
 		// Load bindings between (ogre) 3d models and (core) things
 		IoSchema::fileManager->loadDirectory("ogre/thing/");
 
+		IoSchema::fileManager->loadDirectory("ogre/config/");
+
 		return true;
 	}
 

@@ -28,24 +28,27 @@ using namespace se_core;
 namespace logic {
 
 	short Jump
-	::duration(se_core::Actor& performer, se_core::Parameter& parameter) const {
+	::duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
 		return 1;
 	}
 
 
 	bool Jump
-	::isContinuing(se_core::Actor &performer, se_core::Parameter& parameter) const {
+	::isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
 		return false;
 	}
 
 
 	void Jump
-	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
+		PhysicsComponent::Ptr pPhysics(performer);
+		PosComponent::Ptr pPos(performer);
+
 		// Can only jump if not in free air.
-		if(!performer.pos().isGrounded()) {
+		if(!pPos->pos().isGrounded()) {
 			// Set upwards speed
-			performer.nextMove().force_.y_ += COOR_RES;
-			performer.nextPos().setGrounded(false);
+			pPhysics->nextMove().force_.y_ += COOR_RES;
+			pPos->nextPos().setGrounded(false);
 		}
 	}
 
