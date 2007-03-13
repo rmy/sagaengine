@@ -29,31 +29,35 @@ namespace se_ogre {
 
 	ThingParticle
 	::ThingParticle(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
-		: ThingMO(thing, info, factory) {
+		: ThingMO(thing, info, factory), movableObject_(0), init_(2) {
 
 		// Create a unique entity name
-		char name[128];
-		sprintf(name, "%d-%s", thing_.owner()->id(), thing_.owner()->name());
-
-		// Set the mesh
-		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
-		movableObject_->setCastShadows(false);
-		node_->attachObject(movableObject_);
-		particle_ = static_cast<Ogre::ParticleSystem*>(movableObject_);
+		hasAnimation_ = true;
 	}
 
 
 	ThingParticle
 	::~ThingParticle() {
-		O3dSchema::sceneManager->destroyMovableObject(movableObject_);
-		movableObject_ = 0;
+		if(movableObject_) {
+			O3dSchema::sceneManager->destroyMovableObject(movableObject_);
+			movableObject_ = 0;
+		}
 	}
 
 
 	void ThingParticle
 	::animate(long when, float stepDelta, float timeSinceLastFrame) {
-		float p = thing_.pos().anim(0).pos();
-		float w = thing_.pos().anim(0).weight();
+		// Set the mesh
+		--init_;
+		if(init_ <= 0) {
+			hasAnimation_ = false;
+			char name[128];
+			sprintf(name, "%d-%s", thing_.owner()->id(), thing_.owner()->name());
+			movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
+			movableObject_->setCastShadows(false);
+			node_->attachObject(movableObject_);
+			particle_ = static_cast<Ogre::ParticleSystem*>(movableObject_);
+		}
 	}
 
 

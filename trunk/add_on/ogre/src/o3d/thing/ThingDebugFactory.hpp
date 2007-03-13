@@ -19,33 +19,24 @@ rune@skalden.com
 */
 
 
-#include "LogicPre.hpp"
-#include "Forward.hpp"
+#ifndef o3d_thing_ThingDebugFactory_hpp
+#define o3d_thing_ThingDebugFactory_hpp
 
-using namespace se_core;
+#include "O3dPre.hpp"
+#include "o3d_thing.hpp"
+#include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
+#include "ThingMOFactory.hpp"
 
+namespace se_ogre {
+	class _SeOgreExport ThingDebugFactory : public ThingMOFactory {
+	public:
+		ThingDebugFactory();
+		~ThingDebugFactory();
 
-namespace logic {
+		ThingMO* create(se_core::PosComponent& thing, const ThingMOInfo& info) const;
+	};
 
-	void Forward
-	::perform(long when, ActionComponent& performer, Parameter& parameter) const {
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		PhysicsComponent::Ptr pPhysics(performer);
-		PosComponent::Ptr pPos(performer);
-
-		Vector3 force(0, 0, 0.05f * p->speed_);
-		force.rotate(pPos->pos().localFace());
-		pPhysics->nextMove().addForce(force);
-	}
-
-
-	void Forward
-	::param(float speed, Parameter& out) const {
-		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
-		p->speed_ = speed;
-	}
-
-
-
-	const Forward actionForward;
 }
+
+#endif

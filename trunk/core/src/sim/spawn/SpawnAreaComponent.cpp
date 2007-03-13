@@ -26,6 +26,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimComposite.hpp"
 #include "util/error/Log.hpp"
+#include "../area/Area.hpp"
 
 
 
@@ -101,7 +102,7 @@ namespace se_core {
 
 		// Initial index, if area type is using it
 		sPos->nextPos().updateWorldViewPoint();
-		//sPos->nextPos().setIndex( index(sPos->nextPos().worldCoor()) );
+		sPos->nextPos().setIndex( toArea()->index(sPos->nextPos().worldCoor()) );
 
 		// Add the thing to the list of new spawns
 		newSpawns_.add(*thing);

@@ -41,6 +41,7 @@ namespace se_ogre {
 	private:
 		Ogre::MovableObject* movableObject_;
 		Ogre::ParticleSystem* particle_;
+		int init_;
 	};
 
 }

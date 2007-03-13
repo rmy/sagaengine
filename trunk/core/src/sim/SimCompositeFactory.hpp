@@ -44,7 +44,7 @@ namespace se_core {
 		void addComponent(SimComponentFactory* f);
 
 		static void addGenericComponent(SubType type, const SimComponentFactory* f) {
-			generic_.addComponent(type, f);
+			gen().addComponent(type, f);
 		}
 
 		void setTag(int t) { tag_ = t; }
@@ -63,7 +63,7 @@ namespace se_core {
 		int componentCount_;
 		SimComponentFactory* components_[ MAX_COMPONENTS ];
 
-		static class Generic {
+		class Generic {
 		public:
 			Generic() {
 				for(int i = 0; i < MAX_COMPONENT_TYPES; ++i) {
@@ -85,7 +85,9 @@ namespace se_core {
 			static const int MAX_COMPONENTS = 16;
 			int componentCount_[MAX_COMPONENT_TYPES];
 			const SimComponentFactory* components_[MAX_COMPONENT_TYPES][MAX_COMPONENTS];
-		} generic_;
+		};
+
+		static Generic& gen();
 
 	};
 

@@ -55,7 +55,7 @@ namespace se_pc {
 		}
 		static char buffer[256];
 		fgets(buffer, 256, in);
-		int len = strlen(buffer);
+		size_t len = strlen(buffer);
 		while(len > 0 && isspace( buffer[ len - 1 ] )) {
 			--len;
 			buffer[ len ] = 0;

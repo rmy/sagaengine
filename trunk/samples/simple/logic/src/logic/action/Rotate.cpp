@@ -28,9 +28,11 @@ using namespace se_core;
 namespace logic {
 
 	void Rotate
-	::perform(long when, Actor& performer, se_core::Parameter& parameter) const {
+	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		performer.nextMove().torque_.set(p->torque_);
+		PhysicsComponent::Ptr pPhysics(performer);
+		PosComponent::Ptr pPos(performer);
+		pPhysics->nextMove().torque_.set(p->torque_);
 		/*
 		Force f(0, 0, -0.15);
 		f.rotate(performer.pos().localFace());
