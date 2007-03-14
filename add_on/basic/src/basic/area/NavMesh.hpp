@@ -28,6 +28,13 @@ namespace se_basic {
 	};
 
 
+	struct Wall {
+		int id_;
+		int left_;
+		int right_;
+	};
+
+
 	class _SeBasicExport Path {
 	public:
 		/**
@@ -170,6 +177,7 @@ namespace se_basic {
 			controlPoints_ = new se_core::Point3[ controlPointCount_ ];
 			triangles_ = new Triangle[ triangleCount_ ];
 			paths_ = new Path(triangleCount_);
+			walls_ = new Wall[ controlPointCount_ ];
 		}
 
 
@@ -181,6 +189,7 @@ namespace se_basic {
 				short *sh;
 				se_core::Point3* cp;
 				Triangle* tri;
+				Wall* wall;
 			} offset;
 
 			offset.v = data;
@@ -196,6 +205,9 @@ namespace se_basic {
 
 			paths_ = new Path(triangleCount_, offset.ch);
 			offset.ch += paths_->dataSize();
+
+			walls_ = offset.wall;
+			offset.wall += controlPointCount_;
 
 			/*
 			for(int i = 0; i < triangleCount_; ++i) {
@@ -388,6 +400,7 @@ namespace se_basic {
 		se_core::Point3* controlPoints_;
 		Triangle* triangles_;
 		Path* paths_;
+		Wall* walls_;
 	};
 
 }
