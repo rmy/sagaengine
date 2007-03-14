@@ -29,9 +29,8 @@ namespace se_basic {
 
 
 	struct Wall {
-		int id_;
-		int left_;
-		int right_;
+		short left_;
+		short right_;
 	};
 
 
@@ -175,9 +174,9 @@ namespace se_basic {
 				:  controlPointCount_(controlPointCount)
 				 , triangleCount_(triangleCount) {
 			controlPoints_ = new se_core::Point3[ controlPointCount_ ];
+			walls_ = new Wall[ controlPointCount_ ];
 			triangles_ = new Triangle[ triangleCount_ ];
 			paths_ = new Path(triangleCount_);
-			walls_ = new Wall[ controlPointCount_ ];
 		}
 
 
@@ -200,14 +199,15 @@ namespace se_basic {
 			controlPoints_ = offset.cp;
 			offset.cp += controlPointCount_;
 
+			walls_ = offset.wall;
+			offset.wall += controlPointCount_;
+
 			triangles_ = offset.tri;
 			offset.tri += triangleCount_;
 
 			paths_ = new Path(triangleCount_, offset.ch);
 			offset.ch += paths_->dataSize();
 
-			walls_ = offset.wall;
-			offset.wall += controlPointCount_;
 
 			/*
 			for(int i = 0; i < triangleCount_; ++i) {

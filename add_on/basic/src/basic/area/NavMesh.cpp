@@ -110,8 +110,7 @@ namespace se_basic {
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
-					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ]
-										  , from, to)) {
+					if(willLineAIntersectBXZ(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ])) {
 						next = link;
 					}
 				}
@@ -279,10 +278,10 @@ namespace se_basic {
 			{ 2, 0 },
 			{ 0, 1 }
 		};
-		bray_t currentYaw = from.yawTowards(to);
-		bray_t wallYaw, thirdYaw;
 		Point2 tmp;
 
+
+		bray_t currentYaw = from.yawTowards(to);
 		short via = fromIndex;
 		Assert(via != -1);
 		short prev = -2;
@@ -294,47 +293,55 @@ namespace se_basic {
 			};
 			short next = -2;
 			short count = 0;
-			thirdYaw = 0;
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {
-					if(link < 0) {
-						if(tmp.willAIntersectB(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ]), 0.25f) {
-							//LogWarning("Yaw: " << BrayT::toBray(b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ])));
-							bray_t y = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
-							thirdYaw += b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
-							++count;
-						}
-					}
 					if(tmp.willAIntersectB(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ])) {
 						if(link < 0 && next != -1) {
-							// NOTE: Found edge - exiting!!!
-							wallYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
-							/*
+							int wall = triangles_[ via ].controlPoints_[ corners[ i ][ 0 ] ];
+							scale_t alpha = tmp.lineIntersect(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to);
+							bray_t wallYaw;
+							if(alpha < .25f) {
+								Point3& middle = controlPoints_[ wall ];
+								Point3& leftP = controlPoints_[ walls_[ wall ].left_ ];
+								Point3& right = controlPoints_[ walls_[ wall ].right_ ];
+								if(left(leftP, right, middle) > 0) {
+									wallYaw = leftP.yawTowards(right);
+								}
+								else {
+									wallYaw = middle.yawTowards(right);
+								}
+							}
+							else if(alpha > .75f) {
+								wall = walls_[ wall ].right_;
+								Point3& middle = controlPoints_[ wall ];
+								Point3& leftP = controlPoints_[ walls_[ wall ].left_ ];
+								Point3& right = controlPoints_[ walls_[ wall ].right_ ];
+								wallYaw = leftP.yawTowards(right);
+								if(left(leftP, right, middle) > 0) {
+									wallYaw = leftP.yawTowards(right);
+								}
+								else {
+									wallYaw = leftP.yawTowards(middle);
+								}
+							}
+							else {
+								Assert(alpha > 0);
+								Point3& left = controlPoints_[ wall ];
+								Point3& right = controlPoints_[ walls_[ wall ].right_ ];
+								wallYaw = left.yawTowards(right);
+							}
+
 							if(BrayT::abs(BrayT::sub(currentYaw, wallYaw)) > BrayT::DEG90) {
 								wallYaw = BrayT::invert(wallYaw);
 							}
 							return wallYaw;
-							*/
 						}
 						next = link;
 					}
 				}
 			}
 
-			if(next < 0) {
-				if(count > 1) {
-					thirdYaw = BrayT::mask(thirdYaw / 2);; 
-					LogWarning("Third yaw: " << BrayT::toBray(wallYaw) << ", " << BrayT::toBray(thirdYaw));
-					wallYaw = thirdYaw;
-				}
-				if(BrayT::abs(BrayT::sub(currentYaw, wallYaw)) > BrayT::DEG90) {
-					wallYaw = BrayT::invert(wallYaw);
-				}
-				return wallYaw;
-			}
-
-			thirdYaw = wallYaw;
 			prev = via;
 			via = next;
 		}
