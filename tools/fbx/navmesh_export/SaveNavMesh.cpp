@@ -3,6 +3,7 @@
 #include "DisplayCommon.hpp"
 #include "SaveNavMesh.hpp"
 #include <stdio.h>
+#include <math.h>
 
 #include <fbxfilesdk_nsuse.h>
 
@@ -28,6 +29,13 @@ struct Point2 {
 
 
 struct Point3 {
+	Point3()
+		: x_(0), y_(0), z_(0) {
+	}
+	Point3(coor_t x, coor_t y, coor_t z)
+		: x_(x), y_(y), z_(z) {
+	}
+
 	coor_t x_, y_, z_;
 
 	void reset() {
@@ -51,6 +59,16 @@ struct Triangle {
 };
 
 
+struct Wall {
+	short left_;
+	short right_;
+};
+
+struct Exit {
+	short triangle_;
+	short side_;
+};
+
 class Path {
 public:
 	/**
@@ -59,7 +77,7 @@ public:
 	 * @param paths path lookup table data. Empty array created if null.
 	 */
 	Path(int triangleCount, unsigned char* paths = 0)
-			: triangleCount_(triangleCount) , paths_(paths) {
+		: triangleCount_(triangleCount), paths_(paths) {
 		if(!paths_) {
 			// 4 values per char so size * size / 4
 			paths_ = new unsigned char[ dataSize() ];
@@ -135,15 +153,65 @@ private:
 	unsigned char* paths_;
 };
 
+void snapPoint(Point3& p, float size, float snap) {
+	if(snap == 0)
+		return;
+
+	float x = p.x_;
+	float z = p.z_;
+	if(x <= 0.1 || x >= (size - 0.1)) {
+		p.z_ = floor(z / snap + .5) * snap;
+		if(snap < 0) {
+			if(z < size / 2) p.z_ = size / 2 + snap;
+			if(z > size / 2) p.z_ = size / 2 - snap;
+		}
+		DisplayDouble("Moved z: ", p.z_);
+	}
+	if(z <= 0.1 || z >= (size - 0.1)) {
+		p.x_ = floor(x / snap + .5) * snap;
+		if(snap < 0) {
+			if(x < 32) p.x_ = 32 + snap;
+			if(x > 32) p.x_ = 32 - snap;
+		}
+		DisplayDouble("Moved x: ", p.x_);
+	}
+	if(x <= .1) {
+		p.x_ = 0;
+	}
+	if(x >= size - .1) {
+		p.x_ = size;
+	}
+	if(z <= .1) {
+		p.z_ = 0;
+	}
+	if(z >= size - .1) {
+		p.z_ = size;
+	}
+}
+
 
 struct NavMesh {
+protected:
+	short controlPointCount_;
+	short triangleCount_;
+	short exitCount_;
+
+	Point3* controlPoints_;
+	Wall* walls_;
+	Exit* exits_;
+	Triangle* triangles_;
+	Path* paths_;
+
 public:
 	NavMesh(short controlPointCount, short triangleCount)
 			:  controlPointCount_(controlPointCount)
-			 , triangleCount_(triangleCount) {
+			 , triangleCount_(triangleCount)
+			 , exitCount_(0) {
 		controlPoints_ = new Point3[ controlPointCount_ ];
 		triangles_ = new Triangle[ triangleCount_ ];
 		paths_ = new Path(triangleCount_);
+		exits_ = new Exit[ triangleCount_ * 3 ];
+		walls_ = new Wall[ controlPointCount_ ];
 	}
 
 
@@ -154,18 +222,27 @@ public:
 			short *sh;
 			Point3* cp;
 			Triangle* tri;
+			Wall* wall;
+			Exit* exit;
 		} offset;
 
 		offset.v = data;
 
 		controlPointCount_ = *(offset.sh++);
 		triangleCount_ = *(offset.sh++);
+		exitCount_ = *(offset.sh++);
 
 		controlPoints_ = offset.cp;
 		offset.cp += controlPointCount_;
 
 		triangles_ = offset.tri;
 		offset.tri += triangleCount_;
+
+		walls_ = offset.wall;
+		offset.wall += controlPointCount_;
+
+		exits_ = offset.exit;
+		offset.exit += exitCount_;
 
 		paths_ = new Path(triangleCount_, offset.ch);
 		offset.ch += paths_->dataSize();
@@ -278,15 +355,6 @@ public:
 
 	}
 
-
-
-protected:
-	short controlPointCount_;
-	short triangleCount_;
-
-	Point3* controlPoints_;
-	Triangle* triangles_;
-	Path* paths_;
 };
 
 //------------ Include in your own app - END ------------------
@@ -336,6 +404,82 @@ public:
 
 	void setType(short triangle, short type) {
 		triangles_[ triangle ].type_ = type;
+	}
+
+
+	void calcWalls() {
+		for(int i = 0; i < controlPointCount_; ++i) {
+			walls_[i].left_ = -1;
+			walls_[i].right_ = -1;
+		}
+
+		for(int i = 0; i < triangleCount_; ++i) {
+			Triangle& tri = triangles_[i];
+			for(int j = 0; j < 3; ++j) {
+				if(tri.linkTo_[j] < 0) {
+					int c1 = tri.controlPoints_[ (j + 1) % 3 ];
+					DisplayInt("C1: " , c1);
+					int c2 = tri.controlPoints_[ (j + 2) % 3 ];
+					DisplayInt("C2: " , c2);
+					walls_[ c1 ].right_ = c2;
+					walls_[ c2 ].left_ = c1;
+				}
+			}
+		}
+
+		DisplayInt("Control points: ", controlPointCount_);
+		for(int i = 0; i < controlPointCount_; ++i) {
+			Wall& w = walls_[i];
+			DisplayInt(" Wall from: ", i);
+			DisplayInt("      left: ", w.left_);
+			DisplayInt("      right:", w.right_);
+			if((w.left_ < 0 && w.right_ >= 0)
+			   || (w.left_ >= 0 && w.right_ < 0)) {
+				DisplayString("Error");
+			}
+		}
+	}
+
+
+	void snapOutside(float size, float snap) {
+		DisplayDouble("Size : ", size);
+		DisplayDouble("Snap : ", snap);
+		for(int i = 0; i < controlPointCount_; ++i) {
+			snapPoint(controlPoints_[i], size, snap);
+		}
+	}
+
+	void setExitCodes(float size) {
+		for(int i = 0; i < triangleCount_; ++i) {
+			Triangle& tri = triangles_[i];
+			for(int j = 0; j < 3; ++j) {
+				int c1 = tri.controlPoints_[ (j + 1) % 3 ];
+				int c2 = tri.controlPoints_[ (j + 2) % 3 ];
+
+				Point3& p1 = controlPoints_[ c1 ];
+				Point3& p2 = controlPoints_[ c2 ];
+
+				enum { NORTH = 1, EAST = 1, WEST = 1, SOUTH = 1 };
+				if(p1.z_ <= 0 && p2.z_ <= 0) {
+					tri.linkType_[ j ] = NORTH;
+				}
+				if(p1.x_ >= size && p2.x_ >= size) {
+					tri.linkType_[ j ] = EAST;
+				}
+				if(p1.z_ >= size && p2.z_ >= size ) {
+					tri.linkType_[ j ] = SOUTH;
+				}
+				if(p1.x_ <= 0 && p2.x_ <= 0) {
+					tri.linkType_[ j ] = WEST;
+				}
+
+				if(tri.linkType_[ j ] == 1) {
+					exits_[ exitCount_ ].triangle_ = i;
+					exits_[ exitCount_ ].side_ = j;
+					++exitCount_;
+				}
+			}
+		}
 	}
 
 
@@ -401,18 +545,26 @@ public:
 			SaveShort(static_cast<short>(size), out);
 		}
 
-		short dataSize = 2 + 2
+		short dataSize = 2 + 2 + 2
 			+ sizeof(Point3) * controlPointCount_
+			+ sizeof(Wall) * controlPointCount_
 			+ sizeof(Triangle) * triangleCount_
+			+ sizeof(Exit) * exitCount_
 			+ paths_->dataSize();
 
 		SaveShort(dataSize, out);
 
 		SaveShort(controlPointCount_, out);
 		SaveShort(triangleCount_, out);
+		SaveShort(exitCount_, out);
 
 		SaveVoid(controlPoints_
 				, sizeof(Point3) * controlPointCount_
+				, out
+				);
+
+		SaveVoid(walls_
+				, sizeof(Wall) * controlPointCount_
 				, out
 				);
 
@@ -421,10 +573,16 @@ public:
 				, out
 				);
 
+		SaveVoid(exits_
+				, sizeof(Exit) * exitCount_
+				, out
+				);
+
 		SaveVoid(paths_->data()
 				, paths_->dataSize()
 				, out
 				);
+
 
 
 		//SaveVector(controlPoints[i], out);
@@ -446,7 +604,7 @@ bool hasControlPoint(KFbxMesh* mesh, int tri, int cp) {
 }
 
 
-void SaveNavMesh(KFbxNode* node, float size) {
+void SaveNavMesh(KFbxNode* node, float size, float snap) {
 	KFbxMesh* mesh = (KFbxMesh*) node->GetNodeAttribute ();
 
 	DisplayString("Mesh Name: ", node->GetName());
@@ -613,6 +771,10 @@ void SaveNavMesh(KFbxNode* node, float size) {
 		}
 	}
 
+	navMesh.calcWalls();
+	navMesh.snapOutside(size, snap);
+	navMesh.setExitCodes(size);
+
 	// Save compressed path
 	navMesh.save(node->GetName(), size);
 
@@ -622,7 +784,7 @@ void SaveNavMesh(KFbxNode* node, float size) {
 
 
 
-void SaveOgre(KFbxNode* node) {
+void SaveOgre(KFbxNode* node, float size, float snap) {
 	KFbxMesh* mesh = (KFbxMesh*) node->GetNodeAttribute ();
 	DisplayString("Save ogre: ", node->GetName());
 
@@ -646,8 +808,15 @@ void SaveOgre(KFbxNode* node) {
 	fprintf(out, "\t\t<vertexbuffer positions=\"true\" normals=\"true\">\n");
 	for(int i = 0; i < controlPointCount; ++i) {
 		KFbxVector4& v = controlPoints[i];
+		Point3 p(v[0], v[1], v[2]);
+		Point3 a(size / 2, 0, size / 2), s(-size / 2, 0, -size / 2);
+		p.add(a);
+		snapPoint(p, size, snap);
+		p.add(s);
+		
+		
 		fprintf(out, "\t\t\t<vertex>\n");
-		fprintf(out, "\t\t\t\t<position x=\"%f\" y=\"%f\" z=\"%f\" />\n", v[0], v[1], v[2]);
+		fprintf(out, "\t\t\t\t<position x=\"%f\" y=\"%f\" z=\"%f\" />\n", p.x_, p.y_, p.z_);
 		fprintf(out, "\t\t\t\t<normal x=\"0\" y=\"1\" z=\"0\" />\n");
 		fprintf(out, "\t\t\t</vertex>\n");
 	}
