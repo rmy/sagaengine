@@ -3,8 +3,8 @@
 #include "DisplayMesh.hpp"
 #include "SaveNavMesh.hpp"
 
-void SaveContent(KFbxScene* scene, float size);
-void SaveContent(KFbxNode* node, float size);
+void SaveContent(KFbxScene* scene, float size, float snap);
+void SaveContent(KFbxNode* node, float size, float snap);
 void DisplayContent(KFbxScene* scene);
 void DisplayContent(KFbxNode* node);
 void TriangulateContent(KFbxScene* scene, KFbxGeometryConverter* converter);
@@ -18,14 +18,14 @@ int main(int argc, char** argv) {
 
 	// Load the scene.
 	// Take a FBX file as an argument.
-	if(argc <= 2) {
-		printf("\n\nUsage: ImportScene <size> <FBX file name>\n\n");
+	if(argc <= 3) {
+		printf("\n\nUsage: ImportScene <size> <snap> <FBX file name>\n\n");
 	}
 
 	// Prepare the FBX SDK.
 	InitializeSdkObjects(sdkManager, scene);
 
-	for(int i = 2; i < argc; ++i) {
+	for(int i = 3; i < argc; ++i) {
 		printf("\n\nFile: %s", argv[i]);
 		result = LoadScene(sdkManager, scene, argv[i]);
 
@@ -42,7 +42,8 @@ int main(int argc, char** argv) {
 
 		// Save
 		float size = atoi(argv[1]);
-		SaveContent(scene, size);
+		float snap = atof(argv[2]);
+		SaveContent(scene, size, snap);
 	}
 
 	DestroySdkObjects(sdkManager);
@@ -127,19 +128,19 @@ void DisplayContent(KFbxNode* node) {
 }
 
 
-void SaveContent(KFbxScene* scene, float size) {
+void SaveContent(KFbxScene* scene, float size, float snap) {
 	int i;
 	KFbxNode* node = scene->GetRootNode();
 
 	if(node) {
 		for(i = 0; i < node->GetChildCount(); i++) {
-			SaveContent(node->GetChild(i), size);
+			SaveContent(node->GetChild(i), size, snap);
 		}
 	}
 }
 
 
-void SaveContent(KFbxNode* node, float size) {
+void SaveContent(KFbxNode* node, float size, float snap) {
 	KFbxNodeAttribute::EAttributeType attributeType;
 	int i;
 
@@ -153,8 +154,8 @@ void SaveContent(KFbxNode* node, float size) {
 		attributeType = (node->GetNodeAttribute()->GetAttributeType());
 		switch (attributeType) {
 			case KFbxNodeAttribute::eMESH:
-				SaveNavMesh(node, size);
-				SaveOgre(node);
+				SaveNavMesh(node, size, snap);
+				SaveOgre(node, size, snap);
 				break;
 	    }
 	}
