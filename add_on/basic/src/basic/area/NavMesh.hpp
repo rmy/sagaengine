@@ -34,6 +34,12 @@ namespace se_basic {
 	};
 
 
+	struct Exit {
+		short triangle_;
+		short side_;
+	};
+
+
 	class _SeBasicExport Path {
 	public:
 		/**
@@ -172,7 +178,8 @@ namespace se_basic {
 	public:
 		NavMesh(short controlPointCount, short triangleCount)
 				:  controlPointCount_(controlPointCount)
-				 , triangleCount_(triangleCount) {
+				 , triangleCount_(triangleCount)
+				 , exitCount_(0), exits_(0) {
 			controlPoints_ = new se_core::Point3[ controlPointCount_ ];
 			walls_ = new Wall[ controlPointCount_ ];
 			triangles_ = new Triangle[ triangleCount_ ];
@@ -189,12 +196,14 @@ namespace se_basic {
 				se_core::Point3* cp;
 				Triangle* tri;
 				Wall* wall;
+				Exit* exit;
 			} offset;
 
 			offset.v = data;
 
 			controlPointCount_ = *(offset.sh++);
 			triangleCount_ = *(offset.sh++);
+			exitCount_ = *(offset.sh++);
 
 			controlPoints_ = offset.cp;
 			offset.cp += controlPointCount_;
@@ -204,6 +213,9 @@ namespace se_basic {
 
 			triangles_ = offset.tri;
 			offset.tri += triangleCount_;
+
+			exits_ = offset.exit;
+			offset.exit += exitCount_;
 
 			paths_ = new Path(triangleCount_, offset.ch);
 			offset.ch += paths_->dataSize();
@@ -396,11 +408,13 @@ namespace se_basic {
 	protected:
 		short controlPointCount_;
 		short triangleCount_;
+		short exitCount_;
 
 		se_core::Point3* controlPoints_;
 		Triangle* triangles_;
 		Path* paths_;
 		Wall* walls_;
+		Exit* exits_;
 	};
 
 }

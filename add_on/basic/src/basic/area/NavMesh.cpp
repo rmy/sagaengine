@@ -246,7 +246,12 @@ namespace se_basic {
 					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to)) {
 						if(link < 0) {
 							// NOTE: Found edge - exiting!!!
-							bray_t slideYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
+							int wall = triangles_[ via ].controlPoints_[ corners[ i ][ 0 ] ];
+							Point3& left = controlPoints_[ wall ];
+							Point3& right = controlPoints_[ walls_[ wall ].right_ ];
+							bray_t slideYaw = left.yawTowards(right);
+
+							//bray_t slideYaw = b[ corners[ i ][ 0 ] ]->yawTowards(*b[ corners[ i ][ 1 ] ]);
 							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) > BrayT::DEG90) {
 								slideYaw = BrayT::invert(slideYaw);
 								slideYaw += BRAY_RES / 4;
@@ -353,18 +358,29 @@ namespace se_basic {
 	short NavMesh
 	::findExit(const BoundingBox& wantedAreaBounds, Point3& out) const {
 		out.reset();
-		int match = 0;
-		/*
-		for(int i = 0; i < controlPointCount_; ++i) {
-			if(wantedAreaBounds.isTouching(controlPoints_[ i ])) {
+		for(int i = 0; i < exitCount_; ++i) {
+			int tri = exits_[i].triangle_;
+			int c1 = (exits_[i].side_ + 1) % 3;
+			int c2 = (exits_[i].side_ + 2) % 3;
+			Point3 &p1 = controlPoints_[ triangles_[ tri ].controlPoints_[ c1 ] ];
+			Point3 &p2 = controlPoints_[ triangles_[ tri ].controlPoints_[ c2 ] ];
+			if(wantedAreaBounds.isTouching(p1) && wantedAreaBounds.isTouching(p2)) {
 				// Is outside on right side??
-				out.add(controlPoints_[ i ]);
-				++match;
+				out.reset();
+
+				out.add(p1);
+				out.add(p2);
+
+				out.scale(0.999f / 2);
+				Point3 c;
+				wantedAreaBounds.center(c);
+				c.scale(0.001f);
+				out.add(c);
+				return tri;
 			}
 		}
-		*/
 
-
+		/*
 		for(int i = 0; i < triangleCount_; ++i) {
 			out.reset();
 			match = 0;
@@ -384,6 +400,7 @@ namespace se_basic {
 				}
 			}
 		}
+		*/
 		return -1;
 	}
 

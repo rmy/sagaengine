@@ -148,7 +148,10 @@ namespace se_core {
 		// will not be touched...
 		bool didDisrupt = SimSchema::actionQueue[ channel ].disrupt(*this);
 		if(didDisrupt) {
-			presentAction_[ channel ].resetAction();
+			const Action* a = presentAction_[channel].action();
+			Parameter& p = presentAction_[channel].parameter();
+			a->disrupt(*this, p);
+			presentAction_[channel].resetAction();
 		}
 		presentAction_[ channel ].setDisrupted(true);
 		return didDisrupt;
