@@ -276,7 +276,7 @@ namespace se_basic {
 							else {
 								slideYaw -= BRAY_RES / 4;
 							}
-							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) >= 96 * BRAY_RES) {
+							if(BrayT::abs(BrayT::sub(currentYaw, slideYaw)) >= 64 * BRAY_RES) {
 								return currentYaw;
 							}
 							return slideYaw;
