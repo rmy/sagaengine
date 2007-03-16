@@ -306,8 +306,46 @@ namespace se_core {
 	}
 
 
+	const Area* Area
+	::neighbour(short relX, short relY, short relZ) const {
+		if(relX < -1 || relX > 1 || relY < -1 || relY > 1 || relZ < -1 || relZ > 1) {
+			// Not direct neighbour, recurse to correct area
+			short rx = (relX < 0) ? -1 : (relX > 0) ? 1 : 0;
+			short ry = (relY < 0) ? -1 : (relY > 0) ? 1 : 0;
+			short rz = (relZ < 0) ? -1 : (relZ > 0) ? 1 : 0;
+
+			Area* a = neighbours_[ (rx + 1) + (ry + 1) * 3 + (rz + 1) * 9 ];
+			if(!a) return 0;
+			return a->neighbour(relX - rx, relY - ry, relZ - rz);
+		}
+		// Direct neighbour
+		return neighbours_[ (relX + 1) + (relY + 1) * 3 + (relZ + 1) * 9 ];
+	}
+
+
 	Area* Area
 	::neighbour(const Point3& worldCoor) {
+		const Point3& wc =  posComponent_->nextPos().worldCoor();
+		coor_t x = worldCoor.x_ - wc.x_;
+		coor_t y = worldCoor.y_ - wc.y_;
+		coor_t z = worldCoor.z_ - wc.z_;
+
+		int relX = 0;
+		if(x < 0) relX = -1;
+		if(CoorT::tile(x) >= width()) relX = 1;
+
+		int relY = 0;
+	
+		int relZ = 0;
+		if(z < 0) relZ = -1;
+		if(CoorT::tile(z) >= height()) relZ = 1;
+	
+		return neighbour(relX, relY, relZ);
+	}
+
+
+	const Area* Area
+	::neighbour(const Point3& worldCoor) const {
 		const Point3& wc =  posComponent_->nextPos().worldCoor();
 		coor_t x = worldCoor.x_ - wc.x_;
 		coor_t y = worldCoor.y_ - wc.y_;
