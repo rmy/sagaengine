@@ -277,6 +277,26 @@ namespace se_core {
 
 
 	void Pos
+	::areaCoor(Point3& dest) {
+		dest.set( world_.coor_ );
+		Assert(hasArea() && area()->nextPos().worldFace().isIdentity());
+		dest.sub( area()->nextPos().world_.coor_ );
+	}
+
+
+	void Pos
+	::areaFace(Euler3& dest) {
+		dest.set( world_.face_ );
+		Assert(hasArea() && area()->nextPos().worldFace().isIdentity());
+	}
+
+	void Pos
+	::areaViewPoint(ViewPoint& dest) {
+		dest.setViewPoint(world_);
+		local_.sub( area()->nextPos().world_ );
+	}
+
+	void Pos
 	::updateLocalViewPoint() {
 		local_.setViewPoint(world_);
 		if(hasParent()) {

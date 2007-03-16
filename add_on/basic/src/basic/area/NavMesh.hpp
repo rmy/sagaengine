@@ -239,9 +239,9 @@ namespace se_basic {
 		}
 
 
-		bool isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const;
-		bool isInLineOfSight(const se_core::Point3& from, short fromIndex, const se_core::Point3& to, short toIndex) const;
-		void farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, se_core::Point2& dest) const;
+		int isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const;
+		int isInLineOfSight(const se_core::Point3& from, short fromIndex, const se_core::Point3& to, short toIndex) const;
+		int farthestLineOfSightXZ(int fromIndex, const se_core::Point3& from, const se_core::Point3& to, short toIndex, se_core::Point2& dest) const;
 		bray_t slideAngle(const se_core::Point3& from, short fromIndex, const se_core::Point3& to) const;
 		bray_t wallAngle(const se_core::Point3& from, short fromIndex, const se_core::Point3& to) const;
 		bool doesTouchVoid(const se_core::Point3& p, short pIndex, const coor_t radius) const;

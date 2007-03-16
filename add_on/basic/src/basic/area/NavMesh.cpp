@@ -84,13 +84,13 @@ namespace se_basic {
 	*/
 
 
-	bool NavMesh
+	int NavMesh
 	::isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const {
 		return isInLineOfSight(from.localCoor(), from.index(), to.localCoor(), to.index());
 	}
 
 
-	bool NavMesh
+	int NavMesh
 	::isInLineOfSight(const se_core::Point3& from, short fromIndex, const se_core::Point3& to, short toIndex) const {
 		static const short corners[][2] = {
 			{ 1, 2 },
@@ -101,28 +101,31 @@ namespace se_basic {
 		short via = fromIndex;
 		short prev = -1;
 		while(via != toIndex) {
+			Triangle& tri = triangles_[ via ];
 			Point3* b[] = {
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+				&controlPoints_[ tri.controlPoints_[ 0 ] ],
+				&controlPoints_[ tri.controlPoints_[ 1 ] ],
+				&controlPoints_[ tri.controlPoints_[ 2 ] ]
 			};
 			short next = -1;
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev && link != -1) {
 					if(willLineAIntersectBXZ(from, to, *b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ])) {
+						if(link < 0) {
+							return tri.linkType_[ i ];
+						}
 						next = link;
 					}
 				}
 			}
 			if(next < 0) {
-				return false;
+				return -1;
 			}
-			
 			prev = via;
 			via = next;
 		}
-		return true;
+		return 0;
 	}
 
 
@@ -182,43 +185,56 @@ namespace se_basic {
 	}
 
 
-	void NavMesh
-	::farthestLineOfSightXZ(const se_core::Pos& from, const se_core::Point3& to, short toIndex, Point2& dest) const {
+	int NavMesh
+	::farthestLineOfSightXZ(int fromIndex, const se_core::Point3& from, const se_core::Point3& to, short toIndex, Point2& dest) const {
 		static const short corners[][2] = {
 			{ 1, 2 },
 			{ 2, 0 },
 			{ 0, 1 }
 		};
 
-		short via = from.index();
+		short via = fromIndex;
 		short prev = -2;
-		dest.set(from.localCoor().x_, from.localCoor().z_);
+		Point2 test;
+		dest.set(from.x_, from.z_);
 		while(via != toIndex) {
+			Triangle& tri = triangles_[ via ];
 			Point3* b[] = {
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+				&controlPoints_[ tri.controlPoints_[ 0 ] ],
+				&controlPoints_[ tri.controlPoints_[ 1 ] ],
+				&controlPoints_[ tri.controlPoints_[ 2 ] ]
 			};
 			short next = -1;
+			short side = -1;
+			coor_double_t d = 0;
 			for(int i = 0; i < 3; ++i) {
-				short link = triangles_[ via ].linkTo_[ i ];
+				short link = tri.linkTo_[ i ];
 				if(link != prev) {
-					if(dest.lineIntersect(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to) != -1) {
-					//if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from.localCoor(), to, &dest)) {
-						next = link;
-						//LogMsg("Found link: " << via << ", " << next << ", " << toIndex << " (" << dest.x_ << ", " << dest.y_ << ")");
+					if(test.lineIntersect(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to) != -1) {
+						coor_t xDist = from.x_ - test.x_;
+						coor_t zDist = from.z_ - test.y_;
+						coor_double_t newD = xDist * xDist + zDist * zDist;
+						if(newD >= d) {
+							d = newD;
+							side = i;
+							next = link;
+							dest.set(test);
+						}
 					}
 				}
 			}
 			if(next < 0) {
-				//LogMsg("Changed coor: " << from.localCoor() << to << " (" << dest.x_ << ", " << dest.y_ << ")");
-				return;
+				if(side >= 0) {
+					return tri.linkType_[ side ];
+				}
+				return -1;
 			}
 
 			prev = via;
 			via = next;
 		}
 		dest.set(to.x_, to.z_);
+		return 0;
 	}
 
 
@@ -234,19 +250,20 @@ namespace se_basic {
 		short via = fromIndex;
 		short prev = -2;
 		while(via != -1) {
+			Triangle& tri = triangles_[ via ];
 			Point3* b[] = {
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 0 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 1 ] ],
-				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
+				&controlPoints_[ tri.controlPoints_[ 0 ] ],
+				&controlPoints_[ tri.controlPoints_[ 1 ] ],
+				&controlPoints_[ tri.controlPoints_[ 2 ] ]
 			};
 			short next = -1;
 			for(int i = 0; i < 3; ++i) {
-				short link = triangles_[ via ].linkTo_[ i ];
+				short link = tri.linkTo_[ i ];
 				if(link != prev) {
 					if(doLinesIntersectXZ(*b[ corners[ i ][ 0 ] ], *b[ corners[ i ][ 1 ] ], from, to)) {
 						if(link < 0) {
+							int wall = tri.controlPoints_[ corners[ i ][ 0 ] ];
 							// NOTE: Found edge - exiting!!!
-							int wall = triangles_[ via ].controlPoints_[ corners[ i ][ 0 ] ];
 							Point3& left = controlPoints_[ wall ];
 							Point3& right = controlPoints_[ walls_[ wall ].right_ ];
 							bray_t slideYaw = left.yawTowards(right);

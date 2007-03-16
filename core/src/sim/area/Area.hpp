@@ -153,8 +153,10 @@ namespace se_core {
 		 * @param relY
 		 */
 		Area* neighbour(short relX, short relY, short relZ);
+		const Area* neighbour(short relX, short relY, short relZ) const;
 
 		Area* neighbour(const Point3& worldCoor);
+		const Area* neighbour(const Point3& worldCoor) const;
 
 		/**
 		 * Check if the area passed in is a neighbour, and if so,

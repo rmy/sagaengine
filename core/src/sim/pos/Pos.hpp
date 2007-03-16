@@ -196,6 +196,9 @@ namespace se_core {
 		 * must already be updated.
 		 */
 		void updateWorldViewPoint();
+		void areaCoor(Point3& dest);
+		void areaFace(Euler3& dest);
+		void areaViewPoint(ViewPoint& dest);
 
 		/**
 		 * Update the local_ viewpoint according to

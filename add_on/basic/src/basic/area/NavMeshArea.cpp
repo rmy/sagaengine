@@ -111,7 +111,50 @@ namespace se_basic {
 
 	bool NavMeshArea
 	::isLineOfSight(const Pos& from, const Pos& to) {
-		return navMesh_->isInLineOfSight(from, to);
+		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(to.area()->toArea());
+
+		Point3 fromPoint, toPoint;
+		short fromIndex, toIndex = -1;
+
+		fromPoint.sub(from.worldCoor(), posComponent_->nextPos().worldCoor());
+		fromIndex = from.index();
+		toPoint.sub(to.worldCoor(), toArea->posComponent_->nextPos().worldCoor());
+		if(toArea == this) {
+			toIndex = to.index();
+		}
+		int linkType = navMesh_->isInLineOfSight(fromPoint, fromIndex, toPoint, toIndex);
+
+		// Found correct triangle?
+		if(linkType == 0)
+			return true;
+
+		// Found wall?
+		if(linkType == -1)
+			return false;
+
+		// Found link to neighbour area?
+		if(linkType == 1) {
+			Assert(this != toArea);
+			if(!Area::isNeighbour(*toArea))
+				return false;
+
+			Point3 offset, tmp;
+			PosComponent::Ptr fromAreaPos(*posComponent_);
+			PosComponent::Ptr toAreaPos(*toArea->posComponent_);
+			offset.sub(toAreaPos->pos().worldCoor(), fromAreaPos->pos().worldCoor());
+			BoundingBox toAreaBounds(offset, toAreaPos->pos().bounds_);
+
+			fromPoint.add(offset);
+			fromIndex = toArea->navMesh_->findExit(toAreaBounds, tmp);
+			toPoint.add(offset);
+			toIndex = to.index();
+
+			linkType = toArea->navMesh_->isInLineOfSight(fromPoint, fromIndex, toPoint, toIndex);
+
+			// Found correct triangle?
+			return (linkType == 0);
+		}
+		return false;
 	}
 
 
@@ -119,22 +162,54 @@ namespace se_basic {
 	coor_t NavMeshArea
 	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const {
 		Point2 p;
+		short toIndex, fromIndex;
+		Point3 toPoint, fromPoint;
 
-		Point3 toPoint;
+		fromPoint.set(from.worldCoor());
+		fromIndex = from.index();
+
 		toPoint.setForward(maxLen, yaw);
-		toPoint.add(from.worldCoor());
-		short toIndex = index(toPoint, -1);
-		toPoint.sub(posComponent_->nextPos().worldCoor());
+		toPoint.add(fromPoint);
+		toIndex = index(toPoint, -1);
 
-		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
-		toPoint.x_ = p.x_ + posComponent_->nextPos().worldCoor().x_;
-		toPoint.z_ = p.y_ + posComponent_->nextPos().worldCoor().z_;
+
+		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(neighbour(toPoint));
+
+		toPoint.sub(posComponent_->nextPos().worldCoor());
+		fromPoint.sub(posComponent_->nextPos().worldCoor());
+
+		int linkType = navMesh_->farthestLineOfSightXZ(fromIndex, fromPoint, toPoint, toIndex, p);
+		if(linkType == 1 && toArea && toArea != this) {
+
+			Point3 offset, tmp;
+			PosComponent::Ptr fromAreaPos(*posComponent_);
+			PosComponent::Ptr toAreaPos(*toArea->posComponent_);
+			offset.sub(fromAreaPos->pos().worldCoor(), toAreaPos->pos().worldCoor());
+			BoundingBox toAreaBounds(offset, toAreaPos->pos().bounds_);
+
+			fromIndex = toArea->navMesh_->findExit(toAreaBounds, tmp);
+			fromPoint.x_ = p.x_;
+			fromPoint.z_ = p.y_;
+			fromPoint.add(offset);
+
+			toPoint.add(posComponent_->nextPos().worldCoor());
+			toIndex = toArea->index(toPoint, -1);
+			toPoint.sub(toAreaPos->nextPos().worldCoor());
+
+			linkType = toArea->navMesh_->farthestLineOfSightXZ(fromIndex, fromPoint, toPoint, toIndex, p);
+			toPoint.x_ = p.x_ + toAreaPos->nextPos().worldCoor().x_;
+			toPoint.z_ = p.y_ + toAreaPos->nextPos().worldCoor().z_;
+		}
+		else {
+			toPoint.x_ = p.x_ + posComponent_->nextPos().worldCoor().x_;
+			toPoint.z_ = p.y_ + posComponent_->nextPos().worldCoor().z_;
+		}
 
 		Vector3 dist;
 		dist.sub(from.worldCoor(), toPoint);
 		dist.y_ = 0;
 		coor_t len = dist.length();
-		len += maxOffNavMesh;
+		//len += maxOffNavMesh;
 		if(len > maxLen)
 			len = maxLen;
 
@@ -163,8 +238,12 @@ namespace se_basic {
 		short toIndex = index(toPoint, from.index());
 		toPoint.sub(posComponent_->nextPos().worldCoor());
 
+		short fromIndex = from.index();
+		Point3 fromPoint;
+		fromPoint.sub(from.worldCoor(), posComponent_->nextPos().worldCoor());
+
 		Point2 p;
-		navMesh_->farthestLineOfSightXZ(from, toPoint, toIndex, p);
+		navMesh_->farthestLineOfSightXZ(fromIndex, fromPoint, toPoint, toIndex, p);
 		dest.x_ = p.x_ + posComponent_->nextPos().worldCoor().x_;
 		dest.z_ = p.y_ + posComponent_->nextPos().worldCoor().z_;
 	}
@@ -181,14 +260,14 @@ namespace se_basic {
 		if(via == toIndex)
 			return via;
 		navMesh_->center(via, c);
-		if(!navMesh_->isInLineOfSight(from, fromIndex, c, via)) {
+		if(navMesh_->isInLineOfSight(from, fromIndex, c, via) < 0) {
 			LogWarning("Gave path that was not in LOS");
 			return fromIndex;
 		}
 
 		short next = navMesh_->path(via, toIndex);
 		navMesh_->center(next, c);
-		while(navMesh_->isInLineOfSight(from, fromIndex, c, next)) {
+		while(navMesh_->isInLineOfSight(from, fromIndex, c, next) == 0) {
 			via = next;
 			if(via == toIndex)
 				break;
@@ -226,7 +305,7 @@ namespace se_basic {
 				toArea.center(out);
 				return;
 			}
-			if(navMesh_->isInLineOfSight(from.localCoor(), from.index(), out, toIndex)) {
+			if(navMesh_->isInLineOfSight(from.localCoor(), from.index(), out, toIndex) == 0) {
 				// Out is already set
 				return;
 			}
@@ -246,7 +325,7 @@ namespace se_basic {
 			return;
 		}
 		// In line of sight
-		if(navMesh_->isInLineOfSight(from, to)) {
+		if(navMesh_->isInLineOfSight(from, to) == 0) {
 			out.set(to.localCoor());
 			return;
 		}
@@ -259,14 +338,20 @@ namespace se_basic {
 
 	bray_t NavMeshArea
 	::slideAngle(const se_core::Pos& from, const se_core::Point3& to) const {
-		bray_t angle = navMesh_->slideAngle(from.localCoor(), from.index(), to);
+		Point3 fromAc, toAc, np(posComponent_->nextPos().worldCoor());
+		fromAc.sub(from.worldCoor(), np);
+		toAc.sub(to, np);
+		bray_t angle = navMesh_->slideAngle(fromAc, from.index(), toAc);
 		return angle;
 	}
 
 
 	bray_t NavMeshArea
 	::wallAngle(const se_core::Pos& from, const se_core::Point3& to) const {
-		bray_t angle = navMesh_->wallAngle(from.localCoor(), from.index(), to);
+		Point3 fromAc, toAc;
+		fromAc.sub(from.worldCoor(), posComponent_->nextPos().worldCoor());
+		toAc.sub(to, posComponent_->nextPos().worldCoor());
+		bray_t angle = navMesh_->wallAngle(fromAc, from.index(), toAc);
 		return angle;
 	}
 
