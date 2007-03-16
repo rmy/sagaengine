@@ -118,7 +118,7 @@ namespace se_basic {
 
 		fromPoint.sub(from.worldCoor(), posComponent_->nextPos().worldCoor());
 		fromIndex = from.index();
-		toPoint.sub(to.worldCoor(), toArea->posComponent_->nextPos().worldCoor());
+		toPoint.sub(to.worldCoor(), posComponent_->nextPos().worldCoor());
 		if(toArea == this) {
 			toIndex = to.index();
 		}
@@ -144,9 +144,9 @@ namespace se_basic {
 			offset.sub(toAreaPos->pos().worldCoor(), fromAreaPos->pos().worldCoor());
 			BoundingBox toAreaBounds(offset, toAreaPos->pos().bounds_);
 
-			fromPoint.add(offset);
+			fromPoint.sub(offset);
 			fromIndex = toArea->navMesh_->findExit(toAreaBounds, tmp);
-			toPoint.add(offset);
+			toPoint.sub(offset);
 			toIndex = to.index();
 
 			linkType = toArea->navMesh_->isInLineOfSight(fromPoint, fromIndex, toPoint, toIndex);
