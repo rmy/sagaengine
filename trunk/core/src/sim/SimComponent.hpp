@@ -39,7 +39,7 @@ namespace se_core {
 		 *
 		 * @param type The type of SimComponent (gct_ACTOR, gct_PHYSICS, etc)
 		 */
-		SimComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory = 0);
+		SimComponent(int type, SimComposite* owner, const SimComponentFactory* factory = 0);
 
 		virtual const char* name() { return "Unkown"; }
 
@@ -71,7 +71,7 @@ namespace se_core {
 		}
 
 
-		enum SimComponentType type() const {
+		int type() const {
 			return type_;
 		}
 
@@ -112,10 +112,9 @@ namespace se_core {
 		/**
 		 * The type of SimComponent.
 		 */
-		enum SimComponentType type_;
+		int type_;
 		SimComposite* owner_;
 
-		friend class SimCompositeFactory_;
 		const SimComponentFactory* factory_;
 
 

@@ -23,22 +23,18 @@ rune@skalden.com
 #define SimComponentFactory_hpp
 
 #include "sim.hpp"
-#include "util/type/util_type.hpp"
-#include "./config/sim_config.hpp"
-#include "./script/sim_script.hpp"
-#include "./stat/sim_stat.hpp"
 
 namespace se_core {
 
 	class _SeCoreExport SimComponentFactory {
 	public:
-		SimComponentFactory(short type);
+		SimComponentFactory(int type);
 		virtual ~SimComponentFactory();
 		virtual SimComponent* create(SimComposite* owner) const = 0;
 		virtual void release(SimComponent* t) const;
 
 	protected:
-		short type_;
+		int type_;
 	};
 
 }

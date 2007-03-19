@@ -26,6 +26,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/stat/DictionaryEntry.hpp"
 #include "../comp/EditorComponentFactory.hpp"
+#include "sim/config/all.hpp"
 
 using namespace se_core;
 
