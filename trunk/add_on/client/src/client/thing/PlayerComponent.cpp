@@ -50,7 +50,7 @@ namespace se_client {
 	
 
 	void PlayerComponent
-	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
 		if(zoneType != st_AREA)
 			return;
 

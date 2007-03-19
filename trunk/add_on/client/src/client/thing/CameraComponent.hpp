@@ -32,7 +32,7 @@ namespace se_client {
 		virtual ~CameraComponent();
 
 		void setActive(bool state);
-		void zoneChanged(int zoneType, se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);
 		void grabFocus();
 
 	protected:

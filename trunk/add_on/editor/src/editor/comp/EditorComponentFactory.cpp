@@ -38,7 +38,7 @@ namespace se_editor {
 	}
 
 
-	SimComponent* EditorComponentFactory
+	Component* EditorComponentFactory
 	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values

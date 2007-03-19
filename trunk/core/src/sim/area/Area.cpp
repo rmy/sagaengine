@@ -48,7 +48,7 @@ rune@skalden.com
 
 namespace se_core {
 	Area
-	::Area(CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
+	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
 			: SimComposite(f), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
@@ -242,6 +242,7 @@ namespace se_core {
 	::reset() {
 		// Get newly spawned objects into allThings()
 		flipSpawns();
+		//spawnAreaComponent_->flipSpawns();
 		//multiSimObjects_[ MGOA_SPAWNS ].clear();
 
 		// Shedule all things for destruction, and flip
@@ -371,23 +372,6 @@ namespace se_core {
 
 	void Area
 	::flipSpawns(void) {
-		/*
-		// Flip new spawns into area
-		SimObjectList::iterator_type it = multiSimObjects_[ MGOA_SPAWNS ].iterator();
-		while(it != SimObjectList::end()) {
-			// Spawned things doesn't have to be actors
-			Thing* t = SimSchema::simObjectList.nextThing(it);
-			//LogMsg(t->pos().y_);
-			//LogMsg(t->name());
-
-			// Newly spawned things will change area on first flip.
-			// This will call Area::addThing, inserting it into
-			// collisionGrid_ and other structures where it belong
-			t->flip();
-		}
-		// New spawn are no longer new spawns once they are flipped
-		multiSimObjects_[ MGOA_SPAWNS ].clear();
-		*/
 		spawnAreaComponent_->flipSpawns();
 	}
 
