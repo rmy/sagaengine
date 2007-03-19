@@ -1,5 +1,5 @@
 #include "SimComponentManager.hpp"
-#include "SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "comp/schema/CompSchema.hpp"
 
 namespace se_core {

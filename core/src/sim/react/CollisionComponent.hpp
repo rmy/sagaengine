@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim_react.hpp"
 #include "ThingCollide.hpp"
 #include "../SimComponent.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../AreaChildComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
@@ -115,7 +115,7 @@ namespace se_core {
 		bool doesGeometryCollide(const CollisionComponent& other) const;
 		scale_t whenDoesGeometryCollide(const CollisionComponent& other) const;
 
-		void areaChanged(int zoneType, Composite* newArea, SimComposite* oldArea);
+		void areaChanged(int zoneType, Composite* newArea, Composite* oldArea);
 
 		const BoundingBox& areaCovered() const { return areaCovered_; }
 		void updateAreaCovered();

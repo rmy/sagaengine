@@ -30,7 +30,7 @@ namespace se_core {
 	class _SeCoreExport CutsceneComponentFactory : public SimComponentFactory {
 	public:
 		CutsceneComponentFactory();
-		SimComponent* create(SimComposite* owner) const;
+		Component* create(Composite* owner) const;
 
 	protected:
 	};

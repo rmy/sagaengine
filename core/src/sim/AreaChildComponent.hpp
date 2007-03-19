@@ -35,9 +35,9 @@ namespace se_core {
 
 	protected:
 		/** Override SimNodeComponent with empty handler */
-		void parentChanged(Composite* newParent, SimComposite* oldParent) {}
+		void parentChanged(Composite* newParent, Composite* oldParent) {}
 		/** AreaChild should have area as parent */
-		void zoneChanged(int zoneType, Composite* newParent, SimComposite* oldParent);
+		void zoneChanged(int zoneType, Composite* newParent, Composite* oldParent);
 	};
 
 }

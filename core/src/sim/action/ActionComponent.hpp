@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim_action.hpp"
 #include "../SimComponent.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "Action.hpp"
 #include "ActionQueue.hpp"

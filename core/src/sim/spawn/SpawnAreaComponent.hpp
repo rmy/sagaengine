@@ -39,7 +39,7 @@ namespace se_core {
 		~SpawnAreaComponent();
 		void setActive(bool state);
 		void flipSpawns(void);
-		SimComposite* spawn(const char* thingName, const ViewPoint& vp, PosComponent* parent = 0);
+		Composite* spawn(const char* thingName, const ViewPoint& vp, PosComponent* parent = 0);
 
 		/** Set the list of spawn points associated with this PosNode.
 		 *

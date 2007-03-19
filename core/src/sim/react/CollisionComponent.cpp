@@ -77,7 +77,7 @@ namespace se_core {
 
 
 	void CollisionComponent
-	::areaChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+	::areaChanged(int zoneType, Composite* newArea, Composite* oldArea) {
 		if(zoneType != st_AREA)
 			return;
 

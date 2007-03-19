@@ -31,7 +31,7 @@ rune@skalden.com
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../SimComponentFactory.hpp"
 #include "util/type/util_type.hpp"
 

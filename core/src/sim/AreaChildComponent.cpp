@@ -22,7 +22,7 @@ rune@skalden.com
 #include "SimComponent.hpp"
 #include "AreaChildComponent.hpp"
 #include "SimObject.hpp"
-#include "SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 
@@ -41,7 +41,7 @@ namespace se_core {
 
 
 	void AreaChildComponent
-	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
 		if(zoneType != st_AREA)
 			return;
 

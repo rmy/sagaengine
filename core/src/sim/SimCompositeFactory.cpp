@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "SimCompositeFactory.hpp"
-#include "SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "SimComponentFactory.hpp"
 #include "./config/all.hpp"
 #include "./stat/all.hpp"

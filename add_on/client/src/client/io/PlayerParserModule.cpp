@@ -66,7 +66,7 @@ namespace se_client {
 				{ // Player
 					in.readString(tempString);
 					LogMsg(tempString.get());
-					SimComposite* a = SimSchema::spawnManager().create(tempString.get());
+					Composite* a = SimSchema::spawnManager().create(tempString.get());
 					PosComponent::Ptr pos(*a);
 					PhysicsComponent::Ptr physics(*a);
 					CameraComponent* camera = new CameraComponent(a);
@@ -84,7 +84,7 @@ namespace se_client {
 				{
 					// Init camera object
 					in.readString(tempString);
-					SimComposite* a = SimSchema::spawnManager().create(tempString.get());
+					Composite* a = SimSchema::spawnManager().create(tempString.get());
 					Assert(a);
 					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
 					Assert(pos);

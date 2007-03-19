@@ -47,7 +47,7 @@ namespace se_core {
 	}
 
 
-	SimComposite* SpawnComponent
+	Composite* SpawnComponent
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
 		// Get spawn point displace and face direction
 		const ViewPoint* sp = spawnPoint(spawnPointId);
@@ -67,7 +67,7 @@ namespace se_core {
 		}
 		PosComponent::Ptr aPos(*area);
 		vp.sub(aPos->pos().world_);
-		SimComposite* t = area->spawn(thingName, vp, deniedTsMask);
+		Composite* t = area->spawn(thingName, vp, deniedTsMask);
 
 		// Avoid collision with spawner
 		// TODO: Invent a better way
@@ -98,12 +98,12 @@ namespace se_core {
 	}
 
 
-	SimComposite* SpawnComponent
+	Composite* SpawnComponent
 	::spawner() const {
 		if(spawner_.isNull()) {
 			return 0;
 		}
-		return static_cast<SimComposite*>(spawner_.object());
+		return static_cast<Composite*>(spawner_.object());
 	}
 
 
@@ -119,7 +119,7 @@ namespace se_core {
 	void SpawnComponent
 	::resetSpawner() {
 		if(!spawner_.isNull()) {
-			SimComposite* s = static_cast<SimComposite*>(spawner_.object());
+			Composite* s = static_cast<Composite*>(spawner_.object());
 			SpawnComponent::Ptr(*s)->decSpawnCount();
 			spawner_.reset();
 		}

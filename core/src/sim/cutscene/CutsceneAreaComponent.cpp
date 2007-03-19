@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_core {
 
 	CutsceneAreaComponent
-	::CutsceneAreaComponent(SimComposite* owner, const SimComponentFactory* factory) 
+	::CutsceneAreaComponent(Composite* owner, const SimComponentFactory* factory) 
 			: AreaComponent(sct_CUTSCENE, owner, factory) {
 	}
 

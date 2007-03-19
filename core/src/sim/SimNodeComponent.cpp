@@ -21,8 +21,7 @@ rune@skalden.com
 
 #include "SimComponent.hpp"
 #include "SimNodeComponent.hpp"
-#include "SimObject.hpp"
-#include "SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 
@@ -83,7 +82,7 @@ namespace se_core {
 
 
 	void SimNodeComponent
-	::parentChanged(Composite* newParent, SimComposite* oldParent) {
+	::parentChanged(Composite* newParent, Composite* oldParent) {
 		if(newParent) {
 			SimNodeComponent* n = static_cast<SimNodeComponent*>(newParent->component(type()));
 			if(n) {

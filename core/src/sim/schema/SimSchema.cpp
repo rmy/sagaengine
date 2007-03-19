@@ -23,7 +23,7 @@ rune@skalden.com
 #include "../InitListeners.hpp"
 #include "../SimListeners.hpp"
 #include "../SimEngine.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../SimComponentManager.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"

@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "../sim.hpp"
 #include "../SimComponentFactory.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../SimComponentFactory.hpp"
 #include "util/type/util_type.hpp"
 #include "sim_signal.hpp"

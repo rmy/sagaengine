@@ -10,7 +10,7 @@ namespace se_basic {
 		SimpleActorFactory(se_core::String* name);
 		~SimpleActorFactory();
 
-		se_core::SimComposite* create() const;
+		se_core::Composite* create() const;
 
 		void setBounds(const se_core::BoundingBox& b);
 		void setScript(const char* name);

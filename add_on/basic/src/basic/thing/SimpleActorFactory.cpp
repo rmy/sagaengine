@@ -29,7 +29,7 @@ namespace se_basic {
 	}
 
 
-	SimComposite* SimpleActorFactory
+	Composite* SimpleActorFactory
 	::create() const {
 		Actor* a = new Actor(this);
 

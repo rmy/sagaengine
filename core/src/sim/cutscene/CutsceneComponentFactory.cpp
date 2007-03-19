@@ -36,8 +36,8 @@ namespace se_core {
 	}
 
 
-	SimComponent* CutsceneComponentFactory
-	::create(SimComposite* owner) const {
+	Component* CutsceneComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).

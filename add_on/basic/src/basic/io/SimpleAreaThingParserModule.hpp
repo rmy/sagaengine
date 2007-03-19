@@ -11,8 +11,8 @@ namespace se_basic {
 		void parse(se_core::InputStream& in);
 
 	private:
-		void readThing(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::SimComposite** parents = 0);
-		void readChildren(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::SimComposite** parents);
+		void readThing(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::Composite** parents = 0);
+		void readChildren(se_core::InputStream& in, int areaCount, se_core::Area** areas, se_core::Composite** parents);
 		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
 		void readMultiCutscene(se_core::InputStream& in, int areaCount, se_core::Area** areas);
 	};

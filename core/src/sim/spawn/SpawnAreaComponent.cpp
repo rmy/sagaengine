@@ -78,7 +78,7 @@ namespace se_core {
 
 
 
-	SimComposite* SpawnAreaComponent
+	Composite* SpawnAreaComponent
 	::spawn(const char* thingName, const ViewPoint& vp, PosComponent* parent) {
 		/*
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
@@ -89,7 +89,7 @@ namespace se_core {
 		*/
 
 		// Create the thing
-		SimComposite* thing = SimSchema::spawnManager().create(thingName);
+		Composite* thing = SimSchema::spawnManager().create(thingName);
 		PosComponent::Ptr sPos(thing);
 		Assert(thing && !sPos.isNull());
 

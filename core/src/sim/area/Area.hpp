@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim_area.hpp"
 #include "../SimObject.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../action/sim_action.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
@@ -43,7 +43,7 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport Area : public SimComposite {
+	class _SeCoreExport Area : public Composite {
 	public:
 		/**
 		 * Create a new area of a given size.
@@ -178,7 +178,7 @@ namespace se_core {
 		 * this way, because a thing not belonging to an area will
 		 * never be flip()'ed.
 		 */
-		SimComposite* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosComponent* parent = 0);
+		Composite* spawn(const char* thingName, const ViewPoint& coor, long deniedTsMask = 0, PosComponent* parent = 0);
 
 
 	protected:

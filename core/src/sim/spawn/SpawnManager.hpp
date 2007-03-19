@@ -57,7 +57,7 @@ namespace se_core {
 
 		void addFactory(SimCompositeFactory* factory);
 		SimCompositeFactory* factory(const char* name);
-		SimComposite* create(const char* name);
+		Composite* create(const char* name);
 		void scheduleForDestruction(Composite& thing);
 		void neutraliseDestructions();
 		void performDestructions();

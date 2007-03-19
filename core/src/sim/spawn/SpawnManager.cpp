@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
 #include "sim/SimCompositeFactory.hpp"
-#include "sim/SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include <cstring>
 
 using namespace se_core;
@@ -95,12 +95,12 @@ namespace se_core {
 
 
 
-	SimComposite* SpawnManager
+	Composite* SpawnManager
 	::create(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
 				const SimCompositeFactory* f = factories_[i];
-				SimComposite* t = static_cast<SimComposite*>(f->create());
+				Composite* t = static_cast<Composite*>(f->create());
 				//t->setFactory(f);
 				return t;
 			}

@@ -30,7 +30,7 @@ namespace se_core {
 	public:
 		typedef Ptr<CutsceneComponent, sct_CUTSCENE> Ptr;
 
-		CutsceneComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		CutsceneComponent(Composite* owner, const SimComponentFactory* factory = 0);
 		virtual ~CutsceneComponent();
 		const char* name() { return "Cutscene"; }
 

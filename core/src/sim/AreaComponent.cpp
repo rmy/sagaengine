@@ -22,7 +22,7 @@ rune@skalden.com
 #include "SimComponent.hpp"
 #include "AreaComponent.hpp"
 #include "SimObject.hpp"
-#include "SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 
