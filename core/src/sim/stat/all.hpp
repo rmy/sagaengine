@@ -5,7 +5,6 @@
 #include "DictionaryEntry.hpp"
 #include "HealthListener.hpp"
 #include "HealthListeners.hpp"
-#include "MultiSimComponent.hpp"
 #include "MultiSimNodeComponent.hpp"
 #include "MultiSimObject.hpp"
 #include "MultiSimObjectListener.hpp"

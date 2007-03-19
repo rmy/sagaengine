@@ -151,17 +151,6 @@ namespace se_core {
 			return false;
 		}
 
-		/**
-		 * Enter a new Area.
-		 * And warn the Area that a new visitor has arrived.
-		 */
-		bool changeArea();
-
-		/**
-		 * Leave the current Area.
-		 * And warn the Area that someone has left.
-		 */
-		void leaveCurrentArea();
 
 		/**
 		 * Have the Actor say something.
