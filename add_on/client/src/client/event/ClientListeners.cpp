@@ -59,6 +59,7 @@ namespace se_client {
 		}
 	}
 
+	/*
 
 	void ClientListeners
 	::castThingEnteredCameraAreaEvent(Thing& thing) {
@@ -98,6 +99,7 @@ namespace se_client {
 			listeners[ i ]->thingSwitchedActiveAreaEvent(thing);
 		}
 	}
+	*/
 
 
 }

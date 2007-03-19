@@ -29,7 +29,7 @@ namespace se_core {
 
 
 	ShowingCutscene
-	::ShowingCutscene() : members_(new MultiSimObject()) {
+	::ShowingCutscene() : members_(new CompositeList()) {
 	}
 
 
@@ -54,9 +54,11 @@ namespace se_core {
 
 	void ShowingCutscene
 	::freeMembers() {
-		SimObjectIterator it(*members_);
+		CompositeList::Iterator it(*members_);
 		while(it.hasNext()) {
-			it.nextActor().setNoCutsceneShowing();
+		// TODO:
+		//	it.nextActor().setNoCutsceneShowing();
+			LogFatal("TODO");
 		}
 		members_->clear();
 	}

@@ -34,15 +34,15 @@ namespace se_core {
 	public:
 		typedef Ptr<SpawnComponent, sct_SPAWN> Ptr;
 
-		SpawnComponent(SimComposite* owner, PosComponent* pos);
+		SpawnComponent(Composite* owner, PosComponent* pos);
 		virtual ~SpawnComponent();
 
-		static SpawnComponent* get(SimComposite& composite) {
+		static SpawnComponent* get(Composite& composite) {
 			SpawnComponent* c = static_cast<SpawnComponent*>(composite.component(se_core::sct_SPAWN));
 			return c;
 		}
 
-		static const SpawnComponent* get(const SimComposite& composite) {
+		static const SpawnComponent* get(const Composite& composite) {
 			const SpawnComponent* c = static_cast<const SpawnComponent*>(composite.component(se_core::sct_SPAWN));
 			return c;
 		}
@@ -89,7 +89,7 @@ namespace se_core {
 			return spawnPointCount_;
 		}
 
-		void setSpawner(SimComposite* spawner);
+		void setSpawner(Composite* spawner);
 		void resetSpawner();
 
 		virtual void setDead();
@@ -108,7 +108,7 @@ namespace se_core {
 		 * This enables monster spawner's to create new children whenever
 		 * they fall below a certain count.
 		 */
-		SimPtr spawner_;
+		RefPtr spawner_;
 
 		int spawnCount_;
 

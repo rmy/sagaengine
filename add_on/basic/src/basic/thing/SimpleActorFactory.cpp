@@ -6,7 +6,7 @@ namespace se_basic {
 
 	SimpleActorFactory
 	::SimpleActorFactory(String* name)
-			: SimCompositeFactory(got_ACTOR, SimCompositeFactory::st_THING, name)
+			: SimCompositeFactory(st_ACTOR, name)
 		, isPickable_(false)
 		, isCollideable_(false)
 		, script_(0)
@@ -31,7 +31,7 @@ namespace se_basic {
 
 	SimComposite* SimpleActorFactory
 	::create() const {
-		Actor* a = new Actor(name_->get());
+		Actor* a = new Actor(this);
 
 		if(isCollideable_ || collide_) {
 			CollisionComponent* cc = new CollisionComponent(a);

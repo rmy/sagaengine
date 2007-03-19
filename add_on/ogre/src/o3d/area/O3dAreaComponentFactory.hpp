@@ -30,7 +30,7 @@ namespace se_ogre {
 	class _SeOgreExport O3dAreaComponentFactory  : public se_core::SimComponentFactory {
 	public:
 		O3dAreaComponentFactory();
-		se_core::SimComponent* create(se_core::SimComposite* owner) const;
+		se_core::Component* create(se_core::Composite* owner) const;
 		
 	protected:
 	};

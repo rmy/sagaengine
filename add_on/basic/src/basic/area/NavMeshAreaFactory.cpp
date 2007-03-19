@@ -43,7 +43,7 @@ namespace se_basic {
 
 	Area* NavMeshAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ) const {
-		NavMeshArea* a = new NavMeshArea(name, width_, height_, navMesh_);
+		NavMeshArea* a = new NavMeshArea(this, name, width_, height_, navMesh_);
 		createComponents(a);
 		createGenericComponents(a);
 

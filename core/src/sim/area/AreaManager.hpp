@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim_area.hpp"
 #include "util/type/util_type.hpp"
+#include "comp/Composite.hpp"
 
 namespace se_core {
 	class _SeCoreExport AreaManager {
@@ -34,7 +35,7 @@ namespace se_core {
 		bool hasArea(const char* name);
 		Area* area(const char* name);
 		int areasByFactory(const char* name, Area** dest, int maxCount);
-		Area* areaById(int id);
+		Area* areaById(Composite::id_type id);
 		int activeCount() { return activeCount_; }
 		Area* active(int index);
 		void resetThings();

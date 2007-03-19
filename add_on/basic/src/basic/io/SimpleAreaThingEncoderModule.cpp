@@ -1,4 +1,5 @@
 #include "SimpleAreaThingEncoderModule.hpp"
+#include "comp/list/CompositeList.hpp"
 #include <cstring>
 
 using namespace se_core;
@@ -45,9 +46,9 @@ namespace se_basic {
 
 			const PosComponent* aPos = PosComponent::get(*a);
 
-			MultiSimComposite::Iterator it(a->children());
+			CompositeList::Iterator it(a->children());
 			while(it.hasNext()) {
-				SimComposite& t = it.next();
+				Composite& t = it.next();
 				out.writeInfoCode('A');
 				out.writeString(t.name());
 				PosComponent* pPos = PosComponent::get(t);

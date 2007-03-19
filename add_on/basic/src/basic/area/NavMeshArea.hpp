@@ -14,7 +14,7 @@ namespace se_basic {
 		};
 
 
-		NavMeshArea(se_core::String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh);
+		NavMeshArea(const se_core::CompositeFactory* f, se_core::String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh);
 		virtual ~NavMeshArea();
 
 		short index(const se_core::Point3& coor, short oldIndex = -1) const;

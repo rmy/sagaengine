@@ -32,13 +32,18 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport Composite {
 	public:
+		typedef Composite* id_type;
+
 		Composite(const CompositeFactory* factory);
+		Composite(const CompositeFactory* factory, const char* name);
 		virtual ~Composite();
 
-		RefPtr& ptr() { return ptr_; }
+		RefPtr& ref() { return ptr_; }
 
 		const char* name() const;
 		int type() const;
+
+		id_type id() const { return (id_type)this; }
 
 		void init(bool doTraverseChildren = true);
 		void cleanup(bool doTraverseChildren = true);

@@ -38,7 +38,7 @@ namespace se_core {
 	private:
 		static const int MAX_LISTENERS = 20;
 		int listenerCount_;
-		int* actorIds_;
+		Composite::id_type* actorIds_;
 		HealthListener** listeners_;
 	};
 

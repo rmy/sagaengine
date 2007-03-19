@@ -18,6 +18,17 @@ namespace se_core {
 
 
 	Composite
+	::Composite(const CompositeFactory* factory, const char* name)
+			: factory_(factory), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+		for(int i = 0; i < FAST_COMPONENT_COUNT; ++i) {
+			fastComponents_[i] = 0;
+		}
+		components_.clear();
+		children_.clear();
+	}
+
+
+	Composite
 	::~Composite() {
 		releaseComponents();
 	}

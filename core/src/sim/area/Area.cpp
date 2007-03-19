@@ -35,6 +35,8 @@ rune@skalden.com
 #include "sim/stat/all.hpp"
 #include "sim/thing/all.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "comp/list/CompositeList.hpp"
+#include "comp/list/ComponentList.hpp"
 #include "../physics/PhysicsAreaComponent.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../signal/SignalAreaComponent.hpp"
@@ -46,10 +48,12 @@ rune@skalden.com
 
 namespace se_core {
 	Area
-	::Area(String* name, coor_tile_t w, coor_tile_t h)
-			: SimComposite(got_AREA, name->get()), width_(w), height_(h)
+	::Area(CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
+			: SimComposite(f), width_(w), height_(h)
 			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
+
+		LogFatal("Set name");
 
 		posComponent_ = new PosComponent(this);
 
@@ -243,9 +247,9 @@ namespace se_core {
 		// Shedule all things for destruction, and flip
 		// it out of area
 		{
-			MultiSimComposite::Iterator it(children());
+			CompositeList::Iterator it(children());
 			while(it.hasNext()) {
-				SimComposite* t = &it.next();
+				Composite* t = &it.next();
 				t->scheduleForDestruction();
 			}
 		}

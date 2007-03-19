@@ -30,21 +30,21 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
-		O3dAreaComponent(se_core::SimComposite* owner);
+		O3dAreaComponent(se_core::Composite* owner);
 		~O3dAreaComponent();
 
-		static O3dAreaComponent* get(se_core::SimComposite* composite) {
+		static O3dAreaComponent* get(se_core::Composite* composite) {
 			Assert(composite);
 			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(composite->component(se_core::sct_RENDER));
 			return c;
 		}
 
-		static O3dAreaComponent* get(se_core::SimComposite& composite) {
+		static O3dAreaComponent* get(se_core::Composite& composite) {
 			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(composite.component(se_core::sct_RENDER));
 			return c;
 		}
 
-		static O3dAreaComponent* get(se_core::SimComponent& component) {
+		static O3dAreaComponent* get(se_core::Component& component) {
 			O3dAreaComponent* c = static_cast<O3dAreaComponent*>(component.owner()->component(se_core::sct_RENDER));
 			return c;
 		}
@@ -57,7 +57,7 @@ namespace se_ogre {
 
 		void areaOffset(Ogre::Vector3& dest);
 
-		static bool hasStaticGeometry(se_core::SimComposite& thing);
+		static bool hasStaticGeometry(se_core::Composite& thing);
 
 		void perform();
 

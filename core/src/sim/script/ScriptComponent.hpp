@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef ScriptComponent_hpp
 #define ScriptComponent_hpp
 
+#include "sim_script.hpp"
 #include "../SimComponent.hpp"
 #include "../SimComposite.hpp"
 #include "../action/ActionComponent.hpp"
@@ -35,10 +36,10 @@ namespace se_core {
 	public:
 		typedef Ptr<ScriptComponent, sct_SCRIPT> Ptr;
 
-		ScriptComponent(SimComposite* owner, ActionComponent* consumer);
+		ScriptComponent(Composite* owner, ActionComponent* consumer);
 		virtual ~ScriptComponent();
 
-		static ScriptComponent* get(SimComposite& composite) {
+		static ScriptComponent* get(Composite& composite) {
 			ScriptComponent* c = static_cast<ScriptComponent*>(composite.component(se_core::sct_SCRIPT));
 			return c;
 		}

@@ -26,18 +26,8 @@ rune@skalden.com
 namespace se_core {
 
 	SimComponentFactory
-	::SimComponentFactory(int type) : type_(type) {
+	::SimComponentFactory(int type) : ComponentFactory(type) {
 	}
 
-
-	SimComponentFactory
-	::~SimComponentFactory() {
-	}
-
-
-	void SimComponentFactory
-	::release(SimComponent* c) const {
-		delete c;
-	}
 
 }

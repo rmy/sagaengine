@@ -34,7 +34,7 @@ namespace se_core {
 	public:
 		SignalComponentFactory();
 
-		virtual SimComponent* create(SimComposite* owner) const;
+		virtual Component* create(Composite* owner) const;
 		void setSendSignal(int id);
 		void setRecieveSignal(unsigned long mask, const char* signal);
 

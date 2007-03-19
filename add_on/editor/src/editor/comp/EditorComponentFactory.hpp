@@ -30,7 +30,7 @@ namespace se_editor {
 	class _SeEditorExport EditorComponentFactory : public se_core::SimComponentFactory {
 	public:
 		EditorComponentFactory();
-		se_core::SimComponent* create(se_core::SimComposite* owner) const;
+		se_core::Component* create(se_core::Composite* owner) const;
 
 	protected:
 	};

@@ -36,8 +36,8 @@ namespace se_core {
 	}
 
 
-	SimComponent* SpawnAreaComponentFactory
-	::create(SimComposite* owner) const {
+	Component* SpawnAreaComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).

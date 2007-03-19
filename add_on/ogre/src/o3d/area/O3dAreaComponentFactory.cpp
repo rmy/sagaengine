@@ -30,11 +30,11 @@ namespace se_ogre {
 	O3dAreaComponentFactory
 	::O3dAreaComponentFactory()
 			: SimComponentFactory(sct_RENDER) {
-		SimCompositeFactory::addGenericComponent(SimCompositeFactory::st_AREA, this);
+		SimCompositeFactory::addGenericComponent(st_AREA, this);
 	}
 
-	se_core::SimComponent* O3dAreaComponentFactory
-	::create(SimComposite* owner) const {
+	se_core::Component* O3dAreaComponentFactory
+	::create(Composite* owner) const {
 		return new O3dAreaComponent(owner);
 	}
 

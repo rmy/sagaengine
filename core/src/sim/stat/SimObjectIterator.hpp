@@ -38,8 +38,7 @@ namespace se_core {
 		void init(short firstMode);
 		bool hasNext();
 		SimObject& next();
-		Actor& nextActor();
-		Thing& nextThing();
+		//Actor& nextActor();
 		Cutscene& nextCutscene();
 		QuestGoal& nextQuestGoal();
 

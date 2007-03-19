@@ -140,7 +140,7 @@ namespace se_core {
 	public:
 		/** Constructor.
 		 */
-		Actor(const char* name);
+		Actor(const CompositeFactory* f);
 		~Actor();
 
 		/**
@@ -149,7 +149,8 @@ namespace se_core {
 		 */
 		bool isType(enum SimObjectType type) const {
 			if(type == got_ACTOR) return true;
-			return SimComposite::isType(type);
+			//return Composite::isType(type);
+			return false;
 		}
 
 		/**
@@ -186,7 +187,7 @@ namespace se_core {
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }
 		bool hasTarget() const { return !target_.isNull(); }
-		void setTarget(Actor* target) { target_.set(target->ptr()); }
+		void setTarget(Actor* target) { target_.set(target->ref()); }
 		void resetTarget() { target_.reset(); }
 		const Pos& pos() const { return posComponent_->pos(); }
 		Pos& nextPos() const { return posComponent_->nextPos(); }
@@ -247,7 +248,7 @@ namespace se_core {
 		MultiSimObject cutsceneMemberships_;
 		MultiSimObject questGoals_;
 
-		SimPtr target_;
+		RefPtr target_;
 
 		PosComponent* posComponent_;
 		SpawnComponent* spawnComponent_;

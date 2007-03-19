@@ -26,8 +26,8 @@ using namespace se_core;
 
 namespace se_basic {
 	SimpleArea
-	::SimpleArea(String* name, coor_tile_t w, coor_tile_t h)
-		: Area (name, w, h) {
+	::SimpleArea(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
+		: Area (f, name, w, h) {
 	}
 
 

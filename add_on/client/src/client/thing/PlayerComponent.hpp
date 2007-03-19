@@ -37,11 +37,11 @@ namespace se_client {
 	public:
 		typedef se_core::SimComponent::Ptr<PlayerComponent, se_core::sct_PLAYER> Ptr;
 
-		PlayerComponent(se_core::SimComposite* owner);
+		PlayerComponent(se_core::Composite* owner);
 		virtual ~PlayerComponent();
 
 		void setActive(bool state);
-		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void areaChanged(int zoneType, se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
 		void planAction(short channel, const se_core::Action& action, const se_core::Parameter* parameter = 0) const;
 
 		bool die();

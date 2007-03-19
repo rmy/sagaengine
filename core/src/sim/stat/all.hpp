@@ -6,7 +6,6 @@
 #include "HealthListener.hpp"
 #include "HealthListeners.hpp"
 #include "MultiSimComponent.hpp"
-#include "MultiSimComposite.hpp"
 #include "MultiSimNodeComponent.hpp"
 #include "MultiSimObject.hpp"
 #include "MultiSimObjectListener.hpp"

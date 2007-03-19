@@ -41,8 +41,8 @@ namespace se_core {
 		 * @param type The type of SimComponentManager (gct_ACTOR, gct_PHYSICS, etc)
 		 */
 		SimComponentManager(enum SimComponentType type);
-		static SimComposite& activeRoot();
-		static SimComposite& inactiveRoot();
+		static Composite& activeRoot();
+		static Composite& inactiveRoot();
 
 		/**
 		 * Destructor.

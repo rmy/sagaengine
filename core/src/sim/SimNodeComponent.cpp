@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	SimNodeComponent
-	::SimNodeComponent(SimComposite* owner)
+	::SimNodeComponent(Composite* owner)
 		: SimComponent(sct_NODE, owner), parent_(0) {
 		if(owner->hasParent()) {
 			parentChanged(owner->parent(), 0);
@@ -39,7 +39,7 @@ namespace se_core {
 
 
 	SimNodeComponent
-	::SimNodeComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory)
+	::SimNodeComponent(enum SimComponentType type, Composite* owner, const SimComponentFactory* factory)
 		: SimComponent(type, owner, factory), parent_(0) {
 	}
 
@@ -83,7 +83,7 @@ namespace se_core {
 
 
 	void SimNodeComponent
-	::parentChanged(SimComposite* newParent, SimComposite* oldParent) {
+	::parentChanged(Composite* newParent, SimComposite* oldParent) {
 		if(newParent) {
 			SimNodeComponent* n = static_cast<SimNodeComponent*>(newParent->component(type()));
 			if(n) {

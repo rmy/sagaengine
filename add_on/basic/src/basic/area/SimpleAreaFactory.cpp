@@ -41,7 +41,7 @@ namespace se_basic {
 
 	Area* SimpleAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ) const {
-		SimpleArea* a = new SimpleArea(name, width_, height_);
+		SimpleArea* a = new SimpleArea(this, name, width_, height_);
 		createComponents(a);
 		createGenericComponents(a);
 

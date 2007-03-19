@@ -37,7 +37,7 @@ rune@skalden.com
 namespace se_core {
 
 	SignalAreaComponent
-	::SignalAreaComponent(SimComposite* owner) 
+	::SignalAreaComponent(Composite* owner) 
 			: AreaComponent(sct_SIGNAL, owner), changed_(0) {
 		for(int i = 0; i < MAX_SIGNALS; ++i) {
 			inactiveSignals_[i] = 0;
@@ -53,7 +53,7 @@ namespace se_core {
 	void SignalAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}

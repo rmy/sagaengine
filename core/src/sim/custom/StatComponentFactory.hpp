@@ -41,7 +41,7 @@ namespace se_core {
 		StatComponentFactory();
 		void setAbilities(short speed, short attack, short defence, short level);
 
-		virtual SimComponent* create(SimComposite* owner) const;
+		Component* create(Composite* owner) const;
 
 	protected:
 		Abilities abilities_;

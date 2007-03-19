@@ -32,7 +32,7 @@ using namespace se_core;
 
 namespace se_client {
 	PlayerComponent
-	::PlayerComponent(SimComposite* owner)
+	::PlayerComponent(Composite* owner)
 		: SimComponent(sct_PLAYER, owner), deadWhen_(0) {
 		actionComponent_ = static_cast<ActionComponent*>(owner_->component(sct_ACTION));
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
@@ -50,7 +50,10 @@ namespace se_client {
 	
 
 	void PlayerComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+		if(zoneType != st_AREA)
+			return;
+
 		if(newArea) {
 			PosComponent::Ptr pos(*newArea);
 			lastEntrance_.setViewPoint(pos->nextPos().local_);

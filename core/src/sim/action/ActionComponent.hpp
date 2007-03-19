@@ -44,11 +44,11 @@ namespace se_core {
 
 		/** Constructor.
 		 */
-		ActionComponent(SimComposite* owner);
+		ActionComponent(Composite* owner);
 		~ActionComponent();
 
 
-		static ActionComponent* get(SimComposite& composite) {
+		static ActionComponent* get(Composite& composite) {
 			ActionComponent* c = static_cast<ActionComponent*>(composite.component(se_core::sct_ACTION));
 			return c;
 		}

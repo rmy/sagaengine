@@ -47,14 +47,14 @@ namespace se_core {
 	public:
 		enum MultiSimObjectType {
 			MGOA_CUTSCENES,
-			MGOA_SPAWNS,
+			//MGOA_SPAWNS,
 			MGOA_COUNT
 		};
 
 		/**
 		 * Create a new area of a given size.
 		 */
-		Area(String* name, coor_tile_t w, coor_tile_t h);
+		Area(CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h);
 
 		/**
 		 * Destructor.

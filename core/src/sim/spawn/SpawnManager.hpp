@@ -58,7 +58,7 @@ namespace se_core {
 		void addFactory(SimCompositeFactory* factory);
 		SimCompositeFactory* factory(const char* name);
 		SimComposite* create(const char* name);
-		void scheduleForDestruction(SimComposite& thing);
+		void scheduleForDestruction(Composite& thing);
 		void neutraliseDestructions();
 		void performDestructions();
 		void reset();
@@ -71,7 +71,7 @@ namespace se_core {
 		static const int MAX_FACTORIES = MAX_GAME_TYPES;
 		SimCompositeFactory* factories_[ MAX_FACTORIES ];
 		static const int MAX_THINGS_FOR_DESTRUCTION = MAX_GAME_OBJECTS;
-		SimComposite* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
+		Composite* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
 	};
 
 }

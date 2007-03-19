@@ -30,21 +30,21 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
-		O3dThingComponent(se_core::SimComposite* owner);
+		O3dThingComponent(se_core::Composite* owner);
 		~O3dThingComponent();
 
-		static O3dThingComponent* get(se_core::SimComposite* composite) {
+		static O3dThingComponent* get(se_core::Composite* composite) {
 			Assert(composite);
 			O3dThingComponent* c = static_cast<O3dThingComponent*>(composite->component(se_core::sct_RENDER));
 			return c;
 		}
 
-		static O3dThingComponent* get(se_core::SimComposite& composite) {
+		static O3dThingComponent* get(se_core::Composite& composite) {
 			O3dThingComponent* c = static_cast<O3dThingComponent*>(composite.component(se_core::sct_RENDER));
 			return c;
 		}
 
-		static O3dThingComponent* get(se_core::SimComponent& component) {
+		static O3dThingComponent* get(se_core::Component& component) {
 			O3dThingComponent* c = static_cast<O3dThingComponent*>(component.owner()->component(se_core::sct_RENDER));
 			return c;
 		}
@@ -65,7 +65,7 @@ namespace se_ogre {
 		void remove(ThingMO& tmo);
 
 		void parentChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea) {}
-		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void zoneChanged(int type, se_core::Composite* newArea, se_core::Composite* oldArea);
 
 	protected:
 		Ogre::SceneNode* parentNode_;

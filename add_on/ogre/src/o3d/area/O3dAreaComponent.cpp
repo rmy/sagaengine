@@ -33,7 +33,7 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dAreaComponent
-	::O3dAreaComponent(SimComposite* owner)
+	::O3dAreaComponent(Composite* owner)
 		: O3dNodeComponent(sct_RENDER, owner), Task(0, 32), isVisible_(false), isInitialized_(false) {
 			setPriority(0);
 			setWeight(0);
@@ -141,7 +141,7 @@ namespace se_ogre {
 
 
 	bool O3dAreaComponent
-	::hasStaticGeometry(se_core::SimComposite& thing) {
+	::hasStaticGeometry(se_core::Composite& thing) {
 		// Find which mesh this thing should use
 		short index = O3dSchema::thingMOManager.infoIndex(thing.name());
 		if(index < 0)
@@ -188,9 +188,9 @@ namespace se_ogre {
 #endif
 
 		// Add static things
-		MultiSimComposite::Iterator it(owner()->children());
+		CompositeList::Iterator it(owner()->children());
 		while(it.hasNext()) {
-			SimComposite& thing = it.next();
+			Composite& thing = it.next();
 
 			if(!hasStaticGeometry(thing)) {
 				continue;

@@ -27,7 +27,7 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dNodeComponent  : public se_core::SimNodeComponent {
 	public:
-		O3dNodeComponent(enum se_core::SimComponentType type, se_core::SimComposite* owner);
+		O3dNodeComponent(enum se_core::SimComponentType type, se_core::Composite* owner);
 		~O3dNodeComponent();
 
 		static O3dNodeComponent* get(se_core::SimComposite* composite) {

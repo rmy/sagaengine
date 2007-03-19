@@ -65,10 +65,13 @@ namespace se_core {
 	}
 
 
+
+	/*
 	Actor& SimObjectIterator
 	::nextActor() {
 		return static_cast<Actor&>(*SimSchema::simObjectList.next(it_));
 	}
+	*/
 
 
 	Cutscene& SimObjectIterator

@@ -36,11 +36,11 @@ namespace se_core {
 	public:
 		typedef Ptr<SignalComponent, sct_SIGNAL> Ptr;
 
-		SignalComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		SignalComponent(Composite* owner, const SimComponentFactory* factory = 0);
 		virtual ~SignalComponent();
 		const char* name() { return "Signal"; }
 
-		static SignalComponent* get(SimComposite& composite) {
+		static SignalComponent* get(Composite& composite) {
 			SignalComponent* c = static_cast<SignalComponent*>(composite.component(se_core::sct_SIGNAL));
 			return c;
 		}
@@ -62,7 +62,7 @@ namespace se_core {
 		bool send(bool state);
 		long sentAge() const;
 		void recieve(int id, bool state);
-		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
+		void zoneChanged(int type, Composite* newArea, Composite* oldArea);
 
 
 	protected:

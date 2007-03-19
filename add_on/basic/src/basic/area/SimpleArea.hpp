@@ -34,7 +34,7 @@ namespace se_basic {
 		};
 
 
-		SimpleArea(se_core::String* name, coor_tile_t w, coor_tile_t h);
+		SimpleArea(const se_core::CompositeFactory* f, se_core::String* name, coor_tile_t w, coor_tile_t h);
 		virtual ~SimpleArea();
 
 		short index(const se_core::Point3&, short oldIndex = -1) const { return -1; }

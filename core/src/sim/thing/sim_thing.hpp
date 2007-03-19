@@ -24,7 +24,7 @@ rune@skalden.com
 
 namespace se_core {
 	class Actor;
-	class Thing;
+	class ActorFactory;
 }
 
 

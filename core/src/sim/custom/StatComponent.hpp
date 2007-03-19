@@ -40,7 +40,7 @@ namespace se_core {
 	public:
 		typedef Ptr<StatComponent, sct_STAT> Ptr;
 
-		static StatComponent* get(SimComposite& composite) {
+		static StatComponent* get(Composite& composite) {
 			StatComponent* c = static_cast<StatComponent*>(composite.component(se_core::sct_STAT));
 			return c;
 		}
@@ -55,7 +55,7 @@ namespace se_core {
 			return c;
 		}
 
-		StatComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		StatComponent(Composite* owner, const SimComponentFactory* factory = 0);
 		void setAbilities(short* abilities);
 		void setQuickMenuAction(const Action* a);
 		void setUseAction(const Action* a);

@@ -45,32 +45,32 @@ namespace se_core {
 	public:
 		typedef Ptr<PosComponent, sct_POS> Ptr;
 
-		PosComponent(SimComposite* owner);
+		PosComponent(Composite* owner);
 		virtual ~PosComponent();
 
-		static PosComponent* get(SimComposite* composite) {
+		static PosComponent* get(Composite* composite) {
 			if(!composite)
 				return 0;
 			PosComponent* c = static_cast<PosComponent*>(composite->component(se_core::sct_POS));
 			return c;
 		}
 
-		static PosComponent* get(SimComposite& composite) {
+		static PosComponent* get(Composite& composite) {
 			PosComponent* c = static_cast<PosComponent*>(composite.component(se_core::sct_POS));
 			return c;
 		}
 
-		static const PosComponent* get(const SimComposite& composite) {
+		static const PosComponent* get(const Composite& composite) {
 			const PosComponent* c = static_cast<const PosComponent*>(composite.component(se_core::sct_POS));
 			return c;
 		}
 
-		static PosComponent* get(SimComponent& component) {
+		static PosComponent* get(Component& component) {
 			PosComponent* c = static_cast<PosComponent*>(component.owner()->component(se_core::sct_POS));
 			return c;
 		}
 
-		static const PosComponent* get(const SimComponent& component) {
+		static const PosComponent* get(const Component& component) {
 			const PosComponent* c = static_cast<const PosComponent*>(component.owner()->component(se_core::sct_POS));
 			return c;
 		}

@@ -39,7 +39,7 @@ namespace se_core {
 	public:
 		/** Constructor.
 		 */
-		CollisionAreaComponent(SimComposite* owner);
+		CollisionAreaComponent(Composite* owner);
 		~CollisionAreaComponent();
 
 		const char* name() { return "CollisionArea"; }

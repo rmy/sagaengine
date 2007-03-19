@@ -23,6 +23,7 @@ rune@skalden.com
 #define RefPtr_hpp
 
 #include "util/error/Log.hpp"
+#include "comp.hpp"
 
 namespace se_core {
 
@@ -32,11 +33,11 @@ namespace se_core {
 	private:
 		class Ptr {
 		public:
-			Ptr(void* ptr)
+			Ptr(Composite* ptr)
 				: ptr_(ptr), refCount_(1) {
 			}
 
-			void* object() {
+			Composite* object() {
 				return ptr_;
 			}
 
@@ -49,7 +50,7 @@ namespace se_core {
 				if(!refCount_)
 					delete this;
 			}
-			void* ptr_;
+			Composite* ptr_;
 			int refCount_;
 
 		private:
@@ -96,19 +97,27 @@ namespace se_core {
 			return (ptr_ == 0 || ptr_->ptr_ == 0);
 		}
 
-		void* object() {
+		Composite* object() {
 			Assert(ptr_ && "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 
-		void* object() const {
+		Composite* object() const {
 			Assert(ptr_ && "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 
-		RefPtr(void* ptr)
+		RefPtr(Composite* ptr)
 			: ptr_(new Ptr(ptr)), isOwner_(true) {
 		}
+
+		RefPtr& operator=(Composite* c);
+
+		inline Composite* operator->() {
+			Assert(!isNull());
+			return ptr_->ptr_;
+		}
+
 
 	private:
 		/**

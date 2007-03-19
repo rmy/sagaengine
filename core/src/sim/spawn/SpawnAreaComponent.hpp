@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim/sim.hpp"
 #include "sim/pos/sim_pos.hpp"
 #include "sim/AreaComponent.hpp"
-#include "sim/stat/MultiSimComposite.hpp"
+#include "comp/list/CompositeList.hpp"
 
 
 namespace se_core {
@@ -35,7 +35,7 @@ namespace se_core {
 		
 		/** Constructor.
 		 */
-		SpawnAreaComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		SpawnAreaComponent(Composite* owner, const SimComponentFactory* factory = 0);
 		~SpawnAreaComponent();
 		void setActive(bool state);
 		void flipSpawns(void);
@@ -64,7 +64,7 @@ namespace se_core {
 		friend class SpawnAreaComponentFactory;
 
 		/** List of waiting to be spawned  */
-		MultiSimComposite newSpawns_;
+		CompositeList newSpawns_;
 
 		/** The number of spawn points */
 		int spawnPointCount_;

@@ -48,8 +48,8 @@ namespace se_core {
 	}
 
 
-	SimComponent* StatComponentFactory
-	::create(SimComposite* owner) const {
+	Component* StatComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).

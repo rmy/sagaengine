@@ -32,7 +32,7 @@ rune@skalden.com
 
 namespace se_core {
 	SignalComponent
-	::SignalComponent(SimComposite* owner, const SimComponentFactory* factory)
+	::SignalComponent(Composite* owner, const SimComponentFactory* factory)
 		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(-1), sentWhen_(0), recieveMask_(0)
 		, signal_(0) {
 	}
@@ -75,13 +75,16 @@ namespace se_core {
 
 
 	void SignalComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
+		if(zoneType != st_AREA)
+			return;
+
 		if(oldArea && !sendState_ && sendId_ >= 0) {
-			SignalAreaComponent* oAreaSignal = SignalAreaComponent::get(*oldArea);
+			SignalAreaComponent::Ptr oAreaSignal(*oldArea);
 			oAreaSignal->setSignalActive(sendId_, sendState_);
 		}
 		if(newArea && !sendState_ && sendId_ >= 0) {
-			SignalAreaComponent* nAreaSignal = SignalAreaComponent::get(*newArea);
+			SignalAreaComponent::Ptr nAreaSignal(*newArea);
 			nAreaSignal->setSignalActive(sendId_, sendState_);
 		}
 

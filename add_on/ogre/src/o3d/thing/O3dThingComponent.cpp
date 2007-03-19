@@ -30,7 +30,7 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dThingComponent
-	::O3dThingComponent(SimComposite* owner)
+	::O3dThingComponent(Composite* owner)
 		: O3dNodeComponent(sct_RENDER, owner), Task(2, 8), parentNode_(0), isVisible_(false)
 		, isInitialized_(false)
 		, firstThingMO_(ThingMOList::end()) {
@@ -225,7 +225,9 @@ namespace se_ogre {
 
 
 	void O3dThingComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
+		if(zoneType != st_AREA)
+			return;
 		if(newArea) {
 			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(newArea->component(type()));
 			Assert(c);

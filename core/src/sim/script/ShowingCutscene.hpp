@@ -25,6 +25,7 @@ rune@skalden.com
 #include "sim_script.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
+#include "comp/list/CompositeList.hpp"
 
 namespace se_core {
 	class _SeCoreExport ShowingCutscene {
@@ -39,7 +40,7 @@ namespace se_core {
 
 	private:
 		Cutscene* cutscene_;
-		MultiSimObject* members_;
+		CompositeList* members_;
 	};
 }
 

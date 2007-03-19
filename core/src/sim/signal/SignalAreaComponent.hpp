@@ -30,14 +30,16 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SignalAreaComponent : public AreaComponent {
 	public:
+		typedef Ptr<SignalAreaComponent, sct_SIGNAL> Ptr;
+
 		/** Constructor.
 		 */
-		static SignalAreaComponent* get(SimComposite& composite) {
+		static SignalAreaComponent* get(Composite& composite) {
 			SignalAreaComponent* c = static_cast<SignalAreaComponent*>(composite.component(se_core::sct_SIGNAL));
 			return c;
 		}
 
-		static const SignalAreaComponent* get(const SimComposite& composite) {
+		static const SignalAreaComponent* get(const Composite& composite) {
 			const SignalAreaComponent* c = static_cast<const SignalAreaComponent*>(composite.component(se_core::sct_SIGNAL));
 			return c;
 		}
@@ -48,7 +50,7 @@ namespace se_core {
 		}
 
 
-		SignalAreaComponent(SimComposite* owner);
+		SignalAreaComponent(Composite* owner);
 		~SignalAreaComponent();
 
 		const char* name() { return "SignalArea"; }

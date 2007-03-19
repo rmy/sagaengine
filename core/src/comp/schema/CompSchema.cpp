@@ -28,15 +28,20 @@ rune@skalden.com
 
 namespace se_core {
 	namespace CompSchema {
-		/*
+
 		extern _SeCoreExport Composite& activeRoot() {
-			return ComponentManager::activeRoot();
+			static Composite s(0, "activeRoot");
+			Assert(!s.hasParent());
+			return s;
 		}
 
 		extern _SeCoreExport Composite& inactiveRoot() {
-			return ComponentManager::inactiveRoot();
+			static Composite s(0, "inactiveRoot");
+			Assert(!s.hasParent());
+			return s;
 		}
 
+		/*
 		SortedSimObjectList& sortedSimObjectList() {
 			static SortedSimObjectList sgol;
 			return sgol;

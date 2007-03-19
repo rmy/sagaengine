@@ -24,6 +24,8 @@ rune@skalden.com
 #include "AreaFactory.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../../util/error/Log.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "comp/schema/CompSchema.hpp"
 #include <cstring>
 #include <cstdio>
 
@@ -119,7 +121,7 @@ namespace se_core {
 
 
 	Area* AreaManager
-	::areaById(int id) {
+	::areaById(Composite::id_type id) {
 		for(int i = 0; i < areaCount_; ++i) {
 			if(areas_[ i ]->id() == id) {
 				return areas_[ i ];
@@ -144,7 +146,7 @@ namespace se_core {
 		}
 
 		active_[ activeCount_ ] = area;
-		active_[ activeCount_ ]->setParent(SimSchema::activeRoot());
+		active_[ activeCount_ ]->setParent(CompSchema::activeRoot());
 		++activeCount_;
 
 		DebugExec(integrity());
@@ -176,7 +178,7 @@ namespace se_core {
 					// Make it active
 					index = activeCount_;
 					active_[ index ] = a;
-					a->setParent(SimSchema::activeRoot());
+					a->setParent(CompSchema::activeRoot());
 					++activeCount_;
 				}
 				
@@ -193,7 +195,7 @@ namespace se_core {
 			if(!shouldKeep_[i]) {
 				Area* a = active_[i];
 				Assert(a);
-				a->setParent(SimSchema::inactiveRoot());
+				a->setParent(CompSchema::inactiveRoot());
 
 				// Delete current by moving last to here
 				--activeCount_;
@@ -214,7 +216,7 @@ namespace se_core {
 	::setInactive(Area* area) {
 		for(int i = 0; i < activeCount_; ++i) {
 			if(area == active_[i]) {
-				area->setParent(SimSchema::inactiveRoot());
+				area->setParent(CompSchema::inactiveRoot());
 
 				--activeCount_;
 				active_[ i ] = active_[ activeCount_ ];
@@ -316,7 +318,7 @@ namespace se_core {
 	::dump() {
 		puts("Dumping repository...");
 		for(int i = 0; i < areaCount_; ++i) {
-			printf("%d - %s\n", areas_[i]->id(), areas_[i]->name());
+			printf("%d - %s\n", (size_t)areas_[i]->id(), areas_[i]->name());
 		}
 	}
 

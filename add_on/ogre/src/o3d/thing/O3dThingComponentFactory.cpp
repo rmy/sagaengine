@@ -32,8 +32,8 @@ namespace se_ogre {
 			: SimComponentFactory(sct_RENDER) {
 	}
 
-	se_core::SimComponent* O3dThingComponentFactory
-	::create(SimComposite* owner) const {
+	se_core::Component* O3dThingComponentFactory
+	::create(Composite* owner) const {
 		return new O3dThingComponent(owner);
 	}
 

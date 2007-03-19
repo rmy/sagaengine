@@ -46,17 +46,17 @@ namespace se_core {
 		CollisionComponent(Actor* owner);
 		~CollisionComponent();
 
-		static CollisionComponent* get(SimComposite& composite) {
+		static CollisionComponent* get(Composite& composite) {
 			CollisionComponent* c = static_cast<CollisionComponent*>(composite.component(se_core::sct_COLLISION));
 			return c;
 		}
 
-		static const CollisionComponent* get(const SimComposite& composite) {
+		static const CollisionComponent* get(const Composite& composite) {
 			const CollisionComponent* c = static_cast<const CollisionComponent*>(composite.component(se_core::sct_COLLISION));
 			return c;
 		}
 
-		static CollisionComponent* get(SimComponent& component) {
+		static CollisionComponent* get(Component& component) {
 			CollisionComponent* c = static_cast<CollisionComponent*>(component.owner()->component(se_core::sct_COLLISION));
 			return c;
 		}
@@ -115,7 +115,7 @@ namespace se_core {
 		bool doesGeometryCollide(const CollisionComponent& other) const;
 		scale_t whenDoesGeometryCollide(const CollisionComponent& other) const;
 
-		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
+		void areaChanged(int zoneType, Composite* newArea, SimComposite* oldArea);
 
 		const BoundingBox& areaCovered() const { return areaCovered_; }
 		void updateAreaCovered();

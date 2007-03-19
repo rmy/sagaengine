@@ -30,14 +30,14 @@ namespace se_core {
 	 */
 	class _SeCoreExport AreaChildComponent : public SimNodeComponent {
 	public:
-		AreaChildComponent(enum SimComponentType type, SimComposite* owner);
+		AreaChildComponent(enum SimComponentType type, Composite* owner);
 		virtual ~AreaChildComponent();
 
 	protected:
 		/** Override SimNodeComponent with empty handler */
-		void parentChanged(SimComposite* newParent, SimComposite* oldParent) {}
+		void parentChanged(Composite* newParent, SimComposite* oldParent) {}
 		/** AreaChild should have area as parent */
-		void areaChanged(SimComposite* newParent, SimComposite* oldParent);
+		void zoneChanged(int zoneType, Composite* newParent, SimComposite* oldParent);
 	};
 
 }
