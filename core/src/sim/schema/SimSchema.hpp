@@ -162,7 +162,7 @@ namespace se_core {
 		 * This list is used a lot by the MultiSimObject class.
 		 */
 		extern _SeCoreExport SimObjectList simObjectList;
-		extern _SeCoreExport SimComponentList simComponentList;
+		//extern _SeCoreExport SimComponentList simComponentList;
 		extern _SeCoreExport VoidList voidList;
 
 		//extern AllPropertyLists allPropertyLists;
