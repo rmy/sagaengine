@@ -40,9 +40,6 @@ namespace se_core {
 		inline Thing* nextThing(iterator_type& iterator) {
 			return reinterpret_cast<Thing*>(next(iterator));
 		}
-		inline PosNode* nextPosNode(iterator_type& iterator) {
-			return reinterpret_cast<PosNode*>(next(iterator));
-		}
 		inline Cutscene* nextCutscene(iterator_type& iterator) {
 			return reinterpret_cast<Cutscene*>(next(iterator));
 		}

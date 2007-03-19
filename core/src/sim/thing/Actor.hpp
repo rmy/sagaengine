@@ -37,6 +37,7 @@ rune@skalden.com
 #include "util/vecmath/Point3.hpp"
 #include "util/type/String.hpp"
 #include "../script/ScriptComponent.hpp"
+#include "../spawn/SpawnComponent.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionAndParameter.hpp"
 #include "../physics/PhysicsComponent.hpp"
