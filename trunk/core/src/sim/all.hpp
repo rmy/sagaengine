@@ -5,7 +5,6 @@
 #include "AreaComponent.hpp"
 #include "InitListener.hpp"
 #include "InitListeners.hpp"
-#include "PosNode.hpp"
 #include "sim.hpp"
 #include "SimComponent.hpp"
 #include "SimComponentFactory.hpp"
