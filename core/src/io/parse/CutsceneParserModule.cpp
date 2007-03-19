@@ -230,7 +230,8 @@ namespace se_core {
 				break;
 			}
 			//TODO:
-			SimSchema::areaManager.area(name->get())->multiSimObject(Area::MGOA_CUTSCENES).add(*cutscene);
+			//SimSchema::areaManager.area(name->get())->multiSimObject(Area::MGOA_CUTSCENES).add(*cutscene);
+			LogFatal("TODO");
 			delete name;
 		}
 	}

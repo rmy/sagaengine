@@ -49,11 +49,8 @@ rune@skalden.com
 namespace se_core {
 	Area
 	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
-			: SimComposite(f), width_(w), height_(h)
-			, multiSimObjects_(new MultiSimObject[ MGOA_COUNT ])
+			: SimComposite(f, name->get()), width_(w), height_(h)
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
-
-		LogFatal("Set name");
 
 		posComponent_ = new PosComponent(this);
 
@@ -94,7 +91,6 @@ namespace se_core {
 
 	Area
 	::~Area() {
-		delete[] multiSimObjects_;
 		delete nameString_;
 		delete PhysicsAreaComponent_;
 		delete scriptComponent_;
@@ -209,33 +205,6 @@ namespace se_core {
 		return actor.pickTarget();
 	}
 	*/
-
-
-	void Area
-	::enter(Actor& performer) {
-		Cutscene* c = 0;
-
-		SimObjectList::iterator_type it = multiSimObject(MGOA_CUTSCENES).iterator();
-		while(it != SimObjectList::end()) {
-			c = SimSchema::simObjectList.nextCutscene(it);
-			Assert(c != 0);
-			if(!performer.questGoals().contains(c->afterTheseGoals())) {
-				c = 0;
-				continue;
-			}
-			if(performer.questGoals().sharesAny(c->beforeTheseGoals())) {
-				c = 0;
-				continue;
-			}
-			break;
-		}
-		if(!c) return;
-		if(c->questGoal()) {
-			performer.questGoals().add(*(c->questGoal()));
-		}
-		// TODO:
-		//c->setScripts(*this, performer);
-	}
 
 
 	void Area

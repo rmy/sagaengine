@@ -227,6 +227,8 @@ namespace se_basic {
 
 	void SimpleAreaThingParserModule
 	::readMultiCutscene(InputStream& in, int areaCount, Area** areas) {
+		LogFatal("Not implemented");
+		/*
 		String* name;
 
 		for(;;) {
@@ -248,6 +250,7 @@ namespace se_basic {
 				delete name;
 			}
 		}
+		*/
 	}
 
 }

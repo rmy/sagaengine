@@ -26,13 +26,17 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
+#include "../script/ShowingCutscene.hpp"
+#include "../script/Cutscene.hpp"
 
 
 
 namespace se_core {
 	CutsceneComponent
 	::CutsceneComponent(SimComposite* owner, const SimComponentFactory* factory)
-		: AreaChildComponent(sct_CUTSCENE, owner) {
+		: AreaChildComponent(sct_CUTSCENE, owner)
+//			, showingCutscene_(0)
+	{
 	}
 
 
@@ -45,5 +49,24 @@ namespace se_core {
 	void CutsceneComponent
 	::cleanup() {
 	}
+
+
+	/*
+	void Actor
+	::stopShowingCutscene() {
+		if(showingCutscene_) {
+			showingCutscene_->freeMembers();
+		}
+	}
+
+	void Actor
+	::setNoCutsceneShowing() {
+		if(showingCutscene_) {
+			popScript();
+			showingCutscene_ = 0;
+		}
+	}
+
+	*/
 
 }

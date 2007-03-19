@@ -13,4 +13,9 @@ namespace se_core {
 			: Composite(f) {
 	}
 
+	SimComposite
+	::SimComposite(const CompositeFactory* f, const char* name)
+			: Composite(f, name) {
+	}
+
 }

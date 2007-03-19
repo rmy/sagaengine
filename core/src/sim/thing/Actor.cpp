@@ -29,8 +29,6 @@ rune@skalden.com
 #include "../physics/Physics.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../script/Script.hpp"
-#include "../script/ShowingCutscene.hpp"
-#include "../script/Cutscene.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectList.hpp"
@@ -48,8 +46,7 @@ rune@skalden.com
 namespace se_core {
 	Actor
 	::Actor(const CompositeFactory* f)
-			: SimComposite(f)
-			, showingCutscene_(0) {
+			: SimComposite(f) {
 		posComponent_ = new PosComponent(this);
 		spawnComponent_ = new SpawnComponent(this, posComponent_);
 		actionComponent_ = new ActionComponent(this);
@@ -78,22 +75,6 @@ namespace se_core {
 	void Actor
 	::sound(const char* snd) {
 		SimSchema::soundCentral.sound(*this, snd);
-	}
-
-
-	void Actor
-	::stopShowingCutscene() {
-		if(showingCutscene_) {
-			showingCutscene_->freeMembers();
-		}
-	}
-
-	void Actor
-	::setNoCutsceneShowing() {
-		if(showingCutscene_) {
-			popScript();
-			showingCutscene_ = 0;
-		}
 	}
 
 

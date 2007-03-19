@@ -47,8 +47,10 @@ namespace se_core {
 
 	void ShowingCutscene
 	::removeMember(Actor& a) {
-		members_->remove(a);
-		a.setNoCutsceneShowing();
+		LogFatal("TODO");
+		// TODO:
+		// members_->remove(a);
+		// a.setNoCutsceneShowing();
 	}
 
 

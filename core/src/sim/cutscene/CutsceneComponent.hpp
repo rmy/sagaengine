@@ -34,6 +34,40 @@ namespace se_core {
 		virtual ~CutsceneComponent();
 		const char* name() { return "Cutscene"; }
 
+		/*
+		Cutscene* findRunnableCutscene(Actor& actor) { return 0; }
+
+		///////////////////////////////////////
+		void setShowingCutscene(ShowingCutscene* sc, const Script* script);
+		ShowingCutscene* showingCutscene() { return showingCutscene_; }
+
+		void removeFromShowingCutscene();
+		void stopShowingCutscene();
+
+		MultiSimObject& cutscenes() { return cutscenes_; }
+		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
+		MultiSimObject& questGoals() { return questGoals_; }
+
+	protected:
+		friend class ShowingCutscene;
+		mutable ActionAndParameter defaultAction_;
+		*/
+
+		/** ShowingCutscene uses this to free members. */
+		//void setNoCutsceneShowing();
+
+	/*
+	protected:
+		// Group shorts for compiler
+		ShowingCutscene* showingCutscene_;
+
+		MultiSimObject cutscenes_;
+		MultiSimObject cutsceneMemberships_;
+		MultiSimObject questGoals_;
+
+	*/
+
+
 	protected:
 		friend class CutsceneComponentFactory;
 

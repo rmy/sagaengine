@@ -78,8 +78,6 @@ namespace se_core {
 			return scriptComponent_->script();
 		}
 
-		Cutscene* findRunnableCutscene(Actor& actor) { return 0; }
-		
 		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const {
 			actionComponent_->planAction(channel, action, parameter);
 		}
@@ -175,14 +173,6 @@ namespace se_core {
 		void say(const char* message);
 		void sound(const char* snd);
 
-		///////////////////////////////////////
-
-		void setShowingCutscene(ShowingCutscene* sc, const Script* script);
-		ShowingCutscene* showingCutscene() { return showingCutscene_; }
-
-		void removeFromShowingCutscene();
-		void stopShowingCutscene();
-
 
 		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
 		Actor* target() { return static_cast<Actor*>(target_.object()); }
@@ -200,10 +190,6 @@ namespace se_core {
 		void decSpawnCount() { spawnComponent_->decSpawnCount(); }
 		int spawnCount() { return spawnComponent_->spawnCount(); }
 		*/
-
-		MultiSimObject& cutscenes() { return cutscenes_; }
-		MultiSimObject& cutsceneMemberships() { return cutsceneMemberships_; }
-		MultiSimObject& questGoals() { return questGoals_; }
 
 		bool hasDefaultAction() const {
 			return defaultAction_.hasAction();
@@ -234,19 +220,7 @@ namespace se_core {
 		friend class Area;
 
 	protected:
-		friend class ShowingCutscene;
 		mutable ActionAndParameter defaultAction_;
-
-		/** ShowingCutscene uses this to free members. */
-		void setNoCutsceneShowing();
-
-	protected:
-		// Group shorts for compiler
-		ShowingCutscene* showingCutscene_;
-
-		MultiSimObject cutscenes_;
-		MultiSimObject cutsceneMemberships_;
-		MultiSimObject questGoals_;
 
 		RefPtr target_;
 
