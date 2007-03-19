@@ -39,7 +39,10 @@ namespace se_core {
 		 */
 		Component(int type, Composite* owner, const ComponentFactory* factory = 0);
 
-		virtual const char* name() { return "Unkown"; }
+		/**
+		 * By default returns name of composite, which returns name of composite factory.
+		 */ 
+		virtual const char* name() const;
 
 		/**
 		 * Destructor.
@@ -52,6 +55,9 @@ namespace se_core {
 		}
 
 
+		/**
+		 * Component type.
+		 */
 		inline const Composite* owner() const {
 			return owner_;
 		}
@@ -86,7 +92,7 @@ namespace se_core {
 
 		/** Called by Composite
 		 */
-		virtual void areaChanged(Composite* newArea, Composite* oldArea);
+		virtual void zoneChanged(int type, Composite* newArea, Composite* oldArea);
 
 		/** Called by Composite
 		 */

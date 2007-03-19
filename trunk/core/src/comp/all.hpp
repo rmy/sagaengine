@@ -5,6 +5,7 @@
 #include "Component.hpp"
 #include "ComponentFactory.hpp"
 #include "Composite.hpp"
+#include "CompositeFactory.hpp"
 #include "Object.hpp"
 #include "RefPtr.hpp"
 
