@@ -29,14 +29,12 @@ namespace se_core {
 	class VoidList;
 
 	class MultiSimObject;
-	class MultiSimComponent;
 	class MultiSimNodeComponent;
 	class ReportingMultiSimObject;
 	class ReportingMGOHandler;
 	class MultiSimObjectListener;
 
 	class MultiSimObjectIterator;
-	class ThingIterator;
 
 	// Use with util/template/HashTable ?
 	class Property;
@@ -45,12 +43,6 @@ namespace se_core {
 	//class AllPropertyLists;
 
 	class Dictionary;
-
-	class Anim;
-	class Pos;
-	class Force;
-	class Speed;
-	class ViewPoint;
 
 	class HealthListener;
 	class HealthListeners;

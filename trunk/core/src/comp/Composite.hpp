@@ -143,14 +143,12 @@ namespace se_core {
 		 */
 		void removeChild(Composite& node);
 
-		/**
-		 * Reference counted pointer.
-		 */
-		RefPtr ptr_;
-
-		const CompositeFactory* factory_;
 		const char* name_;
+		const CompositeFactory* factory_;
 		int tag_;
+		bool isActive_;
+		bool isDead_;
+
 		ComponentList components_;
 
 		Composite* parent_;
@@ -158,8 +156,12 @@ namespace se_core {
 		enum { FAST_COMPONENT_COUNT = 16 };
 		Component* fastComponents_[16];
 
-		bool isActive_;
-		bool isDead_;
+
+		/**
+		 * Reference counted pointer.
+		 */
+		RefPtr ptr_;
+
 	};
 
 }

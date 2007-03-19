@@ -27,6 +27,7 @@ rune@skalden.com
 #include "../custom/sim_custom.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
+#include "../pos/sim_pos.hpp"
 
 namespace se_core {
 	class _SeCoreExport Physics : public SimObject {

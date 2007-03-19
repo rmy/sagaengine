@@ -63,6 +63,8 @@ namespace se_core {
 		delete physicsComponent_;
 		delete scriptComponent_;
 		delete actionComponent_;
+		delete spawnComponent_;
+		delete posComponent_;
 	}
 
 
