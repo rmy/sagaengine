@@ -49,7 +49,7 @@ rune@skalden.com
 namespace se_core {
 	Area
 	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
-			: SimComposite(f, name->get()), width_(w), height_(h)
+			: Composite(f, name->get()), width_(w), height_(h)
 			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
 
 		posComponent_ = new PosComponent(this);
@@ -346,7 +346,7 @@ namespace se_core {
 
 
 
-	SimComposite* Area
+	Composite* Area
 	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosComponent* parent) {
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
 			// Tried to spawn on denied terrain type
@@ -357,7 +357,7 @@ namespace se_core {
 		return spawnAreaComponent_->spawn(thingName, vp, parent);
 		/*
 		// Create the thing
-		SimComposite* thing = SimSchema::spawnManager().create(thingName);
+		Composite* thing = SimSchema::spawnManager().create(thingName);
 		PosComponent* p = PosComponent::get(*thing);
 		Assert(p);
 

@@ -33,7 +33,7 @@ namespace se_core {
 		
 		/** Constructor.
 		 */
-		CutsceneAreaComponent(SimComposite* owner, const SimComponentFactory* factory = 0);
+		CutsceneAreaComponent(Composite* owner, const SimComponentFactory* factory = 0);
 		~CutsceneAreaComponent();
 		void setActive(bool state);
 

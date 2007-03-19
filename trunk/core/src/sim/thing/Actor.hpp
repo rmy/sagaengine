@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef engine_thing_Actor_hpp
 #define engine_thing_Actor_hpp
 
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../action/sim_action.hpp"
 #include "../custom/Move.hpp"
 #include "../physics/Physics.hpp"
@@ -51,7 +51,7 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class _SeCoreExport Actor : public SimComposite {
+	class _SeCoreExport Actor : public Composite {
 	public:
 		//TODO:
 		void stopScript() {
@@ -185,7 +185,7 @@ namespace se_core {
 		virtual bool isPlayer() { return false; }
 
 		/*
-		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
+		Composite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { spawnComponent_->incSpawnCount(); }
 		void decSpawnCount() { spawnComponent_->decSpawnCount(); }
 		int spawnCount() { return spawnComponent_->spawnCount(); }

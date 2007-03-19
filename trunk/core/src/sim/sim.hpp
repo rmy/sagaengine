@@ -35,7 +35,7 @@ namespace se_core {
 	class SimNodeComponent;
 
 	class SimCompositeFactory;
-	class SimComposite;
+	class Composite;
 	
 	class SimCompositeManager;
 

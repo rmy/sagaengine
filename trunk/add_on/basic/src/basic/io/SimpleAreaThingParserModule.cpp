@@ -90,7 +90,7 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readThing(InputStream& in, int areaCount, se_core::Area** areas, SimComposite** parents) {
+	::readThing(InputStream& in, int areaCount, se_core::Area** areas, Composite** parents) {
 		String thingName;
 		in.readString(thingName);
 
@@ -143,13 +143,13 @@ namespace se_basic {
 			}
 		}
 
-		SimComposite** siblings = new SimComposite*[areaCount];
+		Composite** siblings = new Composite*[areaCount];
 		for(int i = 0; i < areaCount; ++i) {
-			SimComposite* parent = (parents) ? parents[i] : 0;
+			Composite* parent = (parents) ? parents[i] : 0;
 			PosComponent* parentPos = PosComponent::get(parent);
 			AssertFatal(areas[i]->terrainStyle(vp.coor_) != Pos::TS_VOID, thingName.get() << " - Area: " << areas[i]->name() << " - Factory: " << areas[i]->factory()->name() << " - Coor: " << vp.coor_);
 			
-			SimComposite* thing = areas[i]->spawn(thingName.get(), vp, 0, parentPos);
+			Composite* thing = areas[i]->spawn(thingName.get(), vp, 0, parentPos);
 			PosComponent* p = PosComponent::get(thing);
 			Assert(p);
 			if(isScaled) {
@@ -177,7 +177,7 @@ namespace se_basic {
 
 
 	void SimpleAreaThingParserModule
-	::readChildren(InputStream& in, int areaCount, Area** areas, SimComposite** parents) {
+	::readChildren(InputStream& in, int areaCount, Area** areas, Composite** parents) {
 		int code;
 		while((code = in.readInfoCode()) != ']') {
 			//LogMsg("Code: " << (char)code);

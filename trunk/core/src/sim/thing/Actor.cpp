@@ -46,7 +46,7 @@ rune@skalden.com
 namespace se_core {
 	Actor
 	::Actor(const CompositeFactory* f)
-			: SimComposite(f) {
+			: Composite(f) {
 		posComponent_ = new PosComponent(this);
 		spawnComponent_ = new SpawnComponent(this, posComponent_);
 		actionComponent_ = new ActionComponent(this);

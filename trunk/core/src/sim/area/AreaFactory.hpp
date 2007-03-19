@@ -30,7 +30,7 @@ rune@skalden.com
 #include "../stat/sim_stat.hpp"
 #include "../SimCompositeFactory.hpp"
 #include "../SimComponentFactory.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 
 namespace se_core {
 

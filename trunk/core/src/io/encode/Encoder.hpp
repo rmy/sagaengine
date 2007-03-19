@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../stream/OutputStream.hpp"
 #include "sim/thing/sim_thing.hpp"
 #include "io_encode.hpp"
-#include "sim/SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "EncoderModule.hpp"
 
 namespace se_core {

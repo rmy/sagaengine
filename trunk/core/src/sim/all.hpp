@@ -9,7 +9,6 @@
 #include "SimComponent.hpp"
 #include "SimComponentFactory.hpp"
 #include "SimComponentManager.hpp"
-#include "SimComposite.hpp"
 #include "SimCompositeFactory.hpp"
 #include "SimEngine.hpp"
 #include "SimListener.hpp"

@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "./SimObject.hpp"
 #include "./SimComponent.hpp"
-#include "./SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "./action/sim_action.hpp"
 #include "./config/sim_config.hpp"
 #include "./pos/Pos.hpp"
@@ -77,7 +77,7 @@ namespace se_core {
 		}
 
 	protected:
-		void parentChanged(Composite* newParent, SimComposite* oldParent);
+		void parentChanged(Composite* newParent, Composite* oldParent);
 		void cleanup() {
 			resetParent();
 		}

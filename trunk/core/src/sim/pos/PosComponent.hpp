@@ -23,7 +23,7 @@ rune@skalden.com
 #define sim_PosComponent_hpp
 
 #include "../SimComponent.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "Pos.hpp"
 #include "../config/sim_config.hpp"

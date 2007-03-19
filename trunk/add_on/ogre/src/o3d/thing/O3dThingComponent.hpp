@@ -64,7 +64,7 @@ namespace se_ogre {
 		void add(ThingMO& tmo);
 		void remove(ThingMO& tmo);
 
-		void parentChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea) {}
+		void parentChanged(se_core::Composite* newArea, se_core::Composite* oldArea) {}
 		void zoneChanged(int type, se_core::Composite* newArea, se_core::Composite* oldArea);
 
 	protected:

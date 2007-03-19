@@ -23,7 +23,7 @@ rune@skalden.com
 #define PlayerComponent_hpp
 
 #include "sim/SimComponent.hpp"
-#include "sim/SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/action/Action.hpp"

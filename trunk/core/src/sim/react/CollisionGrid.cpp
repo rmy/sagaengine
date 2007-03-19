@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "CollisionGrid.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "CollisionComponent.hpp"
 #include "util/error/Log.hpp"
 #include "util/vecmath/Point3.hpp"

@@ -23,7 +23,7 @@ rune@skalden.com
 #define SpawnComponent_hpp
 
 #include "../SimComponent.hpp"
-#include "../SimComposite.hpp"
+#include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "../pos/PosComponent.hpp"
 #include "util/type/all.hpp"
@@ -66,9 +66,9 @@ namespace se_core {
 		 * it. (TODO: Can a Thing be spawned? Will not all spawned things have
 		 * the ability to perform Action?)
 		 */
-		SimComposite* spawner() const;
+		Composite* spawner() const;
 
-		SimComposite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
+		Composite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
 		void incSpawnCount() { ++spawnCount_; }
 		void decSpawnCount() { --spawnCount_; }
 		int spawnCount() const { return spawnCount_; }
