@@ -6,5 +6,6 @@
 #include "SignalComponent.hpp"
 #include "SignalComponentFactory.hpp"
 #include "SignalManager.hpp"
+#include "sim_signal.hpp"
 
 #endif

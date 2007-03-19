@@ -34,7 +34,6 @@ rune@skalden.com
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
 #include "../stat/SimObjectList.hpp"
-#include "../stat/SimComponentList.hpp"
 #include "../stat/VoidList.hpp"
 #include "../stat/SortedSimObjectList.hpp"
 #include "../area/sim_area.hpp"
@@ -101,7 +100,7 @@ namespace se_core {
 		SoundCentral soundCentral;
 
 		SimObjectList simObjectList;
-		SimComponentList simComponentList;
+		//SimComponentList simComponentList;
 		VoidList voidList;
 
 		Dictionary& dictionary() {
