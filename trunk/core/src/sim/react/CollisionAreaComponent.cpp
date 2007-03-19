@@ -34,7 +34,7 @@ namespace se_core {
 	static coor_t MAX_SPEED = 64 * COOR_STEP + 2 * COOR_RES;
 
 	CollisionAreaComponent
-	::CollisionAreaComponent(SimComposite* owner) 
+	::CollisionAreaComponent(Composite* owner) 
 		: SimNodeComponent(sct_COLLISION, owner)
 		, collisionGrid_(0) {
 	}

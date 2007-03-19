@@ -34,7 +34,7 @@ namespace se_editor {
 		
 		/** Constructor.
 		 */
-		EditorAreaComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
+		EditorAreaComponent(se_core::Composite* owner, const se_core::SimComponentFactory* factory = 0);
 		~EditorAreaComponent();
 		void setActive(bool state);
 

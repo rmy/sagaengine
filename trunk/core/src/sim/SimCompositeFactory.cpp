@@ -30,63 +30,10 @@ rune@skalden.com
 #include <cstdio>
 
 namespace se_core {
-	SimCompositeFactory::Generic& SimCompositeFactory::gen() {
-		static SimCompositeFactory::Generic g;
-		return g;
-	}
-
 	SimCompositeFactory
-	::SimCompositeFactory(short type, SubType subtype, String* name)
-		: name_(name), type_(type), subtype_(subtype), tag_(0), componentCount_(0) {
+	::SimCompositeFactory(int type, String* name)
+		: CompositeFactory((CompositeType)type, name) {
 	}
 
-
-	SimCompositeFactory
-	::~SimCompositeFactory() {
-		delete name_;
-	}
-
-
-	SimComposite* SimCompositeFactory
-	::create() const {
-		SimComposite* c = new SimComposite(name());
-		createComponents(c);
-		createGenericComponents(c);
-		return c;
-	}
-
-
-	void SimCompositeFactory
-	::release(SimComposite* t) const {
-		t->releaseComponents();
-		delete t;
-	}
-
-
-	const char* SimCompositeFactory
-	::name() const {
-		return name_->get();
-	}
-
-
-	void SimCompositeFactory
-	::addComponent(SimComponentFactory* f) {
-		Assert(componentCount_ < MAX_COMPONENTS);
-		components_[ componentCount_++ ] = f;
-	}
-
-
-	void SimCompositeFactory
-	::createComponents(SimComposite* owner) const {
-		for(int i = 0; i < componentCount_; ++i) {
-			components_[ i ]->create(owner);
-		}
-	}
-
-
-	void SimCompositeFactory
-	::createGenericComponents(SimComposite* owner) const {
-		gen().createComponents(subtype_, owner);
-	}
 
 }

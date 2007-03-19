@@ -34,7 +34,7 @@ namespace se_editor {
 	public:
 		typedef Ptr<EditorComponent, se_core::sct_EDITOR> Ptr;
 
-		EditorComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
+		EditorComponent(se_core::Composite* owner, const se_core::SimComponentFactory* factory = 0);
 		virtual ~EditorComponent();
 		const char* name() { return "Editor"; }
 

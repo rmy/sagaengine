@@ -39,12 +39,12 @@ namespace se_core {
 	public:
 		typedef Ptr<PhysicsComponent, sct_PHYSICS> Ptr;
 
-		static PhysicsComponent* get(SimComposite& composite) {
+		static PhysicsComponent* get(Composite& composite) {
 			PhysicsComponent* c = static_cast<PhysicsComponent*>(composite.component(se_core::sct_PHYSICS));
 			return c;
 		}
 
-		static const PhysicsComponent* get(const SimComposite& composite) {
+		static const PhysicsComponent* get(const Composite& composite) {
 			const PhysicsComponent* c = static_cast<const PhysicsComponent*>(composite.component(se_core::sct_PHYSICS));
 			return c;
 		}

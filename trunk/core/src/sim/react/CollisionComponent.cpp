@@ -77,7 +77,10 @@ namespace se_core {
 
 
 	void CollisionComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+	::areaChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+		if(zoneType != st_AREA)
+			return;
+
 		if(oldArea) {
 			resetParent();
 			if(isCollideable_) {

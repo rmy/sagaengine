@@ -31,7 +31,7 @@ rune@skalden.com
 
 namespace se_core {
 	ScriptComponent
-	::ScriptComponent(SimComposite* owner, ActionComponent* consumer)
+	::ScriptComponent(Composite* owner, ActionComponent* consumer)
 		: SimComponent(sct_SCRIPT, owner)
 		, currentScript_(0)
 		, consumer_(consumer) {

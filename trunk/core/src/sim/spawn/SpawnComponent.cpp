@@ -30,7 +30,7 @@ rune@skalden.com
 
 namespace se_core {
 	SpawnComponent
-	::SpawnComponent(SimComposite* owner, PosComponent* pos)
+	::SpawnComponent(Composite* owner, PosComponent* pos)
 		: SimComponent(sct_SPAWN, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
@@ -108,9 +108,9 @@ namespace se_core {
 
 
 	void SpawnComponent
-	::setSpawner(SimComposite* spawner) {
+	::setSpawner(Composite* spawner) {
 		Assert(spawner != 0);
-		spawner_.set(spawner->ptr());
+		spawner_.set(spawner->ref());
 		SpawnComponent::Ptr(*spawner)->incSpawnCount();
 		Assert(!spawner_.isNull());
 	}

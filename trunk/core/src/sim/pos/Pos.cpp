@@ -228,7 +228,7 @@ namespace se_core {
 
 
 	bool Pos
-	::hasArea(SimComposite& area) const {
+	::hasArea(Composite& area) const {
 		return area_ != 0 && area_->owner() == &area; 
 	}
 

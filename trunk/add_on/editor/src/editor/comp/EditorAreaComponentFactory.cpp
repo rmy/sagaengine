@@ -24,7 +24,7 @@ rune@skalden.com
 #include "sim/schema/SimSchema.hpp"
 #include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
-#include "sim/SimCompositeFactory.hpp"
+#include "comp/CompositeFactory.hpp"
 
 
 using namespace se_core;
@@ -34,12 +34,12 @@ namespace se_editor {
 	EditorAreaComponentFactory
 	::EditorAreaComponentFactory()
 			: SimComponentFactory(sct_EDITOR) {
-		SimCompositeFactory::addGenericComponent(SimCompositeFactory::st_AREA, this);
+		CompositeFactory::addGenericComponent(st_AREA, this);
 	}
 
 
-	SimComponent* EditorAreaComponentFactory
-	::create(SimComposite* owner) const {
+	Component* EditorAreaComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).

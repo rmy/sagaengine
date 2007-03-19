@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	PosComponent
-	::PosComponent(SimComposite* owner)
+	::PosComponent(Composite* owner)
 			: SimComponent(sct_POS, owner)
 			, didMove_(false) {
 	}
@@ -55,7 +55,7 @@ namespace se_core {
 			if(position_.hasArea()) {
 				to = position_.area_->toArea();
 			}
-			owner()->areaChanged(from, to);
+			owner()->zoneChanged(st_AREA, from, to);
 		}
 		position_.setPos(nextPosition_);
 	}

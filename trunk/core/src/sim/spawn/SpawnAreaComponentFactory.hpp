@@ -31,7 +31,7 @@ namespace se_core {
 	class _SeCoreExport SpawnAreaComponentFactory : public SimComponentFactory {
 	public:
 		SpawnAreaComponentFactory();
-		SimComponent* create(SimComposite* owner) const;
+		Component* create(Composite* owner) const;
 
 	protected:
 	};

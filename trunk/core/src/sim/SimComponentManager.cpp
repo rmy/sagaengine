@@ -1,5 +1,6 @@
 #include "SimComponentManager.hpp"
 #include "SimComposite.hpp"
+#include "comp/schema/CompSchema.hpp"
 
 namespace se_core {
 	SimComponentManager
@@ -8,17 +9,14 @@ namespace se_core {
 	}
 
 
-	SimComposite& SimComponentManager
+	Composite& SimComponentManager
 	::activeRoot() {
-		static SimComposite s("activeRoot");
-		Assert(!s.hasParent());
-		return s;
+		return CompSchema::activeRoot();
 	}
 
 
-	SimComposite& SimComponentManager
+	Composite& SimComponentManager
 	::inactiveRoot() {
-		static SimComposite s("inactiveRoot");
-		return s;
+		return CompSchema::inactiveRoot();
 	}
 }

@@ -64,6 +64,7 @@ namespace se_core {
 		sct_PLAYER, 
 		sct_CAMERA, 
 		sct_PLAYER_LOGIC, sct_LOGIC, sct_UI,
+		sct_CUTSCENE,
 		sct_EDITOR,
 		sct_NODE
 	};

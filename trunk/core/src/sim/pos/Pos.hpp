@@ -27,6 +27,7 @@ rune@skalden.com
 #include "util/bounds/BoundingBox.hpp"
 #include "sim_pos.hpp"
 #include "../sim.hpp"
+#include "comp/comp.hpp"
 #include "../area/sim_area.hpp"
 #include "../config/sim_config.hpp"
 
@@ -223,7 +224,7 @@ namespace se_core {
 		 */
 		bool hasArea() const { return area_ != 0; }
 
-		bool hasArea(SimComposite& area) const;
+		bool hasArea(Composite& area) const;
 		bool hasArea(PosComponent& area) const { return area_ != 0 && area_ == &area; }
 
 		/**

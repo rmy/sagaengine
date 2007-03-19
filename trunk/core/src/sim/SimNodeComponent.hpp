@@ -43,8 +43,8 @@ namespace se_core {
 	class _SeCoreExport SimNodeComponent : public SimComponent {
 	public:
 
-		SimNodeComponent(SimComposite* owner);
-		SimNodeComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory = 0);
+		SimNodeComponent(Composite* owner);
+		SimNodeComponent(enum SimComponentType type, Composite* owner, const SimComponentFactory* factory = 0);
 		virtual ~SimNodeComponent();
 
 		/**
@@ -77,7 +77,7 @@ namespace se_core {
 		}
 
 	protected:
-		void parentChanged(SimComposite* newParent, SimComposite* oldParent);
+		void parentChanged(Composite* newParent, SimComposite* oldParent);
 		void cleanup() {
 			resetParent();
 		}

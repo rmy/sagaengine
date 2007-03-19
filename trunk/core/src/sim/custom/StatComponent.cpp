@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	StatComponent
-	::StatComponent(SimComposite* owner, const SimComponentFactory* factory)
+	::StatComponent(Composite* owner, const SimComponentFactory* factory)
 		: SimComponent(sct_STAT, owner, factory) {
 	}
 

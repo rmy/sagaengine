@@ -47,8 +47,8 @@ rune@skalden.com
 
 namespace se_core {
 	Actor
-	::Actor(const char* name)
-			: SimComposite(got_ACTOR, name)
+	::Actor(const CompositeFactory* f)
+			: SimComposite(f)
 			, showingCutscene_(0) {
 		posComponent_ = new PosComponent(this);
 		spawnComponent_ = new SpawnComponent(this, posComponent_);

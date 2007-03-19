@@ -26,7 +26,7 @@ rune@skalden.com
 namespace se_core {
 	HealthListeners
 	::HealthListeners()
-		: listenerCount_(0), actorIds_(new int[ MAX_LISTENERS ]), listeners_(new HealthListener*[ MAX_LISTENERS ]) {
+			: listenerCount_(0), actorIds_(new Composite::id_type[ MAX_LISTENERS ]), listeners_(new HealthListener*[ MAX_LISTENERS ]) {
 		for(int i = 0; i < MAX_LISTENERS; ++i) {
 			actorIds_[ i ] = 0;
 			listeners_[ i ] = 0;
@@ -51,7 +51,7 @@ namespace se_core {
 	void HealthListeners
 	::add(HealthListener& l) {
 		listeners_[ listenerCount_ ] = &l;
-		actorIds_[ listenerCount_ ] = -1;
+		actorIds_[ listenerCount_ ] = 0;
 		++listenerCount_;
 	}
 
@@ -71,7 +71,7 @@ namespace se_core {
 	void HealthListeners
 	::castHealthChangedEvent(StatComponent& actor, short change) {
 		for(int i = 0; i < listenerCount_; ++i) {
-			if(actorIds_[ i ] < 0 || actor.owner()->id() == actorIds_[ i ]) {
+			if(actorIds_[ i ] != 0 || actor.owner()->id() == actorIds_[ i ]) {
 				listeners_[ i ]->healthChangedEvent(actor, change);
 			}
 		}

@@ -24,8 +24,9 @@ rune@skalden.com
 #include "SpawnComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimComposite.hpp"
+#include "comp/list/CompositeList.hpp"
 #include "util/error/Log.hpp"
+#include "comp/schema/CompSchema.hpp"
 #include "../area/Area.hpp"
 
 
@@ -33,7 +34,7 @@ rune@skalden.com
 namespace se_core {
 
 	SpawnAreaComponent
-	::SpawnAreaComponent(SimComposite* owner, const SimComponentFactory* factory) 
+	::SpawnAreaComponent(Composite* owner, const SimComponentFactory* factory) 
 			: AreaComponent(sct_SPAWN, owner, factory), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
@@ -46,7 +47,7 @@ namespace se_core {
 	void SpawnAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}
@@ -60,10 +61,10 @@ namespace se_core {
 	void SpawnAreaComponent
 	::flipSpawns(void) {
 		// Flip new spawns into area
-		MultiSimComposite::Iterator it(newSpawns_);
+		CompositeList::Iterator it(newSpawns_);
 		while(it.hasNext()) {
 			// Spawned things doesn't have to be actors
-			SimComposite& c = it.next();
+			Composite& c = it.next();
 
 			// Newly spawned things will change area on first flip.
 			// This will call Area::addThing, inserting it into

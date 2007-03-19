@@ -60,13 +60,13 @@ namespace se_core {
 			return SpawnManager::singleton();
 		}
 
-		extern _SeCoreExport SimComposite& activeRoot() {
-			return SimComponentManager::activeRoot();
-		}
+		//extern _SeCoreExport Composite& activeRoot() {
+		//	return SimComponentManager::activeRoot();
+		//}
 
-		extern _SeCoreExport SimComposite& inactiveRoot() {
-			return SimComponentManager::inactiveRoot();
-		}
+		//extern _SeCoreExport Composite& inactiveRoot() {
+		//	return SimComponentManager::inactiveRoot();
+		//}
 
 
 		InitListeners& initListeners() {

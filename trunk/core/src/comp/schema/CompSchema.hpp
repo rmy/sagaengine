@@ -44,8 +44,8 @@ namespace se_core {
 		*/
 
 
-		//extern _SeCoreExport SimComposite& activeRoot();
-		//extern _SeCoreExport SimComposite& inactiveRoot();
+		extern _SeCoreExport Composite& activeRoot();
+		extern _SeCoreExport Composite& inactiveRoot();
 
 		/**
 		 * List of named instances of SimObject. 

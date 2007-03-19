@@ -43,6 +43,8 @@ rune@skalden.com
 #include "util/math/Trig.hpp"
 #include "util/math/CoorT.hpp"
 #include "util/vecmath/Vector3.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/Composite.hpp"
 #include <cstdio>
 #include <cmath>
 
@@ -79,7 +81,7 @@ namespace se_core {
 	::go() {
 		SimSchema::initListeners().castStartGameEvent();
 		SimSchema::initListeners().castInitLevelEvent();
-		SimSchema::activeRoot().setActive(true, true);
+		CompSchema::activeRoot().setActive(true, true);
 
 		while(true) {
 			// Any in game events caused the game to end?
@@ -97,7 +99,7 @@ namespace se_core {
 			// Tell registered render modules to render
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
-		SimSchema::activeRoot().setActive(false, true);
+		CompSchema::activeRoot().setActive(false, true);
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
 	}
@@ -205,7 +207,7 @@ namespace se_core {
 		// Begin game with game over flag not set
 		setGameOver(false);
 		SimSchema::initListeners().castInitGameEvent();
-		SimSchema::activeRoot().init(false);
+		CompSchema::activeRoot().init(false);
 		CollisionManager::singleton().resetGodMode();
 	}
 
@@ -220,7 +222,7 @@ namespace se_core {
 
 	void SimEngine
 	::cleanupGame() {
-		SimSchema::activeRoot().cleanup(false);
+		CompSchema::activeRoot().cleanup(false);
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			SimSchema::actionQueue[i].reset();
 		}

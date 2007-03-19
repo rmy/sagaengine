@@ -33,7 +33,7 @@ namespace se_ogre {
 
 		// Create a unique entity name
 		char name[128];
-		sprintf(name, "%d-%s", thing_.owner()->id(), thing_.owner()->name());
+		sprintf(name, "%d-%s", (size_t)thing_.owner()->id(), thing_.owner()->name());
 
 		// Set the mesh
 		movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);

@@ -6,8 +6,8 @@ using namespace se_core;
 
 namespace se_basic {
 	NavMeshArea
-	::NavMeshArea(String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
-			: Area (name, w, h), navMesh_(navMesh) {
+	::NavMeshArea(const se_core::CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
+			: Area (f, name, w, h), navMesh_(navMesh) {
 		LogMsg("Creating area " << name << " with size " << w << ", " << h);
 	}
 

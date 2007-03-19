@@ -34,12 +34,6 @@ namespace se_core {
 	class _SeCoreExport SimObjectList : public GOL {
 	public:
 		SimObjectList() : GOL(__FILE__) {}
-		inline Actor* nextActor(iterator_type& iterator) {
-			return reinterpret_cast<Actor*>(next(iterator));
-		}
-		inline Thing* nextThing(iterator_type& iterator) {
-			return reinterpret_cast<Thing*>(next(iterator));
-		}
 		inline Cutscene* nextCutscene(iterator_type& iterator) {
 			return reinterpret_cast<Cutscene*>(next(iterator));
 		}

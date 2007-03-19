@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_editor {
 
 	EditorAreaComponent
-	::EditorAreaComponent(SimComposite* owner, const se_core::SimComponentFactory* factory) 
+	::EditorAreaComponent(Composite* owner, const se_core::SimComponentFactory* factory) 
 			: AreaComponent(se_core::sct_EDITOR, owner, factory), usedStrings_(0) {
 	}
 
@@ -46,7 +46,7 @@ namespace se_editor {
 	void EditorAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}

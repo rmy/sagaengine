@@ -34,7 +34,7 @@ namespace se_core {
 	public:
 		/** Constructor.
 		 */
-		PhysicsAreaComponent(SimComposite* owner, CollisionAreaComponent* cac);
+		PhysicsAreaComponent(Composite* owner, CollisionAreaComponent* cac);
 		~PhysicsAreaComponent();
 
 		const char* name() { return "PhysicsSolver"; }

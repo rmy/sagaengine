@@ -34,6 +34,7 @@ namespace se_client {
 		void removeListener(ClientListener& l);
 		void castCameraEnteredAreaEvent(se_core::Area& area);
 		void castCameraLeftAreaEvent(se_core::Area& area);
+		/*
 		void castThingEnteredCameraAreaEvent(se_core::Thing& thing);
 		void castThingLeftCameraAreaEvent(se_core::Thing& thing);
 
@@ -41,6 +42,7 @@ namespace se_client {
 		void castThingEnteredActiveZoneEvent(se_core::Thing& thing);
 		void castThingLeftActiveZoneEvent(se_core::Thing& thing);
 		void castThingSwitchedActiveAreaEvent(se_core::Thing& thing);
+		*/
 
 	private:
 		static const int MAX_LISTENERS = 10;

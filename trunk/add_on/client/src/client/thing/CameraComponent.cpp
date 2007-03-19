@@ -36,7 +36,7 @@ using namespace se_core;
 
 namespace se_client {
 	CameraComponent
-	::CameraComponent(SimComposite* owner)
+	::CameraComponent(Composite* owner)
 			: SimComponent(sct_CAMERA, owner) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
@@ -53,8 +53,8 @@ namespace se_client {
 
 
 	void CameraComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
-		if(posComponent_ == ClientSchema::camera) {
+	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+		if(zoneType == st_AREA && posComponent_ == ClientSchema::camera) {
 			if(newArea) {
 				SimSchema::areaManager.setActive(static_cast<Area*>(newArea), 2);
 			}
@@ -83,7 +83,7 @@ namespace se_client {
 		}
 
 		ClientSchema::camera = posComponent_;
-		areaChanged(newArea, oldArea);
+		zoneChanged(st_AREA, newArea, oldArea);
 	}
 
 }

@@ -52,7 +52,7 @@ namespace se_ogre {
 		if(init_ <= 0) {
 			hasAnimation_ = false;
 			char name[128];
-			sprintf(name, "%d-%s", thing_.owner()->id(), thing_.owner()->name());
+			sprintf(name, "%d-%s", (size_t)thing_.owner()->id(), thing_.owner()->name());
 			movableObject_ = O3dSchema::sceneManager->createMovableObject(name, info_.movableObjectType_.get(), &info_.params_);
 			movableObject_->setCastShadows(false);
 			node_->attachObject(movableObject_);

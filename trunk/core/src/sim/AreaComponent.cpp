@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	AreaComponent
-	::AreaComponent(enum SimComponentType type, SimComposite* owner, const SimComponentFactory* factory)
+	::AreaComponent(enum SimComponentType type, Composite* owner, const SimComponentFactory* factory)
 		: SimNodeComponent(type, owner, factory) {
 	}
 
@@ -43,7 +43,7 @@ namespace se_core {
 	void AreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}

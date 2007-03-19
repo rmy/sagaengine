@@ -28,11 +28,11 @@ rune@skalden.com
 namespace se_client {
 	class _SeCoreExport CameraComponent : public se_core::SimComponent {
 	public:
-		CameraComponent(se_core::SimComposite* owner);
+		CameraComponent(se_core::Composite* owner);
 		virtual ~CameraComponent();
 
 		void setActive(bool state);
-		void areaChanged(se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void zoneChanged(int zoneType, se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
 		void grabFocus();
 
 	protected:

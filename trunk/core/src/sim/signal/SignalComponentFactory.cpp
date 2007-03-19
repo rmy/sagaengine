@@ -51,8 +51,8 @@ namespace se_core {
 	}
 
 
-	SimComponent* SignalComponentFactory
-	::create(SimComposite* owner) const {
+	Component* SignalComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).

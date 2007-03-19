@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	AreaChildComponent
-	::AreaChildComponent(enum SimComponentType type, SimComposite* owner)
+	::AreaChildComponent(enum SimComponentType type, Composite* owner)
 		: SimNodeComponent(type, owner) {
 	}
 
@@ -41,7 +41,10 @@ namespace se_core {
 
 
 	void AreaChildComponent
-	::areaChanged(SimComposite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+		if(zoneType != st_AREA)
+			return;
+
 		if(newArea) {
 			SimNodeComponent* n = static_cast<SimNodeComponent*>(newArea->component(type()));
 			setParent(*n);
