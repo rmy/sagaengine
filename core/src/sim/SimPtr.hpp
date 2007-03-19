@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef SimPtr_hpp
 #define SimPtr_hpp
 
-#include "sim.hpp"
 #include "util/error/Log.hpp"
 
 namespace se_core {
@@ -60,8 +59,6 @@ namespace se_core {
 	public:
 		/**
 		 * Construct unnamed SimPtr.
-		 *
-		 * @param type The type of SimPtr (got_ACTION, got_THING, etc)
 		 */
 		SimPtr()
 			: ptr_(0), isOwner_(false) {

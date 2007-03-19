@@ -21,17 +21,12 @@ rune@skalden.com
 
 #include "SimComponentFactory.hpp"
 #include "SimComponent.hpp"
-#include "./config/all.hpp"
-#include "./stat/all.hpp"
-#include "util/type/all.hpp"
-#include "util/error/Log.hpp"
-#include <cstring>
-#include <cstdio>
+
 
 namespace se_core {
 
 	SimComponentFactory
-	::SimComponentFactory(short type) : type_(type) {
+	::SimComponentFactory(int type) : type_(type) {
 	}
 
 

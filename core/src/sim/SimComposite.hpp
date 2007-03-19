@@ -23,22 +23,12 @@ rune@skalden.com
 #define SimComposite_hpp
 
 #include "SimObject.hpp"
-#include "sim.hpp"
-#include "util/template/HashTable.hpp"
+#include "SimPtr.hpp"
 #include "stat/MultiSimComponent.hpp"
 #include "stat/MultiSimComposite.hpp"
-#include "stat/MultiSimObject.hpp"
-#include "SimPtr.hpp"
 
 
 namespace se_core {
-	/*
-	typedef HashTable<class SimComposite, 200> SCOHT;
-	class _SeCoreExport Composites : public SCOHT  {
-	};
-	*/
-
-
 	class _SeCoreExport SimComposite : public SimObject {
 	protected:
 		SimComposite(enum SimObjectType type, const char* name);
@@ -58,7 +48,7 @@ namespace se_core {
 		void setFactory(const SimCompositeFactory* f) { factory_ = f; }
 
 		/**
-		 * Does the Pos have a parent?
+		 * Does the composite have a parent?
 		 */
 		bool hasParent() const { return parent_ != 0; }
 
@@ -70,27 +60,35 @@ namespace se_core {
 		}
 
 		/**
-		 *
+		 * Set the parent composite.
 		 */
 		void setParent(SimComposite& p);
+
+		/**
+		 * Set parent composite to none.
+		 */
 		void resetParent();
 
+		/**
+		 * List of child composites.
+		 */
 		const MultiSimComposite& children() const { return children_; }
 
 
-		bool isActive() { return isActive_; }
-
-		/** Returns true if Thing is scheduled for destruction.
-		 *
-		 * @see scheduleForDestruction
+		/**
+		 * Set composite state to active.
+		 * Typically used for paging in active game zones.
 		 */
-		bool isDead() { return isDead_; }
 		void setActive(bool state, bool doTraverseChildren = true);
+
+
+		/**
+		 * Is the composite active.
+		 */
+		bool isActive() { return isActive_; }
 
 		void setTag(int t) { tag_ = t; }
 		int tag() const { return tag_; }
-
-		void releaseComponents();
 
 		/** Schedule the Composite for destruction.
 		 *
@@ -101,17 +99,30 @@ namespace se_core {
 		 */
 		virtual void scheduleForDestruction();
 
+		/** Returns true if Thing is scheduled for destruction.
+		 *
+		 * @see scheduleForDestruction
+		 */
+		bool isDead() { return isDead_; }
+
+		/**
+		 * Called during flip is area is changed from pos to nextPos
+		 */
+		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
+
+		/**
+		 * Destroy components. Called by factory or destructor.
+		 */
+		void releaseComponents();
+
 	private:
 		friend class SimComponent;
 		// The SimComponent adds and removes itself
-		void removeComponent(SimComponent& c);
 		void addComponent(SimComponent& c);
+		void removeComponent(SimComponent& c);
 
 
 	protected:
-		friend class PosComponent;
-		// Called during flip is area is changed from pos to nextPos
-		void areaChanged(SimComposite* newArea, SimComposite* oldArea);
 
 		/**
 		 * Add a SimComposite as a child.
@@ -125,6 +136,9 @@ namespace se_core {
 		 */
 		void removeChild(SimComposite& node);
 
+		/**
+		 * Reference counted pointer.
+		 */
 		SimPtr ptr_;
 
 		int tag_;
