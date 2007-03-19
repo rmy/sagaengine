@@ -115,7 +115,7 @@ namespace se_core {
 		bool doesGeometryCollide(const CollisionComponent& other) const;
 		scale_t whenDoesGeometryCollide(const CollisionComponent& other) const;
 
-		void areaChanged(int zoneType, Composite* newArea, Composite* oldArea);
+		void zoneChanged(int zoneType, Composite* newArea, Composite* oldArea);
 
 		const BoundingBox& areaCovered() const { return areaCovered_; }
 		void updateAreaCovered();
