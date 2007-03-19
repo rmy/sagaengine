@@ -148,11 +148,13 @@ namespace se_core {
 		 */
 		RefPtr ptr_;
 
-		int tag_;
 		const CompositeFactory* factory_;
+		const char* name_;
+		int tag_;
+		ComponentList components_;
+
 		Composite* parent_;
 		CompositeList children_;
-		ComponentList components_;
 		enum { FAST_COMPONENT_COUNT = 16 };
 		Component* fastComponents_[16];
 

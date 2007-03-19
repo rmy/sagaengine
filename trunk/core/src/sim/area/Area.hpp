@@ -27,7 +27,6 @@ rune@skalden.com
 #include "../SimComposite.hpp"
 #include "../action/sim_action.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../stat/MultiSimObject.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/math/CoorT.hpp"
@@ -37,6 +36,7 @@ rune@skalden.com
 #include "../pos/PosComponent.hpp"
 #include "../physics/sim_physics.hpp"
 #include "../spawn/sim_spawn.hpp"
+#include "../script/sim_script.hpp"
 #include "../react/sim_react.hpp"
 #include "../signal/sim_signal.hpp"
 
@@ -45,12 +45,6 @@ namespace se_core {
 
 	class _SeCoreExport Area : public SimComposite {
 	public:
-		enum MultiSimObjectType {
-			MGOA_CUTSCENES,
-			//MGOA_SPAWNS,
-			MGOA_COUNT
-		};
-
 		/**
 		 * Create a new area of a given size.
 		 */
@@ -108,9 +102,6 @@ namespace se_core {
 			return posComponent_->pos().localCoor().z_;
 		}
 
-		MultiSimObject& multiSimObject(int type) { return multiSimObjects_[ type ]; }
-		const MultiSimObject& multiSimObject(int type) const { return multiSimObjects_[ type ]; }
-
 		bool isLegalCoor(coor_tile_t x, coor_tile_t y) const {
 			return (x >= 0 && y >= 0 && x < width_ && y < height_);
 		}
@@ -144,7 +135,6 @@ namespace se_core {
 		//Thing* findPickTarget(Player& actor) const;
 		//Thing* findDefaultActionTarget(Player& actor) const;
 		bool isActive() const { return isActive_; }
-		void enter(Actor& performer);
 		void reset();
 
 		/**
@@ -197,9 +187,6 @@ namespace se_core {
 		int pageX_, pageY_, pageZ_;
 
 		String* nameString_; // For proper destruction of content only
-
-		MultiSimObject* multiSimObjects_;
-		//ReportingMultiSimObject* allThings_;
 
 		friend class PhysicsAreaComponent;
 		friend class CollisionAreaComponent;

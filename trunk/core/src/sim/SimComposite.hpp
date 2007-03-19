@@ -31,6 +31,7 @@ namespace se_core {
 	class _SeCoreExport SimComposite : public Composite {
 	protected:
 		SimComposite(const CompositeFactory* f);
+		SimComposite(const CompositeFactory* f, const char* name);
 	};
 
 }

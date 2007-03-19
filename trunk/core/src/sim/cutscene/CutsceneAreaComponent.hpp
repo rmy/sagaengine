@@ -39,6 +39,8 @@ namespace se_core {
 
 		const char* name() { return "CutsceneArea"; }
 
+		//void enter(Actor& performer);
+
 	protected:
 		friend class CutsceneAreaComponentFactory;
 	};

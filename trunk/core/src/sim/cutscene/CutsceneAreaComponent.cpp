@@ -55,5 +55,35 @@ namespace se_core {
 		}
 	}
 
+
+	/*
+	void Area
+	::enter(Actor& performer) {
+		Cutscene* c = 0;
+
+		SimObjectList::iterator_type it = multiSimObject(MGOA_CUTSCENES).iterator();
+		while(it != SimObjectList::end()) {
+			c = SimSchema::simObjectList.nextCutscene(it);
+			Assert(c != 0);
+			if(!performer.questGoals().contains(c->afterTheseGoals())) {
+				c = 0;
+				continue;
+			}
+			if(performer.questGoals().sharesAny(c->beforeTheseGoals())) {
+				c = 0;
+				continue;
+			}
+			break;
+		}
+		if(!c) return;
+		if(c->questGoal()) {
+			performer.questGoals().add(*(c->questGoal()));
+		}
+		// TODO:
+		//c->setScripts(*this, performer);
+	}
+	*/
+
+
 }
 

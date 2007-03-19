@@ -41,6 +41,10 @@ namespace se_basic {
 
 	void StartCutscene
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		LogFatal("TODO");
+
+		// TODO:
+		/*
 		Actor& performer = *perf.toActor();
 		PosComponent::Ptr pPos(perf);
 		if(performer.target()->type() == got_THING) return;
@@ -53,6 +57,7 @@ namespace se_basic {
 		}
 
 		if(c) c->setScripts(*performer.nextPos().area()->toArea(), performer, a);
+		*/
 	}
 
 
