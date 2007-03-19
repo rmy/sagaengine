@@ -32,6 +32,7 @@ namespace se_core {
 	class ComponentFactory;
 	class Component;
 
+	enum CompositeType { st_MANAGER, st_LEVEL, st_AREA, st_ACTOR, st_USER, st_SUBTYPE_COUNT };
 }
 
 #endif

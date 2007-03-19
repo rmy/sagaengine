@@ -1,15 +1,14 @@
 #include "Composite.hpp"
 #include "Component.hpp"
-#include "ComponentFactory.hpp"
+#include "CompositeFactory.hpp"
 #include "comp/list/ComponentList.hpp"
 #include "comp/list/CompositeList.hpp"
 
 
 namespace se_core {
 	Composite
-	::Composite(int type, const char* name)
-			: Object(type, name)
-			, ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
+	::Composite(const CompositeFactory* factory)
+			: factory_(factory), ptr_(this), tag_(0), parent_(0), isActive_(false), isDead_(false) {
 		for(int i = 0; i < FAST_COMPONENT_COUNT; ++i) {
 			fastComponents_[i] = 0;
 		}
@@ -21,6 +20,18 @@ namespace se_core {
 	Composite
 	::~Composite() {
 		releaseComponents();
+	}
+
+
+	const char* Composite
+	::name() const {
+		return factory_->name();
+	}
+
+
+	int Composite
+	::type() const {
+		return factory_->type();
 	}
 
 
@@ -170,11 +181,11 @@ namespace se_core {
 
 
 	void Composite
-	::areaChanged(Composite* newArea, Composite* oldArea) {
+	::zoneChanged(int type, Composite* newZone, Composite* oldZone) {
 		ComponentList::Iterator it(components_);
 		while(it.hasNext()) {
 			Component& c = it.next();
-			c.areaChanged(newArea, oldArea);
+			c.zoneChanged(type, newZone, oldZone);
 		}
 	}
 

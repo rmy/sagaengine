@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef Composite_hpp
 #define Composite_hpp
 
+#include "comp.hpp"
 #include "Object.hpp"
 #include "RefPtr.hpp"
 #include "comp/list/ComponentList.hpp"
@@ -29,13 +30,15 @@ rune@skalden.com
 
 
 namespace se_core {
-	class _SeCoreExport Composite : public Object {
-	protected:
-		Composite(int type, const char* name);
-
+	class _SeCoreExport Composite {
 	public:
-		RefPtr& ptr() { return ptr_; }
+		Composite(const CompositeFactory* factory);
 		virtual ~Composite();
+
+		RefPtr& ptr() { return ptr_; }
+
+		const char* name() const;
+		int type() const;
 
 		void init(bool doTraverseChildren = true);
 		void cleanup(bool doTraverseChildren = true);
@@ -107,7 +110,7 @@ namespace se_core {
 		/**
 		 * Called during flip is area is changed from pos to nextPos
 		 */
-		void areaChanged(Composite* newArea, Composite* oldArea);
+		void zoneChanged(int type, Composite* newZone, Composite* oldZone);
 
 		/**
 		 * Destroy components. Called by factory or destructor.

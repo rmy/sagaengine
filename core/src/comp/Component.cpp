@@ -16,6 +16,11 @@ namespace se_core {
 	}
 
 
+	const char* Component
+	::name() const {
+		return owner()->name();
+	}
+
 	bool Component
 	::isActive() {
 		return owner_->isActive();
@@ -28,7 +33,7 @@ namespace se_core {
 
 
 	void Component
-	::areaChanged(Composite* newArea, Composite* oldArea) {
+	::zoneChanged(int type, Composite* newArea, Composite* oldArea) {
 	}
 
 
