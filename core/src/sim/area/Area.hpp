@@ -54,7 +54,7 @@ namespace se_core {
 		/**
 		 * Create a new area of a given size.
 		 */
-		Area(CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h);
+		Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h);
 
 		/**
 		 * Destructor.

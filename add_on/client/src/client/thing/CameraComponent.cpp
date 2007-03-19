@@ -53,7 +53,7 @@ namespace se_client {
 
 
 	void CameraComponent
-	::zoneChanged(int zoneType, Composite* newArea, SimComposite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
 		if(zoneType == st_AREA && posComponent_ == ClientSchema::camera) {
 			if(newArea) {
 				SimSchema::areaManager.setActive(static_cast<Area*>(newArea), 2);
@@ -71,15 +71,15 @@ namespace se_client {
 		if(posComponent_ == ClientSchema::camera)
 			return;
 
-		SimComposite* oldArea = 0;
+		Composite* oldArea = 0;
 		if(ClientSchema::camera) {
 			if(ClientSchema::camera->pos().hasArea()) {
-				oldArea = const_cast<SimComposite*>(ClientSchema::camera->pos().area()->owner());
+				oldArea = const_cast<Composite*>(ClientSchema::camera->pos().area()->owner());
 			}
 		}
-		SimComposite* newArea = 0;
+		Composite* newArea = 0;
 		if(posComponent_->pos().hasArea()) {
-			newArea = const_cast<SimComposite*>(posComponent_->pos().area()->owner());
+			newArea = const_cast<Composite*>(posComponent_->pos().area()->owner());
 		}
 
 		ClientSchema::camera = posComponent_;

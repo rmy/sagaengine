@@ -41,7 +41,7 @@ namespace se_client {
 		virtual ~PlayerComponent();
 
 		void setActive(bool state);
-		void areaChanged(int zoneType, se_core::SimComposite* newArea, se_core::SimComposite* oldArea);
+		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);
 		void planAction(short channel, const se_core::Action& action, const se_core::Parameter* parameter = 0) const;
 
 		bool die();
