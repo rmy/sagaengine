@@ -42,8 +42,8 @@ namespace se_core {
 
 		/** Constructor.
 		 */
-		CollisionComponent(Actor* owner, PosComponent* posComponent);
-		CollisionComponent(Actor* owner);
+		CollisionComponent(Composite* owner, PosComponent* posComponent);
+		CollisionComponent(Composite* owner);
 		~CollisionComponent();
 
 		static CollisionComponent* get(Composite& composite) {

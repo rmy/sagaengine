@@ -50,6 +50,7 @@ namespace se_core {
 
 	enum SimComponentType { 
 		sct_UNDEFINED, 
+		sct_BLOB, 
 		sct_POS, 
 		sct_PHYSICS, 
 		sct_COLLISION, 
@@ -63,7 +64,9 @@ namespace se_core {
 		sct_ODE, 
 		sct_PLAYER, 
 		sct_CAMERA, 
-		sct_PLAYER_LOGIC, sct_LOGIC, sct_UI,
+		sct_PLAYER_LOGIC,
+		sct_LOGIC,
+		sct_UI,
 		sct_CUTSCENE,
 		sct_EDITOR,
 		sct_NODE

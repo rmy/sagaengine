@@ -40,13 +40,13 @@ namespace se_core {
 
 
 	void ShowingCutscene
-	::addMember(Actor& a) {
+	::addMember(Composite& a) {
 		members_->add(a);
 	}
 
 
 	void ShowingCutscene
-	::removeMember(Actor& a) {
+	::removeMember(Composite& a) {
 		LogFatal("TODO");
 		// TODO:
 		// members_->remove(a);
