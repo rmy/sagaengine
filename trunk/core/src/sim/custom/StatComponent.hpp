@@ -27,9 +27,11 @@ rune@skalden.com
 #include "../sim.hpp"
 #include "../SimComponent.hpp"
 #include "../action/Action.hpp"
+#include "../action/ActionAndParameter.hpp"
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
+#include "../pos/sim_pos.hpp"
 #include "../thing/sim_thing.hpp"
 #include "comp/Composite.hpp"
 #include "../SimComponent.hpp"
@@ -66,8 +68,34 @@ namespace se_core {
 		Health& health() { return health_; }
 		const Health& health() const { return health_; }
 
-		/*
+		bool hasDefaultAction() const {
+			return defaultAction_.hasAction();
+		}
+		const ActionAndParameter& defaultAction() const { 
+			return defaultAction_; 
+		}
+		const Action* defaultAction(Parameter& out) const { 
+			out = defaultAction_.parameter();
+			return defaultAction_.action(); 
+		}
+		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 
+			defaultAction_.setAction(action);
+			if(parameter) {
+				defaultAction_.copyParameter(*parameter);
+			}
+		}
+		void resetDefaultAction() { defaultAction_.resetAction(); }
 
+
+		const Composite* target() const { return target_.object(); }
+		Composite* target() { return target_.object(); }
+		PosComponent* targetPos();
+		const PosComponent* targetPos() const;
+		bool hasTarget() const { return !target_.isNull(); }
+		void setTarget(Composite* target) { target_.set(target->ref()); }
+		void resetTarget() { target_.reset(); }
+
+		/*
 		enum Special { NONE, BUBBLE_POWER, SPEED, SHOCK_WAVE };
 		void setSpecial(enum Special special, long millis);
 		enum Special special() const;
@@ -84,6 +112,8 @@ namespace se_core {
 		Health health_;
 		const Action* quickMenuAction_;
 		const Action* useAction_;
+		mutable ActionAndParameter defaultAction_;
+		RefPtr target_;
 	};
 
 }

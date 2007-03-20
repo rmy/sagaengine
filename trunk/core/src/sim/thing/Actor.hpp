@@ -53,7 +53,6 @@ namespace se_core {
 	 */
 	class _SeCoreExport Actor : public Composite {
 	public:
-		//TODO:
 		void stopScript() {
 			scriptComponent_->stopScript();
 		}
@@ -86,7 +85,6 @@ namespace se_core {
 			actionComponent_->disrupt();
 		}
 
-		// TODO
 		void affect() {
 			if(!isDead_)
 				physicsComponent_->affect();
@@ -124,8 +122,6 @@ namespace se_core {
 			physicsComponent_->popPhysics();
 		}
 
-
-		// TODO
 		coor_t walkSpeed() const {
 			return statComponent_->walkSpeed();
 		}
@@ -133,7 +129,6 @@ namespace se_core {
 		Abilities* abilities() {
 			return statComponent_->abilities(); 
 		}
-		
 
 	public:
 		/** Constructor.
@@ -163,15 +158,16 @@ namespace se_core {
 		void sound(const char* snd);
 
 
-		const Actor* target() const { return static_cast<const Actor*>(target_.object()); }
-		Actor* target() { return static_cast<Actor*>(target_.object()); }
-		bool hasTarget() const { return !target_.isNull(); }
-		void setTarget(Actor* target) { target_.set(target->ref()); }
-		void resetTarget() { target_.reset(); }
+		const Composite* target() const { return statComponent_->target(); }
+		Composite* target() { return statComponent_->target(); }
+		bool hasTarget() const { return statComponent_->hasTarget(); }
+		void setTarget(Composite* target) { statComponent_->setTarget(target); }
+		void resetTarget() { statComponent_->resetTarget(); }
+
 		const Pos& pos() const { return posComponent_->pos(); }
 		Pos& nextPos() const { return posComponent_->nextPos(); }
 
-		virtual bool isPlayer() { return false; }
+		//virtual bool isPlayer() { return false; }
 
 		/*
 		Composite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
@@ -181,22 +177,12 @@ namespace se_core {
 		*/
 
 		bool hasDefaultAction() const {
-			return defaultAction_.hasAction();
+			return statComponent_->hasDefaultAction();
 		}
-		const ActionAndParameter& defaultAction() const { 
-			return defaultAction_; 
-		}
+
 		const Action* defaultAction(Parameter& out) const { 
-			out = defaultAction_.parameter();
-			return defaultAction_.action(); 
+			return statComponent_->defaultAction(out);
 		}
-		void setDefaultAction(const Action& action, const Parameter* parameter = 0) { 
-			defaultAction_.setAction(action);
-			if(parameter) {
-				defaultAction_.copyParameter(*parameter);
-			}
-		}
-		void resetDefaultAction() { defaultAction_.resetAction(); }
 
 		/**
 		 *
@@ -205,14 +191,6 @@ namespace se_core {
 
 
 	protected:
-		friend class SimEngine;
-		friend class Area;
-
-	protected:
-		mutable ActionAndParameter defaultAction_;
-
-		RefPtr target_;
-
 		PosComponent* posComponent_;
 		SpawnComponent* spawnComponent_;
 		ScriptComponent* scriptComponent_;
@@ -220,8 +198,6 @@ namespace se_core {
 		PhysicsComponent* physicsComponent_;
 		StatComponent* statComponent_;
 	};
-
-
 
 }
 
