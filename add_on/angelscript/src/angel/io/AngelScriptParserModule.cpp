@@ -51,11 +51,15 @@ namespace se_core {
 	void AngelScriptParserModule
 	::parse(InputStream& in) {
 		String* name = new String();
-		in.readString(*name);
+		name->copy( in.basename() );
+		LogWarning(name);
 
 		// Read end of comment ( star + slash )
 		String tmp;
-		in.readString(tmp);
+		do {
+			in.readString(tmp);
+		} while(!tmp.equals("*/"));
+
 
 		const int BUFFER_SIZE = 2048;
 		char script[ BUFFER_SIZE + 1 ];

@@ -60,6 +60,9 @@ namespace se_core {
 		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void log()", asMETHOD(Performer, logSelf), asCALL_THISCALL);
 		Assert(r >= 0 && "Failed to register method name()");
 
+		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void perform(string& s)", asMETHOD(Performer, perform), asCALL_THISCALL);
+		Assert(r >= 0 && "Failed to register method name()");
+
 		return true;
 	}
 
@@ -82,6 +85,15 @@ namespace se_core {
 		if(pStat->hasDefaultAction()) {
 			AngelSchema::nextAction().set( pStat->defaultAction() );
 		}
+		ScriptFunctions::yield();
+	}
+
+
+	void Performer
+	::perform(const std::string& action) {
+		const Action* a = SimSchema::sortedSimObjectList().action(action.c_str());
+		AssertFatal(a, composite_.name() << " tried to perform unknown action " << action.c_str());
+		AngelSchema::nextAction().setAction( *a );
 		ScriptFunctions::yield();
 	}
 

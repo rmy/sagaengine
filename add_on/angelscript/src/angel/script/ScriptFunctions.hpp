@@ -36,6 +36,7 @@ namespace se_core {
 		static void idle();
 		static void idleMillis(int millis);
 		static void startCutscene();
+		static int random(int max);
 
 	public: // Helper methods to be used fro
 		/** Suspend active script.
