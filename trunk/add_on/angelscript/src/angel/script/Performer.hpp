@@ -37,11 +37,15 @@ namespace se_core {
 		void release() { --refCount_; }
 
 
+		void perform(const std::string& s);
+
 		void logSelf();
 		void log(std::string& s);
-		bool hasTarget();
+
 		bool didMove();
-		void perform(const std::string& s);
+
+		bool hasTarget();
+		float targetDistance();
 
 		void defaultAction();
 
