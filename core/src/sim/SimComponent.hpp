@@ -43,12 +43,9 @@ namespace se_core {
 		SimComponent(int type, Composite* owner, const SimComponentFactory* factory = 0);
 
 
-		inline Actor* toActor() {
-			return reinterpret_cast<Actor*>(owner_);
-		}
-		inline const Actor* toActor() const {
-			return reinterpret_cast<Actor*>(owner_);
-		}
+		Actor* toActor();
+		const Actor* toActor() const;
+
 		inline Area* toArea() {
 			return reinterpret_cast<Area*>(owner_);
 		}

@@ -32,7 +32,7 @@ rune@skalden.com
 
 namespace se_core {
 	CollisionComponent
-	::CollisionComponent(Actor* owner, PosComponent* posComponent)
+	::CollisionComponent(Composite* owner, PosComponent* posComponent)
 			: AreaChildComponent(sct_COLLISION, owner)
 			, posComponent_(posComponent)
 			, isCollideable_(false)
@@ -42,7 +42,7 @@ namespace se_core {
 
 
 	CollisionComponent
-	::CollisionComponent(Actor* owner)
+	::CollisionComponent(Composite* owner)
 			: AreaChildComponent(sct_COLLISION, owner)
 			, isCollideable_(false)
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {

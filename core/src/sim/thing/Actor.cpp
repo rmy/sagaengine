@@ -45,14 +45,14 @@ rune@skalden.com
 
 namespace se_core {
 	Actor
-	::Actor(const CompositeFactory* f)
-			: Composite(f) {
-		posComponent_ = new PosComponent(this);
-		spawnComponent_ = new SpawnComponent(this, posComponent_);
-		actionComponent_ = new ActionComponent(this);
-		scriptComponent_ = new ScriptComponent(this, actionComponent_);
-		physicsComponent_ = new PhysicsComponent(this, posComponent_);
-		statComponent_ = new StatComponent(this);
+	::Actor(Composite* owner)
+			: SimComponent(sct_BLOB, owner) {
+		posComponent_ = new PosComponent(owner);
+		spawnComponent_ = new SpawnComponent(owner, posComponent_);
+		actionComponent_ = new ActionComponent(owner);
+		scriptComponent_ = new ScriptComponent(owner, actionComponent_);
+		physicsComponent_ = new PhysicsComponent(owner, posComponent_);
+		statComponent_ = new StatComponent(owner);
 	}
 
 

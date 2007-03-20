@@ -32,8 +32,8 @@ namespace se_core {
 	public:
 		ShowingCutscene();
 		virtual ~ShowingCutscene();
-		void addMember(Actor& a);
-		void removeMember(Actor& a);
+		void addMember(Composite& a);
+		void removeMember(Composite& a);
 		void freeMembers();
 		void setCutscene(Cutscene* cutscene) { cutscene_ = cutscene; }
 		Cutscene* cutscene() { return cutscene_; }

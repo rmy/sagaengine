@@ -51,8 +51,16 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class _SeCoreExport Actor : public Composite {
+	class _SeCoreExport Actor : public SimComponent {
 	public:
+		typedef Ptr<Actor, sct_BLOB> Ptr;
+
+		/** Constructor.
+		 */
+		Actor(Composite* owner);
+		~Actor();
+
+
 		void stopScript() {
 			scriptComponent_->stopScript();
 		}
@@ -86,7 +94,7 @@ namespace se_core {
 		}
 
 		void affect() {
-			if(!isDead_)
+			if(!isDead())
 				physicsComponent_->affect();
 		}
 
@@ -122,6 +130,10 @@ namespace se_core {
 			physicsComponent_->popPhysics();
 		}
 
+		void scheduleForDestruction() {
+			owner()->scheduleForDestruction();
+		}
+
 		coor_t walkSpeed() const {
 			return statComponent_->walkSpeed();
 		}
@@ -130,21 +142,17 @@ namespace se_core {
 			return statComponent_->abilities(); 
 		}
 
-	public:
-		/** Constructor.
-		 */
-		Actor(const CompositeFactory* f);
-		~Actor();
-
 		/**
 		 * Ask if this class will safely cast to a spcific
 		 * SimObject subclass.
 		 */
+		/*
 		bool isType(enum SimObjectType type) const {
 			if(type == got_ACTOR) return true;
 			//return Composite::isType(type);
 			return false;
 		}
+		*/
 
 
 		/**

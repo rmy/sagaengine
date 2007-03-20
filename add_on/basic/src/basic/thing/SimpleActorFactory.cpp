@@ -31,10 +31,12 @@ namespace se_basic {
 
 	Composite* SimpleActorFactory
 	::create() const {
-		Actor* a = new Actor(this);
+		Composite* c = new Composite(this);
+		c->setTag(tag_);
+		Actor* a = new Actor(c);
 
 		if(isCollideable_ || collide_) {
-			CollisionComponent* cc = new CollisionComponent(a);
+			CollisionComponent* cc = new CollisionComponent(c);
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
 		}
@@ -42,32 +44,31 @@ namespace se_basic {
 		//a->setPickable(isPickable_);
 		a->setDefaultPhysics(physics_);
 		a->nextPos().setBounds(bounds_);
-		SpawnComponent::Ptr spawn(*a);
+		SpawnComponent::Ptr spawn(*c);
 		spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
-		a->setTag(tag_);
 
 		if(script_) {
 			a->setDefaultScript(script_);
 		}
 
-		PhysicsComponent* pPhysics = PhysicsComponent::get(*a);
+		PhysicsComponent* pPhysics = PhysicsComponent::get(*c);
 		pPhysics->nextMove() = move_;
 
-		StatComponent* pStats = StatComponent::get(*a);
+		StatComponent* pStats = StatComponent::get(*c);
 		pStats->abilities()->setBases(&abilities_);
 		if(defaultAction_ && defaultAction_->hasAction()) {
 			LogMsg(defaultAction_->action()->name());
 			pStats->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
 		}
 
-		PosComponent::Ptr pPos(*a);
+		PosComponent::Ptr pPos(*c);
 		for(int i = 0; i < Pos::MAX_ANIMS; ++i) {
 			pPos->nextPos().anim(i).setAnim( anim_[i] );
 		}
 
-		createComponents(a);
+		createComponents(c);
 
-		return a;
+		return c;
 	}
 
 
