@@ -25,6 +25,7 @@ rune@skalden.com
 #include "../SimEngine.hpp"
 #include "../config/all.hpp"
 #include "../stat/all.hpp"
+#include "../pos/PosComponent.hpp"
 
 
 namespace se_core {
@@ -57,32 +58,19 @@ namespace se_core {
 		useAction_ = a;
 	}
 
-	/*
-	void StatComponent
-	::setSpecial(enum Special special, long millis) {
-		special_ = special;
-		specialWhen_ = SimSchema::simEngine.when() + millis;
+
+	PosComponent* StatComponent
+	::targetPos() {
+		Composite* t = target_.object();
+		if(!t) return 0;
+		return PosComponent::get(*t);
 	}
 
 
-	bool StatComponent
-	::isSpecialEndingSoon() const {
-		if(specialWhen_ < SimSchema::simEngine.when()) {
-			return false;
-		}
-		if(specialWhen_ < SimSchema::simEngine.when() + 4 * 1024) {
-			return true;
-		}
-		return false;
+	const PosComponent* StatComponent
+	::targetPos() const {
+		Composite* t = target_.object();
+		if(!t) return 0;
+		return PosComponent::get(*t);
 	}
-
-
-	enum StatComponent::Special StatComponent
-	::special() const {
-		if(specialWhen_ < SimSchema::simEngine.when()) {
-			return NONE;
-		}
-		return special_;
-	}
-	*/
 }

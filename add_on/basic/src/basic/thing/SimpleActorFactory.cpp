@@ -44,10 +44,6 @@ namespace se_basic {
 		a->nextPos().setBounds(bounds_);
 		SpawnComponent::Ptr spawn(*a);
 		spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
-		if(defaultAction_ && defaultAction_->hasAction()) {
-			LogMsg(defaultAction_->action()->name());
-			a->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
-		}
 		a->setTag(tag_);
 
 		if(script_) {
@@ -59,6 +55,10 @@ namespace se_basic {
 
 		StatComponent* pStats = StatComponent::get(*a);
 		pStats->abilities()->setBases(&abilities_);
+		if(defaultAction_ && defaultAction_->hasAction()) {
+			LogMsg(defaultAction_->action()->name());
+			pStats->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
+		}
 
 		PosComponent::Ptr pPos(*a);
 		for(int i = 0; i < Pos::MAX_ANIMS; ++i) {

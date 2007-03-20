@@ -82,8 +82,8 @@ namespace se_core {
 
 	void Actor
 	::planDefaultAction() const {
-		if(!defaultAction_.hasAction()) return;
-		actionComponent_->planAction(CHANNEL_EXTRA, defaultAction_);
+		if(!statComponent_->defaultAction().hasAction()) return;
+		actionComponent_->planAction(CHANNEL_EXTRA, statComponent_->defaultAction());
 	}
 
 }
