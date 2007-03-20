@@ -23,6 +23,7 @@ rune@skalden.com
 #define %sComponent_hpp
 
 #include "sim/sim.hpp"
+#include "comp/comp.hpp"
 #include "sim/AreaChildComponent.hpp"
 
 namespace %n {
@@ -30,7 +31,7 @@ namespace %n {
 	public:
 		typedef Ptr<%sComponent, se_core::sct_%S> Ptr;
 
-		%sComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
+		%sComponent(se_core::Composite* owner, const se_core::SimComponentFactory* factory = 0);
 		virtual ~%sComponent();
 		const char* name() { return "%s"; }
 

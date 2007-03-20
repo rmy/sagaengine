@@ -197,9 +197,9 @@ namespace se_core {
 		 * must already be updated.
 		 */
 		void updateWorldViewPoint();
-		void areaCoor(PosComponent& area, Point3& dest);
-		void areaFace(PosComponent& area, Euler3& dest);
-		void areaViewPoint(PosComponent& area, ViewPoint& dest);
+		void areaCoor(const PosComponent& area, Point3& dest);
+		void areaFace(const PosComponent& area, Euler3& dest);
+		void areaViewPoint(const PosComponent& area, ViewPoint& dest);
 
 		/**
 		 * Update the local_ viewpoint according to

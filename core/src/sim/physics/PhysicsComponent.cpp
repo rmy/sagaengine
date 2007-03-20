@@ -82,7 +82,7 @@ namespace se_core {
 		}
 
 		move_ = nextMove_;
-		physics().calcNext(*toActor(), posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
+		physics().calcNext(*this, posComponent_->pos(), posComponent_->nextPos(), move(), nextMove());
 		AssertFatal(!posComponent_->nextPos().worldCoor().isNan(), "Nan: " << owner()->name() << " - " << physics().name());
 		AssertFatal(!posComponent_->nextPos().localCoor().isNan(), "Nan: " << owner()->name() << " - " << physics().name());
 		move_ = nextMove_;

@@ -9,14 +9,14 @@ namespace se_basic {
 	public:
 		PhTrackingCamera() : se_core::Physics("TrackingCamera") {}
 
-		void calcNext(const se_core::Actor& actor
+		void calcNext(const se_core::PhysicsComponent& physics
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos
 				, const se_core::Move& move
 				, se_core::Move& nextMove
 				) const;
 
-		void affect(se_core::Actor& actor) const;
+		void affect(se_core::PhysicsComponent& physics) const;
 
 	private:
 	};
