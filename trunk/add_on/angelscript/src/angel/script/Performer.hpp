@@ -41,6 +41,7 @@ namespace se_core {
 		void log(std::string& s);
 		bool hasTarget();
 		bool didMove();
+		void perform(const std::string& s);
 
 		void defaultAction();
 

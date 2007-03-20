@@ -42,19 +42,23 @@ namespace se_core {
 		// Register yield function
 		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void idle()"
 				, asFUNCTION(ScriptFunctions::idle), asCALL_CDECL);
-		Assert( r >= 0 && "Idle");
+		Assert( r >= 0 && "idle");
 
 		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void idle(int id)"
 				, asFUNCTION(ScriptFunctions::idleMillis), asCALL_CDECL);
-		Assert(r >= 0 && "Idle(millis)");
+		Assert(r >= 0 && "idle(millis)");
+
+		r = AngelSchema::scriptEngine->RegisterGlobalFunction("int random(int max)"
+				, asFUNCTION(ScriptFunctions::random), asCALL_CDECL);
+		Assert(r >= 0 && "int random(max)");
 
 		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void startCutscene()"
 				, asFUNCTION(ScriptFunctions::startCutscene), asCALL_CDECL);
-		Assert( r >= 0 && "StartCutscene");
+		Assert( r >= 0 && "startCutscene");
 
 		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void log(string& s)"
 				, asFUNCTION(ScriptFunctions::log), asCALL_CDECL);
-		Assert( r >= 0 && "Log");
+		Assert( r >= 0 && "log");
 
 		return true;
 	}
@@ -87,6 +91,13 @@ namespace se_core {
 		yield();
 	}
 
+
+	int ScriptFunctions
+	::random(int max) {
+		static int wait = 0;
+		wait += TIMESTEP_INTERVAL + 1596;
+		return wait % max;
+	}
 
 	void ScriptFunctions
 	::yield() {

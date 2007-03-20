@@ -86,7 +86,7 @@ namespace se_pc {
 				break;
 			default:
 				if(foundWhiteSpace) return;
-		   }
+			}
 		} while (foundWhiteSpace);
 	}
 

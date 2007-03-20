@@ -58,6 +58,16 @@ namespace se_core {
 		virtual bool eof() { return true; }
 
 		virtual const char* name() { return "Stream unimplemented"; }
+		const char* basename() {
+			int p = 0;
+			const char* n = name();
+			for(int i = 0; n[i] != 0; ++i) {
+				if(n[i] == '/') {
+					p = i + 1;
+				}
+			}
+			return &n[p];
+		}
 	};
 }
 
