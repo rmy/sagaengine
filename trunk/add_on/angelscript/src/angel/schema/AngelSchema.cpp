@@ -27,6 +27,9 @@ rune@skalden.com
 #include "../script/Performer.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "sim/action/ActionAndParameter.hpp"
+#include "sim/InitListener.hpp"
+#include "sim/InitListeners.hpp"
+#include "sim/schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -40,15 +43,14 @@ namespace se_core {
 		else if( msg->type == asMSGTYPE_INFORMATION ) 
 			type = "INFO";
 
-		LogMsg(msg->section << " (" << msg->row << ", " << msg->col << ") " << type << " " << msg->message);
-		//printf("%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+		LogDetail(msg->section << " (" << msg->row << ", " << msg->col << ") " << type << " " << msg->message);
 	}
 
 	/*
 	class AngelOutputStream : public asIOutputStream {
 	public:
 		void Write(const char *text) {
-			LogMsg("Angelscript message:\n" << text << "--------");
+			LogDetail("Angelscript message:\n" << text << "--------");
 		}
 	};
 	*/
@@ -62,61 +64,99 @@ namespace se_core {
 			return ap;
 		}
 
-		// Init and cleanup methods
-		bool init() {
-			// Create and register file parser modules
-			static AngelScriptParserModule aspm(IoSchema::parser());
+		const struct _SeAngelscriptExport AutoInit : public se_core::InitListener {
 
-			LogMsg("Initializing angelscript version " << ANGELSCRIPT_VERSION_STRING);
-
-			// Create the script engine
-			scriptEngine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
-			if( scriptEngine == 0 )
-			{
-				LogFatal("Failed to create script engine.");
-				return false;
+			AutoInit() {
+				// Client event bridge should listen to init events.
+				SimSchema::initListeners().addListener(*this);
+				LogDetail("Registered Angelscript add-on");
 			}
-			LogMsg("Angelscript engine created.");
-
-			// The script compiler will send any compiler messages to
-			// the outstream
-			// The script compiler will send any compiler messages to the callback function
-			scriptEngine->SetMessageCallback(asFUNCTION(AngelMessageCallback), 0, asCALL_CDECL);
-
-			RegisterScriptString(scriptEngine);
 
 
-
-			//static AngelOutputStream out;
-			//scriptEngine->SetCommonMessageStream(&out);
-			LogMsg("Angelscript log initialised.");
-
-			// Register the script string type
-			// Look at the implementation for this function for more information
-			// on how to register a custom string type, and other object types.
-			// The implementation is in "/add_on/scriptstring/scriptstring.cpp"
-			//RegisterScriptString(scriptEngine);
-
-			if(!Performer::init())
-				return false;
-			LogMsg("angelscript Perfomer object initialised");
-
-			if(!ScriptFunctions::init())
-				return false;
-			LogMsg("angelscript functions initalised");
-
-			LogMsg("Registered Angelscript add-on");
-			return true;
-		}
+			~AutoInit() {
+				SimSchema::initListeners().removeListener(*this);
+				LogDetail("Cleaned up Angelscript add-on");
+			}
 
 
-		void cleanup() {
-			Performer::cleanup();
-			ScriptFunctions::cleanup();
-			scriptEngine->Release();
+			bool initEngineEvent() {
+				// Create and register file parser modules
+				static AngelScriptParserModule aspm(IoSchema::parser());
 
-			LogMsg("Cleaned up Angelscript add-on");
-		}
+				LogDetail("Initializing angelscript version " << ANGELSCRIPT_VERSION_STRING);
+
+				// Create the script engine
+				scriptEngine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
+				if( scriptEngine == 0 )
+				{
+					LogFatal("Failed to create script engine.");
+					return false;
+				}
+				LogDetail("Angelscript engine created.");
+
+				// The script compiler will send any compiler messages to
+				// the outstream
+				// The script compiler will send any compiler messages to the callback function
+				scriptEngine->SetMessageCallback(asFUNCTION(AngelMessageCallback), 0, asCALL_CDECL);
+
+				RegisterScriptString_Generic(scriptEngine);
+
+
+
+				//static AngelOutputStream out;
+				//scriptEngine->SetCommonMessageStream(&out);
+				LogDetail("Angelscript log initialised.");
+
+				// Register the script string type
+				// Look at the implementation for this function for more information
+				// on how to register a custom string type, and other object types.
+				// The implementation is in "/add_on/scriptstring/scriptstring.cpp"
+				//RegisterScriptString(scriptEngine);
+
+				if(!Performer::init())
+					return false;
+				LogDetail("angelscript Perfomer object initialised");
+
+				if(!ScriptFunctions::init())
+					return false;
+				LogDetail("angelscript functions initalised");
+
+				LogDetail("Registered Angelscript add-on");
+				return true;
+			}
+
+
+			void cleanupEngineEvent() {
+				Performer::cleanup();
+				ScriptFunctions::cleanup();
+				scriptEngine->Release();
+
+				LogDetail("Cleaned up Angelscript add-on");
+			}
+
+			bool initGameEvent() {
+				return true;
+			}
+
+
+			void cleanupGameEvent() {
+			}
+
+
+			bool initLevelEvent() {
+				return true;
+			}
+
+			void cleanupLevelEvent() {
+			}
+
+			bool startGameEvent() {
+				return true;
+			}
+
+			void stopGameEvent() {
+			}
+		} autoInit;
 
 	}
 

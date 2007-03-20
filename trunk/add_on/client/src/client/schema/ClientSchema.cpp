@@ -55,13 +55,13 @@ namespace se_client {
 
 				// Client event bridge should listen to init events.
 				SimSchema::initListeners().addListener(*this);
-				LogMsg("Registered Client add-on");
+				LogDetail("Registered Client add-on");
 			}
 
 
 			~AutoInit() {
 				SimSchema::initListeners().removeListener(*this);
-				LogMsg("Cleaned up Client add-on");
+				LogDetail("Cleaned up Client add-on");
 			}
 
 
@@ -74,17 +74,6 @@ namespace se_client {
 				return true;
 			}
 			void cleanupGameEvent() {
-				/*
-				if(ClientSchema::player) {
-					//ClientSchema::player->leaveCurrentArea();
-					ClientSchema::player->reallyScheduleForDestruction();
-				}
-
-				if(ClientSchema::floatingCamera) {
-					//ClientSchema::floatingCamera->leaveCurrentArea();
-					ClientSchema::floatingCamera->scheduleForDestruction();
-				}
-				*/
 				ClientSchema::playerX = 0;
 				ClientSchema::player = 0;
 				ClientSchema::floatingCamera = 0;

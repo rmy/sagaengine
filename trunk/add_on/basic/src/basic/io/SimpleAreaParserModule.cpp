@@ -39,7 +39,7 @@ namespace se_basic {
 	::parse(InputStream& in) {
 		String* name = new String();
 		in.readString(*name);
-		LogMsg(name->get());
+		LogDetail(name->get());
 
 		unsigned short w = in.readShort();
 		unsigned short h = in.readShort();

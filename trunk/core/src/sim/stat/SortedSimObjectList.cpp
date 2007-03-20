@@ -37,14 +37,14 @@ namespace se_core {
 	SortedSimObjectList
 	::SortedSimObjectList()
 		: simObjects_(new SimObject*[ MAX_GAME_OBJECTS ]), simObjectCount_(0) {
-		LogMsg("Creating SortedSimObjectList");
+		LogDetail("Creating SortedSimObjectList");
 	}
 
 
 	SortedSimObjectList
 	::~SortedSimObjectList() {
 		delete[] simObjects_;
-		LogMsg("Destroying SortedSimObjectList");
+		LogDetail("Destroying SortedSimObjectList");
 	}
 
 
@@ -62,7 +62,7 @@ namespace se_core {
 			simObjects_[ index ] = go;
 			++simObjectCount_;
 		}
-		//LogMsg("Registered SimObject '" << go->name() << "' of type " << go->type());
+		//LogDetail("Registered SimObject '" << go->name() << "' of type " << go->type());
 	}
 
 
@@ -87,43 +87,43 @@ namespace se_core {
 
 	Cutscene* SortedSimObjectList
 	::cutscene(const char* name) {
-		//LogMsg("Cutscene");
+		//LogDetail("Cutscene");
 		return static_cast<Cutscene*>(get(got_CUTSCENE, name));
 	}
 
 
 	const Script* SortedSimObjectList
 	::script(const char* name) {
-		//LogMsg("Script");
-		//LogMsg(name);
+		//LogDetail("Script");
+		//LogDetail(name);
 		return static_cast<Script*>(get(got_SCRIPT, name));
 	}
 
 
 	const Physics* SortedSimObjectList
 	::physics(const char* name) {
-		//LogMsg("Physics");
+		//LogDetail("Physics");
 		return static_cast<Physics*>(get(got_PHYSICS, name));
 	}
 
 
 	const ThingCollide* SortedSimObjectList
 	::collide(const char* name) {
-		//LogMsg("Collide");
+		//LogDetail("Collide");
 		return static_cast<ThingCollide*>(get(got_THING_COLLIDE, name));
 	}
 
 
 	const Signal* SortedSimObjectList
 	::signal(const char* name) {
-		//LogMsg("Physics");
+		//LogDetail("Physics");
 		return static_cast<Signal*>(get(got_SIGNAL, name));
 	}
 
 
 	QuestGoal* SortedSimObjectList
 	::questGoal(const char* name) {
-		//LogMsg("QuestGoal");
+		//LogDetail("QuestGoal");
 		return static_cast<QuestGoal*>(get(got_QUEST_GOAL, name));
 	}
 
@@ -153,8 +153,8 @@ namespace se_core {
 		Assert(index >= 0 && index <= simObjectCount_);
 
 		if(!(simObjects_[ index ]->type() == type && strcmp(simObjects_[ index ]->name(), name) == 0)) {
-			LogMsg("Not found: " << index << ": " << type << ", " << name);
-			LogMsg(simObjects_[ index ]->type() << ", " << simObjects_[ index ]->name());
+			LogDetail("Not found: " << index << ": " << type << ", " << name);
+			LogDetail(simObjects_[ index ]->type() << ", " << simObjects_[ index ]->name());
 			LogFatal("Not found: " << name);
 		}
 

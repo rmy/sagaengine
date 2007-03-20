@@ -40,7 +40,7 @@ namespace se_core {
 		factories_ = new const AreaFactory*[ MAX_FACTORIES ];
 		active_ = new Area*[ MAX_ACTIVE ];
 		shouldKeep_ = new bool[ MAX_ACTIVE ];
-		LogMsg("Creating AreaManager");
+		LogDetail("Creating AreaManager");
 	}
 
 
@@ -51,7 +51,7 @@ namespace se_core {
 		delete[] active_;
 		delete[] factories_;
 		delete[] shouldKeep_;
-		LogMsg("Destroying AreaManager");
+		LogDetail("Destroying AreaManager");
 	}
 
 
@@ -260,7 +260,7 @@ namespace se_core {
 	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ) {
 		char* name = new char[strlen(areaName) + 1];
 		strcpy(name, areaName);
-		//LogMsg("Created area: " << name);
+		//LogDetail("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
 		Area* a = f->create(new String(name), pageX, pageY, pageZ);
@@ -289,7 +289,7 @@ namespace se_core {
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[ i ]->reset();
 		}
-		LogMsg("Destoryed things");
+		LogDetail("Destoryed things");
 	}
 
 
@@ -304,13 +304,13 @@ namespace se_core {
 				delete areas_[ i ];
 		}
 		areaCount_ = 0;
-		LogMsg("Destroyed areas");
+		LogDetail("Destroyed areas");
 
 		for(int i = 0; i < factoryCount_; ++i) {
 			delete factories_[i];
 		}
 		factoryCount_ = 0;
-		LogMsg("Destroyed area factories");
+		LogDetail("Destroyed area factories");
 	}
 
 

@@ -49,7 +49,7 @@ namespace se_basic {
 					String tempString;
 					in.readString(tempString);
 					areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
-					LogMsg(areaCount);
+					LogDetail(areaCount);
 				}
 				break;
 
@@ -78,14 +78,14 @@ namespace se_basic {
 		}
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
-				LogMsg("Set spawn points for: " << areas[i]->name());
+				LogDetail("Set spawn points for: " << areas[i]->name());
 				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
 				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
 			}
-			//LogMsg("Flip children for: " << areas[i]->name());
+			//LogDetail("Flip children for: " << areas[i]->name());
 			areas[i]->flipSpawns();
 		}
-		//LogMsg("Parsed things for: " << area->name());
+		//LogDetail("Parsed things for: " << area->name());
 	}
 
 
@@ -129,7 +129,7 @@ namespace se_basic {
 					float yaw = in.readFloat();
 					float pitch = in.readFloat();
 					float roll = in.readFloat();
- 					//LogMsg("R " << yaw << " " << pitch << " " << roll);
+ 					//LogDetail("R " << yaw << " " << pitch << " " << roll);
 					vp.face_.setEuler(
 									  BrayT::fromDeg(yaw)
 									  , BrayT::fromDeg(pitch)
@@ -162,17 +162,17 @@ namespace se_basic {
 		}
 
 		if(code == '[') {
-			//LogMsg('[');
+			//LogDetail('[');
 			readChildren(in, areaCount, areas, siblings);
 
 			// End of thing ('/') should follow
 			code = in.readInfoCode();
 
-			//LogMsg(']');
+			//LogDetail(']');
 		}
 		Assert(code == '/');
 		delete[] siblings;
-		//LogMsg(thing->name() << ": " << vp.toLog());
+		//LogDetail(thing->name() << ": " << vp.toLog());
 	}
 
 
@@ -180,7 +180,7 @@ namespace se_basic {
 	::readChildren(InputStream& in, int areaCount, Area** areas, Composite** parents) {
 		int code;
 		while((code = in.readInfoCode()) != ']') {
-			//LogMsg("Code: " << (char)code);
+			//LogDetail("Code: " << (char)code);
 			switch(code) {
 			case 'A': // object (thing or actor)
 				readThing(in, areaCount, areas, parents);

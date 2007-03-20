@@ -23,6 +23,7 @@ rune@skalden.com
 #define angel_script_ScriptFunctions_hpp
 
 #include "sim/action/sim_action.hpp"
+#include <string>
 
 namespace se_core {
 	class ScriptFunctions {
@@ -31,7 +32,7 @@ namespace se_core {
 		static void cleanup();
 
 	public: // script commands
-		static void wasHere(int id);
+		static void log(const std::string& s);
 		static void idle();
 		static void idleMillis(int millis);
 		static void startCutscene();

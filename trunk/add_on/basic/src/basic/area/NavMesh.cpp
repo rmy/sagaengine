@@ -78,7 +78,7 @@ namespace se_basic {
 		}
 		//if(ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
 		AssertWarning(res == doLinesIntersectXZ(a0, a1, b0, b1), ua << " - " << ub);
-		//LogMsg(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
+		//LogDetail(ua << ", " << ub << ": " << a0.x_ + ua * (a1.x_ - a0.x_) << ", " << a0.z_ + ua * (a1.z_ - a0.z_) << ": " << (doLinesIntersectXZ(a0, a1, b0, b1) ? "true" : "false") );
 		return res;
 	}
 	*/

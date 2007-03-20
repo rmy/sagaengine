@@ -60,7 +60,7 @@ namespace se_ogre {
 		node_ = O3dSchema::sceneManager->createSceneNode();
 		node_->setPosition(offset_);
 
-		LogMsg(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
+		LogDetail(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
 		staticGeometry_ = compileStaticGeometry();
 	}
 
@@ -78,7 +78,7 @@ namespace se_ogre {
 	void O3dAreaComponent
 	::perform() {
 		init();
-		LogMsg(owner()->name());
+		LogDetail(owner()->name());
 		if(!isActive())
 			return;
 		node_->_updateBounds();
@@ -88,7 +88,7 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::setActive(bool state) {
-		LogMsg(owner()->name() << ": " << state);
+		LogDetail(owner()->name() << ": " << state);
 		if(state) {
 			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)) {
 				setPriority(0);
@@ -114,7 +114,7 @@ namespace se_ogre {
 
 		isVisible_ = state;
 		if(isVisible_) {
-			LogMsg("Now visible");
+			LogDetail("Now visible");
 			init();
 			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
 			staticGeometry_->setVisible(true);

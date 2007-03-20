@@ -20,14 +20,15 @@ rune@skalden.com
 
 
 #include "Performer.hpp"
+#include "ScriptFunctions.hpp"
 #include "../schema/AngelSchema.hpp"
-#include "se_core.hpp"
+#include <se_core.hpp>
 #include <angelscript.h>
 
 namespace se_core {
 
 	Performer
-	::Performer(const Actor& actor) : actor_(actor), refCount_(0) {
+	::Performer(const Composite& composite) : composite_(composite), refCount_(0) {
 	}
 
 
@@ -47,37 +48,52 @@ namespace se_core {
 		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "bool didMove()", asMETHOD(Performer, didMove), asCALL_THISCALL);
 		Assert(r >= 0 && "Failed to register method didMove()");
 
-		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "int dir8()", asMETHOD(Performer, dir8), asCALL_THISCALL);
-		Assert(r >= 0 && "Failed to register method dec()");
-
 		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "bool hasTarget()", asMETHOD(Performer, hasTarget), asCALL_THISCALL);
 		Assert(r >= 0 && "Failed to register method hasTarget()");
+
+		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void attack()", asMETHOD(Performer, defaultAction), asCALL_THISCALL);
+		Assert(r >= 0 && "Failed to register method hasTarget()");
+
+		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void log(string& s)", asMETHOD(Performer, log), asCALL_THISCALL);
+		Assert(r >= 0 && "Failed to register method name()");
+
+		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void log()", asMETHOD(Performer, logSelf), asCALL_THISCALL);
+		Assert(r >= 0 && "Failed to register method name()");
 
 		return true;
 	}
 
 
-	int Performer
-	::dir8() {
-		LogFatal("TODO:");
-		//TODO:
-		//return BrayT::toClockwise8(actor_.pos().localFace().yaw_);
-		return 0;
-	}
-
-
 	bool Performer
 	::didMove() {
-		if(actor_.didMove()) {
-			LogMsg("True: " << actor_.name());
-		}
-		return actor_.didMove();
+		return PhysicsComponent::Ptr(composite_)->didMove();
 	}
 
 
 	bool Performer
 	::hasTarget() {
-		return actor_.hasTarget();
+		return StatComponent::Ptr(composite_)->hasTarget();
 	}
 
+
+	void Performer
+	::defaultAction() {
+		StatComponent::Ptr pStat(composite_);
+		if(pStat->hasDefaultAction()) {
+			AngelSchema::nextAction().set( pStat->defaultAction() );
+		}
+		ScriptFunctions::yield();
+	}
+
+
+	void Performer
+	::log(std::string& s) {
+		LogMessage(composite_.name() << ": " << s.c_str());
+	}
+
+
+	void Performer
+	::logSelf() {
+		LogMessage(composite_.name());
+	}
 }

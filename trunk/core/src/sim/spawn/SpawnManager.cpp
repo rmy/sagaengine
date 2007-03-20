@@ -77,7 +77,7 @@ namespace se_core {
 	void SpawnManager
 	::addFactory(SimCompositeFactory* factory) {
 		Assert(factoryCount_ < MAX_FACTORIES - 1);
-		LogMsg(factoryCount_ << ": " << factory->name());
+		LogDetail(factoryCount_ << ": " << factory->name());
 		factories_[ factoryCount_++ ] = factory;
 	}
 
@@ -136,7 +136,7 @@ namespace se_core {
 	void SpawnManager
 	::performDestructions() {
 		while(destructionCount_ > 0) {
-			//LogMsg("Dest count: " << destructionCount_);
+			//LogDetail("Dest count: " << destructionCount_);
 			Composite* t = thingsScheduledForDestruction_[ --destructionCount_ ];
 			Assert(t->factory());
 			// Let the facory that created the object do the deletion.

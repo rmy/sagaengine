@@ -19,6 +19,7 @@ rune@skalden.com
 */
 
 
+#include <angelscript.h>
 #include "AngelScript.hpp"
 #include "Performer.hpp"
 #include "ScriptFunctions.hpp"
@@ -26,13 +27,12 @@ rune@skalden.com
 #include "sim/thing/Actor.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "sim/action/Idle.hpp"
-#include <angelscript.h>
 
 namespace se_core {
 
 	class AngelData : public ScriptData {
 	public:
-		AngelData(const Actor& actor) : mainCtx(0), eventCtx(0), performer(actor) {}
+		AngelData(const Composite& composite) : mainCtx(0), eventCtx(0), performer(composite) {}
 		~AngelData();
 
 		// angelscript thread context
@@ -54,8 +54,11 @@ namespace se_core {
 
 
 	AngelScript
-	::AngelScript(String* n) : Script(n) {
-		initFuncId_ = AngelSchema::scriptEngine->GetFunctionIDByName(name(), "init");
+	::AngelScript(String* n) : Script(n->get()) {
+		int typeId = AngelSchema::scriptEngine->GetTypeIdByDecl(name(), "AcidSpitter");
+		initFuncId_ = AngelSchema::scriptEngine->GetMethodIDByName(typeId, "AcidSpitter");
+
+		//initFuncId_ = AngelSchema::scriptEngine->GetFunctionIDByName(name(), "init");
 		reinitFuncId_ = AngelSchema::scriptEngine->GetFunctionIDByName(name(), "reinit");
 		sequenceFuncId_ = AngelSchema::scriptEngine->GetFunctionIDByName(name(), "sequence");
 		transitionFuncId_ = AngelSchema::scriptEngine->GetFunctionIDByName(name(), "transition");
@@ -63,13 +66,13 @@ namespace se_core {
 
 
 	void AngelScript
-	::reinit(const Actor& performer, ScriptData* sd) const {
+	::reinit(const ScriptComponent& performer, ScriptData* sd) const {
 		AngelData& data = static_cast<AngelData&>(*sd);
 		if( reinitFuncId_ < 0 ) {
-			LogMsg("The reinit() function was not found: " << name());
+			LogDetail("The reinit() function was not found: " << name());
 			return;
 		}
-		LogMsg(name() << ": " << performer.name());
+		LogDetail(name() << ": " << performer.name());
 		Assert(data.eventCtx);
 		int r;
 		r = data.eventCtx->Prepare(reinitFuncId_);
@@ -77,14 +80,13 @@ namespace se_core {
 		data.eventCtx->SetArgObject(0, &data.performer);
 		r = data.eventCtx->Execute();
 		//Assert( r == asEXECUTION_SUSPENDED );
-		WasHere();
 	}
 
 
 	ScriptData* AngelScript
-	::init(const Actor& performer) const {
-		LogMsg("Init: " << name() << ": " << performer.name());
-		AngelData* data = new AngelData(performer);
+	::init(const ScriptComponent& performer) const {
+		LogDetail("Init: " << name() << ": " << performer.name());
+		AngelData* data = new AngelData(*performer.owner());
 		int r;
 
 		//
@@ -93,14 +95,20 @@ namespace se_core {
 			LogFatal("Failed to create context: " << name());
 			return data;
 		}
-		if(reinitFuncId_ >= 0) {
-		}
 
 		// Create the angelscript thread context
 		data->mainCtx = AngelSchema::scriptEngine->CreateContext();
 		if( data->mainCtx == 0 ) {
 			LogFatal("Failed to create context: " << name());
 			return data;
+		}
+
+		if(initFuncId_ >= 0) {
+			int r;
+			r = data->eventCtx->Prepare(initFuncId_);
+			Assert(r >= 0);
+			data->eventCtx->SetArgObject(0, &data->performer);
+			r = data->eventCtx->Execute();
 		}
 
 		// Find the function id for the function we want to execute.
@@ -127,18 +135,22 @@ namespace se_core {
 	}
 
 
-	const Action* AngelScript
-	::nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const {
+	void AngelScript
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const {
 		Assert(sd);
 		AngelData& data = static_cast<AngelData&>(*sd);
 		Assert(data.mainCtx);
-		if(!data.mainCtx)
-			return 0;
+		if(!data.mainCtx) {
+			out.resetAction();
+			return;
+		}
 
 		// No simultaneous actions for reentrant scripts. Always
 		// put actions i action queue channel 0.
-		if(channel != 0)
-			return 0;
+		if(channel != 0) {
+			out.resetAction();
+			return;
+		}
 
 		if(transitionFuncId_ >= 0) {
 			Assert(data.eventCtx);
@@ -155,7 +167,6 @@ namespace se_core {
 		// No action chosen is default
 		ScriptFunctions::resetAction();
 
-		//LogMsg("Actor id: " << performer.id() << "  Channel: " << channel);
 		// Execute or resume script
 		int r = data.mainCtx->Execute();
 
@@ -166,17 +177,18 @@ namespace se_core {
 			data.mainCtx->SetArgObject(0, &data.performer);
 			// The context has terminated execution (for one reason or other)
 			// Tell actor that this script is dead
-			return 0;
+			out.resetAction();
+			return;
 		}
 
 		// If any action is chosen by the script, return it
 		if(AngelSchema::nextAction().hasAction()) {
-			out = AngelSchema::nextAction().parameter();
-			return AngelSchema::nextAction().action();
+			out.set(AngelSchema::nextAction());
+			return;
 		}
 
 		// Keep one action thread running...
-		return &actionIdle;
+		out.setAction(actionIdle);
 	}
 
 }

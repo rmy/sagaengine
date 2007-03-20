@@ -104,7 +104,7 @@ namespace se_core {
 		z_ = a1.z_;
 
 		coor_t n = QuatT::oneOver( CoorT::sqrt( CoorT::pow2(x_) +  CoorT::pow2(y_) +  CoorT::pow2(z_)) );
-		//LogMsg(toLog() << ":n " << n);
+		//LogDetail(toLog() << ":n " << n);
 
 		#ifdef SE_FIXED_POINT
 		#error "Not implemented"
@@ -113,13 +113,13 @@ namespace se_core {
 		// zero-div may occur.
 		//coor_t s = ::sin(0.5*a1.angle_)/n;
 		coor_t s = Trig::sinScale(n, a1.angle_ >> 1);
-		//LogMsg(toLog() << ":s " << s);
+		//LogDetail(toLog() << ":s " << s);
 
 		x_ *= s;
 		y_ *= s;
 		z_ *= s;
 		w_ = Trig::cosQuat(a1.angle_ >> 1);
-		//LogMsg(toLog());
+		//LogDetail(toLog());
 	}
 
 

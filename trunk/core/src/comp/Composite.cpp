@@ -124,7 +124,7 @@ namespace se_core {
 
 	void Composite
 	::addComponent(Component& c) {
-		//LogMsg("Added component of type " << c.type() << " to " << c.owner()->name());
+		//LogDetail("Added component of type " << c.type() << " to " << c.owner()->name());
 		AssertFatal(component(c.type()) == 0, name() << ": " << c.type());
 		components_.add(c);
 		if(c.type() < FAST_COMPONENT_COUNT) {

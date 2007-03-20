@@ -25,7 +25,6 @@ rune@skalden.com
 #include "sim/action/Action.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "sim/script/Script.hpp"
-#include <angelscript.h>
 
 
 namespace se_core {
@@ -34,9 +33,9 @@ namespace se_core {
 	class AngelScript : public Script {
 	public:
 		AngelScript(String* name);
-		const Action* nextAction(const Actor& performer, int channel, ScriptData* sd, Parameter& out) const;
-		ScriptData* init(const Actor& performer) const;
-		void reinit(const Actor& performer, ScriptData* sd) const;
+		void nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const;
+		ScriptData* init(const ScriptComponent& performer) const;
+		void reinit(const ScriptComponent& performer, ScriptData* sd) const;
 
 	private:
 		int initFuncId_, reinitFuncId_, transitionFuncId_, sequenceFuncId_;

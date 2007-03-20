@@ -81,7 +81,7 @@ namespace se_core {
 			return a;
 		}
 
-		//LogMsg((sprintf(log_msg(), "Tracker: %d - %d - %d - %s", SimSchema::scriptTracker, SimSchema::simEngine.when(), channel, performer.name()), log_msg()));
+		//LogDetail((sprintf(log_msg(), "Tracker: %d - %d - %d - %s", SimSchema::scriptTracker, SimSchema::simEngine.when(), channel, performer.name()), log_msg()));
 		Assert(SimSchema::scriptTracker < trackerPosCount_);
 		const Action* a = actions_[ trackerPosCount_ + SimSchema::scriptTracker];
 		if(!a) { return &actionIdle; }
@@ -89,7 +89,7 @@ namespace se_core {
 		//performer.param(channel).setNumber(scriptSingleValueParameters_[SimSchema::scriptTracker]);
 		if(scriptAttributeParameters_[SimSchema::scriptTracker]) {
 			//performer.param(channel).setString(scriptAttributeParameters_[SimSchema::scriptTracker]->get());
-			//LogMsg(performer.param(channel).string());
+			//LogDetail(performer.param(channel).string());
 		}
 		return a;
 	}

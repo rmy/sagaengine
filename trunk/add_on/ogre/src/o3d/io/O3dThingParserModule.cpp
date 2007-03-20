@@ -59,14 +59,14 @@ namespace se_ogre {
 		in.readString(infoList->thingType_);
 
 		while((code = in.readInfoCode()) != 'Q') {
-			LogMsg((char)(code));
+			LogDetail((char)(code));
 			switch(code) {
 			case '{':
 				{
 					ThingMOInfo* info = new ThingMOInfo();
 					parseThingInfo(in, info);
 					infoList->add(info);
-					LogMsg("Added info for " << infoList->thingType_);
+					LogDetail("Added info for " << infoList->thingType_);
 				}
 				break;
 
@@ -102,7 +102,7 @@ namespace se_ogre {
 	::parseThingInfo(InputStream& in, ThingMOInfo* info) {
 		int code;
 		while((code = in.readInfoCode()) != '}') {
-			LogMsg((char)(code));
+			LogDetail((char)(code));
 			switch(code) {
 			case 'M': // Mesh
 				{

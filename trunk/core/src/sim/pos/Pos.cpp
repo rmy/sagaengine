@@ -200,7 +200,7 @@ namespace se_core {
 
 	void Pos
 	::setArea(PosComponent& area, bool doKeepWorldCoor) {
-		//LogMsg(area.name());
+		//LogDetail(area.name());
 		if(parent_ == area_) {
 			// Area is the root parent node
 			setParent(area, doKeepWorldCoor);

@@ -45,7 +45,7 @@ namespace se_basic {
 			sprintf(buffer.get(), "%s", performer.name());
 		}
 
-		LogMsg(buffer.get());
+		LogDetail(buffer.get());
 		performer.say(buffer.get());
 	}
 

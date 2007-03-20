@@ -127,12 +127,12 @@ namespace se_ogre {
 		guiRenderer_ = new CEGUI::OgreCEGUIRenderer(O3dSchema::window, Ogre::RENDER_QUEUE_OVERLAY, false, 3000, O3dSchema::sceneManager);
 		guiSystem_ = new CEGUI::System(guiRenderer_);
 		CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
-		LogMsg("Initialized CEGUI logger");
+		LogDetail("Initialized CEGUI logger");
 
 		/*
 		// Setup Render To Texture for preview window
 		rttTexture_ = Ogre::Root::getSingleton().getRenderSystem()->createRenderTexture( "ceguiTex", 512, 512, Ogre::TEX_TYPE_2D, Ogre::PF_A8R8G8B8 );
-		LogMsg("Created CEGUI render texture");
+		LogDetail("Created CEGUI render texture");
 
 		// Update when needed
 		rttTexture_->setActive(false);
@@ -159,11 +159,11 @@ namespace se_ogre {
 			guiSystem_->setDefaultFont((CEGUI::utf8*)"Tahoma-12");
 		}
 		/*
-		LogMsg("Created CEGUI viewport");
+		LogDetail("Created CEGUI viewport");
 
 		// Retrieve CEGUI texture for the RTT
 		CEGUI::Texture* ceguiTexture = guiRenderer_->createTexture((CEGUI::utf8*)"ceguiTex");
-		LogMsg("Created CEGUI texture");
+		LogDetail("Created CEGUI texture");
 
 		CEGUI::Imageset* rttImageSet = CEGUI::ImagesetManager::getSingleton().createImageset((CEGUI::utf8*)"ceguiImageset", ceguiTexture);
 		rttImageSet->defineImage((CEGUI::utf8*)"ceguiImage", CEGUI::Point(0.0f, 0.0f), CEGUI::Size(ceguiTexture->getWidth(), ceguiTexture->getHeight()), CEGUI::Point(0.0f,0.0f));
@@ -297,7 +297,7 @@ namespace se_ogre {
 			if(ch && inCount_ < INPUT_BUFFER_SIZE - 1) {
 				input_[ inCount_++ ] = ch;
 				input_[ inCount_ ] = 0;
-				LogMsg("Key: " << inCount_ << " (" << (int)ch << ") " << input_);
+				LogDetail("Key: " << inCount_ << " (" << (int)ch << ") " << input_);
 			}
 			updateConsole();
 		}

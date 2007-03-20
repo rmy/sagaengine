@@ -182,7 +182,7 @@ namespace se_fmod {
 		// TODO: Load path from datapath.txt
 		const char* dirname = IoSchema::dataPath;
 		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
-		LogMsg(buffer);
+		LogDetail(buffer);
 
 		result = system_->createSound(buffer, FMOD_SOFTWARE | FMOD_3D | (shouldLoop ? 0 : FMOD_LOOP_NORMAL), 0, &snd);
 		if (result != FMOD_OK) {

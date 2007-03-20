@@ -53,13 +53,13 @@ namespace se_fmod {
 				
 				soundPlayer = new SoundPlayer();
 				SimSchema::initListeners().addListener(*this);
-				LogMsg("Registered Fmod add-on");
+				LogDetail("Registered Fmod add-on");
 			}
 
 			~AutoInit() {
 				delete soundPlayer;
 				SimSchema::initListeners().removeListener(*this);
-				LogMsg("Cleaned up Fmod add-on");
+				LogDetail("Cleaned up Fmod add-on");
 			}
 
 

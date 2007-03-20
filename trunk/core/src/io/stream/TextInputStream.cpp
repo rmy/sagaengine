@@ -30,7 +30,7 @@ namespace se_core {
 	::readDictionaryWord(short dictionaryId) {
 		String s;
 		readString(s);
-		//LogMsg(dictionaryId << ", " << s.get());
+		//LogDetail(dictionaryId << ", " << s.get());
 		unsigned short id = SimSchema::dictionary().id(dictionaryId, s.get());
 		return id;
 	}

@@ -22,12 +22,13 @@ rune@skalden.com
 #ifndef angel_script_Performer_hpp
 #define angel_script_Performer_hpp
 
-#include "sim/thing/sim_thing.hpp"
+#include "comp/comp.hpp"
+#include <string>
 
 namespace se_core {
 	class Performer {
 	public:
-		Performer(const Actor& actor);
+		Performer(const Composite& composite);
 
 		static bool init();
 		static void cleanup() {}
@@ -36,14 +37,15 @@ namespace se_core {
 		void release() { --refCount_; }
 
 
+		void logSelf();
+		void log(std::string& s);
 		bool hasTarget();
-
 		bool didMove();
-		int dir8();
 
+		void defaultAction();
 
 	private:
-		const Actor& actor_;
+		const Composite& composite_;
 		int refCount_;
 	};
 

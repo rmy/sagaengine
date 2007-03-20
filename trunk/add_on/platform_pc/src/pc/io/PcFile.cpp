@@ -51,7 +51,7 @@ namespace se_pc {
 		Assert(strlen(directory) + strlen(filename) + 2 < sizeof(fullFilePath_));
 		sprintf(fullFilePath_, "%s/%s", directory, filename);
 		in_ = fopen(fullFilePath_, "rb");
-		LogMsg(fullFilePath_);
+		LogDetail(fullFilePath_);
 		Assert(in_ != 0);
 	}
 

@@ -46,7 +46,7 @@ namespace se_core {
 		char buffer[5];
 		sprintf(buffer, "%c%c%02d", moduleGroup, moduleCode, moduleVersion);
 		int code = buffer[3] + buffer[2] * 256 + buffer[1] * 65536 + buffer[0] * 65536 * 256;
-		LogMsg((sprintf(log_msg(), "HeaderCode: %x", code), log_msg()));
+		LogDetail((sprintf(log_msg(), "HeaderCode: %x", code), log_msg()));
 		return code;
 	}
 

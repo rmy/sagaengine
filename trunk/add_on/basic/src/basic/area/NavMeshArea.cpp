@@ -8,7 +8,7 @@ namespace se_basic {
 	NavMeshArea
 	::NavMeshArea(const se_core::CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
 			: Area (f, name, w, h), navMesh_(navMesh) {
-		LogMsg("Creating area " << name << " with size " << w << ", " << h);
+		LogDetail("Creating area " << name << " with size " << w << ", " << h);
 	}
 
 
@@ -52,7 +52,7 @@ namespace se_basic {
 		Point2 p(worldCoor.x_ - posComponent_->nextPos().world_.coor_.x_
 				 , worldCoor.z_ - posComponent_->nextPos().world_.coor_.z_);
 
-		//LogMsg(p.x_ << ", " << p.y_);
+		//LogDetail(p.x_ << ", " << p.y_);
 
 		short index;
 		if(oldIndex >= 0) {
@@ -62,7 +62,7 @@ namespace se_basic {
 			index = navMesh_->find(p);
 		}
 
-		//LogMsg(index);
+		//LogDetail(index);
 		return index;
 	}
 
@@ -91,7 +91,7 @@ namespace se_basic {
 		Point2 p(coor.x_, coor.z_);
 		short tri = (index >= 0) ? index : navMesh_->find(p);
 		//short tri = navMesh_->find(p);
-		//LogMsg(tri << ": " << coor.x_ << ", " << coor.z_);
+		//LogDetail(tri << ": " << coor.x_ << ", " << coor.z_);
 
 		if(tri < 0) {
 			return TS_VOID;
@@ -292,7 +292,7 @@ namespace se_basic {
 			p.sub(from.area()->pos().worldCoor());
 			BoundingBox toArea(p, to.area()->pos().bounds_);
 			short toIndex = navMesh_->findExit(toArea, out);
-			//LogMsg(name() << p << toArea << " - " << out);
+			//LogDetail(name() << p << toArea << " - " << out);
 
 			if(toIndex < 0) {
 				out.set(to.localCoor());
@@ -331,7 +331,7 @@ namespace se_basic {
 		}
 		short via = farthestLos(from.localCoor(), from.index(), to.index());
 		//short via = navMesh_->path(from.index(), to.index());
-		//LogMsg("D:" << from.index() << ", " << to.index() << ": " << via);
+		//LogDetail("D:" << from.index() << ", " << to.index() << ": " << via);
 		navMesh_->center(via, out);
 	}
 

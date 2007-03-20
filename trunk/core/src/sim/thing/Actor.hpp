@@ -143,19 +143,6 @@ namespace se_core {
 		}
 
 		/**
-		 * Ask if this class will safely cast to a spcific
-		 * SimObject subclass.
-		 */
-		/*
-		bool isType(enum SimObjectType type) const {
-			if(type == got_ACTOR) return true;
-			//return Composite::isType(type);
-			return false;
-		}
-		*/
-
-
-		/**
 		 * Have the Actor say something.
 		 * The message is looked up in the language file and typically shown
 		 * in a speech bubble.
@@ -174,15 +161,6 @@ namespace se_core {
 
 		const Pos& pos() const { return posComponent_->pos(); }
 		Pos& nextPos() const { return posComponent_->nextPos(); }
-
-		//virtual bool isPlayer() { return false; }
-
-		/*
-		Composite* spawn(const char* name, int spawnPointId, long deniedTsMask = 0);
-		void incSpawnCount() { spawnComponent_->incSpawnCount(); }
-		void decSpawnCount() { spawnComponent_->decSpawnCount(); }
-		int spawnCount() { return spawnComponent_->spawnCount(); }
-		*/
 
 		bool hasDefaultAction() const {
 			return statComponent_->hasDefaultAction();

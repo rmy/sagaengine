@@ -80,10 +80,10 @@ namespace se_ogre {
 					Assert(O3dSchema::sceneManager 
 						   && "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling, 512);
-					LogMsg("Created skydome with material " << material);
+					LogDetail("Created skydome with material " << material);
 				}
 				catch(...) {
-					LogMsg("Couldn't create skydome for ogre config file " << in.name());
+					LogDetail("Couldn't create skydome for ogre config file " << in.name());
 				}
 				break;
 
@@ -97,7 +97,7 @@ namespace se_ogre {
 					O3dSchema::sceneManager->setSkyBox(true, material.get());
 				}
 				catch(...) {
-					LogMsg("Couldn't create skybox for ogre config file " << in.name());
+					LogDetail("Couldn't create skybox for ogre config file " << in.name());
 				}
 				break;
 
@@ -126,7 +126,7 @@ namespace se_ogre {
 	::chooseSceneManager(const char* sceneManager) {
 		// Create the SceneManager, in this case a generic one
 		O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager);
-		LogMsg("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
+		LogDetail("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
@@ -141,14 +141,14 @@ namespace se_ogre {
 			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
 			O3dSchema::playerCamera = 0;
 			O3dSchema::window->removeAllViewports();
-			LogMsg("Destroyed camera");
+			LogDetail("Destroyed camera");
 		}
 
 		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
 		O3dSchema::playerCamera->setNearClipDistance(near);
 		O3dSchema::playerCamera->setFarClipDistance(far);
 		O3dSchema::playerCamera->setFOVy(Ogre::Radian(Ogre::Degree(fovy)));
-		LogMsg("Created player camera");
+		LogDetail("Created player camera");
 	}
 
 
@@ -161,7 +161,7 @@ namespace se_ogre {
 		// Alter the camera aspect ratio to match the viewport
 		O3dSchema::playerCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
-		LogMsg("Created Ogre viewport");
+		LogDetail("Created Ogre viewport");
 
 	}
 
@@ -263,7 +263,7 @@ namespace se_ogre {
 							break;
 
 						case 'C': // Colour
-							LogMsg("Deprecated");
+							LogDetail("Deprecated");
 						case 'D': // Diffuse
 							{
 								float r = in.readFloat();
@@ -317,10 +317,10 @@ namespace se_ogre {
 						O3dSchema::sceneManager->setShadowFarDistance(far);
 						O3dSchema::sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
 
-						LogMsg("Created " << count << " shadow textures of size " << size);
+						LogDetail("Created " << count << " shadow textures of size " << size);
 					}
 					catch(...) {
-						LogMsg("Couldn't create shadow texture");
+						LogDetail("Couldn't create shadow texture");
 					}
 				}
 				break;

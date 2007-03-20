@@ -59,10 +59,12 @@ namespace se_core {
 		 * Return true if parameter is got_AREA.
 		 * Inherited from GameObject class.
 		 */
+		/*
 		virtual bool isType(enum SimObjectType type) const {
 			if(type == got_AREA) return true;
 			return false;
 		}
+		*/
 
 		/**
 		 * Height of ground (y-coordinate) at given (coor.x_, coor.z_).
@@ -134,7 +136,6 @@ namespace se_core {
 
 		//Thing* findPickTarget(Player& actor) const;
 		//Thing* findDefaultActionTarget(Player& actor) const;
-		bool isActive() const { return isActive_; }
 		void reset();
 
 		/**
@@ -165,15 +166,6 @@ namespace se_core {
 		void flipSpawns(void);
 
 		/**
-		 * Call affect on all moving things, then calculate
-		 * the new nextPos(). This new nextPos() should
-		 * later be tested for collisions and may be reverted.
-		 */
-		//int performPhysics(Actor** movers);
-		//int performChildPhysics(Actor** movers);
-
-
-		/**
 		 * Spawn a new thing in this area. Spawning should be done
 		 * this way, because a thing not belonging to an area will
 		 * never be flip()'ed.
@@ -183,7 +175,6 @@ namespace se_core {
 
 	protected:
 		coor_tile_t width_, height_;
-		bool isActive_;
 		int pageX_, pageY_, pageZ_;
 
 		String* nameString_; // For proper destruction of content only
