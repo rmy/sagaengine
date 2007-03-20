@@ -24,7 +24,6 @@ rune@skalden.com
 
 #include "../sim.hpp"
 #include "../SimComponentManager.hpp"
-#include "../thing/Actor.hpp"
 
 
 namespace se_core {

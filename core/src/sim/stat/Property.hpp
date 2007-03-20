@@ -27,13 +27,14 @@ rune@skalden.com
 #include "sim/action/sim_action.hpp"
 #include "sim/area/sim_area.hpp"
 #include "sim/thing/sim_thing.hpp"
+#include "comp/comp.hpp"
 
 
 namespace se_core {
 	class _SeCoreExport Property {
 	public:
 		enum Type {
-			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_ACTOR, PT_ACTION, PT_AREA, PT_STRING
+			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_COMPOSITE, PT_ACTION, PT_AREA, PT_STRING
 		};
 
 		Property() {}
@@ -63,9 +64,9 @@ namespace se_core {
 			return v.string_;
 		}
 
-		inline Actor* actor() {
-			Assert(type_ == PT_ACTOR);
-			return v.actor_;
+		inline Composite* composite() {
+			Assert(type_ == PT_COMPOSITE);
+			return v.composite_;
 		}
 
 		inline const Action* action() {
@@ -83,7 +84,7 @@ namespace se_core {
 
 		union {
 			void* value_;
-			Actor* actor_;
+			Composite* composite_;
 			Area* area_;
 			const Action* action_;
 			String* string_;

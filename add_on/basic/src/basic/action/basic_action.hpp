@@ -26,7 +26,7 @@ namespace se_basic {
 	/**
 	 * Action channels.
 	 * Each action is performed in one of several channels.
-	 * An se_core::Actor may have only one Action in each channel in
+	 * An se_core::ActionComponent may have only one Action in each channel in
 	 * the ActionQueue, but it may have actions that are performed
 	 * in several channels.
 	 */

@@ -190,54 +190,8 @@ namespace se_core {
 		 */
 		void perform(long when);
 
-		/**
-		 * Make (precalced) next position into present position.
-		 * First step of the AI perfrom.
-		 *
-		 * @param when Ajusted game clock (milliseconds)
-		 */
-		//void flip(long when);
-
-		/**
-		 * Some things (especially the players and perhaps some AI controlles
-		 * characters) should slide when colliding with walls. This method
-		 * handles this.
-		 *
-		 * @param when Ajusted game clock (milliseconds)
-		 */
-		//void slide(long when);
-		//void slideTest(long when, Actor& actor, int speed, short xSpeed, short zSpeed, short diag);
-
-		/**
-		 * Test for and resolve collisions between things and between things
-		 * and terrain obstructions.
-		 *
-		 * @param startWhen Game clock (milliseconds) for this step
-		 * @param endWhen Game clock (milliseconds) for next step
-		 */
-		//void testCollisions(long startWhen, long endWhen);
-
-		/**
-		 * Precalc coordinates for next step.
-		 */
-		//void performPhysics(long when);
 
 	private:
-		/**
-		 * Test for and resolve collisions between things.
-		 */
-		//inline bool fastCalcWhenLimitThings(long startWhen, long endWhen, Actor& actor1, Thing& thing2);
-
-		/**
-		 * Test for and resolve collsisions with terrain.
-		 */
-		//inline bool fastCalcWhenLimitTerrain(long startWhen, long endWhen, Actor& thing, Point3& coor);
-
-		/**
-		 * Test if a slide is possible.
-		 */
-		//inline bool tryToSlide(long when, Actor& actor, Vector3& force, short faceDirection);
-
 		/**
 		 * Tick counter.
 		 */
@@ -247,12 +201,6 @@ namespace se_core {
 		 * Game over flag.
 		 */
 		bool isGameOver_;
-
-		/** Often used tmp values. */
-		//Point3 c1_, c2_;
-
-		/** Often used tmp values. */
-		//Vector3 force0_, force_;
 
 		/**
 		 * If true, the step() method will never perform
