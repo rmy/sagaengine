@@ -24,7 +24,6 @@ rune@skalden.com
 
 #include "SimObjectList.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../thing/Actor.hpp"
 #include "../script/Cutscene.hpp"
 #include "../script/QuestGoal.hpp"
 
@@ -63,15 +62,6 @@ namespace se_core {
 	::next() {
 		return *(SimSchema::simObjectList.next(it_));
 	}
-
-
-
-	/*
-	Actor& SimObjectIterator
-	::nextActor() {
-		return static_cast<Actor&>(*SimSchema::simObjectList.next(it_));
-	}
-	*/
 
 
 	Cutscene& SimObjectIterator

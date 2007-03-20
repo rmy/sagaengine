@@ -34,7 +34,6 @@ rune@skalden.com
 #include "./stat/SimObjectList.hpp"
 #include "./area/Area.hpp"
 #include "./area/AreaManager.hpp"
-#include "./thing/Actor.hpp"
 #include "./signal/SignalManager.hpp"
 #include "./spawn/SpawnManager.hpp"
 #include "util/vecmath/Point3.hpp"

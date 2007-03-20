@@ -22,7 +22,6 @@ rune@skalden.com
 #include "ShowingCutscene.hpp"
 #include "../stat/MultiSimObject.hpp"
 #include "../stat/SimObjectIterator.hpp"
-#include "../thing/Actor.hpp"
 #include "../../util/error/Log.hpp"
 
 namespace se_core {
