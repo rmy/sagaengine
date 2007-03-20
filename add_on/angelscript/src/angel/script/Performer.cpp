@@ -51,6 +51,9 @@ namespace se_core {
 		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "bool hasTarget()", asMETHOD(Performer, hasTarget), asCALL_THISCALL);
 		Assert(r >= 0 && "Failed to register method hasTarget()");
 
+		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "float targetDistance()", asMETHOD(Performer, targetDistance), asCALL_THISCALL);
+		Assert(r >= 0 && "Failed to register method targetDistance()");
+
 		r = AngelSchema::scriptEngine->RegisterObjectMethod("Performer", "void attack()", asMETHOD(Performer, defaultAction), asCALL_THISCALL);
 		Assert(r >= 0 && "Failed to register method hasTarget()");
 
@@ -76,6 +79,20 @@ namespace se_core {
 	bool Performer
 	::hasTarget() {
 		return StatComponent::Ptr(composite_)->hasTarget();
+	}
+
+
+	float Performer
+	::targetDistance() {
+		StatComponent::Ptr pStat(composite_);
+		if(!pStat->hasTarget()) {
+			return 9999999;
+		}
+
+		Composite* target = pStat->target();
+		PosComponent::Ptr pPos(composite_);
+		PosComponent::Ptr tPos(*target);
+		return pPos->pos().worldCoor().distance(tPos->pos().worldCoor());
 	}
 
 
