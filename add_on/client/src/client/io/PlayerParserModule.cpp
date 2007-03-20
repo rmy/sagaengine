@@ -65,7 +65,7 @@ namespace se_client {
 			case 'P': 
 				{ // Player
 					in.readString(tempString);
-					LogMsg(tempString.get());
+					LogDetail(tempString.get());
 					Composite* a = SimSchema::spawnManager().create(tempString.get());
 					PosComponent::Ptr pos(*a);
 					PhysicsComponent::Ptr physics(*a);
@@ -110,7 +110,7 @@ namespace se_client {
 			switch(code) {
 			case 'C': // Coor
 				in.readString(tempString);
-				LogMsg(tempString.get());
+				LogDetail(tempString.get());
 				area = SimSchema::areaManager.area(tempString.get());
 				Assert(area);
 				pos->nextPos().localCoor().x_ = CoorT::fromFloat(in.readFloat());
@@ -123,7 +123,7 @@ namespace se_client {
 				{ // Entrance 
 					in.readString(tempString);
 					int value = in.readShort();
-					LogMsg(tempString.get());
+					LogDetail(tempString.get());
 					area = SimSchema::areaManager.area(tempString.get());
 					Assert(area);
 					const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(value);

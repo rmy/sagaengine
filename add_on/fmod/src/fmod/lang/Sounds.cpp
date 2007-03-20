@@ -48,7 +48,7 @@ namespace se_fmod {
 			//result = FMOD_Sound_Release(sounds_[ soundCount_ ].sound_);
 			delete sounds_[ soundCount_ ].nameC_;
 			delete sounds_[ soundCount_ ].soundC_;
-			//if (result != FMOD_OK) LogMsg("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+			//if (result != FMOD_OK) LogDetail("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 		}
 		delete sounds_;
 	}
@@ -66,7 +66,7 @@ namespace se_fmod {
 		const char* name = nameC->get();
 		FMOD::Sound *sound = FmodSchema::soundPlayer->loadSound(soundC->get(), shouldLoop);
 		if(!sound) {
-			LogMsg("Couldn't load sound: " << soundC->get());
+			LogDetail("Couldn't load sound: " << soundC->get());
 			return;
 		}
 		short index = find(type, name, language);
@@ -130,11 +130,11 @@ namespace se_fmod {
 			// Some sounds are not language specific
 			index = find(type, name, ALL);
 			if(!isFound(index, type, name, ALL)) {
-				LogMsg("Searched for non-existing sound");
+				LogDetail("Searched for non-existing sound");
 				return 0;
 			}
 		}
-		LogMsg(sounds_[index].language_ << " " << type << " " << name);
+		LogDetail(sounds_[index].language_ << " " << type << " " << name);
 		volumeOut = sounds_[ index ].volume_;
 		return sounds_[ index ].sound_;
 	}

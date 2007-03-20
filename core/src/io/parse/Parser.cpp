@@ -41,7 +41,7 @@ namespace se_core {
 
 	void Parser
 	::add(ParserModule *module) {
-		LogMsg("Added file parser for header code: " << module->headerCodeString());
+		LogDetail("Added file parser for header code: " << module->headerCodeString());
 		for(int i = 0; i < moduleCount_; ++i) {
 			if(module->headerCode() == modules_[ i ]->headerCode()) {
 				LogFatal("Module with header code " << module->headerCodeString() << " already exists");
@@ -53,7 +53,7 @@ namespace se_core {
 
 	void Parser
 	::add(ComponentParserModule *module) {
-		LogMsg("Added file component parser for type code: " << module->type() << ", " << module->subtype());
+		LogDetail("Added file component parser for type code: " << module->type() << ", " << module->subtype());
 		for(int i = 0; i < componentModuleCount_; ++i) {
 			if(module->type() == componentModules_[ i ]->type()
 					&& module->subtype() == componentModules_[ i ]->subtype()) {
@@ -66,7 +66,7 @@ namespace se_core {
 
 	bool Parser
 	::parse(InputStream& in) {
-		LogMsg("Loading file: " << in.name());
+		LogDetail("Loading file: " << in.name());
 
 		int headerCode = in.readHeaderCode();
 
@@ -82,7 +82,7 @@ namespace se_core {
 
 	SimComponentFactory* Parser
 	::parseComponent(InputStream& in, int type, int subtype) {
-		LogMsg("Loading component type " << type << ", " << subtype << " for " << in.name());
+		LogDetail("Loading component type " << type << ", " << subtype << " for " << in.name());
 
 		for(int i = 0; i < componentModuleCount_; ++i) {
 			if(type == componentModules_[ i ]->type()

@@ -223,17 +223,17 @@ namespace se_basic {
 
 			/*
 			for(int i = 0; i < triangleCount_; ++i) {
-				LogMsg(i << ": "
+				LogDetail(i << ": "
 						<< triangles_[ i ].controlPoints_[0] << ", "
 						<< triangles_[ i ].controlPoints_[1] << ", "
 						<< triangles_[ i ].controlPoints_[2] << ", "
 						);
 				for(int j = 0; j < 3; ++j) {
-					LogMsg("  Link: " << i << "[" << j << "] = " << triangles_[ i ].linkTo_[ j ]);
+					LogDetail("  Link: " << i << "[" << j << "] = " << triangles_[ i ].linkTo_[ j ]);
 				}
 			}
 			for(int i = 0; i < controlPointCount_; ++i) {
-				LogMsg(i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
+				LogDetail(i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
 			}
 			*/
 		}
@@ -355,7 +355,7 @@ namespace se_basic {
 					return i;
 				}
 			}
-			//LogMsg(q.x_ << ", " << q.y_);
+			//LogDetail(q.x_ << ", " << q.y_);
 			return -1;
 		}
 
@@ -386,13 +386,13 @@ namespace se_basic {
 					smallest = b.z_;
 				}
 
-				//LogMsg(tri << ": " << n << " (" << b.x_ << ", " << b.y_ << ", " << b.z_ << ") ");
+				//LogDetail(tri << ": " << n << " (" << b.x_ << ", " << b.y_ << ", " << b.z_ << ") ");
 				for(int c = 0; c < 3; ++c) {
 					int i = triangles_[ tri ].controlPoints_[ c ];
-					//LogMsg(" " << i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
+					//LogDetail(" " << i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
 				}
 
-				//LogMsg(" Link: " << triangles_[tri].linkTo_[0] << ", " << triangles_[tri].linkTo_[1] << ", " << triangles_[tri].linkTo_[2]);
+				//LogDetail(" Link: " << triangles_[tri].linkTo_[0] << ", " << triangles_[tri].linkTo_[1] << ", " << triangles_[tri].linkTo_[2]);
 				tri = triangles_[tri].linkTo_[n];
 				if(tri < 0) {
 					return -1;

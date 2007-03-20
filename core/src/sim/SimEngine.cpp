@@ -54,14 +54,14 @@ namespace se_core {
 	::SimEngine()
 			: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
 			, lostPerformAdjustment_(0) {
-		LogMsg("Creating SimEngine");
+		LogDetail("Creating SimEngine");
 	}
 
 
 	SimEngine
 	::~SimEngine() {
 		resetAll();
-		LogMsg("Destroying SimEngine");
+		LogDetail("Destroying SimEngine");
 	}
 
 
@@ -213,7 +213,7 @@ namespace se_core {
 
 	void SimEngine
 	::setGameOver(bool state) {
-		LogMsg(__FUNCTION__ << ": " << state);
+		LogDetail(__FUNCTION__ << ": " << state);
 		//static int c = 0; if(++c > 10) LogFatal("!");
 		isGameOver_ = state;
 	}

@@ -62,6 +62,11 @@ namespace se_err {
 		sprintf(buffer, "Msg: \"%s\" (%s-%d)", msg, file, line);
 		dump(buffer);
 	}
+	void silent3(const char* file, int line, const char* msg) {
+		char buffer[512];
+		sprintf(buffer, "Det: \"%s\" (%s-%d)", msg, file, line);
+		dump(buffer);
+	}
 
 	void debugStop() {
 		static int count = 0;
@@ -113,6 +118,13 @@ namespace se_err {
 	Log& Log
 	::whisper() {
 		whisper3(file_, line_, msg_);
+		return *this;
+	}
+
+
+	Log& Log
+	::silent() {
+		silent3(file_, line_, msg_);
 		return *this;
 	}
 

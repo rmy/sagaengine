@@ -24,8 +24,12 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "sim/action/all.hpp"
+#include "basic/action/all.hpp"
+#include "logic/action/all.hpp"
 #include <angelscript.h>
 
+using namespace se_basic;
+using namespace logic;
 
 namespace se_core {
 
@@ -36,21 +40,21 @@ namespace se_core {
 		int r;
 
 		// Register yield function
-		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void Idle()"
+		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void idle()"
 				, asFUNCTION(ScriptFunctions::idle), asCALL_CDECL);
 		Assert( r >= 0 && "Idle");
 
-		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void Idle(int id)"
+		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void idle(int id)"
 				, asFUNCTION(ScriptFunctions::idleMillis), asCALL_CDECL);
 		Assert(r >= 0 && "Idle(millis)");
 
-		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void StartCutscene()"
+		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void startCutscene()"
 				, asFUNCTION(ScriptFunctions::startCutscene), asCALL_CDECL);
 		Assert( r >= 0 && "StartCutscene");
 
-		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void WasHere(int id)"
-				, asFUNCTION(ScriptFunctions::wasHere), asCALL_CDECL);
-		Assert( r >= 0 && "WasHere");
+		r = AngelSchema::scriptEngine->RegisterGlobalFunction("void log(string& s)"
+				, asFUNCTION(ScriptFunctions::log), asCALL_CDECL);
+		Assert( r >= 0 && "Log");
 
 		return true;
 	}
@@ -96,8 +100,8 @@ namespace se_core {
 
 
 	void ScriptFunctions
-	::wasHere(int id) {
-		LogMsg("WasHere: " << id);
+	::log(const std::string& s) {
+		LogMessage("AngelScript: " << s.c_str());
 	}
 
 	void ScriptFunctions
@@ -111,7 +115,7 @@ namespace se_core {
 		if(parameter) {
 			AngelSchema::nextAction().copyParameter(*parameter);
 		}
-		//LogMsg("WasHere: " << id);
+		//LogMessage("WasHere: " << id);
 	}
 
 }

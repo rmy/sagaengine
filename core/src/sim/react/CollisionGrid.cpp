@@ -146,7 +146,7 @@ namespace se_core {
 		// Reference to first element pointer. Element pointer may change.
 		int index = indexAtLevel(x, z, level);
 		if(index < 0) {
-			LogMsg(c << " - " << size);
+			LogDetail(c << " - " << size);
 		}
 		Assert(indexAtLevel(x, z, level) >= 0);
 		Assert(indexAtLevel(x, z, level) < (1L << level) * (1L << level));
@@ -263,7 +263,7 @@ namespace se_core {
 							(thing.nextPos().x_
 							 , thing.nextPos().z_
 							 , calcLevel(thing.pos().radius()));
-						LogMsg
+						LogDetail
 							((sprintf
 							  (
 							   log_msg(), "%s(%d): rad(%d), pos %d(%d, %d), nextPos %d(%d, %d)"

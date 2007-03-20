@@ -45,7 +45,7 @@ namespace se_basic {
 
 		//
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		LogMsg(p->areaName_);
+		LogDetail(p->areaName_);
 
 		Area* area = SimSchema::areaManager.area(p->areaName_);
 		const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(p->entranceId_);

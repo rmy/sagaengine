@@ -43,12 +43,12 @@ namespace se_basic {
 
 				// Register as init event listener
 				SimSchema::initListeners().addListener(*this);
-				LogMsg("Registered Basic add-on");
+				LogDetail("Registered Basic add-on");
 			}
 
 			~AutoInit() {
 				SimSchema::initListeners().removeListener(*this);
-				LogMsg("Cleaned up Basic add-on");
+				LogDetail("Cleaned up Basic add-on");
 			}
 
 			bool initEngineEvent() { return true; }

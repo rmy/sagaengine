@@ -110,9 +110,9 @@ namespace se_core {
 
 
 			PosComponent* p = &cc->posComponent();
-			//LogMsg(p->pos().worldCoor() << " - " << p->pos().localCoor());
-			//LogMsg(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
-			//LogMsg(newPos << " - " << newRadius);
+			//LogDetail(p->pos().worldCoor() << " - " << p->pos().localCoor());
+			//LogDetail(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
+			//LogDetail(newPos << " - " << newRadius);
 			collisionGrid_->insert(newPos, newRadius, *cc);
 		}
 	}

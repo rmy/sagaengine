@@ -37,7 +37,7 @@ namespace se_basic {
 		//String* areaName = new String(name->get());
 		//SimSchema::areaManager.createArea(areaName, name->get());
 
-		LogMsg(name->get() << ": " << w << ", " << h);
+		LogDetail(name->get() << ": " << w << ", " << h);
 	}
 
 }

@@ -52,7 +52,7 @@ namespace se_pc {
 
 	void Plugin
 	::load() {
-		LogMsg("Loading plugin " << name());
+		LogDetail("Loading plugin " << name());
 #		ifdef _WINDOWS
 		plugin_ = LoadLibrary(name_.get());
 #		else

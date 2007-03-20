@@ -49,7 +49,7 @@ namespace se_core {
 		delete[] collisionGrids_;
 		delete[] gridPool_;
 		delete[] contactList_;
-		LogMsg("Destroyed area grids");
+		LogDetail("Destroyed area grids");
 	}
 
 

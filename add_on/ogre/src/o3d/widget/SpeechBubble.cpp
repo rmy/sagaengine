@@ -42,15 +42,15 @@ namespace se_ogre {
 
 	void SpeechBubble
 	::infoEvent(char* text) {
-		LogMsg(text);
+		LogDetail(text);
 	}
 
 
 	void SpeechBubble
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
-		LogMsg(speaker.name());
+		LogDetail(speaker.name());
 		const char* message = ClientSchema::phrases.getPhrase(Phrase::SPEECH, messageName);
-		LogMsg(message);
+		LogDetail(message);
 		speaker_ = &speaker;
 		O3dSchema::window->setDebugText(message);
 	}

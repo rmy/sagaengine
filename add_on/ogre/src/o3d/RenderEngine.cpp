@@ -49,18 +49,18 @@ namespace se_ogre {
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
 			: inputBridge_(0) {
 		O3dSchema::root = new Root();
-		LogMsg("Created Ogre root");
+		LogDetail("Created Ogre root");
 
 		// Create speech listener object
 		O3dSchema::speechBubble = new SpeechBubble();
-		LogMsg("Created speech bubble handler");
+		LogDetail("Created speech bubble handler");
 
 		if(IS_CONSOLE_ENABLED) {
 			O3dSchema::console = new Console();
 			if(consoleHandler) {
 				O3dSchema::console->setConsoleHandler(consoleHandler);
 			}
-			LogMsg("Created console");
+			LogDetail("Created console");
 		}
 	}
 
@@ -69,15 +69,15 @@ namespace se_ogre {
 	::~RenderEngine() {
 		delete O3dSchema::console;
 		O3dSchema::console = 0;
-		LogMsg("Destroyed console");
+		LogDetail("Destroyed console");
 
 		delete O3dSchema::speechBubble;
 		O3dSchema::speechBubble = 0;
-		LogMsg("Destroyed speech bubble handler");
+		LogDetail("Destroyed speech bubble handler");
 
 		delete O3dSchema::root;
 		O3dSchema::root = 0;
-		LogMsg("Destroyed ogre root");
+		LogDetail("Destroyed ogre root");
 	}
 
 	void RenderEngine
@@ -128,21 +128,21 @@ namespace se_ogre {
 
 		const Ogre::RenderSystemCapabilities* caps = O3dSchema::root->getRenderSystem()->getCapabilities();
 		if (!caps->hasCapability(RSC_VERTEX_PROGRAM)) {
-			LogMsg("Your card does not support vertex programs.");
+			LogDetail("Your card does not support vertex programs.");
 		}
 
 		// Setup animation default
 		Animation::setDefaultInterpolationMode(Animation::IM_LINEAR);
 		Animation::setDefaultRotationInterpolationMode(Animation::RIM_LINEAR);
-		LogMsg("Initialized interpolation of animations.");
+		LogDetail("Initialized interpolation of animations.");
 
 		if(IS_CONSOLE_ENABLED) {
 			try {
 				O3dSchema::console->setupGuiSystem();
-				LogMsg("Setup GUI system");
+				LogDetail("Setup GUI system");
 			}
 			catch(...) {
-				LogMsg("Failed initializeing console window. Console unavailable.");
+				LogDetail("Failed initializeing console window. Console unavailable.");
 				delete O3dSchema::console;
 				O3dSchema::console = 0;
 			}
@@ -153,7 +153,7 @@ namespace se_ogre {
 			// xml in a renderEventListener before creating
 			// console window
 			O3dSchema::console->createConsoleWindow();
-			LogMsg("Created applications CEGUI.");
+			LogDetail("Created applications CEGUI.");
 		}
 
 		// Create bridge between input
@@ -170,12 +170,12 @@ namespace se_ogre {
 
 	void RenderEngine
 	::cleanup(void) {
-		LogMsg("Shutting down resource group manager");
+		LogDetail("Shutting down resource group manager");
 		ResourceGroupManager::getSingleton().shutdownAll();
 		/*
 		const StringVector& s = ResourceGroupManager::getSingleton().getResourceGroups();
 		for(int i = 0; i < s.size(); ++i) {
-			LogMsg("Destroying resource group: " << s[i].c_str());
+			LogDetail("Destroying resource group: " << s[i].c_str());
 			ResourceGroupManager::getSingleton().destroyResourceGroup(s[i]);
 		}
 		*/
@@ -183,14 +183,14 @@ namespace se_ogre {
 
 		delete inputBridge_;
 		inputBridge_ = 0;
-		LogMsg("Destroyed input bridge");
+		LogDetail("Destroyed input bridge");
 
 		O3dSchema::sceneManager = 0;
-		LogMsg("Destroyed world manager and scene manager");
+		LogDetail("Destroyed world manager and scene manager");
 
 		delete O3dSchema::raySceneQuery;
 		O3dSchema::raySceneQuery = 0;
-		LogMsg("Destroyed ray scene query");
+		LogDetail("Destroyed ray scene query");
 	}
 
 
@@ -199,7 +199,7 @@ namespace se_ogre {
 	void RenderEngine
 	::createInputBridge(void) {
 		inputBridge_= new O3dInputBridge(O3dSchema::window);
-		LogMsg("Created input bridge");
+		LogDetail("Created input bridge");
 	}
 
 
@@ -211,7 +211,7 @@ namespace se_ogre {
 		// You can skip this and use root.restoreConfig() to load configuration
 		// settings if you were sure there are valid ones saved in ogre.cfg
 		if(O3dSchema::root->restoreConfig()) {
-			LogMsg("Loaded config");
+			LogDetail("Loaded config");
 		}
 		bool gotConfig = false;
 		try {
@@ -225,20 +225,20 @@ namespace se_ogre {
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by
 			// passing 'true'
-			LogMsg("Got requested config");
+			LogDetail("Got requested config");
 			try {
 				O3dSchema::root->saveConfig();
-				LogMsg("Saved config");
+				LogDetail("Saved config");
 			}
 			catch(...) {
 				// Probably running from non-writeable media
-				LogMsg("Couldn't write config");
+				LogDetail("Couldn't write config");
 			}
 			O3dSchema::window = O3dSchema::root->initialise(true);
 			return true;
 		}
 		else {
-			LogMsg("Config canceled by user");
+			LogDetail("Config canceled by user");
 			return false;
 		}
 	}
@@ -269,7 +269,7 @@ namespace se_ogre {
 					.addResourceLocation(archName, typeName, secName);
 			}
 		}
-		LogMsg("Initialised resources.");
+		LogDetail("Initialised resources.");
 	}
 
 

@@ -32,7 +32,7 @@ namespace se_basic {
 
 		char buffer[32];
 		
-		//LogMsg(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
+		//LogDetail(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
 		// TODO: !!!!
 		sprintf(buffer, "%d.%d", z, x);
 		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), x, 0, z);
@@ -43,7 +43,7 @@ namespace se_basic {
 
 	int WangAreaGrid
 	::findMatch(const unsigned char* wanted, int random) {
-		//LogMsg("Defs: " << definitionCount_);
+		//LogDetail("Defs: " << definitionCount_);
 		bool didFind = false;
 		do {
 			for(int i = 0; i < definitionCount_; ++i) {
@@ -99,7 +99,7 @@ namespace se_basic {
 				if(!wantedWang[0]) wantedWang[0] = '-';
 				if(!wantedWang[3]) wantedWang[3] = '-';
 
-				//LogMsg(def << ": " << (char)wantedWang[0] << "--" << (char)wantedWang[3]);
+				//LogDetail(def << ": " << (char)wantedWang[0] << "--" << (char)wantedWang[3]);
 
 				setArea(x, z, def);
 			}

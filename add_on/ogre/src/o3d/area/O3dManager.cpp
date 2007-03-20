@@ -85,7 +85,7 @@ namespace se_ogre {
 		float stepDelta = (renderClock - SimSchema::simEngine.when())
 			/ static_cast<float>(TIMESTEP_INTERVAL);
 		if(stepDelta < 0.0f || stepDelta > 1.0f) {
-			LogMsg(stepDelta);
+			LogDetail(stepDelta);
 			// When in doubt, show thing at nextPos.
 			stepDelta = 1.0f;
 		}

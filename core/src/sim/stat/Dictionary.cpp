@@ -59,19 +59,19 @@ namespace se_core {
 		}
 		Assert(entryCount_ < MAX_ENTRIES);
 		if(entry->type_ == DE_DICTIONARY_TYPE) {
-			LogMsg("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
+			LogDetail("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
 		}
 		entries_[ entryCount_++ ] = entry;
-		LogMsg(entryCount_);
+		LogDetail(entryCount_);
 	}
 
 
 	short Dictionary
 	::id(short type, const char* name) {
-		//LogMsg(entryCount_);
+		//LogDetail(entryCount_);
 		for(int i = 0; i < entryCount_; ++i) {
-			//LogMsg("Read dictionary entry: " << entries_[i]->type_ << ", " << entries_[i]->name_);
-			//LogMsg(i << ", " << entries_[i]->type_ << ", " << entries_[i]->name_ << " == " << entries_[i]->id_);
+			//LogDetail("Read dictionary entry: " << entries_[i]->type_ << ", " << entries_[i]->name_);
+			//LogDetail(i << ", " << entries_[i]->type_ << ", " << entries_[i]->name_ << " == " << entries_[i]->id_);
 			if(entries_[i]->type_ == type && strcmp(entries_[i]->name_, name) == 0) {
 				return entries_[i]->id_;
 			}
@@ -86,7 +86,7 @@ namespace se_core {
 		for(int i = 0; i < entryCount_; ++i) {
 			if(entries_[i]->type_ == type && strcmp(entries_[i]->name_, name) == 0) {
 				if(id == entries_[i]->id_) {
-					LogMsg("Dictionary duplicate: " << type << ", " << name);
+					LogDetail("Dictionary duplicate: " << type << ", " << name);
 					return true;
 				}
 				else {

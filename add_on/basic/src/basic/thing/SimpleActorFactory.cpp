@@ -57,7 +57,7 @@ namespace se_basic {
 		StatComponent* pStats = StatComponent::get(*c);
 		pStats->abilities()->setBases(&abilities_);
 		if(defaultAction_ && defaultAction_->hasAction()) {
-			LogMsg(defaultAction_->action()->name());
+			LogDetail(defaultAction_->action()->name());
 			pStats->setDefaultAction(*defaultAction_->action(), &defaultAction_->parameter());
 		}
 

@@ -83,7 +83,7 @@ namespace se_core {
 		/*
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
 			// Tried to spawn on denied terrain type
-			LogMsg((int)(tsMask(terrainStyle(vp.coor_))));
+			LogDetail((int)(tsMask(terrainStyle(vp.coor_))));
 			return 0;
 		}
 		*/

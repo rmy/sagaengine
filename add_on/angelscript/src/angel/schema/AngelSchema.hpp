@@ -35,9 +35,6 @@ namespace se_core {
 		// Next action to perform (should be set by angelscript function)
 		extern ActionAndParameter& nextAction();
 
-		//
-		bool SE_AUTO_INIT init();
-		void SE_AUTO_CLEANUP cleanup();
 	}
 }
 

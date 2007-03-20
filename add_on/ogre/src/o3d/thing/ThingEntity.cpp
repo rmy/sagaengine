@@ -204,7 +204,7 @@ namespace se_ogre {
 					}
 					state_[i]->setWeight(w);
 					state_[i]->setEnabled(true);
-					//LogMsg(thing_.name() << ": " << state_[i]->getAnimationName().c_str() << ": " << w << " - " << stepDelta);
+					//LogDetail(thing_.name() << ": " << state_[i]->getAnimationName().c_str() << ": " << w << " - " << stepDelta);
 				}
 			}
 		}

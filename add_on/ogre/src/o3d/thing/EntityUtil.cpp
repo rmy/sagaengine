@@ -121,7 +121,7 @@ namespace se_ogre {
 			originals_[i] = Ogre::MaterialManager::getSingleton().getByName(se->getMaterialName());
 
 			sprintf(cloneName, "%s.%d", name, i);
-			LogMsg(cloneName);
+			LogDetail(cloneName);
 			temporaries_[i] = cloneMaterial(originals_[i], cloneName);
 			se->setMaterialName(cloneName);
 		}

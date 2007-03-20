@@ -50,7 +50,7 @@ namespace se_core {
 	Area
 	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
 			: Composite(f, name->get()), width_(w), height_(h)
-			, isActive_(false), pageX_(-1), pageY_(-1), pageZ_(-1) {
+			, pageX_(-1), pageY_(-1), pageZ_(-1) {
 
 		posComponent_ = new PosComponent(this);
 
@@ -350,7 +350,7 @@ namespace se_core {
 	::spawn(const char* thingName, const ViewPoint& vp, long deniedTsMask, PosComponent* parent) {
 		if(deniedTsMask != 0 && (tsMask(terrainStyle(vp.coor_)) & deniedTsMask) != 0) {
 			// Tried to spawn on denied terrain type
-			LogMsg((int)(tsMask(terrainStyle(vp.coor_))));
+			LogDetail((int)(tsMask(terrainStyle(vp.coor_))));
 			return 0;
 		}
 
@@ -375,7 +375,7 @@ namespace se_core {
 		// Add the thing to the list of new spawns
 		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
 
-		//LogMsg("Spawned " << thingName << " in " << name());
+		//LogDetail("Spawned " << thingName << " in " << name());
 
 		// Return the newly created thing
 		return thing;

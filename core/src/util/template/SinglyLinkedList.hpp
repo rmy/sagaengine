@@ -73,8 +73,8 @@ namespace se_core {
 		 */
 		void add(ElementType* element, iterator_type &firstNode) {
 			// Check that there are free nodes left
-			DebugExec(if(firstFreeNode_ == end())) LogMsg(name_ << ": " << MAX_ELEMENTS << " - " << count_);
-			DebugExec(if(firstFreeNode_ == end())) LogMsg("Size: " << size(firstNode));
+			DebugExec(if(firstFreeNode_ == end())) LogDetail(name_ << ": " << MAX_ELEMENTS << " - " << count_);
+			DebugExec(if(firstFreeNode_ == end())) LogDetail("Size: " << size(firstNode));
 
 			AssertFatal(firstFreeNode_ != end(), name_ << " Max size: " << MAX_ELEMENTS << " Chain size: " << size(firstNode));
 			AssertFatal((element) != 0, name_);
@@ -94,7 +94,7 @@ namespace se_core {
 			nodes_[ firstNode ] = element;
 			DebugExec(++count_);
 
-			DebugExec(if(nodes_[0] == 0) LogMsg(name_));
+			DebugExec(if(nodes_[0] == 0) LogDetail(name_));
 		}
 
 
@@ -119,7 +119,7 @@ namespace se_core {
 			Assert(iterator >= -1);
 			Assert(iterator < MAX_ELEMENTS);
 
-			DebugExec(if(nodes_[0] == 0) LogMsg(name_));
+			DebugExec(if(nodes_[0] == 0) LogDetail(name_));
 
 			// Return deleted node
 			return nodes_[ firstFreeNode_ ];
@@ -180,7 +180,7 @@ namespace se_core {
 					iterator = nextNodes_[ iterator ];
 				}
 			}
-			DebugExec(if(nodes_[0] == 0) LogMsg(name_));
+			DebugExec(if(nodes_[0] == 0) LogDetail(name_));
 			return false;
 		}
 
@@ -312,7 +312,7 @@ namespace se_core {
 				nextNodes_[ i ] = i + 1;
 			}
 			nextNodes_[ MAX_ELEMENTS - 1 ] = end();
-			//LogMsg("Free node list size (" << name << "): " << size(firstFreeNode_));
+			//LogDetail("Free node list size (" << name << "): " << size(firstFreeNode_));
 		}
 
 

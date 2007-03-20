@@ -41,7 +41,7 @@ namespace se_pc {
 		const struct _SePcExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				SimSchema::initListeners().addListener(*this);
-				LogMsg("Registered Plugin add-on");
+				LogDetail("Registered Plugin add-on");
 			}
 
 
@@ -52,7 +52,7 @@ namespace se_pc {
 				IoSchema::fileManager = 0;
 
 				SimSchema::initListeners().removeListener(*this);
-				LogMsg("Cleaned up Plugin add-on");
+				LogDetail("Cleaned up Plugin add-on");
 			}
 
 			bool priorityInitEngineEvent() {

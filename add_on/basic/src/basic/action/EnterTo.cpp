@@ -41,7 +41,7 @@ namespace se_basic {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 		const char* name = p->areaName_;
 		short id = p->id_;
-		LogMsg(name);
+		LogDetail(name);
 
 		performer.nextMove().resetSpeed();
 		Area* area = SimSchema::areaManager.area(name);
