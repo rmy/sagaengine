@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef engine_physics_Physics_hpp
 #define engine_physics_Physics_hpp
 
+#include "sim_physics.hpp"
 #include "../SimObject.hpp"
 #include "../area/sim_area.hpp"
 #include "../custom/sim_custom.hpp"
@@ -55,14 +56,14 @@ namespace se_core {
 		 * It is the responsibility of this method to check for
 		 * collisions with static terrain.
 		 *
-		 * @param actor the Actor that is moved
+		 * @param physics the physics of composite that is moved
 		 * @param pos the position of the actor is at the beginning of this simulation step
 		 * @param nextPos output var - where the actor should be the beginning of the next simulation step
 		 * @param move work vars for movement, as they where at the beginning if this simulation step
 		 * @param nextMove output var - values are the same as move when the method is first called, but changes
 		 *   will be passed on to the next simulation step
 		 */
-		virtual void calcNext(const Actor& actor
+		virtual void calcNext(const PhysicsComponent& physics
 							  , const Pos& pos
 							  , Pos& nextPos
 							  , const Move& move
@@ -77,7 +78,7 @@ namespace se_core {
 		 * new terrain type should be handled by terrainMode
 		 * switcher, though.
 		 */
-		virtual void affect(Actor& actor) const = 0;
+		virtual void affect(PhysicsComponent& physics) const = 0;
 
 		/**
 		 *	Should return false if the physics state should

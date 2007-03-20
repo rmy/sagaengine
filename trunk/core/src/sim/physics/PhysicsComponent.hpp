@@ -66,13 +66,13 @@ namespace se_core {
 		PhysicsComponent(Composite* owner, PosComponent* posComponent);
 		~PhysicsComponent();
 
-		const char* name() { return "PhysicsSolver"; }
+		const char* name() { return "Physics"; }
 		bool calcNextCoor();
 
 		void affect() {
 			if(!affect_)
 				return;
-			affect_->affect(*toActor());
+			affect_->affect(*this);
 		}
 
 		void pushPhysics(const char* name);

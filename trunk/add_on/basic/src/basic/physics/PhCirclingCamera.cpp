@@ -12,7 +12,7 @@ namespace se_basic {
 
 
 	void PhCirclingCamera
-	::calcNext(const Actor& actor
+	::calcNext(const PhysicsComponent& physics
 			, const Pos& pos
 			, Pos& nextPos
 			, const Move& move
@@ -97,12 +97,11 @@ namespace se_basic {
 
 
 	void PhCirclingCamera
-	::affect(Actor& actor) const {
-		Pos& nextPos = actor.nextPos();
-		if(!nextPos.hasArea()) {
+	::affect(PhysicsComponent& physics) const {
+		if(!PosComponent::Ptr(physics)->nextPos().hasArea()) {
 			// Camera has left all areas - which means
 			// it should be destroyed
-			//actor.scheduleForDestruction();
+			//physics.owner()->scheduleForDestruction();
 		}
 	}
 

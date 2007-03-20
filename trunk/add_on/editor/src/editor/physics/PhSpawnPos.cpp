@@ -33,7 +33,7 @@ namespace se_editor {
 
 
 	void PhSpawnPos
-	::calcNext(const Actor& actor
+	::calcNext(const PhysicsComponent& physics
 			, const Pos& pos
 			, Pos& nextPos
 			, const Move& move
@@ -46,7 +46,7 @@ namespace se_editor {
 			return;
 		}
 
-		EditorComponent::Ptr pEditor(actor);
+		EditorComponent::Ptr pEditor(physics);
 		pEditor->setStart(nextPos);
 
 		// Always stay in the same area as the player
@@ -56,12 +56,12 @@ namespace se_editor {
 
 
 	void PhSpawnPos
-	::affect(Actor& actor) const {
-		Pos& nextPos = PosComponent::Ptr(actor)->nextPos();
+	::affect(PhysicsComponent& physics) const {
+		Pos& nextPos = PosComponent::Ptr(physics)->nextPos();
 		if(!nextPos.hasArea()) {
 			// Camera has left all areas - which means
 			// it should be destroyed
-			actor.scheduleForDestruction();
+			physics.owner()->scheduleForDestruction();
 		}
 	}
 }

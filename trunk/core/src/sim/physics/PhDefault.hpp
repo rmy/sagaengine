@@ -23,29 +23,43 @@ rune@skalden.com
 #define engine_physics_PhDefault_hpp
 
 #include "Physics.hpp"
+#include "util/vecmath/Vector3.hpp"
 
 namespace se_core {
 
+	/** A default movement formula. */
 	class _SeCoreExport PhDefault : public Physics {
 	public:
-		/** A default movement formula. */
 		PhDefault() : Physics("Default") {}
-		void calcNext(const Actor& actor
-				, const Pos& pos
-				, Pos& nextPos
-				, const Move& move
-				, Move& nextMove
+		void calcNext(const se_core::PhysicsComponent& physics
+				, const se_core::Pos& pos
+				, se_core::Pos& nextPos
+				, const se_core::Move& move
+				, se_core::Move& nextMove
 				) const;
 
-		bool isBlocked(const Actor& actor
-				, const Pos& pos
-				, const Pos& nextPos
+		bool isBlocked(const se_core::PhysicsComponent& physics
+				, const se_core::Pos& pos
+				, se_core::Pos& nextPos
 				) const;
 
-		void affect(Actor& actor) const {}
+		virtual void blocked(const se_core::PhysicsComponent& physics
+				, const se_core::Pos& pos
+				, se_core::Pos& nextPos
+				, const se_core::Move& move
+				, se_core::Move& nextMove
+				) const;
+		void affect(se_core::PhysicsComponent& physics) const {}
 
+	protected:
+		void blendAnims(const se_core::Pos& pos, se_core::Pos& nextPos) const;
+		void revertXZ(const se_core::Pos& pos, se_core::Pos& nextPos) const;
+		void updateForces(se_core::Move& nextMove) const;
+		void applyFriction(se_core::Move& nextMove) const;
+		void applyForces(const se_core::Pos& pos, se_core::Pos& nextPos, const se_core::Move& move, se_core::Move& nextMove) const;
+		void clampToGround(const se_core::Pos& pos, se_core::Pos& nextPos, se_core::Move& nextMove) const;
 
-	private:
+		static const se_core::Vector3 GRAVITY;
 	};
 
 

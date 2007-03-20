@@ -31,7 +31,7 @@ using namespace se_core;
 
 namespace %n {
 	%sComponent
-	::%sComponent(SimComposite* owner, const SimComponentFactory* factory)
+	::%sComponent(Composite* owner, const SimComponentFactory* factory)
 		: AreaChildComponent(sct_%S, owner) {
 	}
 
