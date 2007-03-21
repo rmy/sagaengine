@@ -40,6 +40,7 @@ namespace se_core {
 		}
 		// Add self in center
 		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
+		addLink(*this);
 	}
 
 
@@ -94,6 +95,12 @@ namespace se_core {
 	}
 
 
+	void ZoneAreaComponent
+	::addLink(ZoneAreaComponent& link) {
+		links_.add(link);
+	}
+
+
 	int ZoneAreaComponent
 	::neighbourIndex(const Page& rel) const {
 		AssertFatal(rel.isNeighbourOffset(), "Clamp to neighbour offset first");
@@ -101,10 +108,6 @@ namespace se_core {
 		return (rel.x_ + 1) + 3 * (rel.y_ + 1) + 9 * (rel.z_ + 1);
 	}
 
-	void ZoneAreaComponent
-	::addLink(ZoneAreaComponent& link) {
-		links_.add(link);
-	}
 
 	ZoneAreaComponent* ZoneAreaComponent
 	::neighbour(int relX, int relY, int relZ) {

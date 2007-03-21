@@ -163,12 +163,6 @@ namespace se_core {
 
 		String* nameString_; // For proper destruction of content only
 
-		friend class PhysicsAreaComponent;
-		friend class CollisionAreaComponent;
-
-		enum { MAX_NEIGHBOURS = 3 * 3 * 3 };
-		Area* neighbours_[ MAX_NEIGHBOURS ];
-
 		PosComponent* posComponent_;
 		SpawnAreaComponent* spawnAreaComponent_;
 		ScriptComponent* scriptComponent_;

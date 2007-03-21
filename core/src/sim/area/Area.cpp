@@ -71,13 +71,6 @@ namespace se_core {
 		// TODO: fix this mess?
 		nameString_ = name;
 
-		// 3x3 array to hold self and neighbours
-		for(short i = 0; i < 27; ++i) {
-			neighbours_[i] = 0;
-		}
-		// Add self in center
-		neighbours_[ 1 + 1 * 3 + 1 * 9 ] = this;
-
 		spawnAreaComponent_ = new SpawnAreaComponent(this);
 		collisionAreaComponent_ = new CollisionAreaComponent(this);
 		physicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
@@ -241,8 +234,9 @@ namespace se_core {
 
 	bool Area
 	::addNeighbour(Area* area) {
-		if(!isNeighbour(*area))
-			return false;
+		if(isNeighbour(*area)) {
+			zoneAreaComponent_->addLink(*area->zoneAreaComponent_);
+		}
 
 		return zoneAreaComponent_->addNeighbour(*area->zoneAreaComponent_);
 	}

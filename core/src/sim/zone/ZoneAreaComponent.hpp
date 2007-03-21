@@ -103,10 +103,12 @@ namespace se_core {
 		const Page& page() const { return page_; }
 
 		bool addNeighbour(ZoneAreaComponent& other);
-		void addLink(ZoneAreaComponent& link);
 		int neighbourIndex(const Page& rel) const;
 		ZoneAreaComponent* neighbour(int relX, int relY, int relZ);
 		const ZoneAreaComponent* neighbour(int relX, int relY, int relZ) const;
+
+		void addLink(ZoneAreaComponent& link);
+		ComponentList& links() { return links_; }
 
 	protected:
 		friend class ZoneAreaComponentFactory;

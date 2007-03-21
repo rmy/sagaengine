@@ -22,6 +22,7 @@ rune@skalden.com
 #include "NavMeshAreaFactory.hpp"
 #include "NavMeshArea.hpp"
 #include "NavMesh.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
 
 using namespace se_core;
 
@@ -42,12 +43,13 @@ namespace se_basic {
 
 
 	Area* NavMeshAreaFactory
-	::create(String* name, int pageX, int pageY, int pageZ) const {
+	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
 		NavMeshArea* a = new NavMeshArea(this, name, width_, height_, navMesh_);
 		createComponents(a);
 		createGenericComponents(a);
 
-		a->setPage(pageX, pageY, pageZ);
+		ZoneAreaComponent::Ptr aZone(*a);
+		aZone->page().set(pageX, pageY, pageZ, gridId);
 		PosComponent::Ptr aPos(*a);
 		aPos->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
 		aPos->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());

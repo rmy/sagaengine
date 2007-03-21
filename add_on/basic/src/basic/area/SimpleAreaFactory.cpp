@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "SimpleAreaFactory.hpp"
 #include "SimpleArea.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
 
 
 using namespace se_core;
@@ -40,13 +41,14 @@ namespace se_basic {
 
 
 	Area* SimpleAreaFactory
-	::create(String* name, int pageX, int pageY, int pageZ) const {
+	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
 		SimpleArea* a = new SimpleArea(this, name, width_, height_);
 		createComponents(a);
 		createGenericComponents(a);
 
-		a->setPage(pageX, pageY, pageZ);
 		PosComponent::Ptr aPos(*a);
+		ZoneAreaComponent::Ptr aZone(*a);
+		aZone->page().set(pageX, pageY, pageZ, gridId);
 		aPos->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
 		aPos->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());
 		aPos->nextPos().world_.setViewPoint(aPos->nextPos().local_);

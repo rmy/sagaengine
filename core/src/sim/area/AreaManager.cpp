@@ -22,10 +22,11 @@ rune@skalden.com
 #include "AreaManager.hpp"
 #include "Area.hpp"
 #include "AreaFactory.hpp"
-#include "../stat/MultiSimObject.hpp"
-#include "../../util/error/Log.hpp"
+#include "sim/stat/MultiSimObject.hpp"
+#include "util/error/Log.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "comp/schema/CompSchema.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
 #include <cstring>
 #include <cstdio>
 
@@ -142,11 +143,15 @@ namespace se_core {
 	void AreaManager
 	::setActive(Area* area) {
 		for(int i = 0; i < activeCount_; ++i) {
-			if(area == active_[i]) return;
+			if(area == active_[i]) {
+				shouldKeep_[i] = true;
+				return;
+			}
 		}
 
 		active_[ activeCount_ ] = area;
 		active_[ activeCount_ ]->setParent(CompSchema::activeRoot());
+		shouldKeep_[ activeCount_ ] = true;
 		++activeCount_;
 
 		DebugExec(integrity());
@@ -158,6 +163,12 @@ namespace se_core {
 		for(int i = 0; i < activeCount_; ++i)
 			shouldKeep_[i] = false;
 
+		setActive(area);
+		if(pages > 0) {
+			_setActive(area, pages);
+		}
+
+		/*
 		for(short relZ = -pages; relZ <= pages; ++relZ) {
 			for(short relX = -pages; relX <= pages; ++relX) {
 				Area* a = area->neighbour(relX, 0, relZ);
@@ -186,6 +197,7 @@ namespace se_core {
 				shouldKeep_[ index ] = true;
 			}
 		}
+		*/
 
 		DebugExec(integrity());
 
@@ -209,6 +221,45 @@ namespace se_core {
 		}
 
 		DebugExec(integrity());
+	}
+
+
+	void AreaManager
+	::_setActive(Area* area, int pages) {
+		ZoneAreaComponent::Ptr aZone(*area);
+		ComponentList::Iterator it(aZone->links());
+		while(it.hasNext()) {
+			Area* a = static_cast<Area*>(it.next().owner());
+			// Already did self
+			if(a == area)
+				continue;
+
+			// Already active?
+			int index = -1;
+			for(int i = 0; i < activeCount_; ++i) {
+				if(a == active_[i]) {
+					index = i;
+					break;
+				}
+			}
+
+			// Nope?
+			if(index < 0) {
+				// Make it active
+				index = activeCount_;
+				active_[ index ] = a;
+				a->setParent(CompSchema::activeRoot());
+				++activeCount_;
+			}
+			
+			// Should keep it as active
+			shouldKeep_[ index ] = true;
+
+			if(pages > 1) {
+				_setActive(a, pages - 1);
+			}
+
+		}
 	}
 
 
