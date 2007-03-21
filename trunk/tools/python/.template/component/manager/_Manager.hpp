@@ -22,8 +22,7 @@ rune@skalden.com
 #ifndef %sManager_hpp
 #define %sManager_hpp
 
-#include "sim/sim.hpp"
-#include "sim/SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace %n {
@@ -31,7 +30,7 @@ namespace %n {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _%NExport %sManager : public se_core::SimComponentManager {
+	class _%NExport %sManager : public se_core::RootComponent {
 	public:
 		/**
 		 * Construct %sManager.

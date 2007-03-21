@@ -21,8 +21,7 @@ rune@skalden.com
 
 #include "%sComponentFactory.hpp"
 #include "%sComponent.hpp"
-#include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,11 +31,11 @@ namespace %n {
 
 	%sComponentFactory
 	::%sComponentFactory()
-		: SimComponentFactory(sct_%S) {
+		: ComponentFactory(sct_%S) {
 	}
 
 
-	SimComponent* %sComponentFactory
+	Component* %sComponentFactory
 	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values

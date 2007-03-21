@@ -22,8 +22,11 @@ rune@skalden.com
 #include "%sManager.hpp"
 #include "%sAreaComponent.hpp"
 #include "%sComponent.hpp"
+#include "sim/sim.hpp"
+#include "comp/comp.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
 
 using namespace %n;
@@ -31,7 +34,7 @@ using namespace %n;
 namespace %n {
 	%sManager
 	::%sManager()
-		: SimComponentManager(se_core::sct_%S) {
+		: RootComponent(se_core::sct_%S) {
 	}
 
 	%sManager

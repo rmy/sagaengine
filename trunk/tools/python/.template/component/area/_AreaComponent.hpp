@@ -22,8 +22,8 @@ rune@skalden.com
 #ifndef %sAreaComponent_hpp
 #define %sAreaComponent_hpp
 
-#include "sim/sim.hpp"
-#include "sim/AreaComponent.hpp"
+#include "comp/comp.hpp"
+#include "comp/node/AreaComponent.hpp"
 
 
 namespace %n {
@@ -33,7 +33,7 @@ namespace %n {
 		
 		/** Constructor.
 		 */
-		%sAreaComponent(se_core::SimComposite* owner, const se_core::SimComponentFactory* factory = 0);
+		%sAreaComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
 		~%sAreaComponent();
 		void setActive(bool state);
 
