@@ -33,7 +33,7 @@ rune@skalden.com
 namespace se_core {
 	AreaFactory
 	::AreaFactory(String* name)
-		: SimCompositeFactory(st_AREA, name) {
+		: CompositeFactory(st_AREA, name) {
 	}
 
 

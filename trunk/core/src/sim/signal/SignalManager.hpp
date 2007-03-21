@@ -23,7 +23,7 @@ rune@skalden.com
 #define SignalManager_hpp
 
 #include "../sim.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 #include "../thing/Actor.hpp"
 
 
@@ -32,7 +32,7 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport SignalManager : public SimComponentManager {
+	class _SeCoreExport SignalManager : public RootComponent {
 	public:
 		/**
 		 * Construct SignalManager.

@@ -23,8 +23,8 @@ rune@skalden.com
 #define engine_physics_PhysicsComponent_hpp
 
 #include "Physics.hpp"
-#include "../SimComponent.hpp"
-#include "../SimNodeComponent.hpp"
+#include "comp/Component.hpp"
+#include "comp/node/NodeComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
 #include "../area/sim_area.hpp"
@@ -35,7 +35,7 @@ rune@skalden.com
 #include "../react/ThingCollide.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsComponent : public SimNodeComponent {
+	class _SeCoreExport PhysicsComponent : public NodeComponent {
 	public:
 		typedef Ptr<PhysicsComponent, sct_PHYSICS> Ptr;
 
@@ -49,12 +49,12 @@ namespace se_core {
 			return c;
 		}
 
-		static PhysicsComponent* get(SimComponent& component) {
+		static PhysicsComponent* get(Component& component) {
 			PhysicsComponent* c = static_cast<PhysicsComponent*>(component.owner()->component(se_core::sct_PHYSICS));
 			return c;
 		}
 
-		static const PhysicsComponent* get(const SimComponent& component) {
+		static const PhysicsComponent* get(const Component& component) {
 			const PhysicsComponent* c = static_cast<const PhysicsComponent*>(component.owner()->component(se_core::sct_PHYSICS));
 			return c;
 		}

@@ -32,7 +32,7 @@ rune@skalden.com
 
 namespace se_core {
 	SignalComponent
-	::SignalComponent(Composite* owner, const SimComponentFactory* factory)
+	::SignalComponent(Composite* owner, const ComponentFactory* factory)
 		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(-1), sentWhen_(0), recieveMask_(0)
 		, signal_(0) {
 	}
@@ -89,7 +89,7 @@ namespace se_core {
 		}
 
 		if(newArea) {
-			SimNodeComponent* n = static_cast<SimNodeComponent*>(newArea->component(type()));
+			NodeComponent* n = static_cast<NodeComponent*>(newArea->component(type()));
 			setParent(*n);
 		}
 		else {

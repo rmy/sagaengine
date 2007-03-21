@@ -29,7 +29,7 @@ namespace se_ogre {
 
 	O3dThingComponentFactory
 	::O3dThingComponentFactory()
-			: SimComponentFactory(sct_RENDER) {
+			: ComponentFactory(sct_RENDER) {
 	}
 
 	se_core::Component* O3dThingComponentFactory

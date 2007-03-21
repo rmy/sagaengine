@@ -23,7 +23,7 @@ rune@skalden.com
 #include "EditorAreaComponent.hpp"
 #include "EditorComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 using namespace se_editor;
@@ -31,7 +31,7 @@ using namespace se_editor;
 namespace se_editor {
 	EditorManager
 	::EditorManager()
-		: SimComponentManager(se_core::sct_EDITOR) {
+		: RootComponent(se_core::sct_EDITOR) {
 	}
 
 	EditorManager
@@ -49,7 +49,7 @@ namespace se_editor {
 	void EditorManager
 	::step(long when) {
 		/*
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
 			//c.propagate();

@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef PlayerComponent_hpp
 #define PlayerComponent_hpp
 
-#include "sim/SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/action/ActionComponent.hpp"
@@ -33,9 +33,9 @@ rune@skalden.com
 #include "util/type/all.hpp"
 
 namespace se_client {
-	class _SeCoreExport PlayerComponent : public se_core::SimComponent {
+	class _SeCoreExport PlayerComponent : public se_core::Component {
 	public:
-		typedef se_core::SimComponent::Ptr<PlayerComponent, se_core::sct_PLAYER> Ptr;
+		typedef se_core::Component::Ptr<PlayerComponent, se_core::sct_PLAYER> Ptr;
 
 		PlayerComponent(se_core::Composite* owner);
 		virtual ~PlayerComponent();

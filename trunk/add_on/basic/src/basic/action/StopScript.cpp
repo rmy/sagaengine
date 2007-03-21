@@ -29,7 +29,7 @@ namespace se_basic {
 
 	void StopScript
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
+		Actor& performer = *Actor::Ptr(perf);;
 		performer.stopScript();
 		//performer.removeFromShowingCutscene();
 	}

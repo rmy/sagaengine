@@ -22,9 +22,9 @@ rune@skalden.com
 #include "SpawnManager.hpp"
 #include "SpawnComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
-#include "sim/SimCompositeFactory.hpp"
+#include "comp/CompositeFactory.hpp"
 #include "comp/Composite.hpp"
 #include <cstring>
 
@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_core {
 	SpawnManager
 	::SpawnManager()
-		: SimComponentManager(sct_SPAWN)
+		: RootComponent(sct_SPAWN)
 		, factoryCount_(0), destructionCount_(0)
 		, nextDestructionCount_(0) {
 	}
@@ -54,7 +54,7 @@ namespace se_core {
 	void SpawnManager
 	::step(long when) {
 		/*
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			SpawnAreaComponent& c = static_cast<SpawnAreaComponent&>(it.next());
 			//c.propagate();
@@ -75,14 +75,14 @@ namespace se_core {
 
 
 	void SpawnManager
-	::addFactory(SimCompositeFactory* factory) {
+	::addFactory(CompositeFactory* factory) {
 		Assert(factoryCount_ < MAX_FACTORIES - 1);
 		LogDetail(factoryCount_ << ": " << factory->name());
 		factories_[ factoryCount_++ ] = factory;
 	}
 
 
-	SimCompositeFactory* SpawnManager
+	CompositeFactory* SpawnManager
 	::factory(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
@@ -99,7 +99,7 @@ namespace se_core {
 	::create(const char* name) {
 		for(int i = 0; i < factoryCount_; ++i) {
 			if(strcmp(factories_[i]->name(), name) == 0) {
-				const SimCompositeFactory* f = factories_[i];
+				const CompositeFactory* f = factories_[i];
 				Composite* t = static_cast<Composite*>(f->create());
 				//t->setFactory(f);
 				return t;

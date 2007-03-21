@@ -22,13 +22,13 @@ rune@skalden.com
 #ifndef engine_physics_SignalAreaComponent_hpp
 #define engine_physics_SignalAreaComponent_hpp
 
-#include "../AreaComponent.hpp"
+#include "comp/node/RootChildComponent.hpp"
 #include "../react/CollisionGrid.hpp"
 #include "../react/sim_react.hpp"
 #include "../pos/PosComponent.hpp"
 
 namespace se_core {
-	class _SeCoreExport SignalAreaComponent : public AreaComponent {
+	class _SeCoreExport SignalAreaComponent : public RootChildComponent {
 	public:
 		typedef Ptr<SignalAreaComponent, sct_SIGNAL> Ptr;
 
@@ -44,7 +44,7 @@ namespace se_core {
 			return c;
 		}
 
-		static SignalAreaComponent* get(SimComponent& component) {
+		static SignalAreaComponent* get(Component& component) {
 			SignalAreaComponent* c = static_cast<SignalAreaComponent*>(component.owner()->component(se_core::sct_SIGNAL));
 			return c;
 		}

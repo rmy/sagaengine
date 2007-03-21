@@ -49,14 +49,16 @@ namespace se_core {
 	::terrainStyle() const {
 		if(!hasArea())
 			return TS_VOID;
-		return area()->toArea()->terrainStyle(this->localCoor(), index());
+		const Area* a = static_cast<const Area*>(area()->owner());
+		return a->terrainStyle(this->localCoor(), index());
 	}
 
 	long Pos
 	::touchedTerrain() const {
 		if(!hasArea())
 			return TSM_VOID;
-		return area()->toArea()->touchedTerrain(this->localCoor(), radius());
+		const Area* a = static_cast<const Area*>(area()->owner());
+		return a->touchedTerrain(this->localCoor(), radius());
 	}
 
 
@@ -72,7 +74,9 @@ namespace se_core {
 			return true;
 
 		// Are pages not neighbours?
-		if(!(area()->toArea()->isNeighbour(*(other.area_->toArea()))))
+		const Area* a = static_cast<const Area*>(area()->owner());
+		const Area* oth = static_cast<const Area*>(other.area_->owner());
+		if(!(a->isNeighbour(*(oth))))
 			return false;
 
 		// All negative cases eliminated
@@ -238,7 +242,7 @@ namespace se_core {
 		// Entered new area?
 		// TODO: Why enter here with (area_ == 0)
 		PosComponent* old = area_;
-		Area* next = area_->toArea();
+		Area* next = static_cast<Area*>(area_->owner());
 		if(!next->isLegalWorldCoor(worldCoor())) {
 			Area* a = next->neighbour(worldCoor());
 			if(a) {
@@ -333,7 +337,8 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(isGrounded() && area_) {
-			localCoor().y_ = area()->toArea()->groundHeight(localCoor(), index_);
+			const Area* a = static_cast<const Area*>(area()->owner());
+			localCoor().y_ = a->groundHeight(localCoor(), index_);
 		}
 	}
 

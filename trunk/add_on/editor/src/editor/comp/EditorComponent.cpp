@@ -24,7 +24,7 @@ rune@skalden.com
 #include "EditorComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/pos/Pos.hpp"
@@ -33,7 +33,7 @@ using namespace se_core;
 
 namespace se_editor {
 	EditorComponent
-	::EditorComponent(Composite* owner, const SimComponentFactory* factory)
+	::EditorComponent(Composite* owner, const ComponentFactory* factory)
 			: AreaChildComponent(sct_EDITOR, owner), string_(0) {
 		PosComponent::Ptr pos(*this);
 		Assert(!pos.isNull());

@@ -41,7 +41,7 @@ using namespace se_core;
 namespace se_ogre {
 	O3dManager
 	::O3dManager() 
-		: SimComponentManager(sct_RENDER), shouldStop_(false), debugOverlay_(0)
+		: RootComponent(sct_RENDER), shouldStop_(false), debugOverlay_(0)
 		, lastRenderClock_(0), isShowingDebugInfo_(false) {
 		showDebugOverlay(false);
 	}
@@ -59,7 +59,7 @@ namespace se_ogre {
 	void O3dManager
 	::clear() {
 		/*
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
 			c.clear();
@@ -107,7 +107,7 @@ namespace se_ogre {
 		float timeSinceLastFrame = (renderClock - lastRenderClock_) / 1000.0f;
 
 		// Interpolate world positions at this stepDelta for all Things in scene.
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dAreaComponent& c = static_cast<O3dAreaComponent&>(it.next());
 			c.move(renderClock, stepDelta, timeSinceLastFrame);

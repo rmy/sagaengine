@@ -25,7 +25,7 @@ rune@skalden.com
 #include "SignalComponent.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../react/CollisionComponent.hpp"
 #include "util/error/Log.hpp"
@@ -38,7 +38,7 @@ namespace se_core {
 
 	SignalAreaComponent
 	::SignalAreaComponent(Composite* owner) 
-			: AreaComponent(sct_SIGNAL, owner), changed_(0) {
+			: RootChildComponent(sct_SIGNAL, owner), changed_(0) {
 		for(int i = 0; i < MAX_SIGNALS; ++i) {
 			inactiveSignals_[i] = 0;
 		}
@@ -53,7 +53,7 @@ namespace se_core {
 	void SignalAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
+			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}
@@ -109,7 +109,7 @@ namespace se_core {
 
 	void SignalAreaComponent
 	::propagate(int id, bool state) {
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			SignalComponent& c = static_cast<SignalComponent&>(it.next());
 			c.recieve(id, state);

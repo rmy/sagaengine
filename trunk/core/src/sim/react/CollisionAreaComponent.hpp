@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef engine_physics_CollisionAreaComponent_hpp
 #define engine_physics_CollisionAreaComponent_hpp
 
-#include "../SimNodeComponent.hpp"
+#include "comp/node/NodeComponent.hpp"
 #include "CollisionGrid.hpp"
 #include "CollisionComponent.hpp"
 #include "../area/Area.hpp"
@@ -35,7 +35,7 @@ namespace se_core {
 	};
 
 
-	class _SeCoreExport CollisionAreaComponent : public SimNodeComponent {
+	class _SeCoreExport CollisionAreaComponent : public NodeComponent {
 	public:
 		/** Constructor.
 		 */

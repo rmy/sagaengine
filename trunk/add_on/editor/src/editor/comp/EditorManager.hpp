@@ -23,7 +23,7 @@ rune@skalden.com
 #define EditorManager_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_editor {
@@ -31,7 +31,7 @@ namespace se_editor {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeEditorExport EditorManager : public se_core::SimComponentManager {
+	class _SeEditorExport EditorManager : public se_core::RootComponent {
 	public:
 		/**
 		 * Construct EditorManager.

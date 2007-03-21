@@ -35,7 +35,7 @@ namespace se_core {
 
 	CollisionAreaComponent
 	::CollisionAreaComponent(Composite* owner) 
-		: SimNodeComponent(sct_COLLISION, owner)
+		: NodeComponent(sct_COLLISION, owner)
 		, collisionGrid_(0) {
 	}
 
@@ -82,8 +82,9 @@ namespace se_core {
 
 		// Align the grid coordinate system with
 		// this areas coordinate system
-		const coor_tile_t w = toArea()->width();
-		const coor_tile_t h = toArea()->height();
+		const Area* a = static_cast<const Area*>(owner());
+		const coor_tile_t w = a->width();
+		const coor_tile_t h = a->height();
 
 		// TODO: Improve this desperate solution for border creatures (* 2)
 		// see aldo CollisionManager
@@ -96,7 +97,7 @@ namespace se_core {
 		collisionGrid_->setOffset(offset);
 
 		// Add collideable elements to grid
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
 			if(!cc->isCollideable())
@@ -169,9 +170,9 @@ namespace se_core {
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
-		Area* self = toArea();
+		Area* self = static_cast<Area*>(owner());
 
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
 			++outer;

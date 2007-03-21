@@ -22,9 +22,10 @@ rune@skalden.com
 #include "CutsceneManager.hpp"
 #include "CutsceneAreaComponent.hpp"
 #include "CutsceneComponent.hpp"
+#include "comp/comp.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,8 +33,8 @@ rune@skalden.com
 namespace se_core {
 
 	CutsceneAreaComponent
-	::CutsceneAreaComponent(Composite* owner, const SimComponentFactory* factory) 
-			: AreaComponent(sct_CUTSCENE, owner, factory) {
+	::CutsceneAreaComponent(Composite* owner, const ComponentFactory* factory) 
+			: RootChildComponent(sct_CUTSCENE, owner, factory) {
 	}
 
 
@@ -45,7 +46,7 @@ namespace se_core {
 	void CutsceneAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
+			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}

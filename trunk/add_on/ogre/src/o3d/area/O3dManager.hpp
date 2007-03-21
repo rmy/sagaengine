@@ -30,7 +30,7 @@ rune@skalden.com
 
 namespace se_ogre {
 	class _SeOgreExport O3dManager 
-		: public se_core::SimComponentManager, public Ogre::FrameListener {
+		: public se_core::RootComponent, public Ogre::FrameListener {
 	public:
 		O3dManager();
 		virtual ~O3dManager();

@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "io_parse.hpp"
 #include "../stream/io_stream.hpp"
-#include "sim/SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "sim/stat/DictionaryEntry.hpp"
 
 namespace se_core {
@@ -34,7 +34,7 @@ namespace se_core {
 		virtual ~ComponentParserModule() {}
 		int type() { return type_; }
 		int subtype() { return subType_; }
-		virtual SimComponentFactory* parse(InputStream& in) = 0;
+		virtual ComponentFactory* parse(InputStream& in) = 0;
 
 	private:
 		int type_, subType_;

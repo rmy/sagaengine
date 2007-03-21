@@ -23,7 +23,7 @@ rune@skalden.com
 #define ActionComponent_hpp
 
 #include "sim_action.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "Action.hpp"
@@ -38,7 +38,7 @@ namespace se_core {
 	 * ActionComponents are the atoms of game-character behaviour in SagaEngine.
 	 * They define what a character can do.
 	 */
-	class _SeCoreExport ActionComponent : public SimComponent {
+	class _SeCoreExport ActionComponent : public Component {
 	public:
 		typedef Ptr<ActionComponent, sct_ACTION> Ptr;
 
@@ -53,7 +53,7 @@ namespace se_core {
 			return c;
 		}
 
-		static ActionComponent* get(SimComponent& component) {
+		static ActionComponent* get(Component& component) {
 			ActionComponent* c = static_cast<ActionComponent*>(component.owner()->component(se_core::sct_ACTION));
 			return c;
 		}

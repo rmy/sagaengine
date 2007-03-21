@@ -29,8 +29,8 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dNodeComponent
-	::O3dNodeComponent(enum se_core::SimComponentType type, Composite* owner)
-		: SimNodeComponent(type, owner), node_(0) {
+	::O3dNodeComponent(int type, Composite* owner)
+		: NodeComponent(type, owner), node_(0) {
 	}
 
 	O3dNodeComponent

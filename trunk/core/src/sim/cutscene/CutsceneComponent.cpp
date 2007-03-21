@@ -24,7 +24,7 @@ rune@skalden.com
 #include "CutsceneComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 #include "../script/ShowingCutscene.hpp"
 #include "../script/Cutscene.hpp"
@@ -33,7 +33,7 @@ rune@skalden.com
 
 namespace se_core {
 	CutsceneComponent
-	::CutsceneComponent(Composite* owner, const SimComponentFactory* factory)
+	::CutsceneComponent(Composite* owner, const ComponentFactory* factory)
 		: AreaChildComponent(sct_CUTSCENE, owner)
 //			, showingCutscene_(0)
 	{

@@ -28,7 +28,7 @@ namespace se_basic {
 
 	void StopCutscene
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
+		Actor& performer = *Actor::Ptr(perf);;
 		LogFatal("TODO");
 		// TODO:
 		//performer.stopShowingCutscene();

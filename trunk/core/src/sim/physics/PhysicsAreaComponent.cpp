@@ -23,7 +23,7 @@ rune@skalden.com
 #include "PhysicsManager.hpp"
 #include "../schema/SimSchema.hpp"
 #include "../stat/SortedSimObjectList.hpp"
-#include "../stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../react/CollisionComponent.hpp"
 #include "util/error/Log.hpp"
@@ -37,7 +37,7 @@ namespace se_core {
 
 	PhysicsAreaComponent
 	::PhysicsAreaComponent(Composite* owner, CollisionAreaComponent* cac) 
-		: SimNodeComponent(sct_PHYSICS, owner)
+		: NodeComponent(sct_PHYSICS, owner)
 		, collisionAreaComponent_(cac)
 		, moverCount_(0) {
 	}
@@ -53,7 +53,7 @@ namespace se_core {
 		if(children_.isEmpty())
 			return;
 
-		MultiSimNodeComponent::TreeIterator it(children());
+		NodeComponentList::TreeIterator it(children());
 		while(it.hasNext()) {
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
 			PosComponent* p = ph.posComponent_; //SimSchema::simObjectList.nextPosNode(itStack [ sp ]);
@@ -80,7 +80,7 @@ namespace se_core {
 	int PhysicsAreaComponent
 	::performChildPhysics(PhysicsComponent** movers) {
 		int moverCount = 0;
-		MultiSimNodeComponent::TreeIterator it(children());
+		NodeComponentList::TreeIterator it(children());
  		while(it.hasNext()) {
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
 
@@ -94,7 +94,7 @@ namespace se_core {
 
 	void PhysicsAreaComponent
 	::affectChildren() {
-		MultiSimNodeComponent::TreeIterator it(children());
+		NodeComponentList::TreeIterator it(children());
 		while(it.hasNext()) {
 			PhysicsComponent& ph = static_cast<PhysicsComponent&>(it.next());
 			ph.affect();

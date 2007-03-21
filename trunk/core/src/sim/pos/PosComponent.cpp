@@ -31,7 +31,7 @@ namespace se_core {
 
 	PosComponent
 	::PosComponent(Composite* owner)
-			: SimComponent(sct_POS, owner)
+			: Component(sct_POS, owner)
 			, didMove_(false) {
 	}
 
@@ -49,11 +49,11 @@ namespace se_core {
 		if(position_.area() != nextPosition_.area()) {
 			Area* from = 0;
 			if(nextPosition_.hasArea()) {
-				from = nextPosition_.area()->toArea();
+				from = static_cast<Area*>(nextPosition_.area_->owner());
 			}
 			Area* to = 0;
 			if(position_.hasArea()) {
-				to = position_.area_->toArea();
+				to = static_cast<Area*>(position_.area_->owner());
 			}
 			owner()->zoneChanged(st_AREA, from, to);
 		}

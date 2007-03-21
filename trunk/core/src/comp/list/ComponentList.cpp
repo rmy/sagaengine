@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "ComponentList.hpp"
-#include "../Component.hpp"
+#include "comp/Component.hpp"
 #include "../schema/CompSchema.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>

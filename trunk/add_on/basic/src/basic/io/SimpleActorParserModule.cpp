@@ -166,7 +166,7 @@ namespace se_basic {
 			case 'Z':
 				{
 					int type = in.readDictionaryWord(DE_COMPONENT_TYPE);
-					SimComponentFactory* f = IoSchema::parser().parseComponent(in, type, 0);
+					ComponentFactory* f = IoSchema::parser().parseComponent(in, type, 0);
 					if(f) {
 						factory->addComponent(f);
 					}
@@ -273,7 +273,7 @@ namespace se_basic {
 	}
 
 
-	SimComponentFactory* StatComponentParserModule
+	ComponentFactory* StatComponentParserModule
 	::parse(InputStream& in) {
 		StatComponentFactory* factory = new StatComponentFactory();
 
@@ -302,7 +302,7 @@ namespace se_basic {
 	}
 
 
-	SimComponentFactory* SignalComponentParserModule
+	ComponentFactory* SignalComponentParserModule
 	::parse(InputStream& in) {
 		SignalComponentFactory* factory = new SignalComponentFactory();
 

@@ -55,7 +55,7 @@ namespace se_core {
 		posComponent_ = new PosComponent(this);
 
 		// Init to default position
-		setParent(SimComponentManager::inactiveRoot());
+		setParent(RootComponent::inactiveRoot());
 
 		posComponent_->nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
@@ -119,7 +119,7 @@ namespace se_core {
 			/*
 		SimObjectList::iterator_type it = this->allThings().iterator();
 		Thing* t;
-		SimCompositeFactory* td;
+		CompositeFactory* td;
 		while(it != SimObjectList::end()) {
 			t = SimSchema::simObjectList.nextThing(it);
 			td = SimSchema::thingManager().factory(t->name());

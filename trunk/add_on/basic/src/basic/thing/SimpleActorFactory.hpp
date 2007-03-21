@@ -5,7 +5,7 @@
 
 namespace se_basic {
 
-	class _SeBasicExport SimpleActorFactory : public se_core::SimCompositeFactory {
+	class _SeBasicExport SimpleActorFactory : public se_core::CompositeFactory {
 	public:
 		SimpleActorFactory(se_core::String* name);
 		~SimpleActorFactory();

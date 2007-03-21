@@ -23,7 +23,7 @@ rune@skalden.com
 #define Signal_hpp
 
 #include "sim_signal.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionFeed.hpp"

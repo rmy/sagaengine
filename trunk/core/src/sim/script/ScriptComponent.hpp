@@ -23,7 +23,7 @@ rune@skalden.com
 #define ScriptComponent_hpp
 
 #include "sim_script.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionFeed.hpp"
@@ -32,7 +32,7 @@ rune@skalden.com
 #include "util/type/all.hpp"
 
 namespace se_core {
-	class _SeCoreExport ScriptComponent : public SimComponent, public ActionFeed {
+	class _SeCoreExport ScriptComponent : public Component, public ActionFeed {
 	public:
 		typedef Ptr<ScriptComponent, sct_SCRIPT> Ptr;
 
@@ -44,7 +44,7 @@ namespace se_core {
 			return c;
 		}
 
-		static ScriptComponent* get(SimComponent& component) {
+		static ScriptComponent* get(Component& component) {
 			ScriptComponent* c = static_cast<ScriptComponent*>(component.owner()->component(se_core::sct_SCRIPT));
 			return c;
 		}

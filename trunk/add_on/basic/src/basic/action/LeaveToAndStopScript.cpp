@@ -39,7 +39,7 @@ namespace se_basic {
 
 	void LeaveToAndStopScript
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
+		Actor& performer = *Actor::Ptr(perf);;
 		// Stop script
 		performer.stopScript();
 

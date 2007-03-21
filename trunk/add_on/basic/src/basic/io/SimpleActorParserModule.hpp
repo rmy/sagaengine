@@ -19,7 +19,7 @@ namespace se_basic {
 		StatComponentParserModule()
 			: SimpleComponentParserModule("STAT", se_core::sct_STAT) {
 		}
-		se_core::SimComponentFactory* parse(se_core::InputStream& in);
+		se_core::ComponentFactory* parse(se_core::InputStream& in);
 	};
 
 
@@ -28,7 +28,7 @@ namespace se_basic {
 		SignalComponentParserModule()
 			: SimpleComponentParserModule("SIGNAL", se_core::sct_SIGNAL) {
 		}
-		se_core::SimComponentFactory* parse(se_core::InputStream& in);
+		se_core::ComponentFactory* parse(se_core::InputStream& in);
 	};
 
 

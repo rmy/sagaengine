@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 	ScriptManager
 	::ScriptManager()
-		: SimComponentManager(sct_SCRIPT) {
+		: RootComponent(sct_SCRIPT) {
 	}
 
 	ScriptManager

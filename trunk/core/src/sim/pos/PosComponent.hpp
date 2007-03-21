@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef sim_PosComponent_hpp
 #define sim_PosComponent_hpp
 
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "Pos.hpp"
@@ -41,7 +41,7 @@ namespace se_core {
 	 * for traversing the parents to calculate the world coordinates
 	 * of the entity.
 	 */
-	class _SeCoreExport PosComponent : public SimComponent {
+	class _SeCoreExport PosComponent : public Component {
 	public:
 		typedef Ptr<PosComponent, sct_POS> Ptr;
 

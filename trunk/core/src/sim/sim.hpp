@@ -30,11 +30,11 @@ namespace se_core {
 	class SimListeners;
 	class SimObject;
 
-	class SimComponentFactory;
-	class SimComponent;
-	class SimNodeComponent;
+	class ComponentFactory;
+	class Component;
+	class NodeComponent;
 
-	class SimCompositeFactory;
+	class CompositeFactory;
 	class Composite;
 	
 	class SimCompositeManager;

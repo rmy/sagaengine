@@ -111,7 +111,7 @@ namespace se_basic {
 
 	bool NavMeshArea
 	::isLineOfSight(const Pos& from, const Pos& to) {
-		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(to.area()->toArea());
+		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(to.area()->owner());
 
 		Point3 fromPoint, toPoint;
 		short fromIndex, toIndex = -1;

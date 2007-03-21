@@ -45,7 +45,7 @@ namespace se_basic {
 
 		// TODO:
 		/*
-		Actor& performer = *perf.toActor();
+		Actor& performer = *Actor::Ptr(perf);;
 		PosComponent::Ptr pPos(perf);
 		if(performer.target()->type() == got_THING) return;
 		Actor* a = const_cast<Actor*>(performer.target());

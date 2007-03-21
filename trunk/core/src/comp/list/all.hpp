@@ -4,5 +4,6 @@
 #include "ComponentList.hpp"
 #include "CompositeList.hpp"
 #include "comp_list.hpp"
+#include "NodeComponentList.hpp"
 
 #endif

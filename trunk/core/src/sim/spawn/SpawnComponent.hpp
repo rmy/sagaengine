@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef SpawnComponent_hpp
 #define SpawnComponent_hpp
 
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
 #include "../sim.hpp"
 #include "../pos/PosComponent.hpp"
@@ -30,7 +30,7 @@ rune@skalden.com
 #include "util/vecmath/util_vecmath.hpp"
 
 namespace se_core {
-	class _SeCoreExport SpawnComponent : public SimComponent {
+	class _SeCoreExport SpawnComponent : public Component {
 	public:
 		typedef Ptr<SpawnComponent, sct_SPAWN> Ptr;
 
@@ -47,12 +47,12 @@ namespace se_core {
 			return c;
 		}
 
-		static SpawnComponent* get(SimComponent& component) {
+		static SpawnComponent* get(Component& component) {
 			SpawnComponent* c = static_cast<SpawnComponent*>(component.owner()->component(se_core::sct_SPAWN));
 			return c;
 		}
 
-		static const SpawnComponent* get(const SimComponent& component) {
+		static const SpawnComponent* get(const Component& component) {
 			const SpawnComponent* c = static_cast<const SpawnComponent*>(component.owner()->component(se_core::sct_SPAWN));
 			return c;
 		}

@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 	SignalManager
 	::SignalManager()
-		: SimComponentManager(sct_SIGNAL) {
+		: RootComponent(sct_SIGNAL) {
 	}
 
 	SignalManager
@@ -46,7 +46,7 @@ namespace se_core {
 
 	void SignalManager
 	::step(long when) {
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			SignalAreaComponent& c = static_cast<SignalAreaComponent&>(it.next());
 			c.propagate();

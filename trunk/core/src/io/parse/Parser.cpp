@@ -80,7 +80,7 @@ namespace se_core {
 		return false;
 	}
 
-	SimComponentFactory* Parser
+	ComponentFactory* Parser
 	::parseComponent(InputStream& in, int type, int subtype) {
 		LogDetail("Loading component type " << type << ", " << subtype << " for " << in.name());
 

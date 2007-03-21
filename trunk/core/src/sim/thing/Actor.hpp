@@ -51,7 +51,7 @@ namespace se_core {
 	/**
 	 * An actor is an in-game thing that may perform Action()s.
 	 */
-	class _SeCoreExport Actor : public SimComponent {
+	class _SeCoreExport Actor : public Component {
 	public:
 		typedef Ptr<Actor, sct_BLOB> Ptr;
 

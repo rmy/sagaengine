@@ -23,7 +23,7 @@ rune@skalden.com
 #define SignalComponent_hpp
 
 #include "Signal.hpp"
-#include "../AreaChildComponent.hpp"
+#include "comp/node/AreaChildComponent.hpp"
 #include "comp/Composite.hpp"
 #include "../action/ActionComponent.hpp"
 #include "../action/ActionFeed.hpp"
@@ -36,7 +36,7 @@ namespace se_core {
 	public:
 		typedef Ptr<SignalComponent, sct_SIGNAL> Ptr;
 
-		SignalComponent(Composite* owner, const SimComponentFactory* factory = 0);
+		SignalComponent(Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~SignalComponent();
 		const char* name() { return "Signal"; }
 
@@ -45,7 +45,7 @@ namespace se_core {
 			return c;
 		}
 
-		static SignalComponent* get(SimComponent& component) {
+		static SignalComponent* get(Component& component) {
 			SignalComponent* c = static_cast<SignalComponent*>(component.owner()->component(se_core::sct_SIGNAL));
 			return c;
 		}

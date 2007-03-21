@@ -23,11 +23,11 @@ rune@skalden.com
 #define CutsceneComponentFactory_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
 namespace se_core {
-	class _SeCoreExport CutsceneAreaComponentFactory : public SimComponentFactory {
+	class _SeCoreExport CutsceneAreaComponentFactory : public ComponentFactory {
 	public:
 		CutsceneAreaComponentFactory();
 		Component* create(Composite* owner) const;

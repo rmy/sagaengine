@@ -23,14 +23,14 @@ rune@skalden.com
 #define CutsceneComponent_hpp
 
 #include "sim/sim.hpp"
-#include "sim/AreaChildComponent.hpp"
+#include "comp/node/AreaChildComponent.hpp"
 
 namespace se_core {
 	class _SeCoreExport CutsceneComponent : public AreaChildComponent {
 	public:
 		typedef Ptr<CutsceneComponent, sct_CUTSCENE> Ptr;
 
-		CutsceneComponent(Composite* owner, const SimComponentFactory* factory = 0);
+		CutsceneComponent(Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~CutsceneComponent();
 		const char* name() { return "Cutscene"; }
 

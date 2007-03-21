@@ -23,7 +23,7 @@ rune@skalden.com
 #define ActionManager_hpp
 
 #include "../sim.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_core {
@@ -31,13 +31,13 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport ActionManager : public SimComponentManager {
+	class _SeCoreExport ActionManager : public RootComponent {
 	public:
 		/**
 		 * Construct ActionManager.
 		 */
 		ActionManager()
-			: SimComponentManager(sct_ACTION) {
+			: RootComponent(sct_ACTION) {
 		}
 
 

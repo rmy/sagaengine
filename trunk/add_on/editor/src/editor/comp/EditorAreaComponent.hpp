@@ -23,18 +23,18 @@ rune@skalden.com
 #define EditorAreaComponent_hpp
 
 #include "sim/sim.hpp"
-#include "sim/AreaComponent.hpp"
+#include "comp/node/RootChildComponent.hpp"
 #include "util/type/String.hpp"
 
 
 namespace se_editor {
-	class _SeEditorExport EditorAreaComponent : public se_core::AreaComponent {
+	class _SeEditorExport EditorAreaComponent : public se_core::RootChildComponent {
 	public:
 		typedef Ptr<EditorAreaComponent, se_core::sct_EDITOR> Ptr;
 		
 		/** Constructor.
 		 */
-		EditorAreaComponent(se_core::Composite* owner, const se_core::SimComponentFactory* factory = 0);
+		EditorAreaComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
 		~EditorAreaComponent();
 		void setActive(bool state);
 

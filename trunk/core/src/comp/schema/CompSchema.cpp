@@ -20,8 +20,8 @@ rune@skalden.com
 
 
 #include "CompSchema.hpp"
-#include "../Composite.hpp"
-//#include "../ComponentManager.hpp"
+#include "comp/Composite.hpp"
+//#include "comp/ComponentManager.hpp"
 //#include "../list/VoidList.hpp"
 //#include "../stat/SortedSimObjectList.hpp"
 
