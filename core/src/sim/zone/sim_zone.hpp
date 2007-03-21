@@ -19,15 +19,13 @@ rune@skalden.com
 */
 
 
-#include "SimComponentFactory.hpp"
-#include "Component.hpp"
-
+#ifndef sim_zone_hpp
+#define sim_zone_hpp
 
 namespace se_core {
-
-	SimComponentFactory
-	::SimComponentFactory(int type) : ComponentFactory(type) {
-	}
-
-
+	class ZoneAreaComponent;
+	class ZoneManager;
 }
+
+
+#endif

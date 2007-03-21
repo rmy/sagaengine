@@ -39,6 +39,7 @@ rune@skalden.com
 #include "../script/sim_script.hpp"
 #include "../react/sim_react.hpp"
 #include "../signal/sim_signal.hpp"
+#include "../zone/sim_zone.hpp"
 
 
 namespace se_core {
@@ -54,17 +55,6 @@ namespace se_core {
 		 * Destructor.
 		 */
 		virtual ~Area();
-
-		/**
-		 * Return true if parameter is got_AREA.
-		 * Inherited from GameObject class.
-		 */
-		/*
-		virtual bool isType(enum SimObjectType type) const {
-			if(type == got_AREA) return true;
-			return false;
-		}
-		*/
 
 		/**
 		 * Height of ground (y-coordinate) at given (coor.x_, coor.z_).
@@ -89,11 +79,6 @@ namespace se_core {
 		virtual void force(const Point3& coor, Vector3& dest) const = 0;
 		coor_tile_t width() const { return width_; }
 		coor_tile_t height() const { return height_; }
-
-		void setPage(short x, short y, short z) { pageX_ = x; pageY_ = y; pageZ_ = z; }
-		short pageX() const { if(pageX_ < 0) return 0; return pageX_; }
-		short pageY() const { if(pageY_ < 0) return 0; return pageY_; }
-		short pageZ() const { if(pageZ_ < 0) return 0; return pageZ_; }
 
 		coor_world_t pagePosX() const {
 			//TODO: Fixed point overflows possible
@@ -175,7 +160,6 @@ namespace se_core {
 
 	protected:
 		coor_tile_t width_, height_;
-		int pageX_, pageY_, pageZ_;
 
 		String* nameString_; // For proper destruction of content only
 
@@ -190,8 +174,9 @@ namespace se_core {
 		ScriptComponent* scriptComponent_;
 		ActionComponent* actionComponent_;
 		CollisionAreaComponent* collisionAreaComponent_;
-		PhysicsAreaComponent* PhysicsAreaComponent_;
+		PhysicsAreaComponent* physicsAreaComponent_;
 		SignalAreaComponent* signalAreaComponent_;
+		ZoneAreaComponent* zoneAreaComponent_;
 	};
 
 }

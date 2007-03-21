@@ -38,7 +38,7 @@ namespace se_core {
 	public:
 		AreaFactory(String* name);
 		virtual ~AreaFactory();
-		virtual Area* create(String* name, int pageX, int pageY, int pageZ) const = 0;
+		virtual Area* create(String* name, int pageX, int pageY, int pageZ, int gridId) const = 0;
 
 	private:
 	};
