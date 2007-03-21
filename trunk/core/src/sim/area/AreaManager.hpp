@@ -57,6 +57,7 @@ namespace se_core {
 		int maxHeight() { return maxHeight_; }
 
 	private:
+		void _setActive(Area* area, int pages);
 		const AreaFactory* factory(const char* name) const;
 
 		static const int MAX_ELEMENTS = 1024 * 16;

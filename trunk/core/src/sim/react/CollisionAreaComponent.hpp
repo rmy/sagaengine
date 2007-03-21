@@ -37,6 +37,8 @@ namespace se_core {
 
 	class _SeCoreExport CollisionAreaComponent : public NodeComponent {
 	public:
+		typedef Ptr<CollisionAreaComponent, sct_COLLISION> Ptr;
+
 		/** Constructor.
 		 */
 		CollisionAreaComponent(Composite* owner);

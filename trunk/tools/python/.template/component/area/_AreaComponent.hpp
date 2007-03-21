@@ -23,11 +23,11 @@ rune@skalden.com
 #define %sAreaComponent_hpp
 
 #include "comp/comp.hpp"
-#include "comp/node/AreaComponent.hpp"
+#include "comp/node/RootChildComponent.hpp"
 
 
 namespace %n {
-	class _%NExport %sAreaComponent : public se_core::AreaComponent {
+	class _%NExport %sAreaComponent : public se_core::RootChildComponent {
 	public:
 		typedef Ptr<%sAreaComponent, se_core::sct_%S> Ptr;
 		

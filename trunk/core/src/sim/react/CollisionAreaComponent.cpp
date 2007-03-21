@@ -26,6 +26,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "../thing/Actor.hpp"
+#include "../zone/ZoneAreaComponent.hpp"
 #include "../pos/PosComponent.hpp"
 
 
@@ -170,7 +171,8 @@ namespace se_core {
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
-		Area* self = static_cast<Area*>(owner());
+		//Area* self = static_cast<Area*>(owner());
+		ZoneAreaComponent::Ptr aZone(*this);
 
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
@@ -178,8 +180,10 @@ namespace se_core {
 			++outer;
 
 			short innerCount = 0;
+			/*
 			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {
-				Area* area = self->neighbours_[ n ];
+				//ZoneAreaComponent::Ptr aZone(*this); //* area = self->neighbours_[ n ];
+
 				if(!area) continue;
 				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(sct_COLLISION));
 				if(!cac || !cac->collisionGrid()) continue;
@@ -188,6 +192,20 @@ namespace se_core {
 				cc->areaCovered().center(p);
 				coor_t speedAndRadius = cc->areaCovered().radius();
 				
+				innerCount += cac->collisionGrid()->collisionCandidates
+					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
+			}
+			*/
+			ComponentList::Iterator linkIt(aZone->links());
+			while(linkIt.hasNext()) {
+				ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
+				CollisionAreaComponent::Ptr cac(a);
+				if(!cac->collisionGrid())
+					continue;
+
+				Point3 p;
+				cc->areaCovered().center(p);
+				coor_t speedAndRadius = cc->areaCovered().radius();
 				innerCount += cac->collisionGrid()->collisionCandidates
 					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
 			}

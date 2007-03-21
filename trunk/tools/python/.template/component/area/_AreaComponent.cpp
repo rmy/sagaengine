@@ -23,8 +23,8 @@ rune@skalden.com
 #include "%sAreaComponent.hpp"
 #include "%sComponent.hpp"
 #include "sim/sim.hpp"
-#include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 using namespace se_core;
@@ -33,7 +33,7 @@ namespace %n {
 
 	%sAreaComponent
 	::%sAreaComponent(Composite* owner, const se_core::ComponentFactory* factory) 
-			: AreaComponent(se_core::sct_%S, owner, factory) {
+			: RootChildComponent(se_core::sct_%S, owner, factory) {
 	}
 
 
@@ -45,7 +45,7 @@ namespace %n {
 	void %sAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(SimSchema::activeRoot().component(type_));
+			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}
