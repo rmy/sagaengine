@@ -42,6 +42,7 @@ rune@skalden.com
 #include "../signal/SignalAreaComponent.hpp"
 #include "../spawn/SpawnAreaComponent.hpp"
 #include "../spawn/SpawnManager.hpp"
+#include "../zone/ZoneAreaComponent.hpp"
 
 #include <cstdio>
 
@@ -49,8 +50,7 @@ rune@skalden.com
 namespace se_core {
 	Area
 	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
-			: Composite(f, name->get()), width_(w), height_(h)
-			, pageX_(-1), pageY_(-1), pageZ_(-1) {
+			: Composite(f, name->get()), width_(w), height_(h) {
 
 		posComponent_ = new PosComponent(this);
 
@@ -80,10 +80,11 @@ namespace se_core {
 
 		spawnAreaComponent_ = new SpawnAreaComponent(this);
 		collisionAreaComponent_ = new CollisionAreaComponent(this);
-		PhysicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
+		physicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(this);
 		scriptComponent_ = new ScriptComponent(this, actionComponent_);
 		signalAreaComponent_ = new SignalAreaComponent(this);
+		zoneAreaComponent_ = new ZoneAreaComponent(this);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
 	}
@@ -92,9 +93,13 @@ namespace se_core {
 	Area
 	::~Area() {
 		delete nameString_;
-		delete PhysicsAreaComponent_;
+		delete zoneAreaComponent_;
+		delete signalAreaComponent_;
 		delete scriptComponent_;
 		delete actionComponent_;
+		delete physicsAreaComponent_;
+		delete collisionAreaComponent_;
+		delete spawnAreaComponent_;
 	}
 
 
@@ -228,19 +233,9 @@ namespace se_core {
 
 	bool Area
 	::isNeighbour(const Area& area) const {
-		if(pageX_ < 0 || pageY_ < 0 || pageZ_ < 0)
-			return false;
-		if(area.pageX_ < 0 || pageY_ < 0 || area.pageZ_ < 0)
-			return false;
-
-		short relX = area.pageX_ - pageX_;
-		short relY = area.pageY_ - pageY_;
-		short relZ = area.pageZ_ - pageZ_;
-		if(relX < -1 || relX > 1) return false;
-		if(relY < -1 || relY > 1) return false;
-		if(relZ < -1 || relZ > 1) return false;
-
-		return true;
+		Page rel;
+		zoneAreaComponent_->offset(*area.zoneAreaComponent_, rel);
+		return rel.isNeighbourOffset();
 	}
 
 
@@ -249,51 +244,23 @@ namespace se_core {
 		if(!isNeighbour(*area))
 			return false;
 
-		short relX = area->pageX_ - pageX_;
-		short relY = area->pageY_ - pageY_;
-		short relZ = area->pageZ_ - pageZ_;
-		Assert(relX >= -1 && relX <= 1);
-		Assert(relY >= -1 && relY <= 1);
-		Assert(relZ >= -1 && relZ <= 1);
-
-		Assert(neighbours_[(relX + 1) + 3 * (relY + 1) + 9 * (relZ + 1)] == 0);
-
-		neighbours_[ (relX + 1) + 3 * (relY + 1) + 9 * (relZ + 1) ] = area;
-		return true;
+		return zoneAreaComponent_->addNeighbour(*area->zoneAreaComponent_);
 	}
 
 
 	Area* Area
 	::neighbour(short relX, short relY, short relZ) {
-		if(relX < -1 || relX > 1 || relY < -1 || relY > 1 || relZ < -1 || relZ > 1) {
-			// Not direct neighbour, recurse to correct area
-			short rx = (relX < 0) ? -1 : (relX > 0) ? 1 : 0;
-			short ry = (relY < 0) ? -1 : (relY > 0) ? 1 : 0;
-			short rz = (relZ < 0) ? -1 : (relZ > 0) ? 1 : 0;
-
-			Area* a = neighbours_[ (rx + 1) + (ry + 1) * 3 + (rz + 1) * 9 ];
-			if(!a) return 0;
-			return a->neighbour(relX - rx, relY - ry, relZ - rz);
-		}
-		// Direct neighbour
-		return neighbours_[ (relX + 1) + (relY + 1) * 3 + (relZ + 1) * 9 ];
+		ZoneAreaComponent* c = zoneAreaComponent_->neighbour(relX, relY, relZ);
+		if(!c) return 0;
+		return static_cast<Area*>(c->owner());
 	}
 
 
 	const Area* Area
 	::neighbour(short relX, short relY, short relZ) const {
-		if(relX < -1 || relX > 1 || relY < -1 || relY > 1 || relZ < -1 || relZ > 1) {
-			// Not direct neighbour, recurse to correct area
-			short rx = (relX < 0) ? -1 : (relX > 0) ? 1 : 0;
-			short ry = (relY < 0) ? -1 : (relY > 0) ? 1 : 0;
-			short rz = (relZ < 0) ? -1 : (relZ > 0) ? 1 : 0;
-
-			Area* a = neighbours_[ (rx + 1) + (ry + 1) * 3 + (rz + 1) * 9 ];
-			if(!a) return 0;
-			return a->neighbour(relX - rx, relY - ry, relZ - rz);
-		}
-		// Direct neighbour
-		return neighbours_[ (relX + 1) + (relY + 1) * 3 + (relZ + 1) * 9 ];
+		const ZoneAreaComponent* c = zoneAreaComponent_->neighbour(relX, relY, relZ);
+		if(!c) return 0;
+		return static_cast<const Area*>(c->owner());
 	}
 
 
@@ -355,31 +322,6 @@ namespace se_core {
 		}
 
 		return spawnAreaComponent_->spawn(thingName, vp, parent);
-		/*
-		// Create the thing
-		Composite* thing = SimSchema::spawnManager().create(thingName);
-		PosComponent* p = PosComponent::get(*thing);
-		Assert(p);
-
-		// Set position and direction
-		p->nextPos().setArea(*posComponent_, vp);
-
-		if(parent) {
-			p->nextPos().setParent(*parent);
-		}
-
-		// Initial index, if area type is using it
-		p->nextPos().updateWorldViewPoint();
-		p->nextPos().setIndex( index(p->nextPos().worldCoor()) );
-
-		// Add the thing to the list of new spawns
-		multiSimObjects_[ MGOA_SPAWNS ].add(*thing);
-
-		//LogDetail("Spawned " << thingName << " in " << name());
-
-		// Return the newly created thing
-		return thing;
-		*/
 	}
 
 

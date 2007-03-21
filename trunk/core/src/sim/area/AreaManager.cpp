@@ -257,13 +257,13 @@ namespace se_core {
 
 
 	Area* AreaManager
-	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ) {
+	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ, int gridId) {
 		char* name = new char[strlen(areaName) + 1];
 		strcpy(name, areaName);
 		//LogDetail("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
-		Area* a = f->create(new String(name), pageX, pageY, pageZ);
+		Area* a = f->create(new String(name), pageX, pageY, pageZ, gridId);
 		// Needed for proper destruction
 		a->setFactory(f);
 

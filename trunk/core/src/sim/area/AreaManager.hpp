@@ -50,7 +50,7 @@ namespace se_core {
 		Area* area(int index) { return areas_[index]; }
 
 		void addFactory(const AreaFactory* factory);
-		Area* createArea(const char* areaName, const char* factoryName, int pageX = -1, int pageY = -1, int pageZ = -1);
+		Area* createArea(const char* areaName, const char* factoryName, int pageX = 0, int pageY = 0, int pageZ = 0, int gridId = -1);
 		void integrity();
 
 		int maxWidth() { return maxWidth_; }

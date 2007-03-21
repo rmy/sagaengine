@@ -52,6 +52,7 @@ namespace se_core {
 		sct_UNDEFINED, 
 		sct_BLOB, 
 		sct_POS, 
+		sct_ZONE,
 		sct_PHYSICS, 
 		sct_COLLISION, 
 		sct_ACTION, 
