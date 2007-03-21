@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef ComponentParser_hpp
 #define ComponentParser_hpp
 
+#include "sim/sim.hpp"
 #include "io/parse/ComponentParserModule.hpp"
 #include "sim/stat/DictionaryEntry.hpp"
 

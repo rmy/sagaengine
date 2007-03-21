@@ -22,15 +22,15 @@ rune@skalden.com
 #ifndef %sComponentFactory_hpp
 #define %sComponentFactory_hpp
 
-#include "sim/sim.hpp"
-#include "sim/SimComponentFactory.hpp"
+#include "comp/comp.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
 namespace %n {
-	class _%NExport %sAreaComponentFactory : public se_core::SimComponentFactory {
+	class _%NExport %sAreaComponentFactory : public se_core::ComponentFactory {
 	public:
 		%sAreaComponentFactory();
-		se_core::SimComponent* create(se_core::SimComposite* owner) const;
+		se_core::Component* create(se_core::Composite* owner) const;
 
 	protected:
 	};

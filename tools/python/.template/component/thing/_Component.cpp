@@ -24,14 +24,15 @@ rune@skalden.com
 #include "%sComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 using namespace se_core;
 
 namespace %n {
 	%sComponent
-	::%sComponent(Composite* owner, const SimComponentFactory* factory)
+	::%sComponent(Composite* owner, const ComponentFactory* factory)
 		: AreaChildComponent(sct_%S, owner) {
 	}
 

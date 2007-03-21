@@ -21,8 +21,9 @@ rune@skalden.com
 
 #include "%sAreaComponentFactory.hpp"
 #include "%sAreaComponent.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,12 +33,12 @@ namespace %n {
 
 	%sAreaComponentFactory
 	::%sAreaComponentFactory()
-		: SimComponentFactory(sct_%S) {
+		: ComponentFactory(sct_%S) {
 	}
 
 
-	SimComponent* %sAreaComponentFactory
-	::create(SimComposite* owner) const {
+	Component* %sAreaComponentFactory
+	::create(Composite* owner) const {
 		// Try to get existing component 
 		// - allows overrides of default values
 		// (Useful when loading saved games).
