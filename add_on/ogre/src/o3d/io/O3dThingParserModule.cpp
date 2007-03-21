@@ -91,7 +91,7 @@ namespace se_ogre {
 
 		O3dSchema::thingMOManager.addInfoList(infoList);
 		if(infoList->infoCount_ > 0) {
-			SimCompositeFactory* f = SimSchema::spawnManager().factory(infoList->thingType_.get());
+			CompositeFactory* f = SimSchema::spawnManager().factory(infoList->thingType_.get());
 			static O3dThingComponentFactory otcf;
 			f->addComponent(&otcf);
 		}

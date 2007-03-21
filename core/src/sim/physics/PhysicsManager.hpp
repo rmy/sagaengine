@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim_physics.hpp"
 #include "../sim.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 #include "../thing/Actor.hpp"
 
 
@@ -33,7 +33,7 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport PhysicsManager : public SimComponentManager {
+	class _SeCoreExport PhysicsManager : public RootComponent {
 	public:
 		/**
 		 * Construct PhysicsManager.

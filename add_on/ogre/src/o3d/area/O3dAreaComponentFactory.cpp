@@ -29,8 +29,8 @@ namespace se_ogre {
 
 	O3dAreaComponentFactory
 	::O3dAreaComponentFactory()
-			: SimComponentFactory(sct_RENDER) {
-		SimCompositeFactory::addGenericComponent(st_AREA, this);
+			: ComponentFactory(sct_RENDER) {
+		CompositeFactory::addGenericComponent(st_AREA, this);
 	}
 
 	se_core::Component* O3dAreaComponentFactory

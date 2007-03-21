@@ -23,7 +23,7 @@ rune@skalden.com
 #define ScriptManager_hpp
 
 #include "../sim.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_core {
@@ -31,7 +31,7 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport ScriptManager : public SimComponentManager {
+	class _SeCoreExport ScriptManager : public RootComponent {
 	public:
 		/**
 		 * Construct ScriptManager.

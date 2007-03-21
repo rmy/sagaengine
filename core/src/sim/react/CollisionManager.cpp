@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	CollisionManager
 	::CollisionManager()
-			: SimComponentManager(sct_POS) 
+			: RootComponent(sct_POS) 
 			, gridCount_(0), gridPoolCount_(0) 
 			, isGodModeOn_(false), contactCount_(0) {
 		collisionGrids_ = new CollisionGrid*[ MAX_ACTIVE ];
@@ -103,7 +103,7 @@ namespace se_core {
 	::getContactList() {
 		contactCount_ = 0;
 
-		MultiSimNodeComponent::Iterator it(children());
+		NodeComponentList::Iterator it(children());
 		while(it.hasNext()) {
 			CollisionAreaComponent& cac = static_cast<CollisionAreaComponent&>(it.next());
 			contactCount_ += cac.getContactList(&contactList_[ contactCount_ ], MAX_CONTACTS - contactCount_);

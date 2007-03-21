@@ -45,7 +45,7 @@ namespace se_editor {
 	}
 
 
-	SimComponentFactory* EditorComponentParserModule
+	ComponentFactory* EditorComponentParserModule
 	::parse(InputStream& in) {
 		EditorComponentFactory* factory = new EditorComponentFactory();
 

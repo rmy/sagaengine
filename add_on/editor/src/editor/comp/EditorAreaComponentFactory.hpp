@@ -23,11 +23,11 @@ rune@skalden.com
 #define EditorComponentFactory_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
 namespace se_editor {
-	class _SeEditorExport EditorAreaComponentFactory : public se_core::SimComponentFactory {
+	class _SeEditorExport EditorAreaComponentFactory : public se_core::ComponentFactory {
 	public:
 		EditorAreaComponentFactory();
 		se_core::Component* create(se_core::Composite* owner) const;

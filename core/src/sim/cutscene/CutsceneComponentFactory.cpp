@@ -22,7 +22,7 @@ rune@skalden.com
 #include "CutsceneComponentFactory.hpp"
 #include "CutsceneComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,7 +32,7 @@ namespace se_core {
 
 	CutsceneComponentFactory
 	::CutsceneComponentFactory()
-		: SimComponentFactory(sct_CUTSCENE) {
+		: ComponentFactory(sct_CUTSCENE) {
 	}
 
 

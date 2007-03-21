@@ -27,7 +27,7 @@ rune@skalden.com
 
 
 namespace se_ogre {
-	class _SeOgreExport O3dAreaComponentFactory  : public se_core::SimComponentFactory {
+	class _SeOgreExport O3dAreaComponentFactory  : public se_core::ComponentFactory {
 	public:
 		O3dAreaComponentFactory();
 		se_core::Component* create(se_core::Composite* owner) const;

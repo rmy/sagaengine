@@ -23,7 +23,8 @@ rune@skalden.com
 #define SpawnManager_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentManager.hpp"
+#include "sim/config/sim_config.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_core {
@@ -31,7 +32,7 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport SpawnManager : public SimComponentManager {
+	class _SeCoreExport SpawnManager : public RootComponent {
 	public:
 		/**
 		 * Construct SpawnManager.
@@ -55,8 +56,8 @@ namespace se_core {
 		static SpawnManager& singleton();
 
 
-		void addFactory(SimCompositeFactory* factory);
-		SimCompositeFactory* factory(const char* name);
+		void addFactory(CompositeFactory* factory);
+		CompositeFactory* factory(const char* name);
 		Composite* create(const char* name);
 		void scheduleForDestruction(Composite& thing);
 		void neutraliseDestructions();
@@ -69,7 +70,7 @@ namespace se_core {
 		int destructionCount_;
 		int nextDestructionCount_;
 		static const int MAX_FACTORIES = MAX_GAME_TYPES;
-		SimCompositeFactory* factories_[ MAX_FACTORIES ];
+		CompositeFactory* factories_[ MAX_FACTORIES ];
 		static const int MAX_THINGS_FOR_DESTRUCTION = MAX_GAME_OBJECTS;
 		Composite* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
 	};

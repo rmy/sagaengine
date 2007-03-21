@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	SpawnComponent
 	::SpawnComponent(Composite* owner, PosComponent* pos)
-		: SimComponent(sct_SPAWN, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
+		: Component(sct_SPAWN, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
 
@@ -59,7 +59,7 @@ namespace se_core {
 		vp.add(pos.world_);
 
 		// Spawn it in area (with area as parent)
-		Area* area = const_cast<Area*>(pos.area()->toArea());
+		Area* area = const_cast<Area*>(static_cast<const Area*>(pos.area()->owner()));
 		area = area->neighbour(vp.coor_);
 		if(!area) {
 			LogWarning("Area not found");

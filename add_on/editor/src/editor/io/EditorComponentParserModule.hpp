@@ -30,7 +30,7 @@ namespace se_editor {
 	public:
 		EditorComponentParserModule();
 		virtual ~EditorComponentParserModule();
-		se_core::SimComponentFactory* parse(se_core::InputStream& in);
+		se_core::ComponentFactory* parse(se_core::InputStream& in);
 
 	protected:
 		const se_core::DictionaryEntry dict_;

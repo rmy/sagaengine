@@ -32,7 +32,7 @@ namespace se_core {
 
 	StatComponentFactory
 	::StatComponentFactory()
-		: SimComponentFactory(sct_STAT), collectibles_(0) {
+		: ComponentFactory(sct_STAT), collectibles_(0) {
 	}
 
 

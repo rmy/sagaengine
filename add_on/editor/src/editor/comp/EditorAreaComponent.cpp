@@ -24,17 +24,17 @@ rune@skalden.com
 #include "EditorComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
-#include "sim/SimCompositeFactory.hpp"
+#include "comp/CompositeFactory.hpp"
 
 using namespace se_core;
 
 namespace se_editor {
 
 	EditorAreaComponent
-	::EditorAreaComponent(Composite* owner, const se_core::SimComponentFactory* factory) 
-			: AreaComponent(se_core::sct_EDITOR, owner, factory), usedStrings_(0) {
+	::EditorAreaComponent(Composite* owner, const se_core::ComponentFactory* factory) 
+			: RootChildComponent(se_core::sct_EDITOR, owner, factory), usedStrings_(0) {
 	}
 
 
@@ -46,7 +46,7 @@ namespace se_editor {
 	void EditorAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
+			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}

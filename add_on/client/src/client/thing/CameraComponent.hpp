@@ -22,11 +22,11 @@ rune@skalden.com
 #ifndef CameraComponent_hpp
 #define CameraComponent_hpp
 
-#include "sim/SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "sim/pos/PosComponent.hpp"
 
 namespace se_client {
-	class _SeCoreExport CameraComponent : public se_core::SimComponent {
+	class _SeCoreExport CameraComponent : public se_core::Component {
 	public:
 		CameraComponent(se_core::Composite* owner);
 		virtual ~CameraComponent();

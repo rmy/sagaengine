@@ -23,6 +23,7 @@ rune@skalden.com
 #define Component_hpp
 
 #include "comp.hpp"
+#include "Composite.hpp"
 #include "util/error/Log.hpp"
 #include "util/type/String.hpp"
 

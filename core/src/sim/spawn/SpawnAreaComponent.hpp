@@ -24,18 +24,21 @@ rune@skalden.com
 
 #include "sim/sim.hpp"
 #include "sim/pos/sim_pos.hpp"
-#include "sim/AreaComponent.hpp"
+#include "comp/Composite.hpp"
+#include "comp/node/RootChildComponent.hpp"
 #include "comp/list/CompositeList.hpp"
+#include "util/vecmath/Vector3.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 
 namespace se_core {
-	class _SeCoreExport SpawnAreaComponent : public AreaComponent {
+	class _SeCoreExport SpawnAreaComponent : public RootChildComponent {
 	public:
 		typedef Ptr<SpawnAreaComponent, sct_SPAWN> Ptr;
 		
 		/** Constructor.
 		 */
-		SpawnAreaComponent(Composite* owner, const SimComponentFactory* factory = 0);
+		SpawnAreaComponent(Composite* owner, const ComponentFactory* factory = 0);
 		~SpawnAreaComponent();
 		void setActive(bool state);
 		void flipSpawns(void);

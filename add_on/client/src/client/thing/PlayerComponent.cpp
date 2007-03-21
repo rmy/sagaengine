@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_client {
 	PlayerComponent
 	::PlayerComponent(Composite* owner)
-		: SimComponent(sct_PLAYER, owner), deadWhen_(0) {
+		: Component(sct_PLAYER, owner), deadWhen_(0) {
 		actionComponent_ = static_cast<ActionComponent*>(owner_->component(sct_ACTION));
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 	}

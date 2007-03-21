@@ -24,7 +24,7 @@ rune@skalden.com
 #include "../SimListeners.hpp"
 #include "../SimEngine.hpp"
 #include "comp/Composite.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionQueue.hpp"
 #include "../action/ActionManager.hpp"
@@ -61,11 +61,11 @@ namespace se_core {
 		}
 
 		//extern _SeCoreExport Composite& activeRoot() {
-		//	return SimComponentManager::activeRoot();
+		//	return RootComponent::activeRoot();
 		//}
 
 		//extern _SeCoreExport Composite& inactiveRoot() {
-		//	return SimComponentManager::inactiveRoot();
+		//	return RootComponent::inactiveRoot();
 		//}
 
 

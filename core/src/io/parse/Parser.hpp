@@ -36,7 +36,7 @@ namespace se_core {
 		void add(ParserModule *module);
 		void add(ComponentParserModule *module);
 		bool parse(InputStream& in);
-		SimComponentFactory* parseComponent(InputStream& in, int type, int subtype);
+		ComponentFactory* parseComponent(InputStream& in, int type, int subtype);
 
 	private:
 		static const int MAX_ELEMENTS = 48;

@@ -23,7 +23,7 @@ rune@skalden.com
 #include "CutsceneAreaComponent.hpp"
 #include "CutsceneComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 using namespace se_core;
@@ -31,7 +31,7 @@ using namespace se_core;
 namespace se_core {
 	CutsceneManager
 	::CutsceneManager()
-		: SimComponentManager(sct_CUTSCENE) {
+		: RootComponent(sct_CUTSCENE) {
 	}
 
 	CutsceneManager
@@ -49,7 +49,7 @@ namespace se_core {
 	void CutsceneManager
 	::step(long when) {
 		/*
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			CutsceneAreaComponent& c = static_cast<CutsceneAreaComponent&>(it.next());
 			//c.propagate();

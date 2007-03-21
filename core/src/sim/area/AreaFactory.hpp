@@ -28,13 +28,13 @@ rune@skalden.com
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../SimCompositeFactory.hpp"
-#include "../SimComponentFactory.hpp"
+#include "comp/CompositeFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "comp/Composite.hpp"
 
 namespace se_core {
 
-	class _SeCoreExport AreaFactory : public SimCompositeFactory {
+	class _SeCoreExport AreaFactory : public CompositeFactory {
 	public:
 		AreaFactory(String* name);
 		virtual ~AreaFactory();

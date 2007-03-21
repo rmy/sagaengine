@@ -34,8 +34,8 @@ rune@skalden.com
 namespace se_core {
 
 	SpawnAreaComponent
-	::SpawnAreaComponent(Composite* owner, const SimComponentFactory* factory) 
-			: AreaComponent(sct_SPAWN, owner, factory), spawnPointCount_(0), spawnPoints_(0) {
+	::SpawnAreaComponent(Composite* owner, const ComponentFactory* factory) 
+			: RootChildComponent(sct_SPAWN, owner, factory), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
 
@@ -47,7 +47,7 @@ namespace se_core {
 	void SpawnAreaComponent
 	::setActive(bool state) {
 		if(state) {
-			SimNodeComponent* c = static_cast<SimNodeComponent*>(CompSchema::activeRoot().component(type_));
+			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
 			}
@@ -103,7 +103,8 @@ namespace se_core {
 
 		// Initial index, if area type is using it
 		sPos->nextPos().updateWorldViewPoint();
-		sPos->nextPos().setIndex( toArea()->index(sPos->nextPos().worldCoor()) );
+		Area* area = static_cast<Area*>(owner());
+		sPos->nextPos().setIndex( area->index(sPos->nextPos().worldCoor()) );
 
 		// Add the thing to the list of new spawns
 		newSpawns_.add(*thing);

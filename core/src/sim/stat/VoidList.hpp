@@ -34,8 +34,8 @@ namespace se_core {
 	class _SeCoreExport VoidList : public VL {
 	public:
 		VoidList() : VL(__FILE__) {}
-		inline SimComponent* nextSimComponent(iterator_type& iterator) {
-			return reinterpret_cast<SimComponent*>(next(iterator));
+		inline Component* nextSimComponent(iterator_type& iterator) {
+			return reinterpret_cast<Component*>(next(iterator));
 		}
 		inline SimObject* nextSimObject(iterator_type& iterator) {
 			return reinterpret_cast<SimObject*>(next(iterator));

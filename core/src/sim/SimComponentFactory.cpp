@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "SimComponentFactory.hpp"
-#include "SimComponent.hpp"
+#include "Component.hpp"
 
 
 namespace se_core {

@@ -102,7 +102,7 @@ namespace se_core {
 			) const {
 		/*
 		// Bounce in wall
-		const NavMeshArea* area = static_cast<const NavMeshArea*>(pos.area()->toArea());
+		const NavMeshArea* area = static_cast<const NavMeshArea*>(pos.area()->owner());
 		bray_t slideYaw = area->wallAngle(pos, nextPos.worldCoor());
 		bray_t d = nextMove.velocity_.yaw();
 		coor_t speed = nextMove.velocity_.length();
@@ -239,7 +239,8 @@ namespace se_core {
 			, Move& nextMove
 			) const {
 		// Ground height at present position
-		coor_t gh = nextPos.area()->toArea()->groundHeight(nextPos.localCoor(), nextPos.index());
+		Area* nextArea = static_cast<Area*>(nextPos.area()->owner());
+		coor_t gh = nextArea->groundHeight(nextPos.localCoor(), nextPos.index());
 		// If below ground, then make grounded
 		nextPos.setGrounded(gh >= nextPos.localCoor().y_);
 

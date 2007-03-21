@@ -23,14 +23,14 @@ rune@skalden.com
 #define SignalComponentFactory_hpp
 
 #include "../sim.hpp"
-#include "../SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "comp/Composite.hpp"
-#include "../SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "util/type/util_type.hpp"
 #include "sim_signal.hpp"
 
 namespace se_core {
-	class SignalComponentFactory : public SimComponentFactory {
+	class SignalComponentFactory : public ComponentFactory {
 	public:
 		SignalComponentFactory();
 

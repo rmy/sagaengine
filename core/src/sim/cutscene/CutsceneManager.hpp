@@ -23,7 +23,7 @@ rune@skalden.com
 #define CutsceneManager_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_core {
@@ -31,7 +31,7 @@ namespace se_core {
 	/**
 	 * Base class for functionality component managers.
 	 */
-	class _SeCoreExport CutsceneManager : public SimComponentManager {
+	class _SeCoreExport CutsceneManager : public RootComponent {
 	public:
 		/**
 		 * Construct CutsceneManager.

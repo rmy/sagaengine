@@ -25,7 +25,7 @@ rune@skalden.com
 #include "EditorAreaComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/pos/sim_pos.hpp"
-#include "sim/AreaChildComponent.hpp"
+#include "comp/node/AreaChildComponent.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 #include "util/type/String.hpp"
 
@@ -34,7 +34,7 @@ namespace se_editor {
 	public:
 		typedef Ptr<EditorComponent, se_core::sct_EDITOR> Ptr;
 
-		EditorComponent(se_core::Composite* owner, const se_core::SimComponentFactory* factory = 0);
+		EditorComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
 		virtual ~EditorComponent();
 		const char* name() { return "Editor"; }
 

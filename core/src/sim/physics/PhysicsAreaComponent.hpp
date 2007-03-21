@@ -23,14 +23,14 @@ rune@skalden.com
 #define engine_physics_PhysicsAreaComponent_hpp
 
 #include "Physics.hpp"
-#include "../SimNodeComponent.hpp"
+#include "comp/node/NodeComponent.hpp"
 #include "../react/CollisionGrid.hpp"
 #include "../react/sim_react.hpp"
 #include "../area/Area.hpp"
 #include "../pos/PosComponent.hpp"
 
 namespace se_core {
-	class _SeCoreExport PhysicsAreaComponent : public SimNodeComponent {
+	class _SeCoreExport PhysicsAreaComponent : public NodeComponent {
 	public:
 		/** Constructor.
 		 */

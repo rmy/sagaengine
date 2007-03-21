@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_core {
 	PhysicsManager
 	::PhysicsManager()
-			: SimComponentManager(sct_PHYSICS) 
+			: RootComponent(sct_PHYSICS) 
 			, movers_(new PhysicsComponent*[MAX_MOVER_COUNT]), moverCount_(0)
 			, activeSolverCount_(0) {
 		activeSolvers_ = new PhysicsAreaComponent*[ MAX_ACTIVE ];
@@ -105,7 +105,8 @@ namespace se_core {
 		for(int i = 0; i < activeSolverCount_; ++i) {
 			PhysicsAreaComponent* s = activeSolvers_[i];
 			s->flipChildren();
-			s->toArea()->flipSpawns();
+			Area* solverArea = static_cast<Area*>(s->owner());
+			solverArea->flipSpawns();
 		}
 	}
 

@@ -25,9 +25,9 @@ rune@skalden.com
 #include "O3dPre.hpp"
 
 namespace se_ogre {
-	class _SeOgreExport O3dNodeComponent  : public se_core::SimNodeComponent {
+	class _SeOgreExport O3dNodeComponent  : public se_core::NodeComponent {
 	public:
-		O3dNodeComponent(enum se_core::SimComponentType type, se_core::Composite* owner);
+		O3dNodeComponent(int type, se_core::Composite* owner);
 		~O3dNodeComponent();
 
 		static O3dNodeComponent* get(se_core::Composite* composite) {
@@ -41,7 +41,7 @@ namespace se_ogre {
 			return c;
 		}
 
-		static O3dNodeComponent* get(se_core::SimComponent& component) {
+		static O3dNodeComponent* get(se_core::Component& component) {
 			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(component.owner()->component(se_core::sct_RENDER));
 			return c;
 		}

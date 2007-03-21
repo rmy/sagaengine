@@ -134,8 +134,9 @@ namespace se_ogre {
 		dest.z = c.z_;
 
 		if(O3dSchema::worldManager->isAreaGeomCentreAligned_) {
-			dest.x += toArea()->width() / 2.0f;
-			dest.z += toArea()->height() / 2.0f;
+			Area* a = static_cast<Area*>(owner());
+			dest.x += a->width() / 2.0f;
+			dest.z += a->height() / 2.0f;
 		}
 	}
 
@@ -154,7 +155,7 @@ namespace se_ogre {
 
 	Ogre::StaticGeometry* O3dAreaComponent
 	::compileStaticGeometry() {
-		Area* a = toArea();
+		Area* a = static_cast<Area*>(owner());
 		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(owner()->name());
 
 		Ogre::Entity* entity;
@@ -251,7 +252,7 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::move(long when, float stepDelta, float timeSinceLastFrame) {
-		MultiSimNodeComponent::Iterator it(children_);
+		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			O3dThingComponent* tc = static_cast<O3dThingComponent*>(&it.next());
 			tc->move(when, stepDelta, timeSinceLastFrame);

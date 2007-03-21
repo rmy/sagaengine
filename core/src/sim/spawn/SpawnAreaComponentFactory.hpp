@@ -23,12 +23,12 @@ rune@skalden.com
 #define SpawnComponentFactory_hpp
 
 #include "sim/sim.hpp"
-#include "sim/SimComponentFactory.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/ComponentFactory.hpp"
+#include "comp/list/NodeComponentList.hpp"
 
 
 namespace se_core {
-	class _SeCoreExport SpawnAreaComponentFactory : public SimComponentFactory {
+	class _SeCoreExport SpawnAreaComponentFactory : public ComponentFactory {
 	public:
 		SpawnAreaComponentFactory();
 		Component* create(Composite* owner) const;

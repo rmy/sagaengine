@@ -29,7 +29,7 @@ namespace se_core {
 	class VoidList;
 
 	class MultiSimObject;
-	class MultiSimNodeComponent;
+	class NodeComponentList;
 	class ReportingMultiSimObject;
 	class ReportingMGOHandler;
 	class MultiSimObjectListener;

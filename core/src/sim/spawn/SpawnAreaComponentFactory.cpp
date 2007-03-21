@@ -22,7 +22,7 @@ rune@skalden.com
 #include "SpawnAreaComponentFactory.hpp"
 #include "SpawnAreaComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "sim/stat/MultiSimNodeComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
 
@@ -32,7 +32,7 @@ namespace se_core {
 
 	SpawnAreaComponentFactory
 	::SpawnAreaComponentFactory()
-		: SimComponentFactory(sct_SPAWN) {
+		: ComponentFactory(sct_SPAWN) {
 	}
 
 

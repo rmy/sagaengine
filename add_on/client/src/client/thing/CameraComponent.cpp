@@ -37,7 +37,7 @@ using namespace se_core;
 namespace se_client {
 	CameraComponent
 	::CameraComponent(Composite* owner)
-			: SimComponent(sct_CAMERA, owner) {
+			: Component(sct_CAMERA, owner) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
 	}

@@ -142,7 +142,9 @@ namespace se_fmod {
 			priority = 2;
 			
 			if(speaker.nextPos().hasArea() && ClientSchema::camera->pos().hasArea()) {
-				if(!speaker.nextPos().area()->toArea()->isNeighbour(*ClientSchema::camera->pos().area()->toArea())) {
+				Area* nextArea = static_cast<Area*>(speaker.nextPos().area()->owner());
+				const Area* cameraArea = static_cast<const Area*>(ClientSchema::camera->pos().area()->owner());
+				if(!nextArea->isNeighbour(*cameraArea)) {
 					d = .25f;
 					priority = 3;
 				}

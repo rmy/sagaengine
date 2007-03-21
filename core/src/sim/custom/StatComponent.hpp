@@ -25,7 +25,7 @@ rune@skalden.com
 #include "Abilities.hpp"
 #include "Health.hpp"
 #include "../sim.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionAndParameter.hpp"
 #include "../config/sim_config.hpp"
@@ -34,11 +34,11 @@ rune@skalden.com
 #include "../pos/sim_pos.hpp"
 #include "../thing/sim_thing.hpp"
 #include "comp/Composite.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class _SeCoreExport StatComponent  : public SimComponent {
+	class _SeCoreExport StatComponent  : public Component {
 	public:
 		typedef Ptr<StatComponent, sct_STAT> Ptr;
 
@@ -47,17 +47,17 @@ namespace se_core {
 			return c;
 		}
 
-		static StatComponent* get(SimComponent& component) {
+		static StatComponent* get(Component& component) {
 			StatComponent* c = static_cast<StatComponent*>(component.owner()->component(se_core::sct_STAT));
 			return c;
 		}
 
-		static const StatComponent* get(const SimComponent& component) {
+		static const StatComponent* get(const Component& component) {
 			const StatComponent* c = static_cast<const StatComponent*>(component.owner()->component(se_core::sct_STAT));
 			return c;
 		}
 
-		StatComponent(Composite* owner, const SimComponentFactory* factory = 0);
+		StatComponent(Composite* owner, const ComponentFactory* factory = 0);
 		void setAbilities(short* abilities);
 		void setQuickMenuAction(const Action* a);
 		void setUseAction(const Action* a);

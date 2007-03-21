@@ -25,7 +25,7 @@ rune@skalden.com
 #include "sim_react.hpp"
 #include "CollisionGrid.hpp"
 #include "../sim.hpp"
-#include "../SimComponentManager.hpp"
+#include "comp/node/RootComponent.hpp"
 
 
 namespace se_core {
@@ -34,7 +34,7 @@ namespace se_core {
 	 * Base class for functionality component managers.
 	 */
 	class _SeCoreExport CollisionManager
-		: public SimComponentManager {
+		: public RootComponent {
 	public:
 		/**
 		 * Construct CollisionManager.

@@ -24,9 +24,9 @@ rune@skalden.com
 
 #include "sim_react.hpp"
 #include "ThingCollide.hpp"
-#include "../SimComponent.hpp"
+#include "comp/Component.hpp"
 #include "comp/Composite.hpp"
-#include "../AreaChildComponent.hpp"
+#include "comp/node/AreaChildComponent.hpp"
 #include "../custom/Move.hpp"
 #include "../SimObject.hpp"
 #include "../area/sim_area.hpp"

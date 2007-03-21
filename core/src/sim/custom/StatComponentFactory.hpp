@@ -25,18 +25,18 @@ rune@skalden.com
 #include "Abilities.hpp"
 #include "Health.hpp"
 #include "../sim.hpp"
-#include "../SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "../action/Action.hpp"
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
 #include "comp/Composite.hpp"
-#include "../SimComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 #include "util/type/util_type.hpp"
 
 namespace se_core {
-	class StatComponentFactory : public SimComponentFactory {
+	class StatComponentFactory : public ComponentFactory {
 	public:
 		StatComponentFactory();
 		void setAbilities(short speed, short attack, short defence, short level);
