@@ -186,7 +186,13 @@ namespace se_ogre {
 
 			case 'D':
 				{ // Directional light
-					Ogre::Light* light = O3dSchema::sceneManager->createLight("MainLight");
+					Ogre::Light* light;
+					if(O3dSchema::sceneManager->hasLight("MainLight")) {
+						light = O3dSchema::sceneManager->getLight("MainLight");
+					}
+					else {
+						light = O3dSchema::sceneManager->createLight("MainLight");
+					}
 					light->setType(Ogre::Light::LT_DIRECTIONAL);
 					light->setCastShadows(false);
 

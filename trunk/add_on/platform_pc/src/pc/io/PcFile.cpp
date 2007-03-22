@@ -211,20 +211,20 @@ namespace se_pc {
 
 
 	long PcFile
-	::size() {
+	::size() const {
 		LogFatal("Not implemented");
 		return 0;
 	}
 
 
 	int PcFile
-	::shortCount() {
+	::shortCount() const {
 		return size() / sizeof(short);
 	}
 
 
 	const char* PcFile
-	::filename() {
+	::filename() const {
 		return fullFilePath_;
 	}
 

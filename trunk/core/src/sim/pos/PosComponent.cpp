@@ -47,15 +47,15 @@ namespace se_core {
 			changeParent();
 		}
 		if(position_.area() != nextPosition_.area()) {
-			Area* from = 0;
-			if(nextPosition_.hasArea()) {
-				from = static_cast<Area*>(nextPosition_.area_->owner());
-			}
 			Area* to = 0;
-			if(position_.hasArea()) {
-				to = static_cast<Area*>(position_.area_->owner());
+			if(nextPosition_.hasArea()) {
+				to = static_cast<Area*>(nextPosition_.area_->owner());
 			}
-			owner()->zoneChanged(st_AREA, from, to);
+			Area* from = 0;
+			if(position_.hasArea()) {
+				from = static_cast<Area*>(position_.area_->owner());
+			}
+			owner()->zoneChanged(st_AREA, to, from);
 		}
 		position_.setPos(nextPosition_);
 	}

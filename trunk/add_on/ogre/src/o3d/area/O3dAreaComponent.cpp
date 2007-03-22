@@ -243,7 +243,7 @@ namespace se_ogre {
 		sg->setRegionDimensions(Ogre::Vector3(64, 64, 64));
 		sg->setRenderingDistance(256);
 		sg->setRenderQueueGroup(Ogre::RENDER_QUEUE_WORLD_GEOMETRY_1);
-		sg->setVisible(true);
+		sg->setVisible(false);
 		sg->build();
 
 		return sg;

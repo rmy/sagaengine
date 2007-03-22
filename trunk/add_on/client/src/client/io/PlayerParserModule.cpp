@@ -121,10 +121,19 @@ namespace se_client {
 
 			case 'E': 
 				{ // Entrance 
+					String name;
 					in.readString(tempString);
+					if(tempString.get()[0] == '/') {
+						name.copy(in.basename(), -in.extLen());
+						name.append(tempString.get());
+					}
+					else {
+						name.set(tempString.get());
+					}
+
 					int value = in.readShort();
 					LogDetail(tempString.get());
-					area = SimSchema::areaManager.area(tempString.get());
+					area = SimSchema::areaManager.area(name.get());
 					Assert(area);
 					const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(value);
 					Assert(sp);

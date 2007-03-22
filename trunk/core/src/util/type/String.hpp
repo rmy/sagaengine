@@ -38,13 +38,20 @@ namespace se_core {
 		String();
 		String(const char* data);
 		String(char* data);
+		String(const char* data, int toPos);
 		~String();
 		void set(const char* data);
 		void set(char* data);
+		void reset();
 		void copy(const char* data);
+		/**
+		 * toPos of zero or negative is from end of string
+		 */
+		void copy(const char* data, int toPos);
 		inline const char* get() const { return data_; }
 		char* copyValue() const;
 		bool isEmpty() const;
+		int len() const;
 		void append(const char* s);
 		int compare(const String& s) const;
 		int compare(const char* s) const;

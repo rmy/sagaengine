@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "sim/sim.hpp"
 #include "comp/comp.hpp"
-#include "sim/ComponentFactory.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
 namespace %n {

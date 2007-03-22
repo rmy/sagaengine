@@ -38,6 +38,11 @@ namespace se_core {
 
 
 	String
+	::String(const char* name, int toPos) : data_(0), doDestroy_(false) {
+		copy(name, toPos);
+	}
+
+	String
 	::~String() {
 		if(doDestroy_) delete[] data_;
 	}
@@ -59,10 +64,37 @@ namespace se_core {
 
 
 	void String
+	::reset() {
+		if(doDestroy_) delete[] data_;
+		data_ = 0;
+		doDestroy_ = false;
+	}
+
+	void String
 	::copy(const char* s) {
 		if(doDestroy_) delete[] data_;
 		char* buffer = new char[strlen(s) + 1];
 		strcpy(buffer, s);
+		data_ = buffer;
+		doDestroy_ = true;
+	}
+
+
+	void String
+	::copy(const char* s, int toPos) {
+		int len = strlen(s);
+		if(toPos <= 0) {
+			len += toPos;
+			if(len < 0)
+				len = 0;
+		}
+		else if(toPos < len) {
+			len = toPos;
+		}
+		if(doDestroy_) delete[] data_;
+		char* buffer = new char[len + 1];
+		strncpy(buffer, s, len);
+		buffer[ len ] = 0;
 		data_ = buffer;
 		doDestroy_ = true;
 	}
@@ -124,6 +156,13 @@ namespace se_core {
 	bool String
 	::equals(const char* s) const {
 		return (compare(s) == 0);
+	}
+
+	int String
+	::len() const {
+		if(!data_)
+			return 0;
+		return strlen(data_);
 	}
 
 }

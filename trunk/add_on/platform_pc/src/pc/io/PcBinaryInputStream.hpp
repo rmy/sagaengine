@@ -51,7 +51,7 @@ namespace se_pc {
 		void readByteArray(se_core::ByteArray& dest, int size);
 		void readCharArray(se_core::String& dest, int size);
 		bool eof();
-		const char* name() { return file_.filename(); }
+		const char* name() const { return file_.filename(); }
 
 	private:
 		friend class PcFileManager;

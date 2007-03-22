@@ -7,14 +7,15 @@ using namespace se_core;
 namespace se_basic {
 
 	WangAreaGrid
-	::WangAreaGrid(int xSize, int zSize) 
+	::WangAreaGrid(int xSize, int zSize, const char* name) 
 			: xSize_(xSize), zSize_(zSize), definitionCount_(0) {
-		
+
 		areas_ = new Areas[ xSize_ * zSize_ ];
 		for(int i = 0; i < xSize_ * zSize_; ++i) {
 			areas_[ i ].area_ = 0;
 		}
 		wangDefinitions_ = new WangDefinition[MAX_DEFINITIONS];
+		dict_ = new DictionaryEntry(DE_ZONE, name, true);
 	}
 
 
@@ -32,14 +33,14 @@ namespace se_basic {
 
 		char buffer[32];
 		
-		//LogDetail(defIndex << ": " << wangDefinitions_[defIndex].areaName_.get());
-		// TODO: !!!!
-		sprintf(buffer, "%d.%d", z, x);
-		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), x, 0, z);
+		sprintf(buffer, "%s/%d.%d", dict_->name_, z, x);
+		Area* a = SimSchema::areaManager.createArea(buffer, wangDefinitions_[defIndex].areaName_.get(), x, 0, z, dict_->id_);
+		LogDetail("Grid: " << dict_->name_ << " - " << dict_->id_);
 
 		areas_[ x + z * xSize_ ].area_ = a;
 		areas_[ x + z * xSize_ ].definitionIndex_ = defIndex;
 	}
+
 
 	int WangAreaGrid
 	::findMatch(const unsigned char* wanted, int random) {

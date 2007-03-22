@@ -34,11 +34,14 @@ namespace se_core {
 		short highestId(short type) const;
 		bool hasId(short type, short id) const;
 
+		static short hash(const char* name);
+
 	private:
 		bool checkName(short type, const char* name, short id);
 
 		friend class DictionaryEntry;
 		void add(const DictionaryEntry* entry);
+		void remove(const DictionaryEntry* entry);
 
 		short entryCount_;
 		const static int MAX_ENTRIES = 256;

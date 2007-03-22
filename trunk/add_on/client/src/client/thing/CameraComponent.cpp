@@ -26,7 +26,10 @@ rune@skalden.com
 #include "sim/area/AreaManager.hpp"
 #include "sim/action/all.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
 #include "sim/thing/Actor.hpp"
+#include "sim/stat/Dictionary.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
 #include "util/type/String.hpp"
 #include "util/error/Log.hpp"
 #include "../schema/ClientSchema.hpp"
@@ -53,10 +56,16 @@ namespace se_client {
 
 
 	void CameraComponent
-	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
+	::zoneChanged(int zoneType, Composite* newZone, Composite* oldZone) {
 		if(zoneType == st_AREA && posComponent_ == ClientSchema::camera) {
-			if(newArea) {
-				SimSchema::areaManager.setActive(static_cast<Area*>(newArea), 2);
+			if(newZone) {
+				SimSchema::areaManager.setActive(static_cast<Area*>(newZone), 2);
+				ZoneAreaComponent::Ptr oZone(oldZone);
+				ZoneAreaComponent::Ptr nZone(newZone);
+				if(oZone.isNull() || oZone->page().w_ != nZone->page().w_) {
+					const char* newLevel = SimSchema::dictionary().name(DE_ZONE, nZone->page().w_);
+					SimSchema::simEngine.setLevel(newLevel);
+				}
 			}
 			else {
 				SimSchema::areaManager.resetActive();

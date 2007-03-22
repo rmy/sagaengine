@@ -27,7 +27,9 @@ namespace se_core {
 	public:
 		DictionaryEntry(short type, short id, const char* name, bool doCopyName = false);
 		DictionaryEntry(short type, short id, char* name, bool doCopyName);
+		DictionaryEntry(short type, const char* name, bool doCopyName = false);
 		~DictionaryEntry();
+
 
 		short type_;
 		short id_;

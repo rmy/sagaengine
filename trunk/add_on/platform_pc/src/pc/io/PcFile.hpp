@@ -50,9 +50,9 @@ namespace se_pc {
 		void readByteArray(se_core::ByteArray& dest, int size);
 		void readCharArray(se_core::String& dest, int size);
 
-		long size();
-		int shortCount();
-		const char* filename();
+		long size() const;
+		int shortCount() const;
+		const char* filename() const;
 
 	private:
 		char fullFilePath_[256];

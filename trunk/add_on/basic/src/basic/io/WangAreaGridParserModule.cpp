@@ -20,8 +20,13 @@ namespace se_basic {
 		unsigned short xSize = in.readShort();
 		unsigned short zSize = in.readShort();
 
+		// Strip extension from basename, so that
+		// .bin and .txt versions of the same grid produce
+		// the same hash id
+		String name(in.basename(), -in.extLen());
+
 		// Create area
-		WangAreaGrid grid(xSize, zSize);
+		WangAreaGrid grid(xSize, zSize, name.get());
 
 		int code;
 		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {

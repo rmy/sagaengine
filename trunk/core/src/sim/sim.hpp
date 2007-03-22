@@ -62,6 +62,7 @@ namespace se_core {
 		sct_SIGNAL,
 		sct_RENDER, 
 		sct_SOUND, 
+		sct_NAVMESH, 
 		sct_ODE, 
 		sct_PLAYER, 
 		sct_CAMERA, 

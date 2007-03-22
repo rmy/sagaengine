@@ -70,16 +70,16 @@ namespace se_core {
 		multiplePerformsPerStepEnabled_ = state;
 	}
 
+
 	void SimEngine
 	::setLevel(const char* name) {
 		nextLevel_.copy(name);
-		level_.copy(name);
 	}
+
 
 	void SimEngine
 	::go() {
 		SimSchema::initListeners().castStartGameEvent();
-		SimSchema::initListeners().castInitLevelEvent();
 		CompSchema::activeRoot().setActive(true, true);
 
 		while(true) {
@@ -99,6 +99,7 @@ namespace se_core {
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
 		}
 		CompSchema::activeRoot().setActive(false, true);
+		level_.reset();
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
 	}
@@ -174,6 +175,12 @@ namespace se_core {
 
 		// Move things and check for collisions
 		SignalManager::singleton().step(when);
+
+		if(!nextLevel_.equals(level_)) {
+			SimSchema::initListeners().castCleanupLevelEvent();
+			level_.copy(nextLevel_.get());
+			SimSchema::initListeners().castInitLevelEvent();
+		}
 	}
 
 

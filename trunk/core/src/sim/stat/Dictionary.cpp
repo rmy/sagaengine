@@ -66,6 +66,16 @@ namespace se_core {
 	}
 
 
+	void Dictionary
+	::remove(const DictionaryEntry* entry) {
+		for(int i = 0; i < entryCount_; ++i) {
+			if(entries_[i] == entry) {
+				entries_[i] = entries_[ --entryCount_ ];
+			}
+		}
+	}
+
+
 	short Dictionary
 	::id(short type, const char* name) {
 		//LogDetail(entryCount_);
@@ -122,5 +132,16 @@ namespace se_core {
 		return false;
 	}
 
+
+	short Dictionary
+	::hash(const char* name) {
+		int h = 2166136261;
+		for(const char* n = name; *n != 0; ++n) {
+			h *= 16777619 * h;
+			h ^= *n;
+		}
+		h ^= h >> 16;
+		return (short)(h & 0xffff);
+	}
 
 }

@@ -57,16 +57,92 @@ namespace se_core {
 
 		virtual bool eof() { return true; }
 
-		virtual const char* name() { return "Stream unimplemented"; }
-		const char* basename() {
-			int p = 0;
+		virtual const char* name() const = 0;
+
+		int nameLen() const {
 			const char* n = name();
-			for(int i = 0; n[i] != 0; ++i) {
-				if(n[i] == '/') {
-					p = i + 1;
+			int len = 0;
+			for(; n[len] != 0; ++len)
+				;
+			return len;
+		}
+
+
+		int last(char ch, int start = -1) const {
+			int p = 0;
+
+			// Find end;
+			int len = start;
+			if(len < 0) {
+				len = nameLen() - start;
+			}
+
+			// Find first ch from the end
+			const char* n = name();
+			for(int i = len; i > 0; --i) {
+				if(n[i] == ch) {
+					return i;
 				}
 			}
-			return &n[p];
+			return -1;
+		}
+
+
+		int basenameLen() const {
+			int len = nameLen();
+			int p = last('/', len);
+			//if(p < 0)
+			//	return len;
+			//return len - (p + 1);
+			// Same but faster. -1 + 1 = 0
+			return len - (p + 1);
+		}
+
+
+		const char* basename() const {
+			int len = nameLen();
+			const char* n = name();
+			return &n[ len - basenameLen() ];
+		}
+
+
+		const char* oneDirAndBasename() const {
+			int len = nameLen();
+			const char* n = name();
+
+			// Find first slash
+			int p = last('/', len);
+			if(p <= 0)
+				return n;
+
+			// Find second slash
+			p = last('/', p - 1);
+			if(p < 0)
+				return n;
+
+			return &n[ p + 1 ];
+		}
+
+
+		int extLen() const {
+			int len = nameLen();
+			const char* n = name();
+
+			// Find first dot
+			int p = last('.', len);
+
+			// No extension?
+			if(p < 0)
+				return 0;
+
+			return len - p;
+		}
+
+
+		const char* ext() const {
+			int len = nameLen();
+			const char* n = name();
+			return &n[ len - extLen() ];
 		}
 	};
 }
