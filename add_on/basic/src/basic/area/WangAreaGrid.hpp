@@ -8,7 +8,7 @@ namespace se_basic {
 
 	class _SeBasicExport WangAreaGrid {
 	public:
-		WangAreaGrid(int xSize, int zSize);
+		WangAreaGrid(int xSize, int zSize, const char* name);
 		~WangAreaGrid();
 
 		void setTile(char* name, unsigned char* sides);
@@ -56,6 +56,8 @@ namespace se_basic {
 			int definitionIndex_;
 		}* areas_;
 		short xSize_, zSize_;
+		short id_;
+		se_core::DictionaryEntry* dict_;
 	};
 
 }

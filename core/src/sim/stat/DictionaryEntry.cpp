@@ -22,6 +22,7 @@ rune@skalden.com
 #include "DictionaryEntry.hpp"
 #include "Dictionary.hpp"
 #include "../schema/all.hpp"
+#include "util/error/Log.hpp"
 #include <cstring>
 
 namespace se_core {
@@ -63,7 +64,30 @@ namespace se_core {
 
 
 	DictionaryEntry
+	::DictionaryEntry(short type, const char* name, bool doCopyName) {
+		type_ = type;
+		id_ = Dictionary::hash(name);
+		if(SimSchema::dictionary().hasId(type, id_)) {
+			Assert(strcmp(name, SimSchema::dictionary().name(type, id_)) == 0)
+		}
+
+		if(doCopyName) {
+			char* n = new char[ strlen(name) + 1 ];
+			strcpy(n, name);
+			name_ = n;
+			doDelete_ = true;
+		}
+		else {
+			name_ = name;
+			doDelete_ = true;
+		}
+		addToDictionary();
+	}
+
+
+	DictionaryEntry
 	::~DictionaryEntry() {
+		SimSchema::dictionary().remove(this);
 		if(doDelete_) delete name_;
 	}
 
@@ -72,4 +96,5 @@ namespace se_core {
 	::addToDictionary() {
 		SimSchema::dictionary().add(this);
 	}
+
 }

@@ -60,6 +60,7 @@ namespace se_core {
 		static bool init();
 
 		const char* level() { return level_.get(); }
+		const char* nextLevel() { return nextLevel_.get(); }
 
 
 		/**

@@ -49,7 +49,7 @@ namespace se_pc {
 		void readByteArray(se_core::ByteArray& dest, int size);
 		void readCharArray(se_core::String& dest, int size);
 		bool eof();
-		const char* name() { return sourceFilename_; }
+		const char* name() const { return sourceFilename_; }
 
 	private:
 		char tmpBuffer_[256];

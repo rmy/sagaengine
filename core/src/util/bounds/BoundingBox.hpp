@@ -145,11 +145,11 @@ namespace se_core {
 		}
 
 		coor_t radius() const {
-			return (maxX_ > maxZ_) ? maxX_ : maxZ_;
+			return (maxX_ - minX_ > maxZ_ - minZ_) ? CoorT::half(maxX_ - minX_) : CoorT::half(maxZ_ - minZ_);
 		}
 
 		coor_t smallRadius() const {
-			return (maxX_ < maxZ_) ? maxX_ : maxZ_;
+			return (maxX_ - minX_ < maxZ_ - minZ_) ? CoorT::half(maxX_ - minX_) : CoorT::half(maxZ_ - minZ_);
 		}
 
 		coor_t minX_, minY_, minZ_;

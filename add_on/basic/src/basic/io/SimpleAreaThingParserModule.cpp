@@ -33,6 +33,19 @@ namespace se_basic {
 		int code;
 		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
+			case 'D':
+				{
+					String tempString;
+					in.readString(tempString);
+					String name(in.oneDirAndBasename(), -in.basenameLen());
+					name.append(tempString.get());
+					if(SimSchema::areaManager.hasArea(name.get())) {
+						areas[0] = SimSchema::areaManager.area(name.get());
+						areaCount = 1;
+					}
+				}
+				break;
+
 			case 'N':
 				{
 					String tempString;

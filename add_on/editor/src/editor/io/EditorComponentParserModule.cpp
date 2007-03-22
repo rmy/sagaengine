@@ -39,7 +39,7 @@ namespace se_editor {
 			, dict_(se_core::DE_COMPONENT_TYPE, TYPE, "EDITOR") {
 	}
 
-	
+
 	EditorComponentParserModule
 	::~EditorComponentParserModule() {
 	}
