@@ -23,6 +23,8 @@ rune@skalden.com
 #define o3d_input_InputHandler_hpp
 
 #include "O3dPre.hpp"
+#include "OIS.h"
+#include <OgreMouseEvent.h>
 
 
 namespace se_ogre {

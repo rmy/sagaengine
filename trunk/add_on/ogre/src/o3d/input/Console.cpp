@@ -25,6 +25,8 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "../schema/O3dSchema.hpp"
 #include <cstring>
+#include <OgreMouseEvent.h>
+#include <OgreKeyEvent.h>
 #ifndef NO_CEGUI
 #include <CEGUI/CEGUIFontManager.h>
 #endif

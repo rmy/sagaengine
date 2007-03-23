@@ -21,6 +21,8 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "O3dClock.hpp"
+#include <OgreRoot.h>
+#include <OgreTimer.h>
 
 namespace se_core {
 

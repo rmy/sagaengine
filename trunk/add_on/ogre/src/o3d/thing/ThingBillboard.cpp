@@ -25,6 +25,9 @@ rune@skalden.com
 #include "../schema/O3dSchema.hpp"
 #include <cstdio>
 #include <cstring>
+#include <OgreSceneManager.h>
+#include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
 
 using namespace se_core;
 

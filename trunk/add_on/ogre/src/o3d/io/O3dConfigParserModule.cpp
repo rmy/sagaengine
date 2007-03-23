@@ -31,6 +31,11 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include <cstring>
 #include <cstdio>
+#include <OgreSceneManager.h>
+#include <OgreLight.h>
+#include <OgreCamera.h>
+#include <OgreRoot.h>
+#include <OgreRenderWindow.h>
 
 
 using namespace se_core;

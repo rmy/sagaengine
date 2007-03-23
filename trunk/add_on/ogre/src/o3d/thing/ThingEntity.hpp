@@ -46,9 +46,6 @@ namespace se_ogre {
 		 * @param Time sinse last move
 		 */
 		void animate(long when, float stepDelta, float timeSinceLastFrame);
-
-		void addToStaticGeometry(const char* name);
-
 		short anim(int channel);
 
 

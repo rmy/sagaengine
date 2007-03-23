@@ -28,6 +28,11 @@ rune@skalden.com
 #include "o3d/schema/O3dSchema.hpp"
 #include "o3d/thing/all.hpp"
 #include "EntityUtil.hpp"
+#include <OgreSceneManager.h>
+#include <OgreEntity.h>
+#include <OgreAnimation.h>
+#include <OgreSkeleton.h>
+#include <OgreSkeletonInstance.h>
 
 
 using namespace se_core;
@@ -84,47 +89,6 @@ namespace se_ogre {
 		if(O3dSchema::sceneManager)
 			O3dSchema::sceneManager->destroyMovableObject(entity_);
 		entity_ = 0;
-	}
-
-
-	void ThingEntity
-	::addToStaticGeometry(const char* name) {
-		///////
-		Ogre::Vector3 nextPos
-			(
-			 CoorT::toFloat(thing_.nextPos().worldCoor().x_),
-			 CoorT::toFloat(thing_.nextPos().worldCoor().y_),
-			 CoorT::toFloat(thing_.nextPos().worldCoor().z_)
-			 );
-
-		Ogre::Real scale = info_.scale_;
-		// If radius scales the model
-		if(info_.doScaleByRadius_) {
-			// Interpolate between present radius and next radius
-			scale *= CoorT::toFloat(thing_.nextPos().radius());
-
-			// If scale has changed
-			if(scale != currentScale_) {
-				// Scale all children of this node
-				node_->setScale(scale, scale, scale);
-
-				// Store scale for future scale change checks
-				currentScale_ = scale;
-			}
-		}
-
-		static int counter = 0;
-		static Ogre::StaticGeometry* sg = 0;
-		if(counter == 0) {
-			if(sg) {
-				sg->build();
-			}
-			sg = O3dSchema::sceneManager->createStaticGeometry(name);
-			counter = 4;
-		}
-		Ogre::Vector3 s(scale, scale, scale);
-		sg->addEntity(entity_, nextPos, Ogre::Quaternion::IDENTITY, s);
-		--counter;
 	}
 
 

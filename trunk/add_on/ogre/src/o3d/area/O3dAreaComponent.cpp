@@ -26,6 +26,9 @@ rune@skalden.com
 #include "../thing/ThingMO.hpp"
 #include "../thing/ThingMOInfo.hpp"
 #include "../thing/MultiO3dThingComponent.hpp"
+#include <OgreSceneManager.h>
+#include <OgreStaticGeometry.h>
+#include <OgreEntity.h>
 
 using namespace se_core;
 using namespace se_client;

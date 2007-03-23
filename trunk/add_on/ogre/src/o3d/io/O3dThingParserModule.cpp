@@ -38,6 +38,8 @@ rune@skalden.com
 #include <cstring>
 #include <cstdio>
 #include <vector>
+#include <OgreEntity.h>
+#include <OgreLight.h>
 
 
 using namespace se_core;

@@ -23,6 +23,7 @@ rune@skalden.com
 #include "../schema/O3dSchema.hpp"
 #include "ThingMO.hpp"
 #include "MultiO3dThingComponent.hpp"
+#include <OgreSceneManager.h>
 
 using namespace se_core;
 using namespace se_client;

@@ -21,6 +21,10 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "EntityUtil.hpp"
+#include <OgreEntity.h>
+#include <OgreSubEntity.h>
+#include <OgreMaterialManager.h>
+#include <OgreTechnique.h>
 
 namespace se_ogre {
 
