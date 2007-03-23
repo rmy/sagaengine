@@ -27,6 +27,7 @@ rune@skalden.com
 #include "comp/list/ComponentList.hpp"
 #include "util/vecmath/util_vecmath.hpp"
 #include "sim/sim.hpp"
+#include "Exit.hpp"
 
 
 namespace se_core {
@@ -82,6 +83,7 @@ namespace se_core {
 		}
 	};
 
+
 	class _SeCoreExport ZoneAreaComponent : public RootChildComponent {
 	public:
 		typedef Ptr<ZoneAreaComponent, sct_ZONE> Ptr;
@@ -109,6 +111,8 @@ namespace se_core {
 
 		void addLink(ZoneAreaComponent& link);
 		ComponentList& links() { return links_; }
+		void setExits(Exit* exits, int count);
+		Exit& exit(int id);
 
 	protected:
 		friend class ZoneAreaComponentFactory;
@@ -117,6 +121,8 @@ namespace se_core {
 		ComponentList links_;
 		static const int MAX_NEIGHBOURS = 3 * 3 * 3;
 		ZoneAreaComponent* neighbours_[ MAX_NEIGHBOURS ];
+		int exitCount_;
+		Exit* exits_;
 	};
 }
 

@@ -1,5 +1,7 @@
 #include "SimpleAreaThingParserModule.hpp"
 #include "sim/spawn/SpawnAreaComponent.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
+#include "sim/zone/Exit.hpp"
 #include <cstring>
 
 using namespace se_core;
@@ -29,6 +31,10 @@ namespace se_basic {
 		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
 			spawnPoints[i] = 0;
 		}
+
+		static const int MAX_EXITS = 16;
+		int exitCount = 0;
+		Exit exits[MAX_EXITS];
 
 		int code;
 		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
@@ -74,17 +80,28 @@ namespace se_basic {
 				readMultiCutscene(in, areaCount, areas);
 				break;
 
-			case 'E': // entrance
-				short id = in.readShort();
-				Assert(id < MAX_SPAWN_POINTS);
-				Assert(spawnPoints[id] == 0);
+			case 'E': { // entrance
+					short id = in.readShort();
+					Assert(id < MAX_SPAWN_POINTS);
+					Assert(spawnPoints[id] == 0);
 
-				ViewPoint* sp = new ViewPoint();
-				readSpawnPoint(in, *sp);
+					ViewPoint* sp = new ViewPoint();
+					readSpawnPoint(in, *sp);
 
-				spawnPoints[id] = sp;
-				if(id >= spawnPointCount) {
-					spawnPointCount = id + 1;
+					spawnPoints[id] = sp;
+					if(id >= spawnPointCount) {
+						spawnPointCount = id + 1;
+					}
+				}
+				break;
+			case 'X':
+				{
+					String* area = new String();
+					in.readString(*area);
+					short entrance = in.readShort();
+					exits[ exitCount ].area_ = area;
+					exits[ exitCount ].entrance_ = entrance;
+					++exitCount;
 				}
 				break;
 			}
@@ -94,6 +111,10 @@ namespace se_basic {
 				LogDetail("Set spawn points for: " << areas[i]->name());
 				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
 				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
+			}
+			if(exitCount) {
+				ZoneAreaComponent::Ptr aZone(*areas[i]);
+				aZone->setExits(exits, exitCount);
 			}
 			//LogDetail("Flip children for: " << areas[i]->name());
 			areas[i]->flipSpawns();
