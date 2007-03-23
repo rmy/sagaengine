@@ -27,6 +27,9 @@ rune@skalden.com
 #include "../thing/MultiO3dThingComponent.hpp"
 #include "O3dAreaComponent.hpp"
 #include "O3dPre.hpp"
+#include <OgreFrameListener.h>
+#include <OgreOverlay.h>
+
 
 namespace se_ogre {
 	class _SeOgreExport O3dManager 
@@ -43,13 +46,7 @@ namespace se_ogre {
 
 		// Debug overlay
 		void showDebugOverlay(bool show);
-		void flipDebugOverlay() {
-			if(!debugOverlay_) {
-				showDebugOverlay(true);
-				return;
-			}
-			showDebugOverlay(!debugOverlay_->isVisible());
-		}
+		void flipDebugOverlay();
 
 		void step(long when) {}
 

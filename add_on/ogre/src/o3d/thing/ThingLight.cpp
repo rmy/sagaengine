@@ -27,6 +27,7 @@ rune@skalden.com
 #include "../schema/O3dSchema.hpp"
 #include "o3d/schema/O3dSchema.hpp"
 #include "o3d/thing/all.hpp"
+#include <OgreSceneManager.h>
 
 
 using namespace se_core;

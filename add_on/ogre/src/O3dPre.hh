@@ -1,15 +1,18 @@
 #ifndef O3dPre_hh
 #define O3dPre_hh
 
-#include <se_client.hpp>
-#include <se_core.hpp>
-#include <Ogre.h>
+#include "client/schema/client_schema.hpp"
+//#include <se_client.hpp>
+//#include <se_core.hpp>
+//#include <Ogre.h>
 #include <OgrePrerequisites.h>
-#include <OgreFrameListener.h>
-#include <OgreKeyEvent.h>
-#include <OgreMouseEvent.h>
-#include <OgreEventListeners.h>
-#include <OIS.h>
+#include <OgreVector3.h>
+#include <OgreQuaternion.h>
+//#include <OgreFrameListener.h>
+//#include <OgreKeyEvent.h>
+//#include <OgreMouseEvent.h>
+//#include <OgreEventListeners.h>
+//#include <OIS.h>
 
 /*
 #ifndef NO_CEGUI

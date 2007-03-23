@@ -33,6 +33,13 @@ rune@skalden.com
 #include "../thing/ThingMOInfo.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../thing/ThingMOManager.hpp"
+#include <OgreOverlayElement.h>
+#include <OgreCamera.h>
+#include <OgreMaterialManager.h>
+#include <OgreOverlayManager.h>
+#include <OgreRenderTarget.h>
+#include <OgreRenderWindow.h>
+#include <OgreStringConverter.h>
 #include <cstring>
 
 using namespace se_client;
@@ -190,6 +197,15 @@ namespace se_ogre {
 		m->setDepthFunction(cmp);
 	}
 
+
+	void O3dManager
+	::flipDebugOverlay() {
+		if(!debugOverlay_) {
+			showDebugOverlay(true);
+			return;
+		}
+		showDebugOverlay(!debugOverlay_->isVisible());
+	}
 
 	void O3dManager
 	::updateStats(void) {

@@ -22,6 +22,9 @@ rune@skalden.com
 #include "ThingMOInfo.hpp"
 #include "ThingParticle.hpp"
 #include "../schema/O3dSchema.hpp"
+#include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
+#include <OgreParticleSystem.h>
 #include <cstdio>
 #include <cstring>
 

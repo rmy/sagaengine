@@ -26,6 +26,8 @@ rune@skalden.com
 #include "o3d_thing.hpp"
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
+#include <OgreCommon.h>
+#include <OgreColourValue.h>
 
 namespace se_ogre {
 	struct _SeOgreExport ThingMOInfo {

@@ -22,6 +22,8 @@ rune@skalden.com
 #include "ThingMOInfo.hpp"
 #include "ThingMovableObject.hpp"
 #include "../schema/O3dSchema.hpp"
+#include <OgreSceneManager.h>
+#include <OgreMovableObject.h>
 #include <cstdio>
 #include <cstring>
 

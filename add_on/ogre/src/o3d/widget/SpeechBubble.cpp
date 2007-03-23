@@ -22,6 +22,7 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include "SpeechBubble.hpp"
 #include "../schema/O3dSchema.hpp"
+#include <OgreRenderWindow.h>
 
 
 using namespace se_client;

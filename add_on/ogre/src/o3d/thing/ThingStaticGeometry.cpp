@@ -28,7 +28,9 @@ rune@skalden.com
 #include "o3d/schema/O3dSchema.hpp"
 #include "o3d/thing/all.hpp"
 #include "EntityUtil.hpp"
-
+#include <OgreSceneManager.h>
+#include <OgreStaticGeometry.h>
+#include <OgreEntity.h>
 
 using namespace se_core;
 

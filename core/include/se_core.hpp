@@ -25,7 +25,7 @@ rune@skalden.com
 #include "../src/sim/all.hpp"
 #include "../src/sim/area/all.hpp"
 #include "../src/sim/schema/all.hpp"
-#include "../src/sim/thing/all.hpp"
+//#include "../src/sim/thing/all.hpp"
 #include "../src/sim/config/all.hpp"
 #include "../src/sim/action/all.hpp"
 #include "../src/sim/script/all.hpp"
@@ -51,6 +51,14 @@ rune@skalden.com
 #include "../src/util/vecmath/all.hpp"
 #include "../src/util/error/all.hpp"
 #include "../src/util/noise/all.hpp"
+
+#include "sim/thing/sim_thing.hpp"
+
+
+#include "comp/comp.hpp"
+#include "comp/list/comp_list.hpp"
+#include "comp/node/comp_node.hpp"
+#include "comp/schema/CompSchema.hpp"
 
 namespace se_core {
 
