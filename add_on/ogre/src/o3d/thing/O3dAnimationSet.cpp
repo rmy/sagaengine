@@ -26,6 +26,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/pos/Pos.hpp"
 #include "sim/pos/Anim.hpp"
+#include "sim/stat/Dictionary.hpp"
 #include <cstring>
 
 using namespace se_core;

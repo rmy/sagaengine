@@ -25,6 +25,7 @@ rune@skalden.com
 #include <OgreSubEntity.h>
 #include <OgreMaterialManager.h>
 #include <OgreTechnique.h>
+#include "util/error/Log.hpp"
 
 namespace se_ogre {
 

@@ -22,17 +22,17 @@ rune@skalden.com
 #ifndef se_ogre_hpp
 #define se_ogre_hpp
 
-#include "../src/o3d/all.hpp"
-#include "../src/o3d/area/all.hpp"
-#include "../src/o3d/config/all.hpp"
-#include "../src/o3d/error/all.hpp"
-#include "../src/o3d/event/all.hpp"
-#include "../src/o3d/input/all.hpp"
-#include "../src/o3d/io/all.hpp"
-#include "../src/o3d/schema/all.hpp"
-#include "../src/o3d/system/all.hpp"
-#include "../src/o3d/thing/all.hpp"
-#include "../src/o3d/widget/all.hpp"
+#include "../src/o3d/o3d.hpp"
+#include "../src/o3d/area/o3d_area.hpp"
+#include "../src/o3d/config/o3d_config.hpp"
+//#include "../src/o3d/error/o3d_error.hpp"
+#include "../src/o3d/event/o3d_event.hpp"
+#include "../src/o3d/input/o3d_input.hpp"
+#include "../src/o3d/io/o3d_io.hpp"
+#include "../src/o3d/schema/O3dSchema.hpp"
+#include "../src/o3d/system/o3d_system.hpp"
+#include "../src/o3d/thing/o3d_thing.hpp"
+#include "../src/o3d/widget/o3d_widget.hpp"
 
 
 namespace se_ogre {

@@ -23,6 +23,7 @@ rune@skalden.com
 #include "ThingMOInfo.hpp"
 #include "ThingBillboard.hpp"
 #include "../schema/O3dSchema.hpp"
+#include "util/math/ScaleT.hpp"
 #include <cstdio>
 #include <cstring>
 #include <OgreSceneManager.h>
