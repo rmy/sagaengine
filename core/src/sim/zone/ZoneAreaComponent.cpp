@@ -47,7 +47,7 @@ namespace se_core {
 
 	ZoneAreaComponent
 	::~ZoneAreaComponent() {
-		delete exits_;
+		delete[] exits_;
 	}
 
 
@@ -147,6 +147,7 @@ namespace se_core {
 		if(exits_) {
 			LogWarning("Overriding exits in: " << owner()->name());
 			delete exits_;
+			exits_ = 0;
 		}
 
 		exits_ = new Exit[ count ];
