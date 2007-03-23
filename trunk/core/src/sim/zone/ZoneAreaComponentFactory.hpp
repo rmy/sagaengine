@@ -25,6 +25,7 @@ rune@skalden.com
 #include "comp/comp.hpp"
 #include "comp/ComponentFactory.hpp"
 #include "util/type/util_type.hpp"
+#include "sim_zone.hpp"
 
 
 namespace se_core {
@@ -33,17 +34,13 @@ namespace se_core {
 		ZoneAreaComponentFactory();
 		Component* create(Composite* owner) const;
 
-		void setExit(String* area, int entrance) {
-			exit_.area_ = area;
-			exit_.entrance_ = entrance;
-		}
+		void setExits(Exit* exits, int count);
+
 
 	protected:
-		struct Exit {
-			Exit() : area_(0), entrance_(0) {}
-			String* area_;
-			int entrance_;
-		} exit_;
+		int exitCount_;
+		Exit* exits_;
+
 	};
 
 }

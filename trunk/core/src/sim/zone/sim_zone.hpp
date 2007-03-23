@@ -25,6 +25,7 @@ rune@skalden.com
 namespace se_core {
 	class ZoneAreaComponent;
 	class ZoneManager;
+	class Exit;
 }
 
 

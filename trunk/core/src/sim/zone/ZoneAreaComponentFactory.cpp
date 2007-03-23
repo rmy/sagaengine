@@ -25,7 +25,7 @@ rune@skalden.com
 #include "comp/list/NodeComponentList.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
-
+#include "Exit.hpp"
 
 
 
@@ -46,9 +46,21 @@ namespace se_core {
 		if(pZone == 0) {
 			// Create new component
 			pZone = new ZoneAreaComponent(owner, this);
+			pZone->setExits(exits_, exitCount_);
 		}
 
 		return pZone;
+	}
+
+	void ZoneAreaComponentFactory
+	::setExits(Exit* exits, int count) {
+		AssertFatal(exits_ != 0, "Exits already defined for area.");
+
+		exits_ = new Exit[ count ];
+		for(int i = 0; i < count; ++i) {
+			exits_[i] = exits[i];
+		}
+		exitCount_ = count;
 	}
 
 }

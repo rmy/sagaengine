@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "ZoneManager.hpp"
 #include "ZoneAreaComponent.hpp"
+#include "Exit.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "comp/list/NodeComponentList.hpp"
@@ -33,7 +34,7 @@ namespace se_core {
 
 	ZoneAreaComponent
 	::ZoneAreaComponent(Composite* owner, const ComponentFactory* factory) 
-			: RootChildComponent(sct_ZONE, owner, factory), page_(0, 0, 0, -1) {
+			: RootChildComponent(sct_ZONE, owner, factory), page_(0, 0, 0, -1), exits_(0) {
 		// 3x3 array to hold self and neighbours
 		for(short i = 0; i < MAX_NEIGHBOURS; ++i) {
 			neighbours_[i] = 0;
@@ -46,6 +47,7 @@ namespace se_core {
 
 	ZoneAreaComponent
 	::~ZoneAreaComponent() {
+		delete exits_;
 	}
 
 
@@ -137,6 +139,27 @@ namespace se_core {
 		}
 
 		return neighbours_[ neighbourIndex(rel) ];
+	}
+
+
+	void ZoneAreaComponent
+	::setExits(Exit* exits, int count) {
+		if(exits_) {
+			LogWarning("Overriding exits in: " << owner()->name());
+			delete exits_;
+		}
+
+		exits_ = new Exit[ count ];
+		for(int i = 0; i < count; ++i) {
+			exits_[i] = exits[i];
+		}
+		exitCount_ = count;
+	}
+
+	Exit& ZoneAreaComponent
+	::exit(int id) {
+		Assert(id >= 0 && id < exitCount_);
+		return exits_[id];
 	}
 }
 
