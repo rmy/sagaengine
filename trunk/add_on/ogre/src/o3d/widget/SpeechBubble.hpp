@@ -23,6 +23,7 @@ rune@skalden.com
 #define o3d_widget_SpeechBubble_hpp
 
 #include "O3dPre.hpp"
+#include "sim/message/MessageListener.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport SpeechBubble : public se_core::MessageListener  {

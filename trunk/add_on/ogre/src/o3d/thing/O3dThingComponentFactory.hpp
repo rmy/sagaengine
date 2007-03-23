@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "o3d_thing.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
 namespace se_ogre {

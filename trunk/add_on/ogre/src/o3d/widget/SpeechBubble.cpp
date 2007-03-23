@@ -22,6 +22,10 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include "SpeechBubble.hpp"
 #include "../schema/O3dSchema.hpp"
+#include "sim/message/MessageCentral.hpp"
+#include "client/lang/Phrase.hpp"
+#include "sim/thing/Actor.hpp"
+#include "sim/script/Script.hpp"
 #include <OgreRenderWindow.h>
 
 

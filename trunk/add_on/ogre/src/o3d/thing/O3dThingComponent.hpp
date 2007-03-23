@@ -26,6 +26,8 @@ rune@skalden.com
 #include "ThingMOList.hpp"
 #include "../O3dNodeComponent.hpp"
 #include "o3d_thing.hpp"
+#include "util/task/Task.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent, public se_core::Task {

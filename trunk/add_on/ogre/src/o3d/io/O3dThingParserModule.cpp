@@ -35,6 +35,7 @@ rune@skalden.com
 #include "sim/pos/Pos.hpp"
 #include "sim/pos/Anim.hpp"
 #include "sim/spawn/SpawnManager.hpp"
+#include "comp/CompositeFactory.hpp"
 #include <cstring>
 #include <cstdio>
 #include <vector>

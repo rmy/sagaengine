@@ -23,6 +23,7 @@ rune@skalden.com
 #define O3dNodeComponent_hpp
 
 #include "O3dPre.hpp"
+#include "comp/node/NodeComponent.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport O3dNodeComponent  : public se_core::NodeComponent {

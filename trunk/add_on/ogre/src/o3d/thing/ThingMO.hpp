@@ -26,6 +26,8 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 #include "util/type/String.hpp"
 #include "o3d_thing.hpp"
+#include "util/vecmath/ViewPoint.hpp"
+#include "sim/pos/PosComponent.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport ThingMO {

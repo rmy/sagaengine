@@ -25,6 +25,7 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include "o3d/event/o3d_event.hpp"
 #include "o3d/input/o3d_input.hpp"
+#include "sim/SimListener.hpp"
 
 
 namespace se_ogre {
