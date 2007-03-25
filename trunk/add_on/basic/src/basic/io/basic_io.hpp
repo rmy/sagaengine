@@ -19,12 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef util_task_hpp
-#define util_task_hpp
+#ifndef basic_io_hpp
+#define basic_io_hpp
 
-namespace se_core {
-	class Task;
-	class TaskList;
+namespace se_basic {
+	class NavMeshAreaParserModule;
+	class SimpleActorParserModule;
+	class SimpleAreaParserModule;
+	class SimpleAreaThineParserModule;
+	class SimpleAreaThingEncoderModule;
+	class WangAreaGridParserModule;
 }
 
 #endif

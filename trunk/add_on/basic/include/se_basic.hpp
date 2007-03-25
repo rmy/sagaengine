@@ -22,10 +22,10 @@ rune@skalden.com
 #ifndef se_basic_hpp
 #define se_basic_hpp
 
-#include "../src/basic/action/all.hpp"
-#include "../src/basic/area/all.hpp"
-#include "../src/basic/io/all.hpp"
-#include "../src/basic/schema/all.hpp"
-#include "../src/basic/thing/all.hpp"
+#include "../src/basic/action/basic_action.hpp"
+#include "../src/basic/area/basic_area.hpp"
+#include "../src/basic/io/basic_io.hpp"
+#include "../src/basic/schema/BasicSchema.hpp"
+#include "../src/basic/thing/basic_thing.hpp"
 
 #endif

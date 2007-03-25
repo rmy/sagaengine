@@ -32,6 +32,7 @@ rune@skalden.com
 #include "./thing/ThingEntity.hpp"
 #include "./widget/all.hpp"
 #include "./io/all.hpp"
+#include "util/task/TaskList.hpp"
 
 using namespace Ogre;
 using namespace se_core;

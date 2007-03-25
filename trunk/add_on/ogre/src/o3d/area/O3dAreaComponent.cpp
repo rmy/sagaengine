@@ -28,6 +28,7 @@ rune@skalden.com
 #include "../thing/MultiO3dThingComponent.hpp"
 #include "sim/area/Area.hpp"
 #include "comp/CompositeFactory.hpp"
+#include "util/task/TaskList.hpp"
 #include <OgreSceneManager.h>
 #include <OgreStaticGeometry.h>
 #include <OgreEntity.h>

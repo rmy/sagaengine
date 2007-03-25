@@ -24,6 +24,7 @@ rune@skalden.com
 #include "ThingMO.hpp"
 #include "MultiO3dThingComponent.hpp"
 #include "util/math/ScaleT.hpp"
+#include "util/task/TaskList.hpp"
 #include <OgreSceneManager.h>
 
 using namespace se_core;

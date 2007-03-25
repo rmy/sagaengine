@@ -36,7 +36,7 @@ rune@skalden.com
 #include "sim/InitListeners.hpp"
 #include "sim/SimEngine.hpp"
 #include "sim/SimListeners.hpp"
-
+#include "util/task/TaskList.hpp"
 
 using namespace Ogre;
 using namespace se_client;
