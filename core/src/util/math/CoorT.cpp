@@ -20,6 +20,7 @@ rune@skalden.com
 
 
 #include "CoorT.hpp"
+#include <cmath>
 
 namespace se_core {
 
@@ -67,6 +68,25 @@ namespace se_core {
 		}
 		return 1.0f / max;
 	}
+
+
+	coor_t CoorT
+	::sqrt(coor_double_t v) {
+		return ::sqrt(v);
+	}
+
+
+	/*
+	coor_in_t CoorT
+	::inTile(coor_t v) {
+		return v - floor(v);
+	}
+
+	static coor_tile_t CoorT
+	::tile(coor_t v) {
+		return static_cast<coor_tile_t>(floor(v));
+	}
+	*/
 
 #endif
 

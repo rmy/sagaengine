@@ -27,7 +27,6 @@ rune@skalden.com
 
 #include "util_math.hpp"
 #include "util/type/util_type.hpp"
-#include <cmath>
 
 #ifndef SE_FIXED_POINT
 
@@ -49,9 +48,7 @@ namespace se_core {
 		inline static coor_t max(coor_t a, coor_t b, coor_t c) { return max(max(a, b), c); }
 		inline static coor_t max(coor_t a, coor_t b, coor_t c, coor_t d) { return max(max(a, b), max(c, d)); }
 
-		static coor_t sqrt(coor_double_t v) {
-			return ::sqrt(v);
-		}
+		static coor_t sqrt(coor_double_t v);
 
 		/**
 		 * Calculates the scale that normalizes a vector that is
@@ -108,12 +105,12 @@ namespace se_core {
 		}
 
 
-		inline static  coor_tile_t tile(coor_t v) {
-			return static_cast<coor_tile_t>(floor(v));
+		inline static coor_tile_t tile(coor_t v) { 
+			return static_cast<coor_tile_t>(v); 
 		}
 
-		inline static coor_in_t inTile(coor_t v) {
-			return v - floor(v);
+		inline static coor_in_t inTile(coor_t v) { 
+			return v - static_cast<coor_tile_t>(v); 
 		}
 
 		inline static coor_t fromTile(coor_tile_t value) {

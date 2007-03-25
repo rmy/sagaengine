@@ -26,6 +26,7 @@ rune@skalden.com
 #include <Windows.h>
 #endif
 #include <cstdio>
+#include <cstdlib>
 
 namespace se_err {
 	void dump(const char *s) {
