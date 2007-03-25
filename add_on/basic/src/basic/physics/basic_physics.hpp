@@ -19,12 +19,12 @@ rune@skalden.com
 */
 
 
-#ifndef util_task_hpp
-#define util_task_hpp
+#ifndef basic_physics_hpp
+#define basic_physics_hpp
 
-namespace se_core {
-	class Task;
-	class TaskList;
+namespace se_basic {
+	class PhCirclingCamera;
+	class PhTrackingCamera;
 }
 
 #endif

@@ -30,7 +30,7 @@ rune@skalden.com
 #include "../thing/ThingMOManager.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../widget/o3d_widget.hpp"
-#include "util/task/TaskList.hpp"
+#include "util/task/util_task.hpp"
 #include "O3dPre.hpp"
 
 /**
