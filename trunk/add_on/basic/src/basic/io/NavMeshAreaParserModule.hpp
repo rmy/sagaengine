@@ -2,6 +2,7 @@
 #define basic_area_NavMeshAreaParserModule_hpp
 
 #include "BasicPre.hpp"
+#include "io/parse/ParserModule.hpp"
 
 namespace se_basic {
 

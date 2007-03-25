@@ -3,6 +3,7 @@
 #include "../area/NavMeshArea.hpp"
 #include "../area/NavMeshAreaFactory.hpp"
 #include "sim/area/AreaManager.hpp"
+#include "util/type/ByteArray.hpp"
 
 using namespace se_core;
 

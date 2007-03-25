@@ -2,6 +2,7 @@
 #define SimpleAreaThingParserModule_hpp
 
 #include "BasicPre.hpp"
+#include "io/parse/ParserModule.hpp"
 
 namespace se_basic {
 	class _SeBasicExport SimpleAreaThingParserModule  : public se_core::ParserModule {

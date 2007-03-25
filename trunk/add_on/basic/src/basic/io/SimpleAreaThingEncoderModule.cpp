@@ -5,6 +5,7 @@
 #include "sim/area/Area.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/spawn/SpawnComponent.hpp"
+#include "io/parse/ParserModule.hpp"
 #include <cstring>
 
 using namespace se_core;

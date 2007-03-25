@@ -22,10 +22,10 @@ rune@skalden.com
 #ifndef se_client_hpp
 #define se_client_hpp
 
-#include "../src/client/schema/all.hpp"
-#include "../src/client/lang/all.hpp"
-#include "../src/client/event/all.hpp"
-#include "../src/client/io/all.hpp"
-#include "../src/client/thing/all.hpp"
+#include "../src/client/schema/ClientSchema.hpp"
+#include "../src/client/lang/client_lang.hpp"
+#include "../src/client/event/client_event.hpp"
+#include "../src/client/io/client_io.hpp"
+#include "../src/client/thing/client_thing.hpp"
 
 #endif

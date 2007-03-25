@@ -5,6 +5,9 @@
 #include "sim/custom/Abilities.hpp"
 #include "sim/custom/Move.hpp"
 #include "comp/CompositeFactory.hpp"
+#include "util/bounds/BoundingBox.hpp"
+#include "sim/pos/Anim.hpp"
+#include "sim/pos/Pos.hpp"
 
 namespace se_basic {
 

@@ -1,4 +1,8 @@
 #include "NavMesh.hpp"
+#include "util/math/all.hpp"
+#include "util/vecmath/Point3.hpp"
+#include "util/bounds/BoundingBox.hpp"
+#include "sim/pos/Pos.hpp"
 
 using namespace se_core;
 
