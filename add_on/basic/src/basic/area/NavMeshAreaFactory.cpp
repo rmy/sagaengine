@@ -23,6 +23,7 @@ rune@skalden.com
 #include "NavMeshArea.hpp"
 #include "NavMesh.hpp"
 #include "sim/zone/ZoneAreaComponent.hpp"
+#include "util/type/ByteArray.hpp"
 
 using namespace se_core;
 

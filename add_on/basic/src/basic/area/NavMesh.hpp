@@ -4,6 +4,7 @@
 #include "BasicPre.hpp"
 #include "util/vecmath/Point2.hpp"
 #include "util/vecmath/Point3.hpp"
+#include "util/bounds/BoundingBox.hpp"
 
 namespace se_basic {
 

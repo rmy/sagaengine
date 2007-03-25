@@ -2,6 +2,7 @@
 #define SimpleAreaThingEncoderModule_hpp
 
 #include "BasicPre.hpp"
+#include "io/encode/EncoderModule.hpp"
 
 namespace se_basic {
 	class _SeBasicExport SimpleAreaThingEncoderModule  : public se_core::EncoderModule {

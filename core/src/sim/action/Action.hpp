@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim_action.hpp"
 #include "../SimObject.hpp"
+#include "ActionAndParameter.hpp"
 
 namespace se_core {
 
