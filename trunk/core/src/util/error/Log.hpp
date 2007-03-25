@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef Log_hpp
 #define Log_hpp
 
-#include <cstdlib>
 #include "../type/String.hpp"
 
 extern _SeCoreExport char* log_msg();
@@ -88,8 +87,6 @@ namespace se_err {
 }
 
 #ifdef DEBUG_LEVEL_2
-#include <cstdio>
-#include <cstdlib>
 
 #ifndef IS_OGRE
 void * operator new (size_t size, char const * file, int line);
@@ -124,8 +121,6 @@ namespace se_err {
 
 
 #ifdef DEBUG_LEVEL_1
-#include <cstdio>
-#include <cstdlib>
 
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
 #define AssertFatal(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }
