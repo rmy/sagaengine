@@ -43,6 +43,7 @@ namespace se_core {
 	//class AllPropertyLists;
 
 	class Dictionary;
+	class DictionaryEntry;
 
 	class HealthListener;
 	class HealthListeners;

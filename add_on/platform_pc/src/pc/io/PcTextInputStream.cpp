@@ -22,6 +22,7 @@ rune@skalden.com
 #include "PcPre.hpp"
 #include "PcTextInputStream.hpp"
 #include "PcFile.hpp"
+#include "util/type/all.hpp"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>

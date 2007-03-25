@@ -27,6 +27,7 @@ rune@skalden.com
 #include "o3d/input/InputManager.hpp"
 #include "o3d/input/Console.hpp"
 #include "o3d/schema/O3dSchema.hpp"
+#include "sim/SimEngine.hpp"
 
 using namespace se_core;
 

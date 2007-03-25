@@ -3,6 +3,7 @@
 
 #include "BasicPre.hpp"
 #include "../thing/SimpleActorFactory.hpp"
+#include "io/parse/ComponentParserModule.hpp"
 
 namespace se_basic {
 	class _SeBasicExport SimpleComponentParserModule : public se_core::ComponentParserModule {

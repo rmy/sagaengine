@@ -22,7 +22,8 @@ rune@skalden.com
 #ifndef basic_io_SimpleAreaParserModule_hpp
 #define basic_io_SimpleAreaParserModule_hpp
 
-#include <se_core.hpp>
+#include "io/parse/ParserModule.hpp"
+#include "io/stream/io_stream.hpp"
 
 namespace se_basic {
 

@@ -33,6 +33,10 @@ rune@skalden.com
 #include "../thing/ThingMOInfo.hpp"
 #include "../thing/ThingMOList.hpp"
 #include "../thing/ThingMOManager.hpp"
+#include "comp/CompositeFactory.hpp"
+#include "sim/SimEngine.hpp"
+#include "util/system/RealClock.hpp"
+#include "util/math/all.hpp"
 #include <OgreOverlayElement.h>
 #include <OgreCamera.h>
 #include <OgreMaterialManager.h>

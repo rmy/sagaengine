@@ -28,6 +28,7 @@ rune@skalden.com
 #include "o3d/schema/O3dSchema.hpp"
 #include "o3d/thing/all.hpp"
 #include "EntityUtil.hpp"
+#include "util/math/ScaleT.hpp"
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
 #include <OgreAnimation.h>

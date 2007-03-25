@@ -2,6 +2,7 @@
 #define logic_physics_PhTrackingCamera_hpp
 
 #include "BasicPre.hpp"
+#include "sim/physics/Physics.hpp"
 
 namespace se_basic {
 

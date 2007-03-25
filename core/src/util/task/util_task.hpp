@@ -19,30 +19,12 @@ rune@skalden.com
 */
 
 
-#ifndef engine_action_hpp
-#define engine_action_hpp
+#ifndef util_noise_hpp
+#define util_noise_hpp
 
 namespace se_core {
-	/**
-	 * Action channels.
-	 * Each action is performed in one of several channels.
-	 * An actor may have only one Action in each channel in
-	 * the ActionQueue, but it may have actions that are performed
-	 * in several channels.
-	 */
-	enum ActionChannel {
-		CHANNEL_DIRECTION, CHANNEL_MOVEMENT, CHANNEL_EXTRA, CHANNEL_COUNT
-	};
-
-	class ActionQueue;
-	class ActorList;
-	class Action;
-	class ActionAndParameter;
-	class Parameter;
-	class ActionComponent;
-
-	class Idle;
-	extern _SeCoreExport const Idle actionIdle;
+	class Task;
+	class TaskList;
 }
 
 #endif

@@ -2,6 +2,8 @@
 #define basic_area_NavMesh_hpp
 
 #include "BasicPre.hpp"
+#include "util/vecmath/Point2.hpp"
+#include "util/vecmath/Point3.hpp"
 
 namespace se_basic {
 

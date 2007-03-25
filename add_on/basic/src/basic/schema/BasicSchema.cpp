@@ -23,6 +23,8 @@ rune@skalden.com
 #include "BasicSchema.hpp"
 #include "../io/all.hpp"
 #include "../physics/all.hpp"
+#include "sim/InitListener.hpp"
+#include "sim/InitListeners.hpp"
 
 using namespace se_core;
 

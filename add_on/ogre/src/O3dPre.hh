@@ -1,9 +1,10 @@
 #ifndef O3dPre_hh
 #define O3dPre_hh
 
+#include "client/schema/ClientSchema.hpp"
+/*
 #include "io/schema/IoSchema.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "client/schema/ClientSchema.hpp"
 #include "comp/comp.hpp"
 #include "comp/list/comp_list.hpp"
 #include "sim/sim.hpp"
@@ -12,9 +13,10 @@
 #include "util/math/util_math.hpp"
 #include "util/type/util_type.hpp"
 #include "util/task/util_task.hpp"
+*/
 
 //#include <se_client.hpp>
-//#include <se_core.hpp>
+#include <se_core.hpp>
 //#include <Ogre.h>
 #include <OgrePrerequisites.h>
 #include <OgreVector3.h>

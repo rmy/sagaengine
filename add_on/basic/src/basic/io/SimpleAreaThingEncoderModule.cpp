@@ -1,5 +1,10 @@
 #include "SimpleAreaThingEncoderModule.hpp"
 #include "comp/list/CompositeList.hpp"
+#include "io/stream/OutputStream.hpp"
+#include "sim/area/AreaManager.hpp"
+#include "sim/area/Area.hpp"
+#include "sim/pos/PosComponent.hpp"
+#include "sim/spawn/SpawnComponent.hpp"
 #include <cstring>
 
 using namespace se_core;

@@ -23,6 +23,7 @@ rune@skalden.com
 #define basic_area_SimpleArea_hpp
 
 #include "BasicPre.hpp"
+#include "sim/area/Area.hpp"
 
 namespace se_basic {
 

@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "O3dAreaComponentFactory.hpp"
 #include "O3dAreaComponent.hpp"
+#include "comp/CompositeFactory.hpp"
 
 using namespace se_core;
 

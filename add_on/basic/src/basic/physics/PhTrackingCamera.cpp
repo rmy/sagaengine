@@ -1,5 +1,6 @@
 #include "PhTrackingCamera.hpp"
 #include "sim/area/Area.hpp"
+#include "sim/thing/Actor.hpp"
 
 using namespace se_basic;
 using namespace se_client;
