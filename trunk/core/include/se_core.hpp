@@ -22,6 +22,7 @@ rune@skalden.com
 #ifndef se_core_hpp
 #define se_core_hpp
 
+/*
 #include "../src/sim/all.hpp"
 #include "../src/sim/area/all.hpp"
 #include "../src/sim/schema/all.hpp"
@@ -51,8 +52,36 @@ rune@skalden.com
 #include "../src/util/vecmath/all.hpp"
 #include "../src/util/error/all.hpp"
 #include "../src/util/noise/all.hpp"
-
+*/
+#include "sim/sim.hpp"
+#include "sim/area/sim_area.hpp"
+#include "sim/schema/SimSchema.hpp"
 #include "sim/thing/sim_thing.hpp"
+#include "sim/config/sim_config.hpp"
+#include "sim/action/sim_action.hpp"
+#include "sim/script/sim_script.hpp"
+#include "sim/custom/sim_custom.hpp"
+#include "sim/react/sim_react.hpp"
+#include "sim/message/sim_message.hpp"
+#include "sim/physics/sim_physics.hpp"
+#include "sim/pos/sim_pos.hpp"
+#include "sim/spawn/sim_spawn.hpp"
+#include "sim/stat/sim_stat.hpp"
+#include "sim/signal/sim_signal.hpp"
+#include "io/parse/io_parse.hpp"
+#include "io/schema/IoSchema.hpp"
+#include "io/stream/io_stream.hpp"
+#include "io/encode/io_encode.hpp"
+#include "util/util.hpp"
+#include "util/config/util_config.hpp"
+#include "util/error/Log.hpp"
+#include "util/math/util_math.hpp"
+#include "util/noise/util_noise.hpp"
+#include "util/system/util_system.hpp"
+#include "util/task/util_task.hpp"
+#include "util/type/util_type.hpp"
+#include "util/template/util_template.hpp"
+#include "util/vecmath/util_vecmath.hpp"
 
 
 #include "comp/comp.hpp"

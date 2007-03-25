@@ -2,6 +2,7 @@
 #define logic_area_WangAreaGridParserModule_hpp
 
 #include <se_core.hpp>
+#include "io/parse/ParserModule.hpp"
 
 namespace se_basic {
 

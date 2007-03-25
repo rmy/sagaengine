@@ -32,6 +32,10 @@ rune@skalden.com
 #include "o3d/input/Console.hpp"
 #include "o3d/area/O3dAreaComponentFactory.hpp"
 #include "io/schema/IoSchema.hpp"
+#include "sim/InitListener.hpp"
+#include "sim/InitListeners.hpp"
+#include "sim/SimEngine.hpp"
+#include "sim/SimListeners.hpp"
 
 
 using namespace Ogre;

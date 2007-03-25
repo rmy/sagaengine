@@ -27,6 +27,7 @@ rune@skalden.com
 #include "../thing/MultiO3dThingComponent.hpp"
 #include "O3dAreaComponent.hpp"
 #include "O3dPre.hpp"
+#include "comp/node/RootComponent.hpp"
 #include <OgreFrameListener.h>
 #include <OgreOverlay.h>
 

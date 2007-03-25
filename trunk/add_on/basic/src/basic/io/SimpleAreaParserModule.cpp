@@ -23,6 +23,7 @@ rune@skalden.com
 #include "SimpleAreaParserModule.hpp"
 #include "../area/SimpleArea.hpp"
 #include "../area/SimpleAreaFactory.hpp"
+#include "sim/area/AreaManager.hpp"
 
 using namespace se_core;
 

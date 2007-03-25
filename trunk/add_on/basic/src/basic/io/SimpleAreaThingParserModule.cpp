@@ -1,7 +1,10 @@
 #include "SimpleAreaThingParserModule.hpp"
 #include "sim/spawn/SpawnAreaComponent.hpp"
 #include "sim/zone/ZoneAreaComponent.hpp"
+#include "sim/area/AreaManager.hpp"
+#include "sim/area/Area.hpp"
 #include "sim/zone/Exit.hpp"
+#include "comp/CompositeFactory.hpp"
 #include <cstring>
 
 using namespace se_core;

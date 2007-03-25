@@ -24,6 +24,7 @@ rune@skalden.com
 
 
 #include "basic_area.hpp"
+#include "sim/area/AreaFactory.hpp"
 #include "BasicPre.hpp"
 
 namespace se_basic {

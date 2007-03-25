@@ -2,6 +2,9 @@
 #define SimpleActorFactory_hpp
 
 #include "BasicPre.hpp"
+#include "sim/custom/Abilities.hpp"
+#include "sim/custom/Move.hpp"
+#include "comp/CompositeFactory.hpp"
 
 namespace se_basic {
 

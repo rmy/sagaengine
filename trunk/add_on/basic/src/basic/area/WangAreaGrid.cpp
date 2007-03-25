@@ -1,4 +1,6 @@
 #include "WangAreaGrid.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
+#include "sim/area/AreaManager.hpp"
 #include <cstdio>
 
 

@@ -4,6 +4,8 @@
 #include "../thing/SimpleCameraFactory.hpp"
 #include "../thing/SimpleActorFactory.hpp"
 #include "sim/spawn/SpawnManager.hpp"
+#include "sim/custom/StatComponentFactory.hpp"
+#include "sim/signal/SignalComponentFactory.hpp"
 //TODO!!!
 //#include "physx/PhysXThingComponentFactory.hpp"
 

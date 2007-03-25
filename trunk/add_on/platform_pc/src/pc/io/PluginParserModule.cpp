@@ -21,6 +21,7 @@ rune@skalden.com
 #include "PluginParserModule.hpp"
 #include "../schema/PcSchema.hpp"
 #include "../plugin/PluginManager.hpp"
+#include "sim/InitListeners.hpp"
 #include <se_core.hpp>
 
 using namespace se_core;

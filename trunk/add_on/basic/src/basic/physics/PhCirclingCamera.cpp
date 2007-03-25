@@ -1,6 +1,7 @@
 #include "PhCirclingCamera.hpp"
 #include "sim/area/Area.hpp"
 #include "../area/NavMeshArea.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
 
 using namespace se_basic;
 using namespace se_client;

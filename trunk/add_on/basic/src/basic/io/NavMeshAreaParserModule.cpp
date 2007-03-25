@@ -2,6 +2,7 @@
 #include "NavMeshAreaParserModule.hpp"
 #include "../area/NavMeshArea.hpp"
 #include "../area/NavMeshAreaFactory.hpp"
+#include "sim/area/AreaManager.hpp"
 
 using namespace se_core;
 

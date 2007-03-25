@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include <se_core.hpp>
 #include "O3dThingComponent.hpp"
+#include "sim/stat/VoidList.hpp"
 
 namespace se_ogre {
 

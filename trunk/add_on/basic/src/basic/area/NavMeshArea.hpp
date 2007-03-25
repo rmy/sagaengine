@@ -3,6 +3,7 @@
 
 #include "basic_area.hpp"
 #include "BasicPre.hpp"
+#include "sim/area/Area.hpp"
 
 namespace se_basic {
 
