@@ -64,6 +64,7 @@ namespace se_core {
 	}
 
 
+	/*
 	Cutscene& SimObjectIterator
 	::nextCutscene() {
 		return static_cast<Cutscene&>(*SimSchema::simObjectList.next(it_));
@@ -74,5 +75,6 @@ namespace se_core {
 	::nextQuestGoal() {
 		return static_cast<QuestGoal&>(*SimSchema::simObjectList.next(it_));
 	}
+	*/
 
 }

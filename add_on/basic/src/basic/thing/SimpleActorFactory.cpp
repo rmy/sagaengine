@@ -1,6 +1,7 @@
 #include "SimpleActorFactory.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/stat/SortedSimObjectList.hpp"
+#include "sim/script/Script.hpp"
 
 using namespace se_core;
 
@@ -105,26 +106,26 @@ namespace se_basic {
 
 	void SimpleActorFactory
 	::setScript(const char* name) {
-		script_ = SimSchema::sortedSimObjectList().script(name);
+		script_ = Script::lookup(name);
 	}
 
 
 	void SimpleActorFactory
 	::setPhysics(const char* name) {
-		physics_ = SimSchema::sortedSimObjectList().physics(name);
+		physics_ = Physics::lookup(name);
 	}
 
 
 	void SimpleActorFactory
 	::setDefaultAction(const char* name) {
 		defaultAction_ = new ActionAndParameter();
-		defaultAction_->setAction(*SimSchema::sortedSimObjectList().action(name));
+		defaultAction_->setAction(*Action::lookup(name));
 	}
 
 
 	void SimpleActorFactory
 	::setCollide(const char* name) {
-		collide_ = SimSchema::sortedSimObjectList().collide(name);
+		collide_ = ThingCollide::lookup(name);
 	}
 
 

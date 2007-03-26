@@ -79,12 +79,8 @@ namespace se_core {
 	}
 
 
-	const Action* SortedSimObjectList
-	::action(const char* name) {
-		return static_cast<Action*>(get(got_ACTION, name));
-	}
 
-
+	/*
 	Cutscene* SortedSimObjectList
 	::cutscene(const char* name) {
 		//LogDetail("Cutscene");
@@ -94,8 +90,6 @@ namespace se_core {
 
 	const Script* SortedSimObjectList
 	::script(const char* name) {
-		//LogDetail("Script");
-		//LogDetail(name);
 		return static_cast<Script*>(get(got_SCRIPT, name));
 	}
 
@@ -121,11 +115,18 @@ namespace se_core {
 	}
 
 
+	const Action* SortedSimObjectList
+	::action(const char* name) {
+		return static_cast<Action*>(get(got_ACTION, name));
+	}
+
+
 	QuestGoal* SortedSimObjectList
 	::questGoal(const char* name) {
 		//LogDetail("QuestGoal");
 		return static_cast<QuestGoal*>(get(got_QUEST_GOAL, name));
 	}
+	*/
 
 
 	unsigned int SortedSimObjectList

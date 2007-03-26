@@ -31,8 +31,7 @@ rune@skalden.com
 namespace se_core {
 	Signal
 	::Signal(const char* name)
-		: SimObject(got_SIGNAL, name) {
-		registerInSortedList();
+		: Object(got_SIGNAL, name) {
 	}
 
 

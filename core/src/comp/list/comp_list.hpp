@@ -25,6 +25,7 @@ rune@skalden.com
 namespace se_core {
 	class CompositeList;
 	class ComponentList;
+	class ObjectList;
 	class ObjectRepository;
 }
 

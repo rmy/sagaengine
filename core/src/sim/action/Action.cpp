@@ -27,8 +27,8 @@ rune@skalden.com
 namespace se_core {
 
 	Action
-	::Action(const char* name) : SimObject(got_ACTION, name) {
-		registerInSortedList();
+	::Action(const char* name) : Object(got_ACTION, name) {
+		//registerInSortedList();
 	}
 
 }

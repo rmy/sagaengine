@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef CompSchema_hpp
 #define CompSchema_hpp
 
-#include "../comp.hpp"
+#include "comp/comp.hpp"
 #include "comp/list/comp_list.hpp"
 #include "util/template/SinglyLinkedList.hpp"
 
@@ -41,9 +41,6 @@ namespace se_core {
 		extern _SeCoreExport Composite& activeRoot();
 		extern _SeCoreExport Composite& inactiveRoot();
 
-		/**
-		 * List of named instances of Object. 
-		 */
 		_SeCoreExport ObjectRepository& objectRepository();
 
 		extern _SeCoreExport VoidList voidList;

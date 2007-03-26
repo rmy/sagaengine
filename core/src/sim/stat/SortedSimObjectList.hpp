@@ -40,13 +40,13 @@ namespace se_core {
 
 		bool has(SimObjectType type, const char* name);
 
-		const Script* script(const char* name);
-		const Physics* physics(const char* name);
-		const ThingCollide* collide(const char* name);
-		const Action* action(const char* name);
-		const Signal* signal(const char* name);
-		Cutscene* cutscene(const char* name);
-		QuestGoal* questGoal(const char* name);
+		//const Script* script(const char* name);
+		//const Physics* physics(const char* name);
+		//const ThingCollide* collide(const char* name);
+		//const Action* action(const char* name);
+		//const Signal* signal(const char* name);
+		//Cutscene* cutscene(const char* name);
+		//QuestGoal* questGoal(const char* name);
 
 
 	private:

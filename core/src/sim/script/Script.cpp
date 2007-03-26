@@ -46,16 +46,14 @@ namespace se_core {
 
 	Script
 	::Script(const char* name)
-		: SimObject(got_SCRIPT, name)
-		, nameString_(name)
-	{
-		SimSchema::sortedSimObjectList().add(this);
+			: Object(got_SCRIPT, name)
+			, nameString_(name) {
 	}
 
 
 	Script
 	::~Script() {
-		SimSchema::sortedSimObjectList().remove(this);
+		//SimSchema::sortedSimObjectList().remove(this);
 		//delete nameString_;
 	}
 

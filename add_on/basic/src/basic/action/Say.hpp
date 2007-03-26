@@ -27,7 +27,7 @@ rune@skalden.com
 namespace se_basic {
 	class _SeBasicExport Say : public se_core::Action {
 	public:
-		Say() : se_core::Action("say") {}
+		Say() : se_core::Action("Say") {}
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
 			return 2;

@@ -111,7 +111,8 @@ namespace se_core {
 
 	void Performer
 	::perform(const std::string& action) {
-		const Action* a = SimSchema::sortedSimObjectList().action(action.c_str());
+		//const Action* a = SimSchema::sortedSimObjectList().action(action.c_str());
+		const Action* a = Action::lookup(action.c_str());
 		AssertFatal(a, composite_.name() << " tried to perform unknown action " << action.c_str());
 		AngelSchema::nextAction().setAction( *a );
 		ScriptFunctions::yield();

@@ -28,7 +28,6 @@ rune@skalden.com
 #include "comp/Composite.hpp"
 #include "comp/node/AreaChildComponent.hpp"
 #include "../custom/Move.hpp"
-#include "../SimObject.hpp"
 #include "../area/sim_area.hpp"
 #include "../custom/sim_custom.hpp"
 #include "../stat/sim_stat.hpp"

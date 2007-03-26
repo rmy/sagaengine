@@ -23,7 +23,8 @@ rune@skalden.com
 #define engine_physics_Physics_hpp
 
 #include "sim_physics.hpp"
-#include "../SimObject.hpp"
+#include "sim/sim.hpp"
+#include "comp/Object.hpp"
 #include "../area/sim_area.hpp"
 #include "../custom/sim_custom.hpp"
 #include "../stat/sim_stat.hpp"
@@ -31,8 +32,12 @@ rune@skalden.com
 #include "../pos/sim_pos.hpp"
 
 namespace se_core {
-	class _SeCoreExport Physics : public SimObject {
+	class _SeCoreExport Physics : public Object {
 	public:
+		static const Physics* lookup(const char* name) {
+			return static_cast<const Physics*>(_lookup(got_PHYSICS, name));
+		}
+
 		/**
 		 * Constructor.
 		 * The child will automatically be registeret

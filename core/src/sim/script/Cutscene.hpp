@@ -23,35 +23,40 @@ rune@skalden.com
 #define Cutscene_hpp
 
 #include "sim_script.hpp"
-#include "../SimObject.hpp"
+#include "comp/Object.hpp"
+#include "comp/list/ObjectList.hpp"
 #include "../stat/sim_stat.hpp"
-#include "../stat/MultiSimObject.hpp"
 #include "../area/sim_area.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../../util/type/util_type.hpp"
+#include "sim/sim.hpp"
 
 namespace se_core {
-	class _SeCoreExport Cutscene : public SimObject {
+	class _SeCoreExport Cutscene : public Object {
 	public:
+		static const Cutscene* lookup(const char* name) {
+			return static_cast<const Cutscene*>(_lookup(got_CUTSCENE, name));
+		}
+
 		enum MultiSimObjectType {
 			MGO_BEFORE = 0, MGO_AFTER, MGO_COUNT
 		};
 
 		Cutscene(String* name);
 		virtual ~Cutscene();
-		void setQuestGoal(QuestGoal* questGoal) { questGoal_ = questGoal; }
-		QuestGoal* questGoal() { return questGoal_; }
+		void setQuestGoal(const QuestGoal* questGoal) { questGoal_ = questGoal; }
+		const QuestGoal* questGoal() { return questGoal_; }
 		void setScripts(const Area& area, Actor& performer, Actor* scriptTarget = 0);
 		void setSingleScript(ShowingCutscene* showingCutscene, Actor& actor);
-		MultiSimObject& beforeTheseGoals() { return before_; }
-		MultiSimObject& afterTheseGoals() { return after_; }
-		const MultiSimObject& beforeTheseGoals() const { return before_; }
-		const MultiSimObject& afterTheseGoals() const { return after_; }
+		ObjectList& beforeTheseGoals() { return before_; }
+		ObjectList& afterTheseGoals() { return after_; }
+		const ObjectList& beforeTheseGoals() const { return before_; }
+		const ObjectList& afterTheseGoals() const { return after_; }
 
 	private:
-		MultiSimObject before_;
-		MultiSimObject after_;
-		QuestGoal* questGoal_;
+		ObjectList before_;
+		ObjectList after_;
+		const QuestGoal* questGoal_;
 		String* nameString_; // For proper destruction of name strings
 	};
 

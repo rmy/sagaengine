@@ -68,7 +68,7 @@ namespace se_core {
 
 	void PhysicsComponent
 	::pushPhysics(const char* name) {
-		const Physics* p = SimSchema::sortedSimObjectList().physics(name);
+		const Physics* p = Physics::lookup(name);
 		pushPhysics(p);
 	}
 

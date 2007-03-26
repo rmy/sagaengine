@@ -39,8 +39,8 @@ namespace se_core {
 		bool hasNext();
 		SimObject& next();
 		//Actor& nextActor();
-		Cutscene& nextCutscene();
-		QuestGoal& nextQuestGoal();
+		//Cutscene& nextCutscene();
+		//QuestGoal& nextQuestGoal();
 
 	private:
 		SimObjectList::iterator_type it_;

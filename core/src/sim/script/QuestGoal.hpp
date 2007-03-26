@@ -22,12 +22,17 @@ rune@skalden.com
 #ifndef QuestGoal_hpp
 #define QuestGoal_hpp
 
-#include "../SimObject.hpp"
-#include "../../util/type/util_type.hpp"
+#include "comp/Object.hpp"
+#include "util/type/util_type.hpp"
+#include "sim/sim.hpp"
 
 namespace se_core {
-	class _SeCoreExport QuestGoal : public SimObject {
+	class _SeCoreExport QuestGoal : public Object {
 	public:
+		static const QuestGoal* lookup(const char* name) {
+			return static_cast<const QuestGoal*>(_lookup(got_QUEST_GOAL, name));
+		}
+
 		QuestGoal(String* name);
 		virtual ~QuestGoal();
 		bool equals(const char* name);

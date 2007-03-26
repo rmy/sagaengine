@@ -23,22 +23,20 @@ rune@skalden.com
 #define Signal_hpp
 
 #include "sim_signal.hpp"
-#include "comp/Component.hpp"
-#include "comp/Composite.hpp"
-#include "../action/ActionComponent.hpp"
-#include "../action/ActionFeed.hpp"
-#include "../action/sim_action.hpp"
-#include "../thing/sim_thing.hpp"
-#include "util/type/all.hpp"
+#include "sim/sim.hpp"
+#include "comp/Object.hpp"
 
 namespace se_core {
-	class _SeCoreExport Signal : public SimObject {
+	class _SeCoreExport Signal : public Object {
 	public:
 		Signal(const char* name);
 		virtual ~Signal();
 
 		virtual void recieve(SignalComponent& reciever, int id, bool state) const = 0;
 
+		static const Signal* lookup(const char* name) {
+			return static_cast<const Signal*>(_lookup(got_SIGNAL, name));
+		}
 	protected:
 	};
 

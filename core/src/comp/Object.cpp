@@ -32,6 +32,12 @@ namespace se_core {
 		CompSchema::objectRepository().add(this);
 	}
 
+	Object
+	::~Object() {
+		CompSchema::objectRepository().remove(this);
+	}
+
+
 	int Object
 	::hash(int type, const char* name) {
 		int h = 2166136261;
@@ -43,6 +49,12 @@ namespace se_core {
 		}
 		//h ^= h >> 16;
 		return (h & 0xffffffff);
+	}
+
+
+	const Object* Object
+	::_lookup(int hash) {
+		return CompSchema::objectRepository().get(hash);
 	}
 
 

@@ -23,7 +23,8 @@ rune@skalden.com
 #define Script_hpp
 
 #include "sim_script.hpp"
-#include "../SimObject.hpp"
+#include "comp/Object.hpp"
+#include "sim/sim.hpp"
 #include "../action/sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/util_type.hpp"
@@ -39,14 +40,19 @@ namespace se_core {
 		DebugExec(static int refCount);
 	};
 
+
 	/**
 	 * Base class for scripts.
 	 * A script analyses the sitiation of a game actor and plans the next
 	 * action. A script does not change the state of the performer in any
 	 * way, except for what is needed to communicate with actions.
 	 */
-	class _SeCoreExport Script : public SimObject {
+	class _SeCoreExport Script : public Object {
 	public:
+		static const Script* lookup(const char* name) {
+			return static_cast<const Script*>(_lookup(got_SCRIPT, name));
+		}
+
 		Script(const char* name);
 		virtual ~Script();
 		virtual ScriptData* init(const ScriptComponent& performer) const { return 0; }

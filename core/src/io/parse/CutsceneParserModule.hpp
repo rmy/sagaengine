@@ -23,10 +23,11 @@ rune@skalden.com
 #define CutsceneParserModule_hpp
 
 #include "ParserModule.hpp"
-#include "../stream/io_stream.hpp"
-#include "../../sim/script/sim_script.hpp"
-#include "../../sim/stat/sim_stat.hpp"
-#include "../../sim/thing/sim_thing.hpp"
+#include "io/stream/io_stream.hpp"
+#include "sim/script/sim_script.hpp"
+#include "sim/stat/sim_stat.hpp"
+#include "sim/thing/sim_thing.hpp"
+#include "comp/list/comp_list.hpp"
 
 namespace se_core {
 	class _SeCoreExport CutsceneParserModule : public ParserModule {
@@ -34,7 +35,7 @@ namespace se_core {
 		CutsceneParserModule(Parser& parser);
 		void parse(InputStream& in);
 		void readScript(InputStream& in, const char* cutsceneName, short trackerPosCount);
-		void readMultiQuest(InputStream& in, MultiSimObject& mgo);
+		void readMultiQuest(InputStream& in, ObjectList& mgo);
 		void readMultiOwner(InputStream& in, Cutscene* cutscene);
 		void readMultiMember(InputStream& in, Cutscene* cutscene);
 		void readMultiArea(InputStream& in, Cutscene* cutscene);

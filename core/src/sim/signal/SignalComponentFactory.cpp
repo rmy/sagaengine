@@ -46,8 +46,7 @@ namespace se_core {
 	void SignalComponentFactory
 	::setRecieveSignal(unsigned long mask, const char* signal) {
 		signalRecieveMask_ = mask;
-		signal_ = SimSchema::sortedSimObjectList().signal(signal);
-
+		signal_ = Signal::lookup(signal);
 	}
 
 

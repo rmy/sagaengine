@@ -30,7 +30,7 @@ namespace se_core {
 	ObjectRepository
 	::ObjectRepository(unsigned int size)
 			: size_(size), objectCount_(0), objects_(new const Object*[ size ]) {
-		LogDetail("Creating " << __CLASS__);
+		LogDetail("Creating ObjectRepository");
 	}
 
 
@@ -54,7 +54,7 @@ namespace se_core {
 			++objectCount_;
 		}
 		else {
-			LogFatal("Hash collision between " << *go<< ") and " 
+			LogFatal("Hash collision between " << *go << ") and " 
 					<< *objects_[index] << ". Change the name of one of them.");
 		}
 		LogDetail("Registered Object: " << *go);
@@ -96,7 +96,7 @@ namespace se_core {
 	::get(int id) {
 		unsigned int index = find(id);
 		Assert(index >= 0 && index <= objectCount_);
-		Assert(objects_[ index ]->id() != id);
+		Assert(objects_[ index ]->id() == id);
 
 		return objects_[ index ];
 	}

@@ -30,15 +30,13 @@ namespace se_core {
 
 
 	QuestGoal
-	::QuestGoal(String* name) : SimObject(got_QUEST_GOAL, name->get()) {
+	::QuestGoal(String* name) : Object(got_QUEST_GOAL, name->get()) {
 		nameString_ = name;
-		SimSchema::sortedSimObjectList().add(this);
 	}
 
 
 	QuestGoal
 	::~QuestGoal() {
-		SimSchema::sortedSimObjectList().remove(this);
 		delete nameString_;
 	}
 

@@ -43,7 +43,6 @@ rune@skalden.com
 #include "../physics/PhysicsComponent.hpp"
 #include "../react/CollisionComponent.hpp"
 #include "../custom/StatComponent.hpp"
-#include "../stat/MultiSimObject.hpp"
 
 
 namespace se_core {
