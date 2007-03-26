@@ -65,11 +65,11 @@ namespace se_core {
 
 
 		inline Component* component(int type) {
-			return owner_->component(type);
+			return owner_->component(TYPE);
 		}
 
 		inline const Component* component(int type) const {
-			return owner_->component(type);
+			return owner_->component(TYPE);
 		}
 
 
@@ -197,27 +197,27 @@ namespace se_core {
 
 			Ptr& operator=(Component* c) {
 				if(c)
-					component_ = static_cast<T*>(c->owner()->component(type));
+					component_ = static_cast<T*>(c->owner()->component(TYPE));
 				else
 					component_ = 0;
 				return *this;
 			}
 
 			Ptr& operator=(Component& c) {
-				component_ = static_cast<T*>(c.owner()->component(type));
+				component_ = static_cast<T*>(c.owner()->component(TYPE));
 				return *this;
 			}
 
 			Ptr& operator=(Composite* c) {
 				if(c)
-					component_ = static_cast<T*>(c->component(type));
+					component_ = static_cast<T*>(c->component(TYPE));
 				else
 					component_ = 0;
 				return *this;
 			}
 
 			Ptr& operator=(Composite& c) {
-				component_ = static_cast<T*>(c.component(type));
+				component_ = static_cast<T*>(c.component(TYPE));
 				return *this;
 			}
 
