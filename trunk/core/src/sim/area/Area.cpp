@@ -46,6 +46,9 @@ rune@skalden.com
 
 #include <cstdio>
 
+#ifndef abs
+#define abs(n) (((n) < 0) ? (-(n)) : (n))
+#endif 
 
 namespace se_core {
 	Area

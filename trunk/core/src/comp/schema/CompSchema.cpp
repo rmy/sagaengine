@@ -42,8 +42,8 @@ namespace se_core {
 		VoidList voidList(__FILE__);
 
 		ObjectRepository& objectRepository() {
-			static ObjectRepository or(MAX_OBJECTS);
-			return or;
+			static ObjectRepository repository(MAX_OBJECTS);
+			return repository;
 		}
 	}
 }
