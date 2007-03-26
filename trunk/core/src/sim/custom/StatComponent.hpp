@@ -101,6 +101,21 @@ namespace se_core {
 		enum Special special() const;
 		bool isSpecialEndingSoon() const;
 		*/
+		String& attribute(short type);
+		const String& attribute(short type) const;
+
+		short singleValue(short type) const { return singleValues_[type]; }
+		void setSingleValue(short type, short value) { singleValues_[type] = value; }
+		void incrementSingleValue(short type) { ++singleValues_[type]; }
+		void decrementSingleValue(short type) { --singleValues_[type]; }
+
+	protected:
+		static const int MGO_COUNT = 20;
+		static const int SV_COUNT = 20;
+		static const int ATT_COUNT = 20;
+
+		mutable short singleValues_[SV_COUNT];
+		String attributes_[ATT_COUNT];
 
 	protected:
 		friend class StatComponentFactory;

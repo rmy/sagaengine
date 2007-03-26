@@ -23,9 +23,9 @@ rune@skalden.com
 #define engine_physics_PhysicsComponent_hpp
 
 #include "Physics.hpp"
+#include "Move.hpp"
 #include "comp/Component.hpp"
 #include "comp/node/NodeComponent.hpp"
-#include "../custom/Move.hpp"
 #include "../area/sim_area.hpp"
 #include "../custom/sim_custom.hpp"
 #include "../stat/sim_stat.hpp"

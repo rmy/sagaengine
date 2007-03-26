@@ -3,7 +3,7 @@
 
 #include "BasicPre.hpp"
 #include "sim/custom/Abilities.hpp"
-#include "sim/custom/Move.hpp"
+#include "sim/physics/Move.hpp"
 #include "comp/CompositeFactory.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "sim/pos/Anim.hpp"

@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include "comp/Composite.hpp"
 #include "../action/sim_action.hpp"
-#include "../custom/Move.hpp"
+#include "../physics/Move.hpp"
 #include "../physics/Physics.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionAndParameter.hpp"

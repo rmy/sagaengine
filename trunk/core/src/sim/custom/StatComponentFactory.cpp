@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "StatComponentFactory.hpp"
 #include "StatComponent.hpp"
-#include "ThingData.hpp"
 #include "../sim.hpp"
 #include "../SimEngine.hpp"
 #include "../config/all.hpp"
