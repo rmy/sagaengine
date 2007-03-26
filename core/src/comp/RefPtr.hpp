@@ -29,15 +29,15 @@ namespace se_core {
 
 	/**
 	 */
-	class _SeCoreExport RefPtr {
+	template <class T> class _SeCoreExport RefPtr {
 	private:
 		class Ptr {
 		public:
-			Ptr(Composite* ptr)
+			Ptr(T* ptr)
 				: ptr_(ptr), refCount_(1) {
 			}
 
-			Composite* object() {
+			T* object() {
 				return ptr_;
 			}
 
@@ -50,7 +50,7 @@ namespace se_core {
 				if(!refCount_)
 					delete this;
 			}
-			Composite* ptr_;
+			T* ptr_;
 			int refCount_;
 
 		private:
@@ -97,27 +97,36 @@ namespace se_core {
 			return (ptr_ == 0 || ptr_->ptr_ == 0);
 		}
 
-		Composite* object() {
+		T* object() {
 			Assert(ptr_ && "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 
-		Composite* object() const {
+		T* object() const {
 			Assert(ptr_ && "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 
-		RefPtr(Composite* ptr)
+		RefPtr(T* ptr)
 			: ptr_(new Ptr(ptr)), isOwner_(true) {
 		}
 
-		RefPtr& operator=(Composite* c);
-
-		inline Composite* operator->() {
+		inline T* operator->() {
 			Assert(!isNull());
 			return ptr_->ptr_;
 		}
 
+		RefPtr& operator=(T* c) {
+			Assert(!isOwner_ && "Owner RefPtr's should never be assigned a new value");
+			if(ptr_)
+				ptr_->decRef();
+
+			ptr_ = c->ref().ptr_;
+
+			ptr_->incRef();
+
+			return *this;
+		}
 
 	private:
 		/**

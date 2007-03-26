@@ -22,6 +22,7 @@ rune@skalden.com
 #include "SimpleAreaFactory.hpp"
 #include "SimpleArea.hpp"
 #include "sim/zone/ZoneAreaComponent.hpp"
+#include "util/type/ByteArray.hpp"
 
 
 using namespace se_core;

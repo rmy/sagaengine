@@ -113,7 +113,7 @@ namespace se_core {
 		const Action* quickMenuAction_;
 		const Action* useAction_;
 		mutable ActionAndParameter defaultAction_;
-		RefPtr target_;
+		Composite::RefPtr target_;
 	};
 
 }

@@ -23,18 +23,6 @@ rune@skalden.com
 #include "Composite.hpp"
 
 namespace se_core {
-	RefPtr& RefPtr
-	::operator=(Composite* c) {
-		Assert(!isOwner_ && "Owner RefPtr's should never be assigned a new value");
-		if(ptr_)
-			ptr_->decRef();
-
-		ptr_ = c->ref().ptr_;
-
-		ptr_->incRef();
-
-		return *this;
-	}
 
 
 }

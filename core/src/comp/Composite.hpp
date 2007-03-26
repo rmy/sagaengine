@@ -31,6 +31,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport Composite {
 	public:
+		typedef RefPtr<Composite> RefPtr;
 		typedef Composite* id_type;
 
 		Composite(const CompositeFactory* factory);
