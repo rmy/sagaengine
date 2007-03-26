@@ -34,26 +34,17 @@ namespace se_core {
 	 * Global objects and methods used by the simulation logic.
 	 */
 	namespace CompSchema {
+		static const int MAX_OBJECTS = 512;
 		static const int MAX_GAME_OBJECTS = 16384;
 		typedef SinglyLinkedList<void, MAX_GAME_OBJECTS, 211> VoidList;
-		/*
-		class _SeCoreExport VoidList : public VL {
-		public:
-			VoidList() : VL(__FILE__) {}
-		};
-		*/
-
 
 		extern _SeCoreExport Composite& activeRoot();
 		extern _SeCoreExport Composite& inactiveRoot();
 
 		/**
-		 * List of named instances of SimObject. 
-		 * If you need a script or physics object by name instead of by object reference, this
-		 * is where you can query for them. This is an important resource for file parsers
-		 * and factory classes.
+		 * List of named instances of Object. 
 		 */
-		//_SeCoreExport SortedSimObjectList& sortedSimObjectList();
+		_SeCoreExport ObjectRepository& objectRepository();
 
 		extern _SeCoreExport VoidList voidList;
 	}

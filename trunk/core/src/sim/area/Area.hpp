@@ -23,7 +23,6 @@ rune@skalden.com
 #define sim_area_Area_hpp
 
 #include "sim_area.hpp"
-#include "../SimObject.hpp"
 #include "comp/Composite.hpp"
 #include "../action/sim_action.hpp"
 #include "../stat/sim_stat.hpp"

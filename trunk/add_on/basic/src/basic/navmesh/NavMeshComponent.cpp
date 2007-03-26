@@ -19,13 +19,32 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#include "NavMeshManager.hpp"
+#include "NavMeshAreaComponent.hpp"
+#include "NavMeshComponent.hpp"
+#include "sim/sim.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/NodeComponentList.hpp"
+#include "util/error/Log.hpp"
 
-namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+using namespace se_core;
+
+namespace se_basic {
+	NavMeshComponent
+	::NavMeshComponent(Composite* owner, const ComponentFactory* factory)
+		: AreaChildComponent(sct_NAVMESH, owner) {
+	}
+
+
+	NavMeshComponent
+	::~NavMeshComponent() {
+		cleanup();
+	}
+
+
+	void NavMeshComponent
+	::cleanup() {
+	}
+
 }
-
-#endif

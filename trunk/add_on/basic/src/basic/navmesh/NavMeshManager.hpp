@@ -19,13 +19,41 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef NavMeshManager_hpp
+#define NavMeshManager_hpp
 
-namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+#include "comp/node/RootComponent.hpp"
+
+
+namespace se_basic {
+
+	/**
+	 * Base class for functionality component managers.
+	 */
+	class _SeBasicExport NavMeshManager : public se_core::RootComponent {
+	public:
+		/**
+		 * Construct NavMeshManager.
+		 */
+		NavMeshManager();
+
+
+		/**
+		 * Destructor.
+		 */
+		virtual ~NavMeshManager();
+
+		const char* name() { return "NavMeshManager"; }
+		
+
+		void step(long when);
+
+		void initGame();
+		void cleanupGame();
+
+		static NavMeshManager& singleton();
+	};
+
 }
 
 #endif

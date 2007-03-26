@@ -19,13 +19,26 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef ComponentParser_hpp
+#define ComponentParser_hpp
+
+#include "io/parse/ComponentParserModule.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
+#include "sim/sim.hpp"
 
 namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+	class _SeCoreExport ZoneAreaComponentParserModule : public ComponentParserModule {
+	public:
+		ZoneAreaComponentParserModule();
+		virtual ~ZoneAreaComponentParserModule();
+		ComponentFactory* parse(InputStream& in);
+
+	protected:
+		const DictionaryEntry dict_;
+		enum { TYPE = sct_ZONE, SUBTYPE = 0 };
+	};
+
+	extern _SeCoreExport const ZoneAreaComponentParserModule parserZoneAreaComponent;
 }
 
 #endif

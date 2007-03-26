@@ -22,7 +22,6 @@ rune@skalden.com
 #ifndef ActionFeed_hpp
 #define ActionFeed_hpp
 
-#include "../SimObject.hpp"
 #include "sim_action.hpp"
 #include "../thing/sim_thing.hpp"
 #include "util/type/util_type.hpp"

@@ -19,13 +19,30 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef ObjectRepository_hpp
+#define ObjectRepository_hpp
+
+#include "comp/comp.hpp"
 
 namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+	class _SeCoreExport ObjectRepository {
+	public:
+		ObjectRepository(unsigned int size);
+		virtual ~ObjectRepository();
+		void add(const Object* go);
+		void remove(const Object* go);
+		const Object* get(int hash);
+		bool has(int id);
+
+	protected:
+		unsigned int find(int hash);
+
+		unsigned int objectCount_;
+		const Object** objects_;
+		unsigned int size_;
+	};
+
+
 }
 
 #endif
