@@ -20,7 +20,6 @@ rune@skalden.com
 
 
 #include "StatComponent.hpp"
-#include "ThingData.hpp"
 #include "../sim.hpp"
 #include "../SimEngine.hpp"
 #include "../config/all.hpp"
@@ -33,6 +32,8 @@ namespace se_core {
 	StatComponent
 	::StatComponent(Composite* owner, const ComponentFactory* factory)
 		: Component(sct_STAT, owner, factory) {
+		for(int i = 0; i < SV_COUNT; ++i)
+			singleValues_[i] = 0;
 	}
 
 
@@ -72,5 +73,17 @@ namespace se_core {
 		Composite* t = target_.object();
 		if(!t) return 0;
 		return PosComponent::get(*t);
+	}
+
+
+	String& StatComponent
+	::attribute(short type) {
+		return attributes_[type];
+	}
+
+
+	const String& StatComponent
+	::attribute(short type) const {
+		return attributes_[type];
 	}
 }
