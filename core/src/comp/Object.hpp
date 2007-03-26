@@ -30,34 +30,25 @@ namespace se_core {
 
 	/**
 	 * Base class for important game entities.
+	 *
+	 * All instances of Object must be constant
+	 * throughout the lifetime of the application.
+	 *
 	 * Base class for game entitites like Action,
-	 * Area, Terrain, Thing,
-	 * eninge_script::Script, Cutscene,
-	 * QuestGoal and subclasses of these.
+	 * Physics, Collide, etc, that contain
+	 * behaviour but no non-const data.
 	 *
 	 * Maintains name, id and type identifiers.
 	 */
 	class _SeCoreExport Object {
 	public:
 		/**
-		 * Construct unnamed Object.
-		 *
-		 * @param type The type of Object (got_ACTION, got_THING, etc)
-		 */
-		Object(int type) : type_(type) {
-			id_ = createId();
-		}
-
-		/**
 		 * Construct named Object.
 		 *
 		 * @param type The type of Object (got_ACTION, got_THING, etc)
 		 * @param name The name of the game object
 		 */
-		Object(int type, const char* name)
-			: type_(type), name_(name) {
-			id_ = createId();
-		}
+		Object(int type, const char* name);
 
 		/**
 		 * Destructor.
@@ -68,14 +59,15 @@ namespace se_core {
 		/**
 		 * Get the Object id of the object.
 		 * Each instance of Object has a unique Object id assigned to it
-		 * during construction. The id is stable during the lifetime of the object,
-		 * but may change from one run to the next, and probably will during
-		 * development when the game content is still evolving.
+		 * during construction. The id_ is a hash of the name. And will be
+		 * the same every time the game is run.
+		 *
+		 * Sometimes two different names can give the same hash, and id. When
+		 * this occurs the name of the object must be changed.
 		 *
 		 * @return The unique Object instance id.
 		 */
 		int id() const {
-			Assert(this != 0);
 			return id_;
 		}
 
@@ -85,8 +77,6 @@ namespace se_core {
 		 * @return The name of the Object, or 0 if is not named.
 		 */
 		virtual const char* name() const {
-			// Unnamed objects should probably not be asked for their names.
-			Assert(name_);
 			return name_;
 		}
 
@@ -103,23 +93,12 @@ namespace se_core {
 			return type_;
 		}
 
-		virtual bool isType(int type) const {
-			return type_ == type;
-		}
-
+		/**
+		 * Calculate hash (object id) given object type and name.
+		 */
+		static int hash(int type, const char* name);
 
 	private:
-		/**
-		 * Id generator.
-		 * Create unique ids for Objects.
-		 *
-		 * @return Unique Object id.
-		 */
-		int createId() {
-			static int idPool = 0;
-			return idPool++;
-		}
-
 		/**
 		 * The type of Object.
 		 */
@@ -132,11 +111,11 @@ namespace se_core {
 
 		/**
 		 * The name of the Object.
-		 * @TODO: Should be String ??
 		 */
 		const char* name_;
 	};
 
+	se_err::Log& operator<< (se_err::Log& log, const Object& b);
 }
 
 #endif

@@ -23,7 +23,6 @@ rune@skalden.com
 #define Composite_hpp
 
 #include "comp.hpp"
-#include "Object.hpp"
 #include "RefPtr.hpp"
 #include "comp/list/ComponentList.hpp"
 #include "comp/list/CompositeList.hpp"

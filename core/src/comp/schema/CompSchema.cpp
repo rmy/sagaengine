@@ -21,9 +21,7 @@ rune@skalden.com
 
 #include "CompSchema.hpp"
 #include "comp/Composite.hpp"
-//#include "comp/ComponentManager.hpp"
-//#include "../list/VoidList.hpp"
-//#include "../stat/SortedSimObjectList.hpp"
+#include "comp/list/ObjectRepository.hpp"
 
 
 namespace se_core {
@@ -41,13 +39,11 @@ namespace se_core {
 			return s;
 		}
 
-		/*
-		SortedSimObjectList& sortedSimObjectList() {
-			static SortedSimObjectList sgol;
-			return sgol;
-		}
-		*/
-
 		VoidList voidList(__FILE__);
+
+		_SeCoreExport ObjectRepository& objectRepository() {
+			static ObjectRepository or(MAX_OBJECTS);
+			return or;
+		}
 	}
 }

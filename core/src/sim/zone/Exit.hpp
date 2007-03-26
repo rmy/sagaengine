@@ -19,13 +19,24 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef Exit_hpp
+#define Exit_hpp
+
+#include "sim/sim.hpp"
+#include "util/type/util_type.hpp"
 
 namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+	class _SeCoreExport Exit {
+	public:
+		Exit();
+		virtual ~Exit();
+		String* area_;
+		int entrance_;
+
+	protected:
+	};
+
+
 }
 
 #endif

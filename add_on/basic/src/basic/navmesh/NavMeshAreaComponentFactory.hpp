@@ -19,13 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef NavMeshComponentFactory_hpp
+#define NavMeshComponentFactory_hpp
 
-namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+#include "comp/comp.hpp"
+#include "comp/ComponentFactory.hpp"
+
+
+namespace se_basic {
+	class _SeBasicExport NavMeshAreaComponentFactory : public se_core::ComponentFactory {
+	public:
+		NavMeshAreaComponentFactory();
+		se_core::Component* create(se_core::Composite* owner) const;
+
+	protected:
+	};
+
 }
 
 #endif

@@ -19,13 +19,29 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#ifndef NavMeshComponent_hpp
+#define NavMeshComponent_hpp
 
-namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
+#include "sim/sim.hpp"
+#include "comp/comp.hpp"
+#include "comp/node/AreaChildComponent.hpp"
+
+namespace se_basic {
+	class _SeBasicExport NavMeshComponent : public se_core::AreaChildComponent {
+	public:
+		typedef Ptr<NavMeshComponent, se_core::sct_NAVMESH> Ptr;
+
+		NavMeshComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
+		virtual ~NavMeshComponent();
+		const char* name() { return "NavMesh"; }
+
+	protected:
+		friend class NavMeshComponentFactory;
+
+		void cleanup();
+	};
+
+
 }
 
 #endif

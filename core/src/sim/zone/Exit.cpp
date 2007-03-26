@@ -19,13 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef comp_list_hpp
-#define comp_list_hpp
+#include "Exit.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "util/error/Log.hpp"
+
+
 
 namespace se_core {
-	class CompositeList;
-	class ComponentList;
-	class ObjectRepository;
-}
+	Exit
+	::Exit() : area_(0), entrance_(0) {
+	}
 
-#endif
+
+	Exit
+	::~Exit() {
+	}
+
+
+}
