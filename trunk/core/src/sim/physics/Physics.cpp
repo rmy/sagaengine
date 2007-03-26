@@ -30,8 +30,7 @@ rune@skalden.com
 namespace se_core {
 
 	Physics
-	::Physics(const char* name) : SimObject(got_PHYSICS, name) {
-		registerInSortedList();
+	::Physics(const char* name) : Object(got_PHYSICS, name) {
 	}
 
 

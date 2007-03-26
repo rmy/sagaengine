@@ -24,14 +24,19 @@ rune@skalden.com
 
 #include "sim_react.hpp"
 #include "../thing/sim_thing.hpp"
-#include "../SimObject.hpp"
+#include "sim/sim.hpp"
+#include "comp/Object.hpp"
 #include "../physics/sim_physics.hpp"
 #include "../pos/sim_pos.hpp"
 
 namespace se_core {
 	/** Base reaction class for actor vs thing collisions. */
-	class _SeCoreExport ThingCollide : public SimObject {
+	class _SeCoreExport ThingCollide : public Object {
 	public:
+		static const ThingCollide* lookup(const char* name) {
+			return static_cast<const ThingCollide*>(_lookup(got_THING_COLLIDE, name));
+		}
+
 		ThingCollide(const char* name);
 
 		/**

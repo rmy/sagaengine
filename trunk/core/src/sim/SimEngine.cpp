@@ -29,7 +29,7 @@ rune@skalden.com
 #include "./script/ScriptManager.hpp"
 #include "./schema/SimSchema.hpp"
 #include "./pos/Pos.hpp"
-#include "./stat/MultiSimObject.hpp"
+//#include "./stat/MultiSimObject.hpp"
 #include "./stat/SimObjectIterator.hpp"
 #include "./stat/SimObjectList.hpp"
 #include "./area/Area.hpp"

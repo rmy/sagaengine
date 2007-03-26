@@ -120,8 +120,7 @@ namespace se_core {
 
 	void ScriptComponent
 	::pushScript(const char* name) {
-		// Asser(!isDead_);
-		const Script* s = SimSchema::sortedSimObjectList().script(name);
+		const Script* s = Script::lookup(name);
 		pushScript(s);
 	}
 

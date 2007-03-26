@@ -20,18 +20,19 @@ rune@skalden.com
 
 
 #include "CutsceneParserModule.hpp"
-#include "../stream/InputStream.hpp"
-#include "../../sim/sim.hpp"
-#include "../../sim/schema/SimSchema.hpp"
-#include "../../sim/script/Cutscene.hpp"
-#include "../../sim/script/TimelineScript.hpp"
-#include "../../sim/script/QuestGoal.hpp"
-#include "../../sim/stat/SortedSimObjectList.hpp"
-#include "../../sim/stat/MultiSimObject.hpp"
-#include "../../sim/area/Area.hpp"
-#include "../../sim/area/AreaManager.hpp"
-#include "../../util/type/String.hpp"
-#include "../../util/error/Log.hpp"
+#include "io/stream/InputStream.hpp"
+#include "sim/sim.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/script/Cutscene.hpp"
+#include "sim/script/TimelineScript.hpp"
+#include "sim/script/QuestGoal.hpp"
+#include "comp/schema/CompSchema.hpp"
+#include "comp/list/ObjectRepository.hpp"
+#include "comp/list/ObjectList.hpp"
+#include "sim/area/Area.hpp"
+#include "sim/area/AreaManager.hpp"
+#include "util/type/String.hpp"
+#include "util/error/Log.hpp"
 #include <cstring>
 #include <cstdio>
 
@@ -91,11 +92,11 @@ namespace se_core {
 			case 'R': // REWARD: QuestGoal that is rewarded
 				name = new String();
 				in.readString(*name);
-				if(!SimSchema::sortedSimObjectList().has(got_QUEST_GOAL, name->get())) {
+				if(!QuestGoal::lookup(name->get())) {
 					cutscene->setQuestGoal(new QuestGoal(name));
 				}
 				else {
-					cutscene->setQuestGoal(SimSchema::sortedSimObjectList().questGoal(name->get()));
+					cutscene->setQuestGoal(QuestGoal::lookup(name->get()));
 					delete name;
 				}
 				break;
@@ -161,7 +162,7 @@ namespace se_core {
 
 
 	void CutsceneParserModule
-	::readMultiQuest(InputStream& in, MultiSimObject& mgo) {
+	::readMultiQuest(InputStream& in, ObjectList& mgo) {
 		String* name;
 		int count = 0;
 		for(;;) {
@@ -171,12 +172,12 @@ namespace se_core {
 				delete name;
 				break;
 			}
-			if(!SimSchema::sortedSimObjectList().has(got_QUEST_GOAL, name->get())) {
+			if(!CompSchema::objectRepository().has(QuestGoal::hash(got_QUEST_GOAL, name->get()))) {
 				QuestGoal* g = new QuestGoal(name);
 				mgo.add(*g);
 			}
 			else {
-				mgo.add(*SimSchema::sortedSimObjectList().questGoal(name->get()));
+				mgo.add(*QuestGoal::lookup(name->get()));
 				delete name;
 			}
 			++count;

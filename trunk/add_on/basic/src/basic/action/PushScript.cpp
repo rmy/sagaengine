@@ -37,9 +37,8 @@ namespace se_basic {
 	void PushScript
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
 		Actor& performer = *Actor::Ptr(perf);;
-
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		const Script* s = SimSchema::sortedSimObjectList().script(p->script_);
+		const Script* s = Script::lookup(p->script_);
 		performer.pushScript(s);
 	}
 

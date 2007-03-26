@@ -53,8 +53,7 @@ namespace se_core {
 		/**
 		 * Destructor.
 		 */
-		virtual ~Object() {
-		}
+		virtual ~Object();
 
 		/**
 		 * Get the Object id of the object.
@@ -98,6 +97,11 @@ namespace se_core {
 		 */
 		static int hash(int type, const char* name);
 
+	protected:
+		static const Object* _lookup(int hash);
+		inline static const Object* _lookup(int type, const char* name) {
+			return _lookup(hash(type, name));
+		}
 	private:
 		/**
 		 * The type of Object.

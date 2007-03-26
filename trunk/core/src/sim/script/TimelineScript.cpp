@@ -63,7 +63,7 @@ namespace se_core {
 	void TimelineScript
 	::addAction(int trackerPos, const char* name) {
 		Assert(trackerPos < trackerPosCount_);
-		addAction(trackerPos, SimSchema::sortedSimObjectList().action(name));
+		addAction(trackerPos, Action::lookup(name));
 	}
 
 

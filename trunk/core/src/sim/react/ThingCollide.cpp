@@ -27,12 +27,10 @@ rune@skalden.com
 #include "../thing/Actor.hpp"
 
 
-
 namespace se_core {
 
 	ThingCollide
-	::ThingCollide(const char* name) : SimObject(got_THING_COLLIDE, name) {
-		SimSchema::sortedSimObjectList().add(this);
+	::ThingCollide(const char* name) : Object(got_THING_COLLIDE, name) {
 	}
 
 

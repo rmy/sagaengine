@@ -41,15 +41,13 @@ namespace se_core {
 
 	Cutscene
 	::Cutscene(String* name)
-		: SimObject(got_CUTSCENE, name->get()),
-		  questGoal_(0), nameString_(name) {
-		SimSchema::sortedSimObjectList().add(this);
+			: Object(got_CUTSCENE, name->get()),
+			questGoal_(0), nameString_(name) {
 	}
 
 
 	Cutscene
 	::~Cutscene() {
-		SimSchema::sortedSimObjectList().remove(this);
 		delete nameString_;
 	}
 

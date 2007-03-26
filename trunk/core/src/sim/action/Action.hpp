@@ -22,8 +22,9 @@ rune@skalden.com
 #ifndef Action_hpp
 #define Action_hpp
 
+#include "sim/sim.hpp"
 #include "sim_action.hpp"
-#include "../SimObject.hpp"
+#include "comp/Object.hpp"
 #include "ActionAndParameter.hpp"
 
 namespace se_core {
@@ -33,7 +34,7 @@ namespace se_core {
 	 * Actions are the atoms of game-character behaviour in SagaEngine.
 	 * They define what a character can do.
 	 */
-	class _SeCoreExport Action : public SimObject {
+	class _SeCoreExport Action : public Object {
 	protected:
 		/** 
 		 * Constructor.
@@ -42,6 +43,10 @@ namespace se_core {
 		Action(const char* name);
 
 	public:
+		static const Action* lookup(const char* name) {
+			return static_cast<const Action*>(_lookup(got_ACTION, name));
+		}
+
 		/**
 		 * Number of timesteps that should pass before the action is performed.
 		 * Returns 1 unless overridden.
@@ -101,6 +106,7 @@ namespace se_core {
 		 * @param parameter parameters specifying how this action should be performed
 		 */
 		virtual void perform(long when, ActionComponent &performer, Parameter& parameter) const = 0;
+
 	};
 
 }
