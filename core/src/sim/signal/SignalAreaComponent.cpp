@@ -24,7 +24,6 @@ rune@skalden.com
 #include "SignalManager.hpp"
 #include "SignalComponent.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "comp/list/NodeComponentList.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../react/CollisionComponent.hpp"

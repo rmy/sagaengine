@@ -22,7 +22,6 @@ rune@skalden.com
 #include "AreaManager.hpp"
 #include "Area.hpp"
 #include "AreaFactory.hpp"
-#include "sim/stat/MultiSimObject.hpp"
 #include "util/error/Log.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "comp/schema/CompSchema.hpp"

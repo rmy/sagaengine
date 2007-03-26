@@ -41,18 +41,4 @@ namespace se_core {
 		return attributes_[type];
 	}
 
-
-	MultiSimObject& ThingData
-	::multiSimObject(short type) {
-		return multiSimObjects_[type];
-	}
-
-
-	const MultiSimObject& ThingData
-	::multiSimObject(short type) const {
-		return multiSimObjects_[type];
-	}
-
-
-
 }

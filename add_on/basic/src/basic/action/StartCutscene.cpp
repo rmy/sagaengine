@@ -26,9 +26,6 @@ rune@skalden.com
 #include "sim/script/Script.hpp"
 #include "sim/script/Cutscene.hpp"
 #include "sim/script/QuestGoal.hpp"
-#include "sim/stat/SortedSimObjectList.hpp"
-#include "sim/stat/MultiSimObject.hpp"
-#include "sim/stat/SimObjectIterator.hpp"
 #include "sim/thing/Actor.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>

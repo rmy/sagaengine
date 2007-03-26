@@ -33,9 +33,6 @@ rune@skalden.com
 #include "../message/MessageCentral.hpp"
 #include "../message/SoundCentral.hpp"
 #include "../stat/HealthListeners.hpp"
-#include "../stat/SimObjectList.hpp"
-#include "../stat/VoidList.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "../area/sim_area.hpp"
 #include "../area/AreaManager.hpp"
 #include "../spawn/SpawnManager.hpp"
@@ -60,15 +57,6 @@ namespace se_core {
 			return SpawnManager::singleton();
 		}
 
-		//extern _SeCoreExport Composite& activeRoot() {
-		//	return RootComponent::activeRoot();
-		//}
-
-		//extern _SeCoreExport Composite& inactiveRoot() {
-		//	return RootComponent::inactiveRoot();
-		//}
-
-
 		InitListeners& initListeners() {
 			static InitListeners initListeners;
 			return initListeners;
@@ -79,11 +67,6 @@ namespace se_core {
 			return simListeners;
 		}
 		
-		SortedSimObjectList& sortedSimObjectList() {
-			static SortedSimObjectList sgol;
-			return sgol;
-		}
-
 
 		HealthListeners& healthListeners() {
 			static HealthListeners healthListeners;
@@ -99,15 +82,10 @@ namespace se_core {
 		
 		SoundCentral soundCentral;
 
-		SimObjectList simObjectList;
-		//SimComponentList simComponentList;
-		VoidList voidList;
-
 		Dictionary& dictionary() {
 			static Dictionary d;
 			return d;
 		}
-		//AllPropertyLists allPropertyLists;
 
 		ShowingCutscene showingCutscene;
 		RealClock* realClock = 0;

@@ -28,16 +28,7 @@ namespace se_core {
 	class SimEngine;
 	class SimListener;
 	class SimListeners;
-	class SimObject;
 
-	class ComponentFactory;
-	class Component;
-	class NodeComponent;
-
-	class CompositeFactory;
-	class Composite;
-	
-	class SimCompositeManager;
 
 	enum SimObjectType {
 		got_SIM_OBJECT, got_SIGNAL, got_ACTION, got_PHYSICS, got_SIM_COMPOSITE, got_AREA,

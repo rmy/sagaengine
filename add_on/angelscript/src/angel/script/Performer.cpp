@@ -24,7 +24,6 @@ rune@skalden.com
 #include "../schema/AngelSchema.hpp"
 #include "sim/physics/PhysicsComponent.hpp"
 #include "sim/custom/StatComponent.hpp"
-#include "sim/stat/SortedSimObjectList.hpp"
 #include <se_core.hpp>
 #include <angelscript.h>
 

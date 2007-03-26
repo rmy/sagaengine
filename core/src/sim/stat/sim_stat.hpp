@@ -23,24 +23,7 @@ rune@skalden.com
 #define engine_stat_hpp
 
 namespace se_core {
-	class SimObjectList;
-	class SimComponentList;
-	class SortedSimObjectList;
-	class VoidList;
-
-	class MultiSimObject;
-	class NodeComponentList;
-	class ReportingMultiSimObject;
-	class ReportingMGOHandler;
-	class MultiSimObjectListener;
-
-	class MultiSimObjectIterator;
-
-	// Use with util/template/HashTable ?
 	class Property;
-	//class PropertySet;
-	//class PropertyList;
-	//class AllPropertyLists;
 
 	class Dictionary;
 	class DictionaryEntry;

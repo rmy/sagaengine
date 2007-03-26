@@ -23,7 +23,6 @@ rune@skalden.com
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/script/Script.hpp"
-#include "sim/stat/SortedSimObjectList.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/thing/Actor.hpp"
 #include "util/error/Log.hpp"
