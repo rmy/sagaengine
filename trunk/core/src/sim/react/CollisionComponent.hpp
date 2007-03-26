@@ -132,6 +132,7 @@ namespace se_core {
 		coor_t bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const;
 		coor_t bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const;
 
+		coor_t penetration(const CollisionComponent& other) const;
 
 	private:
 		PosComponent* posComponent_;

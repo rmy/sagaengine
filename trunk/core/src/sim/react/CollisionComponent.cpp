@@ -175,6 +175,17 @@ namespace se_core {
 	}
 
 
+	float CollisionComponent
+	::penetration(const CollisionComponent& other) const {
+		Point3 p, t;
+		coor_t radSum = bouncePoints(SCALE_RES, other, p, t);
+		float pen = radSum - CoorT::sqrt(p.xzDistanceSquared(t));
+		if(pen < 0)
+			return 0;
+		return pen;
+	}
+
+
 	bool CollisionComponent
 	::doesGeometryCollide(const CollisionComponent& other) const {
 		Point3 p, t;
