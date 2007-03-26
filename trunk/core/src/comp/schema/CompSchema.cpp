@@ -41,7 +41,7 @@ namespace se_core {
 
 		VoidList voidList(__FILE__);
 
-		_SeCoreExport ObjectRepository& objectRepository() {
+		ObjectRepository& objectRepository() {
 			static ObjectRepository or(MAX_OBJECTS);
 			return or;
 		}
