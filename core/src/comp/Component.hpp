@@ -65,11 +65,11 @@ namespace se_core {
 
 
 		inline Component* component(int type) {
-			return owner_->component(TYPE);
+			return owner_->component(type);
 		}
 
 		inline const Component* component(int type) const {
-			return owner_->component(TYPE);
+			return owner_->component(type);
 		}
 
 
