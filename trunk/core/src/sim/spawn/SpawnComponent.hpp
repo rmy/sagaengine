@@ -108,7 +108,7 @@ namespace se_core {
 		 * This enables monster spawner's to create new children whenever
 		 * they fall below a certain count.
 		 */
-		RefPtr spawner_;
+		Composite::RefPtr spawner_;
 
 		int spawnCount_;
 

@@ -24,7 +24,6 @@ rune@skalden.com
 
 namespace se_core {
 	class Object;
-	class RefPtr;
 
 	class CompositeFactory;
 	class Composite;
