@@ -131,6 +131,8 @@ namespace se_core {
 
 		template <class T, int type> class Ptr {
 		public:
+			enum { TYPE = type };
+
 			Ptr(T* c) {
 				component_ = c;
 			}
@@ -138,11 +140,11 @@ namespace se_core {
 				component_ = &c;
 			}
 			Ptr(Component& c) {
-				component_ = static_cast<T*>(c.component(type));
+				component_ = static_cast<T*>(c.component(TYPE));
 			}
 			Ptr(Component* c) {
 				if(c)
-					component_ = static_cast<T*>(c->component(type));
+					component_ = static_cast<T*>(c->component(TYPE));
 				else
 					component_ = 0;
 			}
