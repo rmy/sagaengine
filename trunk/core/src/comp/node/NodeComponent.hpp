@@ -28,7 +28,7 @@ rune@skalden.com
 
 
 namespace se_core {
-	/** Container class for SimObjects that exists in the game world.
+	/** Container class for Objects that exists in the game world.
 	 */
 	class _SeCoreExport NodeComponent : public Component {
 	public:
