@@ -137,9 +137,6 @@ namespace se_core {
 			Ptr(Component& c) {
 				component_ = static_cast<T*>(c.owner()->component(type));
 			}
-			const Ptr(const Component& c) {
-				component_ = (T*)(c.owner()->component(type));
-			}
 			Ptr(Composite* c) {
 				if(c)
 					component_ = static_cast<T*>(c->component(type));
@@ -150,7 +147,10 @@ namespace se_core {
 				component_ = static_cast<T*>(c.component(type));
 			}
 
-			const Ptr(const Composite& c) {
+			Ptr(const Component& c) {
+				component_ = (T*)(c.owner()->component(type));
+			}
+			Ptr(const Composite& c) {
 				component_ = (T*)(c.component(type));
 			}
 
