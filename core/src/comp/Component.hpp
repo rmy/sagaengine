@@ -150,19 +150,19 @@ namespace se_core {
 			}
 			Ptr(Composite* c) {
 				if(c)
-					component_ = static_cast<T*>(c->component(type));
+					component_ = static_cast<T*>(c->component(TYPE));
 				else
 					component_ = 0;
 			}
 			Ptr(Composite& c) {
-				component_ = static_cast<T*>(c.component(type));
+				component_ = static_cast<T*>(c.component(TYPE));
 			}
 
 			Ptr(const Component& c) {
-				component_ = (T*)(c.owner()->component(type));
+				component_ = (T*)(c.owner()->component(TYPE));
 			}
 			Ptr(const Composite& c) {
-				component_ = (T*)(c.component(type));
+				component_ = (T*)(c.component(TYPE));
 			}
 
 			inline T* operator->() {
