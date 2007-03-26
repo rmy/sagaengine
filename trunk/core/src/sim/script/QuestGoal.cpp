@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "QuestGoal.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "../../util/type/String.hpp"
 #include <cstring>
 

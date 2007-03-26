@@ -20,9 +20,6 @@ rune@skalden.com
 
 
 #include "Physics.hpp"
-#include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
-#include "../thing/Actor.hpp"
 #include "util/error/Log.hpp"
 
 

@@ -129,7 +129,7 @@ namespace se_core {
 		 * is where you can query for them. This is an important resource for file parsers
 		 * and factory classes.
 		 */
-		_SeCoreExport SortedSimObjectList& sortedSimObjectList();
+		//_SeCoreExport SortedSimObjectList& sortedSimObjectList();
 
 		/**
 		 * Dictionary of string to int conversions.
@@ -161,9 +161,9 @@ namespace se_core {
 		 * Container for singly linked list containing instances of SimObject.
 		 * This list is used a lot by the MultiSimObject class.
 		 */
-		extern _SeCoreExport SimObjectList simObjectList;
+		//extern _SeCoreExport SimObjectList simObjectList;
 		//extern _SeCoreExport SimComponentList simComponentList;
-		extern _SeCoreExport VoidList voidList;
+		//extern _SeCoreExport VoidList voidList;
 
 		//extern AllPropertyLists allPropertyLists;
 		//extern _SeCoreExport StopWatch* stopWatch;

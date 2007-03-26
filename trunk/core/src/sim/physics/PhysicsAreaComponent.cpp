@@ -22,7 +22,6 @@ rune@skalden.com
 #include "PhysicsAreaComponent.hpp"
 #include "PhysicsManager.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "comp/list/NodeComponentList.hpp"
 #include "../react/CollisionAreaComponent.hpp"
 #include "../react/CollisionComponent.hpp"

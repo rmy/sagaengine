@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "../stream/InputStream.hpp"
 #include "sim/sim.hpp"
+#include "comp/comp.hpp"
 #include "io_parse.hpp"
 
 

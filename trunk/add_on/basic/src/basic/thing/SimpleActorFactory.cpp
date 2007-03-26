@@ -1,6 +1,5 @@
 #include "SimpleActorFactory.hpp"
 #include "sim/thing/Actor.hpp"
-#include "sim/stat/SortedSimObjectList.hpp"
 #include "sim/script/Script.hpp"
 
 using namespace se_core;

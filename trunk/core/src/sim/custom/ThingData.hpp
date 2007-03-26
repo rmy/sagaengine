@@ -25,7 +25,6 @@ rune@skalden.com
 #include "../sim.hpp"
 #include "../config/sim_config.hpp"
 #include "../script/sim_script.hpp"
-#include "../stat/MultiSimObject.hpp"
 #include "util/type/String.hpp"
 
 namespace se_core {
@@ -34,7 +33,6 @@ namespace se_core {
 		ThingData();
 		virtual ~ThingData() {}
 		short singleValue(short type) const { return singleValues_[type]; }
-		const MultiSimObject& multiSimObject(short type) const;
 
 		String& attribute(short type);
 		const String& attribute(short type) const;
@@ -43,13 +41,11 @@ namespace se_core {
 		void incrementSingleValue(short type) { ++singleValues_[type]; }
 		void decrementSingleValue(short type) { --singleValues_[type]; }
 
-		virtual MultiSimObject& multiSimObject(short type);
 	protected:
 		static const int MGO_COUNT = 20;
 		static const int SV_COUNT = 20;
 		static const int ATT_COUNT = 20;
 
-		MultiSimObject multiSimObjects_[MGO_COUNT];
 		mutable short singleValues_[SV_COUNT];
 		String attributes_[ATT_COUNT];
 

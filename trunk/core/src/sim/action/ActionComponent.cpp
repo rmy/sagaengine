@@ -22,7 +22,6 @@ rune@skalden.com
 #include "ActionComponent.hpp"
 #include "ActionAndParameter.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 
 
 namespace se_core {

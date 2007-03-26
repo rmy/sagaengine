@@ -22,7 +22,6 @@ rune@skalden.com
 #include "CollisionManager.hpp"
 #include "CollisionComponent.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "../thing/Actor.hpp"

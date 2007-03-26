@@ -24,7 +24,7 @@ rune@skalden.com
 
 #include <se_core.hpp>
 #include "O3dThingComponent.hpp"
-#include "sim/stat/VoidList.hpp"
+#include "comp/schema/CompSchema.hpp"
 
 namespace se_ogre {
 
@@ -32,7 +32,7 @@ namespace se_ogre {
 		friend class MultiO3dThingComponentIterator;
 
 	public:
-		typedef se_core::VoidList::iterator_type iterator_type;
+		typedef se_core::CompSchema::VoidList::iterator_type iterator_type;
 		class _SeCoreExport Iterator {
 		public:
 			Iterator();
@@ -41,15 +41,15 @@ namespace se_ogre {
 			void init(short firstMode);
 
 			inline bool hasNext() {
-				return it_ != se_core::VoidList::end();
+				return it_ != se_core::CompSchema::VoidList::end();
 			}
 
 			inline O3dThingComponent& next() {
-				return *static_cast<O3dThingComponent*>(se_core::SimSchema::voidList.next(it_));
+				return *static_cast<O3dThingComponent*>(se_core::CompSchema::voidList.next(it_));
 			}
 
 		private:
-			se_core::VoidList::iterator_type it_;
+			se_core::CompSchema::VoidList::iterator_type it_;
 		};
 
 
@@ -58,8 +58,8 @@ namespace se_ogre {
 		virtual void add(O3dThingComponent& value);
 		void add(MultiO3dThingComponent& msc);
 		virtual void remove(O3dThingComponent& value);
-		void initIterator(se_core::VoidList::iterator_type& iterator) const;
-		inline se_core::VoidList::iterator_type iterator() const { return firstNode_; }
+		void initIterator(se_core::CompSchema::VoidList::iterator_type& iterator) const;
+		inline se_core::CompSchema::VoidList::iterator_type iterator() const { return firstNode_; }
 		bool contains(O3dThingComponent& value) const;
 		bool contains(MultiO3dThingComponent& msc) const;
 		bool sharesAny(MultiO3dThingComponent& msc) const;
@@ -69,7 +69,7 @@ namespace se_ogre {
 		int size() const;
 
 	protected:
-		se_core::VoidList::iterator_type firstNode_;
+		se_core::CompSchema::VoidList::iterator_type firstNode_;
 	};
 }
 

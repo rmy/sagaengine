@@ -7,7 +7,5 @@
 #include "SimEngine.hpp"
 #include "SimListener.hpp"
 #include "SimListeners.hpp"
-#include "SimObject.hpp"
-#include "SimPtr.hpp"
 
 #endif

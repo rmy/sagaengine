@@ -22,7 +22,6 @@ rune@skalden.com
 #include "ThingCollide.hpp"
 #include "CollisionComponent.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "../pos/Pos.hpp"
 #include "../thing/Actor.hpp"
 

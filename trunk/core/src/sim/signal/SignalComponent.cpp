@@ -25,7 +25,6 @@ rune@skalden.com
 #include "../action/all.hpp"
 #include "../thing/Actor.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "util/type/String.hpp"
 #include "util/error/Log.hpp"
 

@@ -21,7 +21,6 @@ rune@skalden.com
 
 #include "Action.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 
 
 namespace se_core {

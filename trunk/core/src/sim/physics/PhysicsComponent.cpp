@@ -22,7 +22,6 @@ rune@skalden.com
 #include "PhysicsComponent.hpp"
 #include "../react/CollisionComponent.hpp"
 #include "../schema/SimSchema.hpp"
-#include "../stat/SortedSimObjectList.hpp"
 #include "util/error/Log.hpp"
 #include "../thing/Actor.hpp"
 

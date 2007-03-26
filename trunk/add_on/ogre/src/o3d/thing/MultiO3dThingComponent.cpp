@@ -28,35 +28,35 @@ namespace se_ogre {
 
 	MultiO3dThingComponent
 	::MultiO3dThingComponent()
-		: firstNode_(VoidList::end()) {
+		: firstNode_(CompSchema::VoidList::end()) {
 	}
 
 
 	MultiO3dThingComponent
 	::~MultiO3dThingComponent() {
-		SimSchema::voidList.removeChain(firstNode_);
-		firstNode_ = VoidList::end();
+		CompSchema::voidList.removeChain(firstNode_);
+		firstNode_ = CompSchema::VoidList::end();
 	}
 
 
 	void MultiO3dThingComponent
 	::add(O3dThingComponent& value) {
 		Assert(&value);
-		SimSchema::voidList.add(&value, firstNode_);
+		CompSchema::voidList.add(&value, firstNode_);
 	}
 
 
 	void MultiO3dThingComponent
 	::remove(O3dThingComponent& value) {
-		SimSchema::voidList.remove(&value, firstNode_);
+		CompSchema::voidList.remove(&value, firstNode_);
 	}
 
 
 	bool MultiO3dThingComponent
 	::contains(O3dThingComponent& value) const {
-		VoidList::iterator_type it = iterator();
-		while(it != VoidList::end()) {
-			if(SimSchema::voidList.next(it) == &value)
+		CompSchema::VoidList::iterator_type it = iterator();
+		while(it != CompSchema::VoidList::end()) {
+			if(CompSchema::voidList.next(it) == &value)
 				return true;
 		}
 		return false;
@@ -65,9 +65,9 @@ namespace se_ogre {
 
 	bool MultiO3dThingComponent
 	::contains(MultiO3dThingComponent& msc) const {
-		VoidList::iterator_type it = msc.iterator();
-		while(it != VoidList::end()) {
-			if(!contains(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it))))
+		CompSchema::VoidList::iterator_type it = msc.iterator();
+		while(it != CompSchema::VoidList::end()) {
+			if(!contains(*static_cast<O3dThingComponent*>(CompSchema::voidList.next(it))))
 				return false;
 		}
 		return true;
@@ -76,9 +76,9 @@ namespace se_ogre {
 
 	bool MultiO3dThingComponent
 	::sharesAny(MultiO3dThingComponent& msc) const {
-		VoidList::iterator_type it = msc.iterator();
-		while(it != VoidList::end()) {
-			if(contains(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it)))) {
+		CompSchema::VoidList::iterator_type it = msc.iterator();
+		while(it != CompSchema::VoidList::end()) {
+			if(contains(*static_cast<O3dThingComponent*>(CompSchema::voidList.next(it)))) {
 				return true;
 			}
 		}
@@ -89,51 +89,51 @@ namespace se_ogre {
 	void MultiO3dThingComponent
 	::add(MultiO3dThingComponent& msc) {
 		Assert(&msc);
-		VoidList::iterator_type it = msc.iterator();
-		while(it != VoidList::end()) {
-			add(*static_cast<O3dThingComponent*>(SimSchema::voidList.next(it)));
+		CompSchema::VoidList::iterator_type it = msc.iterator();
+		while(it != CompSchema::VoidList::end()) {
+			add(*static_cast<O3dThingComponent*>(CompSchema::voidList.next(it)));
 		}
 	}
 
 
 	void MultiO3dThingComponent
 	::destroyMembersAndClear() {
-		VoidList::iterator_type it = iterator();
-		while(it != VoidList::end()) {
-			delete static_cast<O3dThingComponent*>(SimSchema::voidList.next(it));
+		CompSchema::VoidList::iterator_type it = iterator();
+		while(it != CompSchema::VoidList::end()) {
+			delete static_cast<O3dThingComponent*>(CompSchema::voidList.next(it));
 		}
 		clear();
 	}
 
 
 	void MultiO3dThingComponent
-	::initIterator(VoidList::iterator_type& iterator) const {
+	::initIterator(CompSchema::VoidList::iterator_type& iterator) const {
 		iterator = firstNode_;
 	}
 
 
 	bool MultiO3dThingComponent
 	::isEmpty() const {
-		return (firstNode_ == VoidList::end());
+		return (firstNode_ == CompSchema::VoidList::end());
 	}
 
 
 	void MultiO3dThingComponent
 	::clear() {
-		SimSchema::voidList.removeChain(firstNode_);
+		CompSchema::voidList.removeChain(firstNode_);
 	}
 
 
 	int MultiO3dThingComponent
 	::size() const {
-		return SimSchema::voidList.size(firstNode_);
+		return CompSchema::voidList.size(firstNode_);
 	}
 
 
 
 	MultiO3dThingComponent::Iterator
 	::Iterator()
-		: it_(VoidList::end()) {
+		: it_(CompSchema::VoidList::end()) {
 	}
 
 
