@@ -123,6 +123,7 @@ namespace se_editor {
 		switch(e->getButtonID()) {
 
 		case Ogre::MouseEvent::BUTTON0_MASK:
+			spawnCreature(-1, false, false);
 			break;
 
 
@@ -186,7 +187,7 @@ namespace se_editor {
 			}
 			break;
 
-		case Ogre::KC_O:
+		case Ogre::KC_DELETE:
 			setAction(CHANNEL_EXTRA, actionLevelDesignCleanRoom);
 			break;
 		}

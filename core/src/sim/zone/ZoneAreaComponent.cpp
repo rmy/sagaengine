@@ -146,7 +146,7 @@ namespace se_core {
 	::setExits(Exit* exits, int count) {
 		if(exits_) {
 			LogWarning("Overriding exits in: " << owner()->name());
-			delete exits_;
+			delete[] exits_;
 			exits_ = 0;
 		}
 

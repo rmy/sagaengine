@@ -42,8 +42,11 @@ namespace se_core {
 
 	void PhysicsComponent
 	::popPhysics() {
-		Assert(currentPhysics_ > 0);
-		--currentPhysics_;
+		Assert(currentPhysics_ >= 0);
+		if(currentPhysics_ == 0)
+			clearPhysics();
+		else
+			--currentPhysics_;
 	}
 
 

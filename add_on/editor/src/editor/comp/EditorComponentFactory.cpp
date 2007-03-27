@@ -30,6 +30,7 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_editor {
+	const EditorComponentFactory factoryEditorComponentFactory;
 
 	EditorComponentFactory
 	::EditorComponentFactory()

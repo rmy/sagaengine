@@ -28,33 +28,79 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/pos/Pos.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/script/ScriptComponent.hpp"
 
 using namespace se_core;
 
 namespace se_editor {
 	EditorComponent
 	::EditorComponent(Composite* owner, const ComponentFactory* factory)
-			: AreaChildComponent(sct_EDITOR, owner), string_(0) {
+			: AreaChildComponent(sct_EDITOR, owner), string_(0)
+			, isEditing_(false) {
 		PosComponent::Ptr pos(*this);
 		Assert(!pos.isNull());
+		/*
 		isGrounded_ = pos->nextPos().isGrounded();
 		EditorAreaComponent::Ptr editorArea(pos->nextPos().area());
 		Assert(!editorArea.isNull());
 		startArea_ = editorArea;
 		start_.setViewPoint(pos->nextPos().local_);
 		string_ = editorArea->grabString();
+		*/
 	}
 
 
 	EditorComponent
 	::~EditorComponent() {
-		cleanup();
+	}
+
+
+	void EditorComponent
+	::setActive(bool state) {
+		if(state)
+			init();
+		else
+			cleanup();
+	}
+
+
+	void EditorComponent
+	::init() {
+		if(EditorManager::singleton().isEditing()) {
+			if(!isEditing_) {
+				PosComponent::Ptr pos(this);
+				Assert(!pos.isNull());
+				isGrounded_ = pos->nextPos().isGrounded();
+				EditorAreaComponent::Ptr editorArea(pos->nextPos().area());
+				Assert(!editorArea.isNull());
+				startArea_ = editorArea;
+				start_.setViewPoint(pos->nextPos().local_);
+				//string_ = editorArea->grabString();
+
+				PhysicsComponent::Ptr pPhysics(*this);
+				if(!pPhysics.isNull())
+					pPhysics->pushPhysics("FollowMouse");
+
+				ScriptComponent::Ptr pScript(*this);
+				pScript->clearScripts();
+
+				isEditing_ = true;
+			}
+		}
 	}
 
 
 	void EditorComponent
 	::cleanup() {
+		if(isEditing_ && !isDead()) {
+			PhysicsComponent::Ptr pPhysics(this);
+			if(!pPhysics.isNull())
+				pPhysics->popPhysics();
+			isEditing_ = false;
+		}
 	}
+
 
 	void EditorComponent
 	::setStart(Pos& p) {
@@ -62,4 +108,5 @@ namespace se_editor {
 		p.local_.setViewPoint(start_);
 		p.updateWorldViewPoint();
 	}
+
 }

@@ -117,7 +117,7 @@ namespace se_core {
 
 	void SpawnAreaComponent
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
-		AssertFatal(spawnPoints_ == 0, "Spawn points set twice: " << owner()->name());
+		AssertWarning(spawnPoints_ == 0, "Spawn points set twice: " << owner()->name());
 
 		spawnPointCount_ = count;
 		spawnPoints_ = spawnPoints;

@@ -39,7 +39,9 @@ namespace se_editor {
 		void setActive(bool state);
 
 		const char* name() { return "EditorArea"; }
-		se_core::String* grabString();
+		//se_core::String* grabString();
+
+		void startEditor();
 
 	protected:
 		static const int MAX_STRINGS = 80;

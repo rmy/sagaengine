@@ -47,11 +47,9 @@ namespace se_editor {
 		}
 
 		EditorComponent::Ptr pEditor(physics);
-		pEditor->setStart(nextPos);
+		// 
 
-		// Always stay in the same area as the player
-		
-		nextPos.updateWorldViewPoint();
+		nextPos.updateLocalViewPoint();
 	}
 
 

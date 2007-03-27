@@ -1,6 +1,7 @@
 #include "SimpleActorFactory.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/script/Script.hpp"
+#include "comp/comp.hpp"
 
 using namespace se_core;
 
@@ -9,14 +10,14 @@ namespace se_basic {
 	SimpleActorFactory
 	::SimpleActorFactory(String* name)
 			: CompositeFactory(st_ACTOR, name)
-		, isPickable_(false)
-		, isCollideable_(false)
-		, script_(0)
-		, physics_(0)
-		, collide_(0)
-		, defaultAction_(0)
-		, spawnPointCount_(0)
-		, spawnPoints_(0) {
+			, isPickable_(false)
+			, isCollideable_(false)
+			, script_(0)
+			, physics_(0)
+			, collide_(0)
+			, defaultAction_(0)
+			, spawnPointCount_(0)
+			, spawnPoints_(0) {
 		anim_[0].setWeight(1);
 	}
 
@@ -68,6 +69,7 @@ namespace se_basic {
 			pPos->nextPos().anim(i).setAnim( anim_[i] );
 		}
 
+		createGenericComponents(c);
 		createComponents(c);
 
 		return c;
