@@ -61,6 +61,10 @@ namespace se_core {
 		void propagate();
 		void propagate(int id, bool state);
 		void setActive(bool state);
+
+		void init();
+		void cleanup();
+
 	private:
 		static const int MAX_SIGNALS = 32;
 		unsigned long changed_;
