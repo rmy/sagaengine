@@ -338,6 +338,7 @@ namespace se_core {
 	::resetThings() {
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[ i ]->reset();
+			areas_[ i ]->cleanup();
 		}
 		LogDetail("Destoryed things");
 	}

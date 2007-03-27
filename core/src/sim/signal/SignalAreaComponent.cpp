@@ -50,6 +50,18 @@ namespace se_core {
 
 
 	void SignalAreaComponent
+	::init() {
+	}
+
+	void SignalAreaComponent
+	::cleanup() {
+		changed_ = 0;
+		for(int i = 0; i < MAX_SIGNALS; ++i) {
+			inactiveSignals_[i] = 0;
+		}
+	}
+
+	void SignalAreaComponent
 	::setActive(bool state) {
 		if(state) {
 			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));

@@ -45,6 +45,9 @@ namespace se_core {
 
 	void SignalComponent
 	::cleanup() {
+		signal_ = 0;
+		sendId_ = -1;
+		recieveMask_ = 0;
 	}
 
 
