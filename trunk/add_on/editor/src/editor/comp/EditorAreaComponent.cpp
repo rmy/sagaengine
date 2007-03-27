@@ -27,6 +27,9 @@ rune@skalden.com
 #include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 #include "comp/CompositeFactory.hpp"
+#include "io/stream/FileManager.hpp"
+#include "io/schema/IoSchema.hpp"
+#include <cstdio>
 
 using namespace se_core;
 
@@ -44,11 +47,29 @@ namespace se_editor {
 
 
 	void EditorAreaComponent
+	::startEditor() {
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorComponent& c = static_cast<EditorComponent&>(it.next());
+			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)) {
+				continue;
+			}
+			c.owner()->scheduleForDestruction();
+		}
+		char buffer[256];
+		sprintf(buffer, "logic/area/thing/%s", owner()->name());
+		IoSchema::fileManager->loadDirectory(buffer);
+	}
+
+	void EditorAreaComponent
 	::setActive(bool state) {
 		if(state) {
 			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
 			if(c) {
 				setParent(*c);
+				if(EditorManager::singleton().isEditing()) {
+					startEditor();
+				}
 			}
 		}
 		else {
@@ -57,11 +78,13 @@ namespace se_editor {
 	}
 
 
+	/*
 	se_core::String* EditorAreaComponent
 	::grabString() {
 		Assert(usedStrings_ < MAX_STRINGS);
 		return &strings_[ usedStrings_++ ];
 	}
+	*/
 
 }
 

@@ -115,7 +115,7 @@ namespace se_core {
 		}
 
 		short currentPhysics_;
-		static const short MAX_PHYSICS_STACK_SIZE = 3;
+		static const short MAX_PHYSICS_STACK_SIZE = 4;
 		const Physics* physics_[ MAX_PHYSICS_STACK_SIZE ];
 		const Physics* affect_;
 		friend class PhysicsAreaComponent;

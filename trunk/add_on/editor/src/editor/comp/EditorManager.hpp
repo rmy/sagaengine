@@ -52,7 +52,17 @@ namespace se_editor {
 		void initGame();
 		void cleanupGame();
 
+		void startEditor();
+		void exitEditor();
+
+		bool isEditing() const {
+			return isEditing_;
+		}
+
 		static EditorManager& singleton();
+
+	private:
+		bool isEditing_;
 	};
 
 }

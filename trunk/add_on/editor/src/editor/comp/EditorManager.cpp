@@ -26,12 +26,13 @@ rune@skalden.com
 #include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
+using namespace se_core;
 using namespace se_editor;
 
 namespace se_editor {
 	EditorManager
 	::EditorManager()
-		: RootComponent(se_core::sct_EDITOR) {
+		: RootComponent(se_core::sct_EDITOR), isEditing_(false) {
 	}
 
 	EditorManager
@@ -60,6 +61,7 @@ namespace se_editor {
 
 	void EditorManager
 	::initGame() {
+		isEditing_ = false;
 	}
 
 
@@ -67,4 +69,19 @@ namespace se_editor {
 	::cleanupGame() {
 	}
 
+	void EditorManager
+	::startEditor() {
+		isEditing_ = true;
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
+			c.startEditor();
+		}
+	}
+
+
+	void EditorManager
+	::exitEditor() {
+		isEditing_ = false;
+	}
 }

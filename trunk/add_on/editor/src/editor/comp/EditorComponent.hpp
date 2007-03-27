@@ -39,11 +39,15 @@ namespace se_editor {
 		const char* name() { return "Editor"; }
 
 		void setStart(se_core::Pos& p);
+		void setActive(bool state);
 
 	protected:
 		friend class EditorComponentFactory;
 
+		void init();
 		void cleanup();
+
+		bool isEditing_;
 
 		se_core::String* string_;
 		EditorAreaComponent* startArea_;

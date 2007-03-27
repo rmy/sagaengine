@@ -27,10 +27,12 @@ rune@skalden.com
 #include "sim/physics/PhysicsManager.hpp"
 #include "sim/react/CollisionManager.hpp"
 #include "sim/schema/SimSchema.hpp"
+#include "sim/area/AreaManager.hpp"
 #include "util/error/Log.hpp"
 #include "client/schema/ClientSchema.hpp"
 #include "../input/EditorControls.hpp"
 #include "../physics/PhCameraAbove.hpp"
+#include "../comp/EditorManager.hpp"
 
 using namespace se_core;
 using namespace se_client;
@@ -52,6 +54,8 @@ namespace se_editor {
 	void AcStartEditor
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
 		PosComponent::Ptr pPos(perf);
+		pPos->nextPos().setRadius(0.25f);
+
 		ScriptComponent::Ptr pScript(perf);
 
 		EditorControls::singleton().grabFocus();
@@ -62,6 +66,8 @@ namespace se_editor {
 
 		CollisionManager::singleton().resetGodMode();
 		CollisionManager::singleton().flipGodMode();
+
+		EditorManager::singleton().startEditor();
 	}
 
 }
