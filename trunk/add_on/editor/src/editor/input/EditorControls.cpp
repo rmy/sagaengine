@@ -32,9 +32,8 @@ rune@skalden.com
 #include "io/schema/IoSchema.hpp"
 #include "io/stream/FileManager.hpp"
 
-#include "editor/action/LevelDesignSnap.hpp"
-#include "editor/action/LevelDesignSpawn.hpp"
-#include "editor/action/LevelDesignCleanRoom.hpp"
+#include "editor/schema/EditorSchema.hpp"
+#include "editor/action/all.hpp"
 
 #include <OgreInput.h>
 #include <OgreKeyEvent.h>
@@ -64,7 +63,8 @@ namespace se_editor {
 	::init() {
 		cursor_.setIdentity();
 		Parameter tmp;
-		actionMoveCursor.param(cursor_, tmp);
+		isRelative_ = true;
+		actionMoveCursor.param(isRelative_, cursor_, tmp);
 		defaultAction_[ CHANNEL_MOVEMENT ].setAction(actionMoveCursor);
 		defaultAction_[ CHANNEL_MOVEMENT ].copyParameter(tmp);
 		defaultAction_[ CHANNEL_DIRECTION ].setAction(actionIdle);
@@ -109,11 +109,10 @@ namespace se_editor {
 
 	void EditorControls
 	::mouseMoved(Ogre::MouseEvent* e) {
+		e->isShiftDown();
 		cursor_.coor_.x_ += e->getRelX();
 		cursor_.coor_.z_ += e->getRelY();
-		//cursor_.coor_.y_ += e->getRelZ();
 		cursor_.face_.yaw_ += e->getRelZ() * 256;
-		LogWarning(cursor_);
 	}
 
 
@@ -121,13 +120,16 @@ namespace se_editor {
 	void EditorControls
 	::mousePressed(Ogre::MouseEvent* e) {
 		switch(e->getButtonID()) {
-
 		case Ogre::MouseEvent::BUTTON0_MASK:
-			spawnCreature(-1, false, false);
+			if(EditorSchema::lastSpawn) 
+				setAction(CHANNEL_EXTRA, actionPlaceGrabbed);
+			else
+				setAction(CHANNEL_EXTRA, actionGrabNearest);
+			cursor_.setIdentity();
 			break;
 
-
 		case Ogre::MouseEvent::BUTTON1_MASK:
+			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
 			cursor_.setIdentity();
 			break;
 		}
@@ -137,6 +139,8 @@ namespace se_editor {
 
 	void EditorControls
 	::keyPressed(Ogre::KeyEvent* e) {
+		isRelative_ = !e->isShiftDown();
+
 		switch(e->getKey()) {
 		case Ogre::KC_COMMA:
 			setAction(CHANNEL_EXTRA, actionLevelDesignSnap);
@@ -193,15 +197,33 @@ namespace se_editor {
 			}
 			break;
 
+		case Ogre::KC_BACK:
+			setAction(CHANNEL_EXTRA, actionDestroyGrabbed);
+			break;
+
+		case Ogre::KC_RETURN:
+			setAction(CHANNEL_EXTRA, actionSaveLevel);
+			break;
+
 		case Ogre::KC_DELETE:
 			setAction(CHANNEL_EXTRA, actionLevelDesignCleanRoom);
 			break;
 		}
 	}
 
+	void EditorControls
+	::keyReleased(Ogre::KeyEvent* e) {
+		isRelative_ = !e->isShiftDown();
+		e->consume();
+	}
 
 	void EditorControls
 	::spawnCreature(int id, bool mod1, bool mod2) {
+		if(id < 0) {
+			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
+			return;
+		}
+
 		int index = id;
 		if(index >= 0) {
 			if(mod1)
@@ -212,6 +234,5 @@ namespace se_editor {
 		Parameter tmp;
 		actionLevelDesignSpawn.param(index, tmp);
 		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
-		//ClientSchema::playerX->planAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
 	}
 }

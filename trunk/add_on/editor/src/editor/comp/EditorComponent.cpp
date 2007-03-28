@@ -74,7 +74,8 @@ namespace se_editor {
 				isGrounded_ = pos->nextPos().isGrounded();
 				EditorAreaComponent::Ptr editorArea(pos->nextPos().area());
 				Assert(!editorArea.isNull());
-				startArea_ = editorArea;
+				startArea_ = const_cast<PosComponent*>(pos->nextPos().area());
+				Assert(startArea_ != 0);
 				start_.setViewPoint(pos->nextPos().local_);
 				//string_ = editorArea->grabString();
 
@@ -105,10 +106,14 @@ namespace se_editor {
 
 
 	void EditorComponent
-	::setStart(Pos& p) {
+	::setStart(const Pos& p) {
+		/*
 		p.setArea(*PosComponent::Ptr(*startArea_));
 		p.local_.setViewPoint(start_);
 		p.updateWorldViewPoint();
+		*/
+		startArea_ = const_cast<PosComponent*>(p.area());
+		p.areaViewPoint(*p.area(), start_);
 	}
 
 }

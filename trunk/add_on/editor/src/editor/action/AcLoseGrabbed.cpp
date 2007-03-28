@@ -19,13 +19,12 @@ rune@skalden.com
 */
 
 
-#include "AcGrabNearest.hpp"
+#include "AcLoseGrabbed.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/pos/PosComponent.hpp"
-#include "sim/physics/PhysicsComponent.hpp"
 #include "editor/comp/EditorAreaComponent.hpp"
 #include "editor/comp/EditorComponent.hpp"
 #include "editor/schema/EditorSchema.hpp"
@@ -33,36 +32,40 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_editor {
-	const AcGrabNearest actionGrabNearest;
+	const AcLoseGrabbed actionLoseGrabbed;
 
-	AcGrabNearest
-	::AcGrabNearest() : se_core::Action("GrabNearest") {
+	AcLoseGrabbed
+	::AcLoseGrabbed() : se_core::Action("LoseGrabbed") {
 	}
 
 
-	AcGrabNearest
-	::~AcGrabNearest() {
+	AcLoseGrabbed
+	::~AcLoseGrabbed() {
 	}
 
 
-	void AcGrabNearest
+	void AcLoseGrabbed
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		PosComponent::Ptr pPos(perf);
-		PhysicsComponent::Ptr pPhysics(perf);
-		PosComponent::Ptr aPos(*pPos->pos().area());
-		EditorAreaComponent::Ptr aEditor(*pPos->pos().area());
-		EditorComponent* c = aEditor->findNearest(pPos->nextPos().local_.coor_);
-		if(c) {
-			PosComponent::Ptr cPos(*c);
-			pPos->nextPos().world_.setViewPoint(cPos->pos().world_);
-			pPos->nextPos().updateLocalViewPoint();
-			pPhysics->nextMove().work_.vp_.face_.yaw_ = pPos->nextPos().worldFace().yaw_;
+		if(EditorSchema::lastSpawn) {
+			PosComponent::Ptr pPos(perf);
 
-			cPos->nextPos().setParent(*pPos);
-			cPos->nextPos().local_.setIdentity();
-			cPos->nextPos().updateWorldViewPoint();
 
-			EditorSchema::lastSpawn = c->owner();
+			PosComponent::Ptr lsPos(*EditorSchema::lastSpawn);
+			lsPos->nextPos().resetParent(true);
+			EditorComponent::Ptr lsEditor(*EditorSchema::lastSpawn);
+
+			PosComponent* area = lsEditor->startArea();
+			if(area) {
+				lsPos->nextPos().setArea(*lsEditor->startArea());
+				lsPos->nextPos().local_.setViewPoint(lsEditor->start());
+				lsPos->nextPos().updateWorldViewPoint();
+			}
+			else {
+				lsPos->owner()->scheduleForDestruction();
+			}
+
+			EditorSchema::lastSpawn = 0;
+			return;
 		}
 	}
 

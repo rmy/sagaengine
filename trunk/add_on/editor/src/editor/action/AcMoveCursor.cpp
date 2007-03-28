@@ -77,15 +77,26 @@ namespace se_editor {
 		}
 
 		bray_t yaw = BrayT::towards(p->cursor_->face_.yaw_, 0, BRAY_RES >> 1);
-		pPhysics->nextMove().velocity_.set(x, 0, z);
-		pPhysics->nextMove().angularVelocity_.yaw_ = yaw;
+		if(*p->isRelative_) {
+			p->cursor_->coor_.scale(32);
+			pPhysics->nextMove().velocity_.set(p->cursor_->coor_);
+			p->cursor_->coor_.reset();
+			pPhysics->nextMove().torque_.yaw_ = yaw;
+		}
+		else {
+			Vector3 f(x, 0, z);
+			//pPhysics->nextMove().velocity_.set(f);
+			pPhysics->nextMove().addForce(f);
+			pPhysics->nextMove().angularVelocity_.yaw_ = yaw;
+		}
 	}
 
 
 
 	const AcMoveCursor& AcMoveCursor
-	::param(ViewPoint& c, Parameter& out) const {
+	::param(bool& isRelative, ViewPoint& c, Parameter& out) const {
 		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
+		p->isRelative_ = &isRelative;
 		p->cursor_ = &c;
 		return *this;
 	}

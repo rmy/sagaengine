@@ -19,24 +19,24 @@ rune@skalden.com
 */
 
 
-#ifndef AcGrabNearest_hpp
-#define AcGrabNearest_hpp
+#ifndef AcLoseGrabbed_hpp
+#define AcLoseGrabbed_hpp
 
 #include "sim/sim.hpp"
 #include "sim/action/sim_action.hpp"
 #include "sim/action/Action.hpp"
 
 namespace se_editor {
-	class _SeEditorExport AcGrabNearest : public se_core::Action {
+	class _SeEditorExport AcLoseGrabbed : public se_core::Action {
 	public:
-		AcGrabNearest() ;
-		virtual ~AcGrabNearest();
+		AcLoseGrabbed() ;
+		virtual ~AcLoseGrabbed();
 		void perform(long when, se_core::ActionComponent& perf, se_core::Parameter& parameter) const;
 
 	protected:
 	};
 
-	extern _SeEditorExport const AcGrabNearest actionGrabNearest;
+	extern _SeEditorExport const AcLoseGrabbed actionLoseGrabbed;
 }
 
 #endif

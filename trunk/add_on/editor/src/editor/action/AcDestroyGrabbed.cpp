@@ -19,13 +19,12 @@ rune@skalden.com
 */
 
 
-#include "AcGrabNearest.hpp"
+#include "AcDestroyGrabbed.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "util/error/Log.hpp"
 #include "sim/action/ActionAndParameter.hpp"
 #include "sim/action/ActionComponent.hpp"
 #include "sim/pos/PosComponent.hpp"
-#include "sim/physics/PhysicsComponent.hpp"
 #include "editor/comp/EditorAreaComponent.hpp"
 #include "editor/comp/EditorComponent.hpp"
 #include "editor/schema/EditorSchema.hpp"
@@ -33,36 +32,23 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_editor {
-	const AcGrabNearest actionGrabNearest;
+	const AcDestroyGrabbed actionDestroyGrabbed;
 
-	AcGrabNearest
-	::AcGrabNearest() : se_core::Action("GrabNearest") {
+	AcDestroyGrabbed
+	::AcDestroyGrabbed() : se_core::Action("DestroyGrabbed") {
 	}
 
 
-	AcGrabNearest
-	::~AcGrabNearest() {
+	AcDestroyGrabbed
+	::~AcDestroyGrabbed() {
 	}
 
 
-	void AcGrabNearest
+	void AcDestroyGrabbed
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		PosComponent::Ptr pPos(perf);
-		PhysicsComponent::Ptr pPhysics(perf);
-		PosComponent::Ptr aPos(*pPos->pos().area());
-		EditorAreaComponent::Ptr aEditor(*pPos->pos().area());
-		EditorComponent* c = aEditor->findNearest(pPos->nextPos().local_.coor_);
-		if(c) {
-			PosComponent::Ptr cPos(*c);
-			pPos->nextPos().world_.setViewPoint(cPos->pos().world_);
-			pPos->nextPos().updateLocalViewPoint();
-			pPhysics->nextMove().work_.vp_.face_.yaw_ = pPos->nextPos().worldFace().yaw_;
-
-			cPos->nextPos().setParent(*pPos);
-			cPos->nextPos().local_.setIdentity();
-			cPos->nextPos().updateWorldViewPoint();
-
-			EditorSchema::lastSpawn = c->owner();
+		if(EditorSchema::lastSpawn) {
+			EditorSchema::lastSpawn->scheduleForDestruction();
+			EditorSchema::lastSpawn = 0;
 		}
 	}
 

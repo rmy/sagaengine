@@ -88,6 +88,31 @@ namespace se_editor {
 
 
 	void EditorAreaComponent
+	::save() {
+		char filename[256];
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
+		FILE* out = fopen(filename, "wt");
+		fprintf(out, "XB01\nN %s\n", owner()->name());
+		fclose(out);
+
+		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
+		out = fopen(filename, "wt");
+		fprintf(out, "XB01\nN %s\n", owner()->name());
+
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorComponent& c = static_cast<EditorComponent&>(it.next());
+			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)) {
+				continue;
+			}
+			Point3& p = c.start().coor_;
+			Euler3& e = c.start().face_;
+			fprintf(out, "A %s G T %03f %03f %03f R %f 0 0 /\n", c.owner()->name(), p.x_, p.y_, p.z_, BrayT::toDeg(e.yaw_));
+		}
+		fclose(out);
+	}
+
+	void EditorAreaComponent
 	::setActive(bool state) {
 		if(state) {
 			NodeComponent* c = static_cast<NodeComponent*>(CompSchema::activeRoot().component(type_));
@@ -107,13 +132,26 @@ namespace se_editor {
 	}
 
 
-	/*
-	se_core::String* EditorAreaComponent
-	::grabString() {
-		Assert(usedStrings_ < MAX_STRINGS);
-		return &strings_[ usedStrings_++ ];
+	EditorComponent* EditorAreaComponent
+	::findNearest(se_core::Point3& from) {
+		EditorComponent* nearest = 0;
+		float nearestDist = 0;
+
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorComponent& c = static_cast<EditorComponent&>(it.next());
+			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)) {
+				continue;
+			}
+			Point3& p = c.start().coor_;
+			float dist = p.distanceSquared(from);
+			if(!nearest || dist < nearestDist) {
+				nearestDist = dist;
+				nearest = &c;
+			}
+		}
+		return nearest;
 	}
-	*/
 
 }
 

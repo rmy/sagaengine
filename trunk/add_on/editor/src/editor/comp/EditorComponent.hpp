@@ -38,8 +38,10 @@ namespace se_editor {
 		virtual ~EditorComponent();
 		const char* name() { return "Editor"; }
 
-		void setStart(se_core::Pos& p);
+		void setStart(const se_core::Pos& p);
 		void setActive(bool state);
+		se_core::PosComponent* startArea() { return startArea_; }
+		se_core::ViewPoint& start() { return start_; }
 
 	protected:
 		friend class EditorComponentFactory;
@@ -48,9 +50,8 @@ namespace se_editor {
 		void cleanup();
 
 		bool isEditing_;
-
 		se_core::String* string_;
-		EditorAreaComponent* startArea_;
+		se_core::PosComponent* startArea_;
 		se_core::ViewPoint start_;
 		bool isGrounded_;
 	};

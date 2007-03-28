@@ -39,6 +39,7 @@ namespace se_editor {
 		void mouseDragged(Ogre::MouseEvent* e);
 		void mouseMoved(Ogre::MouseEvent* e);
 		void keyPressed(Ogre::KeyEvent* e);
+		void keyReleased(Ogre::KeyEvent* e);
 		void mousePressed(Ogre::MouseEvent* e);
 
 		static EditorControls& singleton();
@@ -49,6 +50,7 @@ namespace se_editor {
 		void spawnCreature(int id, bool mod1, bool mod2);
 
 		se_core::ViewPoint cursor_;
+		bool isRelative_;
 		mutable se_core::ActionAndParameter plannedAction_[se_core::CHANNEL_COUNT];
 		mutable se_core::ActionAndParameter defaultAction_[se_core::CHANNEL_COUNT];
 	};

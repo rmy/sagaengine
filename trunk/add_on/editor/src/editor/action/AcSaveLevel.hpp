@@ -19,35 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef AcMoveCursor_hpp
-#define AcMoveCursor_hpp
+#ifndef AcSaveLevel_hpp
+#define AcSaveLevel_hpp
 
 #include "sim/sim.hpp"
 #include "sim/action/Action.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 
 namespace se_editor {
-	class _SeEditorExport AcMoveCursor : public se_core::Action {
+	class _SeEditorExport AcSaveLevel : public se_core::Action {
 	public:
-		AcMoveCursor();
-		virtual ~AcMoveCursor();
+		AcSaveLevel();
+		virtual ~AcSaveLevel();
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return 1; }
-		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
-		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return true; }
+		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const;
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
 		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
-		const AcMoveCursor& param(bool& isRelative, se_core::ViewPoint& c, se_core::Parameter& out) const;
-
 	private:
-		struct Param {
-			bool* isRelative_;
-			se_core::ViewPoint* cursor_;
-		};
 	};
 
-	extern _SeEditorExport const AcMoveCursor actionMoveCursor;
-
+	extern _SeEditorExport const AcSaveLevel actionSaveLevel;
 }
 
 #endif

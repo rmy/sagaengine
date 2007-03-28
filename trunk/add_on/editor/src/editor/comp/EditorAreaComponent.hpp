@@ -23,6 +23,8 @@ rune@skalden.com
 #define EditorAreaComponent_hpp
 
 #include "sim/sim.hpp"
+#include "sim/pos/sim_pos.hpp"
+#include "util/vecmath/Vector3.hpp"
 #include "comp/node/RootChildComponent.hpp"
 #include "util/type/String.hpp"
 
@@ -43,6 +45,8 @@ namespace se_editor {
 
 		void startEditor();
 		void exitEditor();
+		void save();
+		class EditorComponent* findNearest(se_core::Point3& from);
 
 	protected:
 		static const int MAX_STRINGS = 80;
