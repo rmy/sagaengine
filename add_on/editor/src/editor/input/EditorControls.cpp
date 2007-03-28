@@ -28,18 +28,18 @@ rune@skalden.com
 #include "sim/SimEngine.hpp"
 #include "sim/physics/PhysicsComponent.hpp"
 #include "../action/AcMoveCursor.hpp"
+#include "../action/AcExitEditor.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "io/stream/FileManager.hpp"
 
-#include "logic/action/LevelDesignSnap.hpp"
-#include "logic/action/LevelDesignSpawn.hpp"
-#include "logic/action/LevelDesignCleanRoom.hpp"
+#include "editor/action/LevelDesignSnap.hpp"
+#include "editor/action/LevelDesignSpawn.hpp"
+#include "editor/action/LevelDesignCleanRoom.hpp"
 
 #include <OgreInput.h>
 #include <OgreKeyEvent.h>
 
 using namespace se_core;
-using namespace logic;
 
 namespace se_editor {
 	EditorControls& EditorControls
@@ -184,6 +184,12 @@ namespace se_editor {
 				char buffer[256];
 				sprintf(buffer, "save/%s.txt", SimSchema::simEngine.level());
 				IoSchema::fileManager->save(buffer);
+			}
+			break;
+
+		case Ogre::KC_O:
+			{
+				setAction(CHANNEL_EXTRA, actionExitEditor);
 			}
 			break;
 

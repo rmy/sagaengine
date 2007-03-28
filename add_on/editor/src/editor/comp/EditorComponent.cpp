@@ -79,8 +79,10 @@ namespace se_editor {
 				//string_ = editorArea->grabString();
 
 				PhysicsComponent::Ptr pPhysics(*this);
-				if(!pPhysics.isNull())
+				if(!pPhysics.isNull()) {
+					pPhysics->clearPhysics();
 					pPhysics->pushPhysics("FollowMouse");
+				}
 
 				ScriptComponent::Ptr pScript(*this);
 				pScript->clearScripts();
@@ -94,9 +96,9 @@ namespace se_editor {
 	void EditorComponent
 	::cleanup() {
 		if(isEditing_ && !isDead()) {
-			PhysicsComponent::Ptr pPhysics(this);
-			if(!pPhysics.isNull())
-				pPhysics->popPhysics();
+			//PhysicsComponent::Ptr pPhysics(this);
+			//if(!pPhysics.isNull())
+			//	pPhysics->popPhysics();
 			isEditing_ = false;
 		}
 	}

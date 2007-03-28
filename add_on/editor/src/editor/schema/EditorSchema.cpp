@@ -25,11 +25,14 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
+#include "comp/Composite.hpp"
 
 using namespace se_core;
 
 namespace se_editor {
 	namespace EditorSchema {
+		se_core::Composite* lastSpawn = 0;
+
 		class _SeBasicExport AutoInit : public se_core::InitListener {
 		public:
 			AutoInit() {
@@ -50,8 +53,12 @@ namespace se_editor {
 			}
 			void cleanupEngineEvent() {}
 
-			bool initGameEvent() { return true;}
-			void cleanupGameEvent() {}
+			bool initGameEvent() {
+				lastSpawn = 0;
+				return true;
+			}
+			void cleanupGameEvent() {
+			}
 
 			bool initLevelEvent() { return true; }
 			void cleanupLevelEvent() {}
