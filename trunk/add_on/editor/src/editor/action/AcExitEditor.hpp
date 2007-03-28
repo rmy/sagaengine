@@ -23,14 +23,21 @@ rune@skalden.com
 #define AcExitEditor_hpp
 
 #include "sim/sim.hpp"
+#include "sim/action/Action.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 namespace se_editor {
-	class _SeEditorExport AcExitEditor {
+	class _SeEditorExport AcExitEditor : public se_core::Action {
 	public:
 		AcExitEditor();
 		virtual ~AcExitEditor();
 
-	protected:
+		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { return 1; }
+		bool isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const;
+		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
+		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
+
+	private:
 	};
 
 	extern _SeEditorExport const AcExitEditor actionExitEditor;

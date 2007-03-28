@@ -22,13 +22,12 @@ rune@skalden.com
 #ifndef EditorSchema_hpp
 #define EditorSchema_hpp
 
-#include "sim/sim.hpp"
+#include "comp/comp.hpp"
 
 namespace se_editor {
 	namespace EditorSchema {
+		extern se_core::Composite* lastSpawn;
 	}
-
-
 }
 
 #endif

@@ -23,6 +23,7 @@ rune@skalden.com
 #include "EditorAreaComponent.hpp"
 #include "EditorComponent.hpp"
 #include "sim/schema/SimSchema.hpp"
+#include "editor/schema/EditorSchema.hpp"
 #include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 
@@ -77,11 +78,18 @@ namespace se_editor {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
 			c.startEditor();
 		}
+		EditorSchema::lastSpawn = 0;
 	}
 
 
 	void EditorManager
 	::exitEditor() {
 		isEditing_ = false;
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
+			c.exitEditor();
+		}
+		EditorSchema::lastSpawn = 0;
 	}
 }

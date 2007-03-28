@@ -42,12 +42,14 @@ namespace se_editor {
 		//se_core::String* grabString();
 
 		void startEditor();
+		void exitEditor();
 
 	protected:
 		static const int MAX_STRINGS = 80;
 		int usedStrings_;
 		se_core::String strings_[ MAX_STRINGS ];
 		friend class EditorAreaComponentFactory;
+		bool isEditing_;
 	};
 }
 

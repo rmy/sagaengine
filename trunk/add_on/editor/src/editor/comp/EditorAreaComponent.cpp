@@ -37,7 +37,8 @@ namespace se_editor {
 
 	EditorAreaComponent
 	::EditorAreaComponent(Composite* owner, const se_core::ComponentFactory* factory) 
-			: RootChildComponent(se_core::sct_EDITOR, owner, factory), usedStrings_(0) {
+			: RootChildComponent(se_core::sct_EDITOR, owner, factory)
+			, usedStrings_(0), isEditing_(false) {
 	}
 
 
@@ -48,6 +49,10 @@ namespace se_editor {
 
 	void EditorAreaComponent
 	::startEditor() {
+		if(isEditing_)
+			return;
+		isEditing_ = true;
+
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			EditorComponent& c = static_cast<EditorComponent&>(it.next());
@@ -61,6 +66,27 @@ namespace se_editor {
 		IoSchema::fileManager->loadDirectory(buffer);
 	}
 
+
+	void EditorAreaComponent
+	::exitEditor() {
+		if(!isEditing_)
+			return;
+		isEditing_ = false;
+
+		NodeComponentList::Iterator it(children_);
+		while(it.hasNext()) {
+			EditorComponent& c = static_cast<EditorComponent&>(it.next());
+			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)) {
+				continue;
+			}
+			c.owner()->scheduleForDestruction();
+		}
+		char buffer[256];
+		sprintf(buffer, "logic/area/thing/%s", owner()->name());
+		IoSchema::fileManager->loadDirectory(buffer);
+	}
+
+
 	void EditorAreaComponent
 	::setActive(bool state) {
 		if(state) {
@@ -69,6 +95,9 @@ namespace se_editor {
 				setParent(*c);
 				if(EditorManager::singleton().isEditing()) {
 					startEditor();
+				}
+				else {
+					exitEditor();
 				}
 			}
 		}

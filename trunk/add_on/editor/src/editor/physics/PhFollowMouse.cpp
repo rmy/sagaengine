@@ -16,13 +16,13 @@ namespace se_editor {
 			, Move& nextMove
 			) const {
 
-		if(!nextPos.hasParent())
+		if(!nextPos.hasParent() || nextPos.parent() == nextPos.area())
 			return;
 
-		nextPos.world_ = nextPos.parent()->nextPos().world_;
+		nextPos.world_ = pos.parent()->nextPos().world_;
 
-		if(nextPos.parent()->nextPos().area() != nextPos.area()) {
-			nextPos.setArea(*nextPos.parent()->nextPos().area());
+		if(pos.parent()->nextPos().area() != nextPos.area()) {
+			nextPos.setArea(const_cast<PosComponent&>(*pos.parent()->nextPos().area()));
 		}
 		nextPos.updateLocalViewPoint();
 	}
