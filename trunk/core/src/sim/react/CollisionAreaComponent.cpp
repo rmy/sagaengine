@@ -154,7 +154,7 @@ namespace se_core {
 			return false;
 
 		// Inside collision range. Collide.
-		return true;
+		return !cc1.isDead() && !cc2.isDead();
 	}
 
 

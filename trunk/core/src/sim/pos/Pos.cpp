@@ -281,7 +281,7 @@ namespace se_core {
 
 
 	void Pos
-	::areaCoor(const PosComponent& a, Point3& dest) {
+	::areaCoor(const PosComponent& a, Point3& dest) const {
 		dest.set( world_.coor_ );
 		Assert(a.nextPos().worldFace().isIdentity());
 		dest.sub( a.nextPos().world_.coor_ );
@@ -289,7 +289,7 @@ namespace se_core {
 
 
 	void Pos
-	::areaFace(const PosComponent& a, Euler3& dest) {
+	::areaFace(const PosComponent& a, Euler3& dest) const {
 		dest.set( world_.face_ );
 		Assert(a.nextPos().worldFace().isIdentity());
 		dest.sub( a.nextPos().world_.face_ );
@@ -297,7 +297,7 @@ namespace se_core {
 
 
 	void Pos
-	::areaViewPoint(const PosComponent& a, ViewPoint& dest) {
+	::areaViewPoint(const PosComponent& a, ViewPoint& dest) const {
 		dest.setViewPoint(world_);
 		dest.sub( a.nextPos().world_ );
 	}
