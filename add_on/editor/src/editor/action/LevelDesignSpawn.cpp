@@ -23,12 +23,12 @@ rune@skalden.com
 #include "sim/thing/Actor.hpp"
 #include "sim/stat/Dictionary.hpp"
 #include "editor/schema/EditorSchema.hpp"
+#include "editor/comp/EditorComponent.hpp"
 #include <se_core.hpp>
 #include <cstdio>
 
 
 using namespace se_core;
-using namespace se_editor;
 
 namespace se_editor {
 
@@ -58,6 +58,10 @@ namespace se_editor {
 				}
 				fprintf(out, "A %s G T %f %f %f R %f 0 0 /\n", lastName, c.x_, c.y_, c.z_, BrayT::toDeg(e.yaw_));
 				fclose(out);
+
+				EditorComponent::Ptr lsEditor(*EditorSchema::lastSpawn);
+				lsEditor->setStart(lsPos->nextPos());
+
 				EditorSchema::lastSpawn = 0;
 				return;
 			}

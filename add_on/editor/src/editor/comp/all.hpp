@@ -1,5 +1,5 @@
-#ifndef src_editor_comp_all_hpp
-#define src_editor_comp_all_hpp
+#ifndef editor_comp_all_hpp
+#define editor_comp_all_hpp
 
 #include "EditorAreaComponent.hpp"
 #include "EditorAreaComponentFactory.hpp"

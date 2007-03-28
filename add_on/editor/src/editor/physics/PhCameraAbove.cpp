@@ -20,7 +20,7 @@ namespace se_editor {
 			return;
 
 		nextPos.world_.coor_ = nextPos.parent()->nextPos().worldCoor();
-		nextPos.world_.coor_.y_ += 16;
+		nextPos.world_.coor_.y_ += 48;
 		//nextPos.world_.face_ = nextPos.parent()->nextPos().worldFace();
 		nextPos.world_.face_.yaw_ = 0;
 		nextPos.world_.face_.pitch_ = BrayT::DEG90;

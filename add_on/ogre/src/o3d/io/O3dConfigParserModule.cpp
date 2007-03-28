@@ -36,6 +36,8 @@ rune@skalden.com
 #include <OgreCamera.h>
 #include <OgreRoot.h>
 #include <OgreRenderWindow.h>
+#include <OgreEntity.h>
+#include <OgreStaticGeometry.h>
 
 
 using namespace se_core;
@@ -51,6 +53,13 @@ namespace se_ogre {
 	void O3dConfigParserModule
 	::parse(InputStream& in) {
 		int code;
+		if(O3dSchema::sceneManager) {
+			O3dSchema::sceneManager->setSkyDome(false, "no_dome");
+			//O3dSchema::sceneManager->getSceneNode("Scenery")->removeAndDestroyAllChildren();
+			//O3dSchema::sceneManager->getStaticGeometry("Scenery")->destroy();
+			O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
+		}
+
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'S': 
@@ -71,6 +80,28 @@ namespace se_ogre {
 					break;
 				}
 
+			case 'M':
+				{
+					String tmp;
+					in.readString(tmp);
+					float x = in.readFloat();
+					float y = in.readFloat();
+					float z = in.readFloat();
+
+					char buffer[256];
+					sprintf(buffer, "%s(%02f,%02f,%02f)", tmp.get(), x, y, z);
+
+					Ogre::SceneNode* node = O3dSchema::sceneManager->createSceneNode();
+					/*
+					node->setPosition(x, y, z);
+					node->attachObject(entity);
+					O3dSchema::sceneManager->getSceneNode("Scenery")->addChild( node );
+					*/
+					Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(tmp.get(), tmp.get());
+					O3dSchema::sceneManager->getStaticGeometry("Scenery")->addEntity(entity, Ogre::Vector3(x, y, z));
+				}
+				break;
+
 			case 'L': // Light
 				readLight(in);
 				break;
@@ -89,6 +120,13 @@ namespace se_ogre {
 				}
 				catch(...) {
 					LogDetail("Couldn't create skydome for ogre config file " << in.name());
+				}
+				break;
+
+			case 'E': 
+				try { // No dome
+				} catch(...) {
+					LogDetail("Couldn't remove skydome for ogre config file " << in.name());
 				}
 				break;
 
@@ -124,6 +162,11 @@ namespace se_ogre {
 				LogFatal("Unsupported code: " << (char)(code));
 			}
 		}
+		if(O3dSchema::sceneManager) {
+			Ogre::StaticGeometry* sg = O3dSchema::sceneManager->getStaticGeometry("Scenery");
+			//sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
+			sg->build();
+		}
 	}
 
 
@@ -136,6 +179,9 @@ namespace se_ogre {
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
+
+		//O3dSchema::sceneManager->getRootSceneNode()->createChild("Scenery");
+		O3dSchema::sceneManager->createStaticGeometry("Scenery");
 	}
 
 
