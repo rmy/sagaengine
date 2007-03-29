@@ -27,6 +27,7 @@ rune@skalden.com
 #include "util/vecmath/Vector3.hpp"
 #include "comp/node/RootChildComponent.hpp"
 #include "util/type/String.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 
 namespace se_editor {
@@ -41,7 +42,6 @@ namespace se_editor {
 		void setActive(bool state);
 
 		const char* name() { return "EditorArea"; }
-		//se_core::String* grabString();
 
 		void startEditor();
 		void exitEditor();
@@ -49,9 +49,8 @@ namespace se_editor {
 		class EditorComponent* findNearest(se_core::Point3& from);
 
 	protected:
-		static const int MAX_STRINGS = 80;
-		int usedStrings_;
-		se_core::String strings_[ MAX_STRINGS ];
+		se_core::ViewPoint entrances_[10];
+		bool usedEntrances_[10];
 		friend class EditorAreaComponentFactory;
 		bool isEditing_;
 	};

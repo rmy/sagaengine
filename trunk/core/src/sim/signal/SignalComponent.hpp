@@ -59,6 +59,8 @@ namespace se_core {
 			signal_ = signal;
 		}
 
+		void setDead();
+
 		bool send(bool state);
 		long sentAge() const;
 		void recieve(int id, bool state);

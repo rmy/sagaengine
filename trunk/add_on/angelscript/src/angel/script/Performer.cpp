@@ -101,8 +101,11 @@ namespace se_core {
 	void Performer
 	::defaultAction() {
 		StatComponent::Ptr pStat(composite_);
-		if(pStat->hasDefaultAction()) {
-			AngelSchema::nextAction().set( pStat->defaultAction() );
+		const Property* p = pStat->property("DEFAULT_ACTION");
+		ActionAndParameter aap;
+		aap.setAction(*p->action());
+		if(p) {
+			AngelSchema::nextAction().set( aap );
 		}
 		ScriptFunctions::yield();
 	}

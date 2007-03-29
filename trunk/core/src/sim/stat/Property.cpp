@@ -22,9 +22,65 @@ rune@skalden.com
 #include "Property.hpp"
 
 namespace se_core {
+
 	Property
-	::Property(Property::Type type)
-		: type_(type) {
-		v.value_ = 0;
+	::Property(const char* name, short value)
+			: key_(hash(name)), type_(PT_SHORT) {
+		v.shortValue_ = value;
 	}
+
+	Property
+	::Property(const char* name, int value)
+			: key_(hash(name)), type_(PT_INT) {
+		v.intValue_ = value;
+	}
+
+	Property
+	::Property(const char* name, float value)
+			: key_(hash(name)), type_(PT_FLOAT) {
+		v.floatValue_ = value;
+	}
+
+	Property
+	::Property(const char* name, String* value)
+			: key_(hash(name)), type_(PT_STRING) {
+		v.string_ = value;
+	}
+
+	Property
+	::Property(const char* name, const Action* value)
+			: key_(hash(name)), type_(PT_ACTION) {
+		v.action_ = value;
+	}
+	
+	Property
+	::Property(const char* name, const Script* value)
+			: key_(hash(name)), type_(PT_SCRIPT) {
+		v.script_ = value;
+	}
+	
+	Property
+	::Property(const char* name, Area* value)
+			: key_(hash(name)), type_(PT_AREA) {
+		v.area_ = value;
+	}
+
+	Property
+	::~Property() {
+		if(type_ == PT_STRING) {
+			delete v.string_;
+		}
+	}
+
+	int Property
+	::hash(const char* name) {
+		int h = 2166136261;
+		for(const char* n = name; *n != 0; ++n) {
+			h *= 16777619 * h;
+			h ^= *n;
+		}
+		h ^= h >> 16;
+		return (h & 0xffff);
+	}
+
 }

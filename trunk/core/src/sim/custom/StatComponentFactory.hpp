@@ -34,6 +34,7 @@ rune@skalden.com
 #include "comp/Composite.hpp"
 #include "comp/ComponentFactory.hpp"
 #include "util/type/util_type.hpp"
+#include "sim/stat/PropertyHashTable.hpp"
 
 namespace se_core {
 	class StatComponentFactory : public ComponentFactory {
@@ -43,9 +44,14 @@ namespace se_core {
 
 		Component* create(Composite* owner) const;
 
+		PropertyHashTable& properties() {
+			return properties_;
+		}
+
 	protected:
 		Abilities abilities_;
 		int collectibles_;
+		PropertyHashTable properties_;
 	};
 
 }

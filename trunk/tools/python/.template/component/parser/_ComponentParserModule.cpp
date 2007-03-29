@@ -44,7 +44,7 @@ namespace %n {
 	}
 
 
-	SimComponentFactory* %sComponentParserModule
+	ComponentFactory* %sComponentParserModule
 	::parse(InputStream& in) {
 		%sComponentFactory* factory = new %sComponentFactory();
 

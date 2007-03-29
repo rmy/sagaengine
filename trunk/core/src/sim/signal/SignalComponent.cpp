@@ -50,6 +50,11 @@ namespace se_core {
 		recieveMask_ = 0;
 	}
 
+	void SignalComponent
+	::setDead() {
+		if(sendId_ >= 0)
+			send(true);
+	}
 
 	bool SignalComponent
 	::send(bool state) {

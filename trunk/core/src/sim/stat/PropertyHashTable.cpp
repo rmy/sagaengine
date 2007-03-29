@@ -19,26 +19,8 @@ rune@skalden.com
 */
 
 
-#ifndef %sComponentParserModule_hpp
-#define %sComponentParserModule_hpp
+#include "PropertyHashTable.hpp"
 
-#include "io/parse/ComponentParserModule.hpp"
-#include "sim/stat/DictionaryEntry.hpp"
-#include "sim/sim.hpp"
+namespace se_core {
 
-namespace %n {
-	class _%NExport %sComponentParserModule : public se_core::ComponentParserModule {
-	public:
-		%sComponentParserModule();
-		virtual ~%sComponentParserModule();
-		se_core::ComponentFactory* parse(se_core::InputStream& in);
-
-	protected:
-		const se_core::DictionaryEntry dict_;
-		enum { TYPE = se_core::sct_%S, SUBTYPE = 0 };
-	};
-
-	extern _%NExport const %sComponentParserModule parser%sComponent;
 }
-
-#endif
