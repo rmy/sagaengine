@@ -43,6 +43,7 @@ namespace se_editor {
 
 		const char* name() { return "EditorArea"; }
 
+		void setEntrance(int id, se_core::ViewPoint& vp);
 		void startEditor();
 		void exitEditor();
 		void save();

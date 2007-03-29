@@ -181,5 +181,10 @@ namespace se_editor {
 		return nearest;
 	}
 
+	void EditorAreaComponent
+	::setEntrance(int id, se_core::ViewPoint& vp) {
+		entrances_[ id ].setViewPoint(vp);
+		usedEntrances_[id ] = true;
+	}
 }
 

@@ -6,6 +6,7 @@
 #include "AcGrabNearest.hpp"
 #include "AcLoseGrabbed.hpp"
 #include "AcMoveCursor.hpp"
+#include "AcPlaceEntrance.hpp"
 #include "AcPlaceGrabbed.hpp"
 #include "AcSaveLevel.hpp"
 #include "AcStartEditor.hpp"

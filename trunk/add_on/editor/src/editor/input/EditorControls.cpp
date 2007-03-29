@@ -127,6 +127,31 @@ namespace se_editor {
 	}
 
 
+	void EditorControls
+	::spawnCreature(int id, bool mod1, bool mod2) {
+		if(id < 0) {
+			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
+			return;
+		}
+
+		int index = id;
+		if(index >= 0) {
+			if(mod1)
+				index += 10;
+			if(mod2)
+				index += 20;
+		}
+		Parameter tmp;
+		actionLevelDesignSpawn.param(index, tmp);
+		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
+	}
+
+	void EditorControls
+	::placeEntrance(int id) {
+		Parameter tmp;
+		actionPlaceEntrance.param(id, tmp);
+		setAction(CHANNEL_EXTRA, actionPlaceEntrance, &tmp);
+	}
 
 	void EditorControls
 	::mousePressed(Ogre::MouseEvent* e) {
@@ -194,6 +219,37 @@ namespace se_editor {
 			spawnCreature(-1, e->isShiftDown(), e->isAltDown());
 			break;
 
+		case Ogre::KC_0:
+			placeEntrance(0);
+			break;
+		case Ogre::KC_1:
+			placeEntrance(1);
+			break;
+		case Ogre::KC_2:
+			placeEntrance(2);
+			break;
+		case Ogre::KC_3:
+			placeEntrance(3);
+			break;
+		case Ogre::KC_4:
+			placeEntrance(4);
+			break;
+		case Ogre::KC_5:
+			placeEntrance(5);
+			break;
+		case Ogre::KC_6:
+			placeEntrance(6);
+			break;
+		case Ogre::KC_7:
+			placeEntrance(7);
+			break;
+		case Ogre::KC_8:
+			placeEntrance(8);
+			break;
+		case Ogre::KC_9:
+			placeEntrance(9);
+			break;
+
 		case Ogre::KC_P:
 			{
 				char buffer[256];
@@ -226,24 +282,5 @@ namespace se_editor {
 	::keyReleased(Ogre::KeyEvent* e) {
 		//isRelative_ = !e->isShiftDown();
 		e->consume();
-	}
-
-	void EditorControls
-	::spawnCreature(int id, bool mod1, bool mod2) {
-		if(id < 0) {
-			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
-			return;
-		}
-
-		int index = id;
-		if(index >= 0) {
-			if(mod1)
-				index += 10;
-			if(mod2)
-				index += 20;
-		}
-		Parameter tmp;
-		actionLevelDesignSpawn.param(index, tmp);
-		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
 	}
 }
