@@ -58,6 +58,7 @@ namespace se_core {
 			pStats = new StatComponent(owner, this);
 		}
 		pStats->abilities()->setBases(&abilities_);
+		pStats->properties_ = &properties_;
 
 		return pStats;
 	}

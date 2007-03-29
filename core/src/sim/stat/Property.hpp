@@ -26,6 +26,7 @@ rune@skalden.com
 #include "util/type/util_type.hpp"
 #include "sim/action/sim_action.hpp"
 #include "sim/area/sim_area.hpp"
+#include "sim/script/sim_script.hpp"
 #include "sim/thing/sim_thing.hpp"
 #include "comp/comp.hpp"
 
@@ -34,64 +35,74 @@ namespace se_core {
 	class _SeCoreExport Property {
 	public:
 		enum Type {
-			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_COMPOSITE, PT_ACTION, PT_AREA, PT_STRING
+			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING
 		};
-
-		Property() {}
-		Property(Type type);
-
-		void setType(Type type) {
-			type_ = type;
-		}
-
-		inline short* shortValue() {
-			Assert(type_ == PT_SHORT);
-			return v.shortValue_;
-		}
-
-		inline int* intValue() {
-			Assert(type_ == PT_INT);
-			return v.intValue_;
-		}
-
-		inline float* floatValue() {
-			Assert(type_ == PT_FLOAT);
-			return v.floatValue_;
-		}
-
-		inline String* string() {
-			Assert(type_ == PT_STRING);
-			return v.string_;
-		}
-
-		inline Composite* composite() {
-			Assert(type_ == PT_COMPOSITE);
-			return v.composite_;
-		}
-
-		inline const Action* action() {
-			Assert(type_ == PT_ACTION);
-			return v.action_;
-		}
-
-		inline Area* area() {
-			Assert(type_ == PT_AREA);
-			return v.area_;
-		}
+		static int hash(const char* name);
 
 	private:
+		int key_;
 		Type type_;
 
 		union {
 			void* value_;
-			Composite* composite_;
-			Area* area_;
 			const Action* action_;
+			const Script* script_;
+			Area* area_;
 			String* string_;
-			short* shortValue_;
-			int* intValue_;
-			float* floatValue_;
+			short shortValue_;
+			int intValue_;
+			float  floatValue_;
 		} v;
+
+	public:
+		Property(const char* name, short value);
+		Property(const char* name, int value);
+		Property(const char* name, float value);
+		Property(const char* name, String* value);
+		Property(const char* name, const Action* value);
+		Property(const char* name, const Script* value);
+		Property(const char* name, Area* value);
+		~Property();
+
+		int key() {
+			return key_;
+		}
+
+		inline short shortValue() const {
+			Assert(type_ == PT_SHORT);
+			return v.shortValue_;
+		}
+
+		inline int intValue() const {
+			Assert(type_ == PT_INT);
+			return v.intValue_;
+		}
+
+		inline float floatValue() const {
+			Assert(type_ == PT_FLOAT);
+			return v.floatValue_;
+		}
+
+		inline const char* string() const {
+			Assert(type_ == PT_STRING);
+			return v.string_->get();
+		}
+
+		inline const Action* action() const {
+			Assert(type_ == PT_ACTION);
+			return v.action_;
+		}
+
+		inline const Script* script() const {
+			Assert(type_ == PT_SCRIPT);
+			return v.script_;
+		}
+
+		inline Area* area() const {
+			Assert(type_ == PT_AREA);
+			return v.area_;
+		}
+
 	};
 }
 

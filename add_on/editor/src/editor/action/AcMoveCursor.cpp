@@ -76,19 +76,19 @@ namespace se_editor {
 			z = 0;
 		}
 
-		bray_t yaw = BrayT::towards(p->cursor_->face_.yaw_, 0, BRAY_RES >> 1);
+		bray_t yaw = p->cursor_->face_.yaw_; //BrayT::towards(p->cursor_->face_.yaw_, 0, BRAY_RES >> 1);
 		if(*p->isRelative_) {
 			p->cursor_->coor_.scale(32);
 			pPhysics->nextMove().velocity_.set(p->cursor_->coor_);
 			p->cursor_->coor_.reset();
-			pPhysics->nextMove().torque_.yaw_ = yaw;
+			pPhysics->nextMove().torque_.yaw_ += yaw;
 		}
 		else {
 			Vector3 f(x, 0, z);
-			//pPhysics->nextMove().velocity_.set(f);
 			pPhysics->nextMove().addForce(f);
 			pPhysics->nextMove().angularVelocity_.yaw_ = yaw;
 		}
+		p->cursor_->face_.reset();
 	}
 
 

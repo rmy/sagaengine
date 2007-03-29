@@ -31,7 +31,7 @@ namespace se_core {
 
 	StatComponent
 	::StatComponent(Composite* owner, const ComponentFactory* factory)
-		: Component(sct_STAT, owner, factory) {
+			: Component(sct_STAT, owner, factory), properties_(0) {
 		for(int i = 0; i < SV_COUNT; ++i)
 			singleValues_[i] = 0;
 	}
@@ -45,18 +45,6 @@ namespace se_core {
 
 	void StatComponent
 	::setAbilities(short* abilities) {
-	}
-
-
-	void StatComponent
-	::setQuickMenuAction(const Action* a) {
-		quickMenuAction_ = a;
-	}
-
-
-	void StatComponent
-	::setUseAction(const Action* a) {
-		useAction_ = a;
 	}
 
 
@@ -76,14 +64,18 @@ namespace se_core {
 	}
 
 
-	String& StatComponent
-	::attribute(short type) {
-		return attributes_[type];
+	const Property* StatComponent
+	::property(const char* name) const {
+		if(!properties_)
+			return 0;
+		return properties_->lookup(Property::hash(name));
 	}
 
 
-	const String& StatComponent
-	::attribute(short type) const {
-		return attributes_[type];
+	const Property* StatComponent
+	::property(int key) const {
+		if(!properties_)
+			return 0;
+		return properties_->lookup(key);
 	}
 }

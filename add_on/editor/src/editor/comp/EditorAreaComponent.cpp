@@ -24,6 +24,7 @@ rune@skalden.com
 #include "EditorComponent.hpp"
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 #include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 #include "comp/CompositeFactory.hpp"
@@ -38,7 +39,7 @@ namespace se_editor {
 	EditorAreaComponent
 	::EditorAreaComponent(Composite* owner, const se_core::ComponentFactory* factory) 
 			: RootChildComponent(se_core::sct_EDITOR, owner, factory)
-			, usedStrings_(0), isEditing_(false) {
+			, isEditing_(false) {
 	}
 
 
@@ -64,6 +65,19 @@ namespace se_editor {
 		char buffer[256];
 		sprintf(buffer, "logic/area/thing/%s", owner()->name());
 		IoSchema::fileManager->loadDirectory(buffer);
+
+		for(int i = 0; i < 10; ++i) {
+			entrances_[i].setIdentity();
+			usedEntrances_[i] = false;
+		}
+		SpawnAreaComponent::Ptr aSpawn(*this);
+		for(int i = 0; i < aSpawn->spawnPointCount(); ++i) {
+			const ViewPoint* vp = aSpawn->spawnPoint(i);
+			if(vp) {
+				entrances_[i].setViewPoint(*vp);
+				usedEntrances_[i] = true;
+			}
+		}
 	}
 
 
@@ -90,12 +104,12 @@ namespace se_editor {
 	void EditorAreaComponent
 	::save() {
 		char filename[256];
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
+		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
 		FILE* out = fopen(filename, "wt");
 		fprintf(out, "XB01\nN %s\n", owner()->name());
 		fclose(out);
 
-		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
 		out = fopen(filename, "wt");
 		fprintf(out, "XB01\nN %s\n", owner()->name());
 
@@ -108,6 +122,20 @@ namespace se_editor {
 			Point3& p = c.start().coor_;
 			Euler3& e = c.start().face_;
 			fprintf(out, "A %s G T %03f %03f %03f R %f 0 0 /\n", c.owner()->name(), p.x_, p.y_, p.z_, BrayT::toDeg(e.yaw_));
+		}
+		fclose(out);
+
+		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, owner()->name());
+		out = fopen(filename, "wt");
+		fprintf(out, "XB01\nN %s\n", owner()->name());
+		for(int i = 0; i < 10; ++i) {
+			if(usedEntrances_[i]) {
+				Point3& c = entrances_[i].coor_;
+				Euler3& f = entrances_[i].face_;
+				fprintf(out, "E %d T %f %f %f R %f %f %f /\n", i, c.x_, c.y_, c.z_,
+					BrayT::toDeg(f.yaw_), BrayT::toDeg(f.pitch_), BrayT::toDeg(f.roll_)
+					);
+			}
 		}
 		fclose(out);
 	}

@@ -54,10 +54,10 @@ namespace se_editor {
 	void AcStartEditor
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
 		PosComponent::Ptr pPos(perf);
-		pPos->nextPos().bounds_.minX_ *= .5;
-		pPos->nextPos().bounds_.maxX_ *= .5;
-		pPos->nextPos().bounds_.minZ_ *= .5;
-		pPos->nextPos().bounds_.maxZ_ *= .5;
+		pPos->nextPos().bounds_.minX_ *= 1 / 3.0f;
+		pPos->nextPos().bounds_.maxX_ *= 1 / 3.0f;
+		pPos->nextPos().bounds_.minZ_ *= 1 / 3.0f;
+		pPos->nextPos().bounds_.maxZ_ *= 1 / 3.0f;
 
 		ScriptComponent::Ptr pScript(perf);
 

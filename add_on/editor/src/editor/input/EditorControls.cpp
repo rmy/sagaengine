@@ -109,10 +109,21 @@ namespace se_editor {
 
 	void EditorControls
 	::mouseMoved(Ogre::MouseEvent* e) {
-		e->isShiftDown();
-		cursor_.coor_.x_ += e->getRelX();
-		cursor_.coor_.z_ += e->getRelY();
-		cursor_.face_.yaw_ += e->getRelZ() * 256;
+		float speed = 1.0f;
+		if(e->isShiftDown()) {
+			speed = 4;
+		}
+		if(!e->isControlDown() && !(e->getModifiers() & e->BUTTON2_MASK) != 0 ) {
+			cursor_.coor_.x_ += e->getRelX() * speed;
+			cursor_.coor_.z_ += e->getRelY() * speed;
+			cursor_.face_.yaw_ += e->getRelZ() * 16 * BRAY_RES * speed;
+		}
+		else {
+			cursor_.face_.yaw_ += e->getRelZ() * 6 * BRAY_RES;
+			float r = (1 + e->getRelX()) * (1 + e->getRelY()) - 1;
+			cursor_.face_.yaw_ += r * 64 * BRAY_RES;
+		}
+
 	}
 
 
@@ -139,7 +150,7 @@ namespace se_editor {
 
 	void EditorControls
 	::keyPressed(Ogre::KeyEvent* e) {
-		isRelative_ = !e->isShiftDown();
+		//isRelative_ = !e->isShiftDown();
 
 		switch(e->getKey()) {
 		case Ogre::KC_COMMA:
@@ -213,7 +224,7 @@ namespace se_editor {
 
 	void EditorControls
 	::keyReleased(Ogre::KeyEvent* e) {
-		isRelative_ = !e->isShiftDown();
+		//isRelative_ = !e->isShiftDown();
 		e->consume();
 	}
 

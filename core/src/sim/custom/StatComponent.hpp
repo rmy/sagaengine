@@ -24,8 +24,8 @@ rune@skalden.com
 
 #include "Abilities.hpp"
 #include "Health.hpp"
-#include "../sim.hpp"
 #include "comp/Component.hpp"
+#include "../sim.hpp"
 #include "../action/Action.hpp"
 #include "../action/ActionAndParameter.hpp"
 #include "../config/sim_config.hpp"
@@ -36,6 +36,7 @@ rune@skalden.com
 #include "comp/Composite.hpp"
 #include "comp/Component.hpp"
 #include "util/type/util_type.hpp"
+#include "sim/stat/PropertyHashTable.hpp"
 
 namespace se_core {
 	class _SeCoreExport StatComponent  : public Component {
@@ -59,8 +60,6 @@ namespace se_core {
 
 		StatComponent(Composite* owner, const ComponentFactory* factory = 0);
 		void setAbilities(short* abilities);
-		void setQuickMenuAction(const Action* a);
-		void setUseAction(const Action* a);
 
 		coor_t walkSpeed() const;
 		Abilities* abilities() { return &abilities_; }
@@ -95,19 +94,8 @@ namespace se_core {
 		void setTarget(Composite* target) { target_.set(target->ref()); }
 		void resetTarget() { target_.reset(); }
 
-		/*
-		enum Special { NONE, BUBBLE_POWER, SPEED, SHOCK_WAVE };
-		void setSpecial(enum Special special, long millis);
-		enum Special special() const;
-		bool isSpecialEndingSoon() const;
-		*/
-		String& attribute(short type);
-		const String& attribute(short type) const;
-
-		short singleValue(short type) const { return singleValues_[type]; }
-		void setSingleValue(short type, short value) { singleValues_[type] = value; }
-		void incrementSingleValue(short type) { ++singleValues_[type]; }
-		void decrementSingleValue(short type) { --singleValues_[type]; }
+		const Property* property(const char* name) const;
+		const Property* property(int key) const;
 
 	protected:
 		static const int MGO_COUNT = 20;
@@ -117,16 +105,12 @@ namespace se_core {
 		mutable short singleValues_[SV_COUNT];
 		String attributes_[ATT_COUNT];
 
+
 	protected:
 		friend class StatComponentFactory;
-		/*
-		enum Special special_;
-		long specialWhen_;
-		*/
 		Abilities abilities_;
 		Health health_;
-		const Action* quickMenuAction_;
-		const Action* useAction_;
+		const PropertyHashTable* properties_;
 		mutable ActionAndParameter defaultAction_;
 		Composite::RefPtr target_;
 	};

@@ -19,26 +19,26 @@ rune@skalden.com
 */
 
 
-#ifndef %sComponentParserModule_hpp
-#define %sComponentParserModule_hpp
+#ifndef StatComponentParserModule_hpp
+#define StatComponentParserModule_hpp
 
 #include "io/parse/ComponentParserModule.hpp"
 #include "sim/stat/DictionaryEntry.hpp"
 #include "sim/sim.hpp"
 
-namespace %n {
-	class _%NExport %sComponentParserModule : public se_core::ComponentParserModule {
+namespace se_core {
+	class _SeCoreExport StatComponentParserModule : public ComponentParserModule {
 	public:
-		%sComponentParserModule();
-		virtual ~%sComponentParserModule();
-		se_core::ComponentFactory* parse(se_core::InputStream& in);
+		StatComponentParserModule();
+		virtual ~StatComponentParserModule();
+		ComponentFactory* parse(InputStream& in);
 
 	protected:
-		const se_core::DictionaryEntry dict_;
-		enum { TYPE = se_core::sct_%S, SUBTYPE = 0 };
+		const DictionaryEntry dict_;
+		enum { TYPE = sct_STAT, SUBTYPE = 0 };
 	};
 
-	extern _%NExport const %sComponentParserModule parser%sComponent;
+	extern _SeCoreExport const StatComponentParserModule parserStatComponent;
 }
 
 #endif

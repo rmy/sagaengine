@@ -55,8 +55,6 @@ namespace se_ogre {
 		int code;
 		if(O3dSchema::sceneManager) {
 			O3dSchema::sceneManager->setSkyDome(false, "no_dome");
-			//O3dSchema::sceneManager->getSceneNode("Scenery")->removeAndDestroyAllChildren();
-			//O3dSchema::sceneManager->getStaticGeometry("Scenery")->destroy();
 			O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
 		}
 

@@ -6,8 +6,11 @@
 #include "sim/spawn/SpawnManager.hpp"
 #include "sim/custom/StatComponentFactory.hpp"
 #include "sim/signal/SignalComponentFactory.hpp"
-//TODO!!!
-//#include "physx/PhysXThingComponentFactory.hpp"
+#include "sim/action/Action.hpp"
+#include "sim/script/Script.hpp"
+#include "sim/stat/Property.hpp"
+#include "sim/stat/Dictionary.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
 
 using namespace se_core;
 
@@ -185,7 +188,6 @@ namespace se_basic {
 		if(!collide.equals("none")) {
 			factory->setCollide(collide.get());
 		}
-		//factory->addComponent(new se_physx::PhysXThingComponentFactory());
 		SimSchema::spawnManager().addFactory(factory);
 	}
 
@@ -275,33 +277,6 @@ namespace se_basic {
 	}
 
 
-	ComponentFactory* StatComponentParserModule
-	::parse(InputStream& in) {
-		StatComponentFactory* factory = new StatComponentFactory();
-
-		int code = in.readInfoCode();
-		Assert(code == '{');
-
-		while((code = in.readInfoCode()) != '}') {
-			switch(code) {
-			// Abilites
-			case 'A':
-				{
-					int speed = in.readShort();
-					int attack = in.readShort();
-					int defense = in.readShort();
-					int level = in.readShort();
-					factory->setAbilities(speed, attack, defense, level);
-				}
-				break;
-
-			default:
-				LogFatal("Unsupported code '" << (char)(code) << "' in file " << in.name());
-			}
-		}
-
-		return factory;
-	}
 
 
 	ComponentFactory* SignalComponentParserModule

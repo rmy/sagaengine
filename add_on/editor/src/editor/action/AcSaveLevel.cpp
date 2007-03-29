@@ -84,10 +84,10 @@ namespace se_editor {
 		case 2:
 			{
 				PosComponent::Ptr pPos(perf);
-				pPos->nextPos().bounds_.minX_ *= 2;
-				pPos->nextPos().bounds_.maxX_ *= 2;
-				pPos->nextPos().bounds_.minZ_ *= 2;
-				pPos->nextPos().bounds_.maxZ_ *= 2;
+				pPos->nextPos().bounds_.minX_ *= 3;
+				pPos->nextPos().bounds_.maxX_ *= 3;
+				pPos->nextPos().bounds_.minZ_ *= 3;
+				pPos->nextPos().bounds_.maxZ_ *= 3;
 				CollisionManager::singleton().resetGodMode();
 			}
 			break;
