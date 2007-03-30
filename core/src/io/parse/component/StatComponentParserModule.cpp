@@ -81,7 +81,7 @@ namespace se_core {
 					Property* p = 0;
 					switch(propertyType) {
 					case Property::PT_SHORT:
-						p = new Property(name.get(), in.readShort());
+						p = new Property(name.get(), (short)in.readShort());
 						break;
 					case Property::PT_INT:
 						p = new Property(name.get(), in.readInt());
