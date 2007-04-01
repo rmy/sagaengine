@@ -50,8 +50,9 @@ namespace se_editor {
 
 	void EditorAreaComponent
 	::startEditor() {
-		if(isEditing_)
-			return;
+		// Don't do this because of reverting, etc..
+		//if(isEditing_)
+		//	return;
 		isEditing_ = true;
 
 		NodeComponentList::Iterator it(children_);
@@ -102,16 +103,64 @@ namespace se_editor {
 
 
 	void EditorAreaComponent
+	::paste() {
+		char name[256];
+		sprintf(name, "clipboard/%s.txt", owner()->factory()->name());
+
+		char filename[256];
+		char buffer[256];
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, name);
+		FILE* in = fopen(filename, "rt");
+		if(in) {
+			fgets(buffer, 256, in);
+			fgets(buffer, 256, in);
+
+			sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
+			FILE* out = fopen(filename, "wt");
+			fprintf(out, "XB01\nN %s\n", owner()->name());
+
+			while(!feof(in)) {
+				fgets(buffer, 256, in);
+				fputs(buffer, out);
+			}
+
+			fclose(out);
+			fclose(in);
+		}
+	}
+
+
+
+	void EditorAreaComponent
 	::save() {
 		char filename[256];
 		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
-		FILE* out = fopen(filename, "wt");
-		fprintf(out, "XB01\nN %s\n", owner()->name());
-		fclose(out);
+		FILE* out = fopen(filename, "rt");
+		if(out) {
+			fclose(out);
+			out = fopen(filename, "wt");
+			fprintf(out, "XB01\nN %s\n", owner()->name());
+			fclose(out);
+		}
 
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
-		out = fopen(filename, "wt");
-		fprintf(out, "XB01\nN %s\n", owner()->name());
+		save(owner()->name());
+	}
+
+
+	void EditorAreaComponent
+	::copy() {
+		char name[256];
+		sprintf(name, "clipboard/%s.txt", owner()->factory()->name());
+		save(name);
+	}
+
+
+	void EditorAreaComponent
+	::save(const char* name) {
+		char filename[256];
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, name);
+		FILE* out = fopen(filename, "wt");
+		fprintf(out, "XB01\nN %s\n", name);
 
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
@@ -125,9 +174,9 @@ namespace se_editor {
 		}
 		fclose(out);
 
-		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, owner()->name());
+		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, name);
 		out = fopen(filename, "wt");
-		fprintf(out, "XB01\nN %s\n", owner()->name());
+		fprintf(out, "XB01\nN %s\n", name);
 		for(int i = 0; i < 10; ++i) {
 			if(usedEntrances_[i]) {
 				Point3& c = entrances_[i].coor_;

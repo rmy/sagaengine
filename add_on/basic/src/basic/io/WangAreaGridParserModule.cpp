@@ -27,10 +27,15 @@ namespace se_basic {
 
 		// Create area
 		WangAreaGrid grid(xSize, zSize, name.get());
+		int seed = 19;
 
 		int code;
 		while((code = in.readInfoCode()) != 'Q' && !in.eof()) {
 			switch(code) {
+			case 'S':
+				seed = in.readShort();
+				break;
+
 			case 'T': // Tile definition
 				{
 					String name;
@@ -56,10 +61,23 @@ namespace se_basic {
 					c = in.readInfoCode();
 					AssertFatal(c == '}', "Missing } in '" << in.name() << "' - C: " << z);
 				}
+				break;
+
+			case 'G':
+				grid.generate(seed);
+				break;
+
+			case 'O':
+				{
+					String tmp;
+					in.readString(tmp);
+					grid.save(tmp.get());
+					break;
+				}
 			}
+
 		}
 
-		grid.generate();
 	}
 
 }

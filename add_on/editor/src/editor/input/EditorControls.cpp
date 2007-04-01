@@ -264,6 +264,22 @@ namespace se_editor {
 			}
 			break;
 
+		case Ogre::KC_C:
+			{
+				if(e->isControlDown()) {
+					setAction(CHANNEL_EXTRA, actionCopyLevel);
+				}
+			}
+			break;
+
+		case Ogre::KC_V:
+			{
+				if(e->isControlDown()) {
+					setAction(CHANNEL_EXTRA, actionPasteLevel);
+				}
+			}
+			break;
+
 		case Ogre::KC_BACK:
 			setAction(CHANNEL_EXTRA, actionDestroyGrabbed);
 			break;
@@ -273,7 +289,12 @@ namespace se_editor {
 			break;
 
 		case Ogre::KC_DELETE:
-			setAction(CHANNEL_EXTRA, actionLevelDesignCleanRoom);
+			if(e->isControlDown()) {
+				setAction(CHANNEL_EXTRA, actionLevelDesignCleanRoom);
+			}
+			else {
+				setAction(CHANNEL_EXTRA, actionDestroyGrabbed);
+			}
 			break;
 		}
 	}
