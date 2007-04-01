@@ -170,7 +170,7 @@ namespace se_editor {
 			}
 			Point3& p = c.start().coor_;
 			Euler3& e = c.start().face_;
-			fprintf(out, "A %s G T %03f %03f %03f R %f 0 0 /\n", c.owner()->name(), p.x_, p.y_, p.z_, BrayT::toDeg(e.yaw_));
+			fprintf(out, "A %s G T %03f %03f %03f R %f 0 0 /\n", c.saveName(), p.x_, p.y_, p.z_, BrayT::toDeg(e.yaw_));
 		}
 		fclose(out);
 

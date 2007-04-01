@@ -95,6 +95,19 @@ namespace se_editor {
 
 
 	void EditorComponent
+	::setSaveName(const char* name) {
+		saveName_.set(name);
+	}
+
+	const char* EditorComponent
+	::saveName() const {
+		if(!saveName_.isEmpty())
+			return saveName_.get();
+		return owner()->name();
+	}
+
+
+	void EditorComponent
 	::cleanup() {
 		if(isEditing_ && !isDead()) {
 			//PhysicsComponent::Ptr pPhysics(this);
