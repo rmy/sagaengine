@@ -31,6 +31,8 @@ namespace se_core {
 	class _SeCoreExport PhDefault : public Physics {
 	public:
 		PhDefault() : Physics("Default") {}
+		PhDefault(const char* name) : Physics(name) {}
+
 		void calcNext(const se_core::PhysicsComponent& physics
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos

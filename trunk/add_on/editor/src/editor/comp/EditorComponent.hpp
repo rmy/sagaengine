@@ -40,6 +40,8 @@ namespace se_editor {
 
 		void setStart(const se_core::Pos& p);
 		void setActive(bool state);
+		void setSaveName(const char* name);
+		const char* saveName() const;
 		se_core::PosComponent* startArea() { return startArea_; }
 		se_core::ViewPoint& start() { return start_; }
 
@@ -51,6 +53,7 @@ namespace se_editor {
 
 		bool isEditing_;
 		se_core::String* string_;
+		se_core::String saveName_;
 		se_core::PosComponent* startArea_;
 		se_core::ViewPoint start_;
 		bool isGrounded_;

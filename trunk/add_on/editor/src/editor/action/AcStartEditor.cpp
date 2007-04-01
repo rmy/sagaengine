@@ -24,7 +24,6 @@ rune@skalden.com
 #include "sim/pos/PosComponent.hpp"
 #include "sim/script/ScriptComponent.hpp"
 #include "sim/physics/PhysicsComponent.hpp"
-#include "sim/physics/PhysicsManager.hpp"
 #include "sim/react/CollisionManager.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/area/AreaManager.hpp"
@@ -32,6 +31,7 @@ rune@skalden.com
 #include "client/schema/ClientSchema.hpp"
 #include "../input/EditorControls.hpp"
 #include "../physics/PhCameraAbove.hpp"
+#include "../physics/PhCursor.hpp"
 #include "../comp/EditorManager.hpp"
 
 using namespace se_core;
@@ -63,6 +63,9 @@ namespace se_editor {
 
 		EditorControls::singleton().grabFocus();
 		pScript->pushScript( &EditorControls::singleton() );
+
+		PhysicsComponent::Ptr pPhysics(perf);
+		pPhysics->pushPhysics( &physicsCursor );
 
 		PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
 		cPhysics->pushPhysics( &physicsCameraAbove );
