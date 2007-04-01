@@ -54,44 +54,32 @@ namespace se_editor {
 
 	bool AcCopyLevel
 	::isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
-		return parameter.actionStage() < 2;
+		return false;
 	}
 
 	void AcCopyLevel
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		switch(parameter.actionStage()) {
-		case 0: 
-			{
-				PosComponent::Ptr pPos(perf);
-				EditorAreaComponent::Ptr aEdit(pPos->nextPos().area());
-				aEdit->copy();
-			}
-			break;
+		PosComponent::Ptr pPos(perf);
+		EditorAreaComponent::Ptr aEdit(pPos->nextPos().area());
+		aEdit->copy();
 
-		case 1: 
-			{
-				EditorControls::singleton().loseFocus();
-				ScriptComponent::Ptr pScript(perf);
-				pScript->popScript();
+		EditorControls::singleton().loseFocus();
+		ScriptComponent::Ptr pScript(perf);
+		pScript->popScript();
 
-				PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
-				cPhysics->popPhysics();
+		PhysicsComponent::Ptr pPhysics(perf);
+		pPhysics->popPhysics();
 
-				EditorManager::singleton().exitEditor();
-			}
-			break;
+		PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
+		cPhysics->popPhysics();
 
-		case 2:
-			{
-				PosComponent::Ptr pPos(perf);
-				pPos->nextPos().bounds_.minX_ *= 3;
-				pPos->nextPos().bounds_.maxX_ *= 3;
-				pPos->nextPos().bounds_.minZ_ *= 3;
-				pPos->nextPos().bounds_.maxZ_ *= 3;
-				CollisionManager::singleton().resetGodMode();
-			}
-			break;
-		}
+		EditorManager::singleton().exitEditor();
+
+		pPos->nextPos().bounds_.minX_ *= 3;
+		pPos->nextPos().bounds_.maxX_ *= 3;
+		pPos->nextPos().bounds_.minZ_ *= 3;
+		pPos->nextPos().bounds_.maxZ_ *= 3;
+		CollisionManager::singleton().resetGodMode();
 	}
 
 }
