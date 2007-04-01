@@ -127,7 +127,7 @@ namespace se_core {
 	const ViewPoint* SpawnAreaComponent
 	::spawnPoint(short id) const {
 		AssertFatal(id >= 0 && id < spawnPointCount_, ": Id=" << id << " Count=" << spawnPointCount_);
-		AssertFatal(spawnPoints_[id] != 0, ": Id=" << id);
+		AssertWarning(spawnPoints_[id] != 0, "Area= " << owner()->name() << " Id=" << id);
 		return spawnPoints_[id];
 	}
 

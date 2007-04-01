@@ -1,6 +1,8 @@
 #ifndef editor_action_all_hpp
 #define editor_action_all_hpp
 
+#include "AcCopyLevel.hpp"
+#include "AcPasteLevel.hpp"
 #include "AcDestroyGrabbed.hpp"
 #include "AcExitEditor.hpp"
 #include "AcGrabNearest.hpp"

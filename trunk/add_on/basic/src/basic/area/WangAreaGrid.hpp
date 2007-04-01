@@ -28,20 +28,23 @@ namespace se_basic {
 		int findMatch(const unsigned char* wang, int random);
 
 		int getDefinition(int x, int z) {
-			if(x < 0 || x >= xSize_) return -1;
-			if(z < 0 || z >= zSize_) return -1;
-			if(!areas_[ x + z * xSize_ ].area_) return -1;
+			if(x < 0 || x >= xSize_) return -3;
+			if(z < 0 || z >= zSize_) return -3;
+			//if(!areas_[ x + z * xSize_ ].area_) return -1;
 			return areas_[ x + z * xSize_ ].definitionIndex_;
 		}
 
 		const unsigned char getSide(int x, int z, int side) {
 			int def = getDefinition(x, z);
-			if(def < 0) return 0;
+			if(def == -2) return 0;
+			if(def < 0) return '0';
 			Assert(side >= 0 && side < 4 && "Side must be between 0 and 3");
 			return wangDefinitions_[def].wang_[side];
 		}
 
-		void generate();
+		void generate(int seed);
+
+		void save(const char* filename);
 
 	private:
 		struct WangDefinition {

@@ -46,7 +46,10 @@ namespace se_editor {
 		void setEntrance(int id, se_core::ViewPoint& vp);
 		void startEditor();
 		void exitEditor();
+		void save(const char* filename);
 		void save();
+		void copy();
+		void paste();
 		class EditorComponent* findNearest(se_core::Point3& from);
 
 	protected:

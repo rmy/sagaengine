@@ -38,9 +38,9 @@ namespace se_editor {
 
 		char oldname[256];
 		char newname[256];
-		sprintf(oldname, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, aPos->owner()->name());
+		sprintf(oldname, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, aPos->owner()->name());
 		for(int i = 0; i < 256; ++i) {
-			sprintf(newname, "%s/logic/area/thing/%s_things.tmp.txt.%d", IoSchema::dataPath, aPos->owner()->name(), i);
+			sprintf(newname, "%s/logic/area/thing/%s_things.txt.%d", IoSchema::dataPath, aPos->owner()->name(), i);
 			FILE* in = fopen(newname, "r");
 			if(in) {
 				fclose(in);
@@ -51,6 +51,7 @@ namespace se_editor {
 
 		rename(oldname, newname);
 		FILE* out = fopen(oldname, "wt");
+		AssertFatal(out, oldname);
 		fprintf(out, "XB01\nN %s\n", aPos->owner()->name());
 		fclose(out);
 
