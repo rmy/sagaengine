@@ -67,10 +67,8 @@ namespace se_editor {
 		ScriptComponent::Ptr pScript(perf);
 		pScript->popScript();
 
-
 		PhysicsComponent::Ptr pPhysics(perf);
 		pPhysics->popPhysics();
-
 
 		PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
 		cPhysics->popPhysics();
