@@ -40,10 +40,11 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::O3dAreaComponent(Composite* owner)
-		: O3dNodeComponent(sct_RENDER, owner), Task(0, 32), isVisible_(false), isInitialized_(false) {
-			setPriority(0);
-			setWeight(0);
-			O3dSchema::taskList.add(*this);
+			: O3dNodeComponent(sct_RENDER, owner), Task(0, 32), staticGeometry_(0)
+			, isVisible_(false), isInitialized_(false) {
+		setPriority(0);
+		setWeight(0);
+		O3dSchema::taskList.add(*this);
 	}
 
 
@@ -56,18 +57,17 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::init() {
+		Assert(this != 0);
 		if(isInitialized_)
 			return;
 		isInitialized_ = true;
+
 
 		areaOffset(offset_);
 
 		// Create areas node, and add it to scene manager
 		node_ = O3dSchema::sceneManager->createSceneNode();
 		node_->setPosition(offset_);
-
-		LogDetail(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
-		staticGeometry_ = compileStaticGeometry();
 	}
 
 
@@ -82,11 +82,33 @@ namespace se_ogre {
 
 
 	void O3dAreaComponent
+	::initStaticGeometry() {
+		if(!staticGeometry_) {
+			LogDetail(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
+			staticGeometry_ = compileStaticGeometry();
+		}
+	}
+
+
+	void O3dAreaComponent
+	::cleanupStaticGeometry() {
+
+		if(staticGeometry_) {
+			staticGeometry_->destroy();
+			O3dSchema::sceneManager->destroyStaticGeometry(staticGeometry_);
+			staticGeometry_ = 0;
+		}
+	}
+
+
+
+
+	void O3dAreaComponent
 	::perform() {
-		init();
 		LogDetail(owner()->name());
 		if(!isActive())
 			return;
+		init();
 		node_->_updateBounds();
 		setVisible(true);
 	}
@@ -120,14 +142,17 @@ namespace se_ogre {
 
 		isVisible_ = state;
 		if(isVisible_) {
-			LogDetail("Now visible");
-			init();
+			LogDetail("Now visible: " << owner()->name());
 			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
-			staticGeometry_->setVisible(true);
+			if(staticGeometry_) {
+				staticGeometry_->setVisible(true);
+			}
 		}
 		else {
 			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
-			staticGeometry_->setVisible(false);
+			if(staticGeometry_) {
+				staticGeometry_->setVisible(false);
+			}
 		}
 	}
 

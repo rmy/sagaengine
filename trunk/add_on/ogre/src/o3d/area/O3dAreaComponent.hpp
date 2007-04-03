@@ -26,12 +26,14 @@ rune@skalden.com
 #include "../thing/MultiO3dThingComponent.hpp"
 #include "../O3dNodeComponent.hpp"
 #include "o3d_area.hpp"
+#include "sim/sim.hpp"
 
 namespace se_ogre {
 	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
 		O3dAreaComponent(se_core::Composite* owner);
 		~O3dAreaComponent();
+		typedef Ptr<O3dAreaComponent, se_core::sct_RENDER> Ptr;
 
 		static O3dAreaComponent* get(se_core::Composite* composite) {
 			Assert(composite);
@@ -52,6 +54,8 @@ namespace se_ogre {
 		void clear();
 		void setActive(bool state);
 		void setVisible(bool state);
+		void initStaticGeometry();
+		void cleanupStaticGeometry();
 
 		void move(long when, float stepDelta, float timeSinceLastFrame);
 
