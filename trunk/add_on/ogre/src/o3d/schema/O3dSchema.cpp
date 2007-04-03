@@ -31,12 +31,19 @@ rune@skalden.com
 #include "o3d/input/InputManager.hpp"
 #include "o3d/input/Console.hpp"
 #include "o3d/area/O3dAreaComponentFactory.hpp"
+#include "o3d/area/O3dAreaComponent.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
 #include "sim/SimEngine.hpp"
 #include "sim/SimListeners.hpp"
 #include "util/task/TaskList.hpp"
+#include "io/stream/FileManager.hpp"
+#include "sim/area/AreaManager.hpp"
+#include "sim/area/Area.hpp"
+#include "sim/zone/ZoneAreaComponent.hpp"
+#include "sim/pos/PosComponent.hpp"
+#include "sim/pos/Pos.hpp"
 
 using namespace Ogre;
 using namespace se_client;
@@ -155,14 +162,10 @@ namespace se_ogre {
 				LogDetail("Cast init event to render event listeners");
 				O3dSchema::renderEventListeners().castInitGame();
 
-				//O3dSchema::worldManager->compileAllStaticGeometry();
-				O3dSchema::taskList.perform(1024);
-
 				return true;
 			}
 
 			void cleanupGameEvent() {
-				O3dSchema::taskList.reset();
 
 				// Make WorldManager listen to Ogre render events
 				LogDetail("Remove Ogre frame listener");
@@ -197,10 +200,40 @@ namespace se_ogre {
 			}
 
 			bool initLevelEvent() {
+				//O3dSchema::worldManager->compileAllStaticGeometry();
+				// Load ogre configuration
+				char buffer[256];
+				sprintf(buffer, "logic/config/%s.ogre.txt", SimSchema::simEngine.nextLevel());
+				if(!IoSchema::fileManager->exists(buffer)) {
+					IoSchema::fileManager->addFileIfExists(buffer);
+				}
+				if(IoSchema::fileManager->exists(buffer)) {
+	 				IoSchema::fileManager->load(buffer);
+				}
+
+
+				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
+				int c = SimSchema::areaManager.areaCount();
+				for(int i = 0; i < c; ++i) {
+					Area* a = SimSchema::areaManager.area(i);
+					ZoneAreaComponent::Ptr aZone(*a);
+
+					O3dAreaComponent::Ptr aO3d(*a);
+					if(aZone->page().w_ == cZone->page().w_) {
+						aO3d->initStaticGeometry();
+					}
+					else {
+						aO3d->cleanupStaticGeometry();
+					}
+				}
+
+				O3dSchema::taskList.perform(1024);
+
 				return true;
 			}
 
 			void cleanupLevelEvent() {
+				O3dSchema::taskList.reset();
 			}
 
 		} autoInit;
