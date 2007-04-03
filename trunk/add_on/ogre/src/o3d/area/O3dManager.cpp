@@ -44,6 +44,7 @@ rune@skalden.com
 #include <OgreRenderTarget.h>
 #include <OgreRenderWindow.h>
 #include <OgreStringConverter.h>
+#include <OgreSceneManager.h>
 #include <cstring>
 
 using namespace se_client;
@@ -53,7 +54,7 @@ namespace se_ogre {
 	O3dManager
 	::O3dManager() 
 		: RootComponent(sct_RENDER), shouldStop_(false), debugOverlay_(0)
-		, lastRenderClock_(0), isShowingDebugInfo_(false) {
+		, lastRenderClock_(0), isShowingDebugInfo_(false), isEditLightsOn_(false) {
 		showDebugOverlay(false);
 	}
 
@@ -79,6 +80,20 @@ namespace se_ogre {
 
 	}
 
+
+	void O3dManager
+	::setEditLights(bool flag) {
+		if(isEditLightsOn_ == flag)
+			return;
+		isEditLightsOn_ = flag;
+		if(isEditLightsOn_) {
+			ambientCache_ = O3dSchema::sceneManager->getAmbientLight();
+			O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(.6f, .6f, .6f, 1));
+		}
+		else {
+			O3dSchema::sceneManager->setAmbientLight(ambientCache_);
+		}
+	}
 
 
 	bool O3dManager
