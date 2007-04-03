@@ -84,6 +84,7 @@ namespace se_ogre {
 	void O3dAreaComponent
 	::initStaticGeometry() {
 		if(!staticGeometry_) {
+			areaOffset(offset_);
 			LogDetail(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
 			staticGeometry_ = compileStaticGeometry();
 		}
@@ -92,7 +93,6 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::cleanupStaticGeometry() {
-
 		if(staticGeometry_) {
 			staticGeometry_->destroy();
 			O3dSchema::sceneManager->destroyStaticGeometry(staticGeometry_);
@@ -105,7 +105,6 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::perform() {
-		LogDetail(owner()->name());
 		if(!isActive())
 			return;
 		init();
