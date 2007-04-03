@@ -64,6 +64,7 @@ namespace se_ogre {
 			isShowingDebugInfo_ = state;
 		}
 
+		void setEditLights(bool flag);
 
 	protected: // Helper methods
 		void updateStats(void);
@@ -76,6 +77,9 @@ namespace se_ogre {
 		Ogre::Overlay* debugOverlay_;
 		//
 		long lastRenderClock_;
+
+		Ogre::ColourValue ambientCache_;
+		bool isEditLightsOn_;
 	};
 
 }
