@@ -74,35 +74,29 @@ namespace se_core {
 
 	void SimEngine
 	::go() {
-		LogWarning("!!!!");
 		SimSchema::initListeners().castStartGameEvent();
 		CompSchema::activeRoot().setActive(true, true);
 
-		LogWarning("!!!!");
 		while(true) {
 			// Any in game events caused the game to end?
 			if(SimSchema::simEngine.isGameOver()) {
 				// Will cause renderloop to end
 				break;
 			}
-			LogWarning("!!!!");
 
 			// Translate game clock to SagaEngine format
 			long when = SimSchema::realClock->millis();
 
 			// Perform next AI steps if any is waiting
 			SimSchema::simEngine.step(when);
-			LogWarning("!!!!");
 
 			// Tell registered render modules to render
 			SimSchema::engineListeners().castRenderEvent(SimSchema::realClock->millis());
-			LogWarning("!!!!");
 		}
 		CompSchema::activeRoot().setActive(false, true);
 		level_.reset();
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
-		LogWarning("!!!!");
 	}
 
 

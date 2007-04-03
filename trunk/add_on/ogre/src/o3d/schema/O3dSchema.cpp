@@ -211,7 +211,6 @@ namespace se_ogre {
 	 				IoSchema::fileManager->load(buffer);
 				}
 
-
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
 				int c = SimSchema::areaManager.areaCount();
 				for(int i = 0; i < c; ++i) {

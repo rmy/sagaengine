@@ -89,15 +89,12 @@ namespace se_ogre {
 
 	void RenderEngine
 	::renderFrame() {
-		LogWarning("Frame");
 		// WorldManager::frameStarted is called before rendering
 		O3dSchema::root->renderOneFrame();
 		// WorldManager::frameEnded is called after rendering
 		if(inputBridge_) {
-			LogWarning("Frame");
 			inputBridge_->step();
 		}
-		LogWarning("Frame");
 	}
 
 
@@ -315,7 +312,7 @@ namespace se_ogre {
 		const char** sec = sections;
 		while(*sec != 0) {
 			ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
-			ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+			//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
 			Assert(levelResourceCount_ < MAX_LEVEL_RESOURCE_SECTIONS);
 			levelResources_[ levelResourceCount_++ ] = *sec;
 			++sec;
