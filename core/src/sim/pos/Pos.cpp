@@ -155,8 +155,6 @@ namespace se_core {
 
 	void Pos
 	::swapAnims(int a, int b) {
-		Assert(anim_[a].movementMode() != 6);
-		Assert(anim_[b].movementMode() != 6);
 		Anim tmp(anim_[a]);
 		anim_[a] = anim_[b];
 		anim_[b] = tmp;
