@@ -22,6 +22,8 @@ rune@skalden.com
 #include "EditorManager.hpp"
 #include "EditorAreaComponent.hpp"
 #include "EditorComponent.hpp"
+#include "o3d/area/O3dManager.hpp"
+#include "o3d/schema/O3dSchema.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "editor/schema/EditorSchema.hpp"
 #include "comp/list/NodeComponentList.hpp"
@@ -29,6 +31,7 @@ rune@skalden.com
 
 using namespace se_core;
 using namespace se_editor;
+using namespace se_ogre;
 
 namespace se_editor {
 	EditorManager
@@ -77,6 +80,7 @@ namespace se_editor {
 		while(it.hasNext()) {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
 			c.startEditor();
+			O3dSchema::worldManager->setEditLights(true);
 		}
 		EditorSchema::lastSpawn = 0;
 	}
@@ -88,6 +92,7 @@ namespace se_editor {
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
+			O3dSchema::worldManager->setEditLights(false);
 			c.exitEditor();
 		}
 		EditorSchema::lastSpawn = 0;
