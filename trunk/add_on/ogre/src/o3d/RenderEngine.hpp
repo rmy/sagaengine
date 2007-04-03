@@ -47,6 +47,7 @@ namespace se_ogre {
 
 		void renderFrame();
 		void screenshot(int screenShotId);
+		void loadLevelResources(const char** sections);
 
 	protected:
 		/// SagaEngine Utility methods
@@ -72,6 +73,9 @@ namespace se_ogre {
 
 	protected:
 		O3dInputBridge* inputBridge_;
+		static const int MAX_LEVEL_RESOURCE_SECTIONS = 8;
+		int levelResourceCount_;
+		const char* levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
 
 	private:
 #ifdef _DEBUG

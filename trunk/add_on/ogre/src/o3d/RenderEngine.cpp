@@ -48,7 +48,7 @@ namespace se_ogre {
 
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
-			: inputBridge_(0) {
+			: inputBridge_(0), levelResourceCount_(0) {
 		O3dSchema::root = new Root();
 		LogDetail("Created Ogre root");
 
@@ -89,12 +89,15 @@ namespace se_ogre {
 
 	void RenderEngine
 	::renderFrame() {
+		LogWarning("Frame");
 		// WorldManager::frameStarted is called before rendering
 		O3dSchema::root->renderOneFrame();
 		// WorldManager::frameEnded is called after rendering
 		if(inputBridge_) {
+			LogWarning("Frame");
 			inputBridge_->step();
-		}	
+		}
+		LogWarning("Frame");
 	}
 
 
@@ -259,7 +262,7 @@ namespace se_ogre {
 		ConfigFile::SectionIterator seci = cf.getSectionIterator();
 
 		Ogre::String secName, typeName, archName;
-		while (seci.hasMoreElements()) {
+		while (seci.hasMoreElements()) {			
 			secName = seci.peekNextKey();
 			ConfigFile::SettingsMultiMap *settings = seci.getNext();
 			ConfigFile::SettingsMultiMap::iterator i;
@@ -278,9 +281,45 @@ namespace se_ogre {
 	/// Must at least do ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	void RenderEngine
 	::loadResources(void) {
+		const char* sections[] = { "bootstrap", "common", 0 };
+		int i = 0;
+		while(sections[i] != 0) {
+			ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
+			++i;
+		}
+
 		// Initialise, parse scripts etc
-		ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+		//ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
+	void RenderEngine
+	::loadLevelResources(const char** sections) {
+		bool isSame = true;
+		for(int i = 0; i < levelResourceCount_ && sections[i] != 0; ++i) {
+			if(strcmp(sections[i], levelResources_[i]) != 0) {
+				isSame = false;
+				break;
+			}
+		}
+		if(isSame && sections[ levelResourceCount_ ] != 0) {
+			isSame = false;
+		}
+		if(isSame)
+			return;
+
+		while(levelResourceCount_ > 0) {
+			const char* sec = levelResources_ [ --levelResourceCount_ ];
+			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
+		}
+
+		const char** sec = sections;
+		while(*sec != 0) {
+			ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
+			ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+			Assert(levelResourceCount_ < MAX_LEVEL_RESOURCE_SECTIONS);
+			levelResources_[ levelResourceCount_++ ] = *sec;
+			++sec;
+		}
+	}
 
 }
