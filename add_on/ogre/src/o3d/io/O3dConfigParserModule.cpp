@@ -58,8 +58,19 @@ namespace se_ogre {
 			O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
 		}
 
+		int sectionCount = 0;
+		const char* sections[8];
+
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
+			case 'R': 
+				{ // Level resource
+					String section;
+					in.readString(section);
+					sections[ sectionCount++ ] = section.copyValue();
+				}
+				break;
+
 			case 'S': 
 				{ // SceneManager
 					String sceneManager;
@@ -160,6 +171,16 @@ namespace se_ogre {
 				LogFatal("Unsupported code: " << (char)(code));
 			}
 		}
+
+		if(sectionCount > 0) {
+			sections[ sectionCount++ ] = 0;
+			RenderEngine::singleton()->loadLevelResources(sections);
+			/*
+			for(int i = 0; i < sectionCount; ++i)
+				delete sections[i];
+			*/
+		}
+
 		if(O3dSchema::sceneManager) {
 			Ogre::StaticGeometry* sg = O3dSchema::sceneManager->getStaticGeometry("Scenery");
 			//sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
