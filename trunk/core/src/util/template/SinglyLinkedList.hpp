@@ -76,7 +76,7 @@ namespace se_core {
 			DebugExec(if(firstFreeNode_ == end())) LogDetail(name_ << ": " << MAX_ELEMENTS << " - " << count_);
 			DebugExec(if(firstFreeNode_ == end())) LogDetail("Size: " << size(firstNode));
 
-			AssertFatal(firstFreeNode_ != end(), name_ << " Max size: " << MAX_ELEMENTS << " Chain size: " << size(firstNode));
+			AssertFatal(firstFreeNode_ < MAX_ELEMENTS && firstFreeNode_ >= 0, name_ << " Max size: " << MAX_ELEMENTS << " Chain size: " << size(firstNode));
 			AssertFatal((element) != 0, name_);
 			//DbgAssert(!isFree(firstNode));
 
@@ -140,6 +140,8 @@ namespace se_core {
 			// Make the iterator point to the next node in the chain
 			iterator = tmp;
 
+			DebugExec(--count_);
+
 			// Return deleted node
 			return nodes_[ firstFreeNode_ ];
 		}
@@ -181,6 +183,7 @@ namespace se_core {
 				}
 			}
 			DebugExec(if(nodes_[0] == 0) LogDetail(name_));
+			DebugExec(--count_);
 			return false;
 		}
 
@@ -250,7 +253,7 @@ namespace se_core {
 			//DbgAssert(!isFree(iterator));
 			//DbgAssert(iterator != end());
 			//DbgAssert(iterator >= 0);
-			//DbgAssert(iterator < MAX_ELEMENTS);
+			DbgAssert(iterator >= 0 && iterator < MAX_ELEMENTS);
 
 			// Store actor
 			ElementType* tmp = nodes_[ iterator ];
