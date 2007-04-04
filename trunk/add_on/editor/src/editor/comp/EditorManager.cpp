@@ -80,8 +80,8 @@ namespace se_editor {
 		while(it.hasNext()) {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
 			c.startEditor();
-			O3dSchema::worldManager->setEditLights(true);
 		}
+		O3dSchema::worldManager->setEditLights(true);
 		EditorSchema::lastSpawn = 0;
 	}
 
@@ -92,9 +92,9 @@ namespace se_editor {
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			EditorAreaComponent& c = static_cast<EditorAreaComponent&>(it.next());
-			O3dSchema::worldManager->setEditLights(false);
 			c.exitEditor();
 		}
+		O3dSchema::worldManager->setEditLights(false);
 		EditorSchema::lastSpawn = 0;
 	}
 }

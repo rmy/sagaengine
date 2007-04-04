@@ -37,13 +37,11 @@ namespace se_ogre {
 		: O3dNodeComponent(sct_RENDER, owner), Task(2, 8), parentNode_(0), isVisible_(false)
 		, isInitialized_(false)
 		, firstThingMO_(ThingMOList::end()) {
-		node_ = O3dSchema::sceneManager->createSceneNode();
 	}
 
 
 	O3dThingComponent
 	::~O3dThingComponent() {
-		clear();
 	}
 
 
@@ -69,7 +67,6 @@ namespace se_ogre {
 	void O3dThingComponent
 	::cleanup() {
 		O3dSchema::taskList.remove(*this);
-		clear();
 	}
 
 	void O3dThingComponent
@@ -78,9 +75,12 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
+		LogWarning(owner_->name());
 		ThingMOList::iterator_type it = firstThingMO_;
 		while(it != ThingMOList::end()) {
 			ThingMO* te = O3dSchema::thingMOList.next(it);
+			AssertFatal(te, ((int)it));
+			LogWarning((int)it << ": " << te->name() << (long)this->owner()->id());
 			O3dSchema::thingMOManager.release(te);
 		}
 		O3dSchema::thingMOList.removeChain(firstThingMO_);
@@ -112,7 +112,6 @@ namespace se_ogre {
 		else {
 			O3dSchema::taskList.remove(*this);
 			setVisible(false);
-			clear();
 		}
 	}
 

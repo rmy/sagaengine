@@ -36,6 +36,7 @@ namespace se_ogre {
 		void createCamera(float near, float far, float fovy);
 		void createViewports(void);
 		void readLight(se_core::InputStream& in);
+		void readResources(se_core::InputStream& in);
 	};
 }
 

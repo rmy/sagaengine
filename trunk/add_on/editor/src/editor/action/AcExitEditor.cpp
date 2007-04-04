@@ -53,31 +53,40 @@ namespace se_editor {
 
 	bool AcExitEditor
 	::isContinuing(se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
-		return false;
+		return parameter.actionStage() < 1;
 	}
 
 	void AcExitEditor
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
 
-		EditorControls::singleton().loseFocus();
-		ScriptComponent::Ptr pScript(perf);
-		pScript->popScript();
+		switch(parameter.actionStage()) {
+		case 0:
+			{
+				EditorControls::singleton().loseFocus();
+				ScriptComponent::Ptr pScript(perf);
+				pScript->popScript();
 
-		PhysicsComponent::Ptr pPhysics(perf);
-		pPhysics->popPhysics();
+				PhysicsComponent::Ptr pPhysics(perf);
+				pPhysics->popPhysics();
 
-		PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
-		cPhysics->popPhysics();
+				PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
+				cPhysics->popPhysics();
 
 
-		EditorManager::singleton().exitEditor();
+				EditorManager::singleton().exitEditor();
+			}
+			break;
 
-		PosComponent::Ptr pPos(perf);
-		pPos->nextPos().bounds_.minX_ *= 3;
-		pPos->nextPos().bounds_.maxX_ *= 3;
-		pPos->nextPos().bounds_.minZ_ *= 3;
-		pPos->nextPos().bounds_.maxZ_ *= 3;
-		CollisionManager::singleton().resetGodMode();
+		case 1:
+			{
+				PosComponent::Ptr pPos(perf);
+				pPos->nextPos().bounds_.minX_ *= 3;
+				pPos->nextPos().bounds_.maxX_ *= 3;
+				pPos->nextPos().bounds_.minZ_ *= 3;
+				pPos->nextPos().bounds_.maxZ_ *= 3;
+				CollisionManager::singleton().resetGodMode();
+			}
+		}
 	}
 
 }

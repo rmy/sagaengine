@@ -70,9 +70,9 @@ namespace se_core {
 		int destructionCount_;
 		int nextDestructionCount_;
 		static const int MAX_FACTORIES = MAX_GAME_TYPES;
-		CompositeFactory* factories_[ MAX_FACTORIES ];
 		static const int MAX_THINGS_FOR_DESTRUCTION = MAX_GAME_OBJECTS;
-		Composite* thingsScheduledForDestruction_[ MAX_THINGS_FOR_DESTRUCTION ];
+		CompositeFactory** factories_;
+		Composite** thingsScheduledForDestruction_;
 	};
 
 }

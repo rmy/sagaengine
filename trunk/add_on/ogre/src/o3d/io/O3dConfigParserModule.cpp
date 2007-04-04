@@ -58,16 +58,11 @@ namespace se_ogre {
 			O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
 		}
 
-		int sectionCount = 0;
-		const char* sections[8];
-
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'R': 
 				{ // Level resource
-					String section;
-					in.readString(section);
-					sections[ sectionCount++ ] = section.copyValue();
+					readResources(in);
 				}
 				break;
 
@@ -170,15 +165,6 @@ namespace se_ogre {
 			default:
 				LogFatal("Unsupported code: " << (char)(code));
 			}
-		}
-
-		if(sectionCount > 0) {
-			sections[ sectionCount++ ] = 0;
-			RenderEngine::singleton()->loadLevelResources(sections);
-			/*
-			for(int i = 0; i < sectionCount; ++i)
-				delete sections[i];
-			*/
 		}
 
 		if(O3dSchema::sceneManager) {
@@ -404,6 +390,38 @@ namespace se_ogre {
 			default:
 				LogFatal("Unknown lighting code: " << (char)(code));
 			}
+		}
+	}
+
+	void O3dConfigParserModule
+	::readResources(InputStream& in) {
+		int sectionCount = 0;
+		const char* sections[8];
+
+		int code;
+		code = in.readInfoCode();
+		Assert(code == '{');
+
+		while((code = in.readInfoCode()) != '}') {
+			switch(code) {
+			case 'S': 
+				{ // Level resource section
+					String section;
+					in.readString(section);
+					sections[ sectionCount++ ] = section.copyValue();
+				}
+				break;
+			}
+		}
+
+		if(sectionCount > 0) {
+			sections[ sectionCount++ ] = 0;
+			RenderEngine::singleton()->loadLevelResources(sections);
+			/*
+			for(int i = 0; i < sectionCount; ++i)
+				delete sections[i];
+			}
+			*/
 		}
 	}
 

@@ -48,6 +48,7 @@ namespace se_ogre {
 		void renderFrame();
 		void screenshot(int screenShotId);
 		void loadLevelResources(const char** sections);
+		void resetLevelResources();
 
 	protected:
 		/// SagaEngine Utility methods
