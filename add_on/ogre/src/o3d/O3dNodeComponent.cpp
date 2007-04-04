@@ -32,7 +32,8 @@ namespace se_ogre {
 
 	O3dNodeComponent
 	::O3dNodeComponent(int type, Composite* owner)
-		: NodeComponent(type, owner), node_(0) {
+			: NodeComponent(type, owner), node_(0) {
+		node_ = O3dSchema::sceneManager->createSceneNode();
 	}
 
 	O3dNodeComponent

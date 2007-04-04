@@ -62,11 +62,7 @@ namespace se_ogre {
 			return;
 		isInitialized_ = true;
 
-
 		areaOffset(offset_);
-
-		// Create areas node, and add it to scene manager
-		node_ = O3dSchema::sceneManager->createSceneNode();
 		node_->setPosition(offset_);
 	}
 
@@ -143,15 +139,11 @@ namespace se_ogre {
 		if(isVisible_) {
 			LogDetail("Now visible: " << owner()->name());
 			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
-			if(staticGeometry_) {
-				staticGeometry_->setVisible(true);
-			}
+			staticGeometry_->setVisible(true);
 		}
 		else {
 			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
-			if(staticGeometry_) {
-				staticGeometry_->setVisible(false);
-			}
+			staticGeometry_->setVisible(false);
 		}
 	}
 
@@ -273,7 +265,7 @@ namespace se_ogre {
 		sg->setRegionDimensions(Ogre::Vector3(64, 64, 64));
 		sg->setRenderingDistance(256);
 		sg->setRenderQueueGroup(Ogre::RENDER_QUEUE_WORLD_GEOMETRY_1);
-		sg->setVisible(false);
+		sg->setVisible(isActive());
 		sg->build();
 
 		return sg;

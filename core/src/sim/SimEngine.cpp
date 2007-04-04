@@ -48,6 +48,7 @@ namespace se_core {
 	SimEngine
 	::SimEngine()
 			: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
+			, multiplePerformsDisabledOnce_(false)
 			, lostPerformAdjustment_(0) {
 		LogDetail("Creating SimEngine");
 	}
@@ -75,7 +76,6 @@ namespace se_core {
 	void SimEngine
 	::go() {
 		SimSchema::initListeners().castStartGameEvent();
-		CompSchema::activeRoot().setActive(true, true);
 
 		while(true) {
 			// Any in game events caused the game to end?
@@ -110,12 +110,13 @@ namespace se_core {
 		// If multiple performs are disabled, adjust game clock
 		// to catch up.
 		long p = when >> TIMESTEP_INTERVAL_SHIFT;
-		if(!multiplePerformsPerStepEnabled_) {
+		if(!multiplePerformsPerStepEnabled_ || multiplePerformsDisabledOnce_) {
 			// Used to avoid jumps in the game clocks when
 			// multiple steps are turned off.
 			if(previousPerform_ != 0)
 				lostPerformAdjustment_ += p - previousPerform_ - 1;
 			previousPerform_ = p - 1;
+			multiplePerformsDisabledOnce_ = false;
 		}
 
 		// w is the game clock ('when') adjusted for lost performs.
@@ -172,9 +173,15 @@ namespace se_core {
 		SignalManager::singleton().step(when);
 
 		if(!nextLevel_.equals(level_)) {
-			SimSchema::initListeners().castCleanupLevelEvent();
+			CompSchema::activeRoot().setActive(false, true);
+			if(!level_.isEmpty())
+				SimSchema::initListeners().castCleanupLevelEvent();
 			level_.copy(nextLevel_.get());
 			SimSchema::initListeners().castInitLevelEvent();
+			CompSchema::activeRoot().setActive(true, true);
+			// Don't have AI and physics catch up because
+			// of skipped frames during level loading
+			multiplePerformsDisabledOnce_ = true;
 		}
 	}
 

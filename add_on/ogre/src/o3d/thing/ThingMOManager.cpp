@@ -213,6 +213,7 @@ namespace se_ogre {
 				continue;
 			}
 			ThingMO* child = f->create(*PosComponent::get(*parent), *inf->infos_[i]);
+			Assert(child);
 			parent->add(*child);
 		}
 	}

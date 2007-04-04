@@ -212,6 +212,11 @@ namespace se_core {
 		bool multiplePerformsPerStepEnabled_;
 
 		/**
+		 * Disable multiple steps once. Useful for level loading.
+		 */
+		bool multiplePerformsDisabledOnce_;
+
+		/**
 		 * Game clock adjustment.
 		 */
 		long lostPerformAdjustment_;

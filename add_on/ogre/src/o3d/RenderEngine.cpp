@@ -304,19 +304,28 @@ namespace se_ogre {
 		if(isSame)
 			return;
 
-		while(levelResourceCount_ > 0) {
-			const char* sec = levelResources_ [ --levelResourceCount_ ];
-			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
-		}
+		resetLevelResources();
 
 		const char** sec = sections;
 		while(*sec != 0) {
-			ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
-			//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+			try {
+				ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
+			}
+			catch(...) {
+			}
 			Assert(levelResourceCount_ < MAX_LEVEL_RESOURCE_SECTIONS);
 			levelResources_[ levelResourceCount_++ ] = *sec;
 			++sec;
 		}
 	}
 
+	void RenderEngine
+	::resetLevelResources() {
+		LogWarning(levelResourceCount_);
+		while(levelResourceCount_ > 0) {
+			const char* sec = levelResources_ [ --levelResourceCount_ ];
+			ResourceGroupManager::getSingleton().unloadResourceGroup(sec);
+			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
+		}
+	}
 }

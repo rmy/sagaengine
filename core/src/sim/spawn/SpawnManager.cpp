@@ -33,13 +33,17 @@ using namespace se_core;
 namespace se_core {
 	SpawnManager
 	::SpawnManager()
-		: RootComponent(sct_SPAWN)
-		, factoryCount_(0), destructionCount_(0)
-		, nextDestructionCount_(0) {
+			: RootComponent(sct_SPAWN)
+			, factoryCount_(0), destructionCount_(0)
+			, nextDestructionCount_(0) {
+		factories_ = new CompositeFactory*[ MAX_FACTORIES ];
+		thingsScheduledForDestruction_ = new Composite*[ MAX_THINGS_FOR_DESTRUCTION ];
 	}
 
 	SpawnManager
 	::~SpawnManager() {
+		delete [] factories_;
+		delete [] thingsScheduledForDestruction_;
 		resetAll();
 	}
 

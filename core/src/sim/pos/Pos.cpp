@@ -209,6 +209,8 @@ namespace se_core {
 			//parent_ = &area;
 		}
 		area_ = &area;
+
+		updateArea();
 	}
 
 	void Pos
@@ -226,6 +228,8 @@ namespace se_core {
 			world_.setViewPoint(vp);
 			updateLocalViewPoint();
 		}
+
+		updateArea();
 	}
 
 

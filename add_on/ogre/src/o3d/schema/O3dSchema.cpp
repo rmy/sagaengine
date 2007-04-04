@@ -166,6 +166,8 @@ namespace se_ogre {
 			}
 
 			void cleanupGameEvent() {
+				//
+				O3dSchema::renderEngine->resetLevelResources();
 
 				// Make WorldManager listen to Ogre render events
 				LogDetail("Remove Ogre frame listener");
@@ -187,6 +189,7 @@ namespace se_ogre {
 				// Clear scene graph
 				O3dSchema::sceneManager->clearScene();
 				LogDetail("Cleared scene");
+
 
 				if(O3dSchema::playerCamera) {
 					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
@@ -211,6 +214,7 @@ namespace se_ogre {
 	 				IoSchema::fileManager->load(buffer);
 				}
 
+
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
 				int c = SimSchema::areaManager.areaCount();
 				for(int i = 0; i < c; ++i) {
@@ -219,15 +223,16 @@ namespace se_ogre {
 
 					O3dAreaComponent::Ptr aO3d(*a);
 					if(aZone->page().w_ == cZone->page().w_) {
+						LogWarning(a->name() << ": on");
 						aO3d->initStaticGeometry();
 					}
 					else {
+						LogWarning(a->name() << ": off");
 						aO3d->cleanupStaticGeometry();
 					}
 				}
 
 				O3dSchema::taskList.perform(1024);
-
 				return true;
 			}
 
