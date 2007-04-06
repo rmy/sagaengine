@@ -169,6 +169,7 @@ namespace se_basic {
 		fromIndex = from.index();
 
 		toPoint.setForward(maxLen, yaw);
+		toPoint.y_ = 0;
 		toPoint.add(fromPoint);
 		toIndex = index(toPoint, -1);
 

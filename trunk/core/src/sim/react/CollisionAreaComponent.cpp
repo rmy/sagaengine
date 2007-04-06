@@ -221,7 +221,7 @@ namespace se_core {
 				CollisionComponent& cc2 = *candidates[ inner ];
 
 				// Only collide once (and at least once)
-				if(cc < &cc2 && cc->isCollideable() && cc2.isCollideable()) {
+				if((size_t)cc < (size_t)(&cc2) && cc->isCollideable() && cc2.isCollideable()) {
 					continue;
 				}
 
