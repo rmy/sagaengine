@@ -26,20 +26,23 @@ rune@skalden.com
 #include <cstdio>
 #include <cstring>
 
+using namespace se_core;
+
 namespace se_ogre {
 
 	ThingMultiMO
 	::ThingMultiMO(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
-		: ThingMO(thing, info, factory), firstThingMO_(ThingMOList::end()) {
+		: ThingMO(thing, info, factory) {
 		hasAnimation_ = true;
 	}
 
 
 	ThingMultiMO
 	::~ThingMultiMO() {
-		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::end()) {
-			ThingMO* te = O3dSchema::thingMOList.next(it);
+		//ThingMOList::iterator_type it = firstThingMO_;
+		//while(it != CompSchema::VoidList::end()) {
+		while(!moList_.isEmpty()) {
+			ThingMO* te = &moList_.pop(); // O3dSchema::thingMOList.next(it);
 			O3dSchema::thingMOManager.release(te);
 		}
 	}
@@ -47,9 +50,11 @@ namespace se_ogre {
 
 	void ThingMultiMO
 	::moveChildren(long when, float stepDelta, float timeSinceLastFrame) {
-		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::end()) {
-			ThingMO* te = O3dSchema::thingMOList.next(it);
+		//ThingMOList::iterator_type it = firstThingMO_;
+		//while(it != CompSchema::VoidList::end()) {
+		ThingMOList::Iterator it(moList_);
+		while(it.hasNext()) {
+			ThingMO* te = &it.next(); // O3dSchema::thingMOList.next(it);
 			te->move(when, stepDelta, timeSinceLastFrame);
 			te->resetPos();
 		}
@@ -59,9 +64,12 @@ namespace se_ogre {
 	void ThingMultiMO
 	::animateChildren(long when, float stepDelta, float timeSinceLastFrame) {
 		moveChildren(when, stepDelta, timeSinceLastFrame);
-		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::end()) {
-			ThingMO* te = O3dSchema::thingMOList.next(it);
+		//ThingMOList::iterator_type it = firstThingMO_;
+		//while(it != CompSchema::VoidList::end()) {
+		//	ThingMO* te = O3dSchema::thingMOList.next(it);
+		ThingMOList::Iterator it(moList_);
+		while(it.hasNext()) {
+			ThingMO* te = &it.next(); // O3dSchema::thingMOList.next(it);
 			if(te->hasAnimation()) {
 				te->animate(when, stepDelta, timeSinceLastFrame);
 			}
@@ -71,7 +79,7 @@ namespace se_ogre {
 
 	void ThingMultiMO
 	::add(ThingMO& tmo) {
-		O3dSchema::thingMOList.add(&tmo, firstThingMO_);
+		moList_.add(tmo);
 		tmo.setParentNode(node_);
 		tmo.setVisible(true);
 		//if(tmo.hasAnimation())
@@ -81,7 +89,7 @@ namespace se_ogre {
 
 	void ThingMultiMO
 	::remove(ThingMO& tmo) {
-		O3dSchema::thingMOList.remove(&tmo, firstThingMO_);
+		moList_.remove(tmo);
 	}
 
 }

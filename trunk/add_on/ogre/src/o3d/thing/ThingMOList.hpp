@@ -23,16 +23,53 @@ rune@skalden.com
 #define o3d_thing_ThingMOList_hpp
 
 #include "o3d_thing.hpp"
-#include "util/template/SinglyLinkedList.hpp"
-#include "sim/config/all.hpp"
-
+#include "comp/comp.hpp"
+#include "comp/schema/CompSchema.hpp"
 
 namespace se_ogre {
-	typedef se_core::SinglyLinkedList<class se_ogre::ThingMO, se_core::MAX_GAME_OBJECTS, 2> TMOL;
 
-	class _SeOgreExport ThingMOList : public TMOL {
+	class _SeCoreExport ThingMOList {
+		friend class ThingMOListIterator;
+
 	public:
-		ThingMOList(short i) : TMOL(__FILE__) { ++i; }
+		typedef se_core::CompSchema::VoidList::iterator_type iterator_type;
+		class _SeCoreExport Iterator {
+		public:
+			Iterator();
+			Iterator(const ThingMOList& mgo);
+			void init(const ThingMOList& mgo);
+			void init(short firstNode);
+
+			inline bool hasNext() {
+				return it_ != se_core::CompSchema::VoidList::end();
+			}
+
+			inline ThingMO& next() {
+				return *static_cast<ThingMO*>(se_core::CompSchema::voidList.next(it_));
+			}
+
+		private:
+			se_core::CompSchema::VoidList::iterator_type it_;
+		};
+
+
+		ThingMOList();
+		virtual ~ThingMOList();
+		void add(ThingMO& value);
+		void add(ThingMOList& msc);
+		void remove(ThingMO& value);
+		ThingMO& pop();
+		void initIterator(se_core::CompSchema::VoidList::iterator_type& iterator) const;
+		inline se_core::CompSchema::VoidList::iterator_type iterator() const { return firstNode_; }
+		bool contains(const ThingMO& value) const;
+		bool contains(ThingMOList& msc) const;
+		bool sharesAny(ThingMOList& msc) const;
+		bool isEmpty() const;
+		void clear();
+		int size() const;
+
+	protected:
+		se_core::CompSchema::VoidList::iterator_type firstNode_;
 	};
 }
 

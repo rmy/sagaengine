@@ -93,7 +93,7 @@ namespace se_fmod {
 		
 	void SoundPlayer
 	::ambienceEvent(char* snd) {
-		LogWarning(snd);
+		LogDetail(snd);
 		if(ambience_) {
 			ambience_->stop();
 			ambience_ = 0;

@@ -23,8 +23,6 @@ rune@skalden.com
 #define o3d_area_O3dManager_hpp
 
 #include "../thing/o3d_thing.hpp"
-#include "../thing/ThingMOList.hpp"
-#include "../thing/MultiO3dThingComponent.hpp"
 #include "O3dAreaComponent.hpp"
 #include "O3dPre.hpp"
 #include "comp/node/RootComponent.hpp"

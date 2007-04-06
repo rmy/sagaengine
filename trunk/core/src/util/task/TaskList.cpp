@@ -51,6 +51,12 @@ namespace se_core {
 		return w;
 	}
 
+
+	void TaskList
+	::addFree(int weight) {
+		freePoints_ = weight;
+	}
+
 	int TaskList
 	::next() {
 		int n = -1;

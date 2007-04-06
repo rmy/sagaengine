@@ -28,7 +28,6 @@ rune@skalden.com
 #include "../input/o3d_input.hpp"
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOManager.hpp"
-#include "../thing/ThingMOList.hpp"
 #include "../widget/o3d_widget.hpp"
 #include "util/task/util_task.hpp"
 #include "O3dPre.hpp"
@@ -45,11 +44,6 @@ namespace se_ogre {
 		 * Manager that maintins bindings between SagaEngine things and their representation in Ogre.
 		 */
 		extern _SeOgreExport se_ogre::ThingMOManager thingMOManager;
-		/**
-		 * Container of singly linked lists of ThingMO objects.
-		 * Used by the world manager, and ThingMultiMO classes.
-		 */
-		extern _SeOgreExport ThingMOList thingMOList;
 
 		extern _SeOgreExport se_core::TaskList taskList;
 
