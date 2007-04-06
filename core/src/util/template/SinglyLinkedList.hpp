@@ -132,6 +132,7 @@ namespace se_core {
 		ElementType* pop(iterator_type &iterator) {
 			// Store the reference to the element after the iterator
 			iterator_type tmp = nextNodes_[ iterator ];
+			AssertFatal(tmp < MAX_ELEMENTS && tmp >= -1, name_ << " Max size: " << MAX_ELEMENTS);
 
 			// Put the iterator node into the free node chain
 			nextNodes_[ iterator ] = firstFreeNode_;

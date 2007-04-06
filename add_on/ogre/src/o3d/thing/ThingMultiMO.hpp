@@ -49,7 +49,7 @@ namespace se_ogre {
 		~ThingMultiMO();
 
 	private:
-		ThingMOList::iterator_type firstThingMO_;
+		ThingMOList moList_;
 	};
 
 }

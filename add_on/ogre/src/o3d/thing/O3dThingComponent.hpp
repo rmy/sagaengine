@@ -75,7 +75,8 @@ namespace se_ogre {
 		bool isVisible_;
 		bool isInitialized_;
 
-		ThingMOList::iterator_type firstThingMO_;
+		ThingMOList moList_;
+		int size_;
 	};
 
 }

@@ -36,7 +36,7 @@ namespace se_ogre {
 	::O3dThingComponent(Composite* owner)
 		: O3dNodeComponent(sct_RENDER, owner), Task(2, 8), parentNode_(0), isVisible_(false)
 		, isInitialized_(false)
-		, firstThingMO_(ThingMOList::end()) {
+		, size_(0) {
 	}
 
 
@@ -67,6 +67,8 @@ namespace se_ogre {
 	void O3dThingComponent
 	::cleanup() {
 		O3dSchema::taskList.remove(*this);
+		clear();
+		size_ = 0;
 	}
 
 	void O3dThingComponent
@@ -75,16 +77,21 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
-		LogWarning(owner_->name());
-		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::end()) {
-			ThingMO* te = O3dSchema::thingMOList.next(it);
-			AssertFatal(te, ((int)it));
-			LogWarning((int)it << ": " << te->name() << (long)this->owner()->id());
+		Assert(size_ == moList_.size());
+		LogDetail(owner_->name());
+		//ThingMOList::iterator_type it = firstThingMO_;
+		ThingMOList::Iterator it(moList_);
+
+		while(it.hasNext()) {
+		//while(firstThingMO_ != CompSchema::VoidList::end()) {
+			//ThingMO* te = O3dSchema::thingMOList.pop(firstThingMO_);
+			ThingMO* te = &it.next();
+			Assert(te);
+			LogDetail(te->name() << (long)this->owner()->id());
 			O3dSchema::thingMOManager.release(te);
 		}
-		O3dSchema::thingMOList.removeChain(firstThingMO_);
-
+		//O3dSchema::thingMOList.removeChain(firstThingMO_);
+		size_ = 0;
 	}
 
 	void O3dThingComponent
@@ -173,9 +180,11 @@ namespace se_ogre {
 		node_->setOrientation(rot);
 
 		// Move children
-		ThingMOList::iterator_type it = firstThingMO_;
-		while(it != ThingMOList::end()) {
-			ThingMO* te = O3dSchema::thingMOList.next(it);
+		//ThingMOList::iterator_type it = firstThingMO_;
+		//while(it != CompSchema::VoidList::end()) {
+		ThingMOList::Iterator it(moList_);
+		while(it.hasNext()) {
+			ThingMO* te = &it.next(); //O3dSchema::thingMOList.next(it);
 			te->move(when, stepDelta, timeSinceLastFrame);
 			te->resetPos();
 		}
@@ -184,14 +193,19 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::add(ThingMO& tmo) {
-		O3dSchema::thingMOList.add(&tmo, firstThingMO_);
+		LogDetail(tmo.name());
+		int s = moList_.size();
+		moList_.add(tmo);
+		++size_;
+		Assert(moList_.size() == size_);
+		Assert(size_ == s + 1);
 		tmo.setParentNode(node_);
 	}
 
 
 	void O3dThingComponent
 	::remove(ThingMO& tmo) {
-		O3dSchema::thingMOList.remove(&tmo, firstThingMO_);
+		moList_.remove(tmo);
 	}
 
 

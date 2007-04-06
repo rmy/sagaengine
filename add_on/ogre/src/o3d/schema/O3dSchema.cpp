@@ -54,7 +54,6 @@ namespace se_ogre {
 		ThingMOManager thingMOManager;
 
 		RaySceneQuery* raySceneQuery = 0;
-		ThingMOList thingMOList(2);
 		se_core::TaskList taskList;
 
 		Ogre::Root* root = 0;
@@ -223,11 +222,11 @@ namespace se_ogre {
 
 					O3dAreaComponent::Ptr aO3d(*a);
 					if(aZone->page().w_ == cZone->page().w_) {
-						LogWarning(a->name() << ": on");
+						LogDetail(a->name() << ": on");
 						aO3d->initStaticGeometry();
 					}
 					else {
-						LogWarning(a->name() << ": off");
+						LogDetail(a->name() << ": off");
 						aO3d->cleanupStaticGeometry();
 					}
 				}
