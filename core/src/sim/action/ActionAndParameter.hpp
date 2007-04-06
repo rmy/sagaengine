@@ -38,7 +38,7 @@ namespace se_core {
 		inline unsigned short actionStage() { return actionStage_; }
 		void incrActionStage() { ++actionStage_; }
 		void resetActionStage() { 
-			++actionStage_ = 0;
+			actionStage_ = 0;
 		}
 
 	private:

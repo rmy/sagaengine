@@ -69,6 +69,8 @@ namespace se_pc {
 	::nextToken() {
 		// Skips whitespace if any to first non-whitespace character
 		bool foundWhiteSpace = false;
+		if(bufferIndex_ >= contentsLength_)
+			return;
 		do {
 			switch(fileContents_[bufferIndex_]) {
 			case ' ':
@@ -88,7 +90,7 @@ namespace se_pc {
 			default:
 				if(foundWhiteSpace) return;
 			}
-		} while (foundWhiteSpace);
+		} while (foundWhiteSpace && bufferIndex_ < contentsLength_);
 	}
 
 
