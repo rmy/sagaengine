@@ -239,20 +239,20 @@ namespace se_core {
 		SimSchema::initListeners().castCleanupGameEvent();
 		SimSchema::areaManager.resetAll();
 		SimSchema::spawnManager().resetAll();
+		PhysicsManager::singleton().cleanup();
 
 
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;
-		PhysicsManager::singleton().cleanup();
 	}
 
 
 	void SimEngine
 	::resetAll() {
 		//SimSchema::thingManager.reset();
-		SimSchema::spawnManager().reset();
 		SimSchema::areaManager.resetAll();
+		SimSchema::spawnManager().reset();
 	}
 
 }

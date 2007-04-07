@@ -250,7 +250,6 @@ namespace se_core {
 	::scheduleForDestruction() {
 		if(isDead_) return;
 
-		// ... then self
 		ComponentList::Iterator it(components_);
 		while(it.hasNext()) {
 			Component& c = it.next();
