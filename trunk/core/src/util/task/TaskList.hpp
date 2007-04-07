@@ -40,7 +40,7 @@ namespace se_core {
 		int next();
 
 		int taskCount_, freePoints_;
-		static const int MAX_TASKS = 256;
+		static const int MAX_TASKS = 1024;
 		Task* tasks_[MAX_TASKS];
 	};
 }

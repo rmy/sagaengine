@@ -73,6 +73,7 @@ namespace se_core {
 	void TaskList
 	::add(Task& t) {
 		Assert(&t != 0);
+		Assert(taskCount_ < MAX_TASKS);
 		if(t.isInProgress_) {
 			remove(t);
 		}

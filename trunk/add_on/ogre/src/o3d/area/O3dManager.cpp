@@ -156,8 +156,10 @@ namespace se_ogre {
 
 		// Auto quit for debug use
 		//static int frameCount = 0;
-		//if(++frameCount >= 2)
+		//if(++frameCount >= 11) {
+		//	SimSchema::simEngine.setGameOver(true);
 		//	return false;
+		//}
 
 		// Renderloop ends on false
 		return !shouldStop_;
