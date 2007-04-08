@@ -30,7 +30,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport AreaChildComponent : public NodeComponent {
 	public:
-		AreaChildComponent(int type, Composite* owner);
+		AreaChildComponent(int type, Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~AreaChildComponent();
 
 	protected:

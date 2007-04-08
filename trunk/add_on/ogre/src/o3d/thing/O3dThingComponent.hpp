@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dThingComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
-		O3dThingComponent(se_core::Composite* owner);
+		O3dThingComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory);
 		~O3dThingComponent();
 
 		static O3dThingComponent* get(se_core::Composite* composite) {

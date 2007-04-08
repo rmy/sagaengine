@@ -78,7 +78,7 @@ namespace se_core {
 		SimSchema::initListeners().castStartGameEvent();
 
 		while(true) {
-			// Any in game events caused the game to end?
+			// Any in-game events caused the game to end?
 			if(SimSchema::simEngine.isGameOver()) {
 				// Will cause renderloop to end
 				break;

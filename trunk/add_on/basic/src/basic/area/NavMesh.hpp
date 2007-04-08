@@ -182,7 +182,7 @@ namespace se_basic {
 		NavMesh(short controlPointCount, short triangleCount)
 				:  controlPointCount_(controlPointCount)
 				 , triangleCount_(triangleCount)
-				 , exitCount_(0), exits_(0) {
+				 , exitCount_(0), exits_(0), doDestroy_(true) {
 			controlPoints_ = new se_core::Point3[ controlPointCount_ ];
 			walls_ = new Wall[ controlPointCount_ ];
 			triangles_ = new Triangle[ triangleCount_ ];
@@ -190,7 +190,7 @@ namespace se_basic {
 		}
 
 
-		NavMesh(const void* data) {
+		NavMesh(const void* data) : doDestroy_(false) {
 			union {
 				const void* v;
 				//void* v;
@@ -222,23 +222,16 @@ namespace se_basic {
 
 			paths_ = new Path(triangleCount_, offset.ch);
 			offset.ch += paths_->dataSize();
+		}
 
 
-			/*
-			for(int i = 0; i < triangleCount_; ++i) {
-				LogDetail(i << ": "
-						<< triangles_[ i ].controlPoints_[0] << ", "
-						<< triangles_[ i ].controlPoints_[1] << ", "
-						<< triangles_[ i ].controlPoints_[2] << ", "
-						);
-				for(int j = 0; j < 3; ++j) {
-					LogDetail("  Link: " << i << "[" << j << "] = " << triangles_[ i ].linkTo_[ j ]);
-				}
+		~NavMesh() {
+			delete paths_;
+			if(doDestroy_) {
+				delete[] triangles_;
+				delete[] walls_;
+				delete[] controlPoints_;
 			}
-			for(int i = 0; i < controlPointCount_; ++i) {
-				LogDetail(i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
-			}
-			*/
 		}
 
 
@@ -409,6 +402,7 @@ namespace se_basic {
 		coor_t findNearest(const se_core::Point3& p, se_core::Point3& out) const;
 
 	protected:
+		bool doDestroy_;
 		short controlPointCount_;
 		short triangleCount_;
 		short exitCount_;

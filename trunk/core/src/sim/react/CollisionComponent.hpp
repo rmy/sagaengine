@@ -41,8 +41,8 @@ namespace se_core {
 
 		/** Constructor.
 		 */
-		CollisionComponent(Composite* owner, PosComponent* posComponent);
-		CollisionComponent(Composite* owner);
+		//CollisionComponent(Composite* owner, PosComponent* posComponent);
+		CollisionComponent(Composite* owner, const ComponentFactory* factory);
 		~CollisionComponent();
 
 		static CollisionComponent* get(Composite& composite) {

@@ -22,28 +22,31 @@ rune@skalden.com
 #include "ActorFactory.hpp"
 #include "Actor.hpp"
 #include "../sim.hpp"
+#include "../SimEngine.hpp"
+#include "../config/all.hpp"
+#include "../stat/all.hpp"
 
 
 namespace se_core {
-	/*
-	ActorFactory
-	::ActorFactory(String* name) : ThingFactory(got_ACTOR, name) {
-	}
-
 
 	ActorFactory
-	::~ActorFactory() {
+	::ActorFactory()
+		: ComponentFactory(sct_BLOB) {
 	}
 
 
-	Thing* ActorFactory
-	::create() const {
-		Thing* t;
-		Actor* a;
-		t = a = new Actor(name_->get());
+	Component* ActorFactory
+	::create(Composite* owner) const {
+		// Try to get existing component 
+		// - allows overrides of default values
+		// (Useful when loading saved games).
+		Actor::Ptr pActor(*owner);
+		if(pActor == 0) {
+			// Create new component
+			pActor = new Actor(owner, this);
+		}
 
-		return t;
+		return pActor;
 	}
-	*/
+
 }
-

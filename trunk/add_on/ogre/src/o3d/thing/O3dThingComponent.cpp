@@ -33,8 +33,8 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dThingComponent
-	::O3dThingComponent(Composite* owner)
-		: O3dNodeComponent(sct_RENDER, owner), Task(2, 8), parentNode_(0), isVisible_(false)
+	::O3dThingComponent(Composite* owner, const se_core::ComponentFactory* factory)
+		: O3dNodeComponent(sct_RENDER, owner, factory), Task(2, 8), parentNode_(0), isVisible_(false)
 		, isInitialized_(false)
 		, size_(0) {
 	}
@@ -42,6 +42,7 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::~O3dThingComponent() {
+		Assert(!isInitialized_);
 	}
 
 

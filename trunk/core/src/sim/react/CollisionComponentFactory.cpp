@@ -19,25 +19,35 @@ rune@skalden.com
 */
 
 
-#include "O3dAreaComponentFactory.hpp"
-#include "O3dAreaComponent.hpp"
-#include "comp/CompositeFactory.hpp"
+#include "CollisionComponentFactory.hpp"
+#include "CollisionComponent.hpp"
+#include "comp/list/NodeComponentList.hpp"
+#include "util/error/Log.hpp"
 
-using namespace se_core;
 
 
-namespace se_ogre {
 
-	O3dAreaComponentFactory
-	::O3dAreaComponentFactory()
-			: ComponentFactory(sct_RENDER) {
-		CompositeFactory::addGenericComponent(st_AREA, this);
+namespace se_core {
+
+	CollisionComponentFactory
+	::CollisionComponentFactory()
+		: ComponentFactory(sct_COLLISION) {
 	}
 
 
-	se_core::Component* O3dAreaComponentFactory
+	Component* CollisionComponentFactory
 	::create(Composite* owner) const {
-		return new O3dAreaComponent(owner, this);
+		// Try to get existing component 
+		// - allows overrides of default values
+		// (Useful when loading saved games).
+		CollisionComponent::Ptr pCollision(*owner);
+		if(pCollision == 0) {
+			// Create new component
+			pCollision = new CollisionComponent(owner, this);
+		}
+
+
+		return pCollision;
 	}
 
 }

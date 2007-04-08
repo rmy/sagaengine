@@ -30,6 +30,7 @@ namespace se_ogre {
 	class _SeOgreExport O3dAnimationSet {
 	public:
 		O3dAnimationSet();
+		~O3dAnimationSet();
 		O3dAnimation* createAnimation(int id);
 		O3dAnimation* animation(const char* name);
 		O3dAnimation* animation(int id);

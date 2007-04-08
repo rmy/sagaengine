@@ -30,6 +30,7 @@ rune@skalden.com
 
 
 namespace se_core {
+	/*
 	CollisionComponent
 	::CollisionComponent(Composite* owner, PosComponent* posComponent)
 			: AreaChildComponent(sct_COLLISION, owner)
@@ -38,11 +39,12 @@ namespace se_core {
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		geometryType_ = geometryType();
 	}
+	*/
 
 
 	CollisionComponent
-	::CollisionComponent(Composite* owner)
-			: AreaChildComponent(sct_COLLISION, owner)
+	::CollisionComponent(Composite* owner, const ComponentFactory* factory)
+			: AreaChildComponent(sct_COLLISION, owner, factory)
 			, isCollideable_(false)
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));

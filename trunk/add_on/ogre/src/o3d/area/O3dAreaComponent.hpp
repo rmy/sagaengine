@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dAreaComponent  : public O3dNodeComponent, public se_core::Task {
 	public:
-		O3dAreaComponent(se_core::Composite* owner);
+		O3dAreaComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory);
 		~O3dAreaComponent();
 		typedef Ptr<O3dAreaComponent, se_core::sct_RENDER> Ptr;
 

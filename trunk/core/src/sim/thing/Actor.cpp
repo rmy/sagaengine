@@ -42,8 +42,8 @@ rune@skalden.com
 
 namespace se_core {
 	Actor
-	::Actor(Composite* owner)
-			: Component(sct_BLOB, owner) {
+	::Actor(Composite* owner, const ComponentFactory* factory)
+			: Component(sct_BLOB, owner, factory) {
 		posComponent_ = new PosComponent(owner);
 		spawnComponent_ = new SpawnComponent(owner, posComponent_);
 		actionComponent_ = new ActionComponent(owner);

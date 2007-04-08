@@ -19,25 +19,23 @@ rune@skalden.com
 */
 
 
-#include "O3dAreaComponentFactory.hpp"
-#include "O3dAreaComponent.hpp"
-#include "comp/CompositeFactory.hpp"
+#ifndef CollisionComponentFactory_hpp
+#define CollisionComponentFactory_hpp
 
-using namespace se_core;
-
-
-namespace se_ogre {
-
-	O3dAreaComponentFactory
-	::O3dAreaComponentFactory()
-			: ComponentFactory(sct_RENDER) {
-		CompositeFactory::addGenericComponent(st_AREA, this);
-	}
+#include "sim/sim.hpp"
+#include "comp/comp.hpp"
+#include "comp/ComponentFactory.hpp"
 
 
-	se_core::Component* O3dAreaComponentFactory
-	::create(Composite* owner) const {
-		return new O3dAreaComponent(owner, this);
-	}
+namespace se_core {
+	class _SeCoreExport CollisionComponentFactory : public ComponentFactory {
+	public:
+		CollisionComponentFactory();
+		Component* create(Composite* owner) const;
+
+	protected:
+	};
 
 }
+
+#endif

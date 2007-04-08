@@ -38,6 +38,11 @@ namespace se_ogre {
 			animations_[ i ] = 0;
 	}
 
+	O3dAnimationSet
+	::~O3dAnimationSet() {
+		for(int i = 0; i < MAX_ANIMS; ++i) 
+			delete animations_[ i ];
+	}
 
 	O3dAnimation* O3dAnimationSet
 	::animation(const char* name) {

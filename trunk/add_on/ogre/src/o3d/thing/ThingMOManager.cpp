@@ -57,6 +57,9 @@ namespace se_ogre {
 	ThingMOManager
 	::~ThingMOManager() {
 		reset();
+		for(int i = 0; i < infoCount_; ++i) {
+			delete infoList_[i];
+		}
 		delete[] infoList_;
 		delete[] factories_;
 	}

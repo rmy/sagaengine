@@ -28,6 +28,7 @@ rune@skalden.com
 #include "sim/stat/DictionaryEntry.hpp"
 #include <cstring>
 #include <fmod.h>
+#include <fmod_errors.h>
 
 
 using namespace se_core;
@@ -41,16 +42,16 @@ namespace se_fmod {
 	Sounds
 	::~Sounds() {
 		//FMOD_RESULT result;
-
 		while(soundCount_ > 0) {
 			--soundCount_;
 			//TODO:
-			//result = FMOD_Sound_Release(sounds_[ soundCount_ ].sound_);
+			//result = FMOD::Sound::Release(sounds_[ soundCount_ ].sound_);
+			//FMOD_RESULT result = sounds_[ soundCount_ ].sound_->release();
+			//AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 			delete sounds_[ soundCount_ ].nameC_;
 			delete sounds_[ soundCount_ ].soundC_;
-			//if (result != FMOD_OK) LogDetail("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
 		}
-		delete sounds_;
+		delete[] sounds_;
 	}
 
 

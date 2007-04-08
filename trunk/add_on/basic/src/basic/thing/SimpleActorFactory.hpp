@@ -8,6 +8,8 @@
 #include "util/bounds/BoundingBox.hpp"
 #include "sim/pos/Anim.hpp"
 #include "sim/pos/Pos.hpp"
+#include "sim/thing/ActorFactory.hpp"
+#include "sim/react/CollisionComponentFactory.hpp"
 
 namespace se_basic {
 
@@ -37,6 +39,9 @@ namespace se_basic {
 
 	protected:
 		// Bounding cylinder
+		se_core::ActorFactory actorFactory_;
+		se_core::CollisionComponentFactory collisionFactory_;
+
 		se_core::BoundingBox bounds_;
 		bool isPickable_;
 		bool isCollideable_;

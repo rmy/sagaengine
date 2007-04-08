@@ -56,7 +56,6 @@ namespace se_core {
 
 	void CompositeFactory
 	::release(Composite* t) const {
-		t->releaseComponents();
 		delete t;
 	}
 
