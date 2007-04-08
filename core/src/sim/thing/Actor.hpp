@@ -56,7 +56,7 @@ namespace se_core {
 
 		/** Constructor.
 		 */
-		Actor(Composite* owner);
+		Actor(Composite* owner, const ComponentFactory* factory);
 		~Actor();
 
 

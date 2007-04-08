@@ -51,23 +51,23 @@ namespace se_fmod {
 				// Register some file loaders
 				static SoundParserModule soundParserModule(se_core::IoSchema::parser());
 				
-				soundPlayer = new SoundPlayer();
 				SimSchema::initListeners().addListener(*this);
 				LogDetail("Registered Fmod add-on");
 			}
 
 			~AutoInit() {
-				delete soundPlayer;
 				SimSchema::initListeners().removeListener(*this);
 				LogDetail("Cleaned up Fmod add-on");
 			}
 
 
 			bool initEngineEvent() {
+				soundPlayer = new SoundPlayer();
 				return true;
 			}
 
 			void cleanupEngineEvent() {
+				delete soundPlayer;
 			}
 
 			bool initGameEvent() {

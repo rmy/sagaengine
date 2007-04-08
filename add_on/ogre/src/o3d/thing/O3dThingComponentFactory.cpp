@@ -34,7 +34,7 @@ namespace se_ogre {
 
 	se_core::Component* O3dThingComponentFactory
 	::create(Composite* owner) const {
-		return new O3dThingComponent(owner);
+		return new O3dThingComponent(owner, this);
 	}
 
 }

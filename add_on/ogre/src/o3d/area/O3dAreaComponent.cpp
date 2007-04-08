@@ -39,8 +39,8 @@ using namespace se_client;
 namespace se_ogre {
 
 	O3dAreaComponent
-	::O3dAreaComponent(Composite* owner)
-			: O3dNodeComponent(sct_RENDER, owner), Task(0, 32), staticGeometry_(0)
+	::O3dAreaComponent(Composite* owner, const se_core::ComponentFactory* factory)
+			: O3dNodeComponent(sct_RENDER, owner, factory), Task(0, 32), staticGeometry_(0)
 			, isVisible_(false), isInitialized_(false) {
 		setPriority(0);
 		setWeight(0);
@@ -73,7 +73,9 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
-		setVisible(false);
+		if(O3dSchema::sceneManager) {
+			setVisible(false);
+		}
 	}
 
 

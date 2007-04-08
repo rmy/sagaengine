@@ -36,10 +36,10 @@ namespace se_basic {
 	::create() const {
 		Composite* c = new Composite(this);
 		c->setTag(tag_);
-		Actor* a = new Actor(c);
+		Actor* a = static_cast<Actor*>(actorFactory_.create(c));
 
 		if(isCollideable_ || collide_) {
-			CollisionComponent* cc = new CollisionComponent(c);
+			CollisionComponent* cc = static_cast<CollisionComponent*>(collisionFactory_.create(c));
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
 		}

@@ -28,8 +28,8 @@ rune@skalden.com
 namespace se_core {
 
 	AreaChildComponent
-	::AreaChildComponent(int type, Composite* owner)
-		: NodeComponent(type, owner) {
+	::AreaChildComponent(int type, Composite* owner, const ComponentFactory* factory)
+		: NodeComponent(type, owner, factory) {
 	}
 
 

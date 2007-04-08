@@ -96,6 +96,7 @@ namespace se_core {
 		delete physicsAreaComponent_;
 		delete collisionAreaComponent_;
 		delete spawnAreaComponent_;
+		delete posComponent_;
 	}
 
 

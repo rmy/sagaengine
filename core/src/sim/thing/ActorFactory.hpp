@@ -23,25 +23,17 @@ rune@skalden.com
 #define ActorFactory_hpp
 
 #include "util/type/String.hpp"
-#include "../physics/sim_physics.hpp"
-#include "../react/sim_react.hpp"
-#include "../script/sim_script.hpp"
+#include "comp/ComponentFactory.hpp"
+#include "comp/comp.hpp"
 
 namespace se_core {
-	/*
-	class _SeCoreExport ActorFactory : public ThingFactory {
+	class ActorFactory : public ComponentFactory {
 	public:
-		ActorFactory(String* name);
-		~ActorFactory();
-
-		Thing* create() const;
+		ActorFactory();
+		Component* create(Composite* owner) const;
 
 	protected:
-		String* script_;
-		const Physics* physics_;
-		const ThingCollide* collide_;
 	};
-	*/
 
 }
 

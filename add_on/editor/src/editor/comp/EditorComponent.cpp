@@ -36,7 +36,7 @@ using namespace se_core;
 namespace se_editor {
 	EditorComponent
 	::EditorComponent(Composite* owner, const ComponentFactory* factory)
-			: AreaChildComponent(sct_EDITOR, owner), string_(0)
+			: AreaChildComponent(sct_EDITOR, owner, factory), string_(0)
 			, isEditing_(false) {
 		PosComponent::Ptr pos(*this);
 		Assert(!pos.isNull());
