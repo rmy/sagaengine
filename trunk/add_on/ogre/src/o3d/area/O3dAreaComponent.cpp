@@ -99,8 +99,6 @@ namespace se_ogre {
 	}
 
 
-
-
 	void O3dAreaComponent
 	::perform() {
 		if(!isActive())
