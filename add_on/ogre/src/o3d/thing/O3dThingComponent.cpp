@@ -71,27 +71,22 @@ namespace se_ogre {
 		clear();
 	}
 
+
 	void O3dThingComponent
 	::clear() {
 		if(!isInitialized_)
 			return;
 		isInitialized_ = false;
 
-		Assert(size_ == moList_.size());
-		LogDetail(owner_->name());
-		//ThingMOList::iterator_type it = firstThingMO_;
 		ThingMOList::Iterator it(moList_);
-
 		while(it.hasNext()) {
-		//while(firstThingMO_ != CompSchema::VoidList::end()) {
-			//ThingMO* te = O3dSchema::thingMOList.pop(firstThingMO_);
 			ThingMO* te = &it.next();
-			Assert(te);
-			LogDetail(te->name() << (long)this->owner()->id());
 			O3dSchema::thingMOManager.release(te);
 		}
-		//O3dSchema::thingMOList.removeChain(firstThingMO_);
+
+		moList_.clear();
 		size_ = 0;
+		Assert(moList_.isEmpty());
 	}
 
 	void O3dThingComponent
@@ -207,6 +202,7 @@ namespace se_ogre {
 	void O3dThingComponent
 	::remove(ThingMO& tmo) {
 		moList_.remove(tmo);
+		--size_;
 	}
 
 
