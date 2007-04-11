@@ -160,13 +160,11 @@ namespace se_basic {
 
 
 	coor_t NavMeshArea
-	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const {
+	::farthestLineOfSight(const Point3& from, short fromIndex, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const {
 		Point2 p;
-		short toIndex, fromIndex;
-		Point3 toPoint, fromPoint;
-
-		fromPoint.set(from.worldCoor());
-		fromIndex = from.index();
+		short toIndex;
+		Point3 toPoint;
+		Point3 fromPoint(from);
 
 		toPoint.setForward(maxLen, yaw);
 		toPoint.y_ = 0;
@@ -207,7 +205,7 @@ namespace se_basic {
 		}
 
 		Vector3 dist;
-		dist.sub(from.worldCoor(), toPoint);
+		dist.sub(from, toPoint);
 		dist.y_ = 0;
 		coor_t len = dist.length();
 		//len += maxOffNavMesh;
@@ -220,7 +218,7 @@ namespace se_basic {
 
 	coor_t NavMeshArea
 	::farthestLineOfSight(const Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, Point3& dest) const {
-		coor_t len = farthestLineOfSight(from, yaw, maxLen, maxOffNavMesh);
+		coor_t len = farthestLineOfSight(from.worldCoor(), from.index(), yaw, maxLen, maxOffNavMesh);
 		Point3 toPoint;
 		toPoint.setForward(len, yaw);
 		toPoint.add(from.worldCoor());

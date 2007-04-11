@@ -209,8 +209,7 @@ namespace se_core {
 			//parent_ = &area;
 		}
 		area_ = &area;
-
-		updateArea();
+		updateIndex();
 	}
 
 	void Pos
@@ -228,8 +227,7 @@ namespace se_core {
 			world_.setViewPoint(vp);
 			updateLocalViewPoint();
 		}
-
-		updateArea();
+		updateIndex();
 	}
 
 
@@ -242,7 +240,6 @@ namespace se_core {
 	PosComponent* Pos
 	::updateArea() {
 		// Entered new area?
-		// TODO: Why enter here with (area_ == 0)
 		PosComponent* old = area_;
 		Area* next = static_cast<Area*>(area_->owner());
 		if(!next->isLegalWorldCoor(worldCoor())) {
@@ -260,6 +257,14 @@ namespace se_core {
 		short newIndex = next->index(worldCoor(), index());
 		setIndex(newIndex);
 		return area_;
+	}
+
+
+	void Pos
+	::updateIndex() {
+		Area* next = static_cast<Area*>(area_->owner());
+		short newIndex = next->index(worldCoor(), -1);
+		setIndex(newIndex);
 	}
 
 
