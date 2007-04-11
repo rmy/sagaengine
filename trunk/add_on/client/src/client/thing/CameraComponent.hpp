@@ -28,6 +28,8 @@ rune@skalden.com
 namespace se_client {
 	class _SeCoreExport CameraComponent : public se_core::Component {
 	public:
+		typedef se_core::Component::Ptr<CameraComponent, se_core::sct_CAMERA> Ptr;
+
 		CameraComponent(se_core::Composite* owner);
 		virtual ~CameraComponent();
 
@@ -35,8 +37,12 @@ namespace se_client {
 		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);
 		void grabFocus();
 
+		void setDoSee(bool flag) { doesSee_ = flag; }
+
 	protected:
 		se_core::PosComponent* posComponent_;
+
+		bool doesSee_;
 	};
 
 }
