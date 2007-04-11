@@ -379,6 +379,7 @@ namespace se_core {
 		inline void setNoIndex() { index_ = -1; }
 
 		PosComponent* updateArea();
+		void updateIndex();
 
 		/**
 		 * Animation state.

@@ -28,7 +28,7 @@ namespace se_basic {
 
 		bool isLineOfSight(const se_core::Pos& from, const se_core::Pos& to);
 		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh, se_core::Point3& dest) const;
-		coor_t farthestLineOfSight(const se_core::Pos& from, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const;
+		coor_t farthestLineOfSight(const se_core::Point3& fromPoint, short fromIndex, bray_t yaw, coor_t maxLen, coor_t maxOffNavMesh) const;
 		void farthestLineOfSight(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& dest) const;
 
 		void path(const se_core::Pos& from, const se_core::Pos& to, se_core::Point3& out) const;
