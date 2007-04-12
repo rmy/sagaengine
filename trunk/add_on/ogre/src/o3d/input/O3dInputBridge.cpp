@@ -69,6 +69,7 @@ namespace se_ogre {
 		try
 		{
 			joy_ = static_cast<OIS::JoyStick*>(im.createInputObject( OIS::OISJoyStick, bufferedJoy ));
+			joy_->setBuffered(false);
 			joy_->setEventCallback(this);
 		}
 		catch(OIS::Exception& e)
@@ -105,9 +106,20 @@ namespace se_ogre {
 						O3dSchema::inputManager().active()->joyButtonPressed(i);
 					}
 				}
+
+			}
+			oldJoyButtons_ = buttons;
+
+			//Check to see if any of the axes values have changed.. if so send events
+			for( int i = 0; i < 8; ++i )
+			{
+				OIS::JoyStickEvent temp(joy_, 0, joy_->getJoyStickState());
+				// TODO: Check - did move?
+				O3dSchema::inputManager().active()->axisMoved( temp, i );
+				// TODO: Check - did move?
+				O3dSchema::inputManager().active()->sliderMoved( temp, i );
 			}
 
-			oldJoyButtons_ = buttons;
 		}
 	}
 
@@ -215,17 +227,32 @@ namespace se_ogre {
 
 	bool O3dInputBridge
 	::buttonPressed (const OIS::JoyStickEvent &arg, int button) {
-		return O3dSchema::inputManager().active()->buttonPressed(arg, button);
+		O3dSchema::inputManager().active()->buttonPressed(arg, button);
+		return true;
 	}
 
 	bool O3dInputBridge
 	::buttonReleased (const OIS::JoyStickEvent &arg, int button) {
-		return O3dSchema::inputManager().active()->buttonReleased(arg, button);
+		O3dSchema::inputManager().active()->buttonReleased(arg, button);
+		return true;
 	}
 
 	bool O3dInputBridge
 	::axisMoved (const OIS::JoyStickEvent &arg, int axis) {
-		return O3dSchema::inputManager().active()->axisMoved(arg, axis);
+		O3dSchema::inputManager().active()->axisMoved(arg, axis);
+		return true;
 	}
 
+	bool O3dInputBridge
+	::sliderMoved (const OIS::JoyStickEvent &arg, int axis) {
+		O3dSchema::inputManager().active()->sliderMoved(arg, axis);
+		return true;
+	}
+
+
+	bool O3dInputBridge
+	::povMoved (const OIS::JoyStickEvent &arg, int axis) {
+		O3dSchema::inputManager().active()->sliderMoved(arg, axis);
+		return true;
+	}
 }
