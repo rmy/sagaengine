@@ -208,7 +208,7 @@ namespace se_basic {
 		dist.sub(from, toPoint);
 		dist.y_ = 0;
 		coor_t len = dist.length();
-		//len += maxOffNavMesh;
+		len += maxOffNavMesh;
 		if(len > maxLen)
 			len = maxLen;
 
