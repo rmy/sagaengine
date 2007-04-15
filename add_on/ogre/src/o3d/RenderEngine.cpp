@@ -252,7 +252,7 @@ namespace se_ogre {
 		ConfigFile cf;
 		Ogre::String dataPath;
 		if(IoSchema::dataPath)
-			dataPath += IoSchema::dataPath;
+			dataPath.append(IoSchema::dataPath);
 		cf.load(dataPath + "/ogre/resources.cfg");
 
 		// Go through all sections & settings in the file
