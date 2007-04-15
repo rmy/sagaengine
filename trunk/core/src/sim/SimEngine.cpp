@@ -126,6 +126,7 @@ namespace se_core {
 		SimSchema::engineListeners().castPreSimTickEvent(w);
 
 		// Perform actions in actionQueue until up to date...
+		int performCount = 0;
 		while(p > previousPerform_) {
 			//! @TODO: The when may wrap after 48 days on some systems...
 			if(previousPerform_ == 0) {
@@ -139,6 +140,11 @@ namespace se_core {
 
 			// Perform AI actions.
 			perform(SimEngine::when());
+			++performCount;
+			if(performCount > 4) {
+				multiplePerformsDisabledOnce_ = true;
+				break;
+			}
 		}
 
 		// Cast event telling listeners that the AI actions are performed,

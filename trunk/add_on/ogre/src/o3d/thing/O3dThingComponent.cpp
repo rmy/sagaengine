@@ -78,15 +78,11 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
-		ThingMOList::Iterator it(moList_);
-		while(it.hasNext()) {
-			ThingMO* te = &it.next();
+		while(!moList_.isEmpty()) {
+			ThingMO* te = &moList_.pop();
 			O3dSchema::thingMOManager.release(te);
 		}
-
-		moList_.clear();
 		size_ = 0;
-		Assert(moList_.isEmpty());
 	}
 
 	void O3dThingComponent

@@ -35,7 +35,7 @@ namespace se_core {
 	 */
 	namespace CompSchema {
 		static const int MAX_OBJECTS = 512;
-		static const int MAX_GAME_OBJECTS = 16384;
+		static const int MAX_GAME_OBJECTS = 4 * 16384;
 		typedef SinglyLinkedList<void, MAX_GAME_OBJECTS, 211> VoidList;
 
 		extern _SeCoreExport Composite& activeRoot();
