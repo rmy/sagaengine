@@ -33,8 +33,10 @@ namespace se_core {
 		void add(Task& task);
 		void remove(Task& task);
 		int perform(int weight);
+		int performAll();
 		void addFree(int weight);
 		void reset();
+		int taskCount() { return taskCount_; }
 	
 	private:
 		int next();

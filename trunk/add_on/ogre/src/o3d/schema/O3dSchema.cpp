@@ -222,21 +222,28 @@ namespace se_ogre {
 
 					O3dAreaComponent::Ptr aO3d(*a);
 					if(aZone->page().w_ == cZone->page().w_) {
-						LogDetail(a->name() << ": on");
 						aO3d->initStaticGeometry();
-					}
-					else {
-						LogDetail(a->name() << ": off");
-						aO3d->cleanupStaticGeometry();
 					}
 				}
 
-				O3dSchema::taskList.perform(1024);
+				O3dSchema::taskList.performAll();
+
 				return true;
 			}
 
+
 			void cleanupLevelEvent() {
 				O3dSchema::taskList.reset();
+
+				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
+				int c = SimSchema::areaManager.areaCount();
+				for(int i = 0; i < c; ++i) {
+					Area* a = SimSchema::areaManager.area(i);
+					ZoneAreaComponent::Ptr aZone(*a);
+
+					O3dAreaComponent::Ptr aO3d(*a);
+					aO3d->cleanupStaticGeometry();
+				}
 			}
 
 		} autoInit;

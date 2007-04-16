@@ -28,6 +28,9 @@ namespace se_ogre {
 
 	void RenderEventListener
 	::setActive(bool state) {
+		if(isActive_ == state)
+			return;
+		isActive_ = state;
 		if(state) {
 			// Make sure it isn't registered already
 			O3dSchema::renderEventListeners().removeListener(this);

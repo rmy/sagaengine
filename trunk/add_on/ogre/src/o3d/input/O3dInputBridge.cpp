@@ -127,11 +127,13 @@ namespace se_ogre {
 	void O3dInputBridge
 	::keyPressed(Ogre::KeyEvent* e) {
 		// Tab flips focus on console
+		/*
 		if(e->getKey() == Ogre::KC_TAB) {
 			if(O3dSchema::console) {
 				O3dSchema::console->flipFocus();
 			}
 		}
+		*/
 
 		bool isProcessed = false;
 		// If console is focused, send input there

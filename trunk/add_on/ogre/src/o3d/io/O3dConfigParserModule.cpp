@@ -54,8 +54,13 @@ namespace se_ogre {
 	::parse(InputStream& in) {
 		int code;
 		if(O3dSchema::sceneManager) {
+			if(!O3dSchema::sceneManager->hasStaticGeometry("Scenery"))
+				O3dSchema::sceneManager->createStaticGeometry("Scenery");
+			else {
+				O3dSchema::sceneManager->getStaticGeometry("Scenery")->destroy();
+				O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
+			}
 			O3dSchema::sceneManager->setSkyDome(false, "no_dome");
-			O3dSchema::sceneManager->getStaticGeometry("Scenery")->reset();
 		}
 
 		while((code = in.readInfoCode()) != 'Q') {
@@ -92,16 +97,12 @@ namespace se_ogre {
 					float y = in.readFloat();
 					float z = in.readFloat();
 
+					static int unique = 0;
 					char buffer[256];
-					sprintf(buffer, "%s(%02f,%02f,%02f)", tmp.get(), x, y, z);
+					sprintf(buffer, "%s_%d(%02f,%02f,%02f)", tmp.get(), unique++, x, y, z);
 
 					Ogre::SceneNode* node = O3dSchema::sceneManager->createSceneNode();
-					/*
-					node->setPosition(x, y, z);
-					node->attachObject(entity);
-					O3dSchema::sceneManager->getSceneNode("Scenery")->addChild( node );
-					*/
-					Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(tmp.get(), tmp.get());
+					Ogre::Entity* entity = O3dSchema::sceneManager->createEntity(buffer, tmp.get());
 					O3dSchema::sceneManager->getStaticGeometry("Scenery")->addEntity(entity, Ogre::Vector3(x, y, z));
 				}
 				break;
@@ -185,8 +186,9 @@ namespace se_ogre {
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 
-		//O3dSchema::sceneManager->getRootSceneNode()->createChild("Scenery");
 		O3dSchema::sceneManager->createStaticGeometry("Scenery");
+
+		//O3dSchema::sceneManager->getRootSceneNode()->createChild("Scenery");
 	}
 
 
