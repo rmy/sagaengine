@@ -93,6 +93,7 @@ namespace se_ogre {
 	::cleanupStaticGeometry() {
 		if(staticGeometry_) {
 			staticGeometry_->destroy();
+			staticGeometry_->reset();
 			O3dSchema::sceneManager->destroyStaticGeometry(staticGeometry_);
 			staticGeometry_ = 0;
 		}
@@ -139,11 +140,13 @@ namespace se_ogre {
 		if(isVisible_) {
 			LogDetail("Now visible: " << owner()->name());
 			O3dSchema::sceneManager->getRootSceneNode()->addChild(node_);
-			staticGeometry_->setVisible(true);
+			if(staticGeometry_)
+				staticGeometry_->setVisible(true);
 		}
 		else {
 			O3dSchema::sceneManager->getRootSceneNode()->removeChild(node_);
-			staticGeometry_->setVisible(false);
+			if(staticGeometry_)
+				staticGeometry_->setVisible(false);
 		}
 	}
 
@@ -177,33 +180,41 @@ namespace se_ogre {
 
 	Ogre::StaticGeometry* O3dAreaComponent
 	::compileStaticGeometry() {
+		Assert(!staticGeometry_);
 		Area* a = static_cast<Area*>(owner());
 		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(owner()->name());
 
 		Ogre::Entity* entity;
+
 
 		sg->setOrigin(offset_);
 		
 		// Area geometry
 		const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
 		//
+		static int unique = 0;
+		char name[256];
+		sprintf(name, "%s_%d", areaType, unique++);
 		Ogre::String type(areaType);
-		if(O3dSchema::sceneManager->hasEntity(type)) {
-			entity = O3dSchema::sceneManager->getEntity(type);
+
+		if(O3dSchema::sceneManager->hasEntity(name)) {
+			entity = O3dSchema::sceneManager->getEntity(name);
 		}
 		else {
-			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
+			entity = O3dSchema::sceneManager->createEntity(name, type + ".mesh");
 			entity->setNormaliseNormals(true);
 		}
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
 
 #ifdef SE_INTERNAL
 		type += "_navMesh";
-		if(O3dSchema::sceneManager->hasEntity(type)) {
-			entity = O3dSchema::sceneManager->getEntity(type);
+
+		sprintf(name, "%s_%d_navMesh", areaType, unique++);
+		if(O3dSchema::sceneManager->hasEntity(name)) {
+			entity = O3dSchema::sceneManager->getEntity(name);
 		}
 		else {
-			entity = O3dSchema::sceneManager->createEntity(type, type + ".mesh");
+			entity = O3dSchema::sceneManager->createEntity(name, type + ".mesh");
 			entity->setNormaliseNormals(true);
 		}
 		entity->setMaterialName("Basic/NavMesh");

@@ -26,7 +26,9 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport RenderEventListener {
 	public:
+		RenderEventListener() : isActive_(false) {}
 		void setActive(bool state);
+		bool isActive() { return isActive_; }
 		virtual bool initEngineEvent() { return true; }
 		virtual bool initGameEvent() { return true; }
 		virtual void cleanupGameEvent() {}
@@ -34,6 +36,9 @@ namespace se_ogre {
 		virtual void updateLights(float renderClock) {}
 		virtual void updateMaterials(float renderClock) {}
 		virtual void updateImpostors(float renderClock) {}
+
+	protected:
+		bool isActive_;
 	};
 }
 

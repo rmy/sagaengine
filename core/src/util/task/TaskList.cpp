@@ -51,6 +51,25 @@ namespace se_core {
 		return w;
 	}
 
+	int TaskList
+	::performAll() {
+		int n = next();
+		if(n < 0) {
+			freePoints_ = 0;
+			return 0;
+		}
+		int w = 0;
+		while(taskCount_ > 0) {
+			tasks_[n]->perform();
+			w += tasks_[n]->weight();
+			tasks_[n]->isInProgress_ = false;
+			tasks_[n] = tasks_[ --taskCount_ ];
+			n = next();
+		}
+		freePoints_ = 0;
+		return w;
+	}
+
 
 	void TaskList
 	::addFree(int weight) {
