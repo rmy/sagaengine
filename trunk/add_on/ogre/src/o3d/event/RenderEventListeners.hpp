@@ -30,6 +30,8 @@ namespace se_ogre {
 	public:
 		void castInitEngine();
 		void castInitGame();
+		void castInitLevel();
+		void castCleanupLevel();
 		void castCleanupGame();
 		void castCleanupEngine();
 		void castUpdateLights(float gameClock);

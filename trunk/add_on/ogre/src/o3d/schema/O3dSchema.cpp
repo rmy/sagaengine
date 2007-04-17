@@ -237,11 +237,15 @@ namespace se_ogre {
 
 				O3dSchema::taskList.performAll();
 
+				O3dSchema::renderEventListeners().castInitLevel();
+
 				return true;
 			}
 
 
 			void cleanupLevelEvent() {
+				O3dSchema::renderEventListeners().castCleanupLevel();
+
 				Ogre::Overlay* overlay = 0;
 				try {
 					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");

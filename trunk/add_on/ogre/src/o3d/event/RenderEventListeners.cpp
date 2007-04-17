@@ -43,6 +43,23 @@ namespace se_ogre {
 
 
 	void RenderEventListeners
+	::castInitLevel() {
+		for(int i = 0; i < listenerCount_; ++i) {
+			bool ret = listeners_[i]->initLevelEvent();
+			Assert(ret);
+		}
+	}
+
+
+	void RenderEventListeners
+	::castCleanupLevel() {
+		for(int i = 0; i < listenerCount_; ++i) {
+			listeners_[i]->cleanupLevelEvent();
+		}
+	}
+
+
+	void RenderEventListeners
 	::castCleanupGame() {
 		for(int i = 0; i < listenerCount_; ++i) {
 			listeners_[i]->cleanupGameEvent();
