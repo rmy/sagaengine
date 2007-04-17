@@ -31,6 +31,8 @@ namespace se_ogre {
 		bool isActive() { return isActive_; }
 		virtual bool initEngineEvent() { return true; }
 		virtual bool initGameEvent() { return true; }
+		virtual bool initLevelEvent() { return true; }
+		virtual void cleanupLevelEvent() {}
 		virtual void cleanupGameEvent() {}
 		virtual void cleanupEngineEvent() {}
 		virtual void updateLights(float renderClock) {}
