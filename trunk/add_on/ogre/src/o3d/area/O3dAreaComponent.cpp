@@ -50,8 +50,6 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::~O3dAreaComponent() {
-		O3dSchema::taskList.remove(*this);
-		clear();
 	}
 
 
@@ -62,26 +60,25 @@ namespace se_ogre {
 			return;
 		isInitialized_ = true;
 
-		areaOffset(offset_);
-		node_->setPosition(offset_);
 	}
 
 
 	void O3dAreaComponent
-	::clear() {
+	::cleanup() {
 		if(!isInitialized_)
 			return;
 		isInitialized_ = false;
 
-		if(O3dSchema::sceneManager) {
-			setVisible(false);
-		}
 	}
 
 
 	void O3dAreaComponent
 	::initStaticGeometry() {
 		if(!staticGeometry_) {
+			node_ = O3dSchema::sceneManager->createSceneNode();
+			areaOffset(offset_);
+			node_->setPosition(offset_);
+
 			areaOffset(offset_);
 			LogDetail(owner()->name() << ": " << offset_.x << ", " << offset_.y << ", " << offset_.z);
 			staticGeometry_ = compileStaticGeometry();
@@ -97,6 +94,14 @@ namespace se_ogre {
 			O3dSchema::sceneManager->destroyStaticGeometry(staticGeometry_);
 			staticGeometry_ = 0;
 		}
+
+		if(O3dSchema::sceneManager && node_) {
+			
+			setVisible(false);
+			node_->removeAndDestroyAllChildren();
+			O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		}
+		node_ = 0;
 	}
 
 

@@ -180,11 +180,13 @@ namespace se_core {
 
 		if(!nextLevel_.equals(level_)) {
 			CompSchema::activeRoot().setActive(false, true);
-			if(!level_.isEmpty())
+			if(!level_.isEmpty()) {
 				SimSchema::initListeners().castCleanupLevelEvent();
+			}
 			level_.copy(nextLevel_.get());
 			SimSchema::initListeners().castInitLevelEvent();
 			CompSchema::activeRoot().setActive(true, true);
+
 			// Don't have AI and physics catch up because
 			// of skipped frames during level loading
 			multiplePerformsDisabledOnce_ = true;

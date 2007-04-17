@@ -185,6 +185,7 @@ namespace se_ogre {
 				O3dSchema::worldManager->clear();
 				LogDetail("Cleared world");
 		
+				/*
 				// Clear scene graph
 				O3dSchema::sceneManager->clearScene();
 				LogDetail("Cleared scene");
@@ -199,11 +200,19 @@ namespace se_ogre {
 
 				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
 				O3dSchema::sceneManager = 0;
+				*/
 			}
 
 			bool initLevelEvent() {
 				//O3dSchema::worldManager->compileAllStaticGeometry();
 				// Load ogre configuration
+				const char* global = "logic/config/global.ogre.txt";
+				if(!IoSchema::fileManager->exists(global)) {
+					IoSchema::fileManager->addFileIfExists(global);
+				}
+				if(IoSchema::fileManager->exists(global)) {
+	 				IoSchema::fileManager->load(global);
+				}
 				char buffer[256];
 				sprintf(buffer, "logic/config/%s.ogre.txt", SimSchema::simEngine.nextLevel());
 				if(!IoSchema::fileManager->exists(buffer)) {
@@ -233,7 +242,18 @@ namespace se_ogre {
 
 
 			void cleanupLevelEvent() {
+				Ogre::Overlay* overlay = 0;
+				try {
+					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
+					overlay->show();
+					Ogre::Root::getSingleton().renderOneFrame();
+					overlay->hide();
+				}
+				catch(...) {
+				}
+
 				O3dSchema::taskList.reset();
+
 
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
 				int c = SimSchema::areaManager.areaCount();
@@ -244,6 +264,21 @@ namespace se_ogre {
 					O3dAreaComponent::Ptr aO3d(*a);
 					aO3d->cleanupStaticGeometry();
 				}
+
+				// Clear scene graph
+				O3dSchema::sceneManager->clearScene();
+				LogDetail("Cleared scene");
+
+				if(O3dSchema::playerCamera) {
+					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
+					O3dSchema::playerCamera = 0;
+					O3dSchema::window->removeAllViewports();
+					LogDetail("Destroyed camera");
+				}
+
+				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
+				O3dSchema::sceneManager = 0;
+
 			}
 
 		} autoInit;

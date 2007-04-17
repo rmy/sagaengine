@@ -34,9 +34,9 @@ namespace se_ogre {
 
 	O3dThingComponent
 	::O3dThingComponent(Composite* owner, const se_core::ComponentFactory* factory)
-		: O3dNodeComponent(sct_RENDER, owner, factory), Task(2, 8), parentNode_(0), isVisible_(false)
-		, isInitialized_(false)
-		, size_(0) {
+			: O3dNodeComponent(sct_RENDER, owner, factory), Task(2, 8), parentNode_(0), isVisible_(false)
+			, isInitialized_(false)
+			, size_(0) {
 	}
 
 
@@ -52,6 +52,9 @@ namespace se_ogre {
 			return;
 		isInitialized_ = true;
 
+		if(!node_) {
+			node_ = O3dSchema::sceneManager->createSceneNode();
+		}
 
 		if(!parentNode_) {
 			PosComponent* a = PosComponent::Ptr(*this)->nextPos().area();
@@ -78,11 +81,20 @@ namespace se_ogre {
 			return;
 		isInitialized_ = false;
 
+		resetParentNode();
+
 		while(!moList_.isEmpty()) {
 			ThingMO* te = &moList_.pop();
 			O3dSchema::thingMOManager.release(te);
 		}
 		size_ = 0;
+
+		if(O3dSchema::sceneManager) {
+			node_->removeAndDestroyAllChildren();
+			O3dSchema::sceneManager->destroySceneNode(node_->getName());
+		}
+		node_ = 0;
+
 	}
 
 	void O3dThingComponent
@@ -121,10 +133,15 @@ namespace se_ogre {
 			return;
 
 		isVisible_ = state;
-		if(isVisible_)
+		if(isVisible_) {
+			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(parent_);
+			setParentNode(c->node());
 			parentNode_->addChild(node_);
-		else
+		} 
+		else {
 			parentNode_->removeChild(node_);
+			resetParentNode();
+		}
 	}
 
 
@@ -206,6 +223,8 @@ namespace se_ogre {
 	::setParentNode(Ogre::SceneNode* sn) {
 		if(sn == parentNode_)
 			return;
+		if(!isInitialized_)
+			return;
 
 		if(parentNode_) {
 			if(isVisible_)
@@ -224,6 +243,8 @@ namespace se_ogre {
 	::resetParentNode() {
 		if(0 == parentNode_)
 			return;
+		if(!isInitialized_)
+			return;
 
 		if(isVisible_)
 			parentNode_->removeChild(node_);
@@ -237,9 +258,9 @@ namespace se_ogre {
 	::zoneChanged(int zoneType, Composite* newArea, Composite* oldArea) {
 		if(zoneType != st_AREA)
 			return;
+
 		if(newArea) {
 			O3dNodeComponent* c = static_cast<O3dNodeComponent*>(newArea->component(type()));
-			Assert(c);
 			setParent(*c);
 			setParentNode(c->node());
 		}

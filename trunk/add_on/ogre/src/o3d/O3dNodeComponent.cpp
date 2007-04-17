@@ -33,16 +33,10 @@ namespace se_ogre {
 	O3dNodeComponent
 	::O3dNodeComponent(int type, Composite* owner, const se_core::ComponentFactory* factory)
 			: NodeComponent(type, owner, factory), node_(0) {
-		node_ = O3dSchema::sceneManager->createSceneNode();
 	}
 
 	O3dNodeComponent
 	::~O3dNodeComponent() {
-		if(O3dSchema::sceneManager) {
-			node_->removeAndDestroyAllChildren();
-			O3dSchema::sceneManager->destroySceneNode(node_->getName());
-		}
-		node_ = 0;
 	}
 
 }

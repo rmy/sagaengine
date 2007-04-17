@@ -65,6 +65,13 @@ namespace se_ogre {
 
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
+			case 'I': 
+				{ // Include
+					String file;
+					IoSchema::fileManager->load(file.get());
+				}
+				break;
+
 			case 'R': 
 				{ // Level resource
 					readResources(in);
