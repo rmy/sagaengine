@@ -38,6 +38,7 @@ namespace se_client {
 		void grabFocus();
 
 		void setDoSee(bool flag) { doesSee_ = flag; }
+		bool doesSee() const { return doesSee_; }
 
 	protected:
 		se_core::PosComponent* posComponent_;

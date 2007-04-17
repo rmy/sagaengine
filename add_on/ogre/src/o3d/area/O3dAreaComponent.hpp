@@ -51,7 +51,7 @@ namespace se_ogre {
 			return c;
 		}
 
-		void clear();
+		void cleanup();
 		void setActive(bool state);
 		void setVisible(bool state);
 		void initStaticGeometry();

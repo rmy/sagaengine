@@ -31,6 +31,7 @@ rune@skalden.com
 #include "sim/pos/PosComponent.hpp"
 #include "comp/CompositeFactory.hpp"
 #include "sim/SimEngine.hpp"
+#include "client/thing/CameraComponent.hpp"
 #include "util/system/RealClock.hpp"
 #include "util/math/all.hpp"
 #include <OgreOverlayElement.h>
@@ -173,6 +174,8 @@ namespace se_ogre {
 				return;
 			}
 		}
+		if(!O3dSchema::playerCamera)
+			return;
 
 		// Don't try to move the camera if the camera is not in an area
 		if(!ClientSchema::camera->pos().hasArea() || !ClientSchema::camera->nextPos().hasArea()) {
@@ -188,9 +191,15 @@ namespace se_ogre {
 		Quat4 face(camera.face_);
 
 		// Feed Ogre
-		Ogre::Quaternion f(face.w_, face.x_, face.y_, face.z_);
-		O3dSchema::playerCamera->setOrientation(f);
-		O3dSchema::playerCamera->setPosition(camera.coor_.x_, camera.coor_.y_, camera.coor_.z_);
+		if(CameraComponent::Ptr(*ClientSchema::camera)->doesSee()) {
+			Ogre::Quaternion f(face.w_, face.x_, face.y_, face.z_);
+			O3dSchema::playerCamera->setOrientation(f);
+			O3dSchema::playerCamera->setPosition(camera.coor_.x_, camera.coor_.y_, camera.coor_.z_);
+		}
+		else {
+			O3dSchema::playerCamera->setDirection(Ogre::Vector3(0, 1, 0));
+			O3dSchema::playerCamera->setPosition(0, 10000000, 0);
+		}
 	}
 
 
