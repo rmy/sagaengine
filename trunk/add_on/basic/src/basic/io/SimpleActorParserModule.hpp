@@ -33,7 +33,7 @@ namespace se_basic {
 		void readMultiCutscene(se_core::InputStream& in, se_core::ObjectList& mgo);
 		void readMultiQuest(se_core::InputStream& in, se_core::ObjectList& mgo);
 		void readSpawnPoint(se_core::InputStream& in, se_core::ViewPoint& sp);
-		void parseStats(se_core::InputStream& in, SimpleActorFactory* factory);
+		//void parseStats(se_core::InputStream& in, SimpleActorFactory* factory);
 		void parsePos(se_core::InputStream& in, SimpleActorFactory* factory);
 
 	private:

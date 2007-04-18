@@ -25,9 +25,7 @@ namespace se_basic {
 
 	void SimpleActorParserModule
 	::parse(InputStream& in) {
-
 		SimpleActorFactory* factory;
-
 
 		int code = in.readInfoCode();
 		String* name = new String();
@@ -68,12 +66,14 @@ namespace se_basic {
 				}
 				break;
 
+				/*
 			case 'S': // Stats
 				{
 					parseStats(in, factory);
 					break;
 				}
 				break;
+				*/
 
 			case 'A': // Pos
 				{
@@ -227,6 +227,7 @@ namespace se_basic {
 	}
 
 
+	/*
 	void SimpleActorParserModule
 	::parseStats(InputStream& in, SimpleActorFactory* factory) {
 		int code = in.readInfoCode();
@@ -246,6 +247,7 @@ namespace se_basic {
 			}
 		}
 	}
+	*/
 
 
 
@@ -256,7 +258,6 @@ namespace se_basic {
 
 		while((code = in.readInfoCode()) != '}') {
 			switch(code) {
-			// Abilites
 			case 'A':
 				{
 					int id = in.readShort();

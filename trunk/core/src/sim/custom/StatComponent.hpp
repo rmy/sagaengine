@@ -59,7 +59,7 @@ namespace se_core {
 		}
 
 		StatComponent(Composite* owner, const ComponentFactory* factory = 0);
-		void setAbilities(short* abilities);
+		//void setAbilities(short* abilities);
 
 		coor_t walkSpeed() const;
 		Abilities* abilities() { return &abilities_; }
