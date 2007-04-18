@@ -43,9 +43,9 @@ namespace se_core {
 	}
 
 
-	void StatComponent
-	::setAbilities(short* abilities) {
-	}
+	//void StatComponent
+	//::setAbilities(short* abilities) {
+	//}
 
 
 	PosComponent* StatComponent

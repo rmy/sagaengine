@@ -29,7 +29,6 @@ namespace se_basic {
 		void setDefaultAction(const char* name);
 		void setMass(float m);
 		void setFriction(float linear, float angular, float bounceDecay);
-		void setAbilities(short speed, short attack, short defence, short level);
 		void setAnim(int id, int movementMode, float pos, float speed);
 
 		/**

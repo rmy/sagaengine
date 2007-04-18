@@ -50,9 +50,6 @@ namespace se_basic {
 		SpawnComponent::Ptr spawn(*c);
 		spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
 
-		if(script_) {
-			a->setDefaultScript(script_);
-		}
 
 		PhysicsComponent* pPhysics = PhysicsComponent::get(*c);
 		pPhysics->nextMove() = move_;
@@ -72,6 +69,12 @@ namespace se_basic {
 		createGenericComponents(c);
 		createComponents(c);
 
+		// Init everything else before starting script
+		// so that Scrip::init has correct info
+		if(script_) {
+			a->setDefaultScript(script_);
+		}
+
 		return c;
 	}
 
@@ -87,17 +90,6 @@ namespace se_basic {
 		isPickable_ = isPickable;
 	}
 
-
-	void SimpleActorFactory
-	::setAbilities(short speed, short attack, short defense, short level) {
-		short bases[4];
-		bases[0] = speed;
-		bases[1] = attack;
-		bases[2] = defense;
-		bases[3] = level;
-
-		abilities_.setBases(bases);
-	}
 
 	void SimpleActorFactory
 	::setCollideable(bool isCollideable) {

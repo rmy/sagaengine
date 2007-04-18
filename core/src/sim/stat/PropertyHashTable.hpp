@@ -105,7 +105,7 @@ namespace se_core {
 		}
 
 
-		Property* lookup(int key) const {
+		Property* lookup(unsigned int key) const {
 			if(!hashTable_)
 				return 0;
 
@@ -116,7 +116,7 @@ namespace se_core {
 
 		// returns the list that contains this hash key...
 		// (for instance, if you have multiple matching keys)
-		iterator_type lookupList(int key) {
+		iterator_type lookupList(unsigned int key) {
 			if(!hashTable_)
 				return -1;
 			unsigned int index = tableIndex(key);
@@ -161,7 +161,7 @@ namespace se_core {
 
 
 	protected:
-		Property* lookupNode(short key) const {
+		Property* lookupNode(unsigned int key) const {
 			unsigned int index = tableIndex(key);
 			Property* ret = 0;
 

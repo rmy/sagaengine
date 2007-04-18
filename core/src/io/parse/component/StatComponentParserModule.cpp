@@ -53,6 +53,7 @@ namespace se_core {
 		static const DictionaryEntry deShort(dict_PROPERTY_TYPE, Property::PT_SHORT, "SHORT");
 		static const DictionaryEntry deInt(dict_PROPERTY_TYPE, Property::PT_INT, "INT");
 		static const DictionaryEntry deFloat(dict_PROPERTY_TYPE, Property::PT_FLOAT, "FLOAT");
+		static const DictionaryEntry deString(dict_PROPERTY_TYPE, Property::PT_STRING, "STRING");
 		static const DictionaryEntry deScript(dict_PROPERTY_TYPE, Property::PT_SCRIPT, "SCRIPT");
 		static const DictionaryEntry deAction(dict_PROPERTY_TYPE, Property::PT_ACTION, "ACTION");
 		static const DictionaryEntry deArea(dict_PROPERTY_TYPE, Property::PT_AREA, "AREA");
@@ -70,6 +71,7 @@ namespace se_core {
 					int defense = in.readShort();
 					int level = in.readShort();
 					factory->setAbilities(speed, attack, defense, level);
+					LogWarning(speed << ", " << attack << ", " << defense << ", " << level);
 				}
 				break;
 
