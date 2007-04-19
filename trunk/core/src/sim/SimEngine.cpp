@@ -141,7 +141,7 @@ namespace se_core {
 			// Perform AI actions.
 			perform(SimEngine::when());
 			++performCount;
-			if(performCount > 4) {
+			if(performCount > 64) {
 				multiplePerformsDisabledOnce_ = true;
 				break;
 			}
@@ -184,8 +184,8 @@ namespace se_core {
 				SimSchema::initListeners().castCleanupLevelEvent();
 			}
 			level_.copy(nextLevel_.get());
-			SimSchema::initListeners().castInitLevelEvent();
 			CompSchema::activeRoot().setActive(true, true);
+			SimSchema::initListeners().castInitLevelEvent();
 
 			// Don't have AI and physics catch up because
 			// of skipped frames during level loading

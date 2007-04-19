@@ -50,6 +50,7 @@ namespace se_ogre {
 
 	O3dAreaComponent
 	::~O3dAreaComponent() {
+		O3dSchema::taskList.remove(*this);
 	}
 
 
@@ -59,7 +60,6 @@ namespace se_ogre {
 		if(isInitialized_)
 			return;
 		isInitialized_ = true;
-
 	}
 
 
@@ -68,12 +68,12 @@ namespace se_ogre {
 		if(!isInitialized_)
 			return;
 		isInitialized_ = false;
-
 	}
 
 
 	void O3dAreaComponent
 	::initStaticGeometry() {
+		LogDetail(__FUNCTION__);
 		if(!staticGeometry_) {
 			node_ = O3dSchema::sceneManager->createSceneNode();
 			areaOffset(offset_);
@@ -107,8 +107,10 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::perform() {
+		LogDetail(__FUNCTION__);
 		if(!isActive())
 			return;
+		LogDetail(__FUNCTION__);
 		init();
 		node_->_updateBounds();
 		setVisible(true);
@@ -117,7 +119,7 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::setActive(bool state) {
-		LogDetail(owner()->name() << ": " << state);
+		LogWarning(owner()->name() << ": " << state);
 		if(state) {
 			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)) {
 				setPriority(0);

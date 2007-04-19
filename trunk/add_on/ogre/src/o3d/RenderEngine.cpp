@@ -279,7 +279,7 @@ namespace se_ogre {
 	/// Must at least do ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	void RenderEngine
 	::loadResources(void) {
-		const char* sections[] = { "bootstrap", "common", 0 };
+		const char* sections[] = { "bootstrap", "common", "particle", 0 };
 		int i = 0;
 		while(sections[i] != 0) {
 			ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);

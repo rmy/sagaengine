@@ -235,8 +235,8 @@ namespace se_ogre {
 					}
 				}
 
-				O3dSchema::taskList.performAll();
 
+				O3dSchema::taskList.performAll();
 				O3dSchema::renderEventListeners().castInitLevel();
 
 				return true;
@@ -256,7 +256,7 @@ namespace se_ogre {
 				catch(...) {
 				}
 
-				O3dSchema::taskList.reset();
+				//O3dSchema::taskList.reset();
 
 
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
@@ -267,6 +267,7 @@ namespace se_ogre {
 
 					O3dAreaComponent::Ptr aO3d(*a);
 					aO3d->cleanupStaticGeometry();
+					aO3d->cleanup();
 				}
 
 				// Clear scene graph
