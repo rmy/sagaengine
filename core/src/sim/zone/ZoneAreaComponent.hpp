@@ -86,7 +86,7 @@ namespace se_core {
 
 	class _SeCoreExport ZoneAreaComponent : public RootChildComponent {
 	public:
-		typedef Ptr<ZoneAreaComponent, sct_ZONE> Ptr;
+		typedef ComponentPtr<ZoneAreaComponent, sct_ZONE> Ptr;
 
 
 

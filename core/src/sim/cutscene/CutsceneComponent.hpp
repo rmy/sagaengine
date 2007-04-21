@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport CutsceneComponent : public AreaChildComponent {
 	public:
-		typedef Ptr<CutsceneComponent, sct_CUTSCENE> Ptr;
+		typedef ComponentPtr<CutsceneComponent, sct_CUTSCENE> Ptr;
 
 		CutsceneComponent(Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~CutsceneComponent();

@@ -28,8 +28,11 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dNodeComponent  : public se_core::NodeComponent {
 	public:
+
 		O3dNodeComponent(int type, se_core::Composite* owner, const se_core::ComponentFactory* factory);
 		~O3dNodeComponent();
+
+		typedef ComponentPtr<O3dNodeComponent, se_core::sct_RENDER> Ptr;
 
 		static O3dNodeComponent* get(se_core::Composite* composite) {
 			Assert(composite);

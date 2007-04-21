@@ -36,7 +36,6 @@ namespace se_ogre {
 
 		// Per thing
 		bool doScaleByRadius_;
-		//se_core::String thingType_;
 
 		// Per movable object
 		se_core::String movableObjectType_;

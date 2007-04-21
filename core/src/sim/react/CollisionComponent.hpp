@@ -37,7 +37,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport CollisionComponent : public AreaChildComponent {
 	public:
-		typedef Ptr<CollisionComponent, sct_COLLISION> Ptr;
+		typedef ComponentPtr<CollisionComponent, sct_COLLISION> Ptr;
 
 		/** Constructor.
 		 */

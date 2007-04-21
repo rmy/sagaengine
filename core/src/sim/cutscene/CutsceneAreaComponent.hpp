@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport CutsceneAreaComponent : public RootChildComponent {
 	public:
-		typedef Ptr<CutsceneAreaComponent, sct_CUTSCENE> Ptr;
+		typedef ComponentPtr<CutsceneAreaComponent, sct_CUTSCENE> Ptr;
 		
 		/** Constructor.
 		 */

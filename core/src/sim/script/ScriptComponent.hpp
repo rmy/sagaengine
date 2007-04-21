@@ -34,7 +34,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport ScriptComponent : public Component, public ActionFeed {
 	public:
-		typedef Ptr<ScriptComponent, sct_SCRIPT> Ptr;
+		typedef ComponentPtr<ScriptComponent, sct_SCRIPT> Ptr;
 
 		ScriptComponent(Composite* owner, ActionComponent* consumer);
 		virtual ~ScriptComponent();

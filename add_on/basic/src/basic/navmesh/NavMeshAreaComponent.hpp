@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_basic {
 	class _SeBasicExport NavMeshAreaComponent : public se_core::RootChildComponent {
 	public:
-		typedef Ptr<NavMeshAreaComponent, se_core::sct_NAVMESH> Ptr;
+		typedef ComponentPtr<NavMeshAreaComponent, se_core::sct_NAVMESH> Ptr;
 		
 		/** Constructor.
 		 */
