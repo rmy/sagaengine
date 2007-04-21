@@ -40,7 +40,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport ActionComponent : public Component {
 	public:
-		typedef Ptr<ActionComponent, sct_ACTION> Ptr;
+		typedef ComponentPtr<ActionComponent, sct_ACTION> Ptr;
 
 		/** Constructor.
 		 */

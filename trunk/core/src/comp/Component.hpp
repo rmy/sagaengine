@@ -124,44 +124,44 @@ namespace se_core {
 		 * Convenience pointer template with built in component conversion.
 		 *
 		 * Include the following in a the public part of the class declaration
-		 * of XxxComponent to get a convenient Ptr method that automatically
+		 * of XxxComponent to get a convenient ComponentPtr method that automatically
 		 * converts between owner compoisite and sibling components and XxxComponent.
-		 * typedef se_core::Component::Ptr<XxxComponent, se_core::sct_XXX> Ptr;
+		 * typedef se_core::Component::ComponentPtr<XxxComponent, se_core::sct_XXX> Ptr;
 		 */
 
-		template <class T, int type> class Ptr {
+		template <class T, int type> class ComponentPtr {
 		public:
 			enum { TYPE = type };
 
-			Ptr(T* c) {
+			ComponentPtr(T* c) {
 				component_ = c;
 			}
-			Ptr(T& c) {
+			ComponentPtr(T& c) {
 				component_ = &c;
 			}
-			Ptr(Component& c) {
+			ComponentPtr(Component& c) {
 				component_ = static_cast<T*>(c.component(TYPE));
 			}
-			Ptr(Component* c) {
+			ComponentPtr(Component* c) {
 				if(c)
 					component_ = static_cast<T*>(c->component(TYPE));
 				else
 					component_ = 0;
 			}
-			Ptr(Composite* c) {
+			ComponentPtr(Composite* c) {
 				if(c)
 					component_ = static_cast<T*>(c->component(TYPE));
 				else
 					component_ = 0;
 			}
-			Ptr(Composite& c) {
+			ComponentPtr(Composite& c) {
 				component_ = static_cast<T*>(c.component(TYPE));
 			}
 
-			Ptr(const Component& c) {
+			ComponentPtr(const Component& c) {
 				component_ = (T*)(c.owner()->component(TYPE));
 			}
-			Ptr(const Composite& c) {
+			ComponentPtr(const Composite& c) {
 				component_ = (T*)(c.component(TYPE));
 			}
 
@@ -185,17 +185,17 @@ namespace se_core {
 				return *component_;
 			}
 
-			Ptr& operator=(T& c) {
+			ComponentPtr& operator=(T& c) {
 				component_ = &c;
 				return *this;
 			}
 
-			Ptr& operator=(T* c) {
+			ComponentPtr& operator=(T* c) {
 				component_ = c;
 				return *this;
 			}
 
-			Ptr& operator=(Component* c) {
+			ComponentPtr& operator=(Component* c) {
 				if(c)
 					component_ = static_cast<T*>(c->owner()->component(TYPE));
 				else
@@ -203,12 +203,12 @@ namespace se_core {
 				return *this;
 			}
 
-			Ptr& operator=(Component& c) {
+			ComponentPtr& operator=(Component& c) {
 				component_ = static_cast<T*>(c.owner()->component(TYPE));
 				return *this;
 			}
 
-			Ptr& operator=(Composite* c) {
+			ComponentPtr& operator=(Composite* c) {
 				if(c)
 					component_ = static_cast<T*>(c->component(TYPE));
 				else
@@ -216,7 +216,7 @@ namespace se_core {
 				return *this;
 			}
 
-			Ptr& operator=(Composite& c) {
+			ComponentPtr& operator=(Composite& c) {
 				component_ = static_cast<T*>(c.component(TYPE));
 				return *this;
 			}

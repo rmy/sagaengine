@@ -35,7 +35,7 @@ rune@skalden.com
 namespace se_client {
 	class _SeCoreExport PlayerComponent : public se_core::Component {
 	public:
-		typedef se_core::Component::Ptr<PlayerComponent, se_core::sct_PLAYER> Ptr;
+		typedef se_core::Component::ComponentPtr<PlayerComponent, se_core::sct_PLAYER> Ptr;
 
 		PlayerComponent(se_core::Composite* owner);
 		virtual ~PlayerComponent();

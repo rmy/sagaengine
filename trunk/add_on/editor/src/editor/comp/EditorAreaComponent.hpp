@@ -33,7 +33,7 @@ rune@skalden.com
 namespace se_editor {
 	class _SeEditorExport EditorAreaComponent : public se_core::RootChildComponent {
 	public:
-		typedef Ptr<EditorAreaComponent, se_core::sct_EDITOR> Ptr;
+		typedef ComponentPtr<EditorAreaComponent, se_core::sct_EDITOR> Ptr;
 		
 		/** Constructor.
 		 */

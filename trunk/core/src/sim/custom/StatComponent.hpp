@@ -41,7 +41,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport StatComponent  : public Component {
 	public:
-		typedef Ptr<StatComponent, sct_STAT> Ptr;
+		typedef ComponentPtr<StatComponent, sct_STAT> Ptr;
 
 		static StatComponent* get(Composite& composite) {
 			StatComponent* c = static_cast<StatComponent*>(composite.component(se_core::sct_STAT));

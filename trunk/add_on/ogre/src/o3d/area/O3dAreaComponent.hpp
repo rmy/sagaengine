@@ -33,7 +33,7 @@ namespace se_ogre {
 	public:
 		O3dAreaComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory);
 		~O3dAreaComponent();
-		typedef Ptr<O3dAreaComponent, se_core::sct_RENDER> Ptr;
+		typedef ComponentPtr<O3dAreaComponent, se_core::sct_RENDER> Ptr;
 
 		static O3dAreaComponent* get(se_core::Composite* composite) {
 			Assert(composite);

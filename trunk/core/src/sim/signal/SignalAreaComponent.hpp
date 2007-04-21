@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SignalAreaComponent : public RootChildComponent {
 	public:
-		typedef Ptr<SignalAreaComponent, sct_SIGNAL> Ptr;
+		typedef ComponentPtr<SignalAreaComponent, sct_SIGNAL> Ptr;
 
 		/** Constructor.
 		 */

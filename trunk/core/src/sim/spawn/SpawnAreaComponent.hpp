@@ -34,7 +34,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SpawnAreaComponent : public RootChildComponent {
 	public:
-		typedef Ptr<SpawnAreaComponent, sct_SPAWN> Ptr;
+		typedef ComponentPtr<SpawnAreaComponent, sct_SPAWN> Ptr;
 		
 		/** Constructor.
 		 */

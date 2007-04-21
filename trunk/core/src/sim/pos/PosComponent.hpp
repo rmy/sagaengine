@@ -43,7 +43,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport PosComponent : public Component {
 	public:
-		typedef Ptr<PosComponent, sct_POS> Ptr;
+		typedef ComponentPtr<PosComponent, sct_POS> Ptr;
 
 		PosComponent(Composite* owner);
 		virtual ~PosComponent();

@@ -52,7 +52,7 @@ namespace se_core {
 	 */
 	class _SeCoreExport Actor : public Component {
 	public:
-		typedef Ptr<Actor, sct_BLOB> Ptr;
+		typedef ComponentPtr<Actor, sct_BLOB> Ptr;
 
 		/** Constructor.
 		 */

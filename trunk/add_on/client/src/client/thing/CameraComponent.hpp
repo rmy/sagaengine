@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_client {
 	class _SeCoreExport CameraComponent : public se_core::Component {
 	public:
-		typedef se_core::Component::Ptr<CameraComponent, se_core::sct_CAMERA> Ptr;
+		typedef se_core::Component::ComponentPtr<CameraComponent, se_core::sct_CAMERA> Ptr;
 
 		CameraComponent(se_core::Composite* owner);
 		virtual ~CameraComponent();

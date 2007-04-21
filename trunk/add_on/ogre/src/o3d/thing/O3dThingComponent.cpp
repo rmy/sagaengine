@@ -58,9 +58,12 @@ namespace se_ogre {
 
 		if(!parentNode_) {
 			PosComponent* a = PosComponent::Ptr(*this)->nextPos().area();
+			if(!a) {
+				return;
+			}
 			Assert(a);
-			O3dNodeComponent* c = O3dNodeComponent::get(*a);
-			Assert(c);
+			O3dNodeComponent::Ptr c(*a);
+			Assert(!c.isNull());
 			Assert(c->node());
 			setParentNode(c->node());
 		}
@@ -102,7 +105,8 @@ namespace se_ogre {
 		if(!isActive() || isDead())
 			return;
 		init();
-		setVisible(true);
+		if(parentNode_ != 0)
+			setVisible(true);
 	}
 
 
