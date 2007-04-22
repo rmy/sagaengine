@@ -57,8 +57,9 @@ namespace se_ogre {
 		}
 
 		if(!parentNode_) {
-			PosComponent* a = PosComponent::Ptr(*this)->nextPos().area();
+			const PosComponent* a = PosComponent::Ptr(*this)->pos().area();
 			if(!a) {
+				LogFatal("!");
 				return;
 			}
 			Assert(a);
