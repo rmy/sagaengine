@@ -24,6 +24,8 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "sim/message/MessageListener.hpp"
+#include <OgreOverlay.h>
+#include <OgreOverlayElement.h>
 
 namespace se_ogre {
 	class _SeOgreExport SpeechBubble : public se_core::MessageListener  {
@@ -31,12 +33,17 @@ namespace se_ogre {
 		SpeechBubble();
 		virtual ~SpeechBubble();
 
+		bool init();
+		void cleanup();
+
 		void infoEvent(char* text);
 		void speechEvent(se_core::Actor& speaker, const char* messageName);
 		void trackUserFeedback();
 
 	private:
 		se_core::Actor* speaker_;
+		Ogre::Overlay* overlay_;
+		Ogre::OverlayElement* caption_;
 	};
 }
 

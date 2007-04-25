@@ -235,9 +235,11 @@ namespace se_ogre {
 					}
 				}
 
+				speechBubble->init();
 
 				O3dSchema::taskList.performAll();
 				O3dSchema::renderEventListeners().castInitLevel();
+
 
 				return true;
 			}
@@ -256,8 +258,7 @@ namespace se_ogre {
 				catch(...) {
 				}
 
-				//O3dSchema::taskList.reset();
-
+				speechBubble->cleanup();
 
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
 				int c = SimSchema::areaManager.areaCount();

@@ -119,7 +119,6 @@ namespace se_ogre {
 
 	void O3dAreaComponent
 	::setActive(bool state) {
-		LogWarning(owner()->name() << ": " << state);
 		if(state) {
 			if(ClientSchema::player->nextPos().area() == PosComponent::get(*this)) {
 				setPriority(0);

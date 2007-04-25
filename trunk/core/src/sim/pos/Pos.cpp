@@ -212,6 +212,7 @@ namespace se_core {
 		updateIndex();
 	}
 
+
 	void Pos
 	::setArea(PosComponent& area, const ViewPoint& vp, bool isLocalViewPoint) {
 		if(parent_ == area_) {

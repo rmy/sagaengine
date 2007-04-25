@@ -160,45 +160,48 @@ namespace se_ogre {
 			return;
 
 		PosComponent::Ptr tPos(*this);
+		/*
 		if(isDead() || !isActive() || !tPos->pos().isKeyFramePath(tPos->nextPos())) {
 			// If not skip it
 			setVisible(false);
 			return;
 		}
+		*/
 
 		setVisible(true);
+		ViewPoint next;
 		const scale_t alpha = ScaleT::fromFloat(stepDelta);
-		tPos->worldViewPoint(alpha, last_);
+		tPos->worldViewPoint(alpha, next);
 
-		// Translate from Euler3 if necessary
-		Quat4 face(last_.face_);
+		if(!next.viewPointEquals(last_)) {
+			last_.setViewPoint(next);
+			Ogre::Vector3 pos(
+					CoorT::toFloat(last_.coor_.x_),
+					CoorT::toFloat(last_.coor_.y_),
+					CoorT::toFloat(last_.coor_.z_)
+					);
 
-		Ogre::Vector3 pos(
-				CoorT::toFloat(last_.coor_.x_),
-				CoorT::toFloat(last_.coor_.y_),
-				CoorT::toFloat(last_.coor_.z_)
-				);
-
-		Ogre::Quaternion rot(
-				QuatT::toFloat(face.w_),
-				QuatT::toFloat(face.x_),
-				QuatT::toFloat(face.y_),
-				QuatT::toFloat(face.z_)
-				);
+			// Translate from Euler3 if necessary
+			Quat4 face(next.face_);
+			Ogre::Quaternion rot(
+					QuatT::toFloat(face.w_),
+					QuatT::toFloat(face.x_),
+					QuatT::toFloat(face.y_),
+					QuatT::toFloat(face.z_)
+					);
 
 
-		// Set the new position
-		node_->setPosition(pos - parentNode_->getPosition());
+			// Set the new position
+			node_->setPosition(pos - parentNode_->getPosition());
 
-		// Set new orientation
-		node_->setOrientation(rot);
+			// Set new orientation
+			node_->setOrientation(rot);
 
+		}
 		// Move children
-		//ThingMOList::iterator_type it = firstThingMO_;
-		//while(it != CompSchema::VoidList::end()) {
 		ThingMOList::Iterator it(moList_);
 		while(it.hasNext()) {
-			ThingMO* te = &it.next(); //O3dSchema::thingMOList.next(it);
+			ThingMO* te = &it.next();
 			te->move(when, stepDelta, timeSinceLastFrame);
 			te->resetPos();
 		}
@@ -256,6 +259,7 @@ namespace se_ogre {
 		node_->setPosition(node_->getPosition() + parentNode_->getPosition());
 
 		parentNode_ = 0;
+		last_.setIdentity();
 	}
 
 
