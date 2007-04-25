@@ -31,6 +31,7 @@ namespace se_ogre {
 		~InputManager();
 
 		InputHandler* active();
+		InputHandler* below();
 
 	protected:
 		friend class InputHandler;

@@ -56,6 +56,10 @@ namespace se_ogre {
 		O3dSchema::inputManager().pop();
 	}
 
+	InputHandler* InputHandler
+	::below() {
+		return O3dSchema::inputManager().below();
+	}
 
 	const char* InputHandler
 	::name() {

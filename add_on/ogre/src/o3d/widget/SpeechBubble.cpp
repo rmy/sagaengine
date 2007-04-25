@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : speaker_(0), overlay_(0), caption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), overlay_(0), caption_(0) {
 	}
 
 
@@ -99,6 +99,8 @@ namespace se_ogre {
 		catch(...) {
 			LogWarning("Couldn't show speech bubble");
 		}
+
+		grabFocus();
 	}
 
 
@@ -107,6 +109,8 @@ namespace se_ogre {
 		if(speaker_)
 			speaker_->script()->trackUserFeedback();
 		overlay_->hide();
+
+		loseFocus();
 	}
 
 }
