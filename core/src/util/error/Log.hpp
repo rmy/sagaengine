@@ -23,6 +23,7 @@ rune@skalden.com
 #define Log_hpp
 
 #include "../type/String.hpp"
+#include "../type/util_type.hpp"
 
 extern _SeCoreExport char* log_msg();
 
@@ -55,6 +56,7 @@ namespace se_err {
 		Log& operator << (char c);
 		Log& operator << (unsigned long n);
 		Log& operator << (long long n);
+		Log& operator << (bray_t c);
 		Log& operator << (const se_core::String& s);
 		Log& operator << (const se_core::String* s);
 		Log& mem(int n);

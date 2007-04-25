@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "Log.hpp"
 #include "../system/util_system.hpp"
+#include "../math/BrayT.hpp"
 #include <malloc.h>
 #ifdef _WINDOWS
 #include <Windows.h>
@@ -172,6 +173,14 @@ namespace se_err {
 	Log& Log
 	::operator << (unsigned int n) {
 		sprintf(tmp_, "%d", n);
+		copy(tmp_);
+		return *this;
+	}
+
+
+	Log& Log
+	::operator << (bray_t n) {
+		sprintf(tmp_, "%f", se_core::BrayT::toDeg(n));
 		copy(tmp_);
 		return *this;
 	}

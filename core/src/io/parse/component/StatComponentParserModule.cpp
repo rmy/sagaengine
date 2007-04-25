@@ -71,7 +71,6 @@ namespace se_core {
 					int defense = in.readShort();
 					int level = in.readShort();
 					factory->setAbilities(speed, attack, defense, level);
-					LogWarning(speed << ", " << attack << ", " << defense << ", " << level);
 				}
 				break;
 

@@ -27,6 +27,7 @@ rune@skalden.com
 #include "sim/thing/Actor.hpp"
 #include "sim/script/Script.hpp"
 #include <OgreRenderWindow.h>
+#include <OgreOverlayManager.h>
 
 
 using namespace se_client;
@@ -34,14 +35,29 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : speaker_(0) {
-		SimSchema::messageCentral.addListener(*this);
+	::SpeechBubble() : speaker_(0), overlay_(0), caption_(0) {
 	}
 
 
 	SpeechBubble
 	::~SpeechBubble() {
+	}
+
+
+	bool SpeechBubble
+	::init() {
+		overlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/SpeechBubble");
+		caption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/SpeechBubbleText");
+
+		SimSchema::messageCentral.addListener(*this);
+		return true;
+	}
+
+
+	void SpeechBubble
+	::cleanup() {
 		SimSchema::messageCentral.removeListener(*this);
+		speaker_ = 0;
 	}
 
 
@@ -53,11 +69,36 @@ namespace se_ogre {
 
 	void SpeechBubble
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
-		LogDetail(speaker.name());
-		const char* message = ClientSchema::phrases.getPhrase(Phrase::SPEECH, messageName);
-		LogDetail(message);
 		speaker_ = &speaker;
-		O3dSchema::window->setDebugText(message);
+		const char* message = ClientSchema::phrases.getPhrase(Phrase::SPEECH, messageName);
+		char buffer[256];
+		const char* c = message;
+		int linePos = 0;
+		int i = 0;
+		for(; *c != 0 && i < 255; ++i, ++c) {
+			buffer[i] = *c;
+			++linePos;
+			if(*c == '_') {
+				if(linePos < 50) {
+					buffer[i] = ' ';
+				}
+				else {
+					buffer[i] = '\n';
+					linePos = 0;
+				}
+			}
+		}
+		buffer[i] = 0;
+
+		LogDetail(speaker.name() << " says '" << message << "'");
+
+		try {
+			caption_->setCaption(buffer);
+			overlay_->show();
+		}
+		catch(...) {
+			LogWarning("Couldn't show speech bubble");
+		}
 	}
 
 
@@ -65,6 +106,7 @@ namespace se_ogre {
 	::trackUserFeedback() {
 		if(speaker_)
 			speaker_->script()->trackUserFeedback();
+		overlay_->hide();
 	}
 
 }

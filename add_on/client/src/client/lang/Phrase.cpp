@@ -22,6 +22,8 @@ rune@skalden.com
 #include "Phrase.hpp"
 #include "util/type/String.hpp"
 #include "util/error/Log.hpp"
+#include "sim/stat/DictionaryEntry.hpp"
+#include "sim/config/sim_config.hpp"
 #include <cstring>
 
 using namespace se_core;
@@ -29,6 +31,12 @@ using namespace se_core;
 namespace se_client {
 	Phrase
 	::Phrase() : currentLanguage_(NORWEGIAN), phraseCount_(0) {
+		static DictionaryEntry ph1(DE_PHRASE_TYPE, MENU_LABEL, "MENU_LABEL");
+		static DictionaryEntry ph2(DE_PHRASE_TYPE, ACTION_LABEL, "ACTION_LABEL");
+		static DictionaryEntry ph3(DE_PHRASE_TYPE, THING_LABEL, "THING_LABEL");
+		static DictionaryEntry ph4(DE_PHRASE_TYPE, THING_DESCRIPTION, "THING_DESCRIPTION");
+		static DictionaryEntry ph5(DE_PHRASE_TYPE, SPEECH, "SPEECH");
+
 		//setLanguage(ENGLISH);
 	}
 
