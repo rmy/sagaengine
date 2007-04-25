@@ -44,6 +44,15 @@ namespace se_ogre {
 	}
 
 
+	InputHandler* InputManager
+	::below() {
+		if(handlerStackPos_ < 1) {
+			return 0;
+		}
+		return handlerStack_[ handlerStackPos_ - 1 ];
+	}
+
+
 	void InputManager
 	::push(InputHandler* handler) {
 		Assert(handlerStackPos_ + 1 < MAX_STACK_SIZE);

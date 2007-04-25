@@ -51,6 +51,7 @@ namespace se_ogre {
 		virtual bool sliderMoved (const OIS::JoyStickEvent &, int) { return true; }
 		virtual bool povMoved (const OIS::JoyStickEvent &, int) { return true; }
 
+		InputHandler* below();
 /*
 		virtual void keyPressed(Ogre::KeyEvent* e) = 0;
 		virtual void keyReleased(Ogre::KeyEvent* e) = 0;

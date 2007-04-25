@@ -24,11 +24,12 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "sim/message/MessageListener.hpp"
+#include "o3d/input/InputHandler.hpp"
 #include <OgreOverlay.h>
 #include <OgreOverlayElement.h>
 
 namespace se_ogre {
-	class _SeOgreExport SpeechBubble : public se_core::MessageListener  {
+	class _SeOgreExport SpeechBubble : public se_core::MessageListener, InputHandler {
 	public:
 		SpeechBubble();
 		virtual ~SpeechBubble();
@@ -39,6 +40,32 @@ namespace se_ogre {
 		void infoEvent(char* text);
 		void speechEvent(se_core::Actor& speaker, const char* messageName);
 		void trackUserFeedback();
+
+		void keyPressed(Ogre::KeyEvent* e) {
+			trackUserFeedback();
+		}
+		bool joyButtonPressed (int button) {
+			trackUserFeedback();
+			return true;
+		}
+		void mousePressed(Ogre::MouseEvent* e) {
+			trackUserFeedback();
+		}
+
+		void keyReleased(Ogre::KeyEvent* e) {
+			if(!below()) return;
+			below()->keyReleased(e);
+		}
+
+		bool joyButtonReleased (int button) {
+			if(!below()) return true;
+			return below()->joyButtonReleased(button);
+		}
+
+		void mouseReleased(Ogre::MouseEvent* e) {
+			if(!below()) return;
+			below()->mouseReleased(e);
+		}
 
 	private:
 		se_core::Actor* speaker_;
