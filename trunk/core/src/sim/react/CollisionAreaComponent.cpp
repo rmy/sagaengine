@@ -237,7 +237,7 @@ namespace se_core {
 
 					if(!didAlready) {
 						Assert(count < maxCollisions);
-						if(count > 16) {
+						if(count > 64) {
 							LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
 						}
 						list[ count ].cc1_ = cc;
