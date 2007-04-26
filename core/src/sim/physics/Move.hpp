@@ -59,7 +59,7 @@ namespace se_core {
 		scale_t angularFriction_;
 		bool didBounce_;
 		scale_t bounceMaintain_;
-
+		scale_t floorBounce_;
 		int affectCode_;
 
 		// The physics object is free to interpret these values as they like

@@ -65,6 +65,9 @@ namespace se_core {
 		long sentAge() const;
 		void recieve(int id, bool state);
 		void zoneChanged(int type, Composite* newArea, Composite* oldArea);
+		bool isOn() const {
+			return sendState_;
+		}
 
 
 	protected:
