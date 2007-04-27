@@ -62,6 +62,13 @@ namespace se_core {
 		currentHitpoints_ = maxHitpoints_;
 		SimSchema::healthListeners().castHealthChangedEvent(actor, amount);
 	}
+
+
+	void Health
+	::initHitpoints(int max, int now) {
+		maxHitpoints_ = max;
+		currentHitpoints_ = now;
+	}
 }
 
 #endif // SE_OWN_HEALTH

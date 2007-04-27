@@ -31,7 +31,7 @@ namespace se_core {
 
 	StatComponent
 	::StatComponent(Composite* owner, const ComponentFactory* factory)
-			: Component(sct_STAT, owner, factory), properties_(0) {
+			: Component(sct_STAT, owner, factory), properties_(0), shouldSave_(false) {
 		for(int i = 0; i < SV_COUNT; ++i)
 			singleValues_[i] = 0;
 	}
@@ -41,11 +41,6 @@ namespace se_core {
 	::walkSpeed() const {
 		return (abilities()->modified(Abilities::SPEED) * CoorT::half(COOR_STEP));
 	}
-
-
-	//void StatComponent
-	//::setAbilities(short* abilities) {
-	//}
 
 
 	PosComponent* StatComponent

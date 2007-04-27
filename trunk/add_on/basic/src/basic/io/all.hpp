@@ -6,5 +6,6 @@
 #include "WangAreaGridParserModule.hpp"
 #include "NavMeshAreaParserModule.hpp"
 #include "SimpleAreaThingParserModule.hpp"
+#include "SimpleAreaThingEncoderModule.hpp"
 
 #endif

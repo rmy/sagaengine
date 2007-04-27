@@ -79,6 +79,10 @@ namespace se_client {
 		out.writeInfoCode('G');
 		out.writeInfoCode('/');
 
+		out.writeInfoCode('H');
+		out.writeShort(StatComponent::Ptr(*ClientSchema::player)->health().maxHitpoints());
+		out.writeShort(StatComponent::Ptr(*ClientSchema::player)->health().currentHitpoints());
+
 		out.writeInfoCode('C');
 		out.writeString(ClientSchema::camera->owner()->name());
 

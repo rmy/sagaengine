@@ -63,8 +63,10 @@ namespace se_core {
 			return false;
 		sendState_ = state;
 
-		SignalAreaComponent* areaSignal = SignalAreaComponent::get(*parent());
-		areaSignal->setSignalActive(sendId_, sendState_);
+		if(parent()) {
+			SignalAreaComponent* areaSignal = SignalAreaComponent::get(*parent());
+			areaSignal->setSignalActive(sendId_, sendState_);
+		}
 		return true;
 	}
 

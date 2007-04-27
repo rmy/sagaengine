@@ -93,7 +93,7 @@ namespace se_core {
 				return factories_[i];
 			}
 		}
-		LogFatal("SpawnManager.cpp: Tried to get thing with unkown name: " << name << " - " - factoryCount_);
+		LogFatal("SpawnManager.cpp: Tried to get thing with unkown name: " << name << " - " << factoryCount_);
 		return 0;
 	}
 

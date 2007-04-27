@@ -85,6 +85,7 @@ namespace se_core {
 		 * @param id the id of the sapwn points
 		 */
 		const ViewPoint* spawnPoint(short id) const;
+		bool hasSpawnPoint(short id) const;
 		int spawnPointCount() const {
 			return spawnPointCount_;
 		}

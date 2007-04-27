@@ -38,18 +38,15 @@ namespace se_basic {
 
 	void Save
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		Actor& performer = *Actor::Ptr(perf);;
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-
-		char buffer[128];
-		sprintf(buffer, "save/slot.%d/area_things.txt", p->id_);
+		char buffer[256];
+		sprintf(buffer, "save/%s.txt", IoSchema::saveName);
 		IoSchema::fileManager->save(buffer);
+		Actor::Ptr(perf)->say("GAME_SAVED");
 	}
 
+
 	void Save
-	::param(short id, Parameter& out) {
-		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
-		*p = Param(id);
+	::disrupt(ActionComponent& perf, Parameter& parameter) const {
 	}
 
 

@@ -35,12 +35,14 @@ namespace se_core {
 		extern _SeCoreExport Encoder& encoder();
 		extern _SeCoreExport FileManager* fileManager;
 
+
 		bool _SeCoreExport init();
 		void _SeCoreExport cleanup();
 		
 		/** Force linking of dependencies */
 		void _SeCoreExport touch();
 
+		extern const char* saveName;
 		extern _SeCoreExport const char* dataPath;
 	}
 }

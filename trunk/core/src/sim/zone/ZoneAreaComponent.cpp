@@ -163,5 +163,11 @@ namespace se_core {
 		Assert(id >= 0 && id < exitCount_);
 		return exits_[id];
 	}
+
+	const Exit& ZoneAreaComponent
+	::exit(int id) const {
+		Assert(id >= 0 && id < exitCount_);
+		return exits_[id];
+	}
 }
 

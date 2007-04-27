@@ -214,7 +214,9 @@ namespace se_pc {
 		sprintf(buffer, "%s/%s", directory_, filename);
 		FILE* in = fopen(buffer, "r");
 		if(in) {
-			addFile(new String(filename));
+			String* s = new String();
+			s->copy(filename);
+			addFile(s);
 			fclose(in);
 			return true;
 		}

@@ -30,7 +30,7 @@ namespace se_basic {
 		Save() : se_core::Action("Save") {}
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
-			return 2;
+			return 4;
 		}
 
 		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const {
@@ -38,16 +38,8 @@ namespace se_basic {
 		}
 
 		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
+		void disrupt(se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
 
-	private:
-		void param(short id, se_core::Parameter& out);
-
-		struct Param {
-			Param(short id)
-				: id_(id) {
-			}
-			short id_;
-		};
 	};
 
 	extern _SeBasicExport const Save actionSave;

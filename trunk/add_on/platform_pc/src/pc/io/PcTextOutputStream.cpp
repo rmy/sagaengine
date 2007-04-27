@@ -97,7 +97,7 @@ namespace se_pc {
 	void PcTextOutputStream
 	::writeString(const char* string) {
 		writeToken(string);
-		writeToken("\n");
+		writeToken(" ");
 	}
 
 

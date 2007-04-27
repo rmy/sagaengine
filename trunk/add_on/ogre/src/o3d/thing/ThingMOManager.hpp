@@ -52,8 +52,8 @@ namespace se_ogre {
 		void reset();
 
 	private:
-		static const int MAX_FACTORIES = 100;
-		static const int MAX_INFOS = 100;
+		static const int MAX_FACTORIES = 256;
+		static const int MAX_INFOS = 256;
 		ThingMOInfoList** infoList_;
 		int infoCount_;
 		const ThingMOFactory** factories_;

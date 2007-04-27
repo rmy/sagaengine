@@ -90,6 +90,13 @@ namespace se_core {
 	}
 
 
+	bool SpawnComponent
+	::hasSpawnPoint(short id) const {
+		if(id < 0 || id >= spawnPointCount_)
+			return false;
+		return spawnPoints_[id] != 0;
+	}
+
 	const ViewPoint* SpawnComponent
 	::spawnPoint(short id) const {
 		AssertFatal(id >= 0 && id < spawnPointCount_, ": Id=" << id << " Count=" << spawnPointCount_);
