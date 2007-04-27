@@ -113,7 +113,9 @@ namespace se_client {
 
 	const char *Phrase
 	::getPhrase(PhraseType type, const char* name) {
-		return phrases_[ findPhrase(type, name) ];
+		int index = findPhrase(type, name);
+		Assert(index >= 0 && index < phraseCount_);
+		return phrases_[ index ];
 	}
 
 

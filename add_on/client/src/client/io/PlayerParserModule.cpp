@@ -80,6 +80,15 @@ namespace se_client {
 				}
 				break;
 
+			case 'H': 
+				{ // Player hitpoints
+					int max = in.readShort();
+					int now = in.readShort();
+					AssertFatal(ClientSchema::player, "Init player before setting hitpoints");
+					StatComponent::Ptr(*ClientSchema::player)->health().initHitpoints(max, now);
+				}
+				break;
+
 			case 'C': // Camera
 				{
 					// Init camera object

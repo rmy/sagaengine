@@ -78,25 +78,20 @@ namespace se_ogre {
 			}
 		}
 
-		/*
-		// Debug
-		String mesh("puck.mesh");
-		ThingMOInfo* info = new ThingMOInfo();
-		info->movableObjectType_.set(Ogre::EntityFactory::FACTORY_TYPE_NAME.c_str());
-		info->params_["mesh"] = mesh.get();
-		info->doScaleByRadius_ = true;
-		infoList->add(info);
-		*/
+#ifdef SE_INTERNAL
 		ThingMOInfo* info = new ThingMOInfo();
 		info->movableObjectType_.set("Debug");
 		infoList->add(info);
+#endif
 
-
-		O3dSchema::thingMOManager.addInfoList(infoList);
 		if(infoList->infoCount_ > 0) {
+			O3dSchema::thingMOManager.addInfoList(infoList);
 			CompositeFactory* f = SimSchema::spawnManager().factory(infoList->thingType_.get());
 			static O3dThingComponentFactory otcf;
 			f->addComponent(&otcf);
+		}
+		else {
+			delete infoList;
 		}
 	}
 

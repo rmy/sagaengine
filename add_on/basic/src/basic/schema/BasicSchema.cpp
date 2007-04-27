@@ -40,6 +40,8 @@ namespace se_basic {
 				static SimpleActorParserModule sActorPM(IoSchema::parser());
 				static WangAreaGridParserModule wangGridPM(IoSchema::parser());
 
+				static SimpleAreaThingEncoderModule sAreaThingEM(IoSchema::encoder());
+
 				// Register as init event listener
 				SimSchema::initListeners().addListener(*this);
 				LogDetail("Registered Basic add-on");

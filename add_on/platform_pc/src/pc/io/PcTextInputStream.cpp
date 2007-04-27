@@ -87,6 +87,8 @@ namespace se_pc {
 				}
 				foundWhiteSpace = true;
 				break;
+			case 0:
+				return;
 			default:
 				if(foundWhiteSpace) return;
 			}
@@ -205,8 +207,8 @@ namespace se_pc {
 		// Eof not always working, so next token after
 		// Q may hang. This means that Q cannot be used
 		// as info code in sub-scripts.
-		if(v != 'Q')
-			nextToken();
+		//if(v != 'Q')
+		nextToken();
 		return v;
 	}
 

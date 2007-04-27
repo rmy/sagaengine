@@ -93,6 +93,8 @@ namespace se_core {
 		bool hasTarget() const { return !target_.isNull(); }
 		void setTarget(Composite* target) { target_.set(target->ref()); }
 		void resetTarget() { target_.reset(); }
+		void setShouldSave(bool state) { shouldSave_ = state; }
+		bool shouldSave() { return shouldSave_; }
 
 		const Property* property(const char* name) const;
 		const Property* property(int key) const;
@@ -108,6 +110,7 @@ namespace se_core {
 
 	protected:
 		friend class StatComponentFactory;
+		bool shouldSave_;
 		Abilities abilities_;
 		Health health_;
 		const PropertyHashTable* properties_;

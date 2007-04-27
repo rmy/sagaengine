@@ -4,6 +4,8 @@
 #include "sim/area/AreaManager.hpp"
 #include "sim/area/Area.hpp"
 #include "sim/zone/Exit.hpp"
+#include "sim/custom/StatComponent.hpp"
+#include "sim/signal/SignalComponent.hpp"
 #include "comp/CompositeFactory.hpp"
 #include <cstring>
 
@@ -134,6 +136,13 @@ namespace se_basic {
 		ViewPoint vp;
 		vp.setIdentity();
 
+		bool hasAnim[4];
+		Anim anim[4];
+		for(int i = 0; i < 4; ++i)
+			hasAnim[i] = false;
+
+		int isOn = -1;
+
 		bool isGrounded = false;
 		bool isScaled = false;
 		float radius = 1;
@@ -175,6 +184,31 @@ namespace se_basic {
 				}
 				break;
 
+			case 'A': // Anim
+				{
+					int id = in.readShort();
+					int movementMode = in.readShort();
+					float startPos = in.readFloat();
+					float pos = in.readFloat();
+					float speed = in.readFloat();
+					float weight = in.readFloat();
+
+					hasAnim[id] = true;
+					anim[id].setMovementMode(movementMode);
+					anim[id].setStartPos(pos);
+					anim[id].resetPos();
+					anim[id].setStartPos(startPos);
+					anim[id].setSpeed(speed);
+					anim[id].setWeight(weight);
+				}
+				break;
+
+			case 'I': // Signal
+				{
+					isOn = in.readShort();
+					break;
+				}
+
 			default:
 				LogFatal("Illegal parameter to thing: " << (char)(code));
 			}
@@ -195,6 +229,16 @@ namespace se_basic {
 				p->nextPos().setRadius(r);
 			}
 			p->nextPos().setGrounded(isGrounded);
+			for(int j = 0; j < 4; ++j) {
+				if(hasAnim[j]) {
+					p->nextPos().anim(j).setAnim(anim[j]);
+				}
+			}
+			StatComponent::Ptr(*thing)->setShouldSave(true);
+
+			if(isOn >= 0) {
+				SignalComponent::Ptr(*thing)->send(isOn == 0);
+			}
 			siblings[i] = thing;
 		}
 

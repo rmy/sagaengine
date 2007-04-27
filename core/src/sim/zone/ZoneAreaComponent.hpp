@@ -113,6 +113,8 @@ namespace se_core {
 		ComponentList& links() { return links_; }
 		void setExits(Exit* exits, int count);
 		Exit& exit(int id);
+		const Exit& exit(int id) const;
+		int exitCount() const { return exitCount_; }
 
 	protected:
 		friend class ZoneAreaComponentFactory;
