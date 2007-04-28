@@ -125,6 +125,8 @@ namespace se_basic {
 
 	void SimpleActorFactory
 	::setSpawnPoints(int count, ViewPoint* const* spawnPoints) {
+		if(count == 0 && spawnPoints_ != 0)
+			return;
 		spawnPoints_ = new ViewPoint*[ count ];
 
 		spawnPointCount_ = count;

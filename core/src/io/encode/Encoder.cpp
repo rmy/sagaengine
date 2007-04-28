@@ -42,8 +42,14 @@ namespace se_core {
 
 	void Encoder
 	::encode(OutputStream& out) {
+		lastModule_ = 0;
 		out.writeHeaderCode(headerCode());
 		for(int i = 0; i < moduleCount_; ++i) {
+			if(modules_[i]->isLast()) {
+				Assert(lastModule_ == 0);
+				lastModule_ = modules_[i];
+				continue;
+			}
 			modules_[i]->encode(out);
 		}
 		if(lastModule_) {
@@ -54,13 +60,7 @@ namespace se_core {
 
 	void Encoder
 	::add(EncoderModule& m) {
-		if(m.isLast()) {
-			Assert(lastModule_ == 0);
-			lastModule_ = &m;
-		}
-		else {
-			modules_[ moduleCount_++ ] = &m;
-		}
+		modules_[ moduleCount_++ ] = &m;
 	}
 
 }

@@ -27,6 +27,7 @@ namespace se_basic {
 	::parse(InputStream& in) {
 		SimpleActorFactory* factory;
 
+		bool shouldAdd = true;
 		int code = in.readInfoCode();
 		String* name = new String();
 		in.readString(*name);
@@ -35,11 +36,9 @@ namespace se_basic {
 		case 'A':
 			factory = new SimpleActorFactory(name);
 			break;
-		case 'C':
-			factory = new SimpleCameraFactory(name);
-			break;
-		case 'P':
-			factory = new SimplePlayerFactory(name);
+		case 'E':
+			factory = reinterpret_cast<SimpleActorFactory*>(SpawnManager::singleton().factory(name->get()));
+			shouldAdd = false;
 			break;
 		default:
 			LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
@@ -188,7 +187,8 @@ namespace se_basic {
 		if(!collide.equals("none")) {
 			factory->setCollide(collide.get());
 		}
-		SimSchema::spawnManager().addFactory(factory);
+		if(shouldAdd)
+			SimSchema::spawnManager().addFactory(factory);
 	}
 
 
