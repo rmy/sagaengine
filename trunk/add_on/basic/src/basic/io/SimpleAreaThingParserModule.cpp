@@ -26,7 +26,7 @@ namespace se_basic {
 
 	void SimpleAreaThingParserModule
 	::parse(InputStream& in) {
-		const short MAX_AREAS = 1024;
+		const short MAX_AREAS = 256;
 		Area* areas[ MAX_AREAS];
 		int areaCount = 0;
 
@@ -61,6 +61,7 @@ namespace se_basic {
 				{
 					String tempString;
 					in.readString(tempString);
+					LogWarning(tempString);
 					if(SimSchema::areaManager.hasArea(tempString.get())) {
 						areas[0] = SimSchema::areaManager.area(tempString.get());
 						areaCount = 1;
@@ -72,6 +73,7 @@ namespace se_basic {
 				{
 					String tempString;
 					in.readString(tempString);
+					LogWarning(tempString);
 					areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
 					LogDetail(areaCount);
 				}
