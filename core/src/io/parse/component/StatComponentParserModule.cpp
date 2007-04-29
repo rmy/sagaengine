@@ -74,11 +74,17 @@ namespace se_core {
 				}
 				break;
 
+			case 'S':
+				{
+					factory->setShouldSave(true);
+				}
+				break;
+
 			case 'P':
 				{
+					int propertyType = in.readDictionaryWord(dict_PROPERTY_TYPE);
 					String name;
 					in.readString(name);
-					int propertyType = in.readDictionaryWord(dict_PROPERTY_TYPE);
 					Property* p = 0;
 					switch(propertyType) {
 					case Property::PT_SHORT:

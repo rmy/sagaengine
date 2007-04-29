@@ -48,10 +48,15 @@ namespace se_core {
 			return properties_;
 		}
 
+		void setShouldSave(bool state) {
+			shouldSave_ = state;
+		}
+
 	protected:
 		Abilities abilities_;
 		int collectibles_;
 		PropertyHashTable properties_;
+		bool shouldSave_;
 	};
 
 }

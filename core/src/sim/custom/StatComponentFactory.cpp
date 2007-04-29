@@ -31,7 +31,7 @@ namespace se_core {
 
 	StatComponentFactory
 	::StatComponentFactory()
-		: ComponentFactory(sct_STAT), collectibles_(0) {
+		: ComponentFactory(sct_STAT), collectibles_(0), shouldSave_(false) {
 	}
 
 
@@ -59,6 +59,10 @@ namespace se_core {
 		}
 		pStats->abilities()->setBases(&abilities_);
 		pStats->properties_ = &properties_;
+
+		if(shouldSave_) {
+			pStats->setShouldSave(true);
+		}
 
 		return pStats;
 	}
