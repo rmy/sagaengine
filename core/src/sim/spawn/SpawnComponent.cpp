@@ -59,7 +59,7 @@ namespace se_core {
 		vp.add(pos.world_);
 
 		// Spawn it in area (with area as parent)
-		Area* area = const_cast<Area*>(static_cast<const Area*>(pos.area()->owner()));
+		Area::Ptr area(pos.area());
 		area = area->neighbour(vp.coor_);
 		if(!area) {
 			LogWarning("Area not found");

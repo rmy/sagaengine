@@ -23,7 +23,9 @@ rune@skalden.com
 #define sim_area_Area_hpp
 
 #include "sim_area.hpp"
-#include "comp/Composite.hpp"
+#include "comp/Component.hpp"
+#include "comp/ComponentFactory.hpp"
+#include "../sim.hpp"
 #include "../action/sim_action.hpp"
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
@@ -43,12 +45,14 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport Area : public Composite {
+	class _SeCoreExport Area : public Component {
 	public:
+		typedef ComponentPtr<Area, sct_BLOB> Ptr;
+
 		/**
 		 * Create a new area of a given size.
 		 */
-		Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h);
+		Area(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h);
 
 		/**
 		 * Destructor.

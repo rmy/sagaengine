@@ -49,7 +49,7 @@ namespace se_core {
 	::terrainStyle() const {
 		if(!hasArea())
 			return TS_VOID;
-		const Area* a = static_cast<const Area*>(area()->owner());
+		const Area::Ptr a(area());
 		return a->terrainStyle(this->localCoor(), index());
 	}
 
@@ -57,7 +57,7 @@ namespace se_core {
 	::touchedTerrain() const {
 		if(!hasArea())
 			return TSM_VOID;
-		const Area* a = static_cast<const Area*>(area()->owner());
+		const Area::Ptr a(area());
 		return a->touchedTerrain(this->localCoor(), radius());
 	}
 
@@ -74,8 +74,8 @@ namespace se_core {
 			return true;
 
 		// Are pages not neighbours?
-		const Area* a = static_cast<const Area*>(area()->owner());
-		const Area* oth = static_cast<const Area*>(other.area_->owner());
+		const Area::Ptr a(area());
+		const Area::Ptr oth(other.area_);
 		if(!(a->isNeighbour(*(oth))))
 			return false;
 
@@ -238,11 +238,17 @@ namespace se_core {
 	}
 
 
+	bool Pos
+	::hasArea(Component& area) const {
+		return area_ != 0 && area_->owner() == area.owner(); 
+	}
+
+
 	PosComponent* Pos
 	::updateArea() {
 		// Entered new area?
 		PosComponent* old = area_;
-		Area* next = static_cast<Area*>(area_->owner());
+		Area::Ptr next(area_);
 		if(!next->isLegalWorldCoor(worldCoor())) {
 			Area* a = next->neighbour(worldCoor());
 			if(a) {
@@ -263,7 +269,7 @@ namespace se_core {
 
 	void Pos
 	::updateIndex() {
-		Area* next = static_cast<Area*>(area_->owner());
+		Area::Ptr next(area_);
 		short newIndex = next->index(worldCoor(), -1);
 		setIndex(newIndex);
 	}
@@ -345,7 +351,7 @@ namespace se_core {
 	void Pos
 	::updateY() {
 		if(isGrounded() && area_) {
-			const Area* a = static_cast<const Area*>(area()->owner());
+			const Area::Ptr a(area());
 			localCoor().y_ = a->groundHeight(localCoor(), index_);
 		}
 	}

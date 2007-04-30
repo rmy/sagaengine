@@ -9,13 +9,14 @@ namespace se_basic {
 
 	class _SeBasicExport NavMeshArea : public se_core::Area {
 	public:
+		typedef ComponentPtr<NavMeshArea, se_core::sct_BLOB> Ptr;
 		enum TerrainStyle {
 			TS_VOID = se_core::Pos::TS_VOID,
 			TS_WALKABLE
 		};
 
 
-		NavMeshArea(const se_core::CompositeFactory* f, se_core::String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh);
+		NavMeshArea(se_core::Composite* owner, const se_core::ComponentFactory* factory, se_core::String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh);
 		virtual ~NavMeshArea();
 
 		short index(const se_core::Point3& coor, short oldIndex = -1) const;

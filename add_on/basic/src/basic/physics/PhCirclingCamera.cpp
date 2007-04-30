@@ -55,7 +55,7 @@ namespace se_basic {
 			nextPos.setArea(*a);
 		}
 
-		NavMeshArea* area = static_cast<NavMeshArea*>(ClientSchema::player->nextPos().area()->owner());
+		NavMeshArea::Ptr area(ClientSchema::player->nextPos().area());
 		Point3 dest(0, 6 * COOR_RES, 0);
 		Vector3 tmp;
 		tmp.sub(lookAt.coor_, pos.worldCoor());

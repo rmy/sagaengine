@@ -52,13 +52,12 @@ rune@skalden.com
 
 namespace se_core {
 	Area
-	::Area(const CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h)
-			: Composite(f, name->get()), width_(w), height_(h) {
-
-		posComponent_ = new PosComponent(this);
+	::Area(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h)
+			: Component(sct_BLOB, owner, factory), width_(w), height_(h) {
+		posComponent_ = new PosComponent(owner);
 
 		// Init to default position
-		setParent(RootComponent::inactiveRoot());
+		owner_->setParent(RootComponent::inactiveRoot());
 
 		posComponent_->nextPos().reset();
 		coor_t ySize = CoorT::fromTile(w);
@@ -74,13 +73,13 @@ namespace se_core {
 		// TODO: fix this mess?
 		nameString_ = name;
 
-		spawnAreaComponent_ = new SpawnAreaComponent(this);
-		collisionAreaComponent_ = new CollisionAreaComponent(this);
-		physicsAreaComponent_ = new PhysicsAreaComponent(this, collisionAreaComponent_);
-		actionComponent_ = new ActionComponent(this);
-		scriptComponent_ = new ScriptComponent(this, actionComponent_);
-		signalAreaComponent_ = new SignalAreaComponent(this);
-		zoneAreaComponent_ = new ZoneAreaComponent(this);
+		spawnAreaComponent_ = new SpawnAreaComponent(owner);
+		collisionAreaComponent_ = new CollisionAreaComponent(owner);
+		physicsAreaComponent_ = new PhysicsAreaComponent(owner, collisionAreaComponent_);
+		actionComponent_ = new ActionComponent(owner);
+		scriptComponent_ = new ScriptComponent(owner, actionComponent_);
+		signalAreaComponent_ = new SignalAreaComponent(owner);
+		zoneAreaComponent_ = new ZoneAreaComponent(owner);
 		// Register with area manager
 		//SimSchema::areaManager.addArea(this);
 	}
@@ -219,7 +218,7 @@ namespace se_core {
 		// Shedule all things for destruction, and flip
 		// it out of area
 		{
-			CompositeList::Iterator it(children());
+			CompositeList::Iterator it(owner()->children());
 			while(it.hasNext()) {
 				Composite* t = &it.next();
 				t->scheduleForDestruction();
@@ -250,7 +249,7 @@ namespace se_core {
 	::neighbour(short relX, short relY, short relZ) {
 		ZoneAreaComponent* c = zoneAreaComponent_->neighbour(relX, relY, relZ);
 		if(!c) return 0;
-		return static_cast<Area*>(c->owner());
+		return Area::Ptr(*c);
 	}
 
 
@@ -258,7 +257,7 @@ namespace se_core {
 	::neighbour(short relX, short relY, short relZ) const {
 		const ZoneAreaComponent* c = zoneAreaComponent_->neighbour(relX, relY, relZ);
 		if(!c) return 0;
-		return static_cast<const Area*>(c->owner());
+		return Area::Ptr(*c);
 	}
 
 

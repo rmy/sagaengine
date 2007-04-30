@@ -220,7 +220,7 @@ namespace se_basic {
 		for(int i = 0; i < areaCount; ++i) {
 			Composite* parent = (parents) ? parents[i] : 0;
 			PosComponent* parentPos = PosComponent::get(parent);
-			AssertFatal(areas[i]->terrainStyle(vp.coor_) != Pos::TS_VOID, thingName.get() << " - Area: " << areas[i]->name() << " - Factory: " << areas[i]->factory()->name() << " - Coor: " << vp.coor_);
+			AssertFatal(areas[i]->terrainStyle(vp.coor_) != Pos::TS_VOID, thingName.get() << " - Area: " << areas[i]->name() << " - Factory: " << areas[i]->owner()->factory()->name() << " - Coor: " << vp.coor_);
 			
 			Composite* thing = areas[i]->spawn(thingName.get(), vp, 0, parentPos);
 			PosComponent* p = PosComponent::get(thing);

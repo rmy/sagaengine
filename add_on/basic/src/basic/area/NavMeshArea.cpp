@@ -1,13 +1,14 @@
 #include "BasicPre.hpp"
 #include "NavMeshArea.hpp"
 #include "NavMesh.hpp"
+#include "sim/pos/PosComponent.hpp"
 
 using namespace se_core;
 
 namespace se_basic {
 	NavMeshArea
-	::NavMeshArea(const se_core::CompositeFactory* f, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
-			: Area (f, name, w, h), navMesh_(navMesh) {
+	::NavMeshArea(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
+			: Area (owner, factory, name, w, h), navMesh_(navMesh) {
 		LogDetail("Creating area " << name << " with size " << w << ", " << h);
 	}
 
@@ -111,7 +112,7 @@ namespace se_basic {
 
 	bool NavMeshArea
 	::isLineOfSight(const Pos& from, const Pos& to) {
-		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(to.area()->owner());
+		const NavMeshArea::Ptr toArea(const_cast<PosComponent*>(to.area()));
 
 		Point3 fromPoint, toPoint;
 		short fromIndex, toIndex = -1;

@@ -29,13 +29,15 @@ namespace se_basic {
 
 	class _SeBasicExport SimpleArea : public se_core::Area {
 	public:
+		typedef ComponentPtr<SimpleArea, se_core::sct_BLOB> Ptr;
+
 		enum TerrainStyle {
 			TS_VOID = se_core::Pos::TS_VOID,
 			TS_WALKABLE
 		};
 
 
-		SimpleArea(const se_core::CompositeFactory* f, se_core::String* name, coor_tile_t w, coor_tile_t h);
+		SimpleArea(se_core::Composite* owner, const se_core::ComponentFactory* factory, se_core::String* name, coor_tile_t w, coor_tile_t h);
 		virtual ~SimpleArea();
 
 		short index(const se_core::Point3&, short oldIndex = -1) const { return -1; }

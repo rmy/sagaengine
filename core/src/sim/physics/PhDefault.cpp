@@ -239,7 +239,7 @@ namespace se_core {
 			, Move& nextMove
 			) const {
 		// Ground height at present position
-		Area* nextArea = static_cast<Area*>(nextPos.area()->owner());
+		Area::Ptr nextArea(nextPos.area());
 		coor_t gh = nextArea->groundHeight(nextPos.localCoor(), nextPos.index());
 		// If below ground, then make grounded
 		nextPos.setGrounded(gh >= nextPos.localCoor().y_);
