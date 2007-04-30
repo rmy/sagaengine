@@ -34,7 +34,7 @@ namespace se_core {
 
 	ZoneAreaComponent
 	::ZoneAreaComponent(Composite* owner, const ComponentFactory* factory) 
-			: RootChildComponent(sct_ZONE, owner, factory), page_(0, 0, 0, -1), exits_(0) {
+			: RootChildComponent(sct_ZONE, owner, factory), page_(0, 0, 0, -1), exitCount_(0), exits_(0) {
 		// 3x3 array to hold self and neighbours
 		for(short i = 0; i < MAX_NEIGHBOURS; ++i) {
 			neighbours_[i] = 0;

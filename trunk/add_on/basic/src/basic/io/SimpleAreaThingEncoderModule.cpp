@@ -34,7 +34,7 @@ namespace se_basic {
 			out.writeHeaderCode(headerCode());
 			const Area* a = SimSchema::areaManager.area(i);
 			out.writeInfoCode('N');
-			out.writeString(a->name());
+			out.writeString(a->owner()->name());
 
 			const SpawnComponent* pSpawn = SpawnComponent::get(*a);
 			for(int j = 0; j < pSpawn->spawnPointCount(); ++j) {
@@ -55,6 +55,7 @@ namespace se_basic {
 			}
 
 			const ZoneAreaComponent::Ptr pZone(*a);
+			Assert(!pZone.isNull());
 			for(int j = 0; j < pZone->exitCount(); ++j) {
 				const Exit& exit = pZone->exit(j);
 				out.writeInfoCode('X');

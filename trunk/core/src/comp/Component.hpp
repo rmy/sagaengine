@@ -241,7 +241,7 @@ namespace se_core {
 				return component_;
 			}
 
-			bool isNull() {
+			bool isNull() const {
 				return component_ == 0;
 			}
 

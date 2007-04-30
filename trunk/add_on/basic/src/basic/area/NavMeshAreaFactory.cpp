@@ -61,4 +61,9 @@ namespace se_basic {
 		return c;
 	}
 
+	void NavMeshAreaFactory
+	::release(Composite* c) const {
+		delete c->component(se_core::sct_BLOB);
+		delete c;
+	}
 }
