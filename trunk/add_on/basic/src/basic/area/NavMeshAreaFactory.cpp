@@ -43,21 +43,22 @@ namespace se_basic {
 	}
 
 
-	Area* NavMeshAreaFactory
+	Composite* NavMeshAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
-		NavMeshArea* a = new NavMeshArea(this, name, width_, height_, navMesh_);
-		createComponents(a);
-		createGenericComponents(a);
+		Composite* c = new Composite(this, name->get());
+		NavMeshArea* a = new NavMeshArea(c, 0, name, width_, height_, navMesh_);
+		createComponents(c);
+		createGenericComponents(c);
 
-		ZoneAreaComponent::Ptr aZone(*a);
+		ZoneAreaComponent::Ptr aZone(*c);
 		aZone->page().set(pageX, pageY, pageZ, gridId);
-		PosComponent::Ptr aPos(*a);
+		PosComponent::Ptr aPos(*c);
 		aPos->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
 		aPos->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());
 		aPos->nextPos().world_.setViewPoint(aPos->nextPos().local_);
 		aPos->flip();
 
-		return a;
+		return c;
 	}
 
 }

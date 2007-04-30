@@ -64,7 +64,7 @@ namespace se_basic {
 
 			const PosComponent* aPos = PosComponent::get(*a);
 
-			CompositeList::Iterator it(a->children());
+			CompositeList::Iterator it(a->owner()->children());
 			while(it.hasNext()) {
 				Composite& t = it.next();
 				if(!StatComponent::Ptr(t)->shouldSave())

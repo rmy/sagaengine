@@ -41,21 +41,22 @@ namespace se_basic {
 	}
 
 
-	Area* SimpleAreaFactory
+	Composite* SimpleAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
-		SimpleArea* a = new SimpleArea(this, name, width_, height_);
-		createComponents(a);
-		createGenericComponents(a);
+		Composite* c = new Composite(this, name->get());
+		SimpleArea* a = new SimpleArea(c, 0, name, width_, height_);
+		createComponents(c);
+		createGenericComponents(c);
 
-		PosComponent::Ptr aPos(*a);
-		ZoneAreaComponent::Ptr aZone(*a);
+		PosComponent::Ptr aPos(*c);
+		ZoneAreaComponent::Ptr aZone(*c);
 		aZone->page().set(pageX, pageY, pageZ, gridId);
 		aPos->nextPos().localCoor().x_ = CoorT::fromTile(pageX * a->width());
 		aPos->nextPos().localCoor().z_ = CoorT::fromTile(pageZ * a->height());
 		aPos->nextPos().world_.setViewPoint(aPos->nextPos().local_);
 		aPos->flip();
 
-		return a;
+		return c;
 	}
 
 }

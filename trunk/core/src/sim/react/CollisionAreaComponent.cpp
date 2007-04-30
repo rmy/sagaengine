@@ -82,7 +82,7 @@ namespace se_core {
 
 		// Align the grid coordinate system with
 		// this areas coordinate system
-		const Area* a = static_cast<const Area*>(owner());
+		const Area::Ptr a(this);
 		const coor_tile_t w = a->width();
 		const coor_tile_t h = a->height();
 

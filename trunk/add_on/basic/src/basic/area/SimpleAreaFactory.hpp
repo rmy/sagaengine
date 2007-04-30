@@ -33,7 +33,7 @@ namespace se_basic {
 	public:
 		SimpleAreaFactory(se_core::String* name, coor_tile_t w, coor_tile_t h, se_core::ByteArray* data = 0);
 		~SimpleAreaFactory();
-		se_core::Area* create(se_core::String* name, int pageX, int pageY, int pageZ, int gridId) const;
+		se_core::Composite* create(se_core::String* name, int pageX, int pageY, int pageZ, int gridId) const;
 
 	protected:
 		se_core::ByteArray* data_;

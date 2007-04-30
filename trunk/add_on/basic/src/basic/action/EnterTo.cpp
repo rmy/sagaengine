@@ -50,7 +50,7 @@ namespace se_basic {
 		const ViewPoint* sp = SpawnAreaComponent::Ptr(*area)->spawnPoint(id);
 		performer.nextPos().local_.setViewPoint( *sp );
 		if(!performer.pos().hasArea(*area)) {
-			performer.nextPos().setArea(*PosComponent::get(area));
+			performer.nextPos().setArea(*PosComponent::Ptr(area));
 		}
 	}
 

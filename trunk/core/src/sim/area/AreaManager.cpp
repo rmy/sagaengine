@@ -97,9 +97,9 @@ namespace se_core {
 	::areasByFactory(const char* name, Area** dest, int maxCount) {
 		int c = 0;
 		for(int i = 0; i < areaCount_; ++i) {
-			Assert(areas_[ i ]->factory());
-			Assert(areas_[ i ]->factory()->name());
-			if(strcmp(areas_[ i ]->factory()->name(), name) == 0) {
+			Assert(areas_[ i ]->owner()->factory());
+			Assert(areas_[ i ]->owner()->factory()->name());
+			if(strcmp(areas_[ i ]->owner()->factory()->name(), name) == 0) {
 				dest[ c++ ] = areas_[ i ];
 				if(c >= maxCount)
 					break;
@@ -123,7 +123,7 @@ namespace se_core {
 	Area* AreaManager
 	::areaById(Composite::id_type id) {
 		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[ i ]->id() == id) {
+			if(areas_[ i ]->owner()->id() == id) {
 				return areas_[ i ];
 			}
 		}
@@ -149,7 +149,7 @@ namespace se_core {
 		}
 
 		active_[ activeCount_ ] = area;
-		active_[ activeCount_ ]->setParent(CompSchema::activeRoot());
+		active_[ activeCount_ ]->owner()->setParent(CompSchema::activeRoot());
 		shouldKeep_[ activeCount_ ] = true;
 		++activeCount_;
 
@@ -206,7 +206,7 @@ namespace se_core {
 			if(!shouldKeep_[i]) {
 				Area* a = active_[i];
 				Assert(a);
-				a->setParent(CompSchema::inactiveRoot());
+				a->owner()->setParent(CompSchema::inactiveRoot());
 
 				// Delete current by moving last to here
 				--activeCount_;
@@ -228,15 +228,15 @@ namespace se_core {
 		ZoneAreaComponent::Ptr aZone(*area);
 		ComponentList::Iterator it(aZone->links());
 		while(it.hasNext()) {
-			Area* a = static_cast<Area*>(it.next().owner());
+			Area::Ptr a(it.next());
 			// Already did self
-			if(a == area)
+			if(a->owner() == area->owner())
 				continue;
 
 			// Already active?
 			int index = -1;
 			for(int i = 0; i < activeCount_; ++i) {
-				if(a == active_[i]) {
+				if(a->owner() == active_[i]->owner()) {
 					index = i;
 					break;
 				}
@@ -247,7 +247,7 @@ namespace se_core {
 				// Make it active
 				index = activeCount_;
 				active_[ index ] = a;
-				a->setParent(CompSchema::activeRoot());
+				a->owner()->setParent(CompSchema::activeRoot());
 				++activeCount_;
 			}
 			
@@ -266,7 +266,7 @@ namespace se_core {
 	::setInactive(Area* area) {
 		for(int i = 0; i < activeCount_; ++i) {
 			if(area == active_[i]) {
-				area->setParent(CompSchema::inactiveRoot());
+				area->owner()->setParent(CompSchema::inactiveRoot());
 
 				--activeCount_;
 				active_[ i ] = active_[ activeCount_ ];
@@ -313,7 +313,7 @@ namespace se_core {
 		//LogDetail("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
-		Area* a = f->create(new String(name), pageX, pageY, pageZ, gridId);
+		Composite* a = f->create(new String(name), pageX, pageY, pageZ, gridId);
 		// Needed for proper destruction
 		a->setFactory(f);
 
@@ -328,9 +328,10 @@ namespace se_core {
 
 
 		// Store it away
-		addArea(a);
+		Area::Ptr area(a);
+		addArea(area);
 
-		return a;
+		return area;
 	}
 
 
@@ -338,7 +339,7 @@ namespace se_core {
 	::resetThings() {
 		for(int i = 0; i < areaCount_; ++i) {
 			areas_[ i ]->reset();
-			areas_[ i ]->cleanup();
+			areas_[ i ]->owner()->cleanup();
 		}
 		LogDetail("Destoryed things");
 	}
@@ -369,7 +370,7 @@ namespace se_core {
 	::dump() {
 		puts("Dumping repository...");
 		for(int i = 0; i < areaCount_; ++i) {
-			printf("%d - %s\n", (size_t)areas_[i]->id(), areas_[i]->name());
+			printf("%d - %s\n", (size_t)areas_[i]->owner()->id(), areas_[i]->owner()->name());
 		}
 	}
 

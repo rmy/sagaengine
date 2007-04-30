@@ -105,7 +105,7 @@ namespace se_core {
 		for(int i = 0; i < activeSolverCount_; ++i) {
 			PhysicsAreaComponent* s = activeSolvers_[i];
 			s->flipChildren();
-			Area* solverArea = static_cast<Area*>(s->owner());
+			Area::Ptr solverArea(s);
 			solverArea->flipSpawns();
 		}
 	}

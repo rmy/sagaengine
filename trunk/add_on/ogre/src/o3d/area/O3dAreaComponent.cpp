@@ -165,7 +165,7 @@ namespace se_ogre {
 		dest.z = c.z_;
 
 		if(O3dSchema::worldManager->isAreaGeomCentreAligned_) {
-			Area* a = static_cast<Area*>(owner());
+			Area::Ptr a(*this);
 			dest.x += a->width() / 2.0f;
 			dest.z += a->height() / 2.0f;
 		}
@@ -187,7 +187,7 @@ namespace se_ogre {
 	Ogre::StaticGeometry* O3dAreaComponent
 	::compileStaticGeometry() {
 		Assert(!staticGeometry_);
-		Area* a = static_cast<Area*>(owner());
+		Area::Ptr a(*this);
 		Ogre::StaticGeometry* sg = O3dSchema::sceneManager->createStaticGeometry(owner()->name());
 
 		Ogre::Entity* entity;
@@ -196,7 +196,7 @@ namespace se_ogre {
 		sg->setOrigin(offset_);
 		
 		// Area geometry
-		const char* areaType = (a->factory() != 0) ? a->factory()->name() : a->name();
+		const char* areaType = (a->owner()->factory() != 0) ? a->owner()->factory()->name() : a->owner()->name();
 		//
 		static int unique = 0;
 		char name[256];

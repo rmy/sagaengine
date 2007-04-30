@@ -103,7 +103,7 @@ namespace se_core {
 
 		// Initial index, if area type is using it
 		sPos->nextPos().updateWorldViewPoint();
-		Area* area = static_cast<Area*>(owner());
+		Area::Ptr area(this);
 		sPos->nextPos().setIndex( area->index(sPos->nextPos().worldCoor()) );
 
 		// Add the thing to the list of new spawns

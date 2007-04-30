@@ -164,6 +164,18 @@ namespace se_core {
 			ComponentPtr(const Composite& c) {
 				component_ = (T*)(c.component(TYPE));
 			}
+			ComponentPtr(const Component* c) {
+				if(c)
+					component_ = (T*)(c->owner()->component(TYPE));
+				else
+					component_ = 0;
+			}
+			ComponentPtr(const Composite* c) {
+				if(c)
+					component_ = (T*)(c->component(TYPE));
+				else
+					component_ = 0;
+			}
 
 			inline T* operator->() {
 				Assert(component_);

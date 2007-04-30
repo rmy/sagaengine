@@ -225,6 +225,7 @@ namespace se_core {
 		bool hasArea() const { return area_ != 0; }
 
 		bool hasArea(Composite& area) const;
+		bool hasArea(Component& area) const;
 		bool hasArea(PosComponent& area) const { return area_ != 0 && area_ == &area; }
 
 		/**
