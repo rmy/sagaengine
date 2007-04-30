@@ -113,6 +113,8 @@ namespace se_ogre {
 			stepDelta = 1.0f;
 		}
 
+		AssertFatal(ClientSchema::camera, "No camera. Save or init file corrupt?");
+
 		// Eliminate jumps caused by interpolation when teleporting between levels.
 		if(!ClientSchema::camera->pos().isKeyFramePath(ClientSchema::camera->nextPos())) {
 			stepDelta = 1.0f;

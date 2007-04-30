@@ -33,7 +33,7 @@ namespace se_core {
 
 	ZoneAreaComponentFactory
 	::ZoneAreaComponentFactory()
-		: ComponentFactory(sct_ZONE) {
+		: ComponentFactory(sct_ZONE), exitCount_(0), exits_(0) {
 	}
 
 

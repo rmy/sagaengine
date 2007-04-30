@@ -38,9 +38,11 @@ namespace se_basic {
 
 	void Save
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
+		LogWarning("Starting Save");
 		char buffer[256];
 		sprintf(buffer, "save/%s.txt", IoSchema::saveName);
 		IoSchema::fileManager->save(buffer);
+		LogWarning("Finished Save");
 		Actor::Ptr(perf)->say("GAME_SAVED");
 	}
 

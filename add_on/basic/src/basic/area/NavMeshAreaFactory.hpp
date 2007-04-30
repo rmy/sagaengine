@@ -34,6 +34,7 @@ namespace se_basic {
 		NavMeshAreaFactory(se_core::String* name, coor_tile_t w, coor_tile_t h, se_core::ByteArray* data);
 		~NavMeshAreaFactory();
 		se_core::Composite* create(se_core::String* name, int pageX, int pageY, int pageZ, int gridId) const;
+		void release(se_core::Composite* t) const;
 
 	protected:
 		se_core::ByteArray* data_;

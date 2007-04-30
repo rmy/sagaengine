@@ -61,7 +61,6 @@ namespace se_basic {
 				{
 					String tempString;
 					in.readString(tempString);
-					LogWarning(tempString);
 					if(SimSchema::areaManager.hasArea(tempString.get())) {
 						areas[0] = SimSchema::areaManager.area(tempString.get());
 						areaCount = 1;
@@ -73,7 +72,6 @@ namespace se_basic {
 				{
 					String tempString;
 					in.readString(tempString);
-					LogWarning(tempString);
 					areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
 					LogDetail(areaCount);
 				}
