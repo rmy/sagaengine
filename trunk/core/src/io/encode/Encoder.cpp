@@ -59,6 +59,12 @@ namespace se_core {
 
 
 	void Encoder
+	::encode(OutputStream& out, EncoderModule& m) {
+		m.encode(out);
+	}
+
+
+	void Encoder
 	::add(EncoderModule& m) {
 		modules_[ moduleCount_++ ] = &m;
 	}

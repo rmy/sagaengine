@@ -37,6 +37,7 @@ namespace se_core {
 		Encoder();
 		virtual ~Encoder();
 		void encode(OutputStream& out);
+		void encode(OutputStream& out, EncoderModule& m);
 		void add(EncoderModule& m);
 
 	private:

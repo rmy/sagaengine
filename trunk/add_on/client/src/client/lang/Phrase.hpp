@@ -33,9 +33,6 @@ namespace se_client {
 		Phrase();
 		virtual ~Phrase();
 		enum PhraseType { UNDEFINED, MENU_LABEL, ACTION_LABEL, THING_LABEL, THING_DESCRIPTION, SPEECH, TYPE_COUNT };
-		static const unsigned short ENGLISH = 'U' * 256 + 'K';
-		static const unsigned short NORWEGIAN = 'N' * 256 + 'O';
-		static const unsigned short FRENCH = 'F' * 256 + 'R';
 
 		void addPhrase(unsigned short language, PhraseType type, se_core::String* name, se_core::String* phrase);
 		unsigned short findPhrase(PhraseType type, const char* name);
@@ -43,6 +40,16 @@ namespace se_client {
 		void setLanguage(unsigned short language);
 		static unsigned short languageId(const char* language);
 		static short typeIdOfName(const char* name);
+
+		void addLanguage(unsigned short id, const char* name);
+		void addLanguage(const char* id, const char* name);
+
+		struct Language {
+			const char* name_;
+			short id_;
+		};
+		int supportedLanguageCount() { return supportedLanguageCount_; }
+		Language* supportedLanguage(int index) { return &supportedLanguages_[ index ]; }
 
 	private:
 		unsigned short currentLanguage_;
@@ -54,6 +61,10 @@ namespace se_client {
 		const char* names_[ MAX_PHRASES ];
 		const char* phrases_[ MAX_PHRASES ];
 		unsigned short phraseCount_;
+
+		static const int MAX_LANGUAGES = 32;
+		int supportedLanguageCount_;
+		Language supportedLanguages_[ MAX_LANGUAGES ];
 	};
 
 }

@@ -47,6 +47,15 @@ namespace se_client {
 		while((code = in.readInfoCode()) != 'Q') {
 			//printf("Code: %c\n", code);
 			switch(code) {
+			case 'S': 
+				{
+					String name;
+					unsigned short language = in.readLanguageCode();
+					in.readString(name);
+					ClientSchema::phrases.addLanguage(language, name.copyValue());
+					break;
+				}
+
 			case 'L':
 				{
 					unsigned short language = in.readLanguageCode();
@@ -60,6 +69,7 @@ namespace se_client {
 					LogDetail(name->get());
 				}
 				break;
+
 			default:
 				LogFatal((sprintf(log_msg(), "Unkown info code %c in \"%s\"", code, in.name()), log_msg()));
 			}
