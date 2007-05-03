@@ -30,14 +30,12 @@ using namespace se_core;
 
 namespace se_client {
 	Phrase
-	::Phrase() : currentLanguage_(NORWEGIAN), phraseCount_(0) {
+	::Phrase() : currentLanguage_(0), phraseCount_(0), supportedLanguageCount_(0) {
 		static DictionaryEntry ph1(DE_PHRASE_TYPE, MENU_LABEL, "MENU_LABEL");
 		static DictionaryEntry ph2(DE_PHRASE_TYPE, ACTION_LABEL, "ACTION_LABEL");
 		static DictionaryEntry ph3(DE_PHRASE_TYPE, THING_LABEL, "THING_LABEL");
 		static DictionaryEntry ph4(DE_PHRASE_TYPE, THING_DESCRIPTION, "THING_DESCRIPTION");
 		static DictionaryEntry ph5(DE_PHRASE_TYPE, SPEECH, "SPEECH");
-
-		//setLanguage(ENGLISH);
 	}
 
 	Phrase
@@ -53,7 +51,6 @@ namespace se_client {
 	void Phrase
 	::setLanguage(unsigned short language) {
 		currentLanguage_ = language;
-		//if(language == FRENCH) currentLanguage_ = NORWEGIAN;
 	}
 
 	void Phrase
@@ -141,4 +138,16 @@ namespace se_client {
 		return UNDEFINED;
 	}
 
+	void Phrase
+	::addLanguage(unsigned short id, const char* name) {
+		Assert(supportedLanguageCount_ < MAX_LANGUAGES);
+		supportedLanguages_[ supportedLanguageCount_ ].name_ = name;
+		supportedLanguages_[ supportedLanguageCount_ ].id_ = id;
+		++supportedLanguageCount_;
+	}
+
+	void Phrase
+	::addLanguage(const char* id, const char* name) {
+		addLanguage(languageId(id), name);
+	}
 }
