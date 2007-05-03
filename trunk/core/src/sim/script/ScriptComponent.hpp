@@ -129,6 +129,7 @@ namespace se_core {
 		void stopScript();
 
 		void touch(void* param = 0);
+		void touchDefault(void* param = 0);
 
 	protected:
 		void cleanup();
