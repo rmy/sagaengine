@@ -31,7 +31,7 @@ namespace se_client {
 	class _SeClientExport Phrase {
 	public:
 		Phrase();
-		virtual ~Phrase();
+		~Phrase();
 		enum PhraseType { UNDEFINED, MENU_LABEL, ACTION_LABEL, THING_LABEL, THING_DESCRIPTION, SPEECH, TYPE_COUNT };
 
 		void addPhrase(unsigned short language, PhraseType type, se_core::String* name, se_core::String* phrase);
@@ -54,17 +54,17 @@ namespace se_client {
 	private:
 		unsigned short currentLanguage_;
 		static const int MAX_PHRASES = 300;
-		unsigned short languages_[ MAX_PHRASES ];
-		PhraseType types_[ MAX_PHRASES ];
-		se_core::String* namesC_[ MAX_PHRASES ];
-		se_core::String* phrasesC_[ MAX_PHRASES ];
-		const char* names_[ MAX_PHRASES ];
-		const char* phrases_[ MAX_PHRASES ];
+		unsigned short* languages_;
+		PhraseType* types_;
+		se_core::String** namesC_;
+		se_core::String** phrasesC_;
+		const char** names_;
+		const char** phrases_;
 		unsigned short phraseCount_;
 
 		static const int MAX_LANGUAGES = 32;
 		int supportedLanguageCount_;
-		Language supportedLanguages_[ MAX_LANGUAGES ];
+		Language* supportedLanguages_;
 	};
 
 }

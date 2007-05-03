@@ -71,14 +71,10 @@ namespace se_fmod {
 			return;
 		}
 		short index = find(type, name, language);
-		if(index < soundCount_
-		   && (sounds_[ index ].language_ != language
-			   || sounds_[ index ].type_ != type || strcmp(sounds_[ index ].name_, name) != 0)
-			) {
-			for(int i = soundCount_; i > index; --i) {
-				sounds_[ i ] = sounds_[ i - 1 ];
-			}
+		for(int i = soundCount_; i > index; --i) {
+			sounds_[ i ] = sounds_[ i - 1 ];
 		}
+
 		sounds_[ index ].language_ = language;
 		sounds_[ index ].type_ = type;
 		sounds_[ index ].nameC_ = nameC;

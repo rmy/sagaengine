@@ -38,7 +38,11 @@ using namespace se_core;
 namespace se_client {
 	namespace ClientSchema {
 		ClientListeners clientListeners; // OBJECT_IN_EWRAM;
-		Phrase phrases; // OBJECT_IN_EWRAM;
+		Phrase* phrases_ = 0;
+		Phrase& phrases() {
+			Assert(phrases_);
+			return *phrases_;
+		}
 
 		PlayerComponent* playerX; // VAR_IN_EWRAM;
 		PosComponent* player; // VAR_IN_EWRAM;
@@ -66,9 +70,12 @@ namespace se_client {
 
 
 			bool initEngineEvent() {
+				phrases_ = new Phrase;
 				return true;
 			}
-			void cleanupEngineEvent() {}
+			void cleanupEngineEvent() {
+				delete phrases_;
+			}
 			bool initGameEvent() {
 				// Player and camera objects are initialised from data file.
 				return true;
