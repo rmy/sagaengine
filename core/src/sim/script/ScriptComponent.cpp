@@ -215,4 +215,12 @@ namespace se_core {
 		script()->touched(*this, scriptData(), param);
 	}
 
+	void ScriptComponent
+	::touchDefault(void* param) {
+		Assert(currentScript_ >= 0);
+		const Script* s = scriptStack_[0];
+		Assert(s);
+		s->touched(*this, scriptData(), param);
+	}
+
 }
