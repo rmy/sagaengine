@@ -42,7 +42,8 @@ namespace se_client {
 		extern _SeClientExport ClientListeners clientListeners;
 		
 		/** Look up dictionary that contains phrases in several languages. */
-		extern _SeClientExport Phrase phrases;
+		extern _SeClientExport Phrase* phrases_;
+		_SeClientExport Phrase &phrases();
 
 		/** The current player object */
 		extern _SeClientExport PlayerComponent* playerX;

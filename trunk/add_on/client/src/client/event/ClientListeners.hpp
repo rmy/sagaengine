@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_client {
 	class _SeClientExport ClientListeners {
 	public:
-		ClientListeners() : listenerCount(0) {}
+		ClientListeners() : listenerCount(0), listeners(new ClientListener*[ MAX_LISTENERS ]) {}
 		void addListener(ClientListener& l);
 		void removeListener(ClientListener& l);
 		void castCameraEnteredAreaEvent(se_core::Area& area);
@@ -46,7 +46,7 @@ namespace se_client {
 
 	private:
 		static const int MAX_LISTENERS = 10;
-		ClientListener* listeners[ MAX_LISTENERS ];
+		ClientListener** listeners;
 		short listenerCount;
 	};
 

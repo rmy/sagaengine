@@ -31,12 +31,22 @@ using namespace se_core;
 namespace se_client {
 	Phrase
 	::Phrase() : currentLanguage_(0), phraseCount_(0), supportedLanguageCount_(0) {
+		languages_ = new unsigned short[ MAX_PHRASES ];
+		types_ = new PhraseType[ MAX_PHRASES ];
+		namesC_ = new se_core::String*[ MAX_PHRASES ];
+		phrasesC_ = new se_core::String*[ MAX_PHRASES ];
+		names_ = new const char*[ MAX_PHRASES ];
+		phrases_ = new const char*[ MAX_PHRASES ];
+
+		supportedLanguages_ = new Language[ MAX_LANGUAGES ];
+
 		static DictionaryEntry ph1(DE_PHRASE_TYPE, MENU_LABEL, "MENU_LABEL");
 		static DictionaryEntry ph2(DE_PHRASE_TYPE, ACTION_LABEL, "ACTION_LABEL");
 		static DictionaryEntry ph3(DE_PHRASE_TYPE, THING_LABEL, "THING_LABEL");
 		static DictionaryEntry ph4(DE_PHRASE_TYPE, THING_DESCRIPTION, "THING_DESCRIPTION");
 		static DictionaryEntry ph5(DE_PHRASE_TYPE, SPEECH, "SPEECH");
 	}
+
 
 	Phrase
 	::~Phrase() {
@@ -45,6 +55,14 @@ namespace se_client {
 			delete namesC_[ phraseCount_ ];
 			delete phrasesC_[ phraseCount_ ];
 		}
+		delete[] languages_;
+		delete[] types_;
+		delete[] namesC_;
+		delete[] phrasesC_;
+		delete[] names_;
+		delete[] phrases_;
+
+		delete[] supportedLanguages_;
 	}
 
 
@@ -62,19 +80,15 @@ namespace se_client {
 		unsigned short cl = currentLanguage_;
 		currentLanguage_ = language;
 		unsigned short index = findPhrase(type, name);
-		if(index < phraseCount_
-		   && (languages_[ index ] != language
-			   || types_[ index ] != type || strcmp(names_[ index ], name) != 0)
-			) {
-			for(int i = phraseCount_; i > index; --i) {
-				languages_[ i ] = languages_[ i - 1 ];
-				types_[ i ] = types_[ i - 1 ];
-				names_[ i ] = names_[ i - 1 ];
-				phrases_[ i ] = phrases_[ i - 1 ];
 
-				namesC_[ i ] = namesC_[ i - 1 ];
-				phrasesC_[ i ] = phrasesC_[ i - 1 ];
-			}
+		for(int i = phraseCount_; i > index; --i) {
+			languages_[ i ] = languages_[ i - 1 ];
+			types_[ i ] = types_[ i - 1 ];
+			names_[ i ] = names_[ i - 1 ];
+			phrases_[ i ] = phrases_[ i - 1 ];
+
+			namesC_[ i ] = namesC_[ i - 1 ];
+			phrasesC_[ i ] = phrasesC_[ i - 1 ];
 		}
 		languages_[ index ] = language;
 		types_[ index ] = type;
@@ -138,6 +152,7 @@ namespace se_client {
 		return UNDEFINED;
 	}
 
+
 	void Phrase
 	::addLanguage(unsigned short id, const char* name) {
 		Assert(supportedLanguageCount_ < MAX_LANGUAGES);
@@ -145,6 +160,7 @@ namespace se_client {
 		supportedLanguages_[ supportedLanguageCount_ ].id_ = id;
 		++supportedLanguageCount_;
 	}
+
 
 	void Phrase
 	::addLanguage(const char* id, const char* name) {

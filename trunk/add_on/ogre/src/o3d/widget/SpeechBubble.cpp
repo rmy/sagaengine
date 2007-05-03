@@ -70,7 +70,7 @@ namespace se_ogre {
 	void SpeechBubble
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
 		speaker_ = &speaker;
-		const char* message = ClientSchema::phrases.getPhrase(Phrase::SPEECH, messageName);
+		const char* message = ClientSchema::phrases().getPhrase(Phrase::SPEECH, messageName);
 		char buffer[256];
 		const char* c = message;
 		int linePos = 0;

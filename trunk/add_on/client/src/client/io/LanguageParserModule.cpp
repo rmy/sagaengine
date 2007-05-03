@@ -52,7 +52,7 @@ namespace se_client {
 					String name;
 					unsigned short language = in.readLanguageCode();
 					in.readString(name);
-					ClientSchema::phrases.addLanguage(language, name.copyValue());
+					ClientSchema::phrases().addLanguage(language, name.copyValue());
 					break;
 				}
 
@@ -65,7 +65,7 @@ namespace se_client {
 					LogDetail(name->get());
 					label = new String();
 					in.readString(*label);
-					ClientSchema::phrases.addPhrase(language, static_cast<Phrase::PhraseType>(phraseType), name, label);
+					ClientSchema::phrases().addPhrase(language, static_cast<Phrase::PhraseType>(phraseType), name, label);
 					LogDetail(name->get());
 				}
 				break;
