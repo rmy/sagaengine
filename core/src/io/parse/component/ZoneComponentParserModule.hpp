@@ -27,18 +27,18 @@ rune@skalden.com
 #include "sim/sim.hpp"
 
 namespace se_core {
-	class _SeCoreExport ZoneAreaComponentParserModule : public ComponentParserModule {
+	class _SeCoreExport ZoneComponentParserModule : public ComponentParserModule {
 	public:
-		ZoneAreaComponentParserModule();
-		virtual ~ZoneAreaComponentParserModule();
+		ZoneComponentParserModule();
+		virtual ~ZoneComponentParserModule();
 		ComponentFactory* parse(InputStream& in);
 
 	protected:
 		const DictionaryEntry dict_;
-		enum { TYPE = sct_ZONE, SUBTYPE = 1 };
+		enum { TYPE = sct_ZONE, SUBTYPE = 0 };
 	};
 
-	extern _SeCoreExport const ZoneAreaComponentParserModule parserZoneAreaComponent;
+	extern _SeCoreExport const ZoneComponentParserModule parserZoneComponent;
 }
 
 #endif

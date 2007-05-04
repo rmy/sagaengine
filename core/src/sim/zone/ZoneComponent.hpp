@@ -19,26 +19,37 @@ rune@skalden.com
 */
 
 
-#ifndef ComponentParser_hpp
-#define ComponentParser_hpp
+#ifndef ZoneComponent_hpp
+#define ZoneComponent_hpp
 
-#include "io/parse/ComponentParserModule.hpp"
-#include "sim/stat/DictionaryEntry.hpp"
+#include "comp/comp.hpp"
+#include "comp/node/AreaChildComponent.hpp"
+#include "comp/list/ComponentList.hpp"
+#include "util/vecmath/util_vecmath.hpp"
 #include "sim/sim.hpp"
+#include "Exit.hpp"
+
 
 namespace se_core {
-	class _SeCoreExport ZoneAreaComponentParserModule : public ComponentParserModule {
+
+	class _SeCoreExport ZoneComponent : public AreaChildComponent {
 	public:
-		ZoneAreaComponentParserModule();
-		virtual ~ZoneAreaComponentParserModule();
-		ComponentFactory* parse(InputStream& in);
+		typedef ComponentPtr<ZoneComponent, sct_ZONE> Ptr;
+
+
+		/** Constructor.
+		 */
+		ZoneComponent(Composite* owner, const ComponentFactory* factory = 0);
+		~ZoneComponent();
+
+		const char* name() { return owner()->name(); }
+		int markerType() { return markerType_; }
 
 	protected:
-		const DictionaryEntry dict_;
-		enum { TYPE = sct_ZONE, SUBTYPE = 1 };
-	};
+		friend class ZoneComponentFactory;
 
-	extern _SeCoreExport const ZoneAreaComponentParserModule parserZoneAreaComponent;
+		int markerType_;
+	};
 }
 
 #endif
