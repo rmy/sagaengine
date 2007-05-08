@@ -25,6 +25,7 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include "OgreCEGUI.hpp"
 #include "o3d_input.hpp"
+#include <OIS.h>
 
 
 namespace se_ogre {
@@ -51,11 +52,11 @@ namespace se_ogre {
 		void output(const char* msg);
 
 
-		void keyPressed(Ogre::KeyEvent* e);
-		void mouseMoved (Ogre::MouseEvent *e);
-		void mouseDragged (Ogre::MouseEvent *e);
-		void mouseReleased (Ogre::MouseEvent *e);
-		void mousePressed (Ogre::MouseEvent *e);
+		void keyPressed(const OIS::KeyEvent* e);
+		void mouseMoved (const OIS::MouseEvent *e);
+		void mouseDragged (const OIS::MouseEvent *e);
+		void mouseReleased (const OIS::MouseEvent *e, int button);
+		void mousePressed (const OIS::MouseEvent *e, int button);
 
 
 		bool isFocused() { return (isFocused_); /* && handler_); */ }

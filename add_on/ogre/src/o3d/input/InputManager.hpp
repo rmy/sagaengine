@@ -33,6 +33,10 @@ namespace se_ogre {
 		InputHandler* active();
 		InputHandler* below();
 
+		enum ShiftKeys { LSHIFT, RSHIFT, LCTRL, RCTRL, ALT, MODIFIER_COUNT };
+		void setModifier(ShiftKeys key, bool state) {
+			isModifierDown_[ key ] = state;
+		}
 	protected:
 		friend class InputHandler;
 		void add(InputHandler* h);
@@ -47,6 +51,9 @@ namespace se_ogre {
 		int count() { return handlerCount_; }
 		InputHandler* handler(int index) { return handlers_[ index ]; }
 
+		bool isShiftDown() const { return isModifierDown_[ LSHIFT ] || isModifierDown_[ RSHIFT ]; }
+		bool isAltDown() const { return isModifierDown_[ ALT ] || isModifierDown_[ ALT ]; }
+		bool isControlDown() const { return isModifierDown_[ LCTRL ] || isModifierDown_[ RCTRL ]; }
 
 		static const int MAX_STACK_SIZE = 64;
 		static const int MAX_HANDLER_COUNT = 32;
@@ -54,6 +61,7 @@ namespace se_ogre {
 		int handlerStackPos_;
 		InputHandler* handlerStack_[ MAX_STACK_SIZE ];
 		InputHandler* handlers_[ MAX_HANDLER_COUNT ];
+		bool isModifierDown_[ MODIFIER_COUNT ];
 	};
 }
 

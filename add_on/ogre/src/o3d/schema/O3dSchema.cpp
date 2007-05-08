@@ -44,6 +44,9 @@ rune@skalden.com
 #include "sim/zone/ZoneAreaComponent.hpp"
 #include "sim/pos/PosComponent.hpp"
 #include "sim/pos/Pos.hpp"
+#include <OgreRoot.h>
+#include <OgreOverlayManager.h>
+#include <OgreRenderWindow.h>
 
 using namespace Ogre;
 using namespace se_client;

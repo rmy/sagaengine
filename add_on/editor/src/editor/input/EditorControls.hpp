@@ -36,11 +36,11 @@ namespace se_editor {
 		void init();
 
 		void nextAction(const se_core::ScriptComponent& performer, int channel, se_core::ScriptData* sd, se_core::ActionAndParameter& out) const;
-		void mouseDragged(Ogre::MouseEvent* e);
-		void mouseMoved(Ogre::MouseEvent* e);
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
-		void mousePressed(Ogre::MouseEvent* e);
+		void mouseDragged(const OIS::MouseEvent* e);
+		void mouseMoved(const OIS::MouseEvent* e);
+		void keyPressed(const OIS::KeyEvent* e);
+		void keyReleased(const OIS::KeyEvent* e);
+		void mousePressed(const OIS::MouseEvent* e, int button);
 
 		static EditorControls& singleton();
 

@@ -33,6 +33,10 @@ rune@skalden.com
 #include "./widget/all.hpp"
 #include "./io/all.hpp"
 #include "util/task/TaskList.hpp"
+#include <OgreRoot.h>
+#include <OgreRenderSystem.h>
+#include <OgreAnimation.h>
+#include <OgreConfigFile.h>
 
 using namespace Ogre;
 using namespace se_core;
@@ -49,7 +53,11 @@ namespace se_ogre {
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
 			: inputBridge_(0), levelResourceCount_(0) {
-		O3dSchema::root = new Root();
+#ifndef _DEBUG
+		O3dSchema::root = new Root("plugins.cfg", "ogre.cfg", "Ogre.log");
+#else
+		O3dSchema::root = new Root("plugins_d.cfg", "ogre.cfg", "Ogre.log");
+#endif
 		LogDetail("Created Ogre root");
 
 		// Create speech listener object

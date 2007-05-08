@@ -41,18 +41,18 @@ namespace se_ogre {
 		void speechEvent(se_core::Actor& speaker, const char* messageName);
 		void trackUserFeedback();
 
-		void keyPressed(Ogre::KeyEvent* e) {
+		void keyPressed(const OIS::KeyEvent* e) {
 			trackUserFeedback();
 		}
 		bool joyButtonPressed (int button) {
 			trackUserFeedback();
 			return true;
 		}
-		void mousePressed(Ogre::MouseEvent* e) {
+		void mousePressed(const OIS::MouseEvent* e) {
 			trackUserFeedback();
 		}
 
-		void keyReleased(Ogre::KeyEvent* e) {
+		void keyReleased(const OIS::KeyEvent* e) {
 			if(!below()) return;
 			below()->keyReleased(e);
 		}
@@ -62,9 +62,9 @@ namespace se_ogre {
 			return below()->joyButtonReleased(button);
 		}
 
-		void mouseReleased(Ogre::MouseEvent* e) {
+		void mouseReleased(const OIS::MouseEvent* e, int button) {
 			if(!below()) return;
-			below()->mouseReleased(e);
+			below()->mouseReleased(e, button);
 		}
 
 	private:
