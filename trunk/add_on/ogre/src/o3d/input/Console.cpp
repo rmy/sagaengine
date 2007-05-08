@@ -24,9 +24,8 @@ rune@skalden.com
 #include "ConsoleHandler.hpp"
 #include "util/error/Log.hpp"
 #include "../schema/O3dSchema.hpp"
+#include <OIS.h>
 #include <cstring>
-#include <OgreMouseEvent.h>
-#include <OgreKeyEvent.h>
 #ifndef NO_CEGUI
 #include <CEGUI/CEGUIFontManager.h>
 #endif
@@ -35,13 +34,13 @@ namespace se_ogre {
 #ifndef NO_CEGUI
 	CEGUI::MouseButton convertOgreButtonToCegui(int buttonID) {
 		switch (buttonID) {
-		case Ogre::MouseEvent::BUTTON0_MASK:
+		case OIS::MB_Left:
 			return CEGUI::LeftButton;
-		case Ogre::MouseEvent::BUTTON1_MASK:
+		case OIS::MB_Right:
 			return CEGUI::RightButton;
-		case Ogre::MouseEvent::BUTTON2_MASK:
+		case OIS::MB_Middle:
 			return CEGUI::MiddleButton;
-		case Ogre::MouseEvent::BUTTON3_MASK:
+		case OIS::MB_Button3:
 			return CEGUI::X1Button;
 		default:
 			return CEGUI::LeftButton;
@@ -201,8 +200,10 @@ namespace se_ogre {
 		//////////////////////////////////////////
 		editBox_ = (CEGUI::MultiLineEditbox*)CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/MultiLineEditbox", (CEGUI::utf8*)"Console");
 		editorGuiSheet_->addChildWindow(editBox_);
+		/*
 		editBox_->setPosition(CEGUI::Point(0.0f, 0.0f));
 		editBox_->setSize(CEGUI::Size(0.3f, 0.6f));
+		*/
 
 		// TODO: Do manual update on the RenderTexture, to avoid performance drop. (from wumpus)
 		updateConsole();
@@ -266,36 +267,36 @@ namespace se_ogre {
 
 
 	void Console
-	::keyPressed(Ogre::KeyEvent* e) {
+	::keyPressed(const OIS::KeyEvent* e) {
 #ifndef NO_CEGUI
 		if(editBox_->hasInputFocus()) {
-			switch(e->getKey()) {
-			case Ogre::KC_RETURN:
+			switch(e->key) {
+			case OIS::KC_RETURN:
 				output(input_);
 				output("\n");
 				if(handler_) handler_->parseCommand(&input_[2]);
 				clearInput();
 				break;
 
-			case Ogre::KC_UP:
-			case Ogre::KC_DOWN:
-			case Ogre::KC_PGUP:
-			case Ogre::KC_PGDOWN:
-				CEGUI::System::getSingleton().injectKeyDown(e->getKey());
-				CEGUI::System::getSingleton().injectChar(e->getKeyChar());
+			case OIS::KC_UP:
+			case OIS::KC_DOWN:
+			case OIS::KC_PGUP:
+			case OIS::KC_PGDOWN:
+				CEGUI::System::getSingleton().injectKeyDown(e->key);
+				CEGUI::System::getSingleton().injectChar(e->text);
 				// Don't update console after cursor keys,
 				// because doing so moves the cursor back to the
 				// end of the document
 				return;
 
-			case Ogre::KC_BACK:
+			case OIS::KC_BACK:
 				if(inCount_ > 2) {
 					input_[ --inCount_ ] = 0;
 				}
 				break;
 			}
 
-			char ch = e->getKeyChar();
+			char ch = e->text;
 			if(ch && inCount_ < INPUT_BUFFER_SIZE - 1) {
 				input_[ inCount_++ ] = ch;
 				input_[ inCount_ ] = 0;
@@ -304,46 +305,43 @@ namespace se_ogre {
 			updateConsole();
 		}
 		else {
-			CEGUI::System::getSingleton().injectKeyDown(e->getKey());
-			CEGUI::System::getSingleton().injectChar(e->getKeyChar());
+			CEGUI::System::getSingleton().injectKeyDown(e->key);
+			CEGUI::System::getSingleton().injectChar(e->text);
 		}
 #endif
 	}
 
 
 	void Console
-	::mouseMoved (Ogre::MouseEvent *e) {
+	::mouseMoved (const OIS::MouseEvent *e) {
 #ifndef NO_CEGUI
 		CEGUI::System::getSingleton().injectMouseMove(
-			e->getRelX() * guiRenderer_->getWidth(),
-			e->getRelY() * guiRenderer_->getHeight());
-		e->consume();
+			e->state.X.rel * guiRenderer_->getWidth(),
+			e->state.Y.rel * guiRenderer_->getHeight());
 #endif
 	}
 
 
 	void Console
-	::mouseDragged (Ogre::MouseEvent *e) {
+	::mouseDragged (const OIS::MouseEvent *e) {
 		mouseMoved(e);
 	}
 
 
 	void Console
-	::mousePressed (Ogre::MouseEvent *e) {
+	::mousePressed (const OIS::MouseEvent *e, int button) {
 #ifndef NO_CEGUI
 		CEGUI::System::getSingleton().injectMouseButtonDown(
-				convertOgreButtonToCegui(e->getButtonID()));
-		e->consume();
+				convertOgreButtonToCegui(button));
 #endif
 	}
 
 
 	void Console
-	::mouseReleased (Ogre::MouseEvent *e) {
+	::mouseReleased (const OIS::MouseEvent *e, int button) {
 #ifndef NO_CEGUI
 		CEGUI::System::getSingleton().injectMouseButtonUp(
-				convertOgreButtonToCegui(e->getButtonID()));
-		e->consume();
+				convertOgreButtonToCegui(button));
 #endif
 	}
 

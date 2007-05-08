@@ -24,7 +24,6 @@ rune@skalden.com
 
 #include "O3dPre.hpp"
 #include "OIS.h"
-#include <OgreMouseEvent.h>
 
 
 namespace se_ogre {
@@ -35,12 +34,12 @@ namespace se_ogre {
 
 		virtual bool moveCamera(float stepDelta) { return false; }
 
-		virtual void keyPressed(Ogre::KeyEvent* e) {};
-		virtual void keyReleased(Ogre::KeyEvent* e) {}
-		virtual void mousePressed(Ogre::MouseEvent* e) {e->consume();}
-		virtual void mouseReleased(Ogre::MouseEvent* e) {e->consume();}
-		virtual void mouseDragged(Ogre::MouseEvent* e) {}
-		virtual void mouseMoved(Ogre::MouseEvent* e) {}
+		virtual void keyPressed(const OIS::KeyEvent* e) {};
+		virtual void keyReleased(const OIS::KeyEvent* e) {}
+		virtual void mousePressed(const OIS::MouseEvent* e, int button) {}
+		virtual void mouseReleased(const OIS::MouseEvent* e, int button) {}
+		virtual void mouseDragged(const OIS::MouseEvent* e) {}
+		virtual void mouseMoved(const OIS::MouseEvent* e) {}
 
 
 		virtual bool joyButtonPressed (int button) { return true; }
@@ -53,15 +52,19 @@ namespace se_ogre {
 
 		InputHandler* below();
 /*
-		virtual void keyPressed(Ogre::KeyEvent* e) = 0;
-		virtual void keyReleased(Ogre::KeyEvent* e) = 0;
+		virtual void keyPressedconst OIS::KeyEvent* e) = 0;
+		virtual void keyReleased(const OIS::KeyEvent* e) = 0;
 
-		virtual void mousePressed(Ogre::MouseEvent* e) = 0;
-		virtual void mouseReleased(Ogre::MouseEvent* e) = 0;
+		virtual void mousePressed(const OIS::MouseEvent* e) = 0;
+		virtual void mouseReleased(const OIS::MouseEvent* e) = 0;
 
-		virtual void mouseMoved(Ogre::MouseEvent* e) = 0;
-		virtual void mouseDragged(Ogre::MouseEvent* e) = 0;
+		virtual void mouseMoved(const OIS::MouseEvent* e) = 0;
+		virtual void mouseDragged(const OIS::MouseEvent* e) = 0;
 */
+
+		bool isShiftDown() const;
+		bool isAltDown() const;
+		bool isControlDown() const;
 
 		void grabFocus();
 		void loseFocus();

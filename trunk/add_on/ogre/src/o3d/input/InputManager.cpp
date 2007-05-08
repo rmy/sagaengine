@@ -27,6 +27,9 @@ rune@skalden.com
 namespace se_ogre {
 	InputManager
 	::InputManager() : handlerCount_(0), handlerStackPos_(-1) {
+		for(int i = 0; i < MODIFIER_COUNT; ++i) {
+			isModifierDown_[i] = false;
+		}
 	}
 
 	InputManager

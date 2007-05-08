@@ -39,6 +39,21 @@ namespace se_ogre {
 
 
 	bool InputHandler
+	::isShiftDown() const {
+		return (O3dSchema::inputManager().isShiftDown());
+	}
+
+	bool InputHandler
+	::isAltDown() const {
+		return (O3dSchema::inputManager().isAltDown());
+	}
+
+	bool InputHandler
+	::isControlDown() const {
+		return (O3dSchema::inputManager().isControlDown());
+	}
+
+	bool InputHandler
 	::hasFocus() {
 		return (O3dSchema::inputManager().active() == this);
 	}

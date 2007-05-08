@@ -34,9 +34,7 @@ rune@skalden.com
 
 #include "editor/schema/EditorSchema.hpp"
 #include "editor/action/all.hpp"
-
-#include <OgreInput.h>
-#include <OgreKeyEvent.h>
+#include <OIS.h>
 
 using namespace se_core;
 
@@ -102,26 +100,26 @@ namespace se_editor {
 
 
 	void EditorControls
-	::mouseDragged(Ogre::MouseEvent* e) {
+	::mouseDragged(const OIS::MouseEvent* e) {
 		mouseMoved(e);
 	}
 
 
 	void EditorControls
-	::mouseMoved(Ogre::MouseEvent* e) {
+	::mouseMoved(const OIS::MouseEvent* e) {
 		float speed = 1.0f;
-		if(e->isShiftDown()) {
+		if(isShiftDown()) {
 			speed = 4;
 		}
-		if(!e->isControlDown() && !(e->getModifiers() & e->BUTTON2_MASK) != 0 ) {
-			cursor_.coor_.x_ += e->getRelX() * speed;
-			cursor_.coor_.z_ += e->getRelY() * speed;
-			cursor_.face_.yaw_ += e->getRelZ() * 16 * BRAY_RES * speed;
+		if(!isControlDown() && !e->state.buttonDown(OIS::MB_Middle)) {
+			cursor_.coor_.x_ += e->state.X.rel * (1.0f / 1024.f) * speed;
+			cursor_.coor_.z_ += e->state.Y.rel * (1.0f / 1024.f) * speed;
+			cursor_.face_.yaw_ += e->state.Z.rel * (1.0f / 1024.f) * 16 * BRAY_RES * speed;
 		}
 		else {
-			cursor_.face_.yaw_ += e->getRelZ() * 6 * BRAY_RES;
-			float r = (1 + e->getRelX()) * (1 + e->getRelY()) - 1;
-			cursor_.face_.yaw_ += r * 64 * BRAY_RES;
+			cursor_.face_.yaw_ += e->state.Z.rel * 6 / 1024.f * BRAY_RES;
+			float r = (1 + e->state.X.rel) * (1 + e->state.Y.rel) - 1;
+			cursor_.face_.yaw_ += r * 64 / 1024.f * BRAY_RES;
 		}
 
 	}
@@ -154,9 +152,9 @@ namespace se_editor {
 	}
 
 	void EditorControls
-	::mousePressed(Ogre::MouseEvent* e) {
-		switch(e->getButtonID()) {
-		case Ogre::MouseEvent::BUTTON0_MASK:
+	::mousePressed(const OIS::MouseEvent* e, int button) {
+		switch(button) {
+		case OIS::MB_Left:
 			if(EditorSchema::lastSpawn) 
 				setAction(CHANNEL_EXTRA, actionPlaceGrabbed);
 			else
@@ -164,93 +162,92 @@ namespace se_editor {
 			cursor_.setIdentity();
 			break;
 
-		case Ogre::MouseEvent::BUTTON1_MASK:
+		case OIS::MB_Right:
 			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
 			cursor_.setIdentity();
 			break;
 		}
-		e->consume();
 	}
 
 
 	void EditorControls
-	::keyPressed(Ogre::KeyEvent* e) {
-		//isRelative_ = !e->isShiftDown();
+	::keyPressed(const OIS::KeyEvent* e) {
+		//isRelative_ = !isShiftDown();
 
-		switch(e->getKey()) {
-		case Ogre::KC_COMMA:
+		switch(e->key) {
+		case OIS::KC_COMMA:
 			setAction(CHANNEL_EXTRA, actionLevelDesignSnap);
 			break;
 
-		case Ogre::KC_F1:
-			spawnCreature(0, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F1:
+			spawnCreature(0, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F2:
-			spawnCreature(1, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F2:
+			spawnCreature(1, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F3:
-			spawnCreature(2, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F3:
+			spawnCreature(2, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F4:
-			spawnCreature(3, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F4:
+			spawnCreature(3, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F5:
-			spawnCreature(4, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F5:
+			spawnCreature(4, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F6:
-			spawnCreature(5, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F6:
+			spawnCreature(5, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F7:
-			spawnCreature(6, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F7:
+			spawnCreature(6, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F8:
-			spawnCreature(7, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F8:
+			spawnCreature(7, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F9:
-			spawnCreature(8, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F9:
+			spawnCreature(8, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F10:
-			spawnCreature(9, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F10:
+			spawnCreature(9, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F11:
-			spawnCreature(-2, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F11:
+			spawnCreature(-2, isShiftDown(), isAltDown());
 			break;
-		case Ogre::KC_F12:
-			spawnCreature(-1, e->isShiftDown(), e->isAltDown());
+		case OIS::KC_F12:
+			spawnCreature(-1, isShiftDown(), isAltDown());
 			break;
 
-		case Ogre::KC_0:
+		case OIS::KC_0:
 			placeEntrance(0);
 			break;
-		case Ogre::KC_1:
+		case OIS::KC_1:
 			placeEntrance(1);
 			break;
-		case Ogre::KC_2:
+		case OIS::KC_2:
 			placeEntrance(2);
 			break;
-		case Ogre::KC_3:
+		case OIS::KC_3:
 			placeEntrance(3);
 			break;
-		case Ogre::KC_4:
+		case OIS::KC_4:
 			placeEntrance(4);
 			break;
-		case Ogre::KC_5:
+		case OIS::KC_5:
 			placeEntrance(5);
 			break;
-		case Ogre::KC_6:
+		case OIS::KC_6:
 			placeEntrance(6);
 			break;
-		case Ogre::KC_7:
+		case OIS::KC_7:
 			placeEntrance(7);
 			break;
-		case Ogre::KC_8:
+		case OIS::KC_8:
 			placeEntrance(8);
 			break;
-		case Ogre::KC_9:
+		case OIS::KC_9:
 			placeEntrance(9);
 			break;
 
-		case Ogre::KC_P:
+		case OIS::KC_P:
 			{
 				char buffer[256];
 				sprintf(buffer, "save/%s.txt", SimSchema::simEngine.level());
@@ -258,38 +255,38 @@ namespace se_editor {
 			}
 			break;
 
-		case Ogre::KC_O:
+		case OIS::KC_O:
 			{
 				setAction(CHANNEL_EXTRA, actionExitEditor);
 			}
 			break;
 
-		case Ogre::KC_C:
+		case OIS::KC_C:
 			{
-				if(e->isControlDown()) {
+				if(isControlDown()) {
 					setAction(CHANNEL_EXTRA, actionCopyLevel);
 				}
 			}
 			break;
 
-		case Ogre::KC_V:
+		case OIS::KC_V:
 			{
-				if(e->isControlDown()) {
+				if(isControlDown()) {
 					setAction(CHANNEL_EXTRA, actionPasteLevel);
 				}
 			}
 			break;
 
-		case Ogre::KC_BACK:
+		case OIS::KC_BACK:
 			setAction(CHANNEL_EXTRA, actionDestroyGrabbed);
 			break;
 
-		case Ogre::KC_RETURN:
+		case OIS::KC_RETURN:
 			setAction(CHANNEL_EXTRA, actionSaveLevel);
 			break;
 
-		case Ogre::KC_DELETE:
-			if(e->isControlDown()) {
+		case OIS::KC_DELETE:
+			if(isControlDown()) {
 				setAction(CHANNEL_EXTRA, actionLevelDesignCleanRoom);
 			}
 			else {
@@ -300,8 +297,7 @@ namespace se_editor {
 	}
 
 	void EditorControls
-	::keyReleased(Ogre::KeyEvent* e) {
-		//isRelative_ = !e->isShiftDown();
-		e->consume();
+	::keyReleased(const OIS::KeyEvent* e) {
+		//isRelative_ = !isShiftDown();
 	}
 }

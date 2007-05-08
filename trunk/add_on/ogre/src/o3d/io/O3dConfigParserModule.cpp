@@ -88,10 +88,10 @@ namespace se_ogre {
 
 			case 'C':
 				{
-					float near = in.readFloat();
-					float far = in.readFloat();
-					float fovy = in.readFloat();
-					createCamera(near, far, fovy);
+					float vnear = in.readFloat();
+					float vfar = in.readFloat();
+					float vfovy = in.readFloat();
+					createCamera(vnear, vfar, vfovy);
 					createViewports();
 					break;
 				}
@@ -200,7 +200,7 @@ namespace se_ogre {
 
 
 	void O3dConfigParserModule
-	::createCamera(float near, float far, float fovy) {
+	::createCamera(float vnear, float vfar, float vfovy) {
 		// Create the camera
 		if(O3dSchema::playerCamera) {
 			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
@@ -210,9 +210,9 @@ namespace se_ogre {
 		}
 
 		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
-		O3dSchema::playerCamera->setNearClipDistance(near);
-		O3dSchema::playerCamera->setFarClipDistance(far);
-		O3dSchema::playerCamera->setFOVy(Ogre::Radian(Ogre::Degree(fovy)));
+		O3dSchema::playerCamera->setNearClipDistance(vnear);
+		O3dSchema::playerCamera->setFarClipDistance(vfar);
+		O3dSchema::playerCamera->setFOVy(Ogre::Radian(Ogre::Degree(vfovy)));
 		LogDetail("Created player camera");
 	}
 
@@ -375,7 +375,7 @@ namespace se_ogre {
 				{ // Texture shadows
 					short size = in.readShort();
 					short count = in.readShort();
-					float far = in.readFloat();
+					float vfar = in.readFloat();
 					float r = in.readFloat();
 					float g = in.readFloat();
 					float b = in.readFloat();
@@ -385,7 +385,7 @@ namespace se_ogre {
 							   && "SceneManager must be createt before setting shadow technique");
 						O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
 						O3dSchema::sceneManager->setShadowTextureSettings(size, count);
-						O3dSchema::sceneManager->setShadowFarDistance(far);
+						O3dSchema::sceneManager->setShadowFarDistance(vfar);
 						O3dSchema::sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
 
 						LogDetail("Created " << count << " shadow textures of size " << size);

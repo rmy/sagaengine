@@ -23,36 +23,32 @@ rune@skalden.com
 #define O3dInputBridge_hpp
 
 #include "O3dPre.hpp"
-#include <OgreKeyEvent.h>
-#include <OgreMouseEvent.h>
-#include <OgreEventListeners.h>
 #include <OIS.h>
 
 namespace se_ogre {
 	// Event handler to add ability to alter curvature
 	class _SeOgreExport O3dInputBridge 
-		: public Ogre::KeyListener
-		, public Ogre::MouseListener
-		, public Ogre::MouseMotionListener
+		: public OIS::KeyListener
+		, public OIS::MouseListener
 		, public OIS::JoyStickListener {
 
 	public:
 		O3dInputBridge(Ogre::RenderWindow* win);
 		~O3dInputBridge();
 
-		void keyClicked(Ogre::KeyEvent* e) {}
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
+		//void keyClicked(const OIS::KeyEvent& e) {}
+		bool keyPressed(const OIS::KeyEvent& e);
+		bool keyReleased(const OIS::KeyEvent& e);
 
-		void mousePressed(Ogre::MouseEvent* e);
-		void mouseReleased(Ogre::MouseEvent* e);
-		void mouseClicked(Ogre::MouseEvent* e) {}
-		void mouseEntered(Ogre::MouseEvent* e) {}
-		void mouseExited(Ogre::MouseEvent* e) {}
+		bool mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id);
+		bool mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id);
+		//void mouseClicked(const OIS::MouseEvent* e) {}
+		//void mouseEntered(const OIS::MouseEvent* e) {}
+		//void mouseExited(const OIS::MouseEvent* e) {}
 
-		void mouseMoved(Ogre::MouseEvent* e);
-		void mouseDragged(Ogre::MouseEvent* e);
-		void mouseDragMoved(Ogre::MouseEvent* e) {}
+		bool mouseMoved(const OIS::MouseEvent& e);
+		//void mouseDragged(const OIS::MouseEvent* e);
+		//void mouseDragMoved(const OIS::MouseEvent* e) {}
 
 		bool buttonPressed (const OIS::JoyStickEvent &arg, int button);
 		bool buttonReleased (const OIS::JoyStickEvent &arg, int button);
@@ -64,7 +60,10 @@ namespace se_ogre {
 
 		void initOIS();
 
+		bool isShiftDown() const { return isLeftShiftDown_ || isRightShiftDown_; }
+
 	private: // Attributes
+		OIS::InputManager* inputManager_;
 		//
 		OIS::Mouse* mouse_;
 		OIS::Keyboard* keyboard_;
@@ -73,10 +72,9 @@ namespace se_ogre {
 		int oldJoyButtons_;
 
 		//
-		Ogre::EventProcessor* eventProcessor_;
-
-		//
 		int keyState_;
+
+		bool isLeftShiftDown_, isRightShiftDown_;
 	};
 }
 
