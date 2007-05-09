@@ -50,6 +50,7 @@ namespace se_ogre {
 		 * Output message to console.
 		 */
 		void output(const char* msg);
+		void output(const wchar_t* msg);
 
 
 		void keyPressed(const OIS::KeyEvent* e);
@@ -63,18 +64,18 @@ namespace se_ogre {
 		void setFocus(bool newState) { isFocused_ = newState; }
 		void flipFocus();
 		void renderGui();
+		void updateConsole();
 
 	protected:
 		void clearInput();
-		void updateConsole();
 
 		bool isFocused_;
 		ConsoleHandler* handler_;
+		int inCount_, outCount_, lineCount_;
 		static const int INPUT_BUFFER_SIZE = 256;
-		char input_[ INPUT_BUFFER_SIZE ];
+		wchar_t* input_;
 		static const int OUTPUT_BUFFER_SIZE = 16384;
-		char output_[ OUTPUT_BUFFER_SIZE ];
-		short inCount_, outCount_;
+		wchar_t* output_;
 
 #ifndef NO_CEGUI
 		CEGUI::OgreCEGUIRenderer* guiRenderer_;

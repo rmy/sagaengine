@@ -35,6 +35,7 @@ rune@skalden.com
 #include "util/task/TaskList.hpp"
 #include <OgreRoot.h>
 #include <OgreRenderSystem.h>
+#include <OgreRenderWindow.h>
 #include <OgreAnimation.h>
 #include <OgreConfigFile.h>
 
@@ -99,7 +100,8 @@ namespace se_ogre {
 	void RenderEngine
 	::renderFrame() {
 		// WorldManager::frameStarted is called before rendering
-		O3dSchema::root->renderOneFrame();
+		if(O3dSchema::window && O3dSchema::window->isActive())
+			O3dSchema::root->renderOneFrame();
 		// WorldManager::frameEnded is called after rendering
 		if(inputBridge_) {
 			inputBridge_->step();

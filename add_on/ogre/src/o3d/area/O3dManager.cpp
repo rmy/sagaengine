@@ -209,7 +209,8 @@ namespace se_ogre {
 	::showDebugOverlay(bool show) {
 		if (show) {
 			if (!debugOverlay_) {
-				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
+				debugOverlay_ = Ogre::OverlayManager::getSingleton().getByName("SagaEngine/DebugOverlay");
+				O3dSchema::window->resetStatistics();
 			}
 
 			debugOverlay_->show();
@@ -248,10 +249,10 @@ namespace se_ogre {
 
 		// update stats when necessary
 		try {
-			OverlayElement* guiAvg = OverlayManager::getSingleton().getOverlayElement("Core/AverageFps");
-			OverlayElement* guiCurr = OverlayManager::getSingleton().getOverlayElement("Core/CurrFps");
-			OverlayElement* guiBest = OverlayManager::getSingleton().getOverlayElement("Core/BestFps");
-			OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("Core/WorstFps");
+			OverlayElement* guiAvg = OverlayManager::getSingleton().getOverlayElement("SagaEngine/AverageFps");
+			OverlayElement* guiCurr = OverlayManager::getSingleton().getOverlayElement("SagaEngine/CurrFps");
+			OverlayElement* guiBest = OverlayManager::getSingleton().getOverlayElement("SagaEngine/BestFps");
+			OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("SagaEngine/WorstFps");
 
 			const RenderTarget::FrameStats& stats = O3dSchema::window->getStatistics();
 
@@ -262,16 +263,30 @@ namespace se_ogre {
 			guiWorst->setCaption(worstFps + StringConverter::toString(stats.worstFPS)
 								 +" "+StringConverter::toString(stats.worstFrameTime)+" ms");
 
-			OverlayElement* guiTris = OverlayManager::getSingleton().getOverlayElement("Core/NumTris");
+			OverlayElement* guiTris = OverlayManager::getSingleton().getOverlayElement("SagaEngine/NumTris");
 			guiTris->setCaption(tris + StringConverter::toString(static_cast<int>(stats.triangleCount)));
 
-			OverlayElement* guiDbg = OverlayManager::getSingleton().getOverlayElement("Core/DebugText");
-			//guiDbg->setCaption(O3dSchema::window->getDebugText());
 			static char buffer[255];
-			se_core::ViewPoint& vp = ClientSchema::player->nextPos().local_;
 			PosComponent* a = ClientSchema::player->nextPos().area();
-			sprintf(buffer, "Area: %s (%s) T(%.2f, %.2f, %.2f) R(%.2f, %.2f, %.2f)", a->owner()->name(), a->owner()->factory()->name(), vp.coor_.x_, vp.coor_.y_, vp.coor_.z_, vp.face_.yaw_ / (float)(BRAY_RES), vp.face_.pitch_ / (float)(BRAY_RES), vp.face_.roll_ / (float)(BRAY_RES));
-			guiDbg->setCaption(buffer);
+			sprintf(buffer, "Area: %s (%s)", a->owner()->name(), a->owner()->factory()->name()); 
+			OverlayElement* guiArea = OverlayManager::getSingleton().getOverlayElement("SagaEngine/Area");
+			guiArea->setCaption(buffer);
+
+			se_core::ViewPoint& vp = ClientSchema::player->nextPos().local_;
+
+			sprintf(buffer, "Coor: %.2f, %.2f, %.2f", vp.coor_.x_, vp.coor_.y_, vp.coor_.z_);
+			OverlayElement* guiCoor = OverlayManager::getSingleton().getOverlayElement("SagaEngine/Coor");
+			guiCoor->setCaption(buffer);
+
+			sprintf(buffer, "Face: %.2f, %.2f, %.2f", vp.face_.yaw_ / (float)(BRAY_RES), vp.face_.pitch_ / (float)(BRAY_RES), vp.face_.roll_ / (float)(BRAY_RES));
+			OverlayElement* guiFace = OverlayManager::getSingleton().getOverlayElement("SagaEngine/Face");
+			guiFace->setCaption(buffer);
+
+			OverlayElement* guiDbg = OverlayManager::getSingleton().getOverlayElement("SagaEngine/DebugText");
+			guiDbg->setCaption(debugText_);
+
+			//sprintf(buffer, "Area: %s (%s) T(%.2f, %.2f, %.2f) R(%.2f, %.2f, %.2f)", a->owner()->name(), a->owner()->factory()->name(), vp.coor_.x_, vp.coor_.y_, vp.coor_.z_, vp.face_.yaw_ / (float)(BRAY_RES), vp.face_.pitch_ / (float)(BRAY_RES), vp.face_.roll_ / (float)(BRAY_RES));
+			//guiDbg->setCaption(buffer);
 		}
 		catch(...) {
 			// ignore

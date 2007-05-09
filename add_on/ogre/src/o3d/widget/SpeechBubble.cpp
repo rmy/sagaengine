@@ -79,7 +79,7 @@ namespace se_ogre {
 			buffer[i] = *c;
 			++linePos;
 			if(*c == '_') {
-				if(linePos < 50) {
+				if(linePos < 45) {
 					buffer[i] = ' ';
 				}
 				else {
