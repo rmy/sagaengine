@@ -71,8 +71,8 @@ namespace se_ogre {
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
 		speaker_ = &speaker;
 		const char* message = ClientSchema::phrases().getPhrase(Phrase::SPEECH, messageName);
-		char buffer[256];
-		const char* c = message;
+		wchar_t buffer[512];
+		const unsigned char* c = (const unsigned char*)message;
 		int linePos = 0;
 		int i = 0;
 		for(; *c != 0 && i < 255; ++i, ++c) {
