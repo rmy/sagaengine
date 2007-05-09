@@ -63,6 +63,9 @@ namespace se_ogre {
 		}
 
 		void setEditLights(bool flag);
+		void setDebugText(const Ogre::String& s) {
+			debugText_ = s;
+		}
 
 	protected: // Helper methods
 		void updateStats(void);
@@ -73,6 +76,7 @@ namespace se_ogre {
 		bool shouldStop_;
 		//
 		Ogre::Overlay* debugOverlay_;
+		Ogre::String debugText_;
 		//
 		long lastRenderClock_;
 

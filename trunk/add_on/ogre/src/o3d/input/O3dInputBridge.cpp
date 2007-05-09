@@ -134,15 +134,12 @@ namespace se_ogre {
 	bool O3dInputBridge
 	::keyPressed(const OIS::KeyEvent& e) {
 		// Tab flips focus on console
-		/*
-		if(e->key == OIS::KC_TAB) {
+		switch(e.key) {
+		case OIS::KC_HOME:
 			if(O3dSchema::console) {
 				O3dSchema::console->flipFocus();
 			}
-		}
-		*/
-
-		switch(e.key) {
+			break;
 		case OIS::KC_ESCAPE:
 			SimSchema::simEngine.setGameOver(true);
 			break;

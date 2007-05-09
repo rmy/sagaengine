@@ -33,7 +33,7 @@ namespace se_ogre {
 		ConsoleHandler();
 		virtual ~ConsoleHandler();
 
-		virtual void parseCommand(char* s) = 0;
+		virtual void parseCommand(wchar_t* s) = 0;
 
 	protected:
 		friend class Console;

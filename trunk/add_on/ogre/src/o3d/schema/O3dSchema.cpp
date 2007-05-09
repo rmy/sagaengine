@@ -32,6 +32,7 @@ rune@skalden.com
 #include "o3d/input/Console.hpp"
 #include "o3d/area/O3dAreaComponentFactory.hpp"
 #include "o3d/area/O3dAreaComponent.hpp"
+#include "o3d/input/Console.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
@@ -116,6 +117,7 @@ namespace se_ogre {
 
 				// Create world manager
 				O3dSchema::worldManager = new O3dManager();
+				O3dSchema::console->updateConsole();
 				LogDetail("Created world manager");
 
 

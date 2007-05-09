@@ -26,8 +26,11 @@ rune@skalden.com
 #include "../schema/O3dSchema.hpp"
 #include <OIS.h>
 #include <cstring>
+#include <OgreUTFString.h>
 #ifndef NO_CEGUI
 #include <CEGUI/CEGUIFontManager.h>
+#else
+#include "../area/O3dManager.hpp"
 #endif
 
 namespace se_ogre {
@@ -51,12 +54,14 @@ namespace se_ogre {
 	Console
 	::Console()
 		: isFocused_(false), handler_(0)
-		, inCount_(0), outCount_(0)
+		, inCount_(0), outCount_(0), lineCount_(0)
 #ifndef NO_CEGUI
 		, guiRenderer_(0), guiSystem_(0), editorGuiSheet_(0)
 #endif
 	{
+		output_ = new wchar_t[ OUTPUT_BUFFER_SIZE ];
 		output_[ outCount_ ] = 0;
+		input_ = new wchar_t[ INPUT_BUFFER_SIZE ];
 		clearInput();
 	}
 
@@ -77,6 +82,8 @@ namespace se_ogre {
 			guiRenderer_ = 0;
 		}
 #endif
+		delete[] input_;
+		delete[] output_;
 	}
 
 
@@ -91,8 +98,8 @@ namespace se_ogre {
 
 	void Console
 	::flipFocus() {
-#ifndef NO_CEGUI
 		isFocused_ = !isFocused_;
+#ifndef NO_CEGUI
 		if(isFocused()) {
 			editBox_->show();
 			editBox_->activate();
@@ -101,6 +108,8 @@ namespace se_ogre {
  			editBox_->deactivate();
 			editBox_->hide();
 		}
+#else
+		O3dSchema::worldManager->showDebugOverlay(isFocused());
 #endif
 	}
 
@@ -117,6 +126,23 @@ namespace se_ogre {
 		// Scroll to bottom
 		editBox_->ensureCaratIsVisible();
 		editBox_->setCaratIndex(s.length());
+#else
+		const wchar_t* from = output_;
+		int match = 0;
+		static const int MAX_LINES = 4;
+		while(lineCount_ - match > MAX_LINES) {
+			Assert(*from != 0);
+			if(*from == '\n') {
+				++match;
+			}
+			++from;
+		}
+		Ogre::UTFString s(from);
+		s.append("\n");
+		s.append(input_);
+		if(O3dSchema::worldManager) {
+			O3dSchema::worldManager->setDebugText(s);
+		}
 #endif
 	}
 
@@ -213,6 +239,8 @@ namespace se_ogre {
 		else {
 			editBox_->hide();
 		}
+#else
+		updateConsole();
 #endif
 	}
 
@@ -249,20 +277,46 @@ namespace se_ogre {
 
 	void Console
 	::output(const char* msg) {
-		const char* src = msg;
+		const unsigned char* src = (const unsigned char*)msg;
 
 		int len = (int)strlen(msg);
 		if(outCount_ + len >= OUTPUT_BUFFER_SIZE - 1) {
+			lineCount_ = 0;
 			for(int i = 0; i < outCount_ - len; ++i) {
 				output_[i] = output_[ i + len ];
+				if(output_[i] == '\n')
+					++lineCount_;
 			}
 			outCount_ -= len;
 		}
 
 		while(*src != 0 && outCount_ < OUTPUT_BUFFER_SIZE) {
+			if(*src == '\n')
+				++lineCount_;
 			output_[ outCount_++ ] = *(src++);
 		}
+	}
 
+	void Console
+	::output(const wchar_t* msg) {
+		const wchar_t* src = msg;
+
+		int len = (int)wcslen(msg);
+		if(outCount_ + len >= OUTPUT_BUFFER_SIZE - 1) {
+			lineCount_ = 0;
+			for(int i = 0; i < outCount_ - len; ++i) {
+				output_[i] = output_[ i + len ];
+				if(output_[i] == '\n')
+					++lineCount_;
+			}
+			outCount_ -= len;
+		}
+
+		while(*src != 0 && outCount_ < OUTPUT_BUFFER_SIZE) {
+			if(*src == '\n')
+				++lineCount_;
+			output_[ outCount_++ ] = *(src++);
+		}
 	}
 
 
@@ -308,6 +362,42 @@ namespace se_ogre {
 			CEGUI::System::getSingleton().injectKeyDown(e->key);
 			CEGUI::System::getSingleton().injectChar(e->text);
 		}
+#else
+		switch(e->key) {
+		case OIS::KC_RETURN:
+			output(input_);
+			output("\n");
+			if(handler_) handler_->parseCommand(&input_[2]);
+			clearInput();
+			break;
+
+		case OIS::KC_UP:
+		case OIS::KC_DOWN:
+		case OIS::KC_PGUP:
+		case OIS::KC_PGDOWN:
+			// Don't update console after cursor keys,
+			// because doing so moves the cursor back to the
+			// end of the document
+			return;
+
+		case OIS::KC_BACK:
+			if(inCount_ > 2) {
+				input_[ --inCount_ ] = 0;
+			}
+			break;
+
+		default:
+			{
+				unsigned char ch = e->text;
+				if(ch && inCount_ < INPUT_BUFFER_SIZE - 1) {
+					input_[ inCount_++ ] = ch;
+					input_[ inCount_ ] = 0;
+					//LogDetail("Key: " << inCount_ << " (" << (int)ch << ") " << input_);
+				}
+			}
+		}
+
+		updateConsole();
 #endif
 	}
 
