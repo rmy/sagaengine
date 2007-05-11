@@ -293,6 +293,7 @@ namespace se_ogre {
 		int i = 0;
 		while(sections[i] != 0) {
 			ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
+			//ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
 			++i;
 		}
 
@@ -321,6 +322,7 @@ namespace se_ogre {
 		while(*sec != 0) {
 			try {
 				ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
+				//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
 			}
 			catch(...) {
 			}
