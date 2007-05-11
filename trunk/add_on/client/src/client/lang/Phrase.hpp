@@ -38,6 +38,7 @@ namespace se_client {
 		unsigned short findPhrase(PhraseType type, const char* name);
 		const char *getPhrase(PhraseType type, const char* name);
 		void setLanguage(unsigned short language);
+		void clampToSupportedLanguage();
 		static unsigned short languageId(const char* language);
 		static short typeIdOfName(const char* name);
 
@@ -46,7 +47,7 @@ namespace se_client {
 
 		struct Language {
 			const char* name_;
-			short id_;
+			unsigned short id_;
 		};
 		int supportedLanguageCount() { return supportedLanguageCount_; }
 		Language* supportedLanguage(int index) { return &supportedLanguages_[ index ]; }
