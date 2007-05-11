@@ -46,6 +46,7 @@ namespace se_core {
 			, TERRAIN = 'T'
 			, PLAYER = 'X'
 			, PLUGIN = 'Z'
+			, SETTINGS = 'S'
 		};
 
 		enum ModuleGroup { 

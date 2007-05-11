@@ -72,6 +72,17 @@ namespace se_client {
 	}
 
 	void Phrase
+	::clampToSupportedLanguage() {
+		for(int i = 0; i < supportedLanguageCount_; ++i) {
+			if(supportedLanguages_[i].id_ == currentLanguage_)
+				return;
+		}
+		Assert(supportedLanguageCount_ > 0);
+		currentLanguage_ = supportedLanguages_[0].id_;
+	}
+
+
+	void Phrase
 	::addPhrase(unsigned short language, PhraseType type, String* nameC, String* phraseC) {
 		Assert(phraseCount_ < MAX_PHRASES);
 
