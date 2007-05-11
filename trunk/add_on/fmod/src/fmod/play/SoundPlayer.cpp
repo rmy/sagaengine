@@ -93,11 +93,14 @@ namespace se_fmod {
 		
 	void SoundPlayer
 	::ambienceEvent(char* snd) {
-		LogDetail(snd);
 		if(ambience_) {
 			ambience_->stop();
 			ambience_ = 0;
 		}
+		if(!snd)
+			return;
+
+		LogDetail(snd);
 
 		FMOD_RESULT result;
 		float volume;
