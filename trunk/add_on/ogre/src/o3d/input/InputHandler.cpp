@@ -54,6 +54,11 @@ namespace se_ogre {
 	}
 
 	bool InputHandler
+	::isWinDown() const {
+		return (O3dSchema::inputManager().isWinDown());
+	}
+
+	bool InputHandler
 	::hasFocus() {
 		return (O3dSchema::inputManager().active() == this);
 	}
