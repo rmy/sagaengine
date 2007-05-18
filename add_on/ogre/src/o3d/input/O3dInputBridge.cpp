@@ -134,6 +134,7 @@ namespace se_ogre {
 	bool O3dInputBridge
 	::keyPressed(const OIS::KeyEvent& e) {
 		// Tab flips focus on console
+		LogWarning("Key: " << e.key);
 		switch(e.key) {
 		case OIS::KC_HOME:
 			if(O3dSchema::console) {
@@ -176,6 +177,14 @@ namespace se_ogre {
 		case OIS::KC_LCONTROL:
 			O3dSchema::inputManager().setModifier(InputManager::LCTRL, true);
 			break;
+
+		case 56: // Alt
+			O3dSchema::inputManager().setModifier(InputManager::ALT, true);
+			break;
+
+		case OIS::KC_LWIN:
+			O3dSchema::inputManager().setModifier(InputManager::WIN, true);
+			break;
 		}
 
 		// If console is focused, send input there
@@ -211,6 +220,14 @@ namespace se_ogre {
 
 		case OIS::KC_LCONTROL:
 			O3dSchema::inputManager().setModifier(InputManager::LCTRL, false);
+			break;
+
+		case 56: // Alt
+			O3dSchema::inputManager().setModifier(InputManager::ALT, false);
+			break;
+
+		case OIS::KC_LWIN:
+			O3dSchema::inputManager().setModifier(InputManager::WIN, false);
 			break;
 		}
 

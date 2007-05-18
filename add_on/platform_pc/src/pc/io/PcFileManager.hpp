@@ -54,7 +54,7 @@ namespace se_pc {
 
 		const char* directory_;
 		short fileCount_;
-		static const short MAX_FILE_COUNT = 512;
+		static const short MAX_FILE_COUNT = 2048;
 		se_core::String* files_[ MAX_FILE_COUNT ];
 	};
 }

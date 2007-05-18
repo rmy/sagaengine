@@ -126,7 +126,7 @@ namespace se_editor {
 
 
 	void EditorControls
-	::spawnCreature(int id, bool mod1, bool mod2) {
+	::spawnCreature(int id, bool mod1, bool mod2, bool mod3) {
 		if(id < 0) {
 			setAction(CHANNEL_EXTRA, actionLoseGrabbed);
 			return;
@@ -138,6 +138,8 @@ namespace se_editor {
 				index += 10;
 			if(mod2)
 				index += 20;
+			if(mod3)
+				index += 40;
 		}
 		Parameter tmp;
 		actionLevelDesignSpawn.param(index, tmp);
@@ -180,40 +182,40 @@ namespace se_editor {
 			break;
 
 		case OIS::KC_F1:
-			spawnCreature(0, isShiftDown(), isAltDown());
+			spawnCreature(0, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F2:
-			spawnCreature(1, isShiftDown(), isAltDown());
+			spawnCreature(1, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F3:
-			spawnCreature(2, isShiftDown(), isAltDown());
+			spawnCreature(2, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F4:
-			spawnCreature(3, isShiftDown(), isAltDown());
+			spawnCreature(3, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F5:
-			spawnCreature(4, isShiftDown(), isAltDown());
+			spawnCreature(4, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F6:
-			spawnCreature(5, isShiftDown(), isAltDown());
+			spawnCreature(5, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F7:
-			spawnCreature(6, isShiftDown(), isAltDown());
+			spawnCreature(6, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F8:
-			spawnCreature(7, isShiftDown(), isAltDown());
+			spawnCreature(7, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F9:
-			spawnCreature(8, isShiftDown(), isAltDown());
+			spawnCreature(8, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F10:
-			spawnCreature(9, isShiftDown(), isAltDown());
+			spawnCreature(9, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F11:
-			spawnCreature(-2, isShiftDown(), isAltDown());
+			spawnCreature(-2, isShiftDown(), isAltDown(), isWinDown());
 			break;
 		case OIS::KC_F12:
-			spawnCreature(-1, isShiftDown(), isAltDown());
+			spawnCreature(-1, isShiftDown(), isAltDown(), isWinDown());
 			break;
 
 		case OIS::KC_0:

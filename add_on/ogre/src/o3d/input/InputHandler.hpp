@@ -65,6 +65,7 @@ namespace se_ogre {
 		bool isShiftDown() const;
 		bool isAltDown() const;
 		bool isControlDown() const;
+		bool isWinDown() const;
 
 		void grabFocus();
 		void loseFocus();
