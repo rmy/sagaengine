@@ -134,7 +134,7 @@ namespace se_ogre {
 	bool O3dInputBridge
 	::keyPressed(const OIS::KeyEvent& e) {
 		// Tab flips focus on console
-		LogWarning("Key: " << e.key);
+		LogDetail("Key: " << e.key);
 		switch(e.key) {
 		case OIS::KC_HOME:
 			if(O3dSchema::console) {
