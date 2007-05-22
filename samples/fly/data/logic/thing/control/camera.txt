@@ -1,5 +1,5 @@
 XO02
-C control.camera
+A control.camera
 P DanglingCamera
 X Camera
 C none

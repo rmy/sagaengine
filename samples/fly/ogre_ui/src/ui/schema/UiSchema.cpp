@@ -24,6 +24,7 @@ rune@skalden.com
 #include "../init/UiInitHandler.hpp"
 #include "../material/Sunlight.hpp"
 #include "../input/FlyControls.hpp"
+#include "util/error/Log.hpp"
 
 using namespace se_ogre;
 
@@ -40,11 +41,11 @@ namespace ui {
 				static Sunlight sunlight;
 
 
-				LogMsg("Registered UiSchema game module");
+				LogDetail("Registered UiSchema game module");
 			}
 
 			~AutoInit() {
-				LogMsg("Cleaned up UiSchema game module");
+				LogDetail("Cleaned up UiSchema game module");
 			}
 		} autoInit;
 	}

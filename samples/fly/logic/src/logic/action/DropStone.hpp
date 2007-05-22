@@ -28,7 +28,7 @@ rune@skalden.com
 namespace logic {
 	class _FlyLogicExport DropStone : public se_core::Action {
 	public:
-		DropStone() : se_core::Action("player_fly") {}
+		DropStone() : se_core::Action("drop_stone") {}
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { 
 			return 1;

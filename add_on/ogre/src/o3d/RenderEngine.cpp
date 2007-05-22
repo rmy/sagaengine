@@ -292,7 +292,10 @@ namespace se_ogre {
 		const char* sections[] = { "bootstrap", "common", "particle", 0 };
 		int i = 0;
 		while(sections[i] != 0) {
+			try {
 			ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
+			} catch(...) {
+			}
 			//ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
 			++i;
 		}

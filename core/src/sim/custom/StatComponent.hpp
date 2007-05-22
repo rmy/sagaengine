@@ -93,6 +93,15 @@ namespace se_core {
 		bool hasTarget() const { return !target_.isNull(); }
 		void setTarget(Composite* target) { target_.set(target->ref()); }
 		void resetTarget() { target_.reset(); }
+
+		const Composite* item() const { return item_.object(); }
+		Composite* item() { return item_.object(); }
+		PosComponent* itemPos();
+		const PosComponent* itemPos() const;
+		bool hasItem() const { return !item_.isNull(); }
+		void setItem(Composite* item) { item_.set(item->ref()); }
+		void resetItem() { item_.reset(); }
+
 		void setShouldSave(bool state) { shouldSave_ = state; }
 		bool shouldSave() { return shouldSave_; }
 
@@ -116,6 +125,7 @@ namespace se_core {
 		const PropertyHashTable* properties_;
 		mutable ActionAndParameter defaultAction_;
 		Composite::RefPtr target_;
+		Composite::RefPtr item_;
 	};
 
 }

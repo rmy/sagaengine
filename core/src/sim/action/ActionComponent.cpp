@@ -77,7 +77,6 @@ namespace se_core {
 		p.incrActionStage();
 		presentActionScheduledComplete_[channel]
 			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
-		a->prepare(*this, p);
 	}
 
 

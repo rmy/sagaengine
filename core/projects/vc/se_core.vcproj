@@ -215,7 +215,46 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;h;hpp;hxx;hm;inl;inc"
 			>
 			<File RelativePath="..\..\..\add_on\platform_pc\src\PcPre.hpp"> </File>
-<Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\src\io\encode\Encoder.cpp"> </File>
+<Filter Name="comp" Filter="cpp;hpp"><File RelativePath="..\..\src\comp\Component.cpp"> </File>
+<File RelativePath="..\..\src\comp\Component.hpp"> </File>
+<File RelativePath="..\..\src\comp\ComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\comp\ComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\comp\Composite.cpp"> </File>
+<File RelativePath="..\..\src\comp\Composite.hpp"> </File>
+<File RelativePath="..\..\src\comp\CompositeFactory.cpp"> </File>
+<File RelativePath="..\..\src\comp\CompositeFactory.hpp"> </File>
+<File RelativePath="..\..\src\comp\Object.cpp"> </File>
+<File RelativePath="..\..\src\comp\Object.hpp"> </File>
+<File RelativePath="..\..\src\comp\RefPtr.cpp"> </File>
+<File RelativePath="..\..\src\comp\RefPtr.hpp"> </File>
+<File RelativePath="..\..\src\comp\all.hpp"> </File>
+<File RelativePath="..\..\src\comp\comp.hpp"> </File>
+<Filter Name="list" Filter="cpp;hpp"><File RelativePath="..\..\src\comp\list\ComponentList.cpp"> </File>
+<File RelativePath="..\..\src\comp\list\ComponentList.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\CompositeList.cpp"> </File>
+<File RelativePath="..\..\src\comp\list\CompositeList.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\NodeComponentList.cpp"> </File>
+<File RelativePath="..\..\src\comp\list\NodeComponentList.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\ObjectList.cpp"> </File>
+<File RelativePath="..\..\src\comp\list\ObjectList.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\ObjectRepository.cpp"> </File>
+<File RelativePath="..\..\src\comp\list\ObjectRepository.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\all.hpp"> </File>
+<File RelativePath="..\..\src\comp\list\comp_list.hpp"> </File>
+</Filter><Filter Name="node" Filter="cpp;hpp"><File RelativePath="..\..\src\comp\node\AreaChildComponent.cpp"> </File>
+<File RelativePath="..\..\src\comp\node\AreaChildComponent.hpp"> </File>
+<File RelativePath="..\..\src\comp\node\NodeComponent.cpp"> </File>
+<File RelativePath="..\..\src\comp\node\NodeComponent.hpp"> </File>
+<File RelativePath="..\..\src\comp\node\RootChildComponent.cpp"> </File>
+<File RelativePath="..\..\src\comp\node\RootChildComponent.hpp"> </File>
+<File RelativePath="..\..\src\comp\node\RootComponent.cpp"> </File>
+<File RelativePath="..\..\src\comp\node\RootComponent.hpp"> </File>
+<File RelativePath="..\..\src\comp\node\all.hpp"> </File>
+<File RelativePath="..\..\src\comp\node\comp_node.hpp"> </File>
+</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\comp\schema\CompSchema.cpp"> </File>
+<File RelativePath="..\..\src\comp\schema\CompSchema.hpp"> </File>
+<File RelativePath="..\..\src\comp\schema\all.hpp"> </File>
+</Filter></Filter><Filter Name="io" Filter="cpp;hpp"><Filter Name="encode" Filter="cpp;hpp"><File RelativePath="..\..\src\io\encode\Encoder.cpp"> </File>
 <File RelativePath="..\..\src\io\encode\Encoder.hpp"> </File>
 <File RelativePath="..\..\src\io\encode\EncoderModule.cpp"> </File>
 <File RelativePath="..\..\src\io\encode\EncoderModule.hpp"> </File>
@@ -235,7 +274,13 @@
 <File RelativePath="..\..\src\io\parse\ParserModule.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\all.hpp"> </File>
 <File RelativePath="..\..\src\io\parse\io_parse.hpp"> </File>
-</Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\io\schema\IoSchema.cpp"> </File>
+<Filter Name="component" Filter="cpp;hpp"><File RelativePath="..\..\src\io\parse\component\StatComponentParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\component\StatComponentParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\component\ZoneAreaComponentParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\component\ZoneAreaComponentParserModule.hpp"> </File>
+<File RelativePath="..\..\src\io\parse\component\ZoneComponentParserModule.cpp"> </File>
+<File RelativePath="..\..\src\io\parse\component\ZoneComponentParserModule.hpp"> </File>
+</Filter></Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\io\schema\IoSchema.cpp"> </File>
 <File RelativePath="..\..\src\io\schema\IoSchema.hpp"> </File>
 <File RelativePath="..\..\src\io\schema\all.hpp"> </File>
 </Filter><Filter Name="stream" Filter="cpp;hpp"><File RelativePath="..\..\src\io\stream\BinaryInputStream.cpp"> </File>
@@ -268,34 +313,12 @@
 <File RelativePath="..\..\..\add_on\platform_pc\src\pc\plugin\PluginManager.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.cpp"> </File>
 <File RelativePath="..\..\..\add_on\platform_pc\src\pc\schema\PcSchema.hpp"> </File>
-</Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\AreaChildComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\AreaChildComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\AreaComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\AreaComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\InitListener.hpp"> </File>
+</Filter></Filter><Filter Name="sim" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\InitListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\InitListeners.hpp"> </File>
-<File RelativePath="..\..\src\sim\PosNode.cpp"> </File>
-<File RelativePath="..\..\src\sim\PosNode.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponentFactory.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponentFactory.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponentManager.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimComponentManager.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimComposite.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimComposite.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimCompositeFactory.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimCompositeFactory.hpp"> </File>
 <File RelativePath="..\..\src\sim\SimEngine.cpp"> </File>
 <File RelativePath="..\..\src\sim\SimEngine.hpp"> </File>
 <File RelativePath="..\..\src\sim\SimListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\SimListeners.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimNodeComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimNodeComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimObject.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimObject.hpp"> </File>
-<File RelativePath="..\..\src\sim\SimPtr.cpp"> </File>
-<File RelativePath="..\..\src\sim\SimPtr.hpp"> </File>
 <File RelativePath="..\..\src\sim\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\sim.hpp"> </File>
 <Filter Name="action" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\action\Action.cpp"> </File>
@@ -330,20 +353,25 @@
 <File RelativePath="..\..\src\sim\config\sim_config.hpp"> </File>
 </Filter><Filter Name="custom" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\custom\Abilities.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\Abilities.hpp"> </File>
-<File RelativePath="..\..\src\sim\custom\ActorData.cpp"> </File>
-<File RelativePath="..\..\src\sim\custom\ActorData.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\Health.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\Health.hpp"> </File>
-<File RelativePath="..\..\src\sim\custom\Move.cpp"> </File>
-<File RelativePath="..\..\src\sim\custom\Move.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponentFactory.cpp"> </File>
 <File RelativePath="..\..\src\sim\custom\StatComponentFactory.hpp"> </File>
-<File RelativePath="..\..\src\sim\custom\ThingData.cpp"> </File>
-<File RelativePath="..\..\src\sim\custom\ThingData.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\custom\sim_custom.hpp"> </File>
+</Filter><Filter Name="cutscene" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\cutscene\CutsceneAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneAreaComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\CutsceneManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\cutscene\all.hpp"> </File>
 </Filter><Filter Name="message" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\message\MessageCentral.cpp"> </File>
 <File RelativePath="..\..\src\sim\message\MessageCentral.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\MessageListener.hpp"> </File>
@@ -352,7 +380,9 @@
 <File RelativePath="..\..\src\sim\message\SoundListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\message\sim_message.hpp"> </File>
-</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\physics\PhDefault.cpp"> </File>
+</Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\physics\Move.cpp"> </File>
+<File RelativePath="..\..\src\sim\physics\Move.hpp"> </File>
+<File RelativePath="..\..\src\sim\physics\PhDefault.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\PhDefault.hpp"> </File>
 <File RelativePath="..\..\src\sim\physics\Physics.cpp"> </File>
 <File RelativePath="..\..\src\sim\physics\Physics.hpp"> </File>
@@ -379,6 +409,8 @@
 <File RelativePath="..\..\src\sim\react\CollisionAreaComponent.hpp"> </File>
 <File RelativePath="..\..\src\sim\react\CollisionComponent.cpp"> </File>
 <File RelativePath="..\..\src\sim\react\CollisionComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\react\CollisionComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\react\CollisionComponentFactory.hpp"> </File>
 <File RelativePath="..\..\src\sim\react\CollisionGrid.cpp"> </File>
 <File RelativePath="..\..\src\sim\react\CollisionGrid.hpp"> </File>
 <File RelativePath="..\..\src\sim\react\CollisionManager.cpp"> </File>
@@ -442,30 +474,10 @@
 <File RelativePath="..\..\src\sim\stat\HealthListener.hpp"> </File>
 <File RelativePath="..\..\src\sim\stat\HealthListeners.cpp"> </File>
 <File RelativePath="..\..\src\sim\stat\HealthListeners.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimComposite.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimComposite.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimNodeComponent.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimNodeComponent.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimObject.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimObject.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiSimObjectListener.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\MultiValue.hpp"> </File>
 <File RelativePath="..\..\src\sim\stat\Property.cpp"> </File>
 <File RelativePath="..\..\src\sim\stat\Property.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\ReportingMultiSimObject.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\ReportingMultiSimObject.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimComponentList.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimComponentList.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimObjectIterator.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimObjectIterator.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimObjectList.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SimObjectList.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SortedSimObjectList.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\SortedSimObjectList.hpp"> </File>
-<File RelativePath="..\..\src\sim\stat\VoidList.cpp"> </File>
-<File RelativePath="..\..\src\sim\stat\VoidList.hpp"> </File>
+<File RelativePath="..\..\src\sim\stat\PropertyHashTable.cpp"> </File>
+<File RelativePath="..\..\src\sim\stat\PropertyHashTable.hpp"> </File>
 <File RelativePath="..\..\src\sim\stat\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\stat\sim_stat.hpp"> </File>
 </Filter><Filter Name="thing" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\thing\Actor.cpp"> </File>
@@ -474,6 +486,19 @@
 <File RelativePath="..\..\src\sim\thing\ActorFactory.hpp"> </File>
 <File RelativePath="..\..\src\sim\thing\all.hpp"> </File>
 <File RelativePath="..\..\src\sim\thing\sim_thing.hpp"> </File>
+</Filter><Filter Name="zone" Filter="cpp;hpp"><File RelativePath="..\..\src\sim\zone\Exit.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\Exit.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneAreaComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneComponent.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneComponent.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneManager.cpp"> </File>
+<File RelativePath="..\..\src\sim\zone\ZoneManager.hpp"> </File>
+<File RelativePath="..\..\src\sim\zone\sim_zone.hpp"> </File>
 </Filter></Filter><Filter Name="util" Filter="cpp;hpp"><File RelativePath="..\..\src\util\all.hpp"> </File>
 <File RelativePath="..\..\src\util\util.hpp"> </File>
 <Filter Name="bounds" Filter="cpp;hpp"><File RelativePath="..\..\src\util\bounds\BoundingBox.cpp"> </File>
@@ -512,6 +537,7 @@
 </Filter><Filter Name="noise" Filter="cpp;hpp"><File RelativePath="..\..\src\util\noise\Perlin.cpp"> </File>
 <File RelativePath="..\..\src\util\noise\Perlin.hpp"> </File>
 <File RelativePath="..\..\src\util\noise\all.hpp"> </File>
+<File RelativePath="..\..\src\util\noise\util_noise.hpp"> </File>
 </Filter><Filter Name="system" Filter="cpp;hpp"><File RelativePath="..\..\src\util\system\PortableClock.cpp"> </File>
 <File RelativePath="..\..\src\util\system\PortableClock.hpp"> </File>
 <File RelativePath="..\..\src\util\system\RealClock.cpp"> </File>
@@ -523,6 +549,7 @@
 <File RelativePath="..\..\src\util\task\TaskList.cpp"> </File>
 <File RelativePath="..\..\src\util\task\TaskList.hpp"> </File>
 <File RelativePath="..\..\src\util\task\all.hpp"> </File>
+<File RelativePath="..\..\src\util\task\util_task.hpp"> </File>
 </Filter><Filter Name="template" Filter="cpp;hpp"><File RelativePath="..\..\src\util\template\HashTable.cpp"> </File>
 <File RelativePath="..\..\src\util\template\HashTable.hpp"> </File>
 <File RelativePath="..\..\src\util\template\SinglyLinkedList.hpp"> </File>

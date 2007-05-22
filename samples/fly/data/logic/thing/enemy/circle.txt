@@ -1,5 +1,5 @@
 XO02
-P enemy.circle
+A enemy.circle
 B -4 -4 -4 4 4 4
 P Simple
 C none

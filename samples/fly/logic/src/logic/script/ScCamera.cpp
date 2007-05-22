@@ -1,7 +1,7 @@
 #include "LogicPre.hpp"
 #include "ScCamera.hpp"
 #include "../action/all.hpp"
-
+#include "basic/action/PopScript.hpp"
 
 using namespace se_basic;
 using namespace se_core;

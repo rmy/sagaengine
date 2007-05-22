@@ -21,13 +21,15 @@ rune@skalden.com
 
 #include "PhSimple.hpp"
 #include "sim/area/Area.hpp"
+#include "util/noise/Perlin.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
 
 using namespace se_core;
 
 namespace logic {
 
 	void PhSimple
-	::calcNext(const Actor& actor
+	::calcNext(const se_core::PhysicsComponent& actor
 			, const Pos& pos
 			, Pos& nextPos
 			, const Move& move
@@ -117,7 +119,7 @@ namespace logic {
 
 
 	bool PhSimple
-	::isBlocked(const Actor& actor, const Pos& pos, const Pos& nextPos) const {
+	::isBlocked(const se_core::PhysicsComponent& actor, const Pos& pos, const Pos& nextPos) const {
 		short to = nextPos.terrainStyle();
 		if(to == se_core::Pos::TS_VOID) {
 			return true;

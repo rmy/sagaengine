@@ -292,6 +292,10 @@
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboard.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingBillboardFactory.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingDebug.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingDebug.hpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingDebugFactory.cpp"> </File>
+<File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingDebugFactory.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntity.cpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntity.hpp"> </File>
 <File RelativePath="..\..\..\..\add_on\ogre\src\o3d\thing\ThingEntityFactory.cpp"> </File>

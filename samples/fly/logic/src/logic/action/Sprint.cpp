@@ -21,7 +21,11 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "Sprint.hpp"
+#include "util/vecmath/Vector3.hpp"
 #include "../schema/LogicSchema.hpp"
+#include "sim/action/ActionComponent.hpp"
+#include "sim/pos/PosComponent.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
 
 using namespace se_core;
 

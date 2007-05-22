@@ -28,7 +28,7 @@ rune@skalden.com
 namespace logic {
 	class _FlyLogicExport PlayMusic : public se_core::Action {
 	public:
-		PlayMusic() : se_core::Action("player_fly") {}
+		PlayMusic() : se_core::Action("play_music") {}
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const { 
 			return 1;

@@ -22,6 +22,11 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "CoWitchPortal.hpp"
 #include "../action/Sprint.hpp"
+#include "sim/action/ActionComponent.hpp"
+#include "sim/pos/PosComponent.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/react/CollisionComponent.hpp"
+#include "sim/action/ActionComponent.hpp"
 
 using namespace se_core;
 
@@ -35,7 +40,7 @@ namespace logic {
 	bool CoWitchPortal
 	::collide(se_core::CollisionComponent& pusher
 			  , const se_core::CollisionComponent& target) const {
-		ActionComponent* pAction = ActionComponent::get(pusher);
+		ActionComponent::Ptr pAction(pusher);
 		pAction->planAction(CHANNEL_EXTRA, actionSprint);
 		return false;
 	}

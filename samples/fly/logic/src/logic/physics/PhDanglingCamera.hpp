@@ -23,6 +23,7 @@ rune@skalden.com
 #define logic_physics_PhDanglingCamera_hpp
 
 #include "LogicPre.hpp"
+#include "sim/physics/Physics.hpp"
 
 namespace logic {
 
@@ -30,14 +31,14 @@ namespace logic {
 	public:
 		PhDanglingCamera() : se_core::Physics("DanglingCamera") {}
 
-		void calcNext(const se_core::Actor& actor
+		void calcNext(const se_core::PhysicsComponent& actor
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos
 				, const se_core::Move& move
 				, se_core::Move& nextMove
 				) const;
 
-		void affect(se_core::Actor& actor) const {}
+		void affect(se_core::PhysicsComponent& actor) const {}
 
 	private:
 	};
