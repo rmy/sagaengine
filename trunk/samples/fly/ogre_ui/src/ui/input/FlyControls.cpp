@@ -23,7 +23,12 @@ rune@skalden.com
 #include "OgreUiPre.hpp"
 #include "logic/action/all.hpp"
 #include "logic/schema/LogicSchema.hpp"
-
+#include "sim/thing/Actor.hpp"
+#include "util/math/all.hpp"
+#include "sim/SimEngine.hpp"
+#include "o3d/RenderEngine.hpp"
+#include "client/thing/PlayerComponent.hpp"
+#include <OgreCamera.h>
 
 using namespace logic;
 using namespace se_client;
@@ -66,56 +71,56 @@ namespace ui {
 	}
 
 	void FlyControls
-	::keyPressed(Ogre::KeyEvent* e) {
+	::keyPressed(const OIS::KeyEvent* e) {
 		bool doDropStone = false;
-		switch(e->getKey()) {
-		case Ogre::KC_SPACE:
+		switch(e->key) {
+		case OIS::KC_SPACE:
 			doDropStone = true;
 			break;
 
-		case Ogre::KC_Z:
+		case OIS::KC_Z:
 			dirForward_ = 3;
 			break;
 
-		case Ogre::KC_X:
+		case OIS::KC_X:
 			dirBackward_ = .3;
 			break;
 
-		case Ogre::KC_UP:
-		case Ogre::KC_W:
+		case OIS::KC_UP:
+		case OIS::KC_W:
 			dirUp_ = 1;
 			break;
 
-		case Ogre::KC_DOWN:
-		case Ogre::KC_S:
+		case OIS::KC_DOWN:
+		case OIS::KC_S:
 			dirDown_ = 1;
 			break;
 
-		case Ogre::KC_LEFT:
-		case Ogre::KC_A:
+		case OIS::KC_LEFT:
+		case OIS::KC_A:
 			dirLeft_ = 1;
 			break;
 
-		case Ogre::KC_RIGHT:
-		case Ogre::KC_D:
+		case OIS::KC_RIGHT:
+		case OIS::KC_D:
 			dirRight_ = 1;
 			break;
 
-		case Ogre::KC_END:
-		case Ogre::KC_Q:
+		case OIS::KC_END:
+		case OIS::KC_Q:
 			dirRollLeft_ = 1;
 			break;
 
-		case Ogre::KC_PGDOWN:
-		case Ogre::KC_E:
+		case OIS::KC_PGDOWN:
+		case OIS::KC_E:
 			dirRollRight_ = 1;
 			break;
 
-		case Ogre::KC_ESCAPE:
+		case OIS::KC_ESCAPE:
 			SimSchema::simEngine.setGameOver(true);
 			break;
 
-		case Ogre::KC_INSERT:
+		case OIS::KC_INSERT:
 			{
 				static int shot = 0;
 				O3dSchema::renderEngine->screenshot(shot++);
@@ -135,46 +140,46 @@ namespace ui {
 
 
 	void FlyControls
-	::keyReleased(Ogre::KeyEvent* e) {
-		switch(e->getKey()) {
-		case Ogre::KC_UP:
-		case Ogre::KC_W:
+	::keyReleased(const OIS::KeyEvent* e) {
+		switch(e->key) {
+		case OIS::KC_UP:
+		case OIS::KC_W:
 			dirUp_ = 0;
 			break;
 
-		case Ogre::KC_LEFT:
-		case Ogre::KC_A:
+		case OIS::KC_LEFT:
+		case OIS::KC_A:
 			dirLeft_ = 0;
 			break;
 
-		case Ogre::KC_RIGHT:
-		case Ogre::KC_D:
+		case OIS::KC_RIGHT:
+		case OIS::KC_D:
 			dirRight_ = 0;
 			break;
 
-		case Ogre::KC_DOWN:
-		case Ogre::KC_S:
+		case OIS::KC_DOWN:
+		case OIS::KC_S:
 			dirDown_ = 0;
 			break;
 
-		case Ogre::KC_END:
-		case Ogre::KC_Q:
+		case OIS::KC_END:
+		case OIS::KC_Q:
 			dirRollLeft_ = 0;
 			break;
 
-		case Ogre::KC_PGDOWN:
-		case Ogre::KC_E:
+		case OIS::KC_PGDOWN:
+		case OIS::KC_E:
 			dirRollRight_ = 0;
 			break;
 
-		case Ogre::KC_SPACE:
+		case OIS::KC_SPACE:
 			break;
 
-		case Ogre::KC_Z:
+		case OIS::KC_Z:
 			dirForward_ = 1.2;
 			break;
 
-		case Ogre::KC_X:
+		case OIS::KC_X:
 			dirBackward_ = 1;
 			break;
 		}

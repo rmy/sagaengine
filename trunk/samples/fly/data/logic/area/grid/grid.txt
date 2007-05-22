@@ -8,4 +8,5 @@ T tile04 RBGY
 T tile05 GYGY
 T tile06 RBRB
 T tile07 GYRB
+G
 Q

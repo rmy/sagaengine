@@ -22,6 +22,9 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "LogicSchema.hpp"
 #include "../physics/all.hpp"
+#include "sim/InitListener.hpp"
+#include "sim/InitListeners.hpp"
+#include "util/error/Log.hpp"
 
 using namespace se_core;
 
@@ -34,12 +37,12 @@ namespace logic {
 	const struct _FlyLogicExport AutoInit : public se_core::InitListener {
 		AutoInit() {
 			SimSchema::initListeners().addListener(*this);
-			LogMsg("Registered Game Logic");
+			LogDetail("Registered Game Logic");
 		}
 
 
 		~AutoInit() {
-			LogMsg("Cleaned up Game Logic");
+			LogDetail("Cleaned up Game Logic");
 		}
 
 

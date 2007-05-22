@@ -21,6 +21,10 @@ rune@skalden.com
 
 #include "PhDanglingCamera.hpp"
 #include "sim/area/Area.hpp"
+#include "sim/action/ActionComponent.hpp"
+#include "sim/pos/PosComponent.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/spawn/SpawnComponent.hpp"
 
 using namespace se_client;
 using namespace se_core;
@@ -28,7 +32,7 @@ using namespace se_core;
 namespace logic {
 
 	void PhDanglingCamera
-	::calcNext(const Actor& actor
+	::calcNext(const PhysicsComponent& actor
 			   , const Pos& pos
 			   , Pos& nextPos
 			   , const Move& move

@@ -22,6 +22,7 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "PlayMusic.hpp"
 #include "../schema/LogicSchema.hpp"
+#include "sim/message/SoundCentral.hpp"
 
 using namespace se_core;
 

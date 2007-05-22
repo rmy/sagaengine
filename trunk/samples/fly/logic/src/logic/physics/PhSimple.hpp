@@ -23,6 +23,9 @@ rune@skalden.com
 #define logic_physics_PhSimple_hpp
 
 #include "LogicPre.hpp"
+#include "sim/physics/Physics.hpp"
+#include "sim/physics/Move.hpp"
+#include "sim/thing/Actor.hpp"
 
 namespace logic {
 
@@ -30,19 +33,19 @@ namespace logic {
 	public:
 		PhSimple() : se_core::Physics("Simple") {}
 
-		void calcNext(const se_core::Actor& actor
+		void calcNext(const se_core::PhysicsComponent& actor
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos
 				, const se_core::Move& move
 				, se_core::Move& nextMove
 				) const;
 
-		bool isBlocked(const se_core::Actor& actor
+		bool isBlocked(const se_core::PhysicsComponent& actor
 				, const se_core::Pos& pos
 				, const se_core::Pos& nextPos
 				) const;
 
-		void affect(se_core::Actor& actor) const {}
+		void affect(se_core::PhysicsComponent& actor) const {}
 
 	private:
 	};

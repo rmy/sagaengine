@@ -22,6 +22,8 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "Application.hpp"
 #include "logic/schema/LogicSchema.hpp"
+#include "io/stream/all.hpp"
+#include "sim/SimEngine.hpp"
 #include <game_ui.hpp>
 
 using namespace se_core;
@@ -30,15 +32,11 @@ using namespace ui;
 namespace logic {
 	Application
 	::Application() {
-		if(!initEngine()) {
-			LogFatal("Engine init failed");
-		}
 	}
 
 
 	Application
 	::~Application() {
-		cleanupEngine();
 	}
 
 
@@ -107,6 +105,11 @@ namespace logic {
 
 	void Application
 	::go() {
+		if(!initEngine()) {
+			LogWarning("Engine init failed");
+			return;
+		}
+
 		if(!initGame()) {
 			LogFatal("Initializing game failed");
 		}
@@ -115,6 +118,8 @@ namespace logic {
 		SimSchema::simEngine.go();
 
 		cleanupGame();
+
+		cleanupEngine();
 	}
 
 

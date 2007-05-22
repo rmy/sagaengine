@@ -23,6 +23,8 @@ rune@skalden.com
 #define ui_FlyControls_hpp
 
 #include "OgreUiPre.hpp"
+#include "o3d/input/InputHandler.hpp"
+#include "util/vecmath/ViewPoint.hpp"
 
 
 namespace ui {
@@ -33,8 +35,8 @@ namespace ui {
 		virtual ~FlyControls();
 
 		bool moveCamera(float stepDelta);
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
+		void keyPressed(const OIS::KeyEvent* e);
+		void keyReleased(const OIS::KeyEvent* e);
 
 	private:
 		inline float dirLR() { return dirRight_ - dirLeft_; }

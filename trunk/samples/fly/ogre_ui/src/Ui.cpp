@@ -22,6 +22,7 @@ rune@skalden.com
 #include "OgreUiPre.hpp"
 #include "../include/game_ui.hpp"
 #include "ui/input/FlyControls.hpp"
+#include "io/stream/FileManager.hpp"
 
 using namespace se_core;
 using namespace se_ogre;

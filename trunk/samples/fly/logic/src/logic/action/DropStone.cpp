@@ -21,7 +21,9 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "DropStone.hpp"
-#include "../schema/LogicSchema.hpp"
+#include "logic/schema/LogicSchema.hpp"
+#include "sim/action/ActionComponent.hpp"
+#include "sim/thing/Actor.hpp"
 
 using namespace se_core;
 
@@ -30,8 +32,8 @@ namespace logic {
 
 	void DropStone
 	::perform(long when, ActionComponent& perf, se_core::Parameter& parameter) const {
-		Actor& performer = *perf.toActor();
-		performer.sound("drop_stone");
+		Actor::Ptr performer(perf);
+		performer->sound("drop_stone");
 	}
 
 

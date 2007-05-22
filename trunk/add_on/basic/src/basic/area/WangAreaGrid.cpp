@@ -15,6 +15,7 @@ namespace se_basic {
 		areas_ = new Areas[ xSize_ * zSize_ ];
 		for(int i = 0; i < xSize_ * zSize_; ++i) {
 			areas_[ i ].area_ = 0;
+			areas_[ i ].definitionIndex_ = -2;
 		}
 		wangDefinitions_ = new WangDefinition[MAX_DEFINITIONS];
 		dict_ = new DictionaryEntry(DE_ZONE, name, true);

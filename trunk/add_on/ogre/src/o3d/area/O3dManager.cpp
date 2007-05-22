@@ -221,9 +221,14 @@ namespace se_ogre {
 			}
 		}
 		showDebugInfo(show);
-		Ogre::MaterialPtr m = Ogre::MaterialManager::getSingleton().getByName("Basic/NavMesh");
-		Ogre::CompareFunction cmp = show ? Ogre::CMPF_LESS_EQUAL : Ogre::CMPF_ALWAYS_FAIL;
-		m->setDepthFunction(cmp);
+		try {
+			Ogre::MaterialPtr m = Ogre::MaterialManager::getSingleton().getByName("Basic/NavMesh");
+			Ogre::CompareFunction cmp = show ? Ogre::CMPF_LESS_EQUAL : Ogre::CMPF_ALWAYS_FAIL;
+			if(!m.isNull())
+				m->setDepthFunction(cmp);
+		} catch(...) {
+			LogWarning("No navmesh material");
+		}
 	}
 
 

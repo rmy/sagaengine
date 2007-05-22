@@ -266,11 +266,23 @@
 <File RelativePath="..\..\src\basic\io\WangAreaGridParserModule.cpp"> </File>
 <File RelativePath="..\..\src\basic\io\WangAreaGridParserModule.hpp"> </File>
 <File RelativePath="..\..\src\basic\io\all.hpp"> </File>
+<File RelativePath="..\..\src\basic\io\basic_io.hpp"> </File>
+</Filter><Filter Name="navmesh" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\navmesh\NavMeshAreaComponent.cpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshAreaComponent.hpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshAreaComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshAreaComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshComponent.cpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshComponent.hpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshComponentFactory.cpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshComponentFactory.hpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshManager.cpp"> </File>
+<File RelativePath="..\..\src\basic\navmesh\NavMeshManager.hpp"> </File>
 </Filter><Filter Name="physics" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\physics\PhCirclingCamera.cpp"> </File>
 <File RelativePath="..\..\src\basic\physics\PhCirclingCamera.hpp"> </File>
 <File RelativePath="..\..\src\basic\physics\PhTrackingCamera.cpp"> </File>
 <File RelativePath="..\..\src\basic\physics\PhTrackingCamera.hpp"> </File>
 <File RelativePath="..\..\src\basic\physics\all.hpp"> </File>
+<File RelativePath="..\..\src\basic\physics\basic_physics.hpp"> </File>
 </Filter><Filter Name="schema" Filter="cpp;hpp"><File RelativePath="..\..\src\basic\schema\BasicSchema.cpp"> </File>
 <File RelativePath="..\..\src\basic\schema\BasicSchema.hpp"> </File>
 <File RelativePath="..\..\src\basic\schema\all.hpp"> </File>
@@ -281,6 +293,7 @@
 <File RelativePath="..\..\src\basic\thing\SimplePlayerFactory.cpp"> </File>
 <File RelativePath="..\..\src\basic\thing\SimplePlayerFactory.hpp"> </File>
 <File RelativePath="..\..\src\basic\thing\all.hpp"> </File>
+<File RelativePath="..\..\src\basic\thing\basic_thing.hpp"> </File>
 </Filter></Filter>
 		</Filter>
 	</Files>

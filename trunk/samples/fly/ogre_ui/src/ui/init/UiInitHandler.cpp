@@ -23,6 +23,8 @@ rune@skalden.com
 #include "UiInitHandler.hpp"
 #include "../schema/UiSchema.hpp"
 #include "../input/FlyControls.hpp"
+#include "sim/InitListener.hpp"
+#include "sim/InitListeners.hpp"
 
 
 using namespace se_core;

@@ -22,6 +22,8 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "RotateCamera.hpp"
 #include "../schema/LogicSchema.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/action/ActionComponent.hpp"
 
 using namespace se_core;
 
@@ -32,7 +34,7 @@ namespace logic {
 	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
 
-		PhysicsComponent* pPhysics = PhysicsComponent::get(performer);
+		PhysicsComponent::Ptr pPhysics(performer);
 		pPhysics->nextMove().torque_.set(p->torque_);
 	}
 

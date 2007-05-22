@@ -23,6 +23,7 @@ rune@skalden.com
 #define logic_physics_PhFly_hpp
 
 #include "LogicPre.hpp"
+#include "sim/physics/Physics.hpp"
 
 namespace logic {
 
@@ -30,19 +31,19 @@ namespace logic {
 	public:
 		PhFly() : se_core::Physics("Fly") {}
 
-		void calcNext(const se_core::Actor& actor
+		void calcNext(const se_core::PhysicsComponent& actor
 				, const se_core::Pos& pos
 				, se_core::Pos& nextPos
 				, const se_core::Move& move
 				, se_core::Move& nextMove
 				) const;
 
-		bool isBlocked(const se_core::Actor& actor
+		bool isBlocked(const se_core::PhysicsComponent& actor
 				, const se_core::Pos& pos
 				, const se_core::Pos& nextPos
 				) const;
 
-		void affect(se_core::Actor& actor) const {}
+		void affect(se_core::PhysicsComponent& actor) const {}
 
 	private:
 	};

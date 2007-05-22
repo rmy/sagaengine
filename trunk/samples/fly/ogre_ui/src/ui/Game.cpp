@@ -21,6 +21,10 @@ rune@skalden.com
 
 #include "OgreUiPre.hpp"
 #include "Game.hpp"
+#include "sim/SimEngine.hpp"
+#include "util/system/RealClock.hpp"
+#include "o3d/RenderEngine.hpp"
+#include "io/stream/FileManager.hpp"
 
 
 using namespace se_core;
