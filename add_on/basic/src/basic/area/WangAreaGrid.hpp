@@ -37,11 +37,15 @@ namespace se_basic {
 		const unsigned char getSide(int x, int z, int side) {
 			int def = getDefinition(x, z);
 			if(def == -2) return 0;
+			if(def == -3) return defaultBorder_;
 			if(def < 0) return '0';
 			Assert(side >= 0 && side < 4 && "Side must be between 0 and 3");
 			return wangDefinitions_[def].wang_[side];
 		}
 
+		void setDefaultBorder(unsigned char db) {
+			defaultBorder_ = db;
+		}
 		void generate(int seed);
 
 		void save(const char* filename);
@@ -61,6 +65,8 @@ namespace se_basic {
 		short xSize_, zSize_;
 		short id_;
 		se_core::DictionaryEntry* dict_;
+
+		unsigned char defaultBorder_;
 	};
 
 }

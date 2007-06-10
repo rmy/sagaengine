@@ -63,6 +63,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'B':
+				{
+					int c = in.readShort();
+					grid.setDefaultBorder(c);
+				}
+				break;
+
 			case 'G':
 				grid.generate(seed);
 				break;

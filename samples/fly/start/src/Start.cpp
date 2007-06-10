@@ -57,10 +57,10 @@ int main(int argc, char *argv[])
 	catch(std::logic_error& e) {
 		std::cerr << "Logic error: " << e.what() << std::endl;
 	}
+	/*
 	catch(std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-	/*
 	catch(...) {
 		std::cerr << "Unknown exception. Exiting" << std::endl;
 	}
