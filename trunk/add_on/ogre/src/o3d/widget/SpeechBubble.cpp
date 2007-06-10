@@ -46,8 +46,13 @@ namespace se_ogre {
 
 	bool SpeechBubble
 	::init() {
-		overlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/SpeechBubble");
-		caption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/SpeechBubbleText");
+		try {
+			overlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/SpeechBubble");
+			caption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/SpeechBubbleText");
+		}
+		catch(...) {
+			LogWarning("Failed setting upp speech bubble overlays.");
+		}
 
 		SimSchema::messageCentral.addListener(*this);
 		return true;

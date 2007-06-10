@@ -256,9 +256,14 @@ namespace se_ogre {
 				Ogre::Overlay* overlay = 0;
 				try {
 					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
-					overlay->show();
-					Ogre::Root::getSingleton().renderOneFrame();
-					overlay->hide();
+					if(overlay) {
+						overlay->show();
+						Ogre::Root::getSingleton().renderOneFrame();
+						overlay->hide();
+					}
+					else {
+						LogWarning("No loading overlay");
+					}
 				}
 				catch(...) {
 				}

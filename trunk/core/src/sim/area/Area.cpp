@@ -231,7 +231,7 @@ namespace se_core {
 	::isNeighbour(const Area& area) const {
 		Page rel;
 		zoneAreaComponent_->offset(*area.zoneAreaComponent_, rel);
-		return rel.isNeighbourOffset();
+		return rel.isNeighbourOffset() && (rel.x_ == 0 || rel.z_ == 0);
 	}
 
 

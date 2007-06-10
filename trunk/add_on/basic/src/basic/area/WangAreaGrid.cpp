@@ -10,7 +10,7 @@ namespace se_basic {
 
 	WangAreaGrid
 	::WangAreaGrid(int xSize, int zSize, const char* name) 
-			: xSize_(xSize), zSize_(zSize), definitionCount_(0) {
+			: xSize_(xSize), zSize_(zSize), definitionCount_(0), defaultBorder_('0') {
 
 		areas_ = new Areas[ xSize_ * zSize_ ];
 		for(int i = 0; i < xSize_ * zSize_; ++i) {

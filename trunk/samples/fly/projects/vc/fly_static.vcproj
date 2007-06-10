@@ -43,7 +43,7 @@
 				AdditionalOptions="/Zm150"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../../core/src;../../../../add_on/platform_pc/src;../../../../add_on/client/src;../../../../add_on/basic/src;../../../../add_on/ogre/src;../../ogre_ui/src;../../logic/src;../../start/src;../../../../dependencies/include/ogre;../../../../dependencies/include/ogre/opt;../../../../dependencies/include/ogre/CEGUI;../../../../dependencies/include/ogre/samples;../../../../../sf/dependencies/include/ois;$(OGRE_HOME)/include;$(OGRE_HOME)/include/opt;$(OGRE_HOME)/include/CEGUI;$(OGRE_HOME)/samples/include;../../../../core/include;../../../../core/src;../../../../add_on/platform_pc/include;../../../../add_on/platform_pc/src;../../../../add_on/client/include;../../../../add_on/client/src;../../../../add_on/basic/include;../../../../add_on/basic/src;../../../../add_on/ogre/include;../../../../add_on/ogre/src;../../ogre_ui/include;../../ogre_ui/src;../../logic/include;../../logic/src;../../start/src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;IS_OGRE;DEBUG_LEVEL_2;_CRT_SECURE_NO_DEPRECATE;_SeOgreExport=;_SeClientExport=;_SeBasicExport=;_SePcExport=;_SeCoreExport=;_FlyLogicExport=;_FlyUiExport=;SE_STATIC;NO_CEGUI;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
