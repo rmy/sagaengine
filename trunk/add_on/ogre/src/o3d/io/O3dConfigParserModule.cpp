@@ -68,6 +68,10 @@ namespace se_ogre {
 			case 'I': 
 				{ // Include
 					String file;
+					in.readString(file);
+					if(!IoSchema::fileManager->exists(file.get())) {
+						LogFatal("Included config file " << file.get() << " does not exist.");
+					}
 					IoSchema::fileManager->load(file.get());
 				}
 				break;
