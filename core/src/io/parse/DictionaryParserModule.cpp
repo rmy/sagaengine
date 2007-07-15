@@ -36,7 +36,7 @@ namespace se_core {
 
 
 	DictionaryParserModule
-	::DictionaryParserModule(Parser& parser)
+	::DictionaryParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::ENGINE, ParserModule::DICTIONARY, 1)  {
 	}
 

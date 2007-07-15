@@ -31,7 +31,7 @@ namespace se_basic {
 
 
 	SimpleAreaParserModule
-	::SimpleAreaParserModule(Parser& parser)
+	::SimpleAreaParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::GAME, ParserModule::AREA, 1)  {
 	}
 

@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_client {
 	class _SeClientExport LanguageParserModule : public se_core::ParserModule {
 	public:
-		LanguageParserModule(se_core::Parser& parser);
+		LanguageParserModule(se_core::ParseManager& parser);
 		void parse(se_core::InputStream& in);
 	private:
 	};

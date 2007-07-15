@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport CutsceneParserModule : public ParserModule {
 	public:
-		CutsceneParserModule(Parser& parser);
+		CutsceneParserModule(ParseManager& parser);
 		void parse(InputStream& in);
 		void readScript(InputStream& in, const char* cutsceneName, short trackerPosCount);
 		void readMultiQuest(InputStream& in, ObjectList& mgo);

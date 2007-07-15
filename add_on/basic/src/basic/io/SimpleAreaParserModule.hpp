@@ -29,7 +29,7 @@ namespace se_basic {
 
 	class _SeBasicExport SimpleAreaParserModule : public se_core::ParserModule {
 	public:
-		SimpleAreaParserModule(se_core::Parser& parser);
+		SimpleAreaParserModule(se_core::ParseManager& parser);
 		void parse(se_core::InputStream& in);
 
 	};

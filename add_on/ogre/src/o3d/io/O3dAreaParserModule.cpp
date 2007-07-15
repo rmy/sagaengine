@@ -39,7 +39,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	O3dAreaParserModule
-	::O3dAreaParserModule(Parser& parser)
+	::O3dAreaParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::OGRE, ParserModule::AREA, 1) {
 	}
 

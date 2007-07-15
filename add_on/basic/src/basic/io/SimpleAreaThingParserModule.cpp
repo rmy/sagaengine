@@ -14,7 +14,7 @@ using namespace se_core;
 
 namespace se_basic {
 	SimpleAreaThingParserModule
-	::SimpleAreaThingParserModule(Parser& parser)
+	::SimpleAreaThingParserModule(ParseManager& parser)
 			: ParserModule(parser, ParserModule::GAME, ParserModule::AREA_THINGS, 1)  {
 	}
 

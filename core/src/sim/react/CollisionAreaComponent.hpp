@@ -32,6 +32,7 @@ namespace se_core {
 	public:
 		CollisionComponent* cc1_;
 		CollisionComponent* cc2_;
+		ViewPoint vp1_, vp2_;
 	};
 
 

@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport DictionaryParserModule : public ParserModule {
 	public:
-		DictionaryParserModule(Parser& parser);
+		DictionaryParserModule(ParseManager& parser);
 		void parse(InputStream& in);
 	};
 

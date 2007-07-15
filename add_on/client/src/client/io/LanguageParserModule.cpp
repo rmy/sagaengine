@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_client {
 
 	LanguageParserModule
-	::LanguageParserModule(Parser& parser)
+	::LanguageParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::CLIENT, ParserModule::LANGUAGE, 1)  {
 	}
 

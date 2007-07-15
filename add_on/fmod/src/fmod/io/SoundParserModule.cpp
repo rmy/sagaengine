@@ -36,7 +36,7 @@ using namespace se_core;
 namespace se_fmod {
 
 	SoundParserModule
-	::SoundParserModule(Parser& parser)
+	::SoundParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::FMOD, ParserModule::LANGUAGE, 1)  {
 	}
 

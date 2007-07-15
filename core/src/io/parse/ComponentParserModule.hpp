@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport ComponentParserModule {
 	public:
-		ComponentParserModule(Parser &parser, int type, int subtype);
+		ComponentParserModule(ParseManager &parser, int type, int subtype);
 		virtual ~ComponentParserModule() {}
 		int type() { return type_; }
 		int subtype() { return subType_; }

@@ -242,6 +242,8 @@ namespace se_core {
 						}
 						list[ count ].cc1_ = cc;
 						list[ count ].cc2_ = &cc2;
+						list[ count ].vp1_.setViewPoint(cc->posComponent().nextPos().world_);
+						list[ count ].vp2_.setViewPoint(cc2.posComponent().nextPos().world_);
 						++count;
 					}
 				}

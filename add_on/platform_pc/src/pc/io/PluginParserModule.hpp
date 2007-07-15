@@ -30,7 +30,7 @@ rune@skalden.com
 namespace se_pc {
 	class _SePcExport PluginParserModule  : public se_core::ParserModule {
 	public:
-		PluginParserModule(se_core::Parser& parser);
+		PluginParserModule(se_core::ParseManager& parser);
 		virtual ~PluginParserModule();
 		void parse(se_core::InputStream& in);
 	};

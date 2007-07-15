@@ -18,7 +18,7 @@ namespace se_basic {
 
 
 	SimpleActorParserModule
-	::SimpleActorParserModule(Parser& parser)
+	::SimpleActorParserModule(ParseManager& parser)
 			: ParserModule(parser, ParserModule::GAME, ParserModule::THING, 2)  {
 	}
 

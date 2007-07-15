@@ -41,7 +41,7 @@ namespace se_core {
 
 
 	CutsceneParserModule
-	::CutsceneParserModule(Parser& parser)
+	::CutsceneParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::ENGINE, ParserModule::CUTSCENE, 1)  {
 	}
 

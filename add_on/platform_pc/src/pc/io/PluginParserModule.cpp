@@ -28,7 +28,7 @@ using namespace se_core;
 
 namespace se_pc {
 	PluginParserModule
-	::PluginParserModule(Parser& parser)
+	::PluginParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::ENGINE, ParserModule::PLUGIN, 1)  {
 	}
 
