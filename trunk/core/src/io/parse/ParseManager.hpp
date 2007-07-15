@@ -30,10 +30,10 @@ rune@skalden.com
 
 namespace se_core {
 
-	class _SeCoreExport Parser {
+	class _SeCoreExport ParseManager {
 	public:
-		Parser();
-		~Parser();
+		ParseManager();
+		~ParseManager();
 		void add(ParserModule *module);
 		void add(ComponentParserModule *module);
 		bool parse(InputStream& in);

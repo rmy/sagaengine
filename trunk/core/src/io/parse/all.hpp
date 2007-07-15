@@ -5,8 +5,9 @@
 #include "CutsceneParserModule.hpp"
 #include "DictionaryParserModule.hpp"
 #include "EmbeddedParserModule.hpp"
+#include "CompositeParserModule.hpp"
 #include "io_parse.hpp"
-#include "Parser.hpp"
+#include "ParseManager.hpp"
 #include "ParserModule.hpp"
 
 #endif

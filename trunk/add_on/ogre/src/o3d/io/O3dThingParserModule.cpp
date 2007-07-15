@@ -48,7 +48,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	O3dThingParserModule
-	::O3dThingParserModule(Parser& parser)
+	::O3dThingParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::OGRE, ParserModule::THING, 1) {
 	}
 

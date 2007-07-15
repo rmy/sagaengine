@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_ogre {
 	class _SeOgreExport O3dThingParserModule  : public se_core::ParserModule {
 	public:
-		O3dThingParserModule(se_core::Parser& parser);
+		O3dThingParserModule(se_core::ParseManager& parser);
 		void parse(se_core::InputStream& in);
 		void parseThingInfo(se_core::InputStream& in, ThingMOInfo* info_);
 	private:

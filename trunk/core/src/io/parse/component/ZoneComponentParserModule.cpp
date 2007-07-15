@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "ZoneComponentParserModule.hpp"
 #include "sim/schema/SimSchema.hpp"
-#include "io/parse/Parser.hpp"
+#include "io/parse/ParseManager.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "util/error/Log.hpp"
 #include "sim/config/sim_config.hpp"

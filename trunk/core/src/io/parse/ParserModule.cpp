@@ -21,10 +21,10 @@ rune@skalden.com
 
 #include <cstdio>
 #include "ParserModule.hpp"
-#include "Parser.hpp"
+#include "ParseManager.hpp"
 
 namespace se_core {
-	ParserModule::ParserModule(Parser &parser,
+	ParserModule::ParserModule(ParseManager &parser,
 							   unsigned char group,
 							   unsigned char code,
 							   int version)

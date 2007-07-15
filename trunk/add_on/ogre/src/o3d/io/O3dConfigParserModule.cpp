@@ -45,7 +45,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	O3dConfigParserModule
-	::O3dConfigParserModule(Parser& parser)
+	::O3dConfigParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::OGRE, ParserModule::CONFIG, 1) {
 	}
 

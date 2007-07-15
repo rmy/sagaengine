@@ -8,7 +8,7 @@ namespace se_basic {
 
 	class _SeBasicExport WangAreaGridParserModule : public se_core::ParserModule {
 	public:
-		WangAreaGridParserModule(se_core::Parser& parser);
+		WangAreaGridParserModule(se_core::ParseManager& parser);
 		void parse(se_core::InputStream& in);
 	};
 

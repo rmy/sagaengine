@@ -28,7 +28,7 @@ namespace se_basic {
 
 	class _SeBasicExport SimpleActorParserModule : public se_core::ParserModule {
 	public:
-		SimpleActorParserModule(se_core::Parser& parser);
+		SimpleActorParserModule(se_core::ParseManager& parser);
 		void parse(se_core::InputStream& in);
 		void readMultiCutscene(se_core::InputStream& in, se_core::ObjectList& mgo);
 		void readMultiQuest(se_core::InputStream& in, se_core::ObjectList& mgo);

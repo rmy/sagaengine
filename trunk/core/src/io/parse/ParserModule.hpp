@@ -63,7 +63,7 @@ namespace se_core {
 			, PHYSX = 'P'
 		};
 
-		ParserModule(Parser &parser, unsigned char group, unsigned char code, int version);
+		ParserModule(ParseManager &parser, unsigned char group, unsigned char code, int version);
 		virtual ~ParserModule() {}
 		int headerCode();
 		const char* headerCodeString();

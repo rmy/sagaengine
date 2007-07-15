@@ -23,7 +23,7 @@ rune@skalden.com
 #define io_parse_hpp
 
 namespace se_core {
-	class Parser;
+	class ParseManager;
 	class ParserModule;
 	class ComponentParserModule;
 	class DictionaryParserModule;

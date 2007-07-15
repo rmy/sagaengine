@@ -45,7 +45,7 @@ using namespace se_core;
 namespace se_client {
 
 	PlayerParserModule
-	::PlayerParserModule(Parser& parser)
+	::PlayerParserModule(ParseManager& parser)
 			: ParserModule(parser, ParserModule::ENGINE, ParserModule::PLAYER, 1) {
 	}
 

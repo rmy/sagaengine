@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "Parser.hpp"
+#include "ParseManager.hpp"
 #include "ParserModule.hpp"
 #include "ComponentParserModule.hpp"
 #include "util/error/Log.hpp"
@@ -28,18 +28,18 @@ rune@skalden.com
 
 namespace se_core {
 
-	Parser
-	::Parser()
+	ParseManager
+	::ParseManager()
 		: moduleCount_(0), componentModuleCount_(0) {
 	}
 
 
-	Parser
-	::~Parser() {
+	ParseManager
+	::~ParseManager() {
 	}
 
 
-	void Parser
+	void ParseManager
 	::add(ParserModule *module) {
 		LogDetail("Added file parser for header code: " << module->headerCodeString());
 		for(int i = 0; i < moduleCount_; ++i) {
@@ -51,7 +51,7 @@ namespace se_core {
 		modules_[ moduleCount_++ ] = module;
 	}
 
-	void Parser
+	void ParseManager
 	::add(ComponentParserModule *module) {
 		LogDetail("Added file component parser for type code: " << module->type() << ", " << module->subtype());
 		for(int i = 0; i < componentModuleCount_; ++i) {
@@ -64,7 +64,7 @@ namespace se_core {
 		componentModules_[ componentModuleCount_++ ] = module;
 	}
 
-	bool Parser
+	bool ParseManager
 	::parse(InputStream& in) {
 		LogDetail("Loading file: " << in.name());
 
@@ -80,7 +80,7 @@ namespace se_core {
 		return false;
 	}
 
-	ComponentFactory* Parser
+	ComponentFactory* ParseManager
 	::parseComponent(InputStream& in, int type, int subtype) {
 		LogDetail("Loading component type " << type << ", " << subtype << " for " << in.name());
 

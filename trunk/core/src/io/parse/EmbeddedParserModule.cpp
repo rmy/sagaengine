@@ -35,7 +35,7 @@ namespace se_core {
 
 
 	EmbeddedParserModule
-	::EmbeddedParserModule(Parser& parser)
+	::EmbeddedParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::ENGINE, ParserModule::EMBEDDED, 1)  {
 	}
 

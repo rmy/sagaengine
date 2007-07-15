@@ -35,7 +35,7 @@ rune@skalden.com
 namespace se_client {
 	class _SeClientExport PlayerParserModule : public se_core::ParserModule {
 	public:
-		PlayerParserModule(se_core::Parser& parser);
+		PlayerParserModule(se_core::ParseManager& parser);
 		virtual ~PlayerParserModule();
 		void parse(se_core::InputStream& in);
 

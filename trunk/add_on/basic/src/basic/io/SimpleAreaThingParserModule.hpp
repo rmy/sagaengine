@@ -7,7 +7,7 @@
 namespace se_basic {
 	class _SeBasicExport SimpleAreaThingParserModule  : public se_core::ParserModule {
 	public:
-		SimpleAreaThingParserModule(se_core::Parser& parser);
+		SimpleAreaThingParserModule(se_core::ParseManager& parser);
 		virtual ~SimpleAreaThingParserModule();
 		void parse(se_core::InputStream& in);
 

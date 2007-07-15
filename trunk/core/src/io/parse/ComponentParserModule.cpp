@@ -21,10 +21,10 @@ rune@skalden.com
 
 #include <cstdio>
 #include "ComponentParserModule.hpp"
-#include "Parser.hpp"
+#include "ParseManager.hpp"
 
 namespace se_core {
-	ComponentParserModule::ComponentParserModule(Parser &parser, int type, int subtype)
+	ComponentParserModule::ComponentParserModule(ParseManager &parser, int type, int subtype)
 		: type_(type), subType_(subtype) {
 		parser.add(this);
 	}

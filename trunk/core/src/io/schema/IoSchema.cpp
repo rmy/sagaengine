@@ -27,8 +27,8 @@ rune@skalden.com
 
 namespace se_core {
 	namespace IoSchema {
-		Parser& parser() {
-			static Parser parser;
+		ParseManager& parser() {
+			static ParseManager parser;
 			return parser;
 		}
 
@@ -56,6 +56,7 @@ namespace se_core {
 			static CutsceneParserModule cpm(IoSchema::parser());
 			static DictionaryParserModule dpm(IoSchema::parser());
 			static EmbeddedParserModule epm(IoSchema::parser());
+			static CompositeParserModule cspm(IoSchema::parser());
 
 			// Return success
 			return true;

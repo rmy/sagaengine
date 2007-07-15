@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef IoSchema_hpp
 #define IoSchema_hpp
 
-#include "../parse/Parser.hpp"
+#include "../parse/ParseManager.hpp"
 #include "../encode/io_encode.hpp"
 #include "../stream/io_stream.hpp"
 
@@ -31,7 +31,7 @@ namespace se_core {
 	 * Global objects and methods for the core io system.
 	 */
 	namespace IoSchema {
-		extern _SeCoreExport Parser& parser();
+		extern _SeCoreExport ParseManager& parser();
 		extern _SeCoreExport Encoder& encoder();
 		extern _SeCoreExport FileManager* fileManager;
 

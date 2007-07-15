@@ -10,7 +10,7 @@ using namespace se_core;
 namespace se_basic {
 
 	NavMeshAreaParserModule
-	::NavMeshAreaParserModule(Parser& parser)
+	::NavMeshAreaParserModule(ParseManager& parser)
 		: ParserModule(parser, ParserModule::BASIC, ParserModule::AREA, 2) {
 	}
 

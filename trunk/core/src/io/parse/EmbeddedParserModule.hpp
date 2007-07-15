@@ -31,7 +31,7 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport EmbeddedParserModule : public ParserModule {
 	public:
-		EmbeddedParserModule(Parser& parser);
+		EmbeddedParserModule(ParseManager& parser);
 		void parse(InputStream& in);
 	};
 
