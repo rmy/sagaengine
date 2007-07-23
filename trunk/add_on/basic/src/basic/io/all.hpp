@@ -1,11 +1,11 @@
 #ifndef basic_io_all_hpp
 #define basic_io_all_hpp
 
-#include "SimpleAreaParserModule.hpp"
-#include "SimpleActorParserModule.hpp"
-#include "WangAreaGridParserModule.hpp"
-#include "NavMeshAreaParserModule.hpp"
-#include "SimpleAreaThingParserModule.hpp"
-#include "SimpleAreaThingEncoderModule.hpp"
+#include "SimpleAreaParser.hpp"
+#include "SimpleActorParser.hpp"
+#include "WangAreaGridParser.hpp"
+#include "NavMeshAreaParser.hpp"
+#include "SimpleAreaThingParser.hpp"
+#include "SimpleAreaThingEncoder.hpp"
 
 #endif

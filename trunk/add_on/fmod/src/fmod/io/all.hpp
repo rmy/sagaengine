@@ -22,6 +22,6 @@ rune@skalden.com
 #ifndef fmod_io_all_hpp
 #define fmod_io_all_hpp
 
-#include "SoundParserModule.hpp"
+#include "SoundParser.hpp"
 
 #endif

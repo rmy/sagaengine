@@ -23,7 +23,7 @@ rune@skalden.com
 #define fmod_io_hpp
 
 namespace se_fmod {
-	class SoundParserModule;
+	class SoundParser;
 }
 
 #endif

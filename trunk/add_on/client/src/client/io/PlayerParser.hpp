@@ -19,33 +19,28 @@ rune@skalden.com
 */
 
 
-#ifndef ParserManager_hpp
-#define ParserManager_hpp
+#ifndef client_io_PlayerParser_hpp
+#define client_io_PlayerParser_hpp
 
-#include "../stream/InputStream.hpp"
+#include "io/parse/Parser.hpp"
+#include "io/stream/io_stream.hpp"
+#include "../thing/client_thing.hpp"
+#include "sim/area/sim_area.hpp"
+#include "sim/stat/sim_stat.hpp"
+#include "sim/pos/sim_pos.hpp"
 #include "sim/sim.hpp"
-#include "comp/comp.hpp"
-#include "io_parse.hpp"
+#include "sim/thing/sim_thing.hpp"
 
 
-namespace se_core {
-
-	class _SeCoreExport ParseManager {
+namespace se_client {
+	class _SeClientExport PlayerParser : public se_core::Parser {
 	public:
-		ParseManager();
-		~ParseManager();
-		void add(Parser *module);
-		void add(ComponentParser *module);
-		bool parse(InputStream& in);
-		ComponentFactory* parseComponent(InputStream& in, int type, int subtype);
+		PlayerParser(se_core::ParseManager& parser);
+		virtual ~PlayerParser();
+		void parse(se_core::InputStream& in);
 
 	private:
-		static const int MAX_ELEMENTS = 48;
-		static const int MAX_COMPONENT_ELEMENTS = 48;
-		int moduleCount_;
-		int componentModuleCount_;
-		Parser* modules_[ MAX_ELEMENTS ];
-		ComponentParser* componentModules_[ MAX_COMPONENT_ELEMENTS ];
+		void readInfo(se_core::InputStream& in, se_core::PosComponent* pos, CameraComponent* camera) const;
 	};
 
 }

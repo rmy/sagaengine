@@ -23,12 +23,12 @@ rune@skalden.com
 #define basic_io_hpp
 
 namespace se_basic {
-	class NavMeshAreaParserModule;
-	class SimpleActorParserModule;
-	class SimpleAreaParserModule;
-	class SimpleAreaThineParserModule;
+	class NavMeshAreaParser;
+	class SimpleActorParser;
+	class SimpleAreaParser;
+	class SimpleAreaThineParser;
 	class SimpleAreaThingEncoderModule;
-	class WangAreaGridParserModule;
+	class WangAreaGridParser;
 }
 
 #endif

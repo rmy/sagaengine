@@ -20,8 +20,8 @@ rune@skalden.com
 
 
 #include "ParseManager.hpp"
-#include "ParserModule.hpp"
-#include "ComponentParserModule.hpp"
+#include "Parser.hpp"
+#include "component/ComponentParser.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
 
@@ -40,7 +40,7 @@ namespace se_core {
 
 
 	void ParseManager
-	::add(ParserModule *module) {
+	::add(Parser *module) {
 		LogDetail("Added file parser for header code: " << module->headerCodeString());
 		for(int i = 0; i < moduleCount_; ++i) {
 			if(module->headerCode() == modules_[ i ]->headerCode()) {
@@ -52,7 +52,7 @@ namespace se_core {
 	}
 
 	void ParseManager
-	::add(ComponentParserModule *module) {
+	::add(ComponentParser *module) {
 		LogDetail("Added file component parser for type code: " << module->type() << ", " << module->subtype());
 		for(int i = 0; i < componentModuleCount_; ++i) {
 			if(module->type() == componentModules_[ i ]->type()

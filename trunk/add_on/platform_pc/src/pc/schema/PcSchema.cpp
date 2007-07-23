@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "PcSchema.hpp"
-#include "../io/PluginParserModule.hpp"
+#include "../io/PluginParser.hpp"
 #include "../io/PcFileManager.hpp"
 #include "sim/InitListener.hpp"
 #include "sim/InitListeners.hpp"
@@ -67,7 +67,7 @@ namespace se_pc {
 
 			bool initEngineEvent() {
 				// Register some file loaders
-				static PluginParserModule pluginParserModule(se_core::IoSchema::parser());
+				static PluginParser pluginParser(se_core::IoSchema::parser());
 				return true;
 			}
 

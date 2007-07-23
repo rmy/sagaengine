@@ -19,15 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef PluginParser_hpp
+#define PluginParser_hpp
 
-namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+#include "io/stream/io_stream.hpp"
+#include "sim/area/sim_area.hpp"
+#include "sim/stat/sim_stat.hpp"
+#include "io/parse/Parser.hpp"
+
+namespace se_pc {
+	class _SePcExport PluginParser  : public se_core::Parser {
+	public:
+		PluginParser(se_core::ParseManager& parser);
+		virtual ~PluginParser();
+		void parse(se_core::InputStream& in);
+	};
 }
 
 #endif

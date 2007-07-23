@@ -19,15 +19,25 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef o3d_io_O3dConfigParser_hpp
+#define o3d_io_O3dConfigParser_hpp
 
-namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+#include "io/parse/Parser.hpp"
+#include "io/stream/io_stream.hpp"
+
+namespace se_ogre {
+	class _SeOgreExport O3dConfigParser  : public se_core::Parser {
+	public:
+		O3dConfigParser(se_core::ParseManager& parser);
+		void parse(se_core::InputStream& in);
+
+	private:
+		void chooseSceneManager(const char* sceneManager);
+		void createCamera(float near, float far, float fovy);
+		void createViewports(void);
+		void readLight(se_core::InputStream& in);
+		void readResources(se_core::InputStream& in);
+	};
 }
 
 #endif

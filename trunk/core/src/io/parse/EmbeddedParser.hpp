@@ -19,15 +19,22 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef EmbeddedParser_hpp
+#define EmbeddedParser_hpp
+
+#include "Parser.hpp"
+#include "../stream/io_stream.hpp"
+#include "../../sim/script/sim_script.hpp"
+#include "../../sim/stat/sim_stat.hpp"
+#include "../../sim/thing/sim_thing.hpp"
 
 namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+	class _SeCoreExport EmbeddedParser : public Parser {
+	public:
+		EmbeddedParser(ParseManager& parser);
+		void parse(InputStream& in);
+	};
+
 }
 
 #endif

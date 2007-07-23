@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "Encoder.hpp"
 #include "EncoderModule.hpp"
-#include "../parse/ParserModule.hpp"
+#include "../parse/Parser.hpp"
 #include "../../sim/thing/Actor.hpp"
 #include "../stream/io_stream.hpp"
 #include "../stream/OutputStream.hpp"
@@ -31,7 +31,7 @@ namespace se_core {
 
 	Encoder
 	::Encoder()
-		: EncoderModule(ParserModule::ENGINE, ParserModule::EMBEDDED, 1), moduleCount_(0), lastModule_(0) {
+		: EncoderModule(Parser::ENGINE, Parser::EMBEDDED, 1), moduleCount_(0), lastModule_(0) {
 	}
 
 
