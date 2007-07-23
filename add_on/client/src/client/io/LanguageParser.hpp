@@ -19,15 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef LanguageParser_hpp
+#define LanguageParser_hpp
 
-namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+#include "io/parse/Parser.hpp"
+#include "io/stream/io_stream.hpp"
+
+namespace se_client {
+	class _SeClientExport LanguageParser : public se_core::Parser {
+	public:
+		LanguageParser(se_core::ParseManager& parser);
+		void parse(se_core::InputStream& in);
+	private:
+	};
+
 }
 
 #endif

@@ -85,9 +85,9 @@ namespace se_ogre {
 		struct _SeOgreExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				// Auto create and register instance of this parsers
-				static O3dThingParserModule o3dThingPM(se_core::IoSchema::parser());
-				static O3dConfigParserModule o3dConfigPM(se_core::IoSchema::parser());
-				static O3dAreaParserModule o3dAreaPM(se_core::IoSchema::parser());
+				static O3dThingParser o3dThingPM(se_core::IoSchema::parser());
+				static O3dConfigParser o3dConfigPM(se_core::IoSchema::parser());
+				static O3dAreaParser o3dAreaPM(se_core::IoSchema::parser());
 				static O3dAreaComponentFactory o3dAreaCF;
 
 				SimSchema::initListeners().addListener(*this);

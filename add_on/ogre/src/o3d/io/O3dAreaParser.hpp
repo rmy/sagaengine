@@ -19,15 +19,20 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef o3d_io_O3dAreaParser_hpp
+#define o3d_io_O3dAreaParser_hpp
 
-namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+#include "io/parse/Parser.hpp"
+#include "io/stream/io_stream.hpp"
+
+namespace se_ogre {
+	class _SeOgreExport O3dAreaParser  : public se_core::Parser {
+	public:
+		O3dAreaParser(se_core::ParseManager& parser);
+		void parse(se_core::InputStream& in);
+
+	private:
+	};
 }
 
 #endif

@@ -49,7 +49,7 @@ namespace se_fmod {
 
 
 				// Register some file loaders
-				static SoundParserModule soundParserModule(se_core::IoSchema::parser());
+				static SoundParser soundParser(se_core::IoSchema::parser());
 				
 				SimSchema::initListeners().addListener(*this);
 				LogDetail("Registered Fmod add-on");

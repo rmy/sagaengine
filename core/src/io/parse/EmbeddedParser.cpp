@@ -19,15 +19,32 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#include "EmbeddedParser.hpp"
+#include "../stream/InputStream.hpp"
+#include "../schema/IoSchema.hpp"
+#include "sim/sim.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/config/sim_config.hpp"
+#include "util/type/String.hpp"
+#include "util/error/Log.hpp"
+#include <cstring>
+#include <cstdio>
+
 
 namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
-}
 
-#endif
+
+	EmbeddedParser
+	::EmbeddedParser(ParseManager& parser)
+		: Parser(parser, Parser::ENGINE, Parser::EMBEDDED, 1)  {
+	}
+
+
+	void EmbeddedParser
+	::parse(InputStream& in) {
+		while(!in.eof()) {
+			IoSchema::parser().parse(in);
+		}
+	}
+
+}

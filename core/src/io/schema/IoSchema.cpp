@@ -53,10 +53,10 @@ namespace se_core {
 			encoder();
 
 			// Create a few file parsers
-			static CutsceneParserModule cpm(IoSchema::parser());
-			static DictionaryParserModule dpm(IoSchema::parser());
-			static EmbeddedParserModule epm(IoSchema::parser());
-			static CompositeParserModule cspm(IoSchema::parser());
+			static CutsceneParser cpm(IoSchema::parser());
+			static DictionaryParser dpm(IoSchema::parser());
+			static EmbeddedParser epm(IoSchema::parser());
+			static CompositeParser cspm(IoSchema::parser());
 
 			// Return success
 			return true;

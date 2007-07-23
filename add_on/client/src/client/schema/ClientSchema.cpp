@@ -53,9 +53,9 @@ namespace se_client {
 		const struct _SeClientExport AutoInit : public se_core::InitListener {
 			AutoInit() {
 				// Register some file loaders
-				static PlayerParserModule playerParserModule(se_core::IoSchema::parser());
+				static PlayerParser playerParser(se_core::IoSchema::parser());
 				static PlayerEncoderModule playerEncoderModule(se_core::IoSchema::encoder());
-				static LanguageParserModule languageParserModule(se_core::IoSchema::parser());
+				static LanguageParser languageParser(se_core::IoSchema::parser());
 
 				// Client event bridge should listen to init events.
 				SimSchema::initListeners().addListener(*this);

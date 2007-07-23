@@ -19,15 +19,21 @@ rune@skalden.com
 */
 
 
-#ifndef io_parse_hpp
-#define io_parse_hpp
+#ifndef SoundParser_hpp
+#define SoundParser_hpp
 
-namespace se_core {
-	class ParseManager;
-	class Parser;
-	class ComponentParser;
-	class DictionaryParser;
-	class EmbeddedParser;
+#include "io/parse/Parser.hpp"
+#include "io/stream/io_stream.hpp"
+
+
+namespace se_fmod {
+	class SoundParser : public se_core::Parser {
+	public:
+		SoundParser(se_core::ParseManager& parser);
+		void parse(se_core::InputStream& in);
+	private:
+	};
+
 }
 
 #endif

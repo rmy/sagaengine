@@ -23,7 +23,7 @@ rune@skalden.com
 #define client_io_client_io_hpp
 
 namespace se_client {
-	class LanguageParserModule;
+	class LanguageParser;
 
 }
 
