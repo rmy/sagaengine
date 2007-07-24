@@ -19,13 +19,21 @@ rune@skalden.com
 */
 
 
-namespace se_core {
-	class ThingCollide;
-	class DefaultTC;
-	class CollisionGrid;
-	class CollisionAreaComponent;
-	class CollisionComponent;
+#ifndef sim_react_ContactInfo_hpp
+#define sim_react_ContactInfo_hpp
 
-	struct ContactInfo;
-	class Contact;
+#include "CollisionComponent.hpp"
+#include "util/vecmath/ViewPoint.hpp"
+
+
+namespace se_core {
+	struct _SeCoreExport ContactInfo {
+		CollisionComponent* cc_;
+		ViewPoint vp_;
+	};
+
 }
+
+
+#endif
+

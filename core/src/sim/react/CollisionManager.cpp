@@ -114,8 +114,8 @@ namespace se_core {
 	::resolveContacts() {
 		for(int i = 0; i < contactCount_; ++i) {
 			Contact& c = contactList_[i];
-			c.cc1_->pushThing(*c.cc2_);
-			c.cc2_->pushThing(*c.cc1_);
+			c.ci1_.cc_->pushThing(c.ci1_, c.ci2_);
+			c.ci2_.cc_->pushThing(c.ci2_, c.ci1_);
 		}
 	}
 

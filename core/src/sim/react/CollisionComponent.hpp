@@ -33,6 +33,7 @@ rune@skalden.com
 #include "../stat/sim_stat.hpp"
 #include "../thing/sim_thing.hpp"
 #include "../pos/PosComponent.hpp"
+#include "ContactInfo.hpp"
 
 namespace se_core {
 	class _SeCoreExport CollisionComponent : public AreaChildComponent {
@@ -41,24 +42,8 @@ namespace se_core {
 
 		/** Constructor.
 		 */
-		//CollisionComponent(Composite* owner, PosComponent* posComponent);
 		CollisionComponent(Composite* owner, const ComponentFactory* factory);
 		~CollisionComponent();
-
-		static CollisionComponent* get(Composite& composite) {
-			CollisionComponent* c = static_cast<CollisionComponent*>(composite.component(se_core::sct_COLLISION));
-			return c;
-		}
-
-		static const CollisionComponent* get(const Composite& composite) {
-			const CollisionComponent* c = static_cast<const CollisionComponent*>(composite.component(se_core::sct_COLLISION));
-			return c;
-		}
-
-		static CollisionComponent* get(Component& component) {
-			CollisionComponent* c = static_cast<CollisionComponent*>(component.owner()->component(se_core::sct_COLLISION));
-			return c;
-		}
 
 		int tag() const;
 		bool shouldIgnore(const CollisionComponent& cc) const;
@@ -96,15 +81,17 @@ namespace se_core {
 			collide_ = collide; 
 		}
 
-		inline bool pushThing(CollisionComponent& pushedThing) {
+
+		inline bool pushThing(ContactInfo& pusher, ContactInfo& target) {
 			if(!collide_)
 				return false;
 
-			if(!pushedThing.isCollideable())
+			if(!target.cc_->isCollideable())
 				return false;
 
-			return collide_->collide(*this, pushedThing);
+			return collide_->collide(*this, *target.cc_);
 		}
+
 
 		bool isPusher() const {
 			return collide_ != 0;

@@ -120,7 +120,7 @@ namespace se_ogre {
 			}
 			else {
 				this->setPriority(5);
-				this->setWeight(1);
+				this->setWeight(2);
 			}
 			O3dSchema::taskList.add(*this);
 		}

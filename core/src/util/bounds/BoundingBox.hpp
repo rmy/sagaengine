@@ -109,6 +109,20 @@ namespace se_core {
 		}
 
 
+		bool isTouching(const Point3& p, coor_t epsilon) const {
+			return (p.x_ >= minX_ - epsilon && p.x_ <= maxX_ + epsilon
+					&& p.y_ >= minY_ - epsilon && p.y_ <= maxY_ + epsilon
+					&& p.z_ >= minZ_ - epsilon && p.z_ <= maxZ_ + epsilon);
+		}
+
+
+
+		bool isTouchingXZ(const Point3& p) const {
+			return (p.x_ >= minX_ && p.x_ <= maxX_
+					&& p.z_ >= minZ_ && p.z_ <= maxZ_);
+		}
+
+
 		bool hasInside(const Point3& offset, const Point3& p) const {
 			return (p.x_ >= offset.x_ + minX_ && p.x_ < offset.x_ + maxX_
 					&& p.y_ >= offset.y_ + minY_ && p.y_ < offset.y_ + maxY_
