@@ -238,6 +238,7 @@ namespace se_core {
 	bool Area
 	::addNeighbour(Area* area) {
 		if(isNeighbour(*area)) {
+			AssertWarning(area->isNeighbour(*this), name() << " isn't relinked from " << area->name());
 			zoneAreaComponent_->addLink(*area->zoneAreaComponent_);
 		}
 

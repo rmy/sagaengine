@@ -25,14 +25,14 @@ rune@skalden.com
 #include "comp/node/NodeComponent.hpp"
 #include "CollisionGrid.hpp"
 #include "CollisionComponent.hpp"
+#include "ContactInfo.hpp"
 #include "../area/Area.hpp"
 
 namespace se_core {
 	class _SeCoreExport Contact {
 	public:
-		CollisionComponent* cc1_;
-		CollisionComponent* cc2_;
-		ViewPoint vp1_, vp2_;
+		ContactInfo ci1_;
+		ContactInfo ci2_;
 	};
 
 

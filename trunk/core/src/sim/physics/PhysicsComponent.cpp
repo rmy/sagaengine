@@ -94,7 +94,7 @@ namespace se_core {
 		didMove_ = posComponent_->nextPos().didParentMove() || !posComponent_->nextPos().localEquals(posComponent_->pos());
 
 		// Move to new position in collision grid
-		CollisionComponent* cc = CollisionComponent::get(*this);
+		CollisionComponent::Ptr cc(*this);
 		if(cc && cc->isCollideable() && posComponent_->pos().area() == posComponent_->nextPos().area()) {
 			cc->move();
 		}

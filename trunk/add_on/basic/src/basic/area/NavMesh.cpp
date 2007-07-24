@@ -392,10 +392,10 @@ namespace se_basic {
 				out.add(p1);
 				out.add(p2);
 
-				out.scale(0.999f / 2);
+				out.scale(0.99f / 2);
 				Point3 c;
 				wantedAreaBounds.center(c);
-				c.scale(0.001f);
+				c.scale(0.01f);
 				out.add(c);
 				return tri;
 			}

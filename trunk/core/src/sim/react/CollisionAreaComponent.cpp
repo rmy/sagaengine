@@ -158,8 +158,6 @@ namespace se_core {
 	}
 
 
-
-
 	int CollisionAreaComponent
 	::getContactList(Contact* list, int maxCollisions) {
 		int count = 0;
@@ -229,7 +227,7 @@ namespace se_core {
 					// Only collide once (and at least once)
 					bool didAlready = false;
 					for(int i = 0; i < count; ++i) {
-						if(list[ i ].cc1_ == &cc2 && list[ i ].cc2_ == cc) {
+						if(list[ i ].ci1_.cc_ == &cc2 && list[ i ].ci2_.cc_ == cc) {
 							didAlready = true;
 							break;
 						}
@@ -240,10 +238,10 @@ namespace se_core {
 						if(count > 64) {
 							LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
 						}
-						list[ count ].cc1_ = cc;
-						list[ count ].cc2_ = &cc2;
-						list[ count ].vp1_.setViewPoint(cc->posComponent().nextPos().world_);
-						list[ count ].vp2_.setViewPoint(cc2.posComponent().nextPos().world_);
+						list[ count ].ci1_.cc_ = cc;
+						list[ count ].ci2_.cc_ = &cc2;
+						list[ count ].ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
+						list[ count ].ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
 						++count;
 					}
 				}
@@ -252,6 +250,5 @@ namespace se_core {
 
 		return count;
 	}
-
 
 }

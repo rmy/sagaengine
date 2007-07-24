@@ -30,6 +30,7 @@ rune@skalden.com
 #include "../pos/sim_pos.hpp"
 
 namespace se_core {
+
 	/** Base reaction class for actor vs thing collisions. */
 	class _SeCoreExport ThingCollide : public Object {
 	public:

@@ -85,7 +85,7 @@ namespace se_editor {
 
 		if(name) {
 			SpawnComponent* pSpawn = SpawnComponent::get(perf);
-			CollisionComponent* pCC = CollisionComponent::get(perf);
+			CollisionComponent::Ptr pCC(perf);
 
 			Composite* spawn = pSpawn->spawn(name, 0);
 			if(spawn) {
@@ -99,7 +99,7 @@ namespace se_editor {
 				if(SimSchema::dictionary().hasId(dictId + 2, p->index_)) {
 					ph->pushPhysics(SimSchema::dictionary().name(dictId + 2, p->index_));
 				}
-				CollisionComponent* c = CollisionComponent::get(*spawn);
+				CollisionComponent::Ptr c(*spawn);
 				if(c) {
 					c->setIgnore(*pCC);
 					c->setCollideable(false);

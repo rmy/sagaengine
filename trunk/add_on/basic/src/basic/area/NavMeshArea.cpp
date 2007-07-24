@@ -30,6 +30,7 @@ namespace se_basic {
 
 		Point3 tmp;
 		short index = navMesh_->findExit(toArea, tmp);
+
 		return (index >= 0);
 	}
 

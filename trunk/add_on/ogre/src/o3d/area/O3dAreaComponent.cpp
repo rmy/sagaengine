@@ -42,8 +42,8 @@ namespace se_ogre {
 	::O3dAreaComponent(Composite* owner, const se_core::ComponentFactory* factory)
 			: O3dNodeComponent(sct_RENDER, owner, factory), Task(0, 32), staticGeometry_(0)
 			, isVisible_(false), isInitialized_(false) {
-		setPriority(0);
-		setWeight(0);
+		setPriority(1);
+		setWeight(16);
 		O3dSchema::taskList.add(*this);
 	}
 
