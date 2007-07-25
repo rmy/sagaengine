@@ -54,6 +54,8 @@ namespace se_editor {
 		bool isRelative_;
 		mutable se_core::ActionAndParameter plannedAction_[se_core::CHANNEL_COUNT];
 		mutable se_core::ActionAndParameter defaultAction_[se_core::CHANNEL_COUNT];
+
+		int modifier_;
 	};
 
 

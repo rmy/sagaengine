@@ -47,7 +47,7 @@ namespace se_editor {
 
 	EditorControls
 	::EditorControls()
-			: InputHandler("EditorControls"), Script("EditorControls") {
+			: InputHandler("EditorControls"), Script("EditorControls"), modifier_(0) {
 		init();
 	}
 
@@ -132,15 +132,19 @@ namespace se_editor {
 			return;
 		}
 
+		if(mod3) {
+			modifier_ = id * 100;
+			return;
+		}
+
 		int index = id;
 		if(index >= 0) {
 			if(mod1)
 				index += 10;
 			if(mod2)
 				index += 20;
-			if(mod3)
-				index += 40;
 		}
+		index += modifier_;
 		Parameter tmp;
 		actionLevelDesignSpawn.param(index, tmp);
 		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
