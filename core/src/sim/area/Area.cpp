@@ -45,6 +45,7 @@ rune@skalden.com
 #include "../zone/ZoneAreaComponent.hpp"
 
 #include <cstdio>
+#include <cstring>
 
 #ifndef abs
 #define abs(n) (((n) < 0) ? (-(n)) : (n))
@@ -148,6 +149,22 @@ namespace se_core {
 			*/
 	}
 
+
+	Composite* Area
+	::findTarget(const char* factoryName) const {
+		// Default to maximum pick range
+		//coor_t nearest = (128 * COOR_RES);
+
+		CompositeList::Iterator it(owner()->children());
+		while(it.hasNext()) {
+			Composite* t = &it.next();
+			if(strcmp(t->name(), factoryName) == 0) {
+				return t;
+			}
+		}
+
+		return 0;
+	}
 
 	/*
 	Thing* Area

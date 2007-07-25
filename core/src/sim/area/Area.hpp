@@ -124,6 +124,8 @@ namespace se_core {
 
 		//Thing* findPickTarget(Player& actor) const;
 		//Thing* findDefaultActionTarget(Player& actor) const;
+		Composite* findTarget(const char* factoryName) const;
+
 		void reset();
 
 		/**
