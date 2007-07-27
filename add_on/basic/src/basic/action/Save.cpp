@@ -26,8 +26,8 @@ rune@skalden.com
 #include "sim/action/ActionComponent.hpp"
 #include "util/type/TmpString.hpp"
 #include "io/schema/IoSchema.hpp"
+#include "io/encode/EncodeManager.hpp"
 #include "io/encode/Encoder.hpp"
-#include "io/encode/EncoderModule.hpp"
 #include "io/stream/FileManager.hpp"
 #include <cstdio>
 

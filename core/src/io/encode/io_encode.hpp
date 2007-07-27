@@ -23,8 +23,8 @@ rune@skalden.com
 #define io_encode_hpp
 
 namespace se_core {
+	class EncodeManager;
 	class Encoder;
-	class EncoderModule;
 };
 
 #endif

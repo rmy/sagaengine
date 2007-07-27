@@ -105,7 +105,7 @@ namespace se_editor {
 	void EditorAreaComponent
 	::paste() {
 		char name[256];
-		sprintf(name, "clipboard/%s.txt", owner()->factory()->name());
+		sprintf(name, "clipboard/%s", owner()->factory()->name());
 
 		char filename[256];
 		char buffer[256];
@@ -130,7 +130,6 @@ namespace se_editor {
 	}
 
 
-
 	void EditorAreaComponent
 	::save() {
 		char filename[256];
@@ -150,7 +149,7 @@ namespace se_editor {
 	void EditorAreaComponent
 	::copy() {
 		char name[256];
-		sprintf(name, "clipboard/%s.txt", owner()->factory()->name());
+		sprintf(name, "clipboard/%s", owner()->factory()->name());
 		save(name);
 	}
 
@@ -188,6 +187,7 @@ namespace se_editor {
 		}
 		fclose(out);
 	}
+
 
 	void EditorAreaComponent
 	::setActive(bool state) {
@@ -229,6 +229,7 @@ namespace se_editor {
 		}
 		return nearest;
 	}
+
 
 	void EditorAreaComponent
 	::setEntrance(int id, se_core::ViewPoint& vp) {

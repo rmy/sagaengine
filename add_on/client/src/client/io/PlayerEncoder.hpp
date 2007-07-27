@@ -19,10 +19,10 @@ rune@skalden.com
 */
 
 
-#ifndef client_io_PlayerEncoderModule_hpp
-#define client_io_PlayerEncoderModule_hpp
+#ifndef client_io_PlayerEncoder_hpp
+#define client_io_PlayerEncoder_hpp
 
-#include "io/encode/EncoderModule.hpp"
+#include "io/encode/Encoder.hpp"
 #include "io/stream/io_stream.hpp"
 #include "../thing/client_thing.hpp"
 #include "sim/area/sim_area.hpp"
@@ -33,10 +33,10 @@ rune@skalden.com
 
 
 namespace se_client {
-	class _SeClientExport PlayerEncoderModule : public se_core::EncoderModule  {
+	class _SeClientExport PlayerEncoder : public se_core::Encoder  {
 	public:
-		PlayerEncoderModule(se_core::Encoder& parser);
-		virtual ~PlayerEncoderModule();
+		PlayerEncoder(se_core::EncodeManager& parser);
+		virtual ~PlayerEncoder();
 		void encode(se_core::OutputStream& in);
 		bool isLast() const { return true; }
 	};

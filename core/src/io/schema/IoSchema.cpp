@@ -21,7 +21,7 @@ rune@skalden.com
 
 #include "IoSchema.hpp"
 #include "../parse/all.hpp"
-#include "../encode/Encoder.hpp"
+#include "../encode/EncodeManager.hpp"
 #include "../stream/FileManager.hpp"
 #include "sim/schema/SimSchema.hpp"
 
@@ -32,8 +32,8 @@ namespace se_core {
 			return parser;
 		}
 
-		Encoder& encoder() {
-			static Encoder encoder;
+		EncodeManager& encoder() {
+			static EncodeManager encoder;
 			return encoder;
 		}
 

@@ -16,18 +16,18 @@ using namespace se_core;
 
 namespace se_basic {
 
-	SimpleAreaThingEncoderModule
-	::SimpleAreaThingEncoderModule(Encoder& encoder)
-			: EncoderModule(encoder, Parser::GAME, Parser::AREA_THINGS, 1)  {
+	SimpleAreaThingEncoder
+	::SimpleAreaThingEncoder(EncodeManager& encoder)
+			: Encoder(encoder, Parser::GAME, Parser::AREA_THINGS, 1)  {
 	}
 
 
-	SimpleAreaThingEncoderModule
-	::~SimpleAreaThingEncoderModule() {
+	SimpleAreaThingEncoder
+	::~SimpleAreaThingEncoder() {
 	}
 
 
-	void SimpleAreaThingEncoderModule
+	void SimpleAreaThingEncoder
 	::encode(OutputStream& out) {
 
 		for(int i = 0; i < SimSchema::areaManager.areaCount(); ++i) {

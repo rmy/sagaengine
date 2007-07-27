@@ -43,18 +43,18 @@ using namespace se_core;
 
 namespace se_client {
 
-	PlayerEncoderModule
-	::PlayerEncoderModule(Encoder& parser)
-			: EncoderModule(parser, Parser::ENGINE, Parser::PLAYER, 1) {
+	PlayerEncoder
+	::PlayerEncoder(EncodeManager& parser)
+			: Encoder(parser, Parser::ENGINE, Parser::PLAYER, 1) {
 	}
 
 
-	PlayerEncoderModule
-	::~PlayerEncoderModule() {
+	PlayerEncoder
+	::~PlayerEncoder() {
 	}
 
 
-	void PlayerEncoderModule
+	void PlayerEncoder
 	::encode(OutputStream& out) {
 		out.writeHeaderCode(headerCode());
 
