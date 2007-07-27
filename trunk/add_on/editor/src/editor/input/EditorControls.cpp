@@ -47,7 +47,7 @@ namespace se_editor {
 
 	EditorControls
 	::EditorControls()
-			: InputHandler("EditorControls"), Script("EditorControls"), modifier_(0) {
+			: InputHandler("EditorControls"), Script("EditorControls"), modifier_(100) {
 		init();
 	}
 
@@ -301,6 +301,7 @@ namespace se_editor {
 			break;
 		}
 	}
+
 
 	void EditorControls
 	::keyReleased(const OIS::KeyEvent* e) {

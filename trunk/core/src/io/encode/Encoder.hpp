@@ -22,29 +22,26 @@ rune@skalden.com
 #ifndef io_encode_Encoder_hpp
 #define io_encode_Encoder_hpp
 
-#include "../stream/OutputStream.hpp"
-#include "sim/thing/sim_thing.hpp"
-#include "io_encode.hpp"
-#include "comp/Composite.hpp"
-#include "EncoderModule.hpp"
+#include "../stream/io_stream.hpp"
+#include "../encode/io_encode.hpp"
 
 namespace se_core {
-	/**
-	 * Save file encoders.  
-	 */
-	class _SeCoreExport Encoder : public EncoderModule {
+	/** Base class for encoder modules. */
+	class _SeCoreExport Encoder {
 	public:
-		Encoder();
+		Encoder(se_core::EncodeManager &encoder, unsigned char group, unsigned char code, int version);
+		Encoder(unsigned char group, unsigned char code, int version);
 		virtual ~Encoder();
-		void encode(OutputStream& out);
-		void encode(OutputStream& out, EncoderModule& m);
-		void add(EncoderModule& m);
+
+		int headerCode() const;
+		unsigned int headerCode(char moduleGroup, char moduleCode, int moduleVersion) const;
+		virtual void encode(OutputStream& out) = 0;
+		virtual bool isLast() const { return false; }
 
 	private:
-		static const int MAX_MODULES = 12;
-		int moduleCount_;
-		EncoderModule* modules_[ MAX_MODULES ];
-		EncoderModule* lastModule_;
+		int moduleGroup_;
+		int moduleCode_;
+		int moduleVersion_;
 	};
 }
 

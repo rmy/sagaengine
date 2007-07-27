@@ -20,7 +20,7 @@ rune@skalden.com
 
 
 #include "FileManager.hpp"
-#include "../encode/Encoder.hpp"
+#include "../encode/EncodeManager.hpp"
 #include "../schema/IoSchema.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>

@@ -1,14 +1,14 @@
-#ifndef SimpleAreaThingEncoderModule_hpp
-#define SimpleAreaThingEncoderModule_hpp
+#ifndef SimpleAreaThingEncoder_hpp
+#define SimpleAreaThingEncoder_hpp
 
 #include "BasicPre.hpp"
-#include "io/encode/EncoderModule.hpp"
+#include "io/encode/Encoder.hpp"
 
 namespace se_basic {
-	class _SeBasicExport SimpleAreaThingEncoderModule  : public se_core::EncoderModule {
+	class _SeBasicExport SimpleAreaThingEncoder  : public se_core::Encoder {
 	public:
-		SimpleAreaThingEncoderModule(se_core::Encoder& Encoder);
-		virtual ~SimpleAreaThingEncoderModule();
+		SimpleAreaThingEncoder(se_core::EncodeManager& EncodeManager);
+		virtual ~SimpleAreaThingEncoder();
 		void encode(se_core::OutputStream& in);
 
 		/*

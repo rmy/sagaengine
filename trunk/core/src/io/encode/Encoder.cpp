@@ -20,54 +20,39 @@ rune@skalden.com
 
 
 #include "Encoder.hpp"
-#include "EncoderModule.hpp"
-#include "../parse/Parser.hpp"
-#include "../../sim/thing/Actor.hpp"
-#include "../stream/io_stream.hpp"
-#include "../stream/OutputStream.hpp"
+#include "EncodeManager.hpp"
+#include "../../util/error/Log.hpp"
+#include <cstdio>
 
 namespace se_core {
+	Encoder
+	::Encoder(EncodeManager &encoder, unsigned char group, unsigned char code, int version)
+			: moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
+		encoder.add(*this);
+	}
 
 
 	Encoder
-	::Encoder()
-		: EncoderModule(Parser::ENGINE, Parser::EMBEDDED, 1), moduleCount_(0), lastModule_(0) {
+	::Encoder(unsigned char group, unsigned char code, int version)
+		 : moduleGroup_(group), moduleCode_(code), moduleVersion_(version) {
 	}
-
 
 	Encoder
 	::~Encoder() {
 	}
 
-
-	void Encoder
-	::encode(OutputStream& out) {
-		lastModule_ = 0;
-		out.writeHeaderCode(headerCode());
-		for(int i = 0; i < moduleCount_; ++i) {
-			if(modules_[i]->isLast()) {
-				Assert(lastModule_ == 0);
-				lastModule_ = modules_[i];
-				continue;
-			}
-			modules_[i]->encode(out);
-		}
-		if(lastModule_) {
-			lastModule_->encode(out);
-		}
+	unsigned int Encoder
+	::headerCode(char moduleGroup, char moduleCode, int moduleVersion) const {
+		char buffer[5];
+		sprintf(buffer, "%c%c%02d", moduleGroup, moduleCode, moduleVersion);
+		int code = buffer[3] + buffer[2] * 256 + buffer[1] * 65536 + buffer[0] * 65536 * 256;
+		LogDetail((sprintf(log_msg(), "HeaderCode: %x", code), log_msg()));
+		return code;
 	}
 
-
-	void Encoder
-	::encode(OutputStream& out, EncoderModule& m) {
-		m.encode(out);
+	int Encoder
+	::headerCode() const {
+		return headerCode(moduleGroup_, moduleCode_, moduleVersion_);
 	}
-
-
-	void Encoder
-	::add(EncoderModule& m) {
-		modules_[ moduleCount_++ ] = &m;
-	}
-
 }
 

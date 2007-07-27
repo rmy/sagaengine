@@ -54,7 +54,7 @@ namespace se_client {
 			AutoInit() {
 				// Register some file loaders
 				static PlayerParser playerParser(se_core::IoSchema::parser());
-				static PlayerEncoderModule playerEncoderModule(se_core::IoSchema::encoder());
+				static PlayerEncoder playerEncoder(se_core::IoSchema::encoder());
 				static LanguageParser languageParser(se_core::IoSchema::parser());
 
 				// Client event bridge should listen to init events.

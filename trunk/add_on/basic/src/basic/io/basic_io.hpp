@@ -27,7 +27,7 @@ namespace se_basic {
 	class SimpleActorParser;
 	class SimpleAreaParser;
 	class SimpleAreaThineParser;
-	class SimpleAreaThingEncoderModule;
+	class SimpleAreaThingEncoder;
 	class WangAreaGridParser;
 }
 
