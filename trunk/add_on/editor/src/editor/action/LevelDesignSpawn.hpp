@@ -26,7 +26,7 @@ rune@skalden.com
 
 namespace se_editor {
 
-	class LevelDesignSpawn : public se_core::Action {
+	class _SeEditorExport LevelDesignSpawn : public se_core::Action {
 	public:
 		LevelDesignSpawn() : se_core::Action("LevelDesignSpawn") {}
 
@@ -47,7 +47,7 @@ namespace se_editor {
 		};
 	};
 
-	extern _NavMeshLogicExport const LevelDesignSpawn actionLevelDesignSpawn;
+	extern _SeEditorExport const LevelDesignSpawn actionLevelDesignSpawn;
 }
 
 

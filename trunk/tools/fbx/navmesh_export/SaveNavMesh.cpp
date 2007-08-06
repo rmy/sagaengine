@@ -154,26 +154,25 @@ private:
 };
 
 void snapPoint(Point3& p, float size, float snap) {
-	if(snap == 0)
-		return;
-
 	float x = p.x_;
 	float z = p.z_;
-	if(x <= 0.1 || x >= (size - 0.1)) {
-		p.z_ = floor(z / snap + .5) * snap;
-		if(snap < 0) {
-			if(z < size / 2) p.z_ = size / 2 + snap;
-			if(z > size / 2) p.z_ = size / 2 - snap;
+	if(snap != 0) {
+		if(x <= 0.1 || x >= (size - 0.1)) {
+			p.z_ = floor(z / snap + .5) * snap;
+			if(snap < 0) {
+				if(z < size / 2) p.z_ = size / 2 + snap;
+				if(z > size / 2) p.z_ = size / 2 - snap;
+			}	
+			DisplayDouble("Moved z: ", p.z_);
 		}
-		DisplayDouble("Moved z: ", p.z_);
-	}
-	if(z <= 0.1 || z >= (size - 0.1)) {
-		p.x_ = floor(x / snap + .5) * snap;
-		if(snap < 0) {
-			if(x < 32) p.x_ = 32 + snap;
-			if(x > 32) p.x_ = 32 - snap;
+		if(z <= 0.1 || z >= (size - 0.1)) {
+			p.x_ = floor(x / snap + .5) * snap;
+			if(snap < 0) {
+				if(x < 32) p.x_ = 32 + snap;
+				if(x > 32) p.x_ = 32 - snap;
+				}
+			DisplayDouble("Moved x: ", p.x_);
 		}
-		DisplayDouble("Moved x: ", p.x_);
 	}
 	if(x <= .1) {
 		p.x_ = 0;

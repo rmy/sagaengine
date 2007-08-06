@@ -32,11 +32,7 @@ namespace se_basic {
 		bool isRepeating(long when, se_core::ActionComponent &performer, se_core::Parameter& parameter) const { return false; }
 
 		void perform(long when, se_core::ActionComponent& performer, se_core::Parameter& parameter) const;
-		const PushScript& param(const se_core::ActionComponent& performer, const char* script) const;
-
-	private:
-		void param(const char* script, se_core::Parameter& out);
-
+		const PushScript& param(const char* script, se_core::Parameter& out) const;
 		struct Param {
 			Param(const char* script)
 				: script_(script) {

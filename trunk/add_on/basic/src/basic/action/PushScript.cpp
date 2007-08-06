@@ -42,10 +42,11 @@ namespace se_basic {
 	}
 
 
-	void PushScript
-	::param(const char* script, Parameter& out) {
+	const PushScript& PushScript
+	::param(const char* script, Parameter& out) const {
 		Param* p = static_cast<Param*>(out.data(sizeof(Param)));
 		*p = Param(script);
+		return *this;
 	}
 
 

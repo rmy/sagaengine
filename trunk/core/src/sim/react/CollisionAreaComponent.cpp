@@ -27,6 +27,7 @@ rune@skalden.com
 #include "../thing/Actor.hpp"
 #include "../zone/ZoneAreaComponent.hpp"
 #include "../pos/PosComponent.hpp"
+#include <cstdlib>
 
 
 
