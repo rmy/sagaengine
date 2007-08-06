@@ -45,6 +45,7 @@ namespace se_core {
 	CollisionComponent
 	::CollisionComponent(Composite* owner, const ComponentFactory* factory)
 			: AreaChildComponent(sct_COLLISION, owner, factory)
+			, substance_(0)
 			, isCollideable_(false)
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));

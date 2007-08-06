@@ -45,6 +45,10 @@ namespace se_core {
 	::Property(const char* name, String* value)
 			: key_(hash(name)), type_(PT_STRING) {
 		v.string_ = value;
+		if(value)
+			valueHash_ = hash(value->get());
+		else
+			valueHash_ = 0;
 	}
 
 	Property

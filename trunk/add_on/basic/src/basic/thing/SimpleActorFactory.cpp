@@ -16,6 +16,7 @@ namespace se_basic {
 			, physics_(0)
 			, collide_(0)
 			, defaultAction_(0)
+			, substance_(0)
 			, spawnPointCount_(0)
 			, spawnPoints_(0) {
 		anim_[0].setWeight(1);
@@ -42,6 +43,7 @@ namespace se_basic {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(collisionFactory_.create(c));
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
+			cc->setSubstance(substance_);
 		}
 
 		//a->setPickable(isPickable_);
@@ -119,6 +121,11 @@ namespace se_basic {
 	void SimpleActorFactory
 	::setCollide(const char* name) {
 		collide_ = ThingCollide::lookup(name);
+	}
+
+	void SimpleActorFactory
+	::setSubstance(int s) {
+		substance_ = s;
 	}
 
 
