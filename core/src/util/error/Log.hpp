@@ -55,6 +55,7 @@ namespace se_err {
 		Log& operator << (int n);
 		Log& operator << (char c);
 		Log& operator << (unsigned long n);
+		Log& operator << (long n);
 		Log& operator << (long long n);
 		Log& operator << (bray_t c);
 		Log& operator << (const se_core::String& s);

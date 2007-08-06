@@ -195,6 +195,14 @@ namespace se_err {
 
 
 	Log& Log
+	::operator << (long n) {
+		sprintf(tmp_, "%d", n);
+		copy(tmp_);
+		return *this;
+	}
+
+
+	Log& Log
 	::operator << (const se_core::String& s) {
 		copy(s.get());
 		return *this;
