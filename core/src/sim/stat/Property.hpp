@@ -35,12 +35,15 @@ namespace se_core {
 	class _SeCoreExport Property {
 	public:
 		enum Type {
-			PT_NONE, PT_SHORT, PT_INT, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING
+			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING
 		};
 		static int hash(const char* name);
 
 	private:
+		/** Hash of name. */
 		int key_;
+		/** Hash of value. */
+		unsigned int valueHash_; // 
 		Type type_;
 
 		union {
@@ -76,6 +79,11 @@ namespace se_core {
 		inline int intValue() const {
 			Assert(type_ == PT_INT);
 			return v.intValue_;
+		}
+
+		inline unsigned int hashValue() const {
+			Assert(type_ == PT_STRING);
+			return valueHash_;
 		}
 
 		inline float floatValue() const {

@@ -99,6 +99,7 @@ namespace se_core {
 			appName = applicationName;
 			static DictionaryEntry dDictionaryType(DE_DICTIONARY_TYPE, DE_DICTIONARY_TYPE, "DICTIONARY_TYPE", false);
 			static DictionaryEntry dTagType(DE_DICTIONARY_TYPE, DE_TAG, "TAG", false);
+			static DictionaryEntry dSubstanceType(DE_DICTIONARY_TYPE, DE_SUBSTANCE, "SUBSTANCE", false);
 			static DictionaryEntry dThingType(DE_DICTIONARY_TYPE, DE_THING_TYPE, "THING_TYPE", false);
 			static DictionaryEntry dMovementMode(DE_DICTIONARY_TYPE, DE_MOVEMENT_MODE, "MOVEMENT_MODE", false);
 			static DictionaryEntry dFirstUserType(DE_DICTIONARY_TYPE, DE_FIRST_USER_TYPE, "FIRST_USER_TYPE", false);

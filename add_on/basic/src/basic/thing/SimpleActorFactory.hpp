@@ -30,6 +30,7 @@ namespace se_basic {
 		void setMass(float m);
 		void setFriction(float linear, float angular, float bounceDecay);
 		void setAnim(int id, int movementMode, float pos, float speed);
+		void setSubstance(int s);
 
 		/**
 		 * Copy spawn points.
@@ -53,6 +54,7 @@ namespace se_basic {
 
 
 		int spawnPointCount_;
+		int substance_;
 		se_core::ViewPoint** spawnPoints_;
 
 		se_core::Anim anim_[se_core::Pos::MAX_ANIMS];

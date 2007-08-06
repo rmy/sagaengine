@@ -46,6 +46,12 @@ namespace se_core {
 		~CollisionComponent();
 
 		int tag() const;
+		int substance() const {
+			return substance_;
+		}
+		void setSubstance(int s) {
+			substance_ = s;
+		}
 		bool shouldIgnore(const CollisionComponent& cc) const;
 		void resetIgnore() {
 			ignore_ = 0;
@@ -124,6 +130,7 @@ namespace se_core {
 	private:
 		PosComponent* posComponent_;
 		BoundingBox areaCovered_;
+		int substance_;
 
 		/** Flag that indicated wether other CollisionComponents can collide with this one.
 		 * Used by the CollisionAreaComponent class to decide wether the CollisionComponent should be

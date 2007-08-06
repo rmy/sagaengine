@@ -77,6 +77,7 @@ namespace se_core {
 		DE_ZONE,
 		DE_THING_TYPE,
 		DE_TAG,
+		DE_SUBSTANCE,
 		DE_MOVEMENT_MODE,
 		DE_TERRAIN_STYLE,
 		DE_SOUND_TYPE,
