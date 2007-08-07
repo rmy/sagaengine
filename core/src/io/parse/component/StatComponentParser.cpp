@@ -53,7 +53,8 @@ namespace se_core {
 		static const DictionaryEntry deShort(dict_PROPERTY_TYPE, Property::PT_SHORT, "SHORT");
 		static const DictionaryEntry deInt(dict_PROPERTY_TYPE, Property::PT_INT, "INT");
 		static const DictionaryEntry deFloat(dict_PROPERTY_TYPE, Property::PT_FLOAT, "FLOAT");
-		static const DictionaryEntry deString(dict_PROPERTY_TYPE, Property::PT_STRING, "STRING");
+		static const DictionaryEntry deStringList(dict_PROPERTY_TYPE, Property::PT_STRING, "STRING");
+		static const DictionaryEntry deString(dict_PROPERTY_TYPE, Property::PT_STRING_LIST, "STRING_LIST");
 		static const DictionaryEntry deScript(dict_PROPERTY_TYPE, Property::PT_SCRIPT, "SCRIPT");
 		static const DictionaryEntry deAction(dict_PROPERTY_TYPE, Property::PT_ACTION, "ACTION");
 		static const DictionaryEntry deArea(dict_PROPERTY_TYPE, Property::PT_AREA, "AREA");
@@ -101,6 +102,15 @@ namespace se_core {
 							String* tmp = new String();
 							in.readString(*tmp);
 							p = new Property(name.get(), tmp);
+						}
+						break;
+					case Property::PT_STRING_LIST:
+						{
+							int c = in.readShort();
+							String* tmp = new String[ c ];
+							for(int i = 0; i < c; ++i)
+								in.readString(tmp[i]);
+							p = new Property(name.get(), c, tmp);
 						}
 						break;
 					case Property::PT_ACTION:
