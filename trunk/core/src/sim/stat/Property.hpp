@@ -68,7 +68,10 @@ namespace se_core {
 		Property(const char* name, Area* value);
 		~Property();
 
-		int key() {
+		inline Type type() const { 
+			return type_; 
+		}
+		int key() const {
 			return key_;
 		}
 
