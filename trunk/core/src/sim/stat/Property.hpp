@@ -35,7 +35,7 @@ namespace se_core {
 	class _SeCoreExport Property {
 	public:
 		enum Type {
-			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING
+			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING, PT_STRING_LIST
 		};
 		static int hash(const char* name);
 
@@ -62,6 +62,7 @@ namespace se_core {
 		Property(const char* name, int value);
 		Property(const char* name, float value);
 		Property(const char* name, String* value);
+		Property(const char* name, unsigned int count, String* values);
 		Property(const char* name, const Action* value);
 		Property(const char* name, const Script* value);
 		Property(const char* name, Area* value);
@@ -94,6 +95,19 @@ namespace se_core {
 		inline const char* string() const {
 			Assert(type_ == PT_STRING);
 			return v.string_->get();
+		}
+
+		inline unsigned int valueCount() const {
+			if(type_ == PT_STRING) {
+				return 1;
+			}
+			return valueHash_;
+		}
+
+		inline const char* string(unsigned int index) const {
+			Assert(type_ == PT_STRING_LIST || type_ == PT_STRING);
+			Assert(index < valueCount());
+			return v.string_[index].get();
 		}
 
 		inline const Action* action() const {

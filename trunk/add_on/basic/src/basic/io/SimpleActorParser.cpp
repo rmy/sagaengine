@@ -135,7 +135,12 @@ namespace se_basic {
 				break;
 
 			case 'O': // cOllideable
-				factory->setCollideable(true);
+				{
+					LogWarning(name->get());
+					int sub = in.readDictionaryWord(DE_SUBSTANCE);
+					factory->setCollideable(true);
+					factory->setSubstance(sub);
+				}
 				break;
 
 			case 'M': // cOllideable

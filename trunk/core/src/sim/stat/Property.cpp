@@ -52,6 +52,13 @@ namespace se_core {
 	}
 
 	Property
+	::Property(const char* name, unsigned int count, String* values)
+			: key_(hash(name)), type_(PT_STRING_LIST) {
+		v.string_ = values;
+		valueHash_ = count;
+	}
+
+	Property
 	::Property(const char* name, const Action* value)
 			: key_(hash(name)), type_(PT_ACTION) {
 		v.action_ = value;
