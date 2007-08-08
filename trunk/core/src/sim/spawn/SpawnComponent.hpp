@@ -35,6 +35,7 @@ namespace se_core {
 		typedef ComponentPtr<SpawnComponent, sct_SPAWN> Ptr;
 
 		SpawnComponent(Composite* owner, PosComponent* pos);
+		SpawnComponent(Composite* owner, const ComponentFactory* factory);
 		virtual ~SpawnComponent();
 
 		static SpawnComponent* get(Composite& composite) {

@@ -37,6 +37,8 @@ namespace se_core {
 		typedef ComponentPtr<ScriptComponent, sct_SCRIPT> Ptr;
 
 		ScriptComponent(Composite* owner, ActionComponent* consumer);
+		ScriptComponent(Composite* owner, const ComponentFactory* factory);
+
 		virtual ~ScriptComponent();
 
 		static ScriptComponent* get(Composite& composite) {

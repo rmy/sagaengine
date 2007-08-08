@@ -34,6 +34,15 @@ namespace se_core {
 		physics_[currentPhysics_] = 0;
 	}
 
+	PhysicsComponent
+	::PhysicsComponent(Composite* owner, const ComponentFactory* factory)
+			: NodeComponent(sct_PHYSICS, owner, factory), currentPhysics_(0), affect_(0) {
+		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
+		Assert(posComponent_);
+		physics_[currentPhysics_] = 0;
+	}
+
+
 
 	PhysicsComponent
 	::~PhysicsComponent() {

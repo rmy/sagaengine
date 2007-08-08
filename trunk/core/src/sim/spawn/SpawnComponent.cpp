@@ -34,6 +34,14 @@ namespace se_core {
 		: Component(sct_SPAWN, owner), pos_(pos), spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
+	SpawnComponent
+	::SpawnComponent(Composite* owner, const ComponentFactory* factory)
+			: Component(sct_SCRIPT, owner, factory)
+			, spawnCount_(0), spawnPointCount_(0), spawnPoints_(0) {
+		pos_ = static_cast<PosComponent*>(owner_->component(sct_POS));
+		Assert(pos_);
+	}
+
 
 	SpawnComponent
 	::~SpawnComponent() {

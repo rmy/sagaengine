@@ -54,8 +54,8 @@ namespace se_basic {
 
 
 		int spawnPointCount_;
-		int substance_;
 		se_core::ViewPoint** spawnPoints_;
+		int substance_;
 
 		se_core::Anim anim_[se_core::Pos::MAX_ANIMS];
 	};

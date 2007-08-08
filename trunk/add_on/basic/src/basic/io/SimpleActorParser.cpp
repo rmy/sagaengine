@@ -136,14 +136,13 @@ namespace se_basic {
 
 			case 'O': // cOllideable
 				{
-					LogWarning(name->get());
 					int sub = in.readDictionaryWord(DE_SUBSTANCE);
 					factory->setCollideable(true);
 					factory->setSubstance(sub);
 				}
 				break;
 
-			case 'M': // cOllideable
+			case 'M': // Mass
 				factory->setMass(in.readFloat());
 				break;
 

@@ -40,6 +40,16 @@ namespace se_core {
 
 
 	ScriptComponent
+	::ScriptComponent(Composite* owner, const ComponentFactory* factory)
+			: Component(sct_SCRIPT, owner, factory)
+			, currentScript_(0) {
+		consumer_ = static_cast<ActionComponent*>(owner_->component(sct_ACTION));
+		Assert(consumer_);
+		scriptStack_[currentScript_] = 0;
+		consumer_->setActionFeed(this);
+	}
+
+	ScriptComponent
 	::~ScriptComponent() {
 		cleanup();
 	}
