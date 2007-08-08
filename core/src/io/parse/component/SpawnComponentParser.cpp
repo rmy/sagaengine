@@ -61,7 +61,7 @@ namespace se_core {
 
 		while((code = in.readInfoCode()) != '}') {
 			switch(code) {
-			case 'E': 
+			case 'E':
 				{ // entrance
 					short id = in.readShort();
 					Assert(id < MAX_SPAWN_POINTS);
