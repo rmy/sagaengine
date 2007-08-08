@@ -63,6 +63,7 @@ namespace se_core {
 		/** Constructor.
 		 */
 		PhysicsComponent(Composite* owner, PosComponent* posComponent);
+		PhysicsComponent(Composite* owner, const ComponentFactory* factory);
 		~PhysicsComponent();
 
 		const char* name() { return "Physics"; }
