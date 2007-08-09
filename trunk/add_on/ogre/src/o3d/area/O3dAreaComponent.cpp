@@ -213,7 +213,7 @@ namespace se_ogre {
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
 
 #ifdef SE_INTERNAL
-		type += "_navMesh";
+		type += "_navmesh";
 
 		sprintf(name, "%s_%d_navMesh", areaType, unique++);
 		if(O3dSchema::sceneManager->hasEntity(name)) {
