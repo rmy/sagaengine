@@ -27,8 +27,7 @@ rune@skalden.com
 namespace se_basic {
 	class _SeBasicExport Spawn : public se_core::Action {
 	public:
-		Spawn() : se_core::Action("Spawn") {
-		}
+		Spawn();
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
 			return 5;
@@ -54,6 +53,9 @@ namespace se_basic {
 			const char* thingType_;
 			short spawnPoint_;
 		};
+		unsigned int PROPERTY_SPAWN;
+		unsigned int PROPERTY_SPAWN_POINT;
+		unsigned int PROPERTY_SPAWN_MAX;
 	};
 
 

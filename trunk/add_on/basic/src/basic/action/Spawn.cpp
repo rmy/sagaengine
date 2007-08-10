@@ -28,14 +28,35 @@ rune@skalden.com
 using namespace se_core;
 
 namespace se_basic {
+	Spawn
+	::Spawn()
+		: se_core::Action("Spawn") 
+		, PROPERTY_SPAWN(Property::hash("Action.SPAWN")) 
+		, PROPERTY_SPAWN_POINT(Property::hash("Action.SPAWN_POINT")) 
+		, PROPERTY_SPAWN_MAX(Property::hash("Action.SPAWN_MAX")) 
+	{
+	}
+
 
 	void Spawn
 	::perform(long when, ActionComponent& perf, Parameter& parameter) const {
-		//Actor& performer = *Actor::Ptr(perf);;
-		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+		StatComponent::Ptr pStat(perf);
+		SpawnComponent::Ptr pSpawn(perf);
+		const Property* prop = pStat->property(PROPERTY_SPAWN);
+		if(prop) {
+			const Property* propPoint = pStat->property(PROPERTY_SPAWN_POINT);
+			const Property* propMax = pStat->property(PROPERTY_SPAWN_MAX);
+			LogWarning(propMax->shortValue() << " < " << pSpawn->spawnCount());
 
-		SpawnComponent* perfSpawn = SpawnComponent::get(perf);
-		perfSpawn->spawn(p->thingType_, p->spawnPoint_);
+			if(!propMax || propMax->shortValue() > pSpawn->spawnCount()) {
+				pSpawn->spawn(prop->string(), propPoint->shortValue());
+			}
+
+		}
+		else {
+			Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
+			pSpawn->spawn(p->thingType_, p->spawnPoint_);
+		}
 	}
 
 
