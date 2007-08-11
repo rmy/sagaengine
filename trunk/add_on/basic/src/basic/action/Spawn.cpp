@@ -46,7 +46,6 @@ namespace se_basic {
 		if(prop) {
 			const Property* propPoint = pStat->property(PROPERTY_SPAWN_POINT);
 			const Property* propMax = pStat->property(PROPERTY_SPAWN_MAX);
-			LogWarning(propMax->shortValue() << " < " << pSpawn->spawnCount());
 
 			if(!propMax || propMax->shortValue() > pSpawn->spawnCount()) {
 				pSpawn->spawn(prop->string(), propPoint->shortValue());
