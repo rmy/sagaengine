@@ -151,19 +151,25 @@ namespace se_core {
 
 
 	Composite* Area
-	::findTarget(const char* factoryName) const {
+	::findTarget(const char* factoryName, const Point3& worldCoor) const {
 		// Default to maximum pick range
-		//coor_t nearest = (128 * COOR_RES);
+		coor_double_t nearestDist = 0;
+		Composite* nearest = 0;
 
 		CompositeList::Iterator it(owner()->children());
 		while(it.hasNext()) {
 			Composite* t = &it.next();
 			if(strcmp(t->name(), factoryName) == 0) {
-				return t;
+				PosComponent::Ptr pos(*t);
+				coor_double_t dist = worldCoor.distanceSquared(pos->nextPos().worldCoor());
+				if(!nearest || dist < nearestDist) {
+					nearest = t;
+					nearestDist = dist;
+				}
 			}
 		}
 
-		return 0;
+		return nearest;
 	}
 
 	/*
