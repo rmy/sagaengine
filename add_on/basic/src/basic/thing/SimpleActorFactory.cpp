@@ -50,7 +50,8 @@ namespace se_basic {
 		a->setDefaultPhysics(physics_);
 		a->nextPos().setBounds(bounds_);
 		SpawnComponent::Ptr spawn(*c);
-		spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
+		if(spawnPointCount_)
+			spawn->setSpawnPoints(spawnPointCount_, spawnPoints_);
 
 
 		PhysicsComponent* pPhysics = PhysicsComponent::get(*c);

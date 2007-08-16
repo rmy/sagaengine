@@ -47,7 +47,6 @@ namespace se_core {
 			c = new SpawnComponent(owner, this);
 		}
 		c->setSpawnPoints(spawnPointCount_, spawnPoints_);
-
 		return c;
 	}
 
@@ -63,5 +62,6 @@ namespace se_core {
 			spawnPoints_[ i ] = spawnPoints[ i ];
 		}
 	}
+
 
 }

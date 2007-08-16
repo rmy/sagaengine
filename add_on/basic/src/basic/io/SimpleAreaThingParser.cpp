@@ -6,6 +6,8 @@
 #include "sim/zone/Exit.hpp"
 #include "sim/custom/StatComponent.hpp"
 #include "sim/signal/SignalComponent.hpp"
+#include "sim/spawn/SpawnComponent.hpp"
+#include "sim/spawn/SpawnComponentFactory.hpp"
 #include "comp/CompositeFactory.hpp"
 #include <cstring>
 
@@ -214,13 +216,23 @@ namespace se_basic {
 			}
 		}
 
+		// Array to put created things. Is relevant if the
+		// same thing is to be put in several areas. (Useful
+		// when all areas of the same type has this thing.)
 		Composite** siblings = new Composite*[areaCount];
 		for(int i = 0; i < areaCount; ++i) {
+			// Get parent area i (if parents array exists)
 			Composite* parent = (parents) ? parents[i] : 0;
+			// PosComponent of parent area
 			PosComponent* parentPos = PosComponent::get(parent);
-			AssertFatal(areas[i]->terrainStyle(vp.coor_) != Pos::TS_VOID, thingName.get() << " - Area: " << areas[i]->name() << " - Factory: " << areas[i]->owner()->factory()->name() << " - Coor: " << vp.coor_);
-			
+			AssertWarning(areas[i]->terrainStyle(vp.coor_) != Pos::TS_VOID, thingName.get() << " - Area: " << areas[i]->name() << " - Factory: " << areas[i]->owner()->factory()->name() << " - Coor: " << vp.coor_);
+			// Is wanted position is at a spot where things may stand?
+			if(areas[i]->terrainStyle(vp.coor_) == Pos::TS_VOID)
+				continue;
+
+			// Spawn the thing
 			Composite* thing = areas[i]->spawn(thingName.get(), vp, 0, parentPos);
+			// Place the thing
 			PosComponent* p = PosComponent::get(thing);
 			Assert(p);
 			if(isScaled) {
@@ -228,17 +240,23 @@ namespace se_basic {
 				float r = CoorT::toFloat(p->nextPos().radius()) * radius;
 				p->nextPos().setRadius(r);
 			}
+			// Clamp to ground??
 			p->nextPos().setGrounded(isGrounded);
+			// Init anims
 			for(int j = 0; j < 4; ++j) {
 				if(hasAnim[j]) {
 					p->nextPos().anim(j).setAnim(anim[j]);
 				}
 			}
+			// Mark as "should save" when saving to a savefile
 			StatComponent::Ptr(*thing)->setShouldSave(true);
 
+			// Send signal if active
 			if(isOn >= 0) {
 				SignalComponent::Ptr(*thing)->send(isOn == 0);
 			}
+
+			// Register sibling
 			siblings[i] = thing;
 		}
 

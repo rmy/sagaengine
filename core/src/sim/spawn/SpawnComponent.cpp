@@ -77,8 +77,7 @@ namespace se_core {
 		vp.sub(aPos->pos().world_);
 		Composite* t = area->spawn(thingName, vp, deniedTsMask);
 
-		// Avoid collision with spawner
-		// TODO: Invent a better way
+		// Remember spawner
 		if(t) {
 			SpawnComponent::Ptr tSpawn(*t);
 			Assert(!tSpawn.isNull());
@@ -87,7 +86,6 @@ namespace se_core {
 
 		return t;
 	}
-
 
 	void SpawnComponent
 	::setSpawnPoints(int count, const ViewPoint* const* const spawnPoints) {
