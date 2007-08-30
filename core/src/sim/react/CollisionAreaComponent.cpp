@@ -37,12 +37,13 @@ namespace se_core {
 	CollisionAreaComponent
 	::CollisionAreaComponent(Composite* owner) 
 		: NodeComponent(sct_COLLISION, owner)
-		, collisionGrid_(0) {
+		, collisionGrid_(0), areaEdge_(new AreaEdge()) {
 	}
 
 
 	CollisionAreaComponent
 	::~CollisionAreaComponent() {
+		delete areaEdge_;
  	}
 
 
@@ -161,6 +162,7 @@ namespace se_core {
 
 	int CollisionAreaComponent
 	::getContactList(Contact* list, int maxCollisions) {
+		Point3 tmp;
 		int count = 0;
 		int outer = 0;
 
@@ -169,7 +171,6 @@ namespace se_core {
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
-		//Area* self = static_cast<Area*>(owner());
 		ZoneAreaComponent::Ptr aZone(*this);
 
 		NodeComponentList::Iterator it(children_);
@@ -178,22 +179,6 @@ namespace se_core {
 			++outer;
 
 			short innerCount = 0;
-			/*
-			for(int n = 0; n < Area::MAX_NEIGHBOURS; ++n) {
-				//ZoneAreaComponent::Ptr aZone(*this); //* area = self->neighbours_[ n ];
-
-				if(!area) continue;
-				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(area->component(sct_COLLISION));
-				if(!cac || !cac->collisionGrid()) continue;
-
-				Point3 p;
-				cc->areaCovered().center(p);
-				coor_t speedAndRadius = cc->areaCovered().radius();
-				
-				innerCount += cac->collisionGrid()->collisionCandidates
-					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
-			}
-			*/
 			ComponentList::Iterator linkIt(aZone->links());
 			while(linkIt.hasNext()) {
 				ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
@@ -239,10 +224,20 @@ namespace se_core {
 						if(count > 64) {
 							LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
 						}
-						list[ count ].ci1_.cc_ = cc;
-						list[ count ].ci2_.cc_ = &cc2;
-						list[ count ].ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
-						list[ count ].ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
+						Contact& c = list[ count ];
+						c.ci1_.cc_ = cc;
+						c.ci2_.cc_ = &cc2;
+						c.ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
+						c.ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
+
+						// Calculate radius and bounce points
+						Point3& d1 = c.ci1_.bouncePoint_;
+						Point3& d2 = c.ci2_.bouncePoint_;
+						c.ci1_.radius_ = cc->bouncePoint(c.ci1_.vp_.coor_, c.ci2_.vp_.coor_, d1);
+						c.ci2_.radius_ = cc2.bouncePoint(c.ci2_.vp_.coor_, d1, d2);
+						d1.y_ = d2.y_;
+						c.radSum_ = c.ci1_.radius_ + c.ci2_.radius_;
+
 						++count;
 					}
 				}

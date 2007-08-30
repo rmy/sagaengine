@@ -95,7 +95,7 @@ namespace se_core {
 			if(!target.cc_->isCollideable())
 				return false;
 
-			return collide_->collide(*this, *target.cc_);
+			return collide_->collide(pusher, target);
 		}
 
 
@@ -122,6 +122,7 @@ namespace se_core {
 			return geom_LONG_CYLINDER;
 		}
 
+		coor_t bouncePoint(const Point3& c, const Point3& testPoint, Point3& dest) const;
 		coor_t bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const;
 		coor_t bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const;
 

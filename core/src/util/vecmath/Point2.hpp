@@ -112,8 +112,9 @@ namespace se_core {
 		bool willAIntersectB(const Point2& a0, const Point2& a1, const Point2& b0, const Point2& b1);
 		bool willAIntersectB(const Point3& a0, const Point3& a1, const Point3& b0, const Point3& b1, float tolerance = 0);
 
-		// copy constructor and operator = is made by complier
+		void nearestPoint(const Point2& pt1, const Point2& pt2, const Point2& testPoint);
 
+		// copy constructor and operator = is made by complier
 		Point2& operator=(const Tuple2& t) {
 			Tuple2::operator=(t);
 			return *this;

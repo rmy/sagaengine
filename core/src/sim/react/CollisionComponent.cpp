@@ -243,49 +243,12 @@ namespace se_core {
 	}
 
 
-	coor_t CollisionComponent
-	::bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const {
-		Point3 c;
-		posComponent().worldCoor(alpha, c);
-
+	inline coor_t CollisionComponent
+	::bouncePoint(const Point3& c, const Point3& testPoint, Point3& dest) const {
 		if(geometryType_ == geom_CYLINDER) {
 			dest.set(c);
 			return radius_;
 		}
-
-		/*
-		const BoundingBox& b = posComponent().pos().bounds_;
-		coor_t xSize = b.maxX_ - b.minX_;
-		coor_t zSize = b.maxZ_ - b.minZ_;
-
-		Point3 p1, p2;
-		coor_t radius;
-		if(xSize > zSize) {
- 			radius = CoorT::half(zSize);
-			p1.z_ = p2.z_ = CoorT::half(b.minZ_ + b.maxZ_);
-			p1.x_ = b.minX_ + radius;
-			p2.x_ = b.maxX_ - radius;
-
-			Assert(p1.x_ < p2.x_);
-		}
-		else if(zSize > xSize) {
-			radius = CoorT::half(xSize);
-			p1.x_ = p2.x_ = CoorT::half(b.minX_ + b.maxX_);
-			p1.z_ = b.minZ_ + radius;
-			p2.z_ = b.maxZ_ - radius;
-			Assert(p1.z_ < p2.z_);
-		}
-		else {
-			dest.set(c);
-			return CoorT::half(xSize);
-		}
-
-		p1.y_ = p2.y_ = CoorT::half(b.minY_ + b.maxY_);
-		Assert(posComponent_->nextPos().worldFace().pitch_ == 0);
-		Assert(posComponent_->nextPos().worldFace().roll_ == 0);
-		p1.rotate(posComponent().nextPos().worldFace());
-		p2.rotate(posComponent().nextPos().worldFace());
-		*/
 
 		Point3 wp1, wp2;
 		wp1.add(c, p1_);
@@ -294,6 +257,13 @@ namespace se_core {
 		return radius_;
 	}
 
+
+	coor_t CollisionComponent
+	::bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const {
+		Point3 c;
+		posComponent().worldCoor(alpha, c);
+		return bouncePoint(c, testPoint, dest);
+	}
 
 	coor_t CollisionComponent
 	::bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const {

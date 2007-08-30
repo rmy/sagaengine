@@ -28,8 +28,8 @@ namespace se_core {
 	class _SeCoreExport CoNone : public ThingCollide {
 	public:
 		CoNone();
-		bool collide(CollisionComponent& pusher
-					 , const CollisionComponent& target) const;
+		bool collide(ContactInfo& pusher
+					 , const ContactInfo& target) const;
 
 	private:
 	};

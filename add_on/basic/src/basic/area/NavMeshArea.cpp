@@ -2,6 +2,7 @@
 #include "NavMeshArea.hpp"
 #include "NavMesh.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "sim/react/CollisionAreaComponent.hpp"
 
 using namespace se_core;
 
@@ -10,6 +11,7 @@ namespace se_basic {
 	::NavMeshArea(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
 			: Area (owner, factory, name, w, h), navMesh_(navMesh) {
 		LogDetail("Creating area " << name << " with size " << w << ", " << h);
+		navMesh_->walls(CollisionAreaComponent::Ptr(*this)->areaEdge());
 	}
 
 

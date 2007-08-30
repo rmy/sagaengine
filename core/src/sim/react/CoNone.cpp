@@ -32,7 +32,7 @@ namespace se_core {
 	}
 
 	bool CoNone
-	::collide(CollisionComponent& pusher, const CollisionComponent& target) const {
+	::collide(ContactInfo& pusher, const ContactInfo& target) const {
 		return false;
 	}
 

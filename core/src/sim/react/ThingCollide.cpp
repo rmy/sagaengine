@@ -34,6 +34,30 @@ namespace se_core {
 
 
 	bool ThingCollide
+	::isGuilty(ContactInfo& pusher, const ContactInfo& target) const {
+		if(!pusher.cc_->didGeometryCollide(*target.cc_)) {
+			return true;
+		}
+		PosComponent& pPos = pusher.cc_->posComponent();
+		const PosComponent& tPos = target.cc_->posComponent();
+
+		Point3 pNow, pNext, t;
+		target.cc_->bouncePoint(0, pPos.pos().worldCoor(), t);
+		pusher.cc_->bouncePoint(0, t, pNow);
+		pusher.cc_->bouncePoint(SCALE_RES, t, pNext);
+
+		coor_double_t beforeDistance = pNow.xzDistanceSquared(t);
+		coor_double_t distanceWithPusherMoving = pNext.xzDistanceSquared(t);
+		if(distanceWithPusherMoving >= beforeDistance) {
+			return false;
+		}
+		return true;
+		//return isGuilty(pusher.posComponent(), target.posComponent());
+		//return true;
+	}
+
+
+	bool ThingCollide
 	::isGuilty(CollisionComponent& pusher, const CollisionComponent& target) const {
 		if(!pusher.didGeometryCollide(target)) {
 			return true;
