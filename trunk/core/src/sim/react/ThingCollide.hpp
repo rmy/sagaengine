@@ -23,6 +23,7 @@ rune@skalden.com
 #define engine_react_ThingCollide_hpp
 
 #include "sim_react.hpp"
+#include "ContactInfo.hpp"
 #include "../thing/sim_thing.hpp"
 #include "sim/sim.hpp"
 #include "comp/Object.hpp"
@@ -43,8 +44,8 @@ namespace se_core {
 		/**
 		 * @return true if the collision blocks the movement of the collider.
 		 */
-		virtual bool collide(CollisionComponent& pusher
-					 , const CollisionComponent& target) const = 0;
+		virtual bool collide(ContactInfo& pusher
+					 , const ContactInfo& target) const = 0;
 
 	protected:
 		/**
@@ -54,6 +55,9 @@ namespace se_core {
 		 */
 		bool isGuilty(CollisionComponent& pusher
 					 , const CollisionComponent& target) const;
+
+		bool isGuilty(ContactInfo& pusher
+					 , const ContactInfo& target) const;
 
 	private:
 		bool isGuilty(PosComponent& pusher

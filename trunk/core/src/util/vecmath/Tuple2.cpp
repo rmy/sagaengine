@@ -21,4 +21,11 @@ namespace se_core {
 	::isNan() const {
 		return x_ != x_ || y_ != y_;
 	}
+
+
+	se_err::Log& operator<< (se_err::Log& log, const Tuple2& t) {
+		log << "(" << t.x_ << ", " << t.y_ << ")";
+		return log;
+	}
+
 }

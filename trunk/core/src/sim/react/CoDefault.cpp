@@ -19,7 +19,7 @@ rune@skalden.com
 */
 
 
-#include "DefaultTC.hpp"
+#include "CoDefault.hpp"
 #include "../thing/Actor.hpp"
 #include "../action/all.hpp"
 
@@ -27,19 +27,19 @@ rune@skalden.com
 
 namespace se_core {
 
-	DefaultTC
-	::DefaultTC() : ThingCollide("default")
+	CoDefault
+	::CoDefault() : ThingCollide("Default")
 				, PROPERTY_COLLIDE_SELF(Property::hash("Collide.SELF"))
 	{
 	}
 
-	DefaultTC
-	::DefaultTC(const char* name) : ThingCollide(name)
+	CoDefault
+	::CoDefault(const char* name) : ThingCollide(name)
 				, PROPERTY_COLLIDE_SELF(Property::hash("Collide.SELF"))
 	{
 	}
 
-	bool DefaultTC
+	bool CoDefault
 	::collide(ContactInfo& pusher, const ContactInfo& target) const {
 		switch(target.cc_->substance()) {
 		case UNDEFINED:
@@ -63,7 +63,7 @@ namespace se_core {
 	}
 
 
-	void DefaultTC
+	void CoDefault
 	::bounce(ContactInfo& pusher
 			  , const ContactInfo& target) const {
 		PhysicsComponent::Ptr pPhysics(pusher.cc_);
@@ -112,7 +112,7 @@ namespace se_core {
 	}
 
 
-	void DefaultTC
+	void CoDefault
 	::rebound(ContactInfo& pusher, const ContactInfo& target) const {
 		////////////////////
 		PhysicsComponent::Ptr pPhysics(*pusher.cc_);
@@ -150,7 +150,7 @@ namespace se_core {
 		//haltIfGuilty(pusher, target);
 	}
 
-	void DefaultTC
+	void CoDefault
 	::_away(ContactInfo& pusher
 			  , const ContactInfo& target, coor_t speed) const {
 		PhysicsComponent::Ptr pPhysics(pusher.cc_);
@@ -174,7 +174,7 @@ namespace se_core {
 	}
 
 
-	bool DefaultTC
+	bool CoDefault
 	::slide(ContactInfo& pusher
 			  , const ContactInfo& target) const {
 		const coor_double_t SLIDE_THRESHOLD_SQ = 0.25f * 0.25f;
@@ -194,7 +194,7 @@ namespace se_core {
 	}
 
 
-	bool DefaultTC
+	bool CoDefault
 	::popAndDie(ContactInfo& pusher
 				, const ContactInfo& target) const {
 		if(pop(pusher, target)) {
@@ -205,7 +205,7 @@ namespace se_core {
 	}
 
 
-	bool DefaultTC
+	bool CoDefault
 	::pop(ContactInfo& pusher
 				, const ContactInfo& target) const {
 		StatComponent::Ptr tStat(target.cc_);
@@ -229,14 +229,14 @@ namespace se_core {
 			break;
 
 		case Property::PT_ACTION:
-			//ActionComponent::Ptr(pusher)->planAction(CHANNEL_MOVEMENT, *propPusher->action());
+			ActionComponent::Ptr(pusher.cc_)->planAction(CHANNEL_MOVEMENT, *propPusher->action());
 			break;
 		}
 		return false;
 	}
 
 
-	bool DefaultTC
+	bool CoDefault
 	::_pop(se_core::Composite& spawner, unsigned int hash) {
 		if(spawner.isDead())
 			// Didn't pop - return false
@@ -273,5 +273,5 @@ namespace se_core {
 		return true;
 	}
 
-	const DefaultTC tcDefault;
+	const CoDefault coDefault;
 }

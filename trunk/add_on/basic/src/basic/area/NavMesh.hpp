@@ -5,6 +5,8 @@
 #include "util/vecmath/Point2.hpp"
 #include "util/vecmath/Point3.hpp"
 #include "util/bounds/BoundingBox.hpp"
+#include "sim/react/AreaEdge.hpp"
+
 
 namespace se_basic {
 
@@ -235,6 +237,7 @@ namespace se_basic {
 		}
 
 
+		void walls(se_core::AreaEdge& areaEdge) const;
 		int isInLineOfSight(const se_core::Pos& from, const se_core::Pos& to) const;
 		int isInLineOfSight(const se_core::Point3& from, short fromIndex, const se_core::Point3& to, short toIndex) const;
 		int farthestLineOfSightXZ(int fromIndex, const se_core::Point3& from, const se_core::Point3& to, short toIndex, se_core::Point2& dest) const;

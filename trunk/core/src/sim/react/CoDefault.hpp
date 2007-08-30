@@ -19,16 +19,16 @@ rune@skalden.com
 */
 
 
-#ifndef engine_react_DefaultTC_hpp
-#define engine_react_DefaultTC_hpp
+#ifndef engine_react_CoDefault_hpp
+#define engine_react_CoDefault_hpp
 
 #include "ThingCollide.hpp"
 
 namespace se_core {
-	class _SeCoreExport DefaultTC : public ThingCollide {
+	class _SeCoreExport CoDefault : public ThingCollide {
 	public:
-		DefaultTC();
-		DefaultTC(const char* name);
+		CoDefault();
+		CoDefault(const char* name);
 		bool collide(ContactInfo& pusher
 					 , const ContactInfo& target) const;
 
@@ -55,7 +55,7 @@ namespace se_core {
 		}
 	};
 
-	extern _SeCoreExport const DefaultTC tcDefault;
+	extern _SeCoreExport const CoDefault coDefault;
 }
 
 #endif

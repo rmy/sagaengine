@@ -22,7 +22,7 @@ rune@skalden.com
 #ifndef sim_react_ContactInfo_hpp
 #define sim_react_ContactInfo_hpp
 
-#include "CollisionComponent.hpp"
+#include "sim_react.hpp"
 #include "util/vecmath/ViewPoint.hpp"
 
 
@@ -30,6 +30,8 @@ namespace se_core {
 	struct _SeCoreExport ContactInfo {
 		CollisionComponent* cc_;
 		ViewPoint vp_;
+		Point3 bouncePoint_;
+		coor_t radius_;
 	};
 
 }

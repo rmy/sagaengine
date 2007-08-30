@@ -3,6 +3,7 @@
 #include "util/vecmath/Point3.hpp"
 #include "util/bounds/BoundingBox.hpp"
 #include "sim/pos/Pos.hpp"
+#include "sim/react/AreaEdge.hpp"
 
 using namespace se_core;
 
@@ -239,6 +240,27 @@ namespace se_basic {
 		}
 		dest.set(to.x_, to.z_);
 		return 0;
+	}
+
+	void NavMesh
+	::walls(AreaEdge& areaEdge) const {
+		static const short corners[][2] = {
+			{ 1, 2 },
+			{ 2, 0 },
+			{ 0, 1 }
+		};
+		for(int i = 0; i < triangleCount_; ++i) {
+			for(int j = 0; j < 3; ++j) {
+				if(triangles_[ i ].linkTo_[ j ] < 0 && triangles_[ i ].linkType_[ j ] == -1) {
+					Point3& c1 = controlPoints_[ triangles_[ i ].controlPoints_[ corners[ j ][ 0 ] ] ];
+					Point3& c2 = controlPoints_[ triangles_[ i ].controlPoints_[ corners[ j ][ 1 ] ] ];
+
+					Point2 p1(c1.x_, c1.z_);
+					Point2 p2(c2.x_, c2.z_);
+					areaEdge.addLink(p1, p2);
+				}
+			}
+		}
 	}
 
 

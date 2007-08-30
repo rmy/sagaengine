@@ -26,6 +26,7 @@ rune@skalden.com
 #include "CollisionGrid.hpp"
 #include "CollisionComponent.hpp"
 #include "ContactInfo.hpp"
+#include "AreaEdge.hpp"
 #include "../area/Area.hpp"
 
 namespace se_core {
@@ -33,6 +34,12 @@ namespace se_core {
 	public:
 		ContactInfo ci1_;
 		ContactInfo ci2_;
+		coor_t radSum_;
+
+		bool doesGeometryCollide() const {
+			bool res = (ci1_.bouncePoint_.xzDistanceSquared(ci1_.bouncePoint_) < radSum_ * radSum_);
+			return res;
+		}
 	};
 
 
@@ -50,6 +57,13 @@ namespace se_core {
 
 		CollisionGrid* collisionGrid() {
 			return collisionGrid_; 
+		}
+
+		AreaEdge& areaEdge() {
+			return *areaEdge_;
+		}
+		const AreaEdge& areaEdge() const {
+			return *areaEdge_;
 		}
 
 		void setActive(bool state);
@@ -71,6 +85,7 @@ namespace se_core {
 
 
 		CollisionGrid* collisionGrid_;
+		AreaEdge* areaEdge_;
 	};
 
 }

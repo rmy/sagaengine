@@ -21,6 +21,29 @@ namespace se_core {
 	}
 
 
+	void Point2
+	::nearestPoint(const Point2& pt1, const Point2& pt2, const Point2& testPoint) {
+		Vector2 A, u;
+		A.sub(testPoint, pt1);
+		u.sub(pt2, pt1);
+
+		// Normalize u
+		coor_t len = u.length();
+		u.scale(1 / len);
+
+		// Nearest point
+		scale_t s = A.dot(u);
+		// Clamp point between pt1 and pt2
+		if(s < 0)
+			s = 0;
+		else if(s > len)
+			s = len;
+
+		// Calc point
+		scale(s, u);
+		add(pt1);
+	}
+
 	/*
 	void Point2
 	::lineIntersect(const Point2& p0

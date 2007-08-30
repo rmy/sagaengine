@@ -413,7 +413,10 @@ namespace se_core {
 		Tuple2 operator*(scale_t s) const {
 			return (Tuple2(*this)).operator*=(s);
 		}
+
 	};
+
+	se_err::Log& operator<< (se_err::Log& log, const Tuple2& b);
 
 } // Namespace
 
