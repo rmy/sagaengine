@@ -42,7 +42,9 @@ namespace se_basic {
 		static Tuple3 b;
 		Point2 p(coor.x_, coor.z_);
 		short tri = (index >= 0) ? index : navMesh_->find(p);
-		Assert(tri >= 0 && "Make sure coor is legal before calling groundHeight");
+		AssertFatal(tri >= 0, "Make sure coor is legal before calling groundHeight");
+		if(tri < 0)
+			return 0;
 		navMesh_->barycentric(tri, p, b);
 		return navMesh_->height(tri, b);
 	}
@@ -260,13 +262,13 @@ namespace se_basic {
 		}
 
 		short via = navMesh_->path(fromIndex, toIndex);
-		if(via == toIndex)
-			return via;
 		navMesh_->center(via, c);
 		if(navMesh_->isInLineOfSight(from, fromIndex, c, via) < 0) {
-			LogWarning("Gave path that was not in LOS");
+			LogDetail("Gave path that was not in LOS");
 			return fromIndex;
 		}
+		if(via == toIndex)
+			return via;
 
 		short next = navMesh_->path(via, toIndex);
 		navMesh_->center(next, c);

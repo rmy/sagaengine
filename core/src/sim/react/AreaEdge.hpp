@@ -43,6 +43,7 @@ namespace se_core {
 		 * assertion, as the same point is likely to link to two other points.
 		 */
 		void addLink(Point2& p1, Point2& p2);
+		void removeLink(Point2& p1, Point2& p2);
 
 
 		/**

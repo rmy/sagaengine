@@ -42,6 +42,15 @@ namespace se_core {
 	}
 
 
+	void AreaEdge
+	::removeLink(Point2& p1, Point2& p2) {
+		int index1 = _getOrAddControlPoint(p1);
+		int index2 = _getOrAddControlPoint(p2);
+		AssertFatal(links_[ index1 ] == index2, "The point " << p1 << " doesn't link to another point");
+
+		links_[ index1 ] = -1;
+	}
+
 	int AreaEdge
 	::_getOrAddControlPoint(Point2& p) {
 		// Find control point and return the index if it already exists.
