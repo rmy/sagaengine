@@ -76,6 +76,12 @@ namespace se_core {
 
 		spawnAreaComponent_ = new SpawnAreaComponent(owner);
 		collisionAreaComponent_ = new CollisionAreaComponent(owner);
+		AreaEdge& areaEdge = collisionAreaComponent_->areaEdge();
+		areaEdge.addLink(Point2(0, 0), Point2(CoorT::fromTile(w), 0));
+		areaEdge.addLink(Point2(CoorT::fromTile(w), 0), Point2(CoorT::fromTile(w), CoorT::fromTile(h)));
+		areaEdge.addLink(Point2(CoorT::fromTile(w), CoorT::fromTile(h)), Point2(0, CoorT::fromTile(h)));
+		areaEdge.addLink(Point2(0, CoorT::fromTile(h)), Point2(0, 0));
+
 		physicsAreaComponent_ = new PhysicsAreaComponent(owner, collisionAreaComponent_);
 		actionComponent_ = new ActionComponent(owner);
 		scriptComponent_ = new ScriptComponent(owner, actionComponent_);
@@ -263,6 +269,31 @@ namespace se_core {
 		if(isNeighbour(*area)) {
 			AssertWarning(area->isNeighbour(*this), name() << " isn't relinked from " << area->name());
 			zoneAreaComponent_->addLink(*area->zoneAreaComponent_);
+
+			int px = zoneAreaComponent_->page().x_;
+			int pz = zoneAreaComponent_->page().z_;
+
+			int npx = area->zoneAreaComponent_->page().x_;
+			int npz = area->zoneAreaComponent_->page().z_;
+
+			AreaEdge& areaEdge = collisionAreaComponent_->areaEdge();
+
+			coor_t w = CoorT::fromTile(width_);
+			coor_t h = CoorT::fromTile(height_);
+			Assert(pz == npz || px == npx);
+			if(pz > npz) {
+				areaEdge.removeLink(Point2(0, 0), Point2(w, 0));
+			}
+			else if(px < npx) {
+				areaEdge.removeLink(Point2(w, 0), Point2(w, h));
+			}
+			else if(pz < npz) {
+				areaEdge.removeLink(Point2(w, h), Point2(0, h));
+			}
+			else if(px > npx) {
+				areaEdge.removeLink(Point2(0, h), Point2(0, 0));
+			}
+
 		}
 
 		return zoneAreaComponent_->addNeighbour(*area->zoneAreaComponent_);
