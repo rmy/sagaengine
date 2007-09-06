@@ -137,7 +137,11 @@ namespace se_client {
 	::getPhrase(PhraseType type, const char* name) {
 		int index = findPhrase(type, name);
 		Assert(index >= 0 && index < phraseCount_);
-		return phrases_[ index ];
+		if(languages_[ index ] == currentLanguage_ && types_[ index ] == type && strcmp(names_[index], name) == 0) {
+			return phrases_[ index ];
+		}
+
+		return 0;
 	}
 
 

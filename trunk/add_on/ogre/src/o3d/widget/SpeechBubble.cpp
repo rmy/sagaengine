@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), overlay_(0), caption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
 	}
 
 
@@ -47,11 +47,19 @@ namespace se_ogre {
 	bool SpeechBubble
 	::init() {
 		try {
-			overlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/SpeechBubble");
-			caption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/SpeechBubbleText");
+			speechOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/SpeechBubble");
+			speechCaption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/SpeechBubbleText");
 		}
 		catch(...) {
 			LogWarning("Failed setting upp speech bubble overlays.");
+		}
+
+		try {
+			infoOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/InfoBubble");
+			infoCaption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/InfoBubbleText");
+		}
+		catch(...) {
+			LogWarning("Failed setting upp info bubble overlays.");
 		}
 
 		SimSchema::messageCentral.addListener(*this);
@@ -67,16 +75,39 @@ namespace se_ogre {
 
 
 	void SpeechBubble
-	::infoEvent(char* text) {
-		LogDetail(text);
+	::infoEvent(char* messageName) {
+		if(!messageName) {
+			try {
+				infoOverlay_->hide();
+			}
+			catch(...) {
+				LogWarning("Couldn't hide info bubble");
+			}
+			return;
+		}
+
+		wchar_t buffer[512];
+		LogDetail("Info: " << messageName);
+		bool hadTranslation = translate(messageName, buffer);
+		try {
+			if(hadTranslation)
+				infoCaption_->setCaption(buffer);
+			else
+				infoCaption_->setCaption(messageName);
+			infoOverlay_->show();
+		}
+		catch(...) {
+			LogWarning("Couldn't show info bubble");
+		}
 	}
 
 
-	void SpeechBubble
-	::speechEvent(se_core::Actor& speaker, const char* messageName) {
-		speaker_ = &speaker;
+	bool SpeechBubble
+	::translate(const char* messageName, wchar_t* buffer) {
 		const char* message = ClientSchema::phrases().getPhrase(Phrase::SPEECH, messageName);
-		wchar_t buffer[512];
+
+		if(!message)
+			return false;
 		const unsigned char* c = (const unsigned char*)message;
 		int linePos = 0;
 		int i = 0;
@@ -94,12 +125,22 @@ namespace se_ogre {
 			}
 		}
 		buffer[i] = 0;
+		return true;
+	}
 
-		LogDetail(speaker.name() << " says '" << message << "'");
 
+	void SpeechBubble
+	::speechEvent(se_core::Actor& speaker, const char* messageName) {
+		LogDetail(speaker.name() << " says '" << messageName << "'");
+		speaker_ = &speaker;
+		wchar_t buffer[512];
+		bool hadTranslation = translate(messageName, buffer);
 		try {
-			caption_->setCaption(buffer);
-			overlay_->show();
+			if(hadTranslation)
+				speechCaption_->setCaption(buffer);
+			else
+				speechCaption_->setCaption(messageName);
+			speechOverlay_->show();
 		}
 		catch(...) {
 			LogWarning("Couldn't show speech bubble");
@@ -113,7 +154,7 @@ namespace se_ogre {
 	::trackUserFeedback() {
 		if(speaker_)
 			speaker_->script()->trackUserFeedback();
-		overlay_->hide();
+		speechOverlay_->hide();
 
 		loseFocus();
 	}

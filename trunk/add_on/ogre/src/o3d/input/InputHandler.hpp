@@ -70,6 +70,9 @@ namespace se_ogre {
 		void grabFocus();
 		void loseFocus();
 		bool hasFocus();
+
+		virtual void grabbedFocusEvent() {}
+		virtual void lostFocusEvent() {}
 		const char* name();
 
 	private:

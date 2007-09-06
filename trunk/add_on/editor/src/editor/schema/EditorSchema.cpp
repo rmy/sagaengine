@@ -32,6 +32,7 @@ using namespace se_core;
 namespace se_editor {
 	namespace EditorSchema {
 		se_core::Composite* lastSpawn = 0;
+		CameraPos cameraPos = cam_ABOVE_HIGH;
 
 		class _SeBasicExport AutoInit : public se_core::InitListener {
 		public:
