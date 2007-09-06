@@ -27,6 +27,8 @@ rune@skalden.com
 namespace se_editor {
 	namespace EditorSchema {
 		extern se_core::Composite* lastSpawn;
+		enum CameraPos { cam_ABOVE_HIGH, cam_ABOVE_MEDIUM, cam_ABOVE_LOW, cam_BEHIND, cam_LEFT, cam_MAX };
+		extern CameraPos cameraPos;
 	}
 }
 

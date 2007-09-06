@@ -67,14 +67,22 @@ namespace se_ogre {
 	::push(const char* name) {
 		InputHandler* h = handler(name);
 		Assert(h && "No input handler with that name");
+		if(handlerStackPos_ >= 0) {
+			handlerStack_[ handlerStackPos_ ]->lostFocusEvent();
+		}
 		handlerStack_[ ++handlerStackPos_ ] = h;
+		handlerStack_[ handlerStackPos_ ]->grabbedFocusEvent();
 	}
 
 
 	void InputManager
 	::pop() {
 		Assert(handlerStackPos_ >= 0 && "Stack already empty");
+		handlerStack_[ handlerStackPos_ ]->lostFocusEvent();
 		--handlerStackPos_;
+		if(handlerStackPos_ >= 0) {
+			handlerStack_[ handlerStackPos_ ]->grabbedFocusEvent();
+		}
 	}
 
 

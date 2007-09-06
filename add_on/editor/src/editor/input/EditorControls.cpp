@@ -27,13 +27,15 @@ rune@skalden.com
 #include "sim/action/Idle.hpp"
 #include "sim/SimEngine.hpp"
 #include "sim/physics/PhysicsComponent.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/message/MessageCentral.hpp"
 #include "../action/AcMoveCursor.hpp"
 #include "../action/AcExitEditor.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "io/stream/FileManager.hpp"
-
 #include "editor/schema/EditorSchema.hpp"
 #include "editor/action/all.hpp"
+#include "sim/stat/Dictionary.hpp"
 #include <OIS.h>
 
 using namespace se_core;
@@ -71,6 +73,43 @@ namespace se_editor {
 		plannedAction_[ CHANNEL_MOVEMENT ].resetAction();
 		plannedAction_[ CHANNEL_DIRECTION ].resetAction();
 		plannedAction_[ CHANNEL_EXTRA ].resetAction();
+
+		showMenu(modifier(false, false), false);
+	}
+
+	void EditorControls
+	::lostFocusEvent() {
+		LogWarning("Focus lost");
+		SimSchema::messageCentral.info(0);
+		LogWarning("Focus lost again");
+	}
+
+	void EditorControls
+	::showMenu(int start, bool mod3) {
+		if(mod3) {
+			SimSchema::messageCentral.info("F1 - cavern\nF2 - castle\nF3 - courtyard");
+			return;
+		}
+		char buffer[1024];
+		char* s = buffer;
+		int dictId = SimSchema::dictionary().id(DE_DICTIONARY_TYPE, "LEVEL_DESIGN_SPAWN");
+		for(int i = start; i < start + 10; ++i) {
+			const char* name = 0;
+			if(SimSchema::dictionary().hasId(dictId, i)) {
+				//if(SimSchema::dictionary().hasId(dictId + 1, i))
+				//	name = SimSchema::dictionary().name(dictId + 1, i);
+				//else
+				name = SimSchema::dictionary().name(dictId, i);
+			}
+
+			if(name) {
+				s += sprintf(s, "F%d - %s\n", i - start + 1, name);
+			}
+			else {
+				s += sprintf(s, "F%d\n", i - start + 1);
+			}
+		}
+		SimSchema::messageCentral.info(buffer);
 	}
 
 
@@ -112,9 +151,16 @@ namespace se_editor {
 			speed = 4;
 		}
 		if(!isControlDown() && !e->state.buttonDown(OIS::MB_Middle)) {
-			cursor_.coor_.x_ += e->state.X.rel * (1.0f / 1024.f) * speed;
-			cursor_.coor_.z_ += e->state.Y.rel * (1.0f / 1024.f) * speed;
-			cursor_.face_.yaw_ += e->state.Z.rel * (1.0f / 1024.f) * 16 * BRAY_RES * speed;
+			if(EditorSchema::cameraPos == EditorSchema::cam_LEFT) {
+				cursor_.coor_.z_ -= e->state.X.rel * (1.0f / 1024.f) * speed;
+				cursor_.coor_.x_ += e->state.Y.rel * (1.0f / 1024.f) * speed;
+				cursor_.face_.yaw_ += e->state.Z.rel * (1.0f / 1024.f) * 16 * BRAY_RES * speed;
+			}
+			else {
+				cursor_.coor_.x_ += e->state.X.rel * (1.0f / 1024.f) * speed;
+				cursor_.coor_.z_ += e->state.Y.rel * (1.0f / 1024.f) * speed;
+				cursor_.face_.yaw_ += e->state.Z.rel * (1.0f / 1024.f) * 16 * BRAY_RES * speed;
+			}
 		}
 		else {
 			cursor_.face_.yaw_ += e->state.Z.rel * 6 / 1024.f * BRAY_RES;
@@ -124,6 +170,17 @@ namespace se_editor {
 
 	}
 
+
+	int EditorControls
+	::modifier(bool mod1, bool mod2) {
+		int m = 0;
+		if(mod1)
+			m += 10;
+		if(mod2)
+			m += 20;
+		m += modifier_;
+		return m;
+	}
 
 	void EditorControls
 	::spawnCreature(int id, bool mod1, bool mod2, bool mod3) {
@@ -138,6 +195,8 @@ namespace se_editor {
 		}
 
 		int index = id;
+		index += modifier(mod1, mod2);
+		/*
 		if(index >= 0) {
 			if(mod1)
 				index += 10;
@@ -145,6 +204,7 @@ namespace se_editor {
 				index += 20;
 		}
 		index += modifier_;
+		*/
 		Parameter tmp;
 		actionLevelDesignSpawn.param(index, tmp);
 		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);
@@ -178,8 +238,6 @@ namespace se_editor {
 
 	void EditorControls
 	::keyPressed(const OIS::KeyEvent* e) {
-		//isRelative_ = !isShiftDown();
-
 		switch(e->key) {
 		case OIS::KC_COMMA:
 			setAction(CHANNEL_EXTRA, actionLevelDesignSnap);
@@ -272,7 +330,18 @@ namespace se_editor {
 				if(isControlDown()) {
 					setAction(CHANNEL_EXTRA, actionCopyLevel);
 				}
+				else {
+					EditorSchema::cameraPos = static_cast<EditorSchema::CameraPos>((EditorSchema::cameraPos + 1) % EditorSchema::cam_MAX);
+				}
 			}
+			break;
+
+		case OIS::KC_LEFT:
+			EditorSchema::cameraPos = static_cast<EditorSchema::CameraPos>((EditorSchema::cameraPos - 1 + EditorSchema::cam_MAX) % EditorSchema::cam_MAX);
+			break;
+
+		case OIS::KC_RIGHT:
+			EditorSchema::cameraPos = static_cast<EditorSchema::CameraPos>((EditorSchema::cameraPos + 1) % EditorSchema::cam_MAX);
 			break;
 
 		case OIS::KC_V:
@@ -299,12 +368,26 @@ namespace se_editor {
 				setAction(CHANNEL_EXTRA, actionDestroyGrabbed);
 			}
 			break;
+
+		case OIS::KC_LSHIFT:
+		case OIS::KC_RSHIFT:
+		case OIS::KC_LWIN:
+		case 56: // ALT
+			showMenu(modifier(isShiftDown(), isAltDown()), isWinDown());
+			break;
 		}
 	}
 
 
 	void EditorControls
 	::keyReleased(const OIS::KeyEvent* e) {
-		//isRelative_ = !isShiftDown();
+		switch(e->key) {
+		case OIS::KC_LSHIFT:
+		case OIS::KC_RSHIFT:
+		case OIS::KC_LWIN:
+		case 56: // ALT
+			showMenu(modifier(isShiftDown(), isAltDown()), isWinDown());
+			break;
+		}
 	}
 }

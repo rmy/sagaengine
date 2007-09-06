@@ -67,10 +67,12 @@ namespace se_ogre {
 			below()->mouseReleased(e, button);
 		}
 
+		bool translate(const char* messageName, wchar_t* buffer);
+
 	private:
 		se_core::Actor* speaker_;
-		Ogre::Overlay* overlay_;
-		Ogre::OverlayElement* caption_;
+		Ogre::Overlay* speechOverlay_,* infoOverlay_;
+		Ogre::OverlayElement* speechCaption_,* infoCaption_;
 	};
 }
 

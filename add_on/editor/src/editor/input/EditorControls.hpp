@@ -34,6 +34,8 @@ namespace se_editor {
 		EditorControls();
 		virtual ~EditorControls();
 		void init();
+		void lostFocusEvent();
+		void showMenu(int slot, bool mod3);
 
 		void nextAction(const se_core::ScriptComponent& performer, int channel, se_core::ScriptData* sd, se_core::ActionAndParameter& out) const;
 		void mouseDragged(const OIS::MouseEvent* e);
@@ -47,6 +49,7 @@ namespace se_editor {
 	protected:
 		void setAction(int channel, const se_core::Action& a, const se_core::Parameter* p = 0, int deadline = -1);
 		void setDefaultAction(int channel, const se_core::Action& a, const se_core::Parameter* p = 0);
+		int modifier(bool mod1, bool mod2);
 		void spawnCreature(int id, bool mod1, bool mod2, bool mod3);
 		void placeEntrance(int id);
 
