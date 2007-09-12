@@ -210,7 +210,7 @@ namespace se_ogre {
 
 	void O3dThingComponent
 	::add(ThingMO& tmo) {
-		LogDetail(tmo.name());
+		//LogDetail(tmo.name());
 		int s = moList_.size();
 		moList_.add(tmo);
 		++size_;

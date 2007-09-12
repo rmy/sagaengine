@@ -42,12 +42,14 @@ namespace se_ogre {
 	void MultiO3dThingComponent
 	::add(O3dThingComponent& value) {
 		Assert(&value);
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") added.");
 		CompSchema::voidList.add(&value, firstNode_);
 	}
 
 
 	void MultiO3dThingComponent
 	::remove(O3dThingComponent& value) {
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") removed.");
 		CompSchema::voidList.remove(&value, firstNode_);
 	}
 

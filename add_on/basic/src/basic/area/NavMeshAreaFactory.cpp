@@ -45,8 +45,8 @@ namespace se_basic {
 
 	Composite* NavMeshAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
-		Composite* c = new Composite(this, name->get());
-		NavMeshArea* a = new NavMeshArea(c, 0, name, width_, height_, navMesh_);
+		Composite* c = new Composite(this, name->copyValue());
+		NavMeshArea* a = new NavMeshArea(c, 0, width_, height_, navMesh_);
 		createComponents(c);
 		createGenericComponents(c);
 
@@ -63,6 +63,7 @@ namespace se_basic {
 
 	void NavMeshAreaFactory
 	::release(Composite* c) const {
+		//LogWarning(c->name());
 		delete c->component(se_core::sct_BLOB);
 		delete c;
 	}

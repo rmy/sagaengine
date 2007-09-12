@@ -52,7 +52,7 @@ namespace se_core {
 		/**
 		 * Create a new area of a given size.
 		 */
-		Area(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h);
+		Area(Composite* owner, const ComponentFactory* factory, coor_tile_t w, coor_tile_t h);
 
 		/**
 		 * Destructor.
@@ -165,8 +165,6 @@ namespace se_core {
 
 	protected:
 		coor_tile_t width_, height_;
-
-		String* nameString_; // For proper destruction of content only
 
 		PosComponent* posComponent_;
 		SpawnAreaComponent* spawnAreaComponent_;

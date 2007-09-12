@@ -26,7 +26,7 @@ rune@skalden.com
 namespace se_core {
 
 	ComponentFactory
-	::ComponentFactory(int type) : type_(type) {
+	::ComponentFactory(int type) : type_(type), doDestroy_(false) {
 	}
 
 
@@ -34,6 +34,11 @@ namespace se_core {
 	::~ComponentFactory() {
 	}
 
+
+	void ComponentFactory
+	::setDoDestroy(bool f) { 
+		Assert(!doDestroy_); doDestroy_ = f; 
+	}
 
 	void ComponentFactory
 	::release(Component* c) const {

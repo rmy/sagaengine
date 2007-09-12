@@ -8,15 +8,16 @@ using namespace se_core;
 
 namespace se_basic {
 	NavMeshArea
-	::NavMeshArea(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
-			: Area (owner, factory, name, w, h), navMesh_(navMesh) {
-		LogDetail("Creating area " << name << " with size " << w << ", " << h);
+	::NavMeshArea(Composite* owner, const ComponentFactory* factory, coor_tile_t w, coor_tile_t h, const NavMesh* navMesh)
+			: Area (owner, factory, w, h), navMesh_(navMesh) {
+		//LogDetail(owner->name() << " area created with size " << w << ", " << h);
 		navMesh_->walls(CollisionAreaComponent::Ptr(*this)->areaEdge());
 	}
 
 
 	NavMeshArea
 	::~NavMeshArea() {
+		//LogDetail(owner()->name() << " area destroyed.");
 	}
 
 

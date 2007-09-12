@@ -24,6 +24,7 @@ rune@skalden.com
 #include "../schema/CompSchema.hpp"
 #include "util/error/Log.hpp"
 #include <cstdio>
+#include <cstring>
 
 
 namespace se_core {
@@ -44,12 +45,25 @@ namespace se_core {
 	void ComponentList
 	::add(Component& value) {
 		Assert(&value);
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") added.");
+		/*
+		CompSchema::VoidList::iterator_type it = iterator();
+		while(it != CompSchema::VoidList::end()) {
+			Component* c = static_cast<Component*>(CompSchema::voidList.next(it));
+			if(c->type() == value.type() && strcmp(c->owner()->name(), value.owner()->name()) == 0) {
+				LogFatal(value.name());
+			}
+		}
+		LogWarning("Capacity: " << CompSchema::voidList.capacity());
+		*/
+
 		CompSchema::voidList.add(&value, firstNode_);
 	}
 
 
 	void ComponentList
 	::remove(Component& value) {
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") removed.");
 		CompSchema::voidList.remove(&value, firstNode_);
 	}
 

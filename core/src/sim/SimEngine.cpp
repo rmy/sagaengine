@@ -75,6 +75,7 @@ namespace se_core {
 
 	void SimEngine
 	::go() {
+		//LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (go 1)");
 		SimSchema::initListeners().castStartGameEvent();
 
 		while(true) {
@@ -97,6 +98,7 @@ namespace se_core {
 		level_.reset();
 		SimSchema::initListeners().castCleanupLevelEvent();
 		SimSchema::initListeners().castStopGameEvent();
+		//LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (go 2)");
 	}
 
 
@@ -216,6 +218,7 @@ namespace se_core {
 
 	void SimEngine
 	::initGame() {
+		LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (initGame)");
 		// Reset in game engine variable that remembers the
 		// 'when' of the previous step
 		resetTimer();
@@ -253,6 +256,7 @@ namespace se_core {
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;
+		LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (cleanupGame)");
 	}
 
 

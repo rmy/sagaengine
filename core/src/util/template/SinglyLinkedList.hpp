@@ -294,6 +294,10 @@ namespace se_core {
 		}
 
 
+		int capacity() {
+			return size(firstFreeNode_);
+		}
+
 		bool isFree(const iterator_type &it) {
 			iterator_type iterator = firstFreeNode_;
 			while(iterator != end()) {

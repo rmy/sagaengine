@@ -28,8 +28,6 @@ rune@skalden.com
 namespace se_core {
 
 	class _SeCoreExport CompositeList {
-		friend class CompositeListIterator;
-
 	public:
 		typedef CompSchema::VoidList::iterator_type iterator_type;
 		class _SeCoreExport Iterator {
@@ -51,6 +49,21 @@ namespace se_core {
 			CompSchema::VoidList::iterator_type it_;
 		};
 
+
+		class _SeCoreExport TreeIterator {
+		public:
+			TreeIterator();
+			TreeIterator(const CompositeList& mgo);
+			void init(const CompositeList& mgo);
+
+			bool hasNext();
+			Composite& next();
+
+		private:
+			static const int MAX_STACK_DEPTH = 10;
+			CompositeList::Iterator itStack_[ MAX_STACK_DEPTH ];
+			short stackPointer_;
+		};
 
 		CompositeList();
 		virtual ~CompositeList();

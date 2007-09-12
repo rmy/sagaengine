@@ -45,12 +45,14 @@ namespace se_ogre {
 	void ThingMOList
 	::add(ThingMO& value) {
 		Assert(&value);
+		//LogWarning(value.name() << " added.");
 		CompSchema::voidList.add(&const_cast<ThingMO&>(value), firstNode_);
 	}
 
 
 	void ThingMOList
 	::remove(ThingMO& value) {
+		//LogWarning(value.name() << " removed.");
 		CompSchema::voidList.remove(&const_cast<ThingMO&>(value), firstNode_);
 	}
 
@@ -58,7 +60,9 @@ namespace se_ogre {
 	ThingMO& ThingMOList
 	::pop() {
 		Assert(firstNode_ != -1);
-		return *static_cast<ThingMO*>(CompSchema::voidList.pop(firstNode_));
+		ThingMO& value = *static_cast<ThingMO*>(CompSchema::voidList.pop(firstNode_));
+		//LogWarning(value.name() << " popped.");
+		return value;
 	}
 
 

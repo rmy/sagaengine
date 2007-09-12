@@ -57,7 +57,7 @@ namespace se_ogre {
 				break;
 				
 			default:
-				LogFatal("Unsupported code!");
+				LogFatal("Unsupported code in file " << in.name());
 			}
 		}
 	}

@@ -35,6 +35,11 @@ namespace se_core {
 	}
 
 
+	StatComponentFactory
+	::~StatComponentFactory() {
+	}
+
+
 	void StatComponentFactory
 	::setAbilities(short speed, short attack, short defense, short level) {
 		short bases[4];

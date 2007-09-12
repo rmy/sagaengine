@@ -115,7 +115,7 @@ namespace se_basic {
 		}
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
-				LogDetail("Set spawn points for: " << areas[i]->name());
+				LogDetail("Set spawn points for: " << areas[i]->name() << " - " << in.name());
 				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
 				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
 			}

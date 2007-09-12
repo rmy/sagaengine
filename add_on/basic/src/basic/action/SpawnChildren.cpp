@@ -52,6 +52,7 @@ namespace se_basic {
 				PosComponent::Ptr childPos(s);
 				if(!childPos.isNull() && !pos.isNull()) {
 					PosComponent::Ptr(*s)->nextPos().setParent(*pos, true);
+					StatComponent::Ptr(*s)->setShouldSave(false);
 				}
 			}
 

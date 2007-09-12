@@ -41,6 +41,12 @@ namespace se_core {
 
 	CompositeFactory
 	::~CompositeFactory() {
+		while(componentCount_ > 0) {
+			--componentCount_;
+			if(components_[ componentCount_ ]->doDestroy()) {
+				delete components_[ componentCount_ ];
+			}
+		}
 		delete name_;
 	}
 

@@ -62,11 +62,9 @@ namespace se_client {
 					unsigned short phraseType = in.readPhraseType();
 					name = new String();
 					in.readString(*name);
-					LogDetail(name->get());
 					label = new String();
 					in.readString(*label);
 					ClientSchema::phrases().addPhrase(language, static_cast<Phrase::PhraseType>(phraseType), name, label);
-					LogDetail(name->get());
 				}
 				break;
 

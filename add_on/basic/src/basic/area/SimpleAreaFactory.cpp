@@ -43,8 +43,9 @@ namespace se_basic {
 
 	Composite* SimpleAreaFactory
 	::create(String* name, int pageX, int pageY, int pageZ, int gridId) const {
-		Composite* c = new Composite(this, name->get());
-		SimpleArea* a = new SimpleArea(c, 0, name, width_, height_);
+		Composite* c = new Composite(this, name->copyValue());
+		delete name;
+		SimpleArea* a = new SimpleArea(c, 0, width_, height_);
 		createComponents(c);
 		createGenericComponents(c);
 

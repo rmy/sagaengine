@@ -56,15 +56,13 @@ namespace se_fmod {
 					unsigned short soundType = in.readDictionaryWord(DE_SOUND_TYPE);
 					name = new String();
 					in.readString(*name);
-					LogDetail(name->get());
 
 					float volume = in.readFloat();
 					bool shouldLoop = (in.readInfoCode() == '+');
 					file = new String();
 					in.readString(*file);
-					LogDetail(language << " " << soundType << ": " << name->get());
+					//LogDetail(language << " " << soundType << ": " << name->get());
 					FmodSchema::sounds.add(language, static_cast<Sounds::SoundType>(soundType), name, volume, file, shouldLoop);
-					LogDetail(name->get());
 				}
 				break;
 			default:

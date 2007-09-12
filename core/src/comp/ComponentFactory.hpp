@@ -32,9 +32,12 @@ namespace se_core {
 		virtual ~ComponentFactory();
 		virtual Component* create(Composite* owner) const = 0;
 		virtual void release(Component* t) const;
+		bool doDestroy() const { return doDestroy_; }
+		void setDoDestroy(bool f);
 
 	protected:
 		int type_;
+		bool doDestroy_;
 	};
 
 }

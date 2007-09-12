@@ -53,8 +53,10 @@ rune@skalden.com
 
 namespace se_core {
 	Area
-	::Area(Composite* owner, const ComponentFactory* factory, String* name, coor_tile_t w, coor_tile_t h)
+	::Area(Composite* owner, const ComponentFactory* factory, coor_tile_t w, coor_tile_t h)
 			: Component(sct_BLOB, owner, factory), width_(w), height_(h) {
+		LogDetail(owner->name() << " area created with size " << w << ", " << h);
+
 		posComponent_ = new PosComponent(owner);
 
 		// Init to default position
@@ -69,10 +71,6 @@ namespace se_core {
 		b.setMax(CoorT::fromTile(w), ySize, CoorT::fromTile(h));
 		posComponent_->nextPos().setBounds(b);
 		posComponent_->flip();
-
-		// Stored for destruction purposed.
-		// TODO: fix this mess?
-		nameString_ = name;
 
 		spawnAreaComponent_ = new SpawnAreaComponent(owner);
 		collisionAreaComponent_ = new CollisionAreaComponent(owner);
@@ -94,7 +92,7 @@ namespace se_core {
 
 	Area
 	::~Area() {
-		delete nameString_;
+		LogDetail(owner()->name() << " area destroyed");
 		delete zoneAreaComponent_;
 		delete signalAreaComponent_;
 		delete scriptComponent_;
@@ -247,7 +245,7 @@ namespace se_core {
 		// Shedule all things for destruction, and flip
 		// it out of area
 		{
-			CompositeList::Iterator it(owner()->children());
+			CompositeList::TreeIterator it(owner()->children());
 			while(it.hasNext()) {
 				Composite* t = &it.next();
 				t->scheduleForDestruction();
