@@ -347,13 +347,14 @@ namespace se_core {
 
 	void AreaManager
 	::resetAll() {
+		resetActive();
 		resetThings();
 
 		for(int i = 0; i < areaCount_; ++i) {
-			if(areas_[i]->factory())
-				areas_[i]->factory()->release(areas_[i]);
+			if(areas_[i]->owner()->factory())
+				areas_[i]->owner()->factory()->release(areas_[i]->owner());
 			else
-				delete areas_[ i ];
+				delete areas_[ i ]->owner();
 		}
 		areaCount_ = 0;
 		LogDetail("Destroyed areas");

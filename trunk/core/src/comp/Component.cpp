@@ -11,6 +11,7 @@ namespace se_core {
 
 	Component
 	::~Component() {
+		//LogWarning(owner_->name() << "(" << type() << ")");
 		owner_->removeComponent(*this);
 		owner_ = 0;
 	}

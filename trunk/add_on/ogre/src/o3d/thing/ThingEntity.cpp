@@ -160,15 +160,26 @@ namespace se_ogre {
 				pos *= state_[i]->getLength() * speed_[i];
 				// If same state are in more channels, interpolate between their positions
 				if(a.weight() > 0) {
-					Assert(!state_[i]->getEnabled() && "Using the same animation twice at once");
-					//state_[i]->setTimePosition(pos);
-					state_[i]->setTimePosition(pos);
-					float w = a.weight();
-					if(a.movementMode() == na.movementMode()) {
-						w += stepDelta * (na.weight() - a.weight());
+					if(state_[i]->getEnabled()) {
+						// Using the same animation twice at once
+						//float cw = state_[i]->getWeight();
+						state_[i]->setWeight(1);
+						// Interpolate between the position of this use
+						// and the other use
+						float w = a.weight(); // / (a.weight() + cw);
+						float cp = fmod(state_[i]->getTimePosition(), state_[i]->getLength());
+						state_[i]->setTimePosition(cp + w * (fmod(pos, state_[i]->getLength()) - cp));
 					}
-					state_[i]->setWeight(w);
-					state_[i]->setEnabled(true);
+					//Assert(!state_[i]->getEnabled() && "Using the same animation twice at once");
+					else {
+						state_[i]->setTimePosition(pos);
+						float w = a.weight();
+						if(a.movementMode() == na.movementMode()) {
+							w += stepDelta * (na.weight() - a.weight());
+						}
+						state_[i]->setWeight(w);
+						state_[i]->setEnabled(true);
+					}
 					//LogDetail(thing_.name() << ": " << state_[i]->getAnimationName().c_str() << ": " << w << " - " << stepDelta);
 				}
 			}

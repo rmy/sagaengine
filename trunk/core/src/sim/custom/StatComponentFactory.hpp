@@ -40,6 +40,8 @@ namespace se_core {
 	class StatComponentFactory : public ComponentFactory {
 	public:
 		StatComponentFactory();
+		~StatComponentFactory();
+
 		void setAbilities(short speed, short attack, short defence, short level);
 
 		Component* create(Composite* owner) const;

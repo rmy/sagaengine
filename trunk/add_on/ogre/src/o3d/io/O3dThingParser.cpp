@@ -62,19 +62,19 @@ namespace se_ogre {
 		in.readString(infoList->thingType_);
 
 		while((code = in.readInfoCode()) != 'Q') {
-			LogDetail((char)(code));
+			//LogDetail((char)(code));
 			switch(code) {
 			case '{':
 				{
 					ThingMOInfo* info = new ThingMOInfo();
 					parseThingInfo(in, info);
 					infoList->add(info);
-					LogDetail("Added info for " << infoList->thingType_);
+					//LogDetail("Added info for " << infoList->thingType_);
 				}
 				break;
 
 			default:
-				LogFatal("Unsupported code: " << (char)(code));
+				LogFatal("Unsupported code: " << (char)(code) << " in " << in.name());
 			}
 		}
 
@@ -100,7 +100,7 @@ namespace se_ogre {
 	::parseThingInfo(InputStream& in, ThingMOInfo* info) {
 		int code;
 		while((code = in.readInfoCode()) != '}') {
-			LogDetail((char)(code));
+			//LogDetail((char)(code));
 			switch(code) {
 			case 'M': // Mesh
 				{
@@ -230,7 +230,7 @@ namespace se_ogre {
 				break;
 
 			default:
-				LogFatal("Unsupported code: " << (char)(code));
+				LogFatal("Unsupported code: " << (char)(code) << " in file " << in.name());
 			}
 		}
 

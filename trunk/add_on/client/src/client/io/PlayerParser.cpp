@@ -65,7 +65,7 @@ namespace se_client {
 			case 'P': 
 				{ // Player
 					in.readString(tempString);
-					LogDetail(tempString.get());
+					LogDetail("Created player as : " << tempString.get());
 					Composite* a = SimSchema::spawnManager().create(tempString.get());
 					PosComponent::Ptr pos(*a);
 					PhysicsComponent::Ptr physics(*a);
@@ -94,12 +94,11 @@ namespace se_client {
 					// Init camera object
 					in.readString(tempString);
 					Composite* a = SimSchema::spawnManager().create(tempString.get());
-					Assert(a);
+					AssertFatal(a, "Couldn't create camera object");
 					PosComponent* pos = static_cast<PosComponent*>(a->component(sct_POS));
-					Assert(pos);
+					AssertFatal(pos, "Camera didn't have a pos component");
 					CameraComponent* camera = new CameraComponent(a);
 					ClientSchema::floatingCamera = pos;
-					Assert(ClientSchema::floatingCamera != 0);
 					readInfo(in, pos, camera);
 					pos->flip();
 				}

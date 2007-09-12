@@ -42,12 +42,14 @@ namespace se_core {
 	void NodeComponentList
 	::add(NodeComponent& value) {
 		Assert(&value);
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") added.");
 		CompSchema::voidList.add(&value, firstNode_);
 	}
 
 
 	void NodeComponentList
 	::remove(NodeComponent& value) {
+		//LogWarning(value.owner()->name() << "(" << value.type() << ") removed.");
 		CompSchema::voidList.remove(&value, firstNode_);
 	}
 

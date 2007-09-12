@@ -43,6 +43,7 @@ namespace se_core {
 
 	void ObjectList
 	::add(const Object& value) {
+		//LogWarning(value.name() << "(" << value.type() << ") added.");
 		Assert(&value);
 		CompSchema::voidList.add(&const_cast<Object&>(value), firstNode_);
 	}
@@ -50,6 +51,7 @@ namespace se_core {
 
 	void ObjectList
 	::remove(const Object& value) {
+		//LogWarning(value.name() << "(" << value.type() << ") removed.");
 		CompSchema::voidList.remove(&const_cast<Object&>(value), firstNode_);
 	}
 

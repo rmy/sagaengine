@@ -91,7 +91,7 @@ namespace se_ogre {
 		}
 		infoList_[i] = infoList;
 		++infoCount_;
-		LogDetail("Added meshinfo for: " << infoList->thingType_);
+		//LogDetail("Added meshinfo for: " << infoList->thingType_);
 	}
 
 
@@ -136,13 +136,12 @@ namespace se_ogre {
 
 	const ThingMOInfo* ThingMOManager
 	::info(const char* thingType) const {
-		LogDetail(thingType);
 		int index = infoIndex(thingType);
 		if(index < 0) {
-			LogDetail("Couldnt model for " << thingType);
+			LogDetail("Couldn't find model for " << thingType);
 			return 0;
 		}
-		LogDetail("Moeld count for " << thingType << " is " << infoList_[index]->infoCount_);
+		//LogDetail("Model count for " << thingType << " is " << infoList_[index]->infoCount_);
 		return infoList_[index]->infos_[0];
 	}
 
@@ -167,7 +166,7 @@ namespace se_ogre {
 		}
 		factories_[i] = factory;
 		++factoryCount_;
-		LogDetail("Added factory for movable object type: " << factory->type());
+		//LogDetail("Added factory for movable object type: " << factory->type());
 	}
 
 

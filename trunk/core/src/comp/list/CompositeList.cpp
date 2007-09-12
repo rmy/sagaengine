@@ -44,12 +44,14 @@ namespace se_core {
 	void CompositeList
 	::add(Composite& value) {
 		Assert(&value);
+		//LogWarning(value.name() << " added");
 		CompSchema::voidList.add(&value, firstNode_);
 	}
 
 
 	void CompositeList
 	::remove(Composite& value) {
+		//LogWarning(value.name() << " removed");
 		CompSchema::voidList.remove(&value, firstNode_);
 	}
 
@@ -156,5 +158,59 @@ namespace se_core {
 		it_ = firstNode;
 	}
 
+
+	/// TreeIterator
+	CompositeList::TreeIterator
+	::TreeIterator()
+		: stackPointer_(-1) {
+	}
+
+
+	CompositeList::TreeIterator
+	::TreeIterator(const CompositeList& msc) {
+		if(msc.isEmpty()) {
+			stackPointer_ = -1;
+			return;
+		}
+		itStack_[ 0 ].init(msc);
+		stackPointer_ = 0;
+	}
+
+
+	void CompositeList::TreeIterator
+	::init(const CompositeList& msc) {
+		if(msc.isEmpty()) {
+			stackPointer_ = -1;
+			return;
+		}
+		itStack_[ 0 ].init(msc);
+		stackPointer_ = 0;
+	}
+
+
+	bool CompositeList::TreeIterator
+	::hasNext() {
+		return (stackPointer_ >= 0);
+	}
+
+
+	Composite& CompositeList::TreeIterator
+	::next() {
+		// Get next in chain
+		Composite& c = itStack_[ stackPointer_ ].next();
+
+		// Stack overflowed?
+		Assert(stackPointer_ < MAX_STACK_DEPTH - 1);
+
+		// Push child chain as next chain on stack
+		itStack_[ ++stackPointer_ ].init(c.children());
+
+		// Pop all completed chains
+		while(stackPointer_ >= 0 && !itStack_[ stackPointer_ ].hasNext()) {
+			--stackPointer_;
+		}
+
+		return c;
+	}
 
 }

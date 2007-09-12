@@ -33,7 +33,8 @@ namespace se_core {
 
 	SignalComponentFactory
 	::SignalComponentFactory()
-		: ComponentFactory(sct_SIGNAL), signalSendId_(0), signalRecieveMask_(0), signal_(0) {
+			: ComponentFactory(sct_SIGNAL), signalSendId_(0), signalRecieveMask_(0), signal_(0) {
+		LogWarning(__FUNCTION__);
 	}
 
 

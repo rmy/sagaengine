@@ -175,7 +175,7 @@ namespace se_ogre {
 				break;
 
 			default:
-				LogFatal("Unsupported code: " << (char)(code));
+				LogFatal("Unsupported code: " << (char)(code) << " in file " << in.name());
 			}
 		}
 

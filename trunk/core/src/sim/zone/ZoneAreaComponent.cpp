@@ -85,13 +85,17 @@ namespace se_core {
 
 	bool ZoneAreaComponent
 	::addNeighbour(ZoneAreaComponent& other) {
+		if(other.owner() == owner())
+			return false;
+
 		Page rel(other.page(), page_);
 		if(!rel.isNeighbourOffset()) {
 			return false;
 		}
 
 		int index = neighbourIndex(rel);
-		Assert(neighbours_[ index ] == 0);
+		AssertFatal(other.owner() != owner(), "Grid file for " << owner()->name() << " probably included twice");
+		AssertFatal(neighbours_[ index ] == 0, owner()->name() << " -> " << neighbours_[index]->owner()->name() << " (Trying to link " << other.owner()->name() << ")");
 		neighbours_[ index ] = &other;
 		return true;
 	}

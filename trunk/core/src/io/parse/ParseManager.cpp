@@ -66,7 +66,7 @@ namespace se_core {
 
 	bool ParseManager
 	::parse(InputStream& in) {
-		LogDetail("Loading file: " << in.name());
+		//LogDetail("Loading file: " << in.name());
 
 		int headerCode = in.readHeaderCode();
 
@@ -82,12 +82,15 @@ namespace se_core {
 
 	ComponentFactory* ParseManager
 	::parseComponent(InputStream& in, int type, int subtype) {
-		LogDetail("Loading component type " << type << ", " << subtype << " for " << in.name());
+		//LogDetail("Loading component type " << type << ", " << subtype << " for " << in.name());
+		LogWarning("Loading component type " << type << ", " << subtype << " for " << in.name());
 
 		for(int i = 0; i < componentModuleCount_; ++i) {
 			if(type == componentModules_[ i ]->type()
 					&& subtype == componentModules_[ i ]->subtype()) {
-				return componentModules_[i]->parse(in);
+				ComponentFactory* f = componentModules_[i]->parse(in);
+				f->setDoDestroy(true);
+				return f;
 			}
 		}
 		LogWarning("The file '" << in.name() << "' had unsupported component type: " << type << ", " << subtype << ".");
