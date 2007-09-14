@@ -51,7 +51,8 @@ namespace se_core {
 
 	void PhysicsComponent
 	::popPhysics() {
-		Assert(currentPhysics_ >= 0);
+		Assert(currentPhysics_ > 0 || physics_[0] == 0);
+		//LogWarning(owner()->name() << " had physics " << physics_[currentPhysics_]->name() << " popped");
 		if(currentPhysics_ == 0)
 			clearPhysics();
 		else
@@ -61,6 +62,7 @@ namespace se_core {
 
 	void PhysicsComponent
 	::clearPhysics() {
+		//LogWarning(owner()->name() << " had physics cleared");
 		currentPhysics_ = 0;
 		physics_[0] = 0;
 	}
@@ -68,6 +70,8 @@ namespace se_core {
 
 	void PhysicsComponent
 	::pushPhysics(const Physics* ph) {
+		//LogWarning(owner()->name() << " had physics " << ph->name() << " pushed");
+		AssertFatal(ph != physics_[ currentPhysics_ ], owner()->name());
 		if(hasDefaultPhysics() && physics().isStacker()) {
 			// Increase script counter
 			++currentPhysics_;

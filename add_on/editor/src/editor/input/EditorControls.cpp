@@ -196,15 +196,7 @@ namespace se_editor {
 
 		int index = id;
 		index += modifier(mod1, mod2);
-		/*
-		if(index >= 0) {
-			if(mod1)
-				index += 10;
-			if(mod2)
-				index += 20;
-		}
-		index += modifier_;
-		*/
+
 		Parameter tmp;
 		actionLevelDesignSpawn.param(index, tmp);
 		setAction(CHANNEL_EXTRA, actionLevelDesignSpawn, &tmp);

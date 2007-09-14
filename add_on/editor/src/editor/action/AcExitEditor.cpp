@@ -62,7 +62,6 @@ namespace se_editor {
 		switch(parameter.actionStage()) {
 		case 0:
 			{
-				EditorControls::singleton().loseFocus();
 				ScriptComponent::Ptr pScript(perf);
 				pScript->popScript();
 
@@ -72,6 +71,8 @@ namespace se_editor {
 				PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
 				cPhysics->popPhysics();
 
+
+				EditorControls::singleton().loseFocus();
 
 				EditorManager::singleton().exitEditor();
 			}
