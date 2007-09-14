@@ -62,6 +62,7 @@ namespace se_core {
 			LogDetail("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
 		}
 		entries_[ entryCount_++ ] = entry;
+		LogWarning(entryCount_ << " " << entry->name_);
 	}
 
 

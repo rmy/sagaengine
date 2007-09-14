@@ -25,6 +25,7 @@ rune@skalden.com
 #include "sim/sim.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/spawn/SpawnAreaComponent.hpp"
+#include "sim/custom/StatComponent.hpp"
 #include "comp/list/NodeComponentList.hpp"
 #include "util/error/Log.hpp"
 #include "comp/CompositeFactory.hpp"
@@ -164,7 +165,8 @@ namespace se_editor {
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
 			EditorComponent& c = static_cast<EditorComponent&>(it.next());
-			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)) {
+			if(c.owner()->component(sct_PLAYER) || c.owner()->component(sct_CAMERA)
+				|| (c.owner()->component(sct_STAT) && !StatComponent::Ptr(c)->shouldSave())) {
 				continue;
 			}
 			Point3& p = c.start().coor_;

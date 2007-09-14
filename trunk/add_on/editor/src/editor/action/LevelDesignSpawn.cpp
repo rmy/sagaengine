@@ -40,14 +40,15 @@ namespace se_editor {
 			if(EditorSchema::lastSpawn) {
 				PosComponent* lsPos = PosComponent::get(*EditorSchema::lastSpawn);
 				SpawnComponent* aSpawn = SpawnComponent::get(*lsPos->nextPos().area());
-				Point3& c = lsPos->nextPos().localCoor();
+				Point3 c;
+				lsPos->nextPos().areaCoor(*lsPos->nextPos().area(), c);
 				Euler3& e = lsPos->nextPos().localFace();
 				lsPos->nextPos().resetParent();
 				PhysicsComponent::Ptr ph(*EditorSchema::lastSpawn);
 				ph->popPhysics();
 
 				char filename[256];
-				sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, aSpawn->owner()->name());
+				sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, aSpawn->owner()->name());
 				FILE* out = fopen(filename, "r+t");
 				if(out) {
 					fclose(out);
@@ -92,6 +93,7 @@ namespace se_editor {
 				EditorSchema::lastSpawn = spawn;
 				lastName = SimSchema::dictionary().name(dictId, p->index_);
 				ScriptComponent* s = ScriptComponent::get(*spawn);
+				StatComponent::Ptr(spawn)->setShouldSave(true);
 				while(s->hasActiveScript()) {
 					s->popScript();
 				}

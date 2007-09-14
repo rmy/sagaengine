@@ -68,6 +68,8 @@ namespace se_ogre {
 		}
 
 		bool translate(const char* messageName, wchar_t* buffer);
+		void grabbedFocusEvent() {}
+		void lostFocusEvent() {}
 
 	private:
 		se_core::Actor* speaker_;
