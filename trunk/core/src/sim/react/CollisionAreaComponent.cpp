@@ -159,6 +159,55 @@ namespace se_core {
 		return !cc1.isDead() && !cc2.isDead();
 	}
 
+	coor_t CollisionAreaComponent
+	::farthestLineOfSight(const se_core::Point3& fromPoint, const se_core::Point3& toPoint) const {
+		const int MAX_CONTACTS = 128;
+		static CollisionComponent* candidates[MAX_CONTACTS];
+		int candidateCount = 0;
+		Contact contacts[ MAX_CONTACTS ];
+		int contactCount = 0;
+		coor_t dist = CoorT::sqrt(fromPoint.xzDistanceSquared(toPoint));
+		coor_t speedAndRadius = CoorT::half(dist);
+
+		Point3 middle;
+		middle.add(fromPoint, toPoint);
+		middle.scale(0.5f);
+
+		BoundingBox bounds(middle, speedAndRadius);
+
+		ZoneAreaComponent::Ptr aZone(*this);
+		ComponentList::Iterator linkIt(aZone->links());
+		while(linkIt.hasNext()) {
+			ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
+			CollisionAreaComponent::Ptr cac(a);
+			if(!cac->collisionGrid())
+				continue;
+
+			candidateCount += cac->collisionGrid()->collisionCandidates
+				(middle, speedAndRadius, &candidates[candidateCount], MAX_CONTACTS - candidateCount);
+		}
+
+		// Test collision with all collision candidates
+		for(int c = 0; c < candidateCount; ++c) {
+			// Test for collision
+			CollisionComponent& cc = *candidates[ c ];
+
+			if(!cc.doObstructView())
+				continue;
+
+			if(!bounds.isTouching(cc.areaCovered()))
+				continue;
+
+			Point3 losNearest, candidateNearest;
+			coor_t candRadius = cc.bouncePoints(fromPoint, toPoint, candidateNearest, losNearest);
+			if(candidateNearest.xzDistanceSquared(losNearest) < candRadius * candRadius
+					&& fromPoint.xzDistanceSquared(losNearest) < (dist + candRadius) * (dist + candRadius) ) {
+				dist = CoorT::sqrt(fromPoint.xzDistanceSquared(losNearest));
+				dist -= candRadius;
+			}
+		}
+		return dist;		
+	}
 
 	int CollisionAreaComponent
 	::getContactList(Contact* list, int maxCollisions) {

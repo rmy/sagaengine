@@ -72,6 +72,7 @@ namespace se_core {
 		void removeCollideable(CollisionComponent& cc);
 
 		int getContactList(Contact* list, int maxCollisions);
+		coor_t farthestLineOfSight(const Point3& fromPoint, const Point3& toPoint) const;
 
 	private:
 		/**

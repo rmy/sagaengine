@@ -178,9 +178,11 @@ namespace se_basic {
 		toPoint.add(fromPoint);
 		toIndex = index(toPoint, -1);
 
+		// Send world coor to CAC
+		coor_t obstructionLen = CollisionAreaComponent::Ptr(*this)->farthestLineOfSight(fromPoint, toPoint);
+
 
 		const NavMeshArea* toArea = static_cast<const NavMeshArea*>(neighbour(toPoint));
-
 		toPoint.sub(posComponent_->nextPos().worldCoor());
 		fromPoint.sub(posComponent_->nextPos().worldCoor());
 
@@ -216,6 +218,10 @@ namespace se_basic {
 		dist.y_ = 0;
 		coor_t len = dist.length();
 		len += maxOffNavMesh;
+
+		if(len > obstructionLen)
+			len = obstructionLen;
+
 		if(len > maxLen)
 			len = maxLen;
 
