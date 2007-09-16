@@ -46,7 +46,7 @@ namespace se_core {
 	::CollisionComponent(Composite* owner, const ComponentFactory* factory)
 			: AreaChildComponent(sct_COLLISION, owner, factory)
 			, substance_(0)
-			, isCollideable_(false)
+			, isCollideable_(false), doObstructView_(false)
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
@@ -58,6 +58,11 @@ namespace se_core {
 	::~CollisionComponent() {
 	}
 
+
+	bool CollisionComponent
+	::doObstructView() const {
+		return doObstructView_;
+	}
 
 	void  CollisionComponent
 	::setCollideable(bool isCollideable) {
@@ -254,6 +259,26 @@ namespace se_core {
 		wp1.add(c, p1_);
 		wp2.add(c, p2_);
 		dest.nearestPoint(wp1, wp2, testPoint);
+		return radius_;
+	}
+
+
+	coor_t CollisionComponent
+	::bouncePoints(const Point3& o1, const Point3& o2, Point3& d1, Point3& d2) const {
+		areaCovered().center(d1);
+		if(geometryType_ == geom_CYLINDER) {
+			d2.nearestPoint(o1, o2, d1);
+			return radius_;
+		}
+
+		Point3 wp1, wp2;
+		wp1.add(d1, p1_);
+		wp2.add(d1, p2_);
+
+		for(int i = 0; i < 8; ++i) {
+			d2.nearestPoint(o1, o2, d1);
+			d1.nearestPoint(wp1, wp2, d2);
+		}
 		return radius_;
 	}
 

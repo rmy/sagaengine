@@ -52,6 +52,9 @@ namespace se_core {
 		void setSubstance(int s) {
 			substance_ = s;
 		}
+		void setDoObstructView(bool f) {
+			doObstructView_ = f;
+		}
 		bool shouldIgnore(const CollisionComponent& cc) const;
 		void resetIgnore() {
 			ignore_ = 0;
@@ -125,8 +128,11 @@ namespace se_core {
 		coor_t bouncePoint(const Point3& c, const Point3& testPoint, Point3& dest) const;
 		coor_t bouncePoint(scale_t alpha, const Point3& testPoint, Point3& dest) const;
 		coor_t bouncePoints(scale_t alpha, const CollisionComponent& other, Point3& d1, Point3& d2) const;
+		coor_t bouncePoints(const Point3& o1, const Point3& o2, Point3& d1, Point3& d2) const;
 
 		coor_t penetration(const CollisionComponent& other) const;
+
+		bool doObstructView() const;
 
 	private:
 		PosComponent* posComponent_;
@@ -137,7 +143,7 @@ namespace se_core {
 		 * Used by the CollisionAreaComponent class to decide wether the CollisionComponent should be
 		 * inserted into a collision grid.
 		 */
-		bool isCollideable_;
+		bool isCollideable_, doObstructView_;
 		const ThingCollide* collide_;
 
 		const CollisionComponent* ignore_;

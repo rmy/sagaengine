@@ -44,6 +44,7 @@ namespace se_basic {
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
 			cc->setSubstance(substance_);
+			cc->setDoObstructView(substance_ == 2 && bounds_.maxY_ > 5 * COOR_RES);
 		}
 
 		//a->setPickable(isPickable_);
