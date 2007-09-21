@@ -49,7 +49,8 @@ namespace se_core {
 		/**
 		 * Calculate the distance from the test point to the nearest edge line.
 		 */
-		coor_t distance(Point2& testPoint, Point2& dest) const;
+		coor_t distance(const Point2& testPoint, Point2& dest) const;
+		bool isGuilty(const Point2& oldP, const Point2& nextP) const;
 
 	private:
 		/**

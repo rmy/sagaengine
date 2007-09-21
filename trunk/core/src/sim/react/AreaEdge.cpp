@@ -67,7 +67,7 @@ namespace se_core {
 
 
 	coor_t AreaEdge
-	::distance(Point2& p, Point2& dest) const {
+	::distance(const Point2& p, Point2& dest) const {
 		Point2 tmp;
 		coor_double_t nearest = 65536.0f * 65536.0f, d;
 		for(int i = 0; i < controlPointCount_; ++i) {
@@ -87,6 +87,44 @@ namespace se_core {
 			}
 		}
 		return CoorT::sqrt(nearest);
+	}
+
+
+	bool AreaEdge
+	::isGuilty(const Point2& oldP, const Point2& nextP) const {
+		Point2 tmp;
+		int nearestIndex = -1;
+		coor_double_t nearest = 65536.0f * 65536.0f, d;
+		for(int i = 0; i < controlPointCount_; ++i) {
+			// Is there a link from this control point?
+			if(links_[ i ] == -1) {
+				// No? Try next then.
+				continue;
+			}
+
+			// Calculate nearest point on this line
+			tmp.nearestPoint(controlPoints_[i], controlPoints_[ links_[ i ] ], nextP);
+
+			// Closer than nearest on other lines?
+			if(nearest < 0 || (d = tmp.distanceSquared(nextP)) < nearest) {
+				nearest = d;
+				nearestIndex = i;
+			}
+		}
+
+		bool isOldLeft = oldP.isLeft(controlPoints_[nearestIndex], controlPoints_[ links_[ nearestIndex ] ]);
+		bool isNextLeft = nextP.isLeft(controlPoints_[nearestIndex], controlPoints_[ links_[ nearestIndex ] ]);
+
+		if(isOldLeft != isNextLeft) {
+			return true;
+		}
+
+		// Calculate nearest point on this line
+		tmp.nearestPoint(controlPoints_[nearestIndex], controlPoints_[ links_[ nearestIndex ] ], oldP);
+		coor_double_t distSq = tmp.distanceSquared(oldP);
+
+		return (nearest < distSq);
+		//return CoorT::sqrt(nearest);
 	}
 }
 

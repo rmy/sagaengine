@@ -89,7 +89,7 @@ namespace se_core {
 			if(type == componentModules_[ i ]->type()
 					&& subtype == componentModules_[ i ]->subtype()) {
 				ComponentFactory* f = componentModules_[i]->parse(in);
-				f->setDoDestroy(true);
+				if(f) f->setDoDestroy(true);
 				return f;
 			}
 		}
