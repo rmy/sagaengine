@@ -114,6 +114,18 @@ namespace se_core {
 
 		void nearestPoint(const Point2& pt1, const Point2& pt2, const Point2& testPoint);
 
+		/** tests if point is Left|On|Right of the line P0 to P1.
+		 *      returns: >0 for left, 0 for on, and <0 for right of the line.
+		 *      (see the January 2001 Algorithm on Area of Triangles)
+		 */
+		float left(const Point2& P0, const Point2& P1 ) const {
+			return (P1.x_ - P0.x_) * (y_ - P0.y_) - (x_ - P0.x_) * (P1.y_ - P0.y_);
+		}
+
+		bool isLeft(const Point2& P0, const Point2& P1 ) const {
+			return (0 > left(P0, P1));
+		}
+
 		// copy constructor and operator = is made by complier
 		Point2& operator=(const Tuple2& t) {
 			Tuple2::operator=(t);

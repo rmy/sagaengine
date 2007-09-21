@@ -68,11 +68,12 @@ namespace se_ogre {
 		}
 
 		bool translate(const char* messageName, wchar_t* buffer);
-		void grabbedFocusEvent() {}
-		void lostFocusEvent() {}
+		void grabbedFocusEvent();
+		void lostFocusEvent();
 
 	private:
 		se_core::Actor* speaker_;
+		const se_core::Physics* speakerCamera_;
 		Ogre::Overlay* speechOverlay_,* infoOverlay_;
 		Ogre::OverlayElement* speechCaption_,* infoCaption_;
 	};

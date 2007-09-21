@@ -168,6 +168,9 @@ namespace se_core {
 		// actions.
 		SimSchema::spawnManager().performDestructions();
 
+		// Updates didTrack
+		ScriptManager::singleton().step(when);
+
 		// Schedules and performs the scheduled actions in all action channels
 		ActionManager::singleton().step(when);
 

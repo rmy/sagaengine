@@ -63,7 +63,6 @@ namespace se_editor {
 		EditorAreaComponent::Ptr aEdit(pPos->nextPos().area());
 		aEdit->save();
 
-		EditorControls::singleton().loseFocus();
 		ScriptComponent::Ptr pScript(perf);
 		pScript->popScript();
 
@@ -73,6 +72,7 @@ namespace se_editor {
 		PhysicsComponent::Ptr cPhysics(*ClientSchema::camera);
 		cPhysics->popPhysics();
 
+		EditorControls::singleton().loseFocus();
 		EditorManager::singleton().exitEditor();
 
 		pPos->nextPos().bounds_.minX_ *= 3;

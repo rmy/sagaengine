@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
 	}
 
 
@@ -61,6 +61,8 @@ namespace se_ogre {
 		catch(...) {
 			LogWarning("Failed setting upp info bubble overlays.");
 		}
+
+		speakerCamera_ = Physics::lookup("SpeakerCamera");
 
 		SimSchema::messageCentral.addListener(*this);
 		return true;
@@ -152,12 +154,29 @@ namespace se_ogre {
 
 	void SpeechBubble
 	::trackUserFeedback() {
-		if(speaker_)
+		if(speaker_) {
 			speaker_->script()->trackUserFeedback();
+			speaker_ = 0;
+		}
 		speechOverlay_->hide();
 
 		loseFocus();
 	}
 
+	void SpeechBubble
+	::grabbedFocusEvent() {
+		if(speakerCamera_) {
+			StatComponent::Ptr(ClientSchema::floatingCamera)->setTarget(speaker_->owner());
+			PhysicsComponent::Ptr(ClientSchema::floatingCamera)->pushPhysics( speakerCamera_ );
+		}
+	}
+
+	void SpeechBubble
+	::lostFocusEvent() {
+		if(speakerCamera_) {
+			PhysicsComponent::Ptr(ClientSchema::floatingCamera)->popPhysics();
+			StatComponent::Ptr(ClientSchema::floatingCamera)->resetTarget();
+		}
+	}
 }
 

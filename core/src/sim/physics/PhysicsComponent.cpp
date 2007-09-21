@@ -51,7 +51,7 @@ namespace se_core {
 
 	void PhysicsComponent
 	::popPhysics() {
-		Assert(currentPhysics_ > 0 || physics_[0] == 0);
+		AssertFatal(currentPhysics_ > 0 || physics_[0] != 0, owner()->name());
 		//LogWarning(owner()->name() << " had physics " << physics_[currentPhysics_]->name() << " popped");
 		if(currentPhysics_ == 0)
 			clearPhysics();

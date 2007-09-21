@@ -34,7 +34,7 @@ namespace se_basic {
 
 	void IdleFor
 	::perform(long when, ActionComponent& performer, Parameter& parameter) const {
-		SimSchema::didTrack = true;
+		//SimSchema::didTrack = true;
 	}
 
 	short IdleFor
