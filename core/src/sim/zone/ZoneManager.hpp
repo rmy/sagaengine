@@ -43,7 +43,7 @@ namespace se_core {
 		 */
 		virtual ~ZoneManager();
 
-		const char* name() { return "ZoneManager"; }
+		const char* name() const { return "ZoneManager"; }
 		
 
 		void step(long when);

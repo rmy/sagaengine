@@ -53,7 +53,7 @@ namespace se_core {
 		SignalAreaComponent(Composite* owner);
 		~SignalAreaComponent();
 
-		const char* name() { return "SignalArea"; }
+		const char* name() const { return "SignalArea"; }
 
 		void setSignalActive(int id, bool state);
 		void initSignalActive(int id, bool state);

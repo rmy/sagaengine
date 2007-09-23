@@ -35,7 +35,7 @@ namespace se_core {
 
 
 	const Action* CustomScript
-	::nextAction(const Actor& performer, int channel, ScriptData* sd) const {
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const {
 		switch(channel) {
 		case CHANNEL_DIRECTION:
 			return nextDirection(performer, sd);
@@ -49,25 +49,25 @@ namespace se_core {
 
 
 	ScriptData* CustomScript
-	::init(const Actor& performer) const {
+	::init(const ScriptComponent& performer) const {
 		return 0;
 	}
 
 
 	const Action* CustomScript
-	::nextMovement(const Actor& performer, ScriptData* sd) const {
+	::nextMovement(const ScriptComponent& performer, ScriptData* sd) const {
 		return 0;
 	}
 
 
 	const Action* CustomScript
-	::nextDirection(const Actor& performer, ScriptData* sd) const {
+	::nextDirection(const ScriptComponent& performer, ScriptData* sd) const {
 		return 0;
 	}
 
 
 	const Action* CustomScript
-	::nextExtra(const Actor& performer, ScriptData* sd) const {
+	::nextExtra(const ScriptComponent& performer, ScriptData* sd) const {
 		return 0;
 	}
 

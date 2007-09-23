@@ -69,8 +69,6 @@ namespace se_core {
 
 
 		int last(char ch, int start = -1) const {
-			int p = 0;
-
 			// Find end;
 			int len = start;
 			if(len < 0) {
@@ -126,7 +124,6 @@ namespace se_core {
 
 		int extLen() const {
 			int len = nameLen();
-			const char* n = name();
 
 			// Find first dot
 			int p = last('.', len);

@@ -33,7 +33,7 @@ namespace se_editor {
 	public:
 		EditorControls();
 		virtual ~EditorControls();
-		void init();
+		void _init();
 		void grabbedFocusEvent() {}
 		void lostFocusEvent();
 		void showMenu(int slot, bool mod3);

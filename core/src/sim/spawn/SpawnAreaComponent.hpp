@@ -61,7 +61,7 @@ namespace se_core {
 		}
 
 
-		const char* name() { return "SpawnArea"; }
+		const char* name() const { return "SpawnArea"; }
 
 	protected:
 		friend class SpawnAreaComponentFactory;

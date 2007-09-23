@@ -56,6 +56,7 @@ namespace se_core {
 		Euler3 torque_; // Torque - forces changing rotation
 
 		scale_t linearFriction_;
+		scale_t linearFrictionR_;
 		scale_t angularFriction_;
 		bool didBounce_;
 		scale_t bounceMaintain_;

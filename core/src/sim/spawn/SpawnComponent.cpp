@@ -59,7 +59,7 @@ namespace se_core {
 	::spawn(const char* thingName, int spawnPointId, long deniedTsMask) {
 		// Get spawn point displace and face direction
 		const ViewPoint* sp = spawnPoint(spawnPointId);
-		Assert(sp && "Spawn point does not exist");
+		AssertFatal(sp, "Spawn point does not exist");
 		ViewPoint vp(*sp);
 
 		// Calculate area coor of spawn point

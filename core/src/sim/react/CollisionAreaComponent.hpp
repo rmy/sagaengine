@@ -52,8 +52,7 @@ namespace se_core {
 		CollisionAreaComponent(Composite* owner);
 		~CollisionAreaComponent();
 
-		const char* name() { return "CollisionArea"; }
-
+		const char* name() const { return "CollisionArea"; }
 
 		CollisionGrid* collisionGrid() {
 			return collisionGrid_; 

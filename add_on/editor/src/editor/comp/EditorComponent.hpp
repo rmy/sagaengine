@@ -36,7 +36,7 @@ namespace se_editor {
 
 		EditorComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
 		virtual ~EditorComponent();
-		const char* name() { return "Editor"; }
+		const char* name() const { return "Editor"; }
 
 		void setStart(const se_core::Pos& p);
 		void setActive(bool state);

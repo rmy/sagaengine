@@ -44,7 +44,7 @@ namespace se_core {
 		 */
 		virtual ~CutsceneManager();
 
-		const char* name() { return "CutsceneManager"; }
+		const char* name() const { return "CutsceneManager"; }
 		
 
 		void step(long when);

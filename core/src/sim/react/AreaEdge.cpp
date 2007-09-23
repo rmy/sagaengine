@@ -33,7 +33,7 @@ namespace se_core {
 
 
 	void AreaEdge
-	::addLink(Point2& p1, Point2& p2) {
+	::addLink(const Point2& p1, const Point2& p2) {
 		int index1 = _getOrAddControlPoint(p1);
 		int index2 = _getOrAddControlPoint(p2);
 		AssertFatal(links_[ index1 ] == -1, "The point " << p1 << " already links to another point");
@@ -43,7 +43,7 @@ namespace se_core {
 
 
 	void AreaEdge
-	::removeLink(Point2& p1, Point2& p2) {
+	::removeLink(const Point2& p1, const Point2& p2) {
 		int index1 = _getOrAddControlPoint(p1);
 		int index2 = _getOrAddControlPoint(p2);
 		AssertFatal(links_[ index1 ] == index2, "The point " << p1 << " doesn't link to another point");
@@ -52,7 +52,7 @@ namespace se_core {
 	}
 
 	int AreaEdge
-	::_getOrAddControlPoint(Point2& p) {
+	::_getOrAddControlPoint(const Point2& p) {
 		// Find control point and return the index if it already exists.
 		for(int i = 0; i < controlPointCount_; ++i) {
 			if(controlPoints_[ i ].equals(p))

@@ -248,7 +248,7 @@ namespace se_core {
 	}
 
 
-	inline coor_t CollisionComponent
+	coor_t CollisionComponent
 	::bouncePoint(const Point3& c, const Point3& testPoint, Point3& dest) const {
 		if(geometryType_ == geom_CYLINDER) {
 			dest.set(c);

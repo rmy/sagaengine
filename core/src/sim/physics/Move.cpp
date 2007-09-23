@@ -33,7 +33,7 @@ namespace se_core {
 
 	Move
 	::Move() : velocity_(0, 0, 0), mass_(SCALE_RES)
-			, linearFriction_(.25f * SCALE_STEP), angularFriction_(.25f * SCALE_STEP)
+			, linearFriction_(.25f * SCALE_STEP), linearFrictionR_(0), angularFriction_(.25f * SCALE_STEP)
 			, didBounce_(false), bounceMaintain_(.33f), floorBounce_(.5f), affectCode_(0) {
 		angularVelocity_.setIdentity();
 		torque_.setIdentity();

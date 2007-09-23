@@ -318,7 +318,7 @@ namespace se_core {
 	::neighbour(const Point3& worldCoor) {
 		const Point3& wc =  posComponent_->nextPos().worldCoor();
 		coor_t x = worldCoor.x_ - wc.x_;
-		coor_t y = worldCoor.y_ - wc.y_;
+		//coor_t y = worldCoor.y_ - wc.y_;
 		coor_t z = worldCoor.z_ - wc.z_;
 
 		int relX = 0;
@@ -339,7 +339,7 @@ namespace se_core {
 	::neighbour(const Point3& worldCoor) const {
 		const Point3& wc =  posComponent_->nextPos().worldCoor();
 		coor_t x = worldCoor.x_ - wc.x_;
-		coor_t y = worldCoor.y_ - wc.y_;
+		//coor_t y = worldCoor.y_ - wc.y_;
 		coor_t z = worldCoor.z_ - wc.z_;
 
 		int relX = 0;

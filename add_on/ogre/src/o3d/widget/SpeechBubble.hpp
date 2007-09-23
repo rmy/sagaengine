@@ -48,7 +48,7 @@ namespace se_ogre {
 			trackUserFeedback();
 			return true;
 		}
-		void mousePressed(const OIS::MouseEvent* e) {
+		void mousePressed(const OIS::MouseEvent* e, int button) {
 			trackUserFeedback();
 		}
 

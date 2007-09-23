@@ -38,7 +38,7 @@ namespace se_basic {
 		~NavMeshAreaComponent();
 		void setActive(bool state);
 
-		const char* name() { return "NavMeshArea"; }
+		const char* name() const { return "NavMeshArea"; }
 
 	protected:
 		friend class NavMeshAreaComponentFactory;

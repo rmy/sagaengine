@@ -340,7 +340,7 @@ namespace se_basic {
 				&controlPoints_[ triangles_[ via ].controlPoints_[ 2 ] ]
 			};
 			short next = -2;
-			short count = 0;
+			//short count = 0;
 			for(int i = 0; i < 3; ++i) {
 				short link = triangles_[ via ].linkTo_[ i ];
 				if(link != prev) {

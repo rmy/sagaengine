@@ -29,11 +29,11 @@ namespace se_core {
 	class _SeCoreExport CustomScript : public Script {
 	public:
 		CustomScript(char* name);
-		ScriptData* init(const Actor& performer) const;
-		const Action* nextAction(const Actor& performer, int channel, ScriptData* sd) const;
-		virtual const Action* nextDirection(const Actor& performer, ScriptData* sd) const;
-		virtual const Action* nextMovement(const Actor& performer, ScriptData* sd) const;
-		virtual const Action* nextExtra(const Actor& performer, ScriptData* sd) const;
+		ScriptData* init(const ScriptComponent& performer) const;
+		const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const;
+		virtual const Action* nextDirection(const ScriptComponent& performer, ScriptData* sd) const;
+		virtual const Action* nextMovement(const ScriptComponent& performer, ScriptData* sd) const;
+		virtual const Action* nextExtra(const ScriptComponent& performer, ScriptData* sd) const;
 	private:
 	};
 

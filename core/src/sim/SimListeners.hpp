@@ -34,7 +34,7 @@ namespace se_core {
 		 * Add an engine listener.
 		 */
 		void addListener(SimListener &l) {
-			Assert(listenerCount < MAX_LISTENERS && "Too many listeners. Ajust MAX_LISTENERS.");
+			AssertFatal(listenerCount < MAX_LISTENERS, "Too many listeners. Adjust MAX_LISTENERS.");
 			listeners[ listenerCount++ ] = &l;
 		}
 

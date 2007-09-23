@@ -42,7 +42,7 @@ namespace se_core {
 		ZoneComponent(Composite* owner, const ComponentFactory* factory = 0);
 		~ZoneComponent();
 
-		const char* name() { return owner()->name(); }
+		const char* name() const { return owner()->name(); }
 		int markerType() { return markerType_; }
 
 	protected:

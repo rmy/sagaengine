@@ -33,7 +33,7 @@ namespace se_pc {
 		PcTextOutputStream(const char* directory, const char* filename);
 		virtual ~PcTextOutputStream();
 
-		const char* name() { return sourceFilename_; }
+		const char* name() const { return sourceFilename_; }
 		void writeHeaderCode(unsigned int code);
 		void writeInfoCode(int code);
 		void writeInt(int value);

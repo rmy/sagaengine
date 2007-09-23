@@ -77,7 +77,7 @@ namespace se_core {
 		}
 
 		void set(RefPtr& sp) {
-			Assert(!isOwner_ && "Owner RefPtr's should never be assigned a new value");
+			AssertFatal(!isOwner_, "Owner RefPtr's should never be assigned a new value");
 			if(ptr_)
 				ptr_->decRef();
 
@@ -98,12 +98,12 @@ namespace se_core {
 		}
 
 		T* object() {
-			Assert(ptr_ && "Check for isNull() before fetching object");
+			AssertFatal(ptr_, "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 
 		T* object() const {
-			Assert(ptr_ && "Check for isNull() before fetching object");
+			AssertFatal(ptr_, "Check for isNull() before fetching object");
 			return ptr_->ptr_;
 		}
 

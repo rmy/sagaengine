@@ -129,8 +129,8 @@ namespace se_ogre {
 					float curvature = in.readFloat();
 					float tiling = in.readFloat();
 					
-					Assert(O3dSchema::sceneManager 
-						   && "SceneManager must be created before loading ogre config file");
+					AssertFatal(O3dSchema::sceneManager,
+						   "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyDome(true, material.get(), curvature, tiling, 512);
 					LogDetail("Created skydome with material " << material);
 				}
@@ -151,8 +151,8 @@ namespace se_ogre {
 					String material;
 					in.readString(material);
 
-					Assert(O3dSchema::sceneManager 
-						   && "SceneManager must be created before loading ogre config file");
+					AssertFatal(O3dSchema::sceneManager,
+						   "SceneManager must be created before loading ogre config file");
 					O3dSchema::sceneManager->setSkyBox(true, material.get());
 				}
 				catch(...) {
@@ -385,8 +385,8 @@ namespace se_ogre {
 					float b = in.readFloat();
 
 					try {
-						Assert(O3dSchema::sceneManager 
-							   && "SceneManager must be createt before setting shadow technique");
+						AssertFatal(O3dSchema::sceneManager,
+							   "SceneManager must be created before setting shadow technique");
 						O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
 						O3dSchema::sceneManager->setShadowTextureSettings(size, count);
 						O3dSchema::sceneManager->setShadowFarDistance(vfar);
