@@ -38,7 +38,7 @@ namespace se_core {
 
 		SignalComponent(Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~SignalComponent();
-		const char* name() { return "Signal"; }
+		const char* name() const { return "Signal"; }
 
 		static SignalComponent* get(Composite& composite) {
 			SignalComponent* c = static_cast<SignalComponent*>(composite.component(se_core::sct_SIGNAL));

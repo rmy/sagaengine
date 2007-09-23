@@ -43,7 +43,7 @@ namespace se_basic {
 		 */
 		virtual ~NavMeshManager();
 
-		const char* name() { return "NavMeshManager"; }
+		const char* name() const { return "NavMeshManager"; }
 		
 
 		void step(long when);

@@ -58,7 +58,7 @@ namespace se_core {
 		applyForces( pos, nextPos, move, nextMove);
 
 		// Entered new area?
-		PosComponent* old = nextPos.area();
+		//PosComponent* old = nextPos.area();
 		nextPos.updateArea();
 
 		// Check if blocked

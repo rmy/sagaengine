@@ -42,8 +42,8 @@ namespace se_core {
 		 * of an edge polygon. A mix will most likely fail with an 
 		 * assertion, as the same point is likely to link to two other points.
 		 */
-		void addLink(Point2& p1, Point2& p2);
-		void removeLink(Point2& p1, Point2& p2);
+		void addLink(const Point2& p1, const Point2& p2);
+		void removeLink(const Point2& p1, const Point2& p2);
 
 
 		/**
@@ -57,7 +57,7 @@ namespace se_core {
 		 * Get the index to the control point if it exists. If not, 
 		 * add it and return the new index. This method is for internal use only.
 		 */
-		int _getOrAddControlPoint(Point2& p);
+		int _getOrAddControlPoint(const Point2& p);
 
 		/** The number of control points. 
 		 * This is also the maximum number of links to other

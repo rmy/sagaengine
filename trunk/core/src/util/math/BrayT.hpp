@@ -41,12 +41,12 @@ namespace se_core {
 
 
 		inline static bool isLeftwise(bray_t bray) {
-			Assert(BrayT::mask(bray) == bray && "parameter must be normalized");
+			AssertFatal(BrayT::mask(bray) == bray, "parameter must be normalized");
 			return (bray > DEG180);
 		}
 
 		inline static bool isRightwise(bray_t bray) {
-			Assert(BrayT::mask(bray) == bray && "parameter must be normalized");
+			AssertFatal(BrayT::mask(bray) == bray, "parameter must be normalized");
 			return (bray < DEG180 && bray > 0);
 		}
 

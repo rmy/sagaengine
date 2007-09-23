@@ -95,7 +95,7 @@ namespace se_core {
 	const Object* ObjectRepository
 	::get(int id) {
 		unsigned int index = find(id);
-		Assert(index >= 0 && index <= objectCount_);
+		Assert(index <= objectCount_);
 		Assert(objects_[ index ]->id() == id);
 
 		return objects_[ index ];

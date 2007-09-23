@@ -38,7 +38,7 @@ namespace se_core {
 
 	void MessageCentral
 	::addListener(MessageListener &l) {
-		Assert(listenerCount < MAX_LISTENERS && "Added one listener too many");
+		AssertFatal(listenerCount < MAX_LISTENERS, "Added one listener too many");
 		listeners[ listenerCount++ ] = &l;
 	}
 

@@ -23,6 +23,7 @@ rune@skalden.com
 #define o3d_input_ConsoleHandler_hpp
 
 #include "o3d_input.hpp"
+#include <cstring>
 
 
 namespace se_ogre {

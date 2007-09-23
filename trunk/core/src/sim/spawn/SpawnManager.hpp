@@ -45,7 +45,7 @@ namespace se_core {
 		 */
 		virtual ~SpawnManager();
 
-		const char* name() { return "SpawnManager"; }
+		const char* name() const { return "SpawnManager"; }
 		
 
 		void step(long when);

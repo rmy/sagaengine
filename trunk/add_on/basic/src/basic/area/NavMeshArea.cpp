@@ -92,9 +92,6 @@ namespace se_basic {
 
 	short NavMeshArea
 	::terrainStyle(const Point3& coor, short index) const {
-		coor_tile_t x = coor.xTile();
-		coor_tile_t y = coor.zTile();
-
 		Point2 p(coor.x_, coor.z_);
 		short tri = (index >= 0) ? index : navMesh_->find(p);
 		//short tri = navMesh_->find(p);

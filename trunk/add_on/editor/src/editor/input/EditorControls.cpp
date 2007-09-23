@@ -50,7 +50,7 @@ namespace se_editor {
 	EditorControls
 	::EditorControls()
 			: InputHandler("EditorControls"), Script("EditorControls"), modifier_(100) {
-		init();
+		_init();
 	}
 
 
@@ -60,7 +60,7 @@ namespace se_editor {
 
 
 	void EditorControls
-	::init() {
+	::_init() {
 		cursor_.setIdentity();
 		Parameter tmp;
 		isRelative_ = true;

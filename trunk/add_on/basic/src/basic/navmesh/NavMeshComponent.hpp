@@ -33,7 +33,7 @@ namespace se_basic {
 
 		NavMeshComponent(se_core::Composite* owner, const se_core::ComponentFactory* factory = 0);
 		virtual ~NavMeshComponent();
-		const char* name() { return "NavMesh"; }
+		const char* name() const { return "NavMesh"; }
 
 	protected:
 		friend class NavMeshComponentFactory;

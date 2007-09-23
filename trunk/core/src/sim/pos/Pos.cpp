@@ -247,7 +247,6 @@ namespace se_core {
 	PosComponent* Pos
 	::updateArea() {
 		// Entered new area?
-		PosComponent* old = area_;
 		Area::Ptr next(area_);
 		if(!next->isLegalWorldCoor(worldCoor())) {
 			Area* a = next->neighbour(worldCoor());

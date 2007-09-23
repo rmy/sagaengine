@@ -44,7 +44,7 @@ namespace se_editor {
 		 */
 		virtual ~EditorManager();
 
-		const char* name() { return "EditorManager"; }
+		const char* name() const { return "EditorManager"; }
 		
 
 		void step(long when);

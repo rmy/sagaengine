@@ -386,10 +386,10 @@ namespace se_basic {
 				}
 
 				//LogDetail(tri << ": " << n << " (" << b.x_ << ", " << b.y_ << ", " << b.z_ << ") ");
-				for(int c = 0; c < 3; ++c) {
-					int i = triangles_[ tri ].controlPoints_[ c ];
+				//for(int c = 0; c < 3; ++c) {
+				//	int i = triangles_[ tri ].controlPoints_[ c ];
 					//LogDetail(" " << i << ": " << controlPoints_[ i ].x_ << ", " << controlPoints_[ i ].z_ );
-				}
+				//}
 
 				//LogDetail(" Link: " << triangles_[tri].linkTo_[0] << ", " << triangles_[tri].linkTo_[1] << ", " << triangles_[tri].linkTo_[2]);
 				tri = triangles_[tri].linkTo_[n];

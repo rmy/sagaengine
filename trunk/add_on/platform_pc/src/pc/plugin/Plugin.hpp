@@ -34,7 +34,7 @@ namespace se_pc {
 		Plugin(const char* name);
 		virtual ~Plugin();
 
-		const char* name() { return name_.get(); }
+		const char* name() const { return name_.get(); }
 		void load();
 		void unload();
 		void* symbol(const char* name);

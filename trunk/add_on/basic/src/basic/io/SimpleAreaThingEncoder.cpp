@@ -102,6 +102,8 @@ namespace se_basic {
 				if(!signal.isNull() && signal->isOn()) {
 					bool state = signal->isOn();
 					out.writeInfoCode('I');
+					// TODO: ??? Test this
+					//out.writeShort(state ? 1 : 0);
 					out.writeShort(0);
 				}
 

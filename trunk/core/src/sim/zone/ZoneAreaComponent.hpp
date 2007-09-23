@@ -96,7 +96,7 @@ namespace se_core {
 		~ZoneAreaComponent();
 		void setActive(bool state);
 
-		const char* name() { return "ZoneArea"; }
+		const char* name() const { return "ZoneArea"; }
 
 		void offset(const ZoneAreaComponent& other, Page& dest) const;
 		bool offset(const ZoneAreaComponent& other, const Vector3& size, Vector3& dest) const;

@@ -171,7 +171,7 @@ namespace se_core {
 
 	void ActionComponent
 	::setActionFeed(ActionFeed* feed) {
-		Assert(feed_ == 0 &&  "Should only have one action feed");
+		AssertFatal(feed_ == 0,  "Should only have one action feed");
 		feed_ = feed;
 	}
 

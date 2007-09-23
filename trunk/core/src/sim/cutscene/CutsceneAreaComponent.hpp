@@ -37,7 +37,7 @@ namespace se_core {
 		~CutsceneAreaComponent();
 		void setActive(bool state);
 
-		const char* name() { return "CutsceneArea"; }
+		const char* name() const { return "CutsceneArea"; }
 
 		//void enter(Actor& performer);
 

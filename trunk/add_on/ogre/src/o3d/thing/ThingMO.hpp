@@ -40,7 +40,7 @@ namespace se_ogre {
 		virtual void animate(long when, float stepDelta, float timeSinceLastFrame) = 0;
 		bool hasThing(se_core::Composite& thing) { return thing_.owner()->id() == thing.id(); }
 		void setParentNode(Ogre::SceneNode* sn);
-		const char* name() { return thing_.name(); }
+		const char* name() const { return thing_.name(); }
 
 	protected:
 		friend class ThingMOFactory;

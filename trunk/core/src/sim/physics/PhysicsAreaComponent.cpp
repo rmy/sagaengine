@@ -32,7 +32,6 @@ rune@skalden.com
 
 
 namespace se_core {
-	static coor_t MAX_SPEED = 64 * COOR_STEP + 2 * COOR_RES;
 
 	PhysicsAreaComponent
 	::PhysicsAreaComponent(Composite* owner, CollisionAreaComponent* cac) 

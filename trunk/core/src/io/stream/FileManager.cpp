@@ -45,6 +45,7 @@ namespace se_core {
 		InputStream* is = 0;
 		if((is = IoSchema::fileManager->open(filename)) != 0) {
 			bool success = IoSchema::parser().parse(*is);
+			AssertWarning(success, "Failed loading " << filename);
 			close(is);
 		}
 	}
@@ -67,6 +68,7 @@ namespace se_core {
 				InputStream* is = 0;
 				if((is = IoSchema::fileManager->open(filename)) != 0) {
 					bool success = IoSchema::parser().parse(*is);
+					AssertWarning(success, "Failed parsing " << filename);
 					close(is);
 				}
 			}
@@ -91,6 +93,7 @@ namespace se_core {
 			InputStream* is = 0;
 			if((is = IoSchema::fileManager->open(filename)) != 0) {
 				bool success = IoSchema::parser().parse(*is);
+				AssertWarning(success, "Failed parsing " << filename);
 				IoSchema::fileManager->close(is);
 				LogDetail("Finished loading batch: " << filename);
 				continue;

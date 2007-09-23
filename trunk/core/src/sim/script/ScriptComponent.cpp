@@ -164,7 +164,7 @@ namespace se_core {
 		// Asser(!isDead_);
 		const char* popScript = script()->name();
 
-		bool isTransparent = script()->isTransparent();
+		//bool isTransparent = script()->isTransparent();
 		consumer_->setScriptActive(false);
 
 		if(currentScript_ == 0) {

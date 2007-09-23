@@ -37,8 +37,6 @@ namespace se_core {
 		PhysicsAreaComponent(Composite* owner, CollisionAreaComponent* cac);
 		~PhysicsAreaComponent();
 
-		const char* name() { return "PhysicsSolver"; }
-
 
 		int performChildPhysics(PhysicsComponent** movers);
 

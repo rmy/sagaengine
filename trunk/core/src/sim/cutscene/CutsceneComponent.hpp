@@ -32,7 +32,7 @@ namespace se_core {
 
 		CutsceneComponent(Composite* owner, const ComponentFactory* factory = 0);
 		virtual ~CutsceneComponent();
-		const char* name() { return "Cutscene"; }
+		const char* name() const { return "Cutscene"; }
 
 		/*
 		Cutscene* findRunnableCutscene(Actor& actor) { return 0; }

@@ -41,8 +41,6 @@ namespace se_editor {
 		~EditorAreaComponent();
 		void setActive(bool state);
 
-		const char* name() { return "EditorArea"; }
-
 		void setEntrance(int id, se_core::ViewPoint& vp);
 		void startEditor();
 		void exitEditor();

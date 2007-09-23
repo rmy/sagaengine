@@ -66,7 +66,6 @@ namespace se_core {
 		PhysicsComponent(Composite* owner, const ComponentFactory* factory);
 		~PhysicsComponent();
 
-		const char* name() { return "Physics"; }
 		bool calcNextCoor();
 
 		void affect() {
