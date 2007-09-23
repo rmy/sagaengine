@@ -127,6 +127,9 @@ namespace se_core {
 				+ (static_cast<coor_double_t>(z_)*z_);
 		}
 
+
+		coor_t xzLength() const;
+
 		/**
 		 * Returns the length of this vector.
 		 * @return the length of this vector
