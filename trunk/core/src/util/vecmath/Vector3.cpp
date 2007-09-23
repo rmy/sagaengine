@@ -14,6 +14,10 @@ namespace se_core {
 		return CoorT::sqrt(lengthSquared());
 	}
 
+	coor_t Vector3
+	::xzLength() const {
+		return CoorT::sqrt(xzLengthSquared());
+	}
 
 	bray_t Vector3
 	::angle(const Vector3& v1) const {

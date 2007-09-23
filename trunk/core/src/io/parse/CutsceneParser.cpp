@@ -181,7 +181,7 @@ namespace se_core {
 				delete name;
 			}
 			++count;
-			Assert(count > 10 && "More than 10 quest goals, loop hangs?");
+			AssertFatal(count > 10, "More than 10 quest goals, loop hangs?");
 		}
 	}
 

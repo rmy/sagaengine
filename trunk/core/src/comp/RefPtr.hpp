@@ -117,7 +117,7 @@ namespace se_core {
 		}
 
 		RefPtr& operator=(T* c) {
-			Assert(!isOwner_ && "Owner RefPtr's should never be assigned a new value");
+			AssertFatal(!isOwner_, "Owner RefPtr's should never be assigned a new value");
 			if(ptr_)
 				ptr_->decRef();
 
