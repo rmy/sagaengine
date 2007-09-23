@@ -54,9 +54,9 @@ namespace se_core {
 
 
 	se_err::Log& operator<< (se_err::Log& log, const BoundingCylinder& b) {
-		sprintf(log.tmp(), " BoundingCylinder{(%f,%f,%f)(%f,%f,%f)}",
-			b.centerX_, b.centerZ_, b.minY_,
-			b.maxY_, b.radius_
+		sprintf(log.tmp(), " BoundingCylinder{centre(%f,%f),radius(%f),y(%f,%f)}",
+			b.centerX_, b.centerZ_, b.radius_, b.minY_,
+			b.maxY_
 		);
 		log.copy(log.tmp());
 		return log;
