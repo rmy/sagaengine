@@ -164,7 +164,7 @@ namespace se_core {
 
 	Exit& ZoneAreaComponent
 	::exit(int id) {
-		Assert(id >= 0 && id < exitCount_);
+		AssertFatal(id >= 0 && id < exitCount_, owner()->name());
 		return exits_[id];
 	}
 
