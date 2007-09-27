@@ -38,7 +38,7 @@ namespace se_audiere {
 
 		void add(unsigned short language, SoundType type, se_core::String* name, float volume, se_core::String* filename, bool shouldLoop);
 		short find(SoundType type, const char* name, unsigned short lang);
-		audiere::OutputStreamPtr get(SoundType type, const char* name, float& volumeOut);
+		audiere::OutputStreamPtr get(SoundType type, const char* name, float& volumeOut, bool& shouldLoopOut);
 		void setLanguage(unsigned short language);
 		static unsigned short languageId(const char* language);
 		bool isFound(short index, SoundType type, const char* name, unsigned short lang);

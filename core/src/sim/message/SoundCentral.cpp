@@ -21,6 +21,7 @@ rune@skalden.com
 
 #include "SoundCentral.hpp"
 #include "SoundListener.hpp"
+#include "Ambience.hpp"
 #include "../thing/Actor.hpp"
 #include "../../util/error/Log.hpp"
 
@@ -28,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 
 	SoundCentral
-	::SoundCentral() {
+	::SoundCentral() : isAmbiencePlaying_(false), ambienceHandler_(0) {
 	}
 
 	SoundCentral
@@ -38,7 +39,7 @@ namespace se_core {
 
 	void SoundCentral
 	::addListener(SoundListener &l) {
-		Assert(listenerCount < MAX_LISTENERS && "Added one listener too many");
+		AssertFatal(listenerCount < MAX_LISTENERS, "Added one listener too many");
 		listeners[ listenerCount++ ] = &l;
 	}
 
@@ -62,9 +63,30 @@ namespace se_core {
 
 
 	void SoundCentral
+	::setAmbienceHandler(const char* name) {
+		setAmbienceHandler(*Ambience::lookup(name));
+	}
+
+
+	void SoundCentral
 	::sound(Actor& speaker, const char* snd) {
 		for(int i = 0; i < listenerCount; ++i) {
 			listeners[ i ]->soundEvent(speaker, snd);
+		}
+	}
+
+	void SoundCentral
+	::castMusicStopped() {
+		if(ambienceHandler_) {
+			ambienceHandler_->musicStoppedEvent(*this);
+		}
+	}
+
+
+	void SoundCentral
+	::castMusicEnded() {
+		if(ambienceHandler_) {
+			ambienceHandler_->musicEndedEvent(*this);
 		}
 	}
 

@@ -19,10 +19,9 @@ rune@skalden.com
 */
 
 
+#include "Ambience.hpp"
+#include "util/error/Log.hpp"
+
+
 namespace se_core {
-	class MessageListener;
-	class MessageCentral;
-	class SoundListener;
-	class SoundCentral;
-	class Ambience;
 }

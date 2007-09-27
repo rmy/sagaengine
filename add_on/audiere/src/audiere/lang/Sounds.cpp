@@ -121,7 +121,7 @@ namespace se_audiere {
 
 
 	audiere::OutputStreamPtr Sounds
-	::get(SoundType type, const char* name, float& volumeOut) {
+	::get(SoundType type, const char* name, float& volumeOut, bool& shouldLoopOut) {
 		// Is there a language specific sound?
 		short index = find(type, name, currentLanguage_);
 		if(!isFound(index, type, name, currentLanguage_)) {
@@ -134,6 +134,7 @@ namespace se_audiere {
 		}
 		LogDetail(sounds_[index].language_ << " " << type << " " << name);
 		volumeOut = sounds_[ index ].volume_;
+		shouldLoopOut = sounds_[ index ].shouldLoop_;
 		return sounds_[ index ].sound_;
 	}
 

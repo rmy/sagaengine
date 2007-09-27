@@ -19,10 +19,26 @@ rune@skalden.com
 */
 
 
+#ifndef Ambience_hpp
+#define Ambience_hpp
+
+#include "comp/Object.hpp"
+#include "../thing/sim_thing.hpp"
+#include "SoundCentral.hpp"
+#include "../sim.hpp"
+
 namespace se_core {
-	class MessageListener;
-	class MessageCentral;
-	class SoundListener;
-	class SoundCentral;
-	class Ambience;
+	class _SeCoreExport Ambience : public Object {
+	public:
+		Ambience(const char* name) : Object(got_AMBIENCE, name) {
+		}
+		static const Ambience* lookup(const char* name) {
+			return static_cast<const Ambience*>(_lookup(got_AMBIENCE, name));
+		}
+
+		virtual void musicEndedEvent(SoundCentral& soundCentral) const = 0;
+		virtual void musicStoppedEvent(SoundCentral& soundCentral) const = 0;
+	};
 }
+
+#endif

@@ -36,6 +36,7 @@ namespace se_core {
 		got_POS_NODE, got_THING, got_ACTOR, got_CAMERA,
 		got_PLAYER, got_SCRIPT, got_CUTSCENE,
 		got_QUEST_GOAL, got_NUMBER_OF_TYPES, got_THING_COLLIDE,
+		got_AMBIENCE,
 		got_USER_DEFINED
 	};
 

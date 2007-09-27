@@ -6,5 +6,6 @@
 #include "sim_message.hpp"
 #include "SoundCentral.hpp"
 #include "SoundListener.hpp"
+#include "Ambience.hpp"
 
 #endif

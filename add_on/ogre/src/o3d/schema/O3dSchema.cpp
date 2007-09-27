@@ -154,6 +154,21 @@ namespace se_ogre {
 			}
 
 			bool initGameEvent() {
+				Ogre::Overlay* overlay = 0;
+				try {
+					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
+					if(overlay) {
+						overlay->show();
+						Ogre::Root::getSingleton().renderOneFrame();
+						overlay->hide();
+					}
+					else {
+						LogWarning("No loading overlay");
+					}
+				}
+				catch(...) {
+				}
+
 				Assert(O3dSchema::renderEngine);
 
 				// Make WorldManager listen to Ogre render events
