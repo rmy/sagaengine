@@ -119,6 +119,12 @@ namespace se_ogre {
 
 
 	void RenderEngine
+	::screenshot(const char* prefix) {
+		Ogre::Root::getSingleton().getRenderSystem()->_getViewport()->getTarget()->writeContentsToTimestampedFile(prefix, "jpg");
+	}
+
+
+	void RenderEngine
 	::resetGameClock(void) {
 		O3dSchema::gameClock = 0;
 	}

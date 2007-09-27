@@ -72,7 +72,7 @@ namespace se_ogre {
 
 	void InputHandler
 	::loseFocus() {
-		Assert(O3dSchema::inputManager().active() == this && "Hasn't got focus");
+		AssertFatal(O3dSchema::inputManager().active() == this, "Hasn't got focus: " << name());
 		O3dSchema::inputManager().pop();
 	}
 

@@ -31,7 +31,6 @@ namespace se_core {
 	/** Sound message handling manager. */
 	class _SeCoreExport SoundCentral {
 	public:
-
 		SoundCentral();
 		virtual ~SoundCentral();
 
@@ -41,10 +40,25 @@ namespace se_core {
 		void sound(Actor& speaker, const char* snd);
 		void ambience(char* snd);
 
+		void castMusicStopped();
+		void castMusicEnded();
+
+		bool isAmbiencePlaying() { return isAmbiencePlaying_; }
+		void setAmbiencePlaying(bool f) { isAmbiencePlaying_ = f; }
+		void resetAmbienceHandler() {
+			ambienceHandler_ = 0;
+		}
+		void setAmbienceHandler(const Ambience& handler) {
+			ambienceHandler_ = &handler;
+		}
+		void setAmbienceHandler(const char* name);
+
 	private:
 		static const int MAX_LISTENERS = 10;
 		SoundListener* listeners[ MAX_LISTENERS ];
 		short listenerCount;
+		const Ambience* ambienceHandler_;
+		bool isAmbiencePlaying_;
 	};
 
 }

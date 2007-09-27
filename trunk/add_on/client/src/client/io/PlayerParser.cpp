@@ -179,7 +179,7 @@ namespace se_client {
 				break;
 
 			case 'T': // Camera tracking player
-				Assert(pos != ClientSchema::player && "Player cannot track player");
+				AssertFatal(pos != ClientSchema::player, "Player cannot track player");
 				pos->nextPos().setParent(*ClientSchema::player);
 				break;
 			}

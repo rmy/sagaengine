@@ -70,7 +70,7 @@ namespace se_core {
 		default:
 			LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
 		}
-		Assert(factory && "Forgot to create factory");
+		AssertFatal(factory, "Forgot to create factory in file " << in.name());
 
 		while(!in.eof() && (code = in.readInfoCode()) != 'Q') {
 			switch(code) {

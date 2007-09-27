@@ -184,6 +184,7 @@ namespace se_core {
 		SignalManager::singleton().step(when);
 
 		if(!nextLevel_.equals(level_)) {
+			LogWarning("New level is " << nextLevel_);
 			CompSchema::activeRoot().setActive(false, true);
 			if(!level_.isEmpty()) {
 				SimSchema::initListeners().castCleanupLevelEvent();

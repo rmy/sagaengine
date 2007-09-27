@@ -47,6 +47,7 @@ namespace se_ogre {
 
 		void renderFrame();
 		void screenshot(int screenShotId);
+		void screenshot(const char* prefix);
 		void loadLevelResources(const char** sections);
 		void resetLevelResources();
 
