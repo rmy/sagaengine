@@ -38,7 +38,7 @@ namespace se_audiere {
 
 		ADR_METHOD(void) streamStopped(audiere::StopEvent* event);
 
-		void ambienceEvent(char* snd);
+		void ambienceEvent(const char* snd);
 		void soundEvent(se_core::Actor& speaker, const char* snd);
 
 		audiere::OutputStreamPtr loadSound(const char* filename, bool shouldLoad);

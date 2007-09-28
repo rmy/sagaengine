@@ -28,7 +28,7 @@ namespace se_core {
 	class _SeCoreExport SoundListener {
 	public:
 		virtual ~SoundListener() {} // Gets rid of warning
-		virtual void ambienceEvent(char* snd) = 0;
+		virtual void ambienceEvent(const char* snd) = 0;
 		virtual void soundEvent(Actor& speaker, const char* snd) = 0;
 	};
 }
