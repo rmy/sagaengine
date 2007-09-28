@@ -38,7 +38,7 @@ namespace se_core {
 		void removeListener(SoundListener& l);
 
 		void sound(Actor& speaker, const char* snd);
-		void ambience(char* snd);
+		void ambience(const char* snd);
 
 		void castMusicStopped();
 		void castMusicEnded();
@@ -56,7 +56,7 @@ namespace se_core {
 	private:
 		static const int MAX_LISTENERS = 10;
 		SoundListener* listeners[ MAX_LISTENERS ];
-		short listenerCount;
+		short listenerCount_;
 		const Ambience* ambienceHandler_;
 		bool isAmbiencePlaying_;
 	};

@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 
 	SoundCentral
-	::SoundCentral() : isAmbiencePlaying_(false), ambienceHandler_(0) {
+	::SoundCentral() : listenerCount_(0), isAmbiencePlaying_(false), ambienceHandler_(0) {
 	}
 
 	SoundCentral
@@ -39,24 +39,24 @@ namespace se_core {
 
 	void SoundCentral
 	::addListener(SoundListener &l) {
-		AssertFatal(listenerCount < MAX_LISTENERS, "Added one listener too many");
-		listeners[ listenerCount++ ] = &l;
+		AssertFatal(listenerCount_ < MAX_LISTENERS, "Added one listener too many");
+		listeners[ listenerCount_++ ] = &l;
 	}
 
 
 	void SoundCentral
 	::removeListener(SoundListener &l) {
-		for(int i = 0; i < listenerCount; ++i) {
+		for(int i = 0; i < listenerCount_; ++i) {
 			if(listeners[ i ] == &l) {
-				listeners[ i ] = listeners[ --listenerCount ];
+				listeners[ i ] = listeners[ --listenerCount_ ];
 			}
 		}
 	}
 
 
 	void SoundCentral
-	::ambience(char* snd) {
-		for(int i = 0; i < listenerCount; ++i) {
+	::ambience(const char* snd) {
+		for(int i = 0; i < listenerCount_; ++i) {
 			listeners[ i ]->ambienceEvent(snd);
 		}
 	}
@@ -70,7 +70,7 @@ namespace se_core {
 
 	void SoundCentral
 	::sound(Actor& speaker, const char* snd) {
-		for(int i = 0; i < listenerCount; ++i) {
+		for(int i = 0; i < listenerCount_; ++i) {
 			listeners[ i ]->soundEvent(speaker, snd);
 		}
 	}

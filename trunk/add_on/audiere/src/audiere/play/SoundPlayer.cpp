@@ -85,21 +85,26 @@ namespace se_audiere {
 
 		
 	void SoundPlayer
-	::ambienceEvent(char* snd) {
-		if(ambience_) {
-			ambience_->stop();
-			ambience_ = 0;
-		}
-		if(!snd)
+	::ambienceEvent(const char* snd) {
+		if(!snd) {
+			if(ambience_) {
+				ambience_->stop();
+				ambience_ = 0;
+				SimSchema::soundCentral.setAmbiencePlaying(false);
+			}
 			return;
+		}
 
 		float volume;
 		bool shouldLoop;
 		audiere::OutputStreamPtr s = AudiereSchema::sounds.get(Sounds::MUSIC, snd, volume, shouldLoop);
 		if(!s) {
 			LogWarning("Couldn't play ambience: " << snd);
+			ambience_ = 0;
+			SimSchema::soundCentral.setAmbiencePlaying(false);
 			return;
 		}
+
 		ambience_ = s;
 		ambience_->setRepeat(shouldLoop);
 		ambience_->setVolume(volume);
@@ -111,12 +116,15 @@ namespace se_audiere {
 	::streamStopped(audiere::StopEvent* event) {
 		if(ambience_.get() == event->getOutputStream()) {
 			LogWarning("Ambience Stopped");
-			SimSchema::soundCentral.setAmbiencePlaying(false);
+			bool isPlaying = ((ambience_ != 0) ? ambience_->isPlaying() : false);
+			SimSchema::soundCentral.setAmbiencePlaying(isPlaying);
 			if(event->getReason() == audiere::StopEvent::STREAM_ENDED) {
 				SimSchema::soundCentral.castMusicEnded();
+				ambience_ = 0;
 			}
-			else {
+			else if(event->getReason() == audiere::StopEvent::STOP_CALLED) {
 				SimSchema::soundCentral.castMusicStopped();
+				ambience_ = 0;
 			}
 		}
 		else {

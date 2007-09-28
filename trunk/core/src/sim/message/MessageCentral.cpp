@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 
 	MessageCentral
-	::MessageCentral() {
+	::MessageCentral() : listenerCount(0) {
 	}
 
 	MessageCentral
