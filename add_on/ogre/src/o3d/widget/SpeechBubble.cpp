@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : InputHandler("SpeechBubble"), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), isDialogue_(false), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
 	}
 
 
@@ -73,6 +73,9 @@ namespace se_ogre {
 	::cleanup() {
 		SimSchema::messageCentral.removeListener(*this);
 		speaker_ = 0;
+		isDialogue_ = false;
+		if(hasFocus())
+			loseFocus();
 	}
 
 
@@ -117,7 +120,7 @@ namespace se_ogre {
 			buffer[i] = *c;
 			++linePos;
 			if(*c == '_') {
-				if(linePos < 45) {
+				if(linePos < MAX_LINE_LENGTH) {
 					buffer[i] = ' ';
 				}
 				else {
@@ -130,6 +133,21 @@ namespace se_ogre {
 		return true;
 	}
 
+
+	void SpeechBubble
+	::startDialogueEvent(se_core::Actor& speaker) {
+		isDialogue_ = true;
+		speaker_ = &speaker;
+		grabFocus();
+	}
+
+	void SpeechBubble
+	::stopDialogueEvent(se_core::Actor& speaker) {
+		Assert(isDialogue_);
+		isDialogue_ = false;
+		speaker_ = 0;
+		loseFocus();
+	}
 
 	void SpeechBubble
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
@@ -148,19 +166,22 @@ namespace se_ogre {
 			LogWarning("Couldn't show speech bubble");
 		}
 
-		grabFocus();
+		if(!isDialogue_)
+			grabFocus();
 	}
 
 
 	void SpeechBubble
 	::trackUserFeedback() {
 		if(speaker_) {
-			speaker_->script()->trackUserFeedback();
-			speaker_ = 0;
+			ActionComponent::Ptr(speaker_)->castFeedbackEvent(ActionComponent::fb_SPEECH_FINISHED);
+			if(!isDialogue_)
+				speaker_ = 0;
 		}
 		speechOverlay_->hide();
 
-		loseFocus();
+		if(!isDialogue_)
+			loseFocus();
 	}
 
 	void SpeechBubble

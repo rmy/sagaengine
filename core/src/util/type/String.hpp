@@ -49,6 +49,7 @@ namespace se_core {
 		 */
 		void copy(const char* data, int toPos);
 		inline const char* get() const { return data_; }
+		const char* ext(char delimiter, bool mustFind = true) const;
 		char* copyValue() const;
 		bool isEmpty() const;
 		int len() const;

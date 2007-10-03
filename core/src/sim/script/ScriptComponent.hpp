@@ -133,6 +133,8 @@ namespace se_core {
 		void touch(void* param = 0);
 		void touchDefault(void* param = 0);
 
+		void feedbackEvent(const ActionComponent& source, int type);
+
 	protected:
 		void cleanup();
 		short currentScript_;

@@ -55,6 +55,7 @@ namespace se_client {
 	}
 
 
+
 	void PlayerParser
 	::parse(InputStream& in) {
 		String tempString;
@@ -132,7 +133,8 @@ namespace se_client {
 					String name;
 					in.readString(tempString);
 					if(tempString.get()[0] == '/') {
-						name.copy(in.basename(), -in.extLen());
+						name.copy(in.oneDirAndBasename(), -in.basenameLen() - 1);
+						//name.copy(in.basename(), -in.extLen());
 						name.append(tempString.get());
 					}
 					else {

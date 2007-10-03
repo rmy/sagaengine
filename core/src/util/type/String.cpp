@@ -100,6 +100,20 @@ namespace se_core {
 	}
 
 
+	const char* String
+	::ext(char delimiter, bool mustFind) const {
+		const char* ch = data_, *ret = 0;
+
+		while(*ch != 0) {
+			if(*ch == delimiter) {
+				ret = ch + 1;
+			}
+			++ch;
+		}
+		AssertFatal(!mustFind  || ret, "Couldn't find delimiter '" << delimiter << "' in " << get());
+		return ret;
+	}
+
 	char* String
 	::copyValue() const {
 		char* v = new char[strlen(data_) + 1];

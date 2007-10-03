@@ -171,6 +171,7 @@ namespace se_core {
 		extern _SeCoreExport ShowingCutscene showingCutscene;
 		extern _SeCoreExport int scriptTracker;
 		extern _SeCoreExport bool didTrack;
+		extern _SeCoreExport int speechCount;
 
 		/** Force linking of dependencies */
 		void _SeCoreExport touch();

@@ -105,12 +105,13 @@ namespace se_editor {
 
 	void EditorAreaComponent
 	::paste() {
-		char name[256];
-		sprintf(name, "clipboard/%s", owner()->factory()->name());
+		char areaName[256];
+		sprintf(areaName, "clipboard/%s", owner()->factory()->name());
 
+		String name(owner()->name());
 		char filename[256];
 		char buffer[256];
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, name);
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, areaName);
 		FILE* in = fopen(filename, "rt");
 		if(in) {
 			fgets(buffer, 256, in);
@@ -118,7 +119,8 @@ namespace se_editor {
 
 			sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
 			FILE* out = fopen(filename, "wt");
-			fprintf(out, "XB01\nN %s\n", owner()->name());
+			fprintf(out, "XB01\nD %s\n", name.ext('/'));
+			//fprintf(out, "XB01\nN %s\n", owner()->name());
 
 			while(!feof(in)) {
 				fgets(buffer, 256, in);
@@ -133,13 +135,14 @@ namespace se_editor {
 
 	void EditorAreaComponent
 	::save() {
+		String name(owner()->name());
 		char filename[256];
 		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
 		FILE* out = fopen(filename, "rt");
 		if(out) {
 			fclose(out);
 			out = fopen(filename, "wt");
-			fprintf(out, "XB01\nN %s\n", owner()->name());
+			fprintf(out, "XB01\nD %s\n", name.ext('/'));
 			fclose(out);
 		}
 
@@ -156,11 +159,12 @@ namespace se_editor {
 
 
 	void EditorAreaComponent
-	::save(const char* name) {
+	::save(const char* areaName) {
 		char filename[256];
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, name);
+		String name(areaName);
+		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, areaName);
 		FILE* out = fopen(filename, "wt");
-		fprintf(out, "XB01\nN %s\n", name);
+		fprintf(out, "XB01\nD %s\n", name.ext('/'));
 
 		NodeComponentList::Iterator it(children_);
 		while(it.hasNext()) {
@@ -175,9 +179,9 @@ namespace se_editor {
 		}
 		fclose(out);
 
-		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, name);
+		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, areaName);
 		out = fopen(filename, "wt");
-		fprintf(out, "XB01\nN %s\n", name);
+		fprintf(out, "XB01\nD %s\n", name.ext('/'));
 		for(int i = 0; i < 10; ++i) {
 			if(usedEntrances_[i]) {
 				Point3& c = entrances_[i].coor_;

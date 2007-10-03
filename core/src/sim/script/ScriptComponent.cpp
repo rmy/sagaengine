@@ -233,4 +233,12 @@ namespace se_core {
 		s->touched(*this, scriptData(), param);
 	}
 
+
+	void ScriptComponent
+	::feedbackEvent(const ActionComponent& source, int type) {
+		if(hasActiveScript()) {
+			script()->feedbackEvent(*this, scriptData(), type);
+		}
+	}
+
 }

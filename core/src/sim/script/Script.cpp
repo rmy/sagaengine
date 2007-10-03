@@ -67,10 +67,4 @@ namespace se_core {
 	}
 
 
-	void Script
-	::trackUserFeedback() const {
-		WasHere();
-		SimSchema::didTrack = true;
-	}
-
 }

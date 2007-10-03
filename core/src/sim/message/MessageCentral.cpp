@@ -68,4 +68,19 @@ namespace se_core {
 		}
 	}
 
+
+	void MessageCentral
+	::startDialogue(Actor& speaker) {
+		for(int i = 0; i < listenerCount; ++i) {
+			listeners[ i ]->startDialogueEvent(speaker);
+		}
+	}
+
+
+	void MessageCentral
+	::stopDialogue(Actor& speaker) {
+		for(int i = 0; i < listenerCount; ++i) {
+			listeners[ i ]->stopDialogueEvent(speaker);
+		}
+	}
 }

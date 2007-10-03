@@ -44,11 +44,20 @@ namespace se_client {
 		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);
 		void planAction(short channel, const se_core::Action& action, const se_core::Parameter* parameter = 0) const;
 
-		bool die();
+		bool die(bool didWin);
+		bool didWin() { return didWin_; }
 		long deathAge();
+		bool isControlsActive() const {
+			return isControlsActive_;
+		}
+		void setControlsActive(bool f) {
+			isControlsActive_ = f;
+		}
+
 
 	protected:
 		// Sibling shortcut
+		bool didWin_, isControlsActive_;
 		se_core::ActionComponent* actionComponent_;
 		se_core::PosComponent* posComponent_;
 

@@ -89,6 +89,8 @@ namespace se_core {
 		 */
 		virtual void prepare(ActionComponent &performer, Parameter& parameter) const {}
 
+		virtual void feedbackEvent(ActionComponent &performer, Parameter& parameter, int type) const {}
+
 		/**
 		 * Called if the action is disrupted, that is being removed
 		 * from the ActionQueue without being performed.

@@ -52,7 +52,7 @@ namespace se_pc {
 		const char* name() const { return sourceFilename_; }
 
 	private:
-		char tmpBuffer_[256];
+		char tmpBuffer_[2048];
 		char sourceFilename_[512];
 		char *fileContents_;
 		int contentsLength_;

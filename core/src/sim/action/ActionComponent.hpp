@@ -106,6 +106,8 @@ namespace se_core {
 			feed_ = 0;
 		}
 
+		enum { fb_UNDEFINED, fb_SPEECH_FINISHED, fb_USER_DEFINED };
+		void castFeedbackEvent(int type);
 		void setActionFeed(ActionFeed* feed);
 
 		void setActive(bool state);
