@@ -38,8 +38,8 @@ namespace se_ogre {
 		void cleanup();
 
 		void infoEvent(char* text);
-		void startDialogueEvent(se_core::Actor& speaker);
-		void stopDialogueEvent(se_core::Actor& speaker);
+		void startMonologueEvent(se_core::Actor& speaker);
+		void stopMonologueEvent(se_core::Actor& speaker);
 		void speechEvent(se_core::Actor& speaker, const char* messageName);
 		void trackUserFeedback();
 
@@ -74,7 +74,7 @@ namespace se_ogre {
 		void lostFocusEvent();
 
 	private:
-		bool isDialogue_;
+		bool isMonologue_, shouldTrack_;
 		se_core::Actor* speaker_;
 		const se_core::Physics* speakerCamera_;
 		Ogre::Overlay* speechOverlay_,* infoOverlay_;

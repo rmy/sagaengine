@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : InputHandler("SpeechBubble"), isDialogue_(false), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), isMonologue_(false), shouldTrack_(false), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
 	}
 
 
@@ -73,7 +73,7 @@ namespace se_ogre {
 	::cleanup() {
 		SimSchema::messageCentral.removeListener(*this);
 		speaker_ = 0;
-		isDialogue_ = false;
+		isMonologue_ = false;
 		if(hasFocus())
 			loseFocus();
 	}
@@ -135,16 +135,16 @@ namespace se_ogre {
 
 
 	void SpeechBubble
-	::startDialogueEvent(se_core::Actor& speaker) {
-		isDialogue_ = true;
+	::startMonologueEvent(se_core::Actor& speaker) {
+		isMonologue_ = true;
 		speaker_ = &speaker;
 		grabFocus();
 	}
 
 	void SpeechBubble
-	::stopDialogueEvent(se_core::Actor& speaker) {
-		Assert(isDialogue_);
-		isDialogue_ = false;
+	::stopMonologueEvent(se_core::Actor& speaker) {
+		Assert(isMonologue_);
+		isMonologue_ = false;
 		speaker_ = 0;
 		loseFocus();
 	}
@@ -161,26 +161,30 @@ namespace se_ogre {
 			else
 				speechCaption_->setCaption(messageName);
 			speechOverlay_->show();
+			shouldTrack_ = true;
 		}
 		catch(...) {
 			LogWarning("Couldn't show speech bubble");
 		}
 
-		if(!isDialogue_)
+		if(!isMonologue_)
 			grabFocus();
 	}
 
 
 	void SpeechBubble
 	::trackUserFeedback() {
+		if(!shouldTrack_)
+			return;
 		if(speaker_) {
 			ActionComponent::Ptr(speaker_)->castFeedbackEvent(ActionComponent::fb_SPEECH_FINISHED);
-			if(!isDialogue_)
+			if(!isMonologue_)
 				speaker_ = 0;
 		}
+		shouldTrack_ = false;
 		speechOverlay_->hide();
 
-		if(!isDialogue_)
+		if(!isMonologue_)
 			loseFocus();
 	}
 

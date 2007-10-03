@@ -70,17 +70,17 @@ namespace se_core {
 
 
 	void MessageCentral
-	::startDialogue(Actor& speaker) {
+	::startMonologue(Actor& speaker) {
 		for(int i = 0; i < listenerCount; ++i) {
-			listeners[ i ]->startDialogueEvent(speaker);
+			listeners[ i ]->startMonologueEvent(speaker);
 		}
 	}
 
 
 	void MessageCentral
-	::stopDialogue(Actor& speaker) {
+	::stopMonologue(Actor& speaker) {
 		for(int i = 0; i < listenerCount; ++i) {
-			listeners[ i ]->stopDialogueEvent(speaker);
+			listeners[ i ]->stopMonologueEvent(speaker);
 		}
 	}
 }
