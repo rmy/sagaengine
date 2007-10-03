@@ -38,8 +38,8 @@ namespace se_core {
 		void addListener(MessageListener& l);
 		void removeListener(MessageListener& l);
 
-		void startDialogue(Actor& speaker);
-		void stopDialogue(Actor& speaker);
+		void startMonologue(Actor& speaker);
+		void stopMonologue(Actor& speaker);
 		void speech(Actor& speaker, const char* message);
 		void info(char* message);
 

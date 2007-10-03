@@ -30,8 +30,8 @@ namespace se_core {
 		virtual ~MessageListener() {} // Gets rid of warning
 		virtual void infoEvent(char* text) = 0;
 		virtual void speechEvent(Actor& speaker, const char* message) = 0;
-		virtual void startDialogueEvent(se_core::Actor& speaker) = 0;
-		virtual void stopDialogueEvent(se_core::Actor& speaker) = 0;
+		virtual void startMonologueEvent(se_core::Actor& speaker) = 0;
+		virtual void stopMonologueEvent(se_core::Actor& speaker) = 0;
 	};
 }
 
