@@ -158,6 +158,11 @@ namespace se_ogre {
 				try {
 					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
 					if(overlay) {
+						wchar_t buffer[512];
+						if(SpeechBubble::translate("Info.LOADING", buffer)) {
+							Ogre::OverlayElement* txt = Ogre::OverlayManager::getSingleton().getOverlayElement("Core/LoadingText");
+							txt->setCaption(buffer);
+						}
 						overlay->show();
 						Ogre::Root::getSingleton().renderOneFrame();
 						overlay->hide();
@@ -170,6 +175,7 @@ namespace se_ogre {
 				}
 
 				Assert(O3dSchema::renderEngine);
+				O3dSchema::renderEngine->skipNext();
 
 				// Make WorldManager listen to Ogre render events
 				LogDetail("Add world manager as Ogre frame listener");
@@ -186,6 +192,7 @@ namespace se_ogre {
 
 			void cleanupGameEvent() {
 				//
+				O3dSchema::renderEngine->resetSkip();
 				O3dSchema::renderEngine->resetLevelResources();
 
 				// Make WorldManager listen to Ogre render events
@@ -226,6 +233,7 @@ namespace se_ogre {
 			bool initLevelEvent() {
 				//O3dSchema::worldManager->compileAllStaticGeometry();
 				// Load ogre configuration
+				O3dSchema::renderEngine->skipNext();
 				const char* global = "logic/config/global.ogre.txt";
 				if(!IoSchema::fileManager->exists(global)) {
 					IoSchema::fileManager->addFileIfExists(global);

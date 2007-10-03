@@ -93,6 +93,7 @@ namespace se_core {
 		const char* appName = 0;
 		int scriptTracker = 0;
 		bool didTrack = false;
+		int speechCount = 0;
 
 
 		bool init(const char* applicationName) {

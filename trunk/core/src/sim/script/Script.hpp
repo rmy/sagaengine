@@ -63,7 +63,8 @@ namespace se_core {
 		virtual void nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const;
 		virtual const Action* nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, Parameter& out) const { return 0; }
 
-		void trackUserFeedback() const;
+		enum { fb_SPEECH_FINISHED };
+		virtual void feedbackEvent(const ScriptComponent& performer, ScriptData* sd, int type) const {}
 
 		/**
 		 *	Should return false if the script should

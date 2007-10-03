@@ -109,6 +109,7 @@ namespace se_audiere {
 		ambience_->setRepeat(shouldLoop);
 		ambience_->setVolume(volume);
 		ambience_->play();
+		LogWarning("Playing ambience at volume: " << volume);
 		SimSchema::soundCentral.setAmbiencePlaying(true);
 	}
 

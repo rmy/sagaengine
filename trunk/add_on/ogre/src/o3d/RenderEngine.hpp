@@ -45,6 +45,8 @@ namespace se_ogre {
 		bool setup(void);
 		void cleanup(void);
 
+		void skipNext() { skip_ = 3; }
+		void resetSkip() { skip_ = 0; }
 		void renderFrame();
 		void screenshot(int screenShotId);
 		void screenshot(const char* prefix);
@@ -78,6 +80,7 @@ namespace se_ogre {
 		static const int MAX_LEVEL_RESOURCE_SECTIONS = 8;
 		int levelResourceCount_;
 		const char* levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
+		int skip_;
 
 	private:
 #ifdef _DEBUG

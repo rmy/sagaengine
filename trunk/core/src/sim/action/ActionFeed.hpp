@@ -36,6 +36,7 @@ namespace se_core {
 	class _SeCoreExport ActionFeed {
 	public:
 		virtual void nextAction(const ActionComponent& performer, int channel, ActionAndParameter& out) = 0;
+		virtual void feedbackEvent(const ActionComponent& performer, int type) = 0;
 	};
 
 }

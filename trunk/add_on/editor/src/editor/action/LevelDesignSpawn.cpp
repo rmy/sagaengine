@@ -105,6 +105,7 @@ namespace se_editor {
 				if(c) {
 					c->setIgnore(*pCC);
 					c->setCollideable(false);
+					c->setCollide(0);
 				}
 				PosComponent* pPos = PosComponent::get(perf);
 				PosComponent::Ptr sPos(*spawn);

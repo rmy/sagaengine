@@ -38,6 +38,8 @@ namespace se_ogre {
 		void cleanup();
 
 		void infoEvent(char* text);
+		void startDialogueEvent(se_core::Actor& speaker);
+		void stopDialogueEvent(se_core::Actor& speaker);
 		void speechEvent(se_core::Actor& speaker, const char* messageName);
 		void trackUserFeedback();
 
@@ -67,15 +69,17 @@ namespace se_ogre {
 			below()->mouseReleased(e, button);
 		}
 
-		bool translate(const char* messageName, wchar_t* buffer);
+		static bool translate(const char* messageName, wchar_t* buffer);
 		void grabbedFocusEvent();
 		void lostFocusEvent();
 
 	private:
+		bool isDialogue_;
 		se_core::Actor* speaker_;
 		const se_core::Physics* speakerCamera_;
 		Ogre::Overlay* speechOverlay_,* infoOverlay_;
 		Ogre::OverlayElement* speechCaption_,* infoCaption_;
+		static const int MAX_LINE_LENGTH = 50;
 	};
 }
 

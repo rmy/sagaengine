@@ -33,7 +33,7 @@ using namespace se_core;
 namespace se_client {
 	PlayerComponent
 	::PlayerComponent(Composite* owner)
-		: Component(sct_PLAYER, owner), deadWhen_(0) {
+		: Component(sct_PLAYER, owner), deadWhen_(0), didWin_(false), isControlsActive_(true) {
 		actionComponent_ = static_cast<ActionComponent*>(owner_->component(sct_ACTION));
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 	}
@@ -68,11 +68,12 @@ namespace se_client {
 
 
 	bool PlayerComponent
-	::die() {
+	::die(bool didWin) {
 		// Only die once
 		if(deadWhen_)
 			return false;
 		deadWhen_ = SimSchema::simEngine.when();
+		didWin_ = didWin;
 		return true;
 	}
 

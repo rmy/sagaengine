@@ -53,7 +53,7 @@ namespace se_ogre {
 
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
-			: inputBridge_(0), levelResourceCount_(0) {
+			: inputBridge_(0), levelResourceCount_(0), skip_(0) {
 #ifndef _DEBUG
 		O3dSchema::root = new Root("plugins.cfg", "ogre.cfg", "Ogre.log");
 #else
@@ -93,12 +93,18 @@ namespace se_ogre {
 
 	void RenderEngine
 	::postSimTickEvent(long when) {
+		if(skip_ > 0) {
+			--skip_;
+		}
 		O3dSchema::taskList.perform(1);
 	}
 
 
 	void RenderEngine
 	::renderFrame() {
+		if(skip_ > 0) {
+			return;
+		}
 		// WorldManager::frameStarted is called before rendering
 		if(O3dSchema::window && O3dSchema::window->isActive())
 			O3dSchema::root->renderOneFrame();

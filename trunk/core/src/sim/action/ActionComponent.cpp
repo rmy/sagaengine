@@ -201,4 +201,16 @@ namespace se_core {
 	::setActive(bool state) {
 		setScriptActive(state);
 	}
+
+
+	void ActionComponent
+	::castFeedbackEvent(int type) {
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			if(presentAction_[ i ].hasAction()) {
+				const Action* a = presentAction_[i].action();
+				Parameter& p = presentAction_[i].parameter();
+				a->feedbackEvent(*this, p, type);
+			}
+		}
+	}
 }
