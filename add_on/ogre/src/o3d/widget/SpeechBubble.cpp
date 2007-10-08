@@ -136,13 +136,22 @@ namespace se_ogre {
 
 	void SpeechBubble
 	::startMonologueEvent(se_core::Actor& speaker) {
-		isMonologue_ = true;
-		speaker_ = &speaker;
-		grabFocus();
+		if(isMonologue_) {
+			StatComponent::Ptr(ClientSchema::floatingCamera)->setTarget(speaker_->owner());
+			speaker_ = &speaker;
+		}
+		else {
+			isMonologue_ = true;
+			speaker_ = &speaker;
+			grabFocus();
+		}
 	}
 
 	void SpeechBubble
 	::stopMonologueEvent(se_core::Actor& speaker) {
+		if(speaker_ != &speaker) {
+			return;
+		}
 		Assert(isMonologue_);
 		isMonologue_ = false;
 		speaker_ = 0;
@@ -152,6 +161,9 @@ namespace se_ogre {
 	void SpeechBubble
 	::speechEvent(se_core::Actor& speaker, const char* messageName) {
 		LogDetail(speaker.name() << " says '" << messageName << "'");
+		if(isMonologue_) {
+			StatComponent::Ptr(ClientSchema::floatingCamera)->setTarget(speaker_->owner());
+		}
 		speaker_ = &speaker;
 		wchar_t buffer[512];
 		bool hadTranslation = translate(messageName, buffer);
