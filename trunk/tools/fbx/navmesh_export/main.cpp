@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 	// Load the scene.
 	// Take a FBX file as an argument.
 	if(argc <= 3) {
-		printf("\n\nUsage: ImportScene <size> <snap> <FBX file name>\n\n");
+		printf("\n\nUsage: %s <size> <snap> <FBX file name>\n\n", argv[0]);
 	}
 
 	// Prepare the FBX SDK.

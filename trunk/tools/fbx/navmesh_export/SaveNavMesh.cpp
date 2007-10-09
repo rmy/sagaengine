@@ -520,7 +520,7 @@ public:
 
 		KString filename(name);
 		filename.Append(".bin");
-		FILE* out = fopen(filename.Buffer(), "w");
+		FILE* out = fopen(filename.Buffer(), "wb");
 
 		SaveHeader('B', 'A', 2, out);
 
