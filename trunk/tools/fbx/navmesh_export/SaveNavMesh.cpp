@@ -712,7 +712,7 @@ void SaveNavMesh(KFbxNode* node, float size, float snap) {
 						int nIndex = neighbours[ j ][ n ];
 						// Check that a distance to the neighbour has not yet
 						// been calculated
-						if(visited[ nIndex ] < 0) {
+						if(nIndex >= 0 && visited[ nIndex ] < 0) {
 							// Calculate the distance to neighbour through
 							// polygon with index j
 							float nDist = dist + neighbourDistances[ j ][ n ];
@@ -795,6 +795,9 @@ void SaveOgre(KFbxNode* node, float size, float snap) {
 		if(*filename == ':') {
 			++colonCount;
 		}
+	}
+	if(strlen(filename) == 0) {
+		filename = name.Buffer();
 	}
 	FILE* out = fopen(filename, "w");
 

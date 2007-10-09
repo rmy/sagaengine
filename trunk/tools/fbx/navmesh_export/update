@@ -1,0 +1,20 @@
+svn update ~/svn/projects/blue_fbx/Area/
+cp ~/svn/projects/blue_fbx/Area/level_a/*.fbx .
+cp ~/svn/projects/blue_fbx/Area/level_b/*.fbx .
+cp ~/svn/projects/blue_fbx/Area/level_c/*.fbx .
+./fbx2navMesh 64 -5 level_a.fbx &> a.log
+./fbx2navMesh 128 0 level_b.fbx &> b.log
+./fbx2navMesh 64 0 level_c.fbx &> c.log
+cp level_*.bin /home/rune/svn/projects/blue/redist/data/logic/area/movement/
+
+for f in $( ls -1 *.mesh.xml ); do
+	OgreXMLConverter -q $f 
+done
+cp *_navmesh.mesh /home/rune/svn/projects/blue/redist/data/ogre/common/area
+
+
+svn add --force /home/rune/svn/projects/blue/redist/data/logic/area/movement/*.bin
+svn commit -m "navigation meshes" --non-interactive /home/rune/svn/projects/blue/redist/data/logic/area/movement/
+
+svn add --force /home/rune/svn/projects/blue/redist/data/ogre/common/area/*_navmesh.mesh
+svn commit -m "navigation_meshes" --non-interactive /home/rune/svn/projects/blue/redist/data/ogre/common/area/*_navmesh.mesh
