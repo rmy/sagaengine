@@ -47,16 +47,10 @@
 
 void InitializeSdkObjects(KFbxSdkManager*& pSdkManager, KFbxScene*& pScene);
 void DestroySdkObjects(KFbxSdkManager* pSdkManager);
-bool SaveScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFilename, KFbxExporter::EFileFormat pFileFormat=KFbxExporter::eFBX_BINARY, bool pEmbedMedia=false);
+
+bool SaveScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFilename, int pFileFormat=-1, bool pEmbedMedia=false);
 bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFilename);
 
 #endif // #ifndef _COMMON_H
-
-
-
-
-
-
-
 
 

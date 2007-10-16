@@ -34,25 +34,23 @@
 **************************************************************************************/
 
 #include <fbxsdk.h>
-
+#include <kfbxio/kfbxstreamoptionsfbx.h>
 #include "common.hpp"
 
 void InitializeSdkObjects(KFbxSdkManager*& pSdkManager, KFbxScene*& pScene)
 {
     // The first thing to do is to create the FBX SDK manager which is the 
 	// object allocator for almost all the classes in the SDK.
-    // Only one FBX SDK manager can be created. Any subsequent call to 
-    // KFbxSdkManager::CreateKFbxSdkManager() will return NULL.
     pSdkManager = KFbxSdkManager::CreateKFbxSdkManager();
 
 	if (!pSdkManager)
 	{
-		printf("Unable to create the FBX SDK manager, the license may be expired\n");
+		printf("Unable to create the FBX SDK manager\n");
 		exit(0);
 	}
 
 	// Create the entity that will hold the scene.
-    pScene = pSdkManager->CreateKFbxScene();
+	pScene = KFbxScene::Create(pSdkManager,"");
 
 }
 
@@ -65,13 +63,13 @@ void DestroySdkObjects(KFbxSdkManager* pSdkManager)
 	pSdkManager = NULL;
 }
 
-bool SaveScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFilename, KFbxExporter::EFileFormat pFileFormat, bool pEmbedMedia)
+bool SaveScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFilename, int pFileFormat, bool pEmbedMedia)
 {
 	int lMajor, lMinor, lRevision;
 	bool lStatus = true;
 
 	// Create an exporter.
-    KFbxExporter* lExporter = pSdkManager->CreateKFbxExporter();
+    KFbxExporter* lExporter = KFbxExporter::Create(pSdkManager, "");
 
     // Initialize the exporter by providing a filename.
 	if(lExporter->Initialize(pFilename) == false)
@@ -84,32 +82,62 @@ bool SaveScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 	KFbxIO::GetCurrentVersion(lMajor, lMinor, lRevision);
 	printf("FBX version number for this version of the FBX SDK is %d.%d.%d\n\n", lMajor, lMinor, lRevision);
 		
-    // Set the export states. By default, the export states are always set to 
-	// true except for the option eEXPORT_TEXTURE_AS_EMBEDDED. The code below 
-	// shows how to change these states.
-    lExporter->SetState(KFbxExporter::eEXPORT_MATERIAL, true);
-    lExporter->SetState(KFbxExporter::eEXPORT_TEXTURE, true);
-	lExporter->SetState(KFbxExporter::eEXPORT_TEXTURE_AS_EMBEDDED, pEmbedMedia);
-    lExporter->SetState(KFbxExporter::eEXPORT_LINK, true);
-    lExporter->SetState(KFbxExporter::eEXPORT_SHAPE, true);
-    lExporter->SetState(KFbxExporter::eEXPORT_GOBO, true);
-    lExporter->SetState(KFbxExporter::eEXPORT_ANIMATION, true);
-    lExporter->SetState(KFbxExporter::eEXPORT_GLOBAL_SETTINGS, true);
 
-	// Set the file mode to binary
-	if (pFileFormat == KFbxExporter::eFBX_BINARY || pFileFormat == KFbxExporter::eFBX_50_BINARY) {
-		lExporter->SetFileModeBinary(true);
+	if( pFileFormat < 0 || pFileFormat >= KFbxIOPluginRegistryAccessor::Get()->GetWriterFormatCount() )
+	{
+		// Write in fall back format if pEmbedMedia is true
+		pFileFormat = KFbxIOPluginRegistryAccessor::Get()->GetNativeWriterFormat();
+		
+		if (!pEmbedMedia)
+		{
+			//Try to export in ASCII if possible
+			int lFormatIndex, lFormatCount = KFbxIOPluginRegistryAccessor::Get()->GetWriterFormatCount();
+
+			for (lFormatIndex=0; lFormatIndex<lFormatCount; lFormatIndex++)
+			{
+				if (KFbxIOPluginRegistryAccessor::Get()->WriterIsFBX(lFormatIndex))
+				{
+					KString lDesc = KFbxIOPluginRegistryAccessor::Get()->GetWriterFormatDescription(lFormatIndex);
+					if (lDesc.Find("ascii")>=0)
+					{
+						pFileFormat = lFormatIndex;
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	// Set the file format
 	lExporter->SetFileFormat(pFileFormat);
 
+	KFbxStreamOptionsFbxWriter* lExportOptions=KFbxStreamOptionsFbxWriter::Create(pSdkManager, "");
+	if (KFbxIOPluginRegistryAccessor::Get()->WriterIsFBX(pFileFormat))
+	{
+		// Set the export states. By default, the export states are always set to 
+		// true except for the option eEXPORT_TEXTURE_AS_EMBEDDED. The code below 
+		// shows how to change these states.
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_MATERIAL, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_TEXTURE, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_EMBEDDED, pEmbedMedia);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_LINK, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_SHAPE, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_GOBO, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_ANIMATION, true);
+		lExportOptions->SetOption(KFBXSTREAMOPT_FBX_GLOBAL_SETTINGS, true);
+	}
+
+
+
+
 	// Export the scene.
-	lStatus = lExporter->Export(*pScene); 
+	lStatus = lExporter->Export(*pScene, lExportOptions); 
 
+	if(lExportOptions)
+		lExportOptions->Destroy();
+	lExportOptions=NULL;
 	// Destroy the exporter.
-	pSdkManager->DestroyKFbxExporter(lExporter);
-
+	lExporter->Destroy();
 	return lStatus;
 }
 
@@ -117,26 +145,33 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 {
 	int lFileMajor, lFileMinor, lFileRevision;
 	int lSDKMajor,  lSDKMinor,  lSDKRevision;
-	KFbxImporter::EFileFormat lFileFormat;
+	int lFileFormat = -1;
 	int i, lTakeCount;
 	KString lCurrentTakeName;
 	bool lStatus;
 	char lPassword[1024];
 
+	KFbxStreamOptionsFbxReader* lImportOptions=KFbxStreamOptionsFbxReader::Create(pSdkManager, "");
+
+
 	// Get the file version number generate by the FBX SDK.
 	KFbxIO::GetCurrentVersion(lSDKMajor, lSDKMinor, lSDKRevision);
 
 	// Create an importer.
-    KFbxImporter* lImporter = pSdkManager->CreateKFbxImporter();
-	if (!lImporter->DetectFileFormat(pFilename, lFileFormat, lFileMajor, lFileMinor, lFileRevision))
+	KFbxImporter* lImporter = KFbxImporter::Create(pSdkManager,"");
+	
+	if (!KFbxIOPluginRegistryAccessor::Get()->DetectFileFormat(pFilename, lFileFormat))
 	{
-		// Unrecognizable file format. Try to fall back to KFbxImporter::eFBX_BINARY
-		lFileFormat = KFbxImporter::eFBX_BINARY;
+		// Unrecognizable file format. Try to fall back to native format.
+		lFileFormat = KFbxIOPluginRegistryAccessor::Get()->GetNativeReaderFormat();
 	}
 	lImporter->SetFileFormat(lFileFormat);
 
     // Initialize the importer by providing a filename.
-	if(lImporter->Initialize(pFilename) == false)
+	const bool lImportStatus = lImporter->Initialize(pFilename);
+	lImporter->GetFileVersion(lFileMajor, lFileMinor, lFileRevision);
+
+	if( !lImportStatus )
 	{
 		printf("Call to KFbxImporter::Initialize() failed.\n");
 		printf("Error returned: %s\n\n", lImporter->GetLastErrorString());
@@ -144,7 +179,6 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 		if (lImporter->GetLastErrorID() == KFbxIO::eFILE_VERSION_NOT_SUPPORTED_YET ||
 			lImporter->GetLastErrorID() == KFbxIO::eFILE_VERSION_NOT_SUPPORTED_ANYMORE)
 		{
-			lImporter->GetFileVersion(lFileMajor, lFileMinor, lFileRevision);
 			printf("FBX version number for this FBX SDK is %d.%d.%d\n", lSDKMajor, lSDKMinor, lSDKRevision);
 			printf("FBX version number for file %s is %d.%d.%d\n\n", pFilename, lFileMajor, lFileMinor, lFileRevision);
 		}
@@ -154,11 +188,7 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 
 	printf("FBX version number for this FBX SDK is %d.%d.%d\n", lSDKMajor, lSDKMinor, lSDKRevision);
 
-	bool isFbx = lImporter->GetFileFormat() == KFbxImporter::eFBX_ENCRYPTED ||
-			     lImporter->GetFileFormat() == KFbxImporter::eFBX_ASCII ||
-				 lImporter->GetFileFormat() == KFbxImporter::eFBX_BINARY;
-
-	if (isFbx)
+	if (lImporter->IsFBX())
 	{
 		printf("FBX version number for file %s is %d.%d.%d\n\n", pFilename, lFileMajor, lFileMinor, lFileRevision);
 
@@ -193,17 +223,17 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 
 		// Set the import states. By default, the import states are always set to 
 		// true. The code below shows how to change these states.
-		lImporter->SetState(KFbxImporter::eIMPORT_MATERIAL, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_TEXTURE, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_LINK, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_SHAPE, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_GOBO, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_ANIMATION, true);
-		lImporter->SetState(KFbxImporter::eIMPORT_GLOBAL_SETTINGS, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_MATERIAL, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_TEXTURE, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_LINK, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_SHAPE, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_GOBO, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_ANIMATION, true);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_GLOBAL_SETTINGS, true);
 	}
 
 	// Import the scene.
-	lStatus = lImporter->Import(*pScene);
+	lStatus = lImporter->Import(*pScene, lImportOptions);
 
 	if(lStatus == false && lImporter->GetLastErrorID() == KFbxIO::ePASSWORD_ERROR)
 	{
@@ -212,10 +242,10 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 		lPassword[0] = '\0';
 
 		scanf("%s", lPassword);
-		
-		lImporter->SetPassword(lPassword);
-
-		lStatus = lImporter->Import(*pScene);
+		KString lString(lPassword);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_PASSWORD, lString);
+		lImportOptions->SetOption(KFBXSTREAMOPT_FBX_PASSWORD_ENABLE, true);
+		lStatus = lImporter->Import(*pScene, lImportOptions);
 
 		if(lStatus == false && lImporter->GetLastErrorID() == KFbxIO::ePASSWORD_ERROR)
 		{
@@ -224,17 +254,10 @@ bool LoadScene(KFbxSdkManager* pSdkManager, KFbxScene* pScene, const char* pFile
 	}
 
 	// Destroy the importer.
-	pSdkManager->DestroyKFbxImporter(lImporter);	
+	if(lImportOptions)
+		lImportOptions->Destroy();
+	lImportOptions=NULL;
+	lImporter->Destroy();	
 
 	return lStatus;
 }
-
-
-
-
-
-
-
-
-
-

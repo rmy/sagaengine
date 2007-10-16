@@ -89,6 +89,7 @@ namespace se_core {
 		 */
 		virtual void prepare(ActionComponent &performer, Parameter& parameter) const {}
 
+		virtual bool doPause(ActionComponent &performer, Parameter& parameter) const { return false; }
 		virtual void feedbackEvent(ActionComponent &performer, Parameter& parameter, int type) const {}
 
 		/**

@@ -94,6 +94,7 @@ namespace se_core {
 		 */
 		bool disrupt(short channel);
 
+		void unpause(short channel);
 		/**
 		 * Schedule this ActionComponent for destruction.
 		 * It will be destroyed when the on-going initative is performed,
