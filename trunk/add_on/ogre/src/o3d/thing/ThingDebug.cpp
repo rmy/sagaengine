@@ -100,8 +100,6 @@ namespace se_ogre {
 				CoorT::toFloat(center.z_)
 			 );
 
-		float scale = CoorT::toFloat(thing_.nextPos().radius());
-
 		Ogre::Vector3 s;
 		s.x = CoorT::half(b.maxX_ - b.minX_);
 		s.y = b.maxY_ - b.minY_;

@@ -35,15 +35,15 @@ namespace se_core {
 			return data_;
 		}
 
-		inline unsigned short actionStage() { return actionStage_; }
+		inline unsigned short channel() const { return channel_; }
+		void setChannel(unsigned short ch) { channel_ = ch; }
+		inline unsigned short actionStage() const { return actionStage_; }
 		void incrActionStage() { ++actionStage_; }
-		void resetActionStage() { 
-			actionStage_ = 0;
-		}
+		void resetActionStage() { actionStage_ = 0; }
 
 	private:
 		static const short MAX_DATA_SIZE = (sizeof(coor_t) * 4 + sizeof(void*));
-		unsigned short actionStage_;
+		unsigned short actionStage_, channel_;
 		unsigned char data_[MAX_DATA_SIZE];
 	};
 

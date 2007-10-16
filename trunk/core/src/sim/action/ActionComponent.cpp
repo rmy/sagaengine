@@ -63,9 +63,14 @@ namespace se_core {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
 		p.resetActionStage();
-		presentActionScheduledComplete_[channel]
-			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
+		p.setChannel(channel);
+		// 
 		a->prepare(*this, p);
+		if(!a->doPause(*this, p)) {
+			presentActionScheduledComplete_[channel]
+					= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
+		}
+		//
 	}
 
 
@@ -75,10 +80,20 @@ namespace se_core {
 		const Action* a = presentAction_[channel].action();
 		Parameter& p = presentAction_[channel].parameter();
 		p.incrActionStage();
+		if(!a->doPause(*this, p)) {
+			presentActionScheduledComplete_[channel]
+				= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
+		}
+	}
+
+
+	void ActionComponent
+	::unpause(short channel) {
+		const Action* a = presentAction_[channel].action();
+		Parameter& p = presentAction_[channel].parameter();
 		presentActionScheduledComplete_[channel]
 			= SimSchema::actionQueue[channel].add(*this, a->duration(*this, p));
 	}
-
 
 	void ActionComponent
 	::planAction(short channel, const Action& action, const Parameter* parameter) const {
