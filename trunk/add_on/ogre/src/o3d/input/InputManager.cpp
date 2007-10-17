@@ -63,7 +63,8 @@ namespace se_ogre {
 		if(handlerStackPos_ >= 0) {
 			handlerStack_[ handlerStackPos_ ]->lostFocusEvent();
 		}
-		handlerStack_[ ++handlerStackPos_ ] = handler;
+		++handlerStackPos_;
+		handlerStack_[ handlerStackPos_ ] = handler;
 		handlerStack_[ handlerStackPos_ ]->grabbedFocusEvent();
 	}
 
