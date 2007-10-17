@@ -52,7 +52,10 @@ namespace se_basic {
 				PosComponent::Ptr childPos(s);
 				if(!childPos.isNull() && !pos.isNull()) {
 					PosComponent::Ptr(*s)->nextPos().setParent(*pos, true);
-					CollisionComponent::Ptr(*s)->setIgnore(*CollisionComponent::Ptr(perf));
+					CollisionComponent::Ptr cc1(*s);
+					CollisionComponent::Ptr cc2(perf);
+					if(!cc1.isNull() && !cc2.isNull())
+						cc1->setIgnore(*cc2);
 
 					StatComponent::Ptr(*s)->setShouldSave(false);
 				}
