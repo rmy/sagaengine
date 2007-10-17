@@ -33,18 +33,18 @@ namespace se_core {
 		/**
 		 * Add an engine listener.
 		 */
-		void addListener(SimListener &l) {
+		void addListener(SimListener &listener) {
 			AssertFatal(listenerCount < MAX_LISTENERS, "Too many listeners. Adjust MAX_LISTENERS.");
-			listeners[ listenerCount++ ] = &l;
+			listeners[ listenerCount++ ] = &listener;
 		}
 
 
 		/**
 		 * Remove an engine listener.
 		 */
-		void removeListener(SimListener &l) {
+		void removeListener(SimListener &listener) {
 			for(int i = 0; i < listenerCount; ++i) {
-				if(listeners[ i ] == &l) {
+				if(listeners[ i ] == &listener) {
 					listeners[ i ] = listeners[ --listenerCount ];
 				}
 			}

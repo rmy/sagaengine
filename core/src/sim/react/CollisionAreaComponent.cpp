@@ -32,7 +32,6 @@ rune@skalden.com
 
 
 namespace se_core {
-	static coor_t MAX_SPEED = 64 * COOR_STEP + 2 * COOR_RES;
 
 	CollisionAreaComponent
 	::CollisionAreaComponent(Composite* owner) 
@@ -53,8 +52,6 @@ namespace se_core {
 			Point3 p;
 			cc.areaCovered().center(p);
 			coor_t speedAndRadius = cc.areaCovered().radius();
-
-			PosComponent* pc = &cc.posComponent();
 			collisionGrid_->insert(p, speedAndRadius, cc);
 		}
  	}
@@ -112,7 +109,7 @@ namespace se_core {
 			coor_t newRadius = cc->areaCovered().radius();
 
 
-			PosComponent* p = &cc->posComponent();
+			//PosComponent* p = &cc->posComponent();
 			//LogDetail(p->pos().worldCoor() << " - " << p->pos().localCoor());
 			//LogDetail(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
 			//LogDetail(newPos << " - " << newRadius);
@@ -123,7 +120,6 @@ namespace se_core {
 
 	void CollisionAreaComponent
 	::resetCollisionGrid() {
-		CollisionGrid* g = collisionGrid_;
 		if(collisionGrid_) {
 			CollisionManager::singleton().releaseCollisionGrid(collisionGrid_);
 			collisionGrid_ = 0;
@@ -146,26 +142,40 @@ namespace se_core {
 
 	inline bool _testCollision(CollisionComponent& cc1,
 							  CollisionComponent& cc2) {
+		if(cc1.shouldIgnore(cc2))
+			return false;
+
 		if(!cc1.areaCovered().isTouching(cc2.areaCovered()))
 			return false;
 
 		if(!cc1.doesGeometryCollide(cc2))
 			return false;
 
+
+		// Inside collision range. Collide.
+		return true; //!cc1.isDead() && !cc2.isDead();
+	}
+
+
+	inline bool _testCollision2(CollisionComponent& cc1,
+							  CollisionComponent& cc2) {
 		if(cc1.shouldIgnore(cc2))
 			return false;
 
+		if(!cc1.doesGeometryCollide(cc2))
+			return false;
+
+
 		// Inside collision range. Collide.
-		return !cc1.isDead() && !cc2.isDead();
+		return true;
 	}
+
 
 	coor_t CollisionAreaComponent
 	::farthestLineOfSight(const se_core::Point3& fromPoint, const se_core::Point3& toPoint) const {
 		const int MAX_CONTACTS = 128;
 		static CollisionComponent* candidates[MAX_CONTACTS];
 		int candidateCount = 0;
-		Contact contacts[ MAX_CONTACTS ];
-		int contactCount = 0;
 		coor_t dist = CoorT::sqrt(fromPoint.xzDistanceSquared(toPoint));
 		coor_t speedAndRadius = CoorT::half(dist);
 
@@ -209,88 +219,185 @@ namespace se_core {
 		return dist;		
 	}
 
+
+	short CollisionAreaComponent
+	::_collisionCandidates(CollisionComponent *cc, const int MAX_THINGS, CollisionComponent *candidates[]) {
+		ZoneAreaComponent::Ptr aZone(*this);
+		short candidateCount = 0;
+		ComponentList::Iterator linkIt(aZone->links());
+		while(linkIt.hasNext()) {
+			ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
+			CollisionAreaComponent::Ptr cac(a);
+			if(!cac->collisionGrid())
+				continue;
+
+			Point3 p;
+			cc->areaCovered().center(p);
+			coor_t speedAndRadius = cc->areaCovered().radius() + 64 * COOR_RES;
+			candidateCount += cac->collisionGrid()->collisionCandidates
+				(p, speedAndRadius, &candidates[candidateCount], MAX_THINGS - candidateCount);
+		}
+		return candidateCount;
+	}
+
+
+	short CollisionAreaComponent
+	::_collisionCandidates2(CollisionComponent *cc, const int MAX_THINGS, CollisionComponent *candidates[]) {
+		ZoneAreaComponent::Ptr aZone(*this);
+		short candidateCount = 0;
+		ComponentList::Iterator linkIt(aZone->links());
+		while(linkIt.hasNext()) {
+			ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
+			CollisionAreaComponent::Ptr cac(a);
+			NodeComponentList::TreeIterator it(cac->children());
+			while(it.hasNext()) {
+				CollisionComponent::Ptr cc(it.next());
+				if(!cc->isCollideable())
+					continue;
+
+				candidates[ candidateCount++ ] = cc;
+			}
+		}
+		return candidateCount;
+	}
+
+
+	void CollisionAreaComponent
+	::_testCollisionCandidates(CollisionComponent *cc, short candidateCount, CollisionComponent *candidates[], int maxCollisions, Contact *list, short& count) {
+		// Test collision with all collision candidates
+		for(int inner = 0; inner < candidateCount; ++inner) {
+			// Don't test collision with self
+			if(candidates[ inner ] == cc) {
+				continue;
+			}
+			// Only collide once (and at least once)
+			CollisionComponent& cc2 = *candidates[ inner ];
+			//if((size_t)cc >= (size_t)(&cc2)) {
+			//if(cc >= (&cc2)) {
+			//	continue;
+			//}
+
+
+
+			// Test for collision
+			if(!_testCollision(*cc, cc2)) {
+				continue;
+			}
+			// Only collide once (and at least once)
+			bool didAlready = false;
+			for(int i = 0; i < count; ++i) {
+				if(list[ i ].ci1_.cc_ == &cc2 && list[ i ].ci2_.cc_ == cc) {
+					didAlready = true;
+					break;
+				}
+			}
+
+			if(didAlready) {
+				continue;
+			}
+
+			Assert(count < maxCollisions);
+			if(count > 64) {
+				LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
+			}
+			Contact& c = list[ count ];
+			c.ci1_.cc_ = cc;
+			c.ci2_.cc_ = &cc2;
+			c.ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
+			c.ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
+
+			// Calculate radius and bounce points
+			Point3& d1 = c.ci1_.bouncePoint_;
+			Point3& d2 = c.ci2_.bouncePoint_;
+			c.ci1_.radius_ = cc->bouncePoint(c.ci1_.vp_.coor_, c.ci2_.vp_.coor_, d1);
+			c.ci2_.radius_ = cc2.bouncePoint(c.ci2_.vp_.coor_, d1, d2);
+			d1.y_ = d2.y_;
+			c.radSum_ = c.ci1_.radius_ + c.ci2_.radius_;
+
+			++count;
+		}
+	}
+
+
+	void CollisionAreaComponent
+	::_testCollisionCandidates2(CollisionComponent *cc, short candidateCount, CollisionComponent *candidates[], int maxCollisions, Contact *list, short& count) {
+		// Test collision with all collision candidates
+		for(int inner = 0; inner < candidateCount; ++inner) {
+			// Don't test collision with self
+			if(candidates[ inner ] == cc) {
+				continue;
+			}
+			CollisionComponent& cc2 = *candidates[ inner ];
+			//if(cc >= (&cc2)) { continue; }
+
+			// Test for collision
+			if(!_testCollision(*cc, cc2)) {
+				continue;
+			}
+
+			// Only collide once (and at least once)
+			bool didAlready = false;
+			for(int i = 0; i < count; ++i) {
+				if(list[ i ].ci1_.cc_ == &cc2 && list[ i ].ci2_.cc_ == cc) {
+					didAlready = true;
+					break;
+				}
+			}
+
+			if(didAlready) {
+				continue;
+			}
+
+			Assert(count < maxCollisions);
+			if(count > 64) {
+				LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
+			}
+			Contact& c = list[ count ];
+			c.ci1_.cc_ = cc;
+			c.ci2_.cc_ = &cc2;
+			c.ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
+			c.ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
+
+			// Calculate radius and bounce points
+			Point3& d1 = c.ci1_.bouncePoint_;
+			Point3& d2 = c.ci2_.bouncePoint_;
+			c.ci1_.radius_ = cc->bouncePoint(c.ci1_.vp_.coor_, c.ci2_.vp_.coor_, d1);
+			c.ci2_.radius_ = cc2.bouncePoint(c.ci2_.vp_.coor_, d1, d2);
+			d1.y_ = d2.y_;
+			c.radSum_ = c.ci1_.radius_ + c.ci2_.radius_;
+
+			++count;
+		}
+	}
+
+
 	int CollisionAreaComponent
 	::getContactList(Contact* list, int maxCollisions) {
 		Point3 tmp;
-		int count = 0;
-		int outer = 0;
 
 		if(!collisionGrid_)
-			return count;
+			return 0;
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
-		ZoneAreaComponent::Ptr aZone(*this);
 
-		NodeComponentList::Iterator it(children_);
+		short count = 0;
+
+		//static Contact dummy[MAX_THINGS];
+		//short countCheck = 0;
+		NodeComponentList::TreeIterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
-			++outer;
+			if(!cc->isCollideable())
+				continue;
 
-			short innerCount = 0;
-			ComponentList::Iterator linkIt(aZone->links());
-			while(linkIt.hasNext()) {
-				ZoneAreaComponent& a = static_cast<ZoneAreaComponent&>(linkIt.next());
-				CollisionAreaComponent::Ptr cac(a);
-				if(!cac->collisionGrid())
-					continue;
+			short candidateCount = _collisionCandidates(cc, MAX_THINGS, candidates);
+			_testCollisionCandidates(cc, candidateCount, candidates, maxCollisions, list, count);
 
-				Point3 p;
-				cc->areaCovered().center(p);
-				coor_t speedAndRadius = cc->areaCovered().radius();
-				innerCount += cac->collisionGrid()->collisionCandidates
-					(p, speedAndRadius, &candidates[innerCount], MAX_THINGS - innerCount);
-			}
+			//candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);
+			//_testCollisionCandidates2(cc, candidateCount, candidates, MAX_THINGS, dummy, countCheck);
 
-
-			// Test collision with all collision candidates
-			for(int inner = 0; inner < innerCount; ++inner) {
-				// Don't test collision with self
-				if(candidates[ inner ] == cc) {
-					continue;
-				}
-
-				// Test for collision
-				CollisionComponent& cc2 = *candidates[ inner ];
-
-				// Only collide once (and at least once)
-				if((size_t)cc < (size_t)(&cc2) && cc->isCollideable() && cc2.isCollideable()) {
-					continue;
-				}
-
-				if(_testCollision(*cc, cc2)) {
-					// Only collide once (and at least once)
-					bool didAlready = false;
-					for(int i = 0; i < count; ++i) {
-						if(list[ i ].ci1_.cc_ == &cc2 && list[ i ].ci2_.cc_ == cc) {
-							didAlready = true;
-							break;
-						}
-					}
-
-					if(!didAlready) {
-						Assert(count < maxCollisions);
-						if(count > 64) {
-							LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
-						}
-						Contact& c = list[ count ];
-						c.ci1_.cc_ = cc;
-						c.ci2_.cc_ = &cc2;
-						c.ci1_.vp_.setViewPoint(cc->posComponent().nextPos().world_);
-						c.ci2_.vp_.setViewPoint(cc2.posComponent().nextPos().world_);
-
-						// Calculate radius and bounce points
-						Point3& d1 = c.ci1_.bouncePoint_;
-						Point3& d2 = c.ci2_.bouncePoint_;
-						c.ci1_.radius_ = cc->bouncePoint(c.ci1_.vp_.coor_, c.ci2_.vp_.coor_, d1);
-						c.ci2_.radius_ = cc2.bouncePoint(c.ci2_.vp_.coor_, d1, d2);
-						d1.y_ = d2.y_;
-						c.radSum_ = c.ci1_.radius_ + c.ci2_.radius_;
-
-						++count;
-					}
-				}
-			}
+			//AssertFatal(count == countCheck, "Collision check error: " << count << " != " << countCheck << " - " << cc->owner()->name());
 		}
 
 		return count;

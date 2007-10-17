@@ -71,7 +71,6 @@ namespace se_core {
 	CollisionGrid* CollisionManager
 	::grabCollisionGrid() {
 		// Create grid object if necessary
-		coor_tile_t maxWidth = 1, maxHeight = 1;
 		if(!gridPoolCount_) {
 			Assert(gridCount_ < MAX_ACTIVE);
 
@@ -112,6 +111,17 @@ namespace se_core {
 
 	void CollisionManager
 	::resolveContacts() {
+		/*
+		static int last = 0;
+		if(contactCount_ != last) {
+			last = contactCount_;
+			LogWarning(contactCount_ << " collisions");
+			for(int i = 0; i < contactCount_; ++i) {
+				Contact& c = contactList_[i];
+				LogWarning(c.ci1_.cc_->owner()->name() << " vs " << c.ci2_.cc_->owner()->name());
+			}
+		}
+		*/
 		for(int i = 0; i < contactCount_; ++i) {
 			Contact& c = contactList_[i];
 			c.ci1_.cc_->pushThing(c.ci1_, c.ci2_);
