@@ -67,7 +67,7 @@ namespace se_core {
 		/** Can other PosNodes collide with this PosNode?
 		 */
 		bool isCollideable() const {
-			return isCollideable_;
+			return isCollideable_ && !owner()->isDead();
 		}
 
 		/** Set wether this thing can be collided with.
@@ -93,9 +93,6 @@ namespace se_core {
 
 		inline bool pushThing(ContactInfo& pusher, ContactInfo& target) {
 			if(!collide_)
-				return false;
-
-			if(!target.cc_->isCollideable())
 				return false;
 
 			return collide_->collide(pusher, target);

@@ -39,7 +39,7 @@ namespace se_core {
 			return true;
 		}
 		PosComponent& pPos = pusher.cc_->posComponent();
-		const PosComponent& tPos = target.cc_->posComponent();
+		//const PosComponent& tPos = target.cc_->posComponent();
 
 		Point3 pNow, pNext, t;
 		target.cc_->bouncePoint(0, pPos.pos().worldCoor(), t);
@@ -63,7 +63,7 @@ namespace se_core {
 			return true;
 		}
 		PosComponent& pPos = pusher.posComponent();
-		const PosComponent& tPos = target.posComponent();
+		//const PosComponent& tPos = target.posComponent();
 		Point3 pNow, pNext, t;
 		target.bouncePoint(0, pPos.pos().worldCoor(), t);
 		pusher.bouncePoint(0, t, pNow);

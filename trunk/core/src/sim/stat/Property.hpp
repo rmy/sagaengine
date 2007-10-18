@@ -37,11 +37,11 @@ namespace se_core {
 		enum Type {
 			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING, PT_STRING_LIST
 		};
-		static int hash(const char* name);
+		static unsigned int hash(const char* name);
 
 	private:
 		/** Hash of name. */
-		int key_;
+		unsigned int key_;
 		/** Hash of value. */
 		unsigned int valueHash_; // 
 		Type type_;
@@ -71,7 +71,7 @@ namespace se_core {
 		inline Type type() const { 
 			return type_; 
 		}
-		int key() const {
+		unsigned int key() const {
 			return key_;
 		}
 

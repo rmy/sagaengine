@@ -70,7 +70,7 @@ namespace se_core {
 		void addCollideable(CollisionComponent& cc);
 		void removeCollideable(CollisionComponent& cc);
 
-		int getContactList(Contact* list, int maxCollisions);
+		void getContactList(Contact* list, short& count, int maxCollisions);
 		coor_t farthestLineOfSight(const Point3& fromPoint, const Point3& toPoint) const;
 		short _collisionCandidates(CollisionComponent *cc, const int MAX_THINGS, CollisionComponent *candidates[]);
 		short _collisionCandidates2(CollisionComponent *cc, const int MAX_THINGS, CollisionComponent *candidates[]);

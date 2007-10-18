@@ -272,6 +272,8 @@ namespace se_core {
 			}
 			// Only collide once (and at least once)
 			CollisionComponent& cc2 = *candidates[ inner ];
+			if(!cc2.isCollideable())
+				continue;
 			//if((size_t)cc >= (size_t)(&cc2)) {
 			//if(cc >= (&cc2)) {
 			//	continue;
@@ -371,20 +373,18 @@ namespace se_core {
 	}
 
 
-	int CollisionAreaComponent
-	::getContactList(Contact* list, int maxCollisions) {
+	void CollisionAreaComponent
+	::getContactList(Contact* list, short& count, int maxCollisions) {
 		Point3 tmp;
 
 		if(!collisionGrid_)
-			return 0;
+			return;
 
 		static const int MAX_THINGS = 256;
 		static CollisionComponent* candidates[MAX_THINGS];
 
-		short count = 0;
-
 		//static Contact dummy[MAX_THINGS];
-		//short countCheck = 0;
+		//short countCheck = count;
 		NodeComponentList::TreeIterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
@@ -399,8 +399,6 @@ namespace se_core {
 
 			//AssertFatal(count == countCheck, "Collision check error: " << count << " != " << countCheck << " - " << cc->owner()->name());
 		}
-
-		return count;
 	}
 
 }

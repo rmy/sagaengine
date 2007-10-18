@@ -28,7 +28,7 @@ namespace se_core {
 	}
 
 	bool Component
-	::isDead() {
+	::isDead() const {
 		return owner_->isDead();
 	}
 

@@ -92,7 +92,7 @@ namespace se_core {
 		/**
 		 * Is the composite active.
 		 */
-		bool isActive() { return isActive_; }
+		bool isActive() const { return isActive_; }
 
 		void setTag(int t) { tag_ = t; }
 		int tag() const { return tag_; }
@@ -110,7 +110,7 @@ namespace se_core {
 		 *
 		 * @see scheduleForDestruction
 		 */
-		bool isDead() { return isDead_; }
+		bool isDead() const { return isDead_; }
 
 		/**
 		 * Called during flip is area is changed from pos to nextPos

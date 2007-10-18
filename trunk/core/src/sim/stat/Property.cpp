@@ -83,9 +83,9 @@ namespace se_core {
 		}
 	}
 
-	int Property
+	unsigned int Property
 	::hash(const char* name) {
-		int h = 2166136261;
+		unsigned int h = 2166136261;
 		for(const char* n = name; *n != 0; ++n) {
 			h *= 16777619 * h;
 			h ^= *n;
