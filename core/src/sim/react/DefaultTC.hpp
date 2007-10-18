@@ -32,7 +32,7 @@ namespace se_core {
 		bool collide(ContactInfo& pusher
 					 , const ContactInfo& target) const;
 
-		enum Substance { UNDEFINED, MOBILE, STATIC, GAS, PICK };
+		enum Substance { UNDEFINED, MOBILE, STATIC, GAS, MISSILE, PICK };
 		const unsigned int PROPERTY_COLLIDE_SELF;
 
 	protected:

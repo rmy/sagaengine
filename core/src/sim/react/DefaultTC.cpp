@@ -53,6 +53,7 @@ namespace se_core {
 			popAndDie(pusher, target);
 			break;
 		case GAS: // Gas
+		case MISSILE: // Missile
 			popAndDie(pusher, target);
 			break;
 		case PICK: // Pick
