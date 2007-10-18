@@ -68,6 +68,7 @@ namespace se_core {
 		resolveContacts();
 	}
 
+
 	CollisionGrid* CollisionManager
 	::grabCollisionGrid() {
 		// Create grid object if necessary
@@ -105,7 +106,7 @@ namespace se_core {
 		NodeComponentList::Iterator it(children());
 		while(it.hasNext()) {
 			CollisionAreaComponent& cac = static_cast<CollisionAreaComponent&>(it.next());
-			contactCount_ += cac.getContactList(&contactList_[ contactCount_ ], MAX_CONTACTS - contactCount_);
+			cac.getContactList(contactList_, contactCount_, MAX_CONTACTS);
 		}
 	}
 

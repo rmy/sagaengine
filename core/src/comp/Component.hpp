@@ -83,7 +83,7 @@ namespace se_core {
 		}
 
 		bool isActive();
-		bool isDead();
+		bool isDead() const;
 
 	protected:
 		friend class Composite;

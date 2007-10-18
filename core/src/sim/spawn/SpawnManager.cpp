@@ -116,7 +116,7 @@ namespace se_core {
 
 	void SpawnManager
 	::scheduleForDestruction(Composite& thing) {
-		Assert(nextDestructionCount_ < MAX_THINGS_FOR_DESTRUCTION || "Too many things scheduled for destruction already.");
+		AssertFatal(nextDestructionCount_ < MAX_THINGS_FOR_DESTRUCTION, "Too many things scheduled for destruction already.");
 
 		// TODO: The below is debug code, remove for performance increase when stable
 		DebugExec(for(int i = 0; i < nextDestructionCount_; ++i)) {

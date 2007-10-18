@@ -74,7 +74,7 @@ namespace se_core {
 		CollisionGrid** gridPool_;
 
 		static const int MAX_CONTACTS = 1024;
-		int contactCount_;
+		short contactCount_;
 		Contact* contactList_;
 
 	};
