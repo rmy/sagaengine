@@ -35,7 +35,7 @@ namespace se_core {
 	class _SeCoreExport Property {
 	public:
 		enum Type {
-			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING, PT_STRING_LIST
+			PT_NONE, PT_SHORT, PT_INT, PT_HASH, PT_FLOAT, PT_SCRIPT, PT_ACTION, PT_AREA, PT_STRING, PT_STRING_LIST, PT_END_OF_TYPES
 		};
 		static unsigned int hash(const char* name);
 

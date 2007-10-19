@@ -59,6 +59,8 @@ namespace se_core {
 		static const DictionaryEntry deAction(dict_PROPERTY_TYPE, Property::PT_ACTION, "ACTION");
 		static const DictionaryEntry deArea(dict_PROPERTY_TYPE, Property::PT_AREA, "AREA");
 
+		enum UserDefined { pt_DICT = Property::PT_END_OF_TYPES };
+		static const DictionaryEntry deDict(dict_PROPERTY_TYPE, pt_DICT, "DICT");
 		int code = in.readInfoCode();
 		Assert(code == '{');
 
@@ -125,6 +127,14 @@ namespace se_core {
 							String tmp;
 							in.readString(tmp);
 							p = new Property(name.get(), Script::lookup(tmp.get()));
+						}
+						break;
+
+					case pt_DICT:
+						{
+							short dict = in.readDictionaryWord(DE_DICTIONARY_TYPE);
+							short value = in.readDictionaryWord(dict);
+							p = new Property(name.get(), value);
 						}
 						break;
 					}
