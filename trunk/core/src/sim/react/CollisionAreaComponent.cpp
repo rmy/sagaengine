@@ -66,8 +66,7 @@ namespace se_core {
 		cc.areaCovered().center(p);
 		coor_t speedAndRadius = cc.areaCovered().radius();
 		bool didDelete = collisionGrid_->remove(p, speedAndRadius, cc);
-
-		AssertFatal(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc) << ")");
+		AssertWarning(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc) << ")");
 	}
 
 
@@ -108,11 +107,6 @@ namespace se_core {
 			cc->areaCovered().center(newPos);
 			coor_t newRadius = cc->areaCovered().radius();
 
-
-			//PosComponent* p = &cc->posComponent();
-			//LogDetail(p->pos().worldCoor() << " - " << p->pos().localCoor());
-			//LogDetail(p->nextPos().worldCoor() << " - " << p->nextPos().localCoor());
-			//LogDetail(newPos << " - " << newRadius);
 			collisionGrid_->insert(newPos, newRadius, *cc);
 		}
 	}
@@ -233,7 +227,7 @@ namespace se_core {
 
 			Point3 p;
 			cc->areaCovered().center(p);
-			coor_t speedAndRadius = cc->areaCovered().radius() + 64 * COOR_RES;
+			coor_t speedAndRadius = cc->areaCovered().radius();
 			candidateCount += cac->collisionGrid()->collisionCandidates
 				(p, speedAndRadius, &candidates[candidateCount], MAX_THINGS - candidateCount);
 		}

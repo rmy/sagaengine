@@ -207,7 +207,7 @@ namespace se_core {
 				clearPlannedAction(i);
 			}
 			// Disrupt actions in progress
-			disrupt();
+			//disrupt();
 		}
 	}
 
