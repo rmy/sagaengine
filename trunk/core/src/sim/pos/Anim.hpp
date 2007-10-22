@@ -101,7 +101,7 @@ namespace se_core {
 
 	private:
 		/** The movement mode. Signifies which animation should be shown. */
-		short movementMode_;
+		int movementMode_;
 
 		/** The time when the movement mode (animation) started. */
 		long movementStartedWhen_;
