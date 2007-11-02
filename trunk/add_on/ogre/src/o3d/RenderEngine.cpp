@@ -139,10 +139,17 @@ namespace se_ogre {
 	/** Sets up the application - returns false if the user chooses to abandon configuration. */
 	bool RenderEngine
 	::setup(void) {
+		setupResources();
+
 		bool carryOn = configure();
 		if (!carryOn) return false;
 
-		setupResources();
+		// Configure this from file
+		//chooseSceneManager();
+		//createCamera();
+		//createViewports();
+
+		TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
 		// Create any resource listeners (for loading screens)
 		createResourceListener();
@@ -150,6 +157,7 @@ namespace se_ogre {
 		// Load resources
 		loadResources();
 
+		/*
 		const Ogre::RenderSystemCapabilities* caps = O3dSchema::root->getRenderSystem()->getCapabilities();
 		if (!caps->hasCapability(RSC_VERTEX_PROGRAM)) {
 			LogDetail("Your card does not support vertex programs.");
@@ -179,14 +187,11 @@ namespace se_ogre {
 			O3dSchema::console->createConsoleWindow();
 			LogDetail("Created applications CEGUI.");
 		}
+		*/
 
 		// Create bridge between input
 		createInputBridge();
 		
-		// Configure this from file
-		//chooseSceneManager();
-		//createCamera();
-		//createViewports();
 
 		return true;
 	}
@@ -196,14 +201,6 @@ namespace se_ogre {
 	::cleanup(void) {
 		LogDetail("Shutting down resource group manager");
 		ResourceGroupManager::getSingleton().shutdownAll();
-		/*
-		const StringVector& s = ResourceGroupManager::getSingleton().getResourceGroups();
-		for(int i = 0; i < s.size(); ++i) {
-			LogDetail("Destroying resource group: " << s[i].c_str());
-			ResourceGroupManager::getSingleton().destroyResourceGroup(s[i]);
-		}
-		*/
-
 
 		delete inputBridge_;
 		inputBridge_ = 0;
@@ -211,10 +208,6 @@ namespace se_ogre {
 
 		O3dSchema::sceneManager = 0;
 		LogDetail("Destroyed world manager and scene manager");
-
-		delete O3dSchema::raySceneQuery;
-		O3dSchema::raySceneQuery = 0;
-		LogDetail("Destroyed ray scene query");
 	}
 
 
@@ -305,16 +298,14 @@ namespace se_ogre {
 		int i = 0;
 		while(sections[i] != 0) {
 			try {
-			ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
+				ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
+				ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
 			} catch(...) {
 			}
-			//ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
 			++i;
 		}
-
-		// Initialise, parse scripts etc
-		//ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
+
 
 	void RenderEngine
 	::loadLevelResources(const char** sections) {
@@ -337,7 +328,7 @@ namespace se_ogre {
 		while(*sec != 0) {
 			try {
 				ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
-				//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+				ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
 			}
 			catch(...) {
 			}
@@ -356,4 +347,7 @@ namespace se_ogre {
 			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
 		}
 	}
+
+
+
 }

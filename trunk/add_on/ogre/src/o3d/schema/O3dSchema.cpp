@@ -231,7 +231,6 @@ namespace se_ogre {
 			}
 
 			bool initLevelEvent() {
-				//O3dSchema::worldManager->compileAllStaticGeometry();
 				// Load ogre configuration
 				O3dSchema::renderEngine->skipNext();
 				const char* global = "logic/config/global.ogre.txt";

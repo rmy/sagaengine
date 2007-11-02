@@ -75,7 +75,6 @@ namespace se_basic {
 					String tempString;
 					in.readString(tempString);
 					areaCount = SimSchema::areaManager.areasByFactory(tempString.get(), areas, MAX_AREAS);
-					LogDetail(areaCount);
 				}
 				break;
 
@@ -115,7 +114,7 @@ namespace se_basic {
 		}
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
-				LogDetail("Set spawn points for: " << areas[i]->name() << " - " << in.name());
+				//LogDetail("Set spawn points for: " << areas[i]->name() << " - " << in.name());
 				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
 				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
 			}

@@ -52,7 +52,6 @@ namespace se_ogre {
 
 	void O3dConfigParser
 	::parse(InputStream& in) {
-		int code;
 		if(O3dSchema::sceneManager) {
 			if(!O3dSchema::sceneManager->hasStaticGeometry("Scenery"))
 				O3dSchema::sceneManager->createStaticGeometry("Scenery");
@@ -63,6 +62,7 @@ namespace se_ogre {
 			O3dSchema::sceneManager->setSkyDome(false, "no_dome");
 		}
 
+		int code;
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
 			case 'I': 
