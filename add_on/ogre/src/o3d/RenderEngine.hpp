@@ -26,11 +26,10 @@ rune@skalden.com
 #include "o3d/event/o3d_event.hpp"
 #include "o3d/input/o3d_input.hpp"
 #include "sim/SimListener.hpp"
-
+#include "o3d/schema/O3dSchema.hpp"
+#include <Ogre.h>
 
 namespace se_ogre {
-	extern Ogre::RaySceneQuery* raySceneQuery;
-
 	class _SeOgreExport RenderEngine : public se_core::SimListener {
 	public:
 		RenderEngine(se_ogre::ConsoleHandler* consoleHandler = 0);
@@ -88,6 +87,33 @@ namespace se_ogre {
 #else
 		const static int fastExit = 0;
 #endif
+    virtual void chooseSceneManager(void)
+    {
+        // Create the SceneManager, in this case a generic one
+		O3dSchema::sceneManager = O3dSchema::root->createSceneManager(Ogre::ST_GENERIC, "ExampleSMInstance");
+    }
+    virtual void createCamera(void)
+    {
+        // Create the camera
+        O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
+
+        // Position it at 500 in Z direction
+        O3dSchema::playerCamera->setPosition(Ogre::Vector3(0,0,500));
+        // Look back along -Z
+        O3dSchema::playerCamera->lookAt(Ogre::Vector3(0,0,-300));
+        O3dSchema::playerCamera->setNearClipDistance(5);
+
+    }
+    virtual void createViewports(void)
+    {
+        // Create one viewport, entire window
+		Ogre::Viewport* vp = O3dSchema::window->addViewport(O3dSchema::playerCamera);
+		vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+
+        // Alter the camera aspect ratio to match the viewport
+        O3dSchema::playerCamera->setAspectRatio(
+            Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+    }
 
 	};
 
