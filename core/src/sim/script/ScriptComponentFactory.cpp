@@ -54,7 +54,7 @@ namespace se_core {
 	}
 
 	void ScriptComponentFactory
-	::setScript(const char* name) {
+	::pushScript(const char* name) {
 		Assert(scriptCount_ < MAX_SCRIPTS);
 		scripts_[ scriptCount_++ ] = Script::lookup(name);
 	}

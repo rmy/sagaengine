@@ -25,25 +25,25 @@ namespace se_core {
 
 	Property
 	::Property(const char* name, short value)
-			: key_(hash(name)), type_(PT_SHORT) {
+			: name_(name, 0), key_(hash(name)), type_(PT_SHORT) {
 		v.shortValue_ = value;
 	}
 
 	Property
 	::Property(const char* name, int value)
-			: key_(hash(name)), type_(PT_INT) {
+			: name_(name, 0), key_(hash(name)), type_(PT_INT) {
 		v.intValue_ = value;
 	}
 
 	Property
 	::Property(const char* name, float value)
-			: key_(hash(name)), type_(PT_FLOAT) {
+			: name_(name, 0), key_(hash(name)), type_(PT_FLOAT) {
 		v.floatValue_ = value;
 	}
 
 	Property
 	::Property(const char* name, String* value)
-			: key_(hash(name)), type_(PT_STRING) {
+			: name_(name, 0), key_(hash(name)), type_(PT_STRING) {
 		v.string_ = value;
 		if(value)
 			valueHash_ = hash(value->get());
@@ -53,26 +53,26 @@ namespace se_core {
 
 	Property
 	::Property(const char* name, unsigned int count, String* values)
-			: key_(hash(name)), type_(PT_STRING_LIST) {
+			: name_(name, 0), key_(hash(name)), type_(PT_STRING_LIST) {
 		v.string_ = values;
 		valueHash_ = count;
 	}
 
 	Property
 	::Property(const char* name, const Action* value)
-			: key_(hash(name)), type_(PT_ACTION) {
+			: name_(name, 0), key_(hash(name)), type_(PT_ACTION) {
 		v.action_ = value;
 	}
 	
 	Property
 	::Property(const char* name, const Script* value)
-			: key_(hash(name)), type_(PT_SCRIPT) {
+			: name_(name, 0), key_(hash(name)), type_(PT_SCRIPT) {
 		v.script_ = value;
 	}
 	
 	Property
 	::Property(const char* name, Area* value)
-			: key_(hash(name)), type_(PT_AREA) {
+			: name_(name, 0), key_(hash(name)), type_(PT_AREA) {
 		v.area_ = value;
 	}
 
