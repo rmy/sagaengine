@@ -136,7 +136,7 @@ namespace se_core {
 
 	void ScriptComponent
 	::pushScript(const Script* s) {
-		consumer_->setScriptActive(false);
+		//consumer_->setScriptActive(false);
 
 		// If there already is a script running...
 		if(script() && !script()->isStacker()) {
@@ -155,7 +155,8 @@ namespace se_core {
 		scriptData_[currentScript_] = script()->init(*this);
 
 		// If owner is active
-		consumer_->setScriptActive(true);
+		if(owner()->isActive())
+			consumer_->setScriptActive(true);
 	}
 
 

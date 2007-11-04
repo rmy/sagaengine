@@ -58,7 +58,7 @@ namespace se_core {
 				{
 					String scriptName;
 					in.readString(scriptName);
-					factory->setScript(scriptName.get());
+					factory->pushScript(scriptName.get());
 				}
 				break;
 

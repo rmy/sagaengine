@@ -45,6 +45,7 @@ namespace se_core {
 		/** Hash of value. */
 		unsigned int valueHash_; // 
 		Type type_;
+		String name_;
 
 		union {
 			void* value_;
@@ -67,6 +68,10 @@ namespace se_core {
 		Property(const char* name, const Script* value);
 		Property(const char* name, Area* value);
 		~Property();
+
+		inline const char* name() const {
+			return name_.get();
+		}
 
 		inline Type type() const { 
 			return type_; 

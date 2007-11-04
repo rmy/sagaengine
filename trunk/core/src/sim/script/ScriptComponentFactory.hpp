@@ -40,7 +40,7 @@ namespace se_core {
 		ScriptComponentFactory();
 		Component* create(Composite* owner) const;
 
-		void setScript(const char* name);
+		void pushScript(const char* name);
 
 	protected:
 		static const int MAX_SCRIPTS = 4;

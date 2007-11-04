@@ -92,6 +92,8 @@ namespace se_core {
 			if(!hashTable_)
 				return 0;
 
+			AssertFatal(lookup(newNode.key()) == 0, "Property with that hash already exists: " << newNode.name() << " == " << lookup(newNode.key())->name() );
+
 			int key = newNode.key();
 			unsigned int index = tableIndex(key);
 			Property* old = lookup(key);
