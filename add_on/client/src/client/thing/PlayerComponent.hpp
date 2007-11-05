@@ -42,7 +42,6 @@ namespace se_client {
 
 		void setActive(bool state);
 		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);
-		void planAction(short channel, const se_core::Action& action, const se_core::Parameter* parameter = 0) const;
 
 		bool die(bool didWin);
 		bool didWin() { return didWin_; }

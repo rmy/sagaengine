@@ -61,12 +61,6 @@ namespace se_client {
 	}
 
 
-	void PlayerComponent
-	::planAction(short channel, const Action& action, const Parameter* parameter) const {
-		actionComponent_->planAction(channel, action, parameter);
-	}
-
-
 	bool PlayerComponent
 	::die(bool didWin) {
 		// Only die once

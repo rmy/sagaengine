@@ -209,7 +209,8 @@ namespace se_core {
 	void ScriptComponent
 	::setActive(bool state) {
 		// Setting to active??
-		if(isActive()) {
+		//if(isActive()) {
+		if(state) {
 			// Start script
 			if(script()) {
 				// Init (or reinit) scripts data block

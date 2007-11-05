@@ -84,10 +84,6 @@ namespace se_core {
 			return scriptComponent_->script();
 		}
 
-		void planAction(short channel, const Action& action, const Parameter* parameter = 0) const {
-			actionComponent_->planAction(channel, action, parameter);
-		}
-
 		void disrupt() {
 			actionComponent_->disrupt();
 		}

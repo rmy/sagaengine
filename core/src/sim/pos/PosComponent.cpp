@@ -49,7 +49,7 @@ namespace se_core {
 		if(position_.area() != nextPosition_.area()) {
 			Composite* to = 0;
 			if(nextPosition_.hasArea()) {
-				to =nextPosition_.area_->owner();
+				to = nextPosition_.area_->owner();
 			}
 			Composite* from = 0;
 			if(position_.hasArea()) {
