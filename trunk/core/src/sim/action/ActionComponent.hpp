@@ -45,20 +45,9 @@ namespace se_core {
 		/** Constructor.
 		 */
 		ActionComponent(Composite* owner);
+
+		/** Destructor. */
 		~ActionComponent();
-
-
-		static ActionComponent* get(Composite& composite) {
-			ActionComponent* c = static_cast<ActionComponent*>(composite.component(se_core::sct_ACTION));
-			return c;
-		}
-
-		static ActionComponent* get(Component& component) {
-			ActionComponent* c = static_cast<ActionComponent*>(component.owner()->component(se_core::sct_ACTION));
-			return c;
-		}
-
-
 
 		/**
 		 * Plan a new action.
@@ -85,6 +74,8 @@ namespace se_core {
 		 */
 		void disrupt();
 
+		/** Resume disrupted/paused script.
+		 */
 		void resume();
 
 		/**
@@ -94,7 +85,10 @@ namespace se_core {
 		 */
 		bool disrupt(short channel);
 
+		/** Insert paused action into action queue.
+		 */
 		void unpause(short channel);
+
 		/**
 		 * Schedule this ActionComponent for destruction.
 		 * It will be destroyed when the on-going initative is performed,
