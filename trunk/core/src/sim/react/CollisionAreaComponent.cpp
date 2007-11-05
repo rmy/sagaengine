@@ -178,6 +178,7 @@ namespace se_core {
 		middle.scale(0.5f);
 
 		BoundingBox bounds(middle, speedAndRadius);
+		bounds.maxY_ = 10.0f;
 
 		ZoneAreaComponent::Ptr aZone(*this);
 		ComponentList::Iterator linkIt(aZone->links());
