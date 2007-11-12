@@ -86,12 +86,17 @@ namespace se_editor {
 
 	void EditorControls
 	::showMenu(int start, bool mod3) {
-		if(mod3) {
-			SimSchema::messageCentral.info("F1 - cavern\nF2 - castle\nF3 - courtyard");
-			return;
-		}
 		char buffer[1024];
 		char* s = buffer;
+		if(mod3) {
+			if(EditorSchema::lastSpawn) {
+				s += sprintf(s, "Current - %s\n", EditorSchema::lastSpawn->name());
+			}
+			s += sprintf(s, "F1 - cavern\nF2 - castle\nF3 - courtyard");
+			SimSchema::messageCentral.info(buffer);
+			return;
+		}
+
 		int dictId = SimSchema::dictionary().id(DE_DICTIONARY_TYPE, "LEVEL_DESIGN_SPAWN");
 		for(int i = start; i < start + 10; ++i) {
 			const char* name = 0;

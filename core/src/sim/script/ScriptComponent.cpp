@@ -208,17 +208,20 @@ namespace se_core {
 
 	void ScriptComponent
 	::setActive(bool state) {
+		/*
 		// Setting to active??
 		//if(isActive()) {
 		if(state) {
 			// Start script
 			if(script()) {
+				LogWarning(owner()->name());
 				// Init (or reinit) scripts data block
 				script()->reinit(*this, scriptData());
 				// Start script in all action channels
 				consumer_->setScriptActive(true);
 			}
 		}
+		*/
 	}
 
 

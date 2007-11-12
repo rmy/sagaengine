@@ -21,7 +21,6 @@ namespace se_basic {
 		se_core::Composite* create() const;
 
 		void setBounds(const se_core::BoundingBox& b);
-		void setScript(const char* name);
 		void setPhysics(const char* name);
 		void setCollide(const char* name);
 		void setPickable(bool isPickable);
@@ -46,7 +45,6 @@ namespace se_basic {
 		bool isPickable_;
 		bool isCollideable_;
 		se_core::Move move_;
-		const se_core::Script* script_;
 		const se_core::Physics* physics_;
 		const se_core::ThingCollide* collide_;
 		se_core::ActionAndParameter* defaultAction_;

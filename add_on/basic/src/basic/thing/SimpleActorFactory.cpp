@@ -12,7 +12,6 @@ namespace se_basic {
 			: CompositeFactory(st_ACTOR, name)
 			, isPickable_(false)
 			, isCollideable_(false)
-			, script_(0)
 			, physics_(0)
 			, collide_(0)
 			, defaultAction_(0)
@@ -72,12 +71,6 @@ namespace se_basic {
 		createGenericComponents(c);
 		createComponents(c);
 
-		// Init everything else before starting script
-		// so that Scrip::init has correct info
-		if(script_) {
-			a->setDefaultScript(script_);
-		}
-
 		return c;
 	}
 
@@ -97,12 +90,6 @@ namespace se_basic {
 	void SimpleActorFactory
 	::setCollideable(bool isCollideable) {
 		isCollideable_ = isCollideable;
-	}
-
-
-	void SimpleActorFactory
-	::setScript(const char* name) {
-		script_ = Script::lookup(name);
 	}
 
 
