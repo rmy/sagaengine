@@ -214,7 +214,7 @@ namespace se_core {
 
 	void ActionComponent
 	::setActive(bool state) {
-		LogWarning(owner_->name() << " " << state);
+		LogDetail(owner_->name() << " " << state);
 		setScriptActive(state);
 	}
 

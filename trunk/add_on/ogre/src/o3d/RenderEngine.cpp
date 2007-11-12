@@ -191,7 +191,6 @@ namespace se_ogre {
 
 		// Create bridge between input
 		createInputBridge();
-		
 
 		return true;
 	}
@@ -299,7 +298,7 @@ namespace se_ogre {
 		while(sections[i] != 0) {
 			try {
 				ResourceGroupManager::getSingleton().initialiseResourceGroup(sections[i]);
-				ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
+				//ResourceGroupManager::getSingleton().loadResourceGroup(sections[i]);
 			} catch(...) {
 			}
 			++i;
@@ -328,7 +327,7 @@ namespace se_ogre {
 		while(*sec != 0) {
 			try {
 				ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
-				ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+				//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
 			}
 			catch(...) {
 			}
@@ -337,6 +336,7 @@ namespace se_ogre {
 			++sec;
 		}
 	}
+
 
 	void RenderEngine
 	::resetLevelResources() {
@@ -347,7 +347,5 @@ namespace se_ogre {
 			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
 		}
 	}
-
-
 
 }

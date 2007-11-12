@@ -386,7 +386,8 @@ namespace se_core {
 			if(!cc->isCollideable())
 				continue;
 
-			short candidateCount = _collisionCandidates(cc, MAX_THINGS, candidates);
+			//short candidateCount = _collisionCandidates(cc, MAX_THINGS, candidates);
+			short candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);
 			_testCollisionCandidates(cc, candidateCount, candidates, maxCollisions, list, count);
 
 			//candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);

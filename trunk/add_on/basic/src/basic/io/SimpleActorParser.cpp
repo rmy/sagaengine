@@ -99,7 +99,8 @@ namespace se_basic {
 				{
 					String scriptName;
 					in.readString(scriptName);
-					factory->setScript(scriptName.get());
+					LogWarning("Deprecated X: " << in.name());
+					//factory->setScript(scriptName.get());
 				}
 				break;
 
