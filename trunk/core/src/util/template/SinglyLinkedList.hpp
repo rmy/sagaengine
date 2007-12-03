@@ -253,8 +253,8 @@ namespace se_core {
 		ElementType* next(iterator_type& iterator) {
 			//DbgAssert(!isFree(iterator));
 			//DbgAssert(iterator != end());
-			//DbgAssert(iterator >= 0);
-			DbgAssert(iterator >= 0 && iterator < MAX_ELEMENTS);
+			//DbgAssert(iterator >= 0 && iterator < MAX_ELEMENTS);
+			//AssertFatal(iterator >= 0 && iterator < MAX_ELEMENTS, "It: " << iterator);
 
 			// Store actor
 			ElementType* tmp = nodes_[ iterator ];

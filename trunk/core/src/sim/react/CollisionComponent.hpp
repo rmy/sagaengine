@@ -60,7 +60,7 @@ namespace se_core {
 			ignore_ = 0;
 		}
 		void setIgnore(const CollisionComponent& cc) {
-			ignore_ = &cc;
+			ignore_ = cc.owner()->id();
 		}
 
 
@@ -88,6 +88,10 @@ namespace se_core {
 
 		void setCollide(const ThingCollide* collide) {
 			collide_ = collide; 
+		}
+
+		inline bool hasCollide() {
+			return collide_ != 0;
 		}
 
 
@@ -143,7 +147,7 @@ namespace se_core {
 		bool isCollideable_, doObstructView_;
 		const ThingCollide* collide_;
 
-		const CollisionComponent* ignore_;
+		Composite::id_type ignore_;
 
 		enum GeomType geometryType_;
 		Point3 p1_, p2_;

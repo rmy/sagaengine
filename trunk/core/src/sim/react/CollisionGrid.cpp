@@ -232,7 +232,7 @@ namespace se_core {
 
 					// Add members of node to the candidates list
 					while(it != CollisionGridCollisionComponentList::end()) {
-						Assert(count < max - 1);
+						AssertFatal(count < max - 1, "Count: " << count);
 						things[ count++ ] =
 							thingList().next(it);
 					}
@@ -240,7 +240,7 @@ namespace se_core {
 			}
 		}
 
-		Assert(count < max);
+		AssertFatal(count < max, "Max: " << max);
 		return count;
 	}
 

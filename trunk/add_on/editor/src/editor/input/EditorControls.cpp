@@ -92,7 +92,17 @@ namespace se_editor {
 			if(EditorSchema::lastSpawn) {
 				s += sprintf(s, "Current - %s\n", EditorSchema::lastSpawn->name());
 			}
-			s += sprintf(s, "F1 - cavern\nF2 - castle\nF3 - courtyard");
+			s += sprintf(s,
+						"F1 - asset\n"
+						"F2 - enemy\n"
+						"F3 - enemy\n"
+						"F4 - control\n"
+						"F5 - friend\n"
+						"F6 - door\n"
+						"F7 - trigger\n"
+						"F8 - pick\n"
+						"F9 - special/morph\n"
+				);
 			SimSchema::messageCentral.info(buffer);
 			return;
 		}

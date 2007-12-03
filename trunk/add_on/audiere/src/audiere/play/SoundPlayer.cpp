@@ -73,14 +73,14 @@ namespace se_audiere {
 			ambience_->stop();
 			ambience_ = 0;
 		}
-			/*
+		/*
 		for(int i = 0; i < MAX_CHANNELS; ++i) {
 			system_->getChannel(i, &channel_);
 			if(channel_) {
 				channel_->stop();
 			}
 		}
-			*/
+		*/
 	}
 
 		
