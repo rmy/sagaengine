@@ -182,6 +182,13 @@ namespace se_basic {
 				}
 				break;
 
+			case 'V':
+				{
+					int level = in.readShort();
+					factory->setDebugLevel(level);
+				}
+				break;
+
 			default:
 				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}

@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "util/type/util_type.hpp"
 #include "util/math/CoorT.hpp"
+#include "util/error/Log.hpp"
 
 namespace se_core {
 	class _SeCoreExport BoundingSquare {
@@ -41,6 +42,7 @@ namespace se_core {
 		BoundingSquare(coor_t x, coor_t y, coor_t radius)
 			: minX_(x - radius), minY_(y - radius), maxX_(x + radius), maxY_(y + radius) {
 		}
+
 
 
 		/**

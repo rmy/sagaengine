@@ -16,6 +16,7 @@ namespace se_basic {
 			, collide_(0)
 			, defaultAction_(0)
 			, substance_(0)
+			, debugLevel_(0)
 			, spawnPointCount_(0)
 			, spawnPoints_(0) {
 		anim_[0].setWeight(1);
@@ -36,6 +37,7 @@ namespace se_basic {
 	::create() const {
 		Composite* c = new Composite(this);
 		c->setTag(tag_);
+		c->setDebugLevel(debugLevel_);
 		Actor* a = static_cast<Actor*>(actorFactory_.create(c));
 
 		if(isCollideable_ || collide_) {
@@ -43,7 +45,7 @@ namespace se_basic {
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
 			cc->setSubstance(substance_);
-			cc->setDoObstructView(substance_ == 2 && bounds_.maxY_ > 5 * COOR_RES);
+			cc->setDoObstructView((substance_ == 2 || substance_ == 3) && bounds_.maxY_ > 5 * COOR_RES);
 		}
 
 		//a->setPickable(isPickable_);
@@ -114,6 +116,11 @@ namespace se_basic {
 	void SimpleActorFactory
 	::setSubstance(int s) {
 		substance_ = s;
+	}
+
+	void SimpleActorFactory
+	::setDebugLevel(int level) {
+		debugLevel_ = level;
 	}
 
 

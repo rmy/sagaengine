@@ -40,6 +40,7 @@ namespace se_audiere {
 		sounds_ = new Sound[ MAX_SOUNDS ];
 	}
 
+
 	Sounds
 	::~Sounds() {
 		//FMOD_RESULT result;
@@ -60,6 +61,7 @@ namespace se_audiere {
 	::setLanguage(unsigned short language) {
 		currentLanguage_ = language;
 	}
+
 
 	void Sounds
 	::add(unsigned short language, SoundType type, String* nameC, float volume, String* soundC, bool shouldLoop) {
@@ -132,9 +134,16 @@ namespace se_audiere {
 				return 0;
 			}
 		}
-		LogDetail(sounds_[index].language_ << " " << type << " " << name);
+		LogDetail(sounds_[ index ].language_ << " " << type << " " << name);
 		volumeOut = sounds_[ index ].volume_;
 		shouldLoopOut = sounds_[ index ].shouldLoop_;
+		/*
+		if(type == MUSIC) {
+			static audiere::OutputStreamPtr music;
+			music = AudiereSchema::soundPlayer->loadSound(sounds_[ index ].soundC_->get(), false);
+			return music;
+		}
+		*/
 		return sounds_[ index ].sound_;
 	}
 

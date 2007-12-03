@@ -66,7 +66,7 @@ namespace se_core {
 		cc.areaCovered().center(p);
 		coor_t speedAndRadius = cc.areaCovered().radius();
 		bool didDelete = collisionGrid_->remove(p, speedAndRadius, cc);
-		AssertWarning(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc) << ")");
+		//AssertWarning(didDelete, "Couldn't remove " << cc.owner()->name() << " from collision grid (" << collisionGrid_->find(cc) << ")");
 	}
 
 
@@ -136,14 +136,24 @@ namespace se_core {
 
 	inline bool _testCollision(CollisionComponent& cc1,
 							  CollisionComponent& cc2) {
+		bool doDebug = cc1.owner()->debugLevel() == 1 && cc2.owner()->debugLevel() == 2;
+		//AssertWarning(!doDebug, "B: " << cc1.owner()->name() << " " << cc2.name());
 		if(cc1.shouldIgnore(cc2))
 			return false;
+		//AssertWarning(!doDebug, "Ca: " << cc1.owner()->name() << " " << cc1.areaCovered());
+		//AssertWarning(!doDebug, "Cb: " << cc2.owner()->name() << " " << cc2.areaCovered());
 
 		if(!cc1.areaCovered().isTouching(cc2.areaCovered()))
 			return false;
+		//AssertWarning(!doDebug, "D: " << cc2.owner()->name() << " " << cc2.areaCovered());
 
 		if(!cc1.doesGeometryCollide(cc2))
 			return false;
+		//AssertWarning(!doDebug, "E: " << cc2.owner()->name());
+
+		if(!cc1.hasCollide() && !cc2.hasCollide())
+			return false;
+		//AssertWarning(!doDebug, "F: " << cc2.owner()->name());
 
 
 		// Inside collision range. Collide.
@@ -167,7 +177,7 @@ namespace se_core {
 
 	coor_t CollisionAreaComponent
 	::farthestLineOfSight(const se_core::Point3& fromPoint, const se_core::Point3& toPoint) const {
-		const int MAX_CONTACTS = 128;
+		const int MAX_CONTACTS = 2048;
 		static CollisionComponent* candidates[MAX_CONTACTS];
 		int candidateCount = 0;
 		coor_t dist = CoorT::sqrt(fromPoint.xzDistanceSquared(toPoint));
@@ -178,7 +188,7 @@ namespace se_core {
 		middle.scale(0.5f);
 
 		BoundingBox bounds(middle, speedAndRadius);
-		bounds.maxY_ = 10.0f;
+		bounds.maxY_ = 9.9f;
 
 		ZoneAreaComponent::Ptr aZone(*this);
 		ComponentList::Iterator linkIt(aZone->links());
@@ -294,7 +304,7 @@ namespace se_core {
 			}
 
 			Assert(count < maxCollisions);
-			if(count > 64) {
+			if(count > 128) {
 				LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
 			}
 			Contact& c = list[ count ];
@@ -345,7 +355,7 @@ namespace se_core {
 				continue;
 			}
 
-			Assert(count < maxCollisions);
+			Assert(count < maxCollisions - 2);
 			if(count > 64) {
 				LogWarning(cc->owner()->name() << " - " << cc2.owner()->name());
 			}
@@ -383,14 +393,22 @@ namespace se_core {
 		NodeComponentList::TreeIterator it(children_);
 		while(it.hasNext()) {
 			CollisionComponent* cc = static_cast<CollisionComponent*>(&it.next());
+			//AssertWarning(cc->owner()->debugLevel() == 0, "Collider: " << cc->owner()->name());
+
+
 			if(!cc->isCollideable())
 				continue;
 
 			//short candidateCount = _collisionCandidates(cc, MAX_THINGS, candidates);
-			short candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);
+			//_testCollisionCandidates(cc, candidateCount, candidates, maxCollisions, list, count);
+			//AssertWarning(cc->owner()->debugLevel() == 0, "A");
+			short candidateCount = _collisionCandidates(cc, MAX_THINGS, candidates);
+
+			//AssertWarning(cc->owner()->debugLevel() == 0, "B: " << candidateCount);
+			//AssertWarning(cc->owner()->debugLevel() == 0, cc->owner()->name() << ": " << candidateCount << " - " << cc->areaCovered());
 			_testCollisionCandidates(cc, candidateCount, candidates, maxCollisions, list, count);
 
-			//candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);
+			//short candidateCount = _collisionCandidates2(cc, MAX_THINGS, candidates);
 			//_testCollisionCandidates2(cc, candidateCount, candidates, MAX_THINGS, dummy, countCheck);
 
 			//AssertFatal(count == countCheck, "Collision check error: " << count << " != " << countCheck << " - " << cc->owner()->name());

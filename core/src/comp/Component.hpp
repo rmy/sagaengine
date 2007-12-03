@@ -119,6 +119,7 @@ namespace se_core {
 
 		const ComponentFactory* factory_;
 
+
 	protected:
 		/**
 		 * Convenience pointer template with built in component conversion.

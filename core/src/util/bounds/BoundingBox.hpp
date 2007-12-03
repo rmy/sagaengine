@@ -47,6 +47,12 @@ namespace se_core {
 			, maxX_(p.x_ + b.maxX_), maxY_(p.y_ + b.maxY_), maxZ_(p.z_ + b.maxZ_) {
 		}
 
+		inline void testIntegrity() const {
+			Assert(maxX_ >= minX_);
+			Assert(maxY_ >= minY_);
+			Assert(maxZ_ >= minZ_);
+		}
+
 		void reset() {
 			minX_ = minY_ = minZ_ = 0;
 			maxX_ = maxY_ = maxZ_ = 0;
@@ -103,6 +109,7 @@ namespace se_core {
 		}
 
 		bool isTouching(const Point3& p) const {
+			testIntegrity();
 			return (p.x_ >= minX_ && p.x_ <= maxX_
 					&& p.y_ >= minY_ && p.y_ <= maxY_
 					&& p.z_ >= minZ_ && p.z_ <= maxZ_);
@@ -110,6 +117,7 @@ namespace se_core {
 
 
 		bool isTouching(const Point3& p, coor_t epsilon) const {
+			testIntegrity();
 			return (p.x_ >= minX_ - epsilon && p.x_ <= maxX_ + epsilon
 					&& p.y_ >= minY_ - epsilon && p.y_ <= maxY_ + epsilon
 					&& p.z_ >= minZ_ - epsilon && p.z_ <= maxZ_ + epsilon);
@@ -118,12 +126,14 @@ namespace se_core {
 
 
 		bool isTouchingXZ(const Point3& p) const {
+			testIntegrity();
 			return (p.x_ >= minX_ && p.x_ <= maxX_
 					&& p.z_ >= minZ_ && p.z_ <= maxZ_);
 		}
 
 
 		bool hasInside(const Point3& offset, const Point3& p) const {
+			testIntegrity();
 			return (p.x_ >= offset.x_ + minX_ && p.x_ < offset.x_ + maxX_
 					&& p.y_ >= offset.y_ + minY_ && p.y_ < offset.y_ + maxY_
 					&& p.z_ >= offset.z_ + minZ_ && p.z_ < offset.z_ + maxZ_);
@@ -138,6 +148,7 @@ namespace se_core {
 
 
 		bool isTouching(const BoundingBox& b) const {
+			testIntegrity();
 			if(b.maxX_ < minX_
 				   || b.minX_ > maxX_
 				   || maxX_ < b.minX_

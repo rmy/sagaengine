@@ -32,7 +32,7 @@ namespace se_core {
 	class _SeCoreExport Composite {
 	public:
 		typedef RefPtr<Composite> RefPtr;
-		typedef Composite* id_type;
+		typedef long id_type;
 
 		Composite(const CompositeFactory* factory);
 		Composite(const CompositeFactory* factory, const char* name);
@@ -43,7 +43,7 @@ namespace se_core {
 		const char* name() const;
 		int type() const;
 
-		id_type id() const { return (id_type)this; }
+		id_type id() const { return id_; }
 
 		void init(bool doTraverseChildren = true);
 		void cleanup(bool doTraverseChildren = true);
@@ -112,6 +112,14 @@ namespace se_core {
 		 */
 		bool isDead() const { return isDead_; }
 
+		void setDebugLevel(int level) {
+			debugLevel_ = level;
+		}
+
+		int debugLevel() const {
+			return debugLevel_;
+		}
+
 		/**
 		 * Called during flip is area is changed from pos to nextPos
 		 */
@@ -128,6 +136,8 @@ namespace se_core {
 		void addComponent(Component& c);
 		void removeComponent(Component& c);
 
+	private:
+		static id_type idPool();
 
 	protected:
 
@@ -143,11 +153,13 @@ namespace se_core {
 		 */
 		void removeChild(Composite& node);
 
+		id_type id_;
 		const char* name_;
 		const CompositeFactory* factory_;
 		int tag_;
 		bool isActive_;
 		bool isDead_;
+		int debugLevel_;
 
 		ComponentList components_;
 

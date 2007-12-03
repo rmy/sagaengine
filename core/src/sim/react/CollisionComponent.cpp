@@ -180,6 +180,7 @@ namespace se_core {
 		CollisionAreaComponent* const cac = static_cast<CollisionAreaComponent*>(parent_);
 		Assert(cac->collisionGrid());
 		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *this);
+
 	}
 
 
@@ -302,6 +303,6 @@ namespace se_core {
 
 	bool CollisionComponent 
 	::shouldIgnore(const CollisionComponent& cc) const {
-		return &cc == ignore_ || cc.ignore_ == this;
+		return cc.owner()->id() == ignore_ || cc.ignore_ == this->owner()->id();
 	}
 }
