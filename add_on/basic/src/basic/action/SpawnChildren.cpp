@@ -31,8 +31,8 @@ using namespace se_core;
 
 namespace se_basic {
 	SpawnChildren
-	::SpawnChildren()
-		: se_core::Action("SpawnChildren") 
+	::SpawnChildren(const char* name, bool doSpawnChildren)
+		: se_core::Action(name), doSpawnChildren_(doSpawnChildren) 
 		, PROPERTY_SPAWN(Property::hash("Action.SPAWN_CHILDREN")) 
 		, PROPERTY_SPAWN_POINT(Property::hash("Action.SPAWN_CHILDREN_POINT")) 
 	{
@@ -51,7 +51,9 @@ namespace se_basic {
 				Composite* s = pSpawn->spawn(prop->string(i), propPoint->shortValue() + i);
 				PosComponent::Ptr childPos(s);
 				if(!childPos.isNull() && !pos.isNull()) {
-					PosComponent::Ptr(*s)->nextPos().setParent(*pos, true);
+					if(doSpawnChildren_) {
+						PosComponent::Ptr(*s)->nextPos().setParent(*pos, true);
+					}
 					CollisionComponent::Ptr cc1(*s);
 					CollisionComponent::Ptr cc2(perf);
 					if(!cc1.isNull() && !cc2.isNull())
@@ -60,7 +62,6 @@ namespace se_basic {
 					StatComponent::Ptr(*s)->setShouldSave(false);
 				}
 			}
-
 		}
 		else {
 			Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
@@ -77,6 +78,7 @@ namespace se_basic {
 	}
 
 
-	const SpawnChildren actionSpawnChildren;
+	const SpawnChildren actionSpawnChildren("SpawnChildren", true);
+	const SpawnChildren actionSpawnSiblings("SpawnSiblings", false);
 }
 

@@ -27,7 +27,7 @@ rune@skalden.com
 namespace se_basic {
 	class _SeBasicExport SpawnChildren : public se_core::Action {
 	public:
-		SpawnChildren();
+		SpawnChildren(const char* name, bool doSpawnChildren);
 
 		short duration(se_core::ActionComponent& performer, se_core::Parameter& parameter) const {
 			return 5;
@@ -53,12 +53,14 @@ namespace se_basic {
 			const char* thingType_;
 			short SpawnChildrenPoint_;
 		};
+		bool doSpawnChildren_;
 		unsigned int PROPERTY_SPAWN;
 		unsigned int PROPERTY_SPAWN_POINT;
 	};
 
 
 	extern _SeBasicExport const SpawnChildren actionSpawnChildren;
+	extern _SeBasicExport const SpawnChildren actionSpawnSiblings;
 }
 
 #endif

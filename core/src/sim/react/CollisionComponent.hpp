@@ -95,7 +95,7 @@ namespace se_core {
 		}
 
 
-		inline bool pushThing(ContactInfo& pusher, ContactInfo& target) {
+		inline bool pushThing(ContactInfo& pusher, const ContactInfo& target) {
 			if(!collide_)
 				return false;
 

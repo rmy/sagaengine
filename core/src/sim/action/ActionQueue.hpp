@@ -101,9 +101,9 @@ namespace se_core {
 
 		unsigned short createActionChannelId();
 
-		static const unsigned short INITIATIVES_PER_TURN_SHIFT = 3; // Must be power of 2
+		static const unsigned short INITIATIVES_PER_TURN_SHIFT = 7;
 		static const unsigned short INITIATIVES_PER_TURN = (1 << INITIATIVES_PER_TURN_SHIFT); // Must be power of 2
-		static const unsigned short MAX_TURNS = 64; // Must be power of 2
+		static const unsigned short MAX_TURNS = 128; // Must be power of 2
 
 		short currentTurn_;
 		short currentInitiative_;

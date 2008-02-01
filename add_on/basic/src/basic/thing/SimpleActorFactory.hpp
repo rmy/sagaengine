@@ -31,6 +31,8 @@ namespace se_basic {
 		void setAnim(int id, int movementMode, float pos, float speed);
 		void setSubstance(int s);
 		void setDebugLevel(int level);
+		void setDoObstructView(bool flag);
+		void setDoObstructViewDefault();
 
 		/**
 		 * Copy spawn points.
@@ -56,6 +58,7 @@ namespace se_basic {
 		se_core::ViewPoint** spawnPoints_;
 		int substance_;
 		int debugLevel_;
+		bool doObstructView_;
 
 		se_core::Anim anim_[se_core::Pos::MAX_ANIMS];
 	};
