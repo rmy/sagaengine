@@ -18,7 +18,8 @@ namespace se_basic {
 			, substance_(0)
 			, debugLevel_(0)
 			, spawnPointCount_(0)
-			, spawnPoints_(0) {
+			, spawnPoints_(0)
+			, doObstructView_(false) {
 		anim_[0].setWeight(1);
 	}
 
@@ -45,7 +46,7 @@ namespace se_basic {
 			cc->setCollide(collide_);
 			cc->setCollideable(isCollideable_);
 			cc->setSubstance(substance_);
-			cc->setDoObstructView((substance_ == 2 || substance_ == 3) && bounds_.maxY_ > 5 * COOR_RES);
+			cc->setDoObstructView(doObstructView_);
 		}
 
 		//a->setPickable(isPickable_);
@@ -123,7 +124,15 @@ namespace se_basic {
 		debugLevel_ = level;
 	}
 
+	void SimpleActorFactory
+	::setDoObstructView(bool flag) {
+		doObstructView_ = flag;
+	}
 
+	void SimpleActorFactory
+	::setDoObstructViewDefault() {
+		doObstructView_ = ((substance_ == 2 || substance_ == 3) && bounds_.maxY_ > 5 * COOR_RES);
+	}
 
 	void SimpleActorFactory
 	::setSpawnPoints(int count, ViewPoint* const* spawnPoints) {

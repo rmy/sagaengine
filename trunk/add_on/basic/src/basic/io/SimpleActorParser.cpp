@@ -52,6 +52,7 @@ namespace se_basic {
 		for(int i = 0; i < MAX_SPAWN_POINTS; ++i) {
 			spawnPoints[i] = 0;
 		}
+		bool isObstructViewDefined_ = false;
 
 		while((code = in.readInfoCode()) != 'Q') {
 			switch(code) {
@@ -73,6 +74,19 @@ namespace se_basic {
 				}
 				break;
 				*/
+			case 'W':
+				{
+					int state = in.readInfoCode();
+					if(state == '+')
+						factory->setDoObstructView(true);
+					else if(state == '-')
+						factory->setDoObstructView(false);
+					else
+						LogFatal("Expected '+' or '-' as parameter to 'W' in " << in.name()); 
+
+					isObstructViewDefined_ = true;
+				}
+				break;
 
 			case 'A': // Pos
 				{
@@ -193,6 +207,10 @@ namespace se_basic {
 				LogFatal("Unknown code '" << (char)(code) << "' in file " << in.name());
 			}
 
+		}
+
+		if(!isObstructViewDefined_) {
+			factory->setDoObstructViewDefault();
 		}
 
 		factory->setSpawnPoints(spawnPointCount, spawnPoints);
