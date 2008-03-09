@@ -56,6 +56,16 @@ namespace se_core {
 		if((os = IoSchema::fileManager->openOutput(filename)) != 0) {
 			IoSchema::encoder().encode(*os);
 			closeOutput(os);
+			// Save thumb as well
+
+			static const int MAX_THUMB_LENGTH = 255;
+			char thumbname[MAX_THUMB_LENGTH + 1];
+			AssertFatal(strlen(filename) < (MAX_THUMB_LENGTH - sizeof(".thumb.txt")), "Thumb name too long for filename %s" << filename);
+			sprintf(thumbname, "%s.thumb.txt", filename);
+			if((os = IoSchema::fileManager->openOutput(thumbname)) != 0) {
+				IoSchema::encoder().encodeThumb(*os);
+				closeOutput(os);
+			}
 		}
 	}
 

@@ -49,6 +49,7 @@ namespace se_ogre {
 
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
 
+		extern _SeOgreExport bool isShadowsEnabled;
 
 		/**
 		 * The Ogre::Root singleton.
@@ -70,7 +71,6 @@ namespace se_ogre {
 		 */
 		extern _SeOgreExport InputManager& inputManager();
 
-		
 		extern _SeOgreExport Ogre::Camera* playerCamera;
 		extern _SeOgreExport Ogre::RenderWindow* window;
 		extern _SeOgreExport SpeechBubble* speechBubble;
@@ -80,6 +80,8 @@ namespace se_ogre {
 		extern _SeOgreExport RenderEngine* renderEngine;
 
 		extern _SeOgreExport float gameClock;
+
+		void _SeOgreExport reinit();
 
 		/** Force linking of dependencies */
 		void _SeOgreExport touch();

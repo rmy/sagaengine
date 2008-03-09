@@ -179,7 +179,7 @@ namespace se_ogre {
 			}
 		}
 
-		if(O3dSchema::sceneManager) {
+		if(O3dSchema::sceneManager && O3dSchema::sceneManager->hasStaticGeometry("Scenery")) {
 			Ogre::StaticGeometry* sg = O3dSchema::sceneManager->getStaticGeometry("Scenery");
 			//sg->setRegionDimensions(Ogre::Vector3(128, 128, 128));
 			sg->build();
@@ -190,16 +190,15 @@ namespace se_ogre {
 	void O3dConfigParser
 	::chooseSceneManager(const char* sceneManager) {
 		// Create the SceneManager, in this case a generic one
-		O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager);
-		LogDetail("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
+		Ogre::SceneManager* sm;
+		O3dSchema::sceneManager = sm = O3dSchema::root->createSceneManager(sceneManager);
+		//LogDetail("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 
-		O3dSchema::sceneManager->createStaticGeometry("Scenery");
-
-		//O3dSchema::sceneManager->getRootSceneNode()->createChild("Scenery");
+		//O3dSchema::sceneManager->createStaticGeometry("Scenery");
 	}
 
 
@@ -385,14 +384,19 @@ namespace se_ogre {
 					float b = in.readFloat();
 
 					try {
-						AssertFatal(O3dSchema::sceneManager,
-							   "SceneManager must be created before setting shadow technique");
-						O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
-						O3dSchema::sceneManager->setShadowTextureSettings(size, count);
-						O3dSchema::sceneManager->setShadowFarDistance(vfar);
-						O3dSchema::sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
+						if(O3dSchema::isShadowsEnabled) {
+							AssertFatal(O3dSchema::sceneManager,
+								   "SceneManager must be created before setting shadow technique");
+							O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
+							O3dSchema::sceneManager->setShadowTextureSettings(size, count);
+							O3dSchema::sceneManager->setShadowFarDistance(vfar);
+							O3dSchema::sceneManager->setShadowColour(Ogre::ColourValue(r, g, b));
 
-						LogDetail("Created " << count << " shadow textures of size " << size);
+							LogDetail("Created " << count << " shadow textures of size " << size);
+						}
+						else {
+							O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+						}
 					}
 					catch(...) {
 						LogDetail("Couldn't create shadow texture");

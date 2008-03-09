@@ -100,6 +100,20 @@ namespace se_core {
 	}
 
 
+	void String
+	::copy(const char* s, char toDelim) {
+		int len = 0;
+		while(s[len] != 0 && s[len] != toDelim)
+			++len;
+
+		char* buffer = new char[len + 1];
+		strncpy(buffer, s, len);
+		buffer[ len ] = 0;
+		data_ = buffer;
+		doDestroy_ = true;
+	}
+
+
 	const char* String
 	::ext(char delimiter, bool mustFind) const {
 		const char* ch = data_, *ret = 0;
@@ -171,6 +185,7 @@ namespace se_core {
 	::equals(const char* s) const {
 		return (compare(s) == 0);
 	}
+
 
 	int String
 	::len() const {

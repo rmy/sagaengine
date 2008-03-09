@@ -60,6 +60,8 @@ namespace se_ogre {
 		RaySceneQuery* raySceneQuery = 0;
 		se_core::TaskList taskList;
 
+		bool isShadowsEnabled = true;
+
 		Ogre::Root* root = 0;
 		Ogre::SceneManager* sceneManager = 0;
 		O3dManager* worldManager = 0;
@@ -267,7 +269,6 @@ namespace se_ogre {
 				O3dSchema::taskList.performAll();
 				O3dSchema::renderEventListeners().castInitLevel();
 
-
 				return true;
 			}
 
@@ -320,6 +321,20 @@ namespace se_ogre {
 			}
 
 		} autoInit;
+
+
+		void reinit() {
+			if(O3dSchema::playerCamera) {
+				O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
+				O3dSchema::playerCamera = 0;
+				O3dSchema::window->removeAllViewports();
+				LogDetail("Destroyed camera");
+			}
+
+			autoInit.cleanupEngineEvent();
+			autoInit.initEngineEvent();
+		}
+
 
 		void touch() {
 			se_core::SimSchema::touch();

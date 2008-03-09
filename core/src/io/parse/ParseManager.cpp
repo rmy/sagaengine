@@ -66,7 +66,7 @@ namespace se_core {
 
 	bool ParseManager
 	::parse(InputStream& in) {
-		//LogDetail("Loading file: " << in.name());
+		LogDetail("Loading file: " << in.name());
 
 		int headerCode = in.readHeaderCode();
 

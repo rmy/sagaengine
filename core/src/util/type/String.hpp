@@ -48,6 +48,7 @@ namespace se_core {
 		 * toPos of zero or negative is from end of string
 		 */
 		void copy(const char* data, int toPos);
+		void copy(const char* data, char toDelim);
 		inline const char* get() const { return data_; }
 		const char* ext(char delimiter, bool mustFind = true) const;
 		char* copyValue() const;

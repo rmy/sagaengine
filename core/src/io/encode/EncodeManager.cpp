@@ -31,7 +31,7 @@ namespace se_core {
 
 	EncodeManager
 	::EncodeManager()
-		: Encoder(Parser::ENGINE, Parser::EMBEDDED, 1), moduleCount_(0), lastModule_(0) {
+		: Encoder(Parser::ENGINE, Parser::EMBEDDED, 1), moduleCount_(0), lastModule_(0), thumbModule_(0) {
 	}
 
 
@@ -42,14 +42,9 @@ namespace se_core {
 
 	void EncodeManager
 	::encode(OutputStream& out) {
-		lastModule_ = 0;
 		out.writeHeaderCode(headerCode());
 		for(int i = 0; i < moduleCount_; ++i) {
-			if(modules_[i]->isLast()) {
-				Assert(lastModule_ == 0);
-				lastModule_ = modules_[i];
-				continue;
-			}
+			Assert(modules_[i]->type() == et_NORMAL);
 			modules_[i]->encode(out);
 		}
 		if(lastModule_) {
@@ -57,6 +52,11 @@ namespace se_core {
 		}
 	}
 
+	void EncodeManager
+	::encodeThumb(OutputStream& out) {
+		AssertFatal(thumbModule_ != 0, "No thumb encoder module");
+		thumbModule_->encode(out);
+	}
 
 	void EncodeManager
 	::encode(OutputStream& out, Encoder& m) {
@@ -66,7 +66,23 @@ namespace se_core {
 
 	void EncodeManager
 	::add(Encoder& m) {
-		modules_[ moduleCount_++ ] = &m;
+		Assert(MAX_MODULES > moduleCount_ + 1);
+		switch(m.type()) {
+		case Encoder::et_NORMAL:
+			LogWarning("Added module: " << moduleCount_);
+			modules_[ moduleCount_++ ] = &m;
+			break;
+
+		case Encoder::et_LAST:
+			LogWarning("Added last module");
+			lastModule_ = &m;
+			break;
+
+		case Encoder::et_THUMB:
+			LogWarning("Added thumb module");
+			thumbModule_ = &m;
+			break;
+		}
 	}
 
 }
