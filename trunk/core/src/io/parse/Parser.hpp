@@ -43,7 +43,7 @@ namespace se_core {
 			, SPEECH_POSITION = 'P'
 			, RANDOM_AREA = 'R'
 			, CUTSCENE = 'S'
-			, TERRAIN = 'T'
+			, THUMB = 'T'
 			, PLAYER = 'X'
 			, PLUGIN = 'Z'
 			, SETTINGS = 'S'

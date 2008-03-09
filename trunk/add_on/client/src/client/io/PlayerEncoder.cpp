@@ -45,7 +45,7 @@ namespace se_client {
 
 	PlayerEncoder
 	::PlayerEncoder(EncodeManager& parser)
-			: Encoder(parser, Parser::ENGINE, Parser::PLAYER, 1) {
+			: Encoder(parser, Parser::ENGINE, Parser::PLAYER, 1, et_LAST) {
 	}
 
 

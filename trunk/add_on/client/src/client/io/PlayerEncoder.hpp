@@ -38,7 +38,6 @@ namespace se_client {
 		PlayerEncoder(se_core::EncodeManager& parser);
 		virtual ~PlayerEncoder();
 		void encode(se_core::OutputStream& in);
-		bool isLast() const { return true; }
 	};
 
 }

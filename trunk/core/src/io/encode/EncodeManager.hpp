@@ -37,14 +37,16 @@ namespace se_core {
 		EncodeManager();
 		virtual ~EncodeManager();
 		void encode(OutputStream& out);
+		void encodeThumb(OutputStream& out);
 		void encode(OutputStream& out, Encoder& m);
 		void add(Encoder& m);
 
 	private:
 		static const int MAX_MODULES = 12;
-		int moduleCount_;
 		Encoder* modules_[ MAX_MODULES ];
 		Encoder* lastModule_;
+		Encoder* thumbModule_;
+		int moduleCount_;
 	};
 }
 

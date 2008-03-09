@@ -228,7 +228,10 @@ namespace se_ogre {
 		// settings if you were sure there are valid ones saved in ogre.cfg
 		if(O3dSchema::root->restoreConfig()) {
 			LogDetail("Loaded config");
+			O3dSchema::window = O3dSchema::root->initialise(true);
+			return (O3dSchema::window != 0);
 		}
+
 		bool gotConfig = false;
 		try {
 			gotConfig = O3dSchema::root->showConfigDialog();
@@ -257,6 +260,8 @@ namespace se_ogre {
 			LogDetail("Config canceled by user");
 			return false;
 		}
+
+		return true;
 	}
 
 

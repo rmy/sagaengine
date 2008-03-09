@@ -29,19 +29,23 @@ namespace se_core {
 	/** Base class for encoder modules. */
 	class _SeCoreExport Encoder {
 	public:
-		Encoder(se_core::EncodeManager &encoder, unsigned char group, unsigned char code, int version);
+		enum Type { et_NORMAL, et_LAST, et_THUMB, et_STANDALONE };
+
+		Encoder(se_core::EncodeManager &encoder, unsigned char group, unsigned char code, int version, Type type = et_NORMAL);
 		Encoder(unsigned char group, unsigned char code, int version);
 		virtual ~Encoder();
 
 		int headerCode() const;
 		unsigned int headerCode(char moduleGroup, char moduleCode, int moduleVersion) const;
 		virtual void encode(OutputStream& out) = 0;
-		virtual bool isLast() const { return false; }
+		Type type() { return type_; }
+
 
 	private:
 		int moduleGroup_;
 		int moduleCode_;
 		int moduleVersion_;
+		Type type_;
 	};
 }
 
