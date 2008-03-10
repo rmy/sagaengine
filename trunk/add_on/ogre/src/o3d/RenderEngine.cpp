@@ -139,7 +139,7 @@ namespace se_ogre {
 	/** Sets up the application - returns false if the user chooses to abandon configuration. */
 	bool RenderEngine
 	::setup(void) {
-		setupResources();
+		setupResources("ogre/resources.cfg");
 
 		bool carryOn = configure();
 		if (!carryOn) return false;
@@ -267,13 +267,14 @@ namespace se_ogre {
 
 	/// Method which will define the source of resources (other than current folder)
 	void RenderEngine
-	::setupResources(void) {
+	::setupResources(const char* file) {
+		LogWarning("Loading resource file: " << file);
 		// Load resource paths from config file
 		ConfigFile cf;
 		Ogre::String dataPath;
 		if(IoSchema::dataPath)
 			dataPath.append(IoSchema::dataPath);
-		cf.load(dataPath + "/ogre/resources.cfg");
+		cf.load(dataPath + file);
 
 		// Go through all sections & settings in the file
 		ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -293,12 +294,40 @@ namespace se_ogre {
 		LogDetail("Initialised resources.");
 	}
 
+	/// Method which will define the source of resources (other than current folder)
+	void RenderEngine
+	::cleanupResources(const char* file) {
+		// Load resource paths from config file
+		ConfigFile cf;
+		Ogre::String dataPath;
+		if(IoSchema::dataPath)
+			dataPath.append(IoSchema::dataPath);
+		cf.load(dataPath + file);
+
+		// Go through all sections & settings in the file
+		ConfigFile::SectionIterator seci = cf.getSectionIterator();
+
+		Ogre::String secName, typeName, archName;
+		while (seci.hasMoreElements()) {			
+			secName = seci.peekNextKey();
+			ConfigFile::SettingsMultiMap *settings = seci.getNext();
+			ConfigFile::SettingsMultiMap::iterator i;
+			for (i = settings->begin(); i != settings->end(); ++i) {
+				typeName = i->first;
+				archName = dataPath + i->second;
+				ResourceGroupManager::getSingleton()
+					.removeResourceLocation(archName, secName);
+			}
+		}
+		LogDetail("Initialised resources.");
+	}
+
 
 	/// Optional override method where you can perform resource group loading
 	/// Must at least do ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	void RenderEngine
 	::loadResources(void) {
-		const char* sections[] = { "bootstrap", "common", "particle", 0 };
+		const char* sections[] = { "bootstrap", "common", 0 };
 		int i = 0;
 		while(sections[i] != 0) {
 			try {
@@ -331,8 +360,10 @@ namespace se_ogre {
 		const char** sec = sections;
 		while(*sec != 0) {
 			try {
-				ResourceGroupManager::getSingleton().initialiseResourceGroup(*sec);
-				//ResourceGroupManager::getSingleton().loadResourceGroup(*sec);
+				Ogre::String s(*sec);
+				ResourceGroupManager::getSingleton().initialiseResourceGroup(s + O3dSchema::textureSetting.ext());
+				ResourceGroupManager::getSingleton().initialiseResourceGroup(s + ".all");
+				LogWarning("Loading textures: " << *sec << O3dSchema::textureSetting.ext());
 			}
 			catch(...) {
 			}
@@ -348,8 +379,11 @@ namespace se_ogre {
 		LogWarning(levelResourceCount_);
 		while(levelResourceCount_ > 0) {
 			const char* sec = levelResources_ [ --levelResourceCount_ ];
-			ResourceGroupManager::getSingleton().unloadResourceGroup(sec);
-			ResourceGroupManager::getSingleton().clearResourceGroup(sec);
+			Ogre::String s(sec);
+			ResourceGroupManager::getSingleton().unloadResourceGroup(s + ".all");
+			ResourceGroupManager::getSingleton().unloadResourceGroup(s + O3dSchema::textureSetting.ext());
+			ResourceGroupManager::getSingleton().clearResourceGroup(s + ".all");
+			ResourceGroupManager::getSingleton().clearResourceGroup(s + O3dSchema::textureSetting.ext());
 		}
 	}
 

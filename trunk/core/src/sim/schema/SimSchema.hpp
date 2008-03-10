@@ -31,6 +31,7 @@ rune@skalden.com
 #include "../spawn/sim_spawn.hpp"
 #include "../area/sim_area.hpp"
 #include "../thing/sim_thing.hpp"
+#include "../setting/SettingManager.hpp"
 #include "util/system/util_system.hpp"
 
 /**
@@ -85,6 +86,8 @@ namespace se_core {
 		 * register your ThingFactory objects here.
 		 */
 		extern _SeCoreExport SpawnManager& spawnManager();
+
+		extern _SeCoreExport SettingManager& settingManager();
 
 		/**
 		 * Manager for init listeners.

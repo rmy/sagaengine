@@ -31,6 +31,7 @@ rune@skalden.com
 #include "../widget/o3d_widget.hpp"
 #include "util/task/util_task.hpp"
 #include "O3dPre.hpp"
+#include "sim/setting/Setting.hpp"
 
 /**
  * The se_ogre add_on module is a gluing layer between SagaEngine and the Ogre 3d enginge (http://www.ogre3d.org/).
@@ -49,7 +50,39 @@ namespace se_ogre {
 
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
 
-		extern _SeOgreExport bool isShadowsEnabled;
+		class TextureSetting : public se_core::Setting {
+		public:
+			TextureSetting() : Setting("Setting.TEXTURE_RESOLUTION", 0, 2) {
+				static const char* values[] = {
+					"Setting.TEXTURE_RES_HIGH",
+					"Setting.TEXTURE_RES_MEDIUM",
+					"Setting.TEXTURE_RES_LOW",
+					0
+				};
+				setValueNames(values);
+			}
+
+			const char* ext() const {
+				static const char* values[] = {
+					".high", ".medium", ".low"
+				};
+				return values[ value() ];
+			}
+		};
+		extern _SeOgreExport TextureSetting textureSetting;
+
+		class ShadowSetting : public se_core::Setting {
+		public:
+			ShadowSetting() : Setting("Setting.SHADOW", 1, 1) {
+				static const char* values[] = {
+					"Setting.SHADOW_OFF",
+					"Setting.SHADOW_ON",
+					0
+				};
+				setValueNames(values);
+			}
+		};
+		extern _SeOgreExport ShadowSetting shadowSetting;
 
 		/**
 		 * The Ogre::Root singleton.

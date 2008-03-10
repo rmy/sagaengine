@@ -29,7 +29,8 @@ rune@skalden.com
 namespace se_core {
 
 	SoundCentral
-	::SoundCentral() : listenerCount_(0), isAmbiencePlaying_(false), ambienceHandler_(0) {
+	::SoundCentral() : listenerCount_(0), isAmbiencePlaying_(false), ambienceHandler_(0)
+		, soundVolume_("Setting.SOUND_VOLUME", 8, 10), musicVolume_("Setting.MUSIC_VOLUME", 8, 10) {
 	}
 
 	SoundCentral
