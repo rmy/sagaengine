@@ -359,14 +359,18 @@ namespace se_ogre {
 
 		const char** sec = sections;
 		while(*sec != 0) {
+			Ogre::String s(*sec);
 			try {
-				Ogre::String s(*sec);
 				ResourceGroupManager::getSingleton().initialiseResourceGroup(s + O3dSchema::textureSetting.ext());
-				ResourceGroupManager::getSingleton().initialiseResourceGroup(s + ".all");
-				LogWarning("Loading textures: " << *sec << O3dSchema::textureSetting.ext());
 			}
 			catch(...) {
 			}
+			try {
+				ResourceGroupManager::getSingleton().initialiseResourceGroup(s + ".all");
+			}
+			catch(...) {
+			}
+			LogWarning("Loading textures: " << *sec << O3dSchema::textureSetting.ext());
 			Assert(levelResourceCount_ < MAX_LEVEL_RESOURCE_SECTIONS);
 			levelResources_[ levelResourceCount_++ ] = *sec;
 			++sec;
@@ -380,10 +384,18 @@ namespace se_ogre {
 		while(levelResourceCount_ > 0) {
 			const char* sec = levelResources_ [ --levelResourceCount_ ];
 			Ogre::String s(sec);
-			ResourceGroupManager::getSingleton().unloadResourceGroup(s + ".all");
-			ResourceGroupManager::getSingleton().unloadResourceGroup(s + O3dSchema::textureSetting.ext());
-			ResourceGroupManager::getSingleton().clearResourceGroup(s + ".all");
-			ResourceGroupManager::getSingleton().clearResourceGroup(s + O3dSchema::textureSetting.ext());
+			try {
+				ResourceGroupManager::getSingleton().unloadResourceGroup(s + ".all");
+				ResourceGroupManager::getSingleton().clearResourceGroup(s + ".all");
+			}
+			catch(...) {
+			}
+			try {
+				ResourceGroupManager::getSingleton().unloadResourceGroup(s + O3dSchema::textureSetting.ext());
+				ResourceGroupManager::getSingleton().clearResourceGroup(s + O3dSchema::textureSetting.ext());
+			}
+			catch(...) {
+			}
 		}
 	}
 
