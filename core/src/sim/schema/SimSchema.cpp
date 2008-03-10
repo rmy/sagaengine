@@ -57,6 +57,10 @@ namespace se_core {
 			return SpawnManager::singleton();
 		}
 
+		SettingManager& settingManager() {
+			return SettingManager::singleton();
+		}
+
 		InitListeners& initListeners() {
 			static InitListeners initListeners;
 			return initListeners;

@@ -141,7 +141,7 @@ namespace se_client {
 			return phrases_[ index ];
 		}
 
-		return 0;
+		return name;
 	}
 
 

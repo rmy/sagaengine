@@ -384,7 +384,7 @@ namespace se_ogre {
 					float b = in.readFloat();
 
 					try {
-						if(O3dSchema::isShadowsEnabled) {
+						if(O3dSchema::shadowSetting.value()) {
 							AssertFatal(O3dSchema::sceneManager,
 								   "SceneManager must be created before setting shadow technique");
 							O3dSchema::sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);

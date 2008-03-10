@@ -105,6 +105,8 @@ namespace se_audiere {
 			return;
 		}
 
+		volume *= (SimSchema::soundCentral.musicVolume() / 100.0f);
+
 		ambience_ = s;
 		ambience_->setRepeat(shouldLoop);
 		ambience_->setVolume(volume);
@@ -154,6 +156,7 @@ namespace se_audiere {
 			LogWarning("Couldn't play sound: " << snd);
 			return;
 		}
+		volume *= (SimSchema::soundCentral.soundVolume() / 100.0f);
 
 		s->setRepeat(shouldLoop);
 		s->setVolume(volume * d);

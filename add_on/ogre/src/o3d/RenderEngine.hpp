@@ -52,6 +52,10 @@ namespace se_ogre {
 		void loadLevelResources(const char** sections);
 		void resetLevelResources();
 
+		/// Method which will define the source of resources
+		/// (other than current folder)
+		void setupResources(const char* file);
+		void cleanupResources(const char* file);
 	protected:
 		/// SagaEngine Utility methods
 		void resetGameClock(void);
@@ -62,9 +66,6 @@ namespace se_ogre {
 		void createInputBridge(void);
 
 
-		/// Method which will define the source of resources
-		/// (other than current folder)
-		void setupResources(void);
 
 		/// Optional override method where you can create resource
 		/// listeners (e.g. for loading screens)

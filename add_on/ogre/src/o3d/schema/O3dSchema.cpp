@@ -60,7 +60,8 @@ namespace se_ogre {
 		RaySceneQuery* raySceneQuery = 0;
 		se_core::TaskList taskList;
 
-		bool isShadowsEnabled = true;
+		TextureSetting textureSetting;
+		ShadowSetting shadowSetting;
 
 		Ogre::Root* root = 0;
 		Ogre::SceneManager* sceneManager = 0;
@@ -168,6 +169,10 @@ namespace se_ogre {
 						overlay->show();
 						Ogre::Root::getSingleton().renderOneFrame();
 						overlay->hide();
+
+						char resFile[128];
+						sprintf(resFile, "ogre/resources%s.cfg", textureSetting.ext());
+						renderEngine->setupResources(resFile);
 					}
 					else {
 						LogWarning("No loading overlay");
@@ -196,6 +201,10 @@ namespace se_ogre {
 				//
 				O3dSchema::renderEngine->resetSkip();
 				O3dSchema::renderEngine->resetLevelResources();
+
+				char buffer[128];
+				sprintf(buffer, "ogre/resources%s.cfg", textureSetting.ext());
+				renderEngine->cleanupResources(buffer);
 
 				// Make WorldManager listen to Ogre render events
 				LogDetail("Remove Ogre frame listener");

@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim_message.hpp"
 #include "../thing/sim_thing.hpp"
+#include "../setting/Setting.hpp"
 
 
 namespace se_core {
@@ -53,12 +54,20 @@ namespace se_core {
 		}
 		void setAmbienceHandler(const char* name);
 
+		int soundVolume() const {
+			return soundVolume_.value() * 10;
+		}
+
+		int musicVolume() const {
+			return musicVolume_.value() * 10;
+		}
 	private:
 		static const int MAX_LISTENERS = 10;
 		SoundListener* listeners[ MAX_LISTENERS ];
 		short listenerCount_;
 		const Ambience* ambienceHandler_;
 		bool isAmbiencePlaying_;
+		Setting soundVolume_, musicVolume_;
 	};
 
 }
