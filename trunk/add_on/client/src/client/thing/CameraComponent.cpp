@@ -59,7 +59,6 @@ namespace se_client {
 	::zoneChanged(int zoneType, Composite* newZone, Composite* oldZone) {
 		if(zoneType == st_AREA && posComponent_ == ClientSchema::camera) {
 			if(newZone) {
-				LogWarning("Zone changed to : " << newZone->name());
 				SimSchema::areaManager.setActive(Area::Ptr(newZone), 2);
 				ZoneAreaComponent::Ptr oZone(oldZone);
 				ZoneAreaComponent::Ptr nZone(newZone);
@@ -72,7 +71,6 @@ namespace se_client {
 				SimSchema::areaManager.resetActive();
 			}
 		}
-
 	}
 
 
