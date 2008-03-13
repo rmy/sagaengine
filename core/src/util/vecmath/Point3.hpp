@@ -112,6 +112,8 @@ namespace se_core {
 			return ((xDist * xDist) + (zDist * zDist));
 		}
 
+		coor_t xzDistance(const Point3& p1) const;
+
 		/**
 		 * Gets the distance between two coordinates along the x or
 		 * the z axis, whichever is longest.

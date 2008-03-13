@@ -54,7 +54,7 @@ namespace se_client {
 
 	private:
 		unsigned short currentLanguage_;
-		static const int MAX_PHRASES = 300;
+		static const int MAX_PHRASES = 1024;
 		unsigned short* languages_;
 		PhraseType* types_;
 		se_core::String** namesC_;

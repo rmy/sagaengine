@@ -89,6 +89,9 @@ namespace se_client {
 
 
 			bool initLevelEvent() {
+				if(ClientSchema::camera) {
+					PhysicsComponent::Ptr(ClientSchema::camera)->nextMove().work_.vp_.setIdentity();
+				}
 				return true;
 			}
 
