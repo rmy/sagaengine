@@ -180,9 +180,14 @@ namespace se_core {
 			return;
 		}
 
-		if(aap.hasAction() && aap.action()->isContinuing(*this, aap.parameter())) {
-			continueAction(when, channel);
-			return;
+		if(aap.hasAction()) {
+			if(aap.action()->isContinuing(*this, aap.parameter())) {
+				continueAction(when, channel);
+				return;
+			}
+			else {
+				aap.action()->cleanup(*this, aap.parameter());
+			}
 		}
 
 		if(!plannedAction_[channel].hasAction()) {

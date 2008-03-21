@@ -128,6 +128,11 @@ namespace se_core {
 			return *this;
 		}
 
+		inline T& operator*() {
+			Assert(!isNull());
+			return *(ptr_->ptr_);
+		}
+
 	private:
 		/**
 		 */

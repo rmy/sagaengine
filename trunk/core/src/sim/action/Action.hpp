@@ -88,6 +88,7 @@ namespace se_core {
 		 * @param parameter parameters specifying how this action should be performed
 		 */
 		virtual void prepare(ActionComponent &performer, Parameter& parameter) const {}
+		virtual void cleanup(ActionComponent &performer, Parameter& parameter) const {}
 
 		virtual bool doPause(ActionComponent &performer, Parameter& parameter) const { return false; }
 		virtual void feedbackEvent(ActionComponent &performer, Parameter& parameter, int type) const {}
@@ -99,7 +100,9 @@ namespace se_core {
 		 * @param performer the param that performs this action
 		 * @param parameter parameters specifying how this action should be performed
 		 */
-		virtual void disrupt(ActionComponent &performer, Parameter& parameter) const {}
+		virtual void disrupt(ActionComponent &performer, Parameter& parameter) const {
+			cleanup(performer, parameter);
+		}
 
 		/**
 		 * Perform the action.

@@ -142,7 +142,9 @@ namespace se_ogre {
 			}
 			break;
 		case OIS::KC_ESCAPE:
-			SimSchema::simEngine.setGameOver(true);
+			//LogWarning("Escaped");
+			//SimSchema::simEngine.setGameOver(true);
+			//SimSchema::simEngine.setGamePaused(true);
 			break;
 		case OIS::KC_SCROLL:
 			O3dSchema::worldManager->flipDebugOverlay();
@@ -228,6 +230,11 @@ namespace se_ogre {
 
 		case OIS::KC_LWIN:
 			O3dSchema::inputManager().setModifier(InputManager::WIN, false);
+			break;
+		case OIS::KC_ESCAPE:
+			LogWarning("Escaped");
+			//SimSchema::simEngine.setGameOver(true);
+			SimSchema::simEngine.setGamePaused(true);
 			break;
 		}
 

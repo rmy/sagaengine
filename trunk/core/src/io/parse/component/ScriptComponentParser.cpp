@@ -58,6 +58,7 @@ namespace se_core {
 				{
 					String scriptName;
 					in.readString(scriptName);
+					LogWarning("Loading script: " << scriptName);
 					factory->pushScript(scriptName.get());
 				}
 				break;
