@@ -64,6 +64,8 @@ namespace se_core {
 		 */
 		virtual void cleanupGameEvent() = 0;
 
+		virtual bool pauseGameEvent() { return true; }
+		virtual void unpauseGameEvent() {}
 
 		virtual bool startGameEvent() { return true; }
 		virtual void stopGameEvent() {}

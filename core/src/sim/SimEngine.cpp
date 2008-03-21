@@ -47,7 +47,9 @@ namespace se_core {
 
 	SimEngine
 	::SimEngine()
-			: previousPerform_(0), multiplePerformsPerStepEnabled_(false)
+			: previousPerform_(0)
+			, isGamePaused_(false)
+			, multiplePerformsPerStepEnabled_(false)
 			, multiplePerformsDisabledOnce_(false)
 			, lostPerformAdjustment_(0) {
 		LogDetail("Creating SimEngine");
@@ -75,6 +77,8 @@ namespace se_core {
 
 	void SimEngine
 	::go() {
+		isGamePaused_ = false;
+
 		//LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (go 1)");
 		SimSchema::initListeners().castStartGameEvent();
 
@@ -119,6 +123,10 @@ namespace se_core {
 				lostPerformAdjustment_ += p - previousPerform_ - 1;
 			previousPerform_ = p - 1;
 			multiplePerformsDisabledOnce_ = false;
+		}
+		if(isGamePaused_ && previousPerform_) {
+			lostPerformAdjustment_ += p - previousPerform_;
+			previousPerform_ = p;
 		}
 
 		// w is the game clock ('when') adjusted for lost performs.
@@ -244,6 +252,27 @@ namespace se_core {
 
 
 	void SimEngine
+	::setGamePaused(bool state) {
+		LogDetail(__FUNCTION__ << ": " << state);
+		LogWarning(__FUNCTION__ << ": " << state << " - " << isGamePaused_);
+		if(!previousPerform_ || state == isGamePaused_) {
+			LogWarning("Hmm");
+			return;
+		}
+		isGamePaused_ = state;
+		LogWarning(__FUNCTION__ << ": " << state << " - " << isGamePaused_);
+		if(isGamePaused_) {
+			LogWarning("Pause");
+			SimSchema::initListeners().castPauseGameEvent();
+		}
+		else {
+			LogWarning("Unpause");
+			SimSchema::initListeners().castUnpauseGameEvent();
+		}
+	}
+
+
+	void SimEngine
 	::cleanupGame() {
 		CompSchema::activeRoot().cleanup(false);
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
@@ -266,6 +295,7 @@ namespace se_core {
 
 	void SimEngine
 	::resetAll() {
+		isGamePaused_ = false;
 		//SimSchema::thingManager.reset();
 		SimSchema::areaManager.resetAll();
 		SimSchema::spawnManager().reset();

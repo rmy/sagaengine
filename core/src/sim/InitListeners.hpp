@@ -29,7 +29,7 @@ rune@skalden.com
 namespace se_core {
 
 	class _SeCoreExport InitListeners {
-		enum { init_PRIORITY_ENGINE, init_ENGINE, init_LEVEL, init_GAME, init_START, init_COUNT };
+		enum { init_PRIORITY_ENGINE, init_ENGINE, init_LEVEL, init_GAME, init_START, init_PAUSE, init_COUNT };
 	public:
 
 		InitListeners()
@@ -162,6 +162,32 @@ namespace se_core {
 				--i;
 				listeners_[ i ]->stopGameEvent();
 			}
+		}
+
+
+		bool castPauseGameEvent() {
+			int &i = nextEngineInit_[ init_PAUSE ];
+			LogWarning("Pause count: " << i);
+			while(i < listenerCount_) {
+				if(!listeners_[ i ]->pauseGameEvent()) {
+					LogFatal("What happened?");
+					castUnpauseGameEvent();
+					return false;
+				}
+				++i;
+			}
+			LogWarning("Pause count: " << i);
+			return true;
+		}
+
+		void castUnpauseGameEvent() {
+			int &i = nextEngineInit_[ init_PAUSE ];
+			LogWarning("Pause count: " << i);
+			while(i > 0) {
+				--i;
+				listeners_[ i ]->unpauseGameEvent();
+			}
+			LogWarning("Pause count: " << i);
 		}
 
 

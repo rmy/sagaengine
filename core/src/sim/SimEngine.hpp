@@ -167,6 +167,7 @@ namespace se_core {
 		 * @param state true, game is over, false, game is not over.
 		 */
 		void setGameOver(bool state);
+		void setGamePaused(bool state);
 
 	protected:
 		/**
@@ -202,6 +203,8 @@ namespace se_core {
 		 * Game over flag.
 		 */
 		bool isGameOver_;
+
+		bool isGamePaused_;
 
 		/**
 		 * If true, the step() method will never perform
