@@ -112,6 +112,7 @@ namespace se_ogre {
 		if(inputBridge_) {
 			inputBridge_->step();
 		}
+		WindowEventUtilities::messagePump();
 	}
 
 
