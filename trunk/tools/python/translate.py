@@ -1,9 +1,10 @@
 #!/usr/local/bin/python
 from Tkinter import *
 
-FROM_LANG = "NO"
-TO_LANG = "FR"
-INPUT_FILES = ( "phrases.txt", "test.txt" )
+FROM_LANG = "EN"
+TO_LANG = "NO"
+OUT_FILE = "phrases." + TO_LANG + ".txt"
+INPUT_FILES = ( "phrases.txt", OUT_FILE )
 
 class ScrolledFrame(Frame):
 
@@ -268,7 +269,7 @@ class Application(Frame):
 
 	def save(self):
 		print "Saving"
-		self.grid.save("test.txt")
+		self.grid.save(OUT_FILE)
 		quit()
 
 root = Tk()
