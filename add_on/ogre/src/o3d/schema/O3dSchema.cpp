@@ -64,6 +64,7 @@ namespace se_ogre {
 		ShadowSetting shadowSetting;
 
 		Ogre::Root* root = 0;
+		Ogre::LogManager* logManager = 0;
 		Ogre::SceneManager* sceneManager = 0;
 		O3dManager* worldManager = 0;
 		Ogre::Root* ogreRoot = 0;
@@ -161,7 +162,7 @@ namespace se_ogre {
 				try {
 					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
 					if(overlay) {
-						wchar_t buffer[512];
+						char buffer[512];
 						if(SpeechBubble::translate("Info.LOADING", buffer)) {
 							Ogre::OverlayElement* txt = Ogre::OverlayManager::getSingleton().getOverlayElement("Core/LoadingText");
 							txt->setCaption(buffer);

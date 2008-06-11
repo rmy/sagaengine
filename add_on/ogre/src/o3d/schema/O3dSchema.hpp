@@ -88,6 +88,12 @@ namespace se_ogre {
 		 * The Ogre::Root singleton.
 		 */
 		extern _SeOgreExport Ogre::Root* root;
+
+		/**
+		 * The Ogre::LogManager singleton.
+		 */
+		extern _SeOgreExport Ogre::LogManager* logManager;
+
 		/**
 		 * The Ogre::SceneManager singleton.
 		  */

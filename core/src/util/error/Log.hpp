@@ -89,7 +89,7 @@ namespace se_err {
 	};
 }
 
-#ifdef DEBUG_LEVEL_2
+#if defined DEBUG_LEVEL_2 & defined SE_INTERNAL
 
 #ifndef IS_OGRE
 void * operator new (size_t size, char const * file, int line);
@@ -123,7 +123,7 @@ namespace se_err {
 
 
 
-#ifdef DEBUG_LEVEL_1
+#if defined DEBUG_LEVEL_1 & defined SE_INTERNAL
 
 #define Assert(b) if(!(b)) { se_err::scream3(__FILE__, __LINE__, # b); }
 #define AssertFatal(b, msg) if(!(b)) { (se_err::Log::singleton().file(__FILE__, __LINE__) << (# b) << (" ") << msg ).scream(); }

@@ -54,10 +54,19 @@ namespace se_ogre {
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
 			: inputBridge_(0), levelResourceCount_(0), skip_(0) {
-#ifndef _DEBUG
-		O3dSchema::root = new Root("plugins.cfg", "ogre.cfg", "Ogre.log");
+		if(!O3dSchema::logManager) {
+			O3dSchema::logManager = new LogManager();
+#ifdef SE_INTERNAL
+			LogManager::getSingleton().createLog("Ogre.log", true, true, false);
 #else
-		O3dSchema::root = new Root("plugins_d.cfg", "ogre.cfg", "Ogre.log");
+			LogManager::getSingleton().createLog("Ogre.log", true, false, true);
+			Ogre::LogManager::getSingleton().setLogDetail(Ogre::LL_LOW);
+#endif
+		}
+#ifndef _DEBUG
+		O3dSchema::root = new Root("plugins.cfg", "ogre.cfg");
+#else
+		O3dSchema::root = new Root("plugins_d.cfg", "ogre.cfg");
 #endif
 		LogDetail("Created Ogre root");
 
