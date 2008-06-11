@@ -160,6 +160,7 @@ namespace se_core {
 		 * @return true, game is over, false, game is not over.
 		 */
 		bool isGameOver() { return isGameOver_; }
+		bool isGamePaused() { return isGamePaused_; }
 
 		/**
 		 * Set the game over flag

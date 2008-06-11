@@ -69,7 +69,7 @@ namespace se_ogre {
 			below()->mouseReleased(e, button);
 		}
 
-		static bool translate(const char* messageName, wchar_t* buffer);
+		static bool translate(const char* messageName, char* buffer);
 		void grabbedFocusEvent();
 		void lostFocusEvent();
 

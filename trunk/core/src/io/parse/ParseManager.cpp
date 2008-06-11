@@ -76,7 +76,7 @@ namespace se_core {
 				return true;
 			}
 		}
-		LogWarning("The file '" << in.name() << "' had unsupported header name.");
+		LogWarning("The file '" << in.name() << "' had unsupported header name: " << headerCode);
 		return false;
 	}
 

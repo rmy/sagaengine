@@ -69,7 +69,7 @@ namespace se_client {
 				break;
 
 			default:
-				LogFatal((sprintf(log_msg(), "Unkown info code %c in \"%s\"", code, in.name()), log_msg()));
+				LogFatal("Unkown info code " << code << " in " << in.name());
 			}
 		}
 	}

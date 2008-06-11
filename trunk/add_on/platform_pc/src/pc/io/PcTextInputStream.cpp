@@ -106,6 +106,11 @@ namespace se_pc {
 
 	unsigned int PcTextInputStream
 	::readHeaderCode() {
+		// Skip unicode byte order mark (BOM)
+		if((unsigned char)fileContents_[bufferIndex_] == 0xef) {
+			LogWarning("Skipping unicode BOM");
+			bufferIndex_ += 3;
+		}
 		unsigned int code =((unsigned char)fileContents_[bufferIndex_++] << 24);
 		code+=((unsigned char)fileContents_[bufferIndex_++] << 16);
 		code+=((unsigned char)fileContents_[bufferIndex_++] <<  8);

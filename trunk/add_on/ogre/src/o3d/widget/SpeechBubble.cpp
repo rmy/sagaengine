@@ -91,7 +91,7 @@ namespace se_ogre {
 			return;
 		}
 
-		wchar_t buffer[512];
+		char buffer[512];
 		LogDetail("Info: " << messageName);
 		bool hadTranslation = translate(messageName, buffer);
 		try {
@@ -107,8 +107,9 @@ namespace se_ogre {
 	}
 
 
+
 	bool SpeechBubble
-	::translate(const char* messageName, wchar_t* buffer) {
+	::translate(const char* messageName, char* buffer) {
 		const char* message = ClientSchema::phrases().getPhrase(Phrase::SPEECH, messageName);
 
 		if(!message)
@@ -165,7 +166,7 @@ namespace se_ogre {
 			StatComponent::Ptr(ClientSchema::floatingCamera)->setTarget(speaker_->owner());
 		}
 		speaker_ = &speaker;
-		wchar_t buffer[512];
+		char buffer[512];
 		bool hadTranslation = translate(messageName, buffer);
 		try {
 			if(hadTranslation)
