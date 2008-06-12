@@ -52,6 +52,7 @@ namespace se_core {
 
 	void SignalComponent
 	::setDead() {
+		LogDetail("Set dead with signal id: " << sendId_ << " - " << owner()->name());
 		if(sendId_ >= 0)
 			send(true);
 	}
@@ -65,6 +66,7 @@ namespace se_core {
 
 		if(parent()) {
 			SignalAreaComponent* areaSignal = SignalAreaComponent::get(*parent());
+			LogDetail("Sending signal state: " << sendId_ << " - " << sendState_ << ": " << owner()->name());
 			areaSignal->setSignalActive(sendId_, sendState_);
 		}
 		return true;
@@ -91,10 +93,12 @@ namespace se_core {
 		if(oldArea && !sendState_ && sendId_ >= 0) {
 			SignalAreaComponent::Ptr oAreaSignal(*oldArea);
 			oAreaSignal->setSignalActive(sendId_, sendState_);
+			LogDetail("Leave area signal state: " << sendId_ << " - " << sendState_ << ": " << owner()->name());
 		}
 		if(newArea && !sendState_ && sendId_ >= 0) {
 			SignalAreaComponent::Ptr nAreaSignal(*newArea);
 			nAreaSignal->setSignalActive(sendId_, sendState_);
+			LogDetail("Enter area signal state: " << sendId_ << " - " << sendState_ << ": " << owner()->name());
 		}
 
 		if(newArea) {

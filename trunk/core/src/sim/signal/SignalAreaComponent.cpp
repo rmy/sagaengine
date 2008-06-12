@@ -104,6 +104,7 @@ namespace se_core {
 			++inactiveSignals_[id];
 		}
 		Assert(inactiveSignals_[id] >= 0);
+		LogDetail("Set signal state: " << id << " = " << state << ": " << inactiveSignals_[id] << " - " << owner()->name());
 	}
 
 
