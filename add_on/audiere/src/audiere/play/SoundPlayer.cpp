@@ -170,7 +170,7 @@ namespace se_audiere {
 
 		// TODO: Load path from datapath.txt
 		const char* dirname = IoSchema::dataPath;
-		sprintf(buffer, "%s/fmod/media/%s", dirname, filename);
+		sprintf(buffer, "%s/snd/media/%s", dirname, filename);
 
 		audiere::OutputStreamPtr snd(OpenSound(system_, buffer, shouldLoad));
 		AssertWarning(snd, "Couldn't load sound: " << buffer);
