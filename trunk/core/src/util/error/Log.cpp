@@ -211,7 +211,10 @@ namespace se_err {
 
 	Log& Log
 	::operator << (const se_core::String* s) {
-		copy(s->get());
+		if(!s) 
+			copy("(null)");
+		else
+			copy(s->get());
 		return *this;
 	}
 

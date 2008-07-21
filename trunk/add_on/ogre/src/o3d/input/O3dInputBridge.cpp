@@ -233,8 +233,11 @@ namespace se_ogre {
 			break;
 		case OIS::KC_ESCAPE:
 			LogWarning("Escaped");
-			//SimSchema::simEngine.setGameOver(true);
+#			ifdef SE_INTERNAL
+			SimSchema::simEngine.setGameOver(true);
+#			else
 			SimSchema::simEngine.setGamePaused(true);
+#			endif
 			break;
 		}
 

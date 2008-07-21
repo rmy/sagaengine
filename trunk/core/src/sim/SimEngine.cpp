@@ -253,10 +253,9 @@ namespace se_core {
 
 	void SimEngine
 	::setGamePaused(bool state) {
-		LogDetail(__FUNCTION__ << ": " << state);
 		LogWarning(__FUNCTION__ << ": " << state << " - " << isGamePaused_);
 		if(!previousPerform_ || state == isGamePaused_) {
-			LogWarning("Hmm");
+			LogWarning("Game not started or already paused.");
 			return;
 		}
 		isGamePaused_ = state;
