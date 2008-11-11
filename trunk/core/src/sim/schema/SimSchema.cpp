@@ -99,6 +99,8 @@ namespace se_core {
 		bool didTrack = false;
 		int speechCount = 0;
 
+		int skill = 0;
+
 
 		bool init(const char* applicationName) {
 			appName = applicationName;

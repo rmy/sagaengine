@@ -48,7 +48,7 @@ namespace se_editor {
 				ph->popPhysics();
 
 				char filename[256];
-				sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, aSpawn->owner()->name());
+				sprintf(filename, "%s/logic/area/skill_%d/thing/%s_things.txt", IoSchema::dataPath, SimSchema::skill, aSpawn->owner()->name());
 				FILE* out = fopen(filename, "r+t");
 				if(out) {
 					fclose(out);

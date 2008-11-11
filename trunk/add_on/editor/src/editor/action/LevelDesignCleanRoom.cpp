@@ -38,9 +38,9 @@ namespace se_editor {
 
 		char oldname[256];
 		char newname[256];
-		sprintf(oldname, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, aPos->owner()->name());
+		sprintf(oldname, "%s/logic/area/skill_%d/thing/%s_things.txt", IoSchema::dataPath, SimSchema::skill, aPos->owner()->name());
 		for(int i = 0; i < 256; ++i) {
-			sprintf(newname, "%s/logic/area/thing/%s_things.txt.%d", IoSchema::dataPath, aPos->owner()->name(), i);
+			sprintf(newname, "%s/logic/area/skill_%d/thing/%s_things.txt.%d", IoSchema::dataPath, SimSchema::skill, aPos->owner()->name(), i);
 			FILE* in = fopen(newname, "r");
 			if(in) {
 				fclose(in);

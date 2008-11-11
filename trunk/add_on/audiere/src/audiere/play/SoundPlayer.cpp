@@ -141,11 +141,11 @@ namespace se_audiere {
 		coor_t d = sp.nextPos().worldCoor().distance(se_client::ClientSchema::player->nextPos().worldCoor());
 		if(d > 32)
 			return;
-		if(d < .5f) { 
+		if(d < 1) { 
 			d = 1;
 		}
 		else {
-			d = .5f / d;
+			d = .3f + .7f / d;
 		}
 
 		LogDetail(sp.owner()->name() << " says " << snd << ": " << sp.nextPos().worldCoor());
@@ -157,6 +157,7 @@ namespace se_audiere {
 			return;
 		}
 		volume *= (SimSchema::soundCentral.soundVolume() / 100.0f);
+		LogDetail("Sound volume: " << SimSchema::soundCentral.soundVolume() << " - " << d);
 
 		s->setRepeat(shouldLoop);
 		s->setVolume(volume * d);
@@ -168,7 +169,6 @@ namespace se_audiere {
 	::loadSound(const char* filename, bool shouldLoad) {
 		char buffer[256];
 
-		// TODO: Load path from datapath.txt
 		const char* dirname = IoSchema::dataPath;
 		sprintf(buffer, "%s/snd/media/%s", dirname, filename);
 

@@ -175,6 +175,9 @@ namespace se_core {
 		extern _SeCoreExport int scriptTracker;
 		extern _SeCoreExport bool didTrack;
 		extern _SeCoreExport int speechCount;
+		/* Present skill level chosen by the player. Default is 0.
+		 */
+		extern _SeCoreExport int skill;
 
 		/** Force linking of dependencies */
 		void _SeCoreExport touch();

@@ -65,7 +65,7 @@ namespace se_editor {
 			c.owner()->scheduleForDestruction();
 		}
 		char buffer[256];
-		sprintf(buffer, "logic/area/thing/%s", owner()->name());
+		sprintf(buffer, "logic/area/skill_%d/thing/%s", SimSchema::skill, owner()->name());
 		IoSchema::fileManager->loadDirectory(buffer);
 
 		for(int i = 0; i < 10; ++i) {
@@ -98,7 +98,7 @@ namespace se_editor {
 			c.owner()->scheduleForDestruction();
 		}
 		char buffer[256];
-		sprintf(buffer, "logic/area/thing/%s", owner()->name());
+		sprintf(buffer, "logic/area/skill_%d/thing/%s", SimSchema::skill, owner()->name());
 		IoSchema::fileManager->loadDirectory(buffer);
 	}
 
@@ -111,13 +111,13 @@ namespace se_editor {
 		String name(owner()->name());
 		char filename[256];
 		char buffer[256];
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, areaName);
+		sprintf(filename, "%s/logic/area/skill_%d/thing/%s_things.txt", IoSchema::dataPath, SimSchema::skill, areaName);
 		FILE* in = fopen(filename, "rt");
 		if(in) {
 			fgets(buffer, 256, in);
 			fgets(buffer, 256, in);
 
-			sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, owner()->name());
+			sprintf(filename, "%s/logic/area/skill_%d/thing/%s_things.txt", IoSchema::dataPath, SimSchema::skill, owner()->name());
 			FILE* out = fopen(filename, "wt");
 			fprintf(out, "XB01\nD %s\n", name.ext('/'));
 			//fprintf(out, "XB01\nN %s\n", owner()->name());
@@ -137,7 +137,7 @@ namespace se_editor {
 	::save() {
 		String name(owner()->name());
 		char filename[256];
-		sprintf(filename, "%s/logic/area/thing/%s_things.tmp.txt", IoSchema::dataPath, owner()->name());
+		sprintf(filename, "%s/logic/area/skill_%d/thing/%s_things.tmp.txt", IoSchema::dataPath, SimSchema::skill, owner()->name());
 		FILE* out = fopen(filename, "rt");
 		if(out) {
 			fclose(out);
@@ -162,7 +162,7 @@ namespace se_editor {
 	::save(const char* areaName) {
 		char filename[256];
 		String name(areaName);
-		sprintf(filename, "%s/logic/area/thing/%s_things.txt", IoSchema::dataPath, areaName);
+		sprintf(filename, "%s/logic/area/skill_%d/thing/%s_things.txt", IoSchema::dataPath, SimSchema::skill, areaName);
 		FILE* out = fopen(filename, "wt");
 		fprintf(out, "XB01\nD %s\n", name.ext('/'));
 
@@ -179,7 +179,7 @@ namespace se_editor {
 		}
 		fclose(out);
 
-		sprintf(filename, "%s/logic/area/thing/%s_entrances.txt", IoSchema::dataPath, areaName);
+		sprintf(filename, "%s/logic/area/skill_%d/thing/%s_entrances.txt", IoSchema::dataPath, SimSchema::skill, areaName);
 		out = fopen(filename, "wt");
 		fprintf(out, "XB01\nD %s\n", name.ext('/'));
 		for(int i = 0; i < 10; ++i) {
