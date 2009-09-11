@@ -238,8 +238,33 @@ namespace se_ogre {
 		// settings if you were sure there are valid ones saved in ogre.cfg
 		if(O3dSchema::root->restoreConfig()) {
 			LogDetail("Loaded config");
-			O3dSchema::window = O3dSchema::root->initialise(true);
-			return (O3dSchema::window != 0);
+			try {
+				O3dSchema::window = O3dSchema::root->initialise(true);
+			}
+			catch(...) {
+			}
+			if(O3dSchema::window != 0)
+				return true;
+		}
+
+		try {
+			std::ifstream ifs("ogre.default.cfg", std::ios::binary);
+			std::ofstream ofs("ogre.cfg", std::ios::binary);
+
+			ofs << ifs.rdbuf();
+		}
+		catch(...) {
+		}
+
+		if(O3dSchema::root->restoreConfig()) {
+			LogDetail("Loaded config");
+			try {
+				O3dSchema::window = O3dSchema::root->initialise(true);
+			}
+			catch(...) {
+			}
+			if(O3dSchema::window != 0)
+				return true;
 		}
 
 		bool gotConfig = false;
