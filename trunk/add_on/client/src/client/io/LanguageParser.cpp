@@ -45,7 +45,7 @@ namespace se_client {
 
 		int code = 'X';
 		while((code = in.readInfoCode()) != 'Q') {
-			//printf("Code: %c\n", code);
+			LogDetail("Code: " << ((char)code));
 			switch(code) {
 			case 'S': 
 				{
@@ -65,6 +65,7 @@ namespace se_client {
 					label = new String();
 					in.readString(*label);
 					ClientSchema::phrases().addPhrase(language, static_cast<Phrase::PhraseType>(phraseType), name, label);
+					LogDetail("L" << name);
 				}
 				break;
 
