@@ -196,6 +196,15 @@ namespace se_pc {
 
 
 	int PcFileManager
+	::findFile(const char* filename) const {
+		for(int i = 0; i < fileCount_; ++i) {
+			if(strcmp(filename, files_[i]->get()) == 0) return i;
+		}
+		return -1;
+	}
+
+
+	int PcFileManager
 	::fileCount() const {
 		return fileCount_;
 	}
@@ -228,6 +237,24 @@ namespace se_pc {
 	::addFile(String* filename) {
 		Assert(fileCount_ < MAX_FILE_COUNT - 1);
 		files_[ fileCount_++ ] = filename;
+	}
+
+
+	void PcFileManager
+	::removeFile(const char* filename) {
+		Assert(fileCount_ > 0);
+		int id = findFile(filename);
+		if(id < 0)
+			return;
+
+		char src[512];
+		sprintf(src, "%s/%s", directory_, filename);
+		char dest[512];
+		sprintf(dest, "%s/%s.bak", directory_, filename);
+		remove(dest);
+		rename(src, dest);
+
+		files_[ id ] = files_[ --fileCount_ ];		
 	}
 
 }

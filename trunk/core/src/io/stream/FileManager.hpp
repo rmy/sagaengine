@@ -53,6 +53,7 @@ namespace se_core {
 		void load(const char* filename);
 		void save(const char* filename);
 		virtual bool exists(const char* filename) const = 0;
+		virtual void removeFile(const char* filename) = 0;
 
 		/**
 		 * Load and parse all the files in this

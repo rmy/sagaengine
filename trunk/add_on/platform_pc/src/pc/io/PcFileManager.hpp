@@ -48,8 +48,10 @@ namespace se_pc {
 		static bool isBinaryFile(const char* filename);
 		static bool isTextFile(const char* filename);
 		bool exists(const char* filename) const;
+		void removeFile(const char* filename);
 
 	private:
+		int findFile(const char* filename) const;
 		void addFile(se_core::String* filename);
 
 		const char* directory_;
