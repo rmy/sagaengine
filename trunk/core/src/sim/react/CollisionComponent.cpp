@@ -178,8 +178,14 @@ namespace se_core {
 		areaCovered().center(newPos);
 
 		CollisionAreaComponent* const cac = static_cast<CollisionAreaComponent*>(parent_);
-		Assert(cac->collisionGrid());
-		cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *this);
+		if(cac && cac->collisionGrid()) {
+			cac->collisionGrid()->move(oldPos, oldRadius, newPos, newRadius, *this);
+		}
+		else {
+			// Workaround for crash while blobbing and jumping through door
+			LogWarning("No collision grid for: " << owner()->name());
+			owner()->scheduleForDestruction();
+		}
 
 	}
 
