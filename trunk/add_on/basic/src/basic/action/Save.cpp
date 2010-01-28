@@ -41,6 +41,7 @@ namespace se_basic {
 		LogWarning("Starting Save");
 		IoSchema::fileManager->save(IoSchema::saveName);
 		LogWarning("Finished Save");
+		Actor::Ptr(perf)->sound(perf.name());
 		Actor::Ptr(perf)->say("GAME_SAVED");
 	}
 
