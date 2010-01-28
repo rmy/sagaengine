@@ -21,6 +21,8 @@ rune@skalden.com
 
 #include "Action.hpp"
 #include "../schema/SimSchema.hpp"
+#include "../thing/Actor.hpp"
+#include <cstdio>
 
 
 namespace se_core {
@@ -28,6 +30,14 @@ namespace se_core {
 	Action
 	::Action(const char* name) : Object(got_ACTION, name) {
 		//registerInSortedList();
+	}
+
+
+	void Action
+	::sound(ActionComponent &performer) const {
+		char s[256];
+		sprintf(s, "%s.%s", performer.name(), name());
+		Actor::Ptr(performer)->sound(s);
 	}
 
 }
