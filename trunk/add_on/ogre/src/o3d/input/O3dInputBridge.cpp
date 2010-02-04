@@ -136,6 +136,10 @@ namespace se_ogre {
 		// Tab flips focus on console
 		LogDetail("Key: " << e.key);
 		switch(e.key) {
+#ifdef SE_INTERNAL
+		case OIS::KC_SCROLL:
+			O3dSchema::worldManager->flipDebugOverlay();
+			break;
 		case OIS::KC_HOME:
 			if(O3dSchema::console) {
 				O3dSchema::console->flipFocus();
@@ -145,9 +149,6 @@ namespace se_ogre {
 			//LogWarning("Escaped");
 			//SimSchema::simEngine.setGameOver(true);
 			//SimSchema::simEngine.setGamePaused(true);
-			break;
-		case OIS::KC_SCROLL:
-			O3dSchema::worldManager->flipDebugOverlay();
 			break;
 		case OIS::KC_PAUSE:
 			{
@@ -163,6 +164,7 @@ namespace se_ogre {
 				O3dSchema::playerCamera->setPolygonMode(mode);
 			}
 			break;
+#endif
 
 		case OIS::KC_LSHIFT:
 			O3dSchema::inputManager().setModifier(InputManager::LSHIFT, true);
