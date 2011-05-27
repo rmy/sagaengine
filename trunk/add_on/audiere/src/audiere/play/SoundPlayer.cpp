@@ -139,7 +139,7 @@ namespace se_audiere {
 	::soundEvent(Actor& sp, const char* snd) {
 		//PosComponent& speaker = *(PosComponent::Ptr(sp));
 		coor_t d = sp.nextPos().worldCoor().distance(se_client::ClientSchema::player->nextPos().worldCoor());
-		if(d > 32)
+		if(d > 40)
 			return;
 		if(d < 1) { 
 			d = 1;
