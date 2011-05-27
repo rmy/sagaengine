@@ -235,7 +235,7 @@ namespace se_core {
 		Assert(currentScript_ >= 0);
 		const Script* s = scriptStack_[0];
 		Assert(s);
-		s->touched(*this, scriptData(), param);
+		s->touched(*this, scriptData_[0], param);
 	}
 
 
