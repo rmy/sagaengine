@@ -66,6 +66,7 @@ namespace se_ogre {
 		keyboard_->setEventCallback(this);
 		mouse_ = static_cast<OIS::Mouse*>(inputManager_->createInputObject( OIS::OISMouse, bufferedMouse ));
 		mouse_->setEventCallback(this);
+#ifdef SUPPORT_JOY
 		try
 		{
 			joy_ = static_cast<OIS::JoyStick*>(inputManager_->createInputObject( OIS::OISJoyStick, bufferedJoy ));
@@ -77,18 +78,22 @@ namespace se_ogre {
 			LogWarning(e.eText);
 			joy_ = 0;
 		}
+#endif
 	}
 
 
 	O3dInputBridge
 	::~O3dInputBridge() {
+#ifdef SUPPORT_JOY
 		inputManager_->destroyInputObject( joy_ );
+#endif
 		//delete eventProcessor_;
 	}
 
 
 	void O3dInputBridge
 	::step() {
+#ifdef SUPPORT_JOY
 		if(joy_) {
 			joy_->capture();
 
@@ -122,6 +127,7 @@ namespace se_ogre {
 			}
 
 		}
+#endif
 		if(keyboard_) {
 			keyboard_->capture();
 		}

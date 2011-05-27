@@ -49,7 +49,6 @@ namespace se_ogre {
 		// Create entity
 		entity_ = O3dSchema::sceneManager->createEntity(name, "cylinder.mesh");
 		node_->attachObject(entity_);
-		entity_->setNormaliseNormals(true);
 		entity_->setCastShadows(false);
 
 		// Get default material, if one

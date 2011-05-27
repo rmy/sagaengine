@@ -54,7 +54,6 @@ namespace se_ogre {
 		Ogre::MovableObject* mo = O3dSchema::sceneManager->createMovableObject(name, Ogre::EntityFactory::FACTORY_TYPE_NAME, &info_.params_);
 		node_->attachObject(mo);
 		entity_ = static_cast<Ogre::Entity*>(mo);
-		entity_->setNormaliseNormals(true);
 		entity_->setCastShadows(info.isShadowCaster_);
 		if(entity_->hasSkeleton()) {
 			entity_->getSkeleton()->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);

@@ -206,7 +206,6 @@ namespace se_ogre {
 		}
 		else {
 			entity = O3dSchema::sceneManager->createEntity(name, type + ".mesh");
-			entity->setNormaliseNormals(true);
 		}
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
 
@@ -219,7 +218,6 @@ namespace se_ogre {
 		}
 		else {
 			entity = O3dSchema::sceneManager->createEntity(name, type + ".mesh");
-			entity->setNormaliseNormals(true);
 		}
 		entity->setMaterialName("Basic/NavMesh");
 		sg->addEntity(entity, offset_, Ogre::Quaternion::IDENTITY, Ogre::Vector3(1, 1, 1));
@@ -244,7 +242,6 @@ namespace se_ogre {
 				Ogre::MovableObject* mo
 					= O3dSchema::sceneManager->createMovableObject(thing.name(), Ogre::EntityFactory::FACTORY_TYPE_NAME, &info->params_);
 				entity = static_cast<Ogre::Entity*>(mo);
-				entity->setNormaliseNormals(true);
 			}
 
 
