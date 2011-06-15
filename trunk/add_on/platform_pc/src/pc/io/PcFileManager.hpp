@@ -35,7 +35,8 @@ namespace se_pc {
 		bool addFileIfExists(const char* filename);
 		void clear();
 
-		void loadDatapath(const char* dataPathFile);
+		void loadDataPath(const char* dataPathFile);
+		void initSavePath();
 
 		se_core::InputStream* open(const char* filename);
 		void close(se_core::InputStream*& is);
@@ -50,11 +51,16 @@ namespace se_pc {
 		bool exists(const char* filename) const;
 		void removeFile(const char* filename);
 
+		static const int MAX_PATH_LENGTH = 1024;
+
 	private:
 		int findFile(const char* filename) const;
 		void addFile(se_core::String* filename);
 
-		const char* directory_;
+		const char* directory(const char* filename) const;
+
+		const char* dataDirectory_;
+		char saveDirectory_[MAX_PATH_LENGTH];
 		short fileCount_;
 		static const short MAX_FILE_COUNT = 4096;
 		se_core::String* files_[ MAX_FILE_COUNT ];
