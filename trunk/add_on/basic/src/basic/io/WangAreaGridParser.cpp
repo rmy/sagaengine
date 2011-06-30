@@ -78,7 +78,9 @@ namespace se_basic {
 				{
 					String tmp;
 					in.readString(tmp);
+#ifdef SE_SAVE_GRID
 					grid.save(tmp.get());
+#endif
 					break;
 				}
 			}

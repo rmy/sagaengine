@@ -32,6 +32,7 @@ rune@skalden.com
 #include <shlobj.h>
 #include <windows.h>
 
+
 using namespace se_core;
 
 
@@ -61,6 +62,14 @@ namespace se_pc {
 		sprintf(subDir, "%s\\%s", saveDirectory_, "save");
 		CreateDirectory(subDir, NULL);
 	}
+
+
+	const char* PcFileManager
+	::savePath(char* dest, const char* filename) {
+		sprintf(dest, "%s\\%s", saveDirectory_, filename);
+		return dest;
+	}
+
 
 	void PcFileManager
 	::loadDataPath(const char* dataPathFile) {

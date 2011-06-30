@@ -38,6 +38,8 @@ namespace se_pc {
 		void loadDataPath(const char* dataPathFile);
 		void initSavePath();
 
+		const char* savePath(char* dest, const char* filename);
+
 		se_core::InputStream* open(const char* filename);
 		void close(se_core::InputStream*& is);
 

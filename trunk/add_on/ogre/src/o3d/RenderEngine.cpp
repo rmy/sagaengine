@@ -32,6 +32,7 @@ rune@skalden.com
 #include "./thing/ThingEntity.hpp"
 #include "./widget/all.hpp"
 #include "./io/all.hpp"
+#include "./io/stream/FileManager.hpp"
 #include "util/task/TaskList.hpp"
 #include <OgreRoot.h>
 #include <OgreRenderSystem.h>
@@ -54,19 +55,22 @@ namespace se_ogre {
 	RenderEngine
 	::RenderEngine(se_ogre::ConsoleHandler* consoleHandler)
 			: inputBridge_(0), levelResourceCount_(0), skip_(0) {
+		IoSchema::fileManager->savePath(configPath_, "ogre.cfg");
+		IoSchema::fileManager->savePath(logPath_, "ogre.log");
+
 		if(!O3dSchema::logManager) {
 			O3dSchema::logManager = new LogManager();
 #ifdef SE_INTERNAL
-			LogManager::getSingleton().createLog("Ogre.log", true, true, false);
+			LogManager::getSingleton().createLog(logPath_, true, true, false);
 #else
-			LogManager::getSingleton().createLog("Ogre.log", true, false, true);
+			LogManager::getSingleton().createLog(logPath_, true, false, true);
 			Ogre::LogManager::getSingleton().setLogDetail(Ogre::LL_LOW);
 #endif
 		}
 #ifndef _DEBUG
-		O3dSchema::root = new Root("plugins.cfg", "ogre.cfg");
+		O3dSchema::root = new Root("plugins.cfg", configPath_);
 #else
-		O3dSchema::root = new Root("plugins_d.cfg", "ogre.cfg");
+		O3dSchema::root = new Root("plugins_d.cfg", configPath_);
 #endif
 		LogDetail("Created Ogre root");
 
@@ -249,9 +253,11 @@ namespace se_ogre {
 
 		try {
 			std::ifstream ifs("ogre.default.cfg", std::ios::binary);
-			std::ofstream ofs("ogre.cfg", std::ios::binary);
+			std::ofstream ofs(configPath_, std::ios::binary);
 
 			ofs << ifs.rdbuf();
+			ofs.close();
+			ifs.close();
 		}
 		catch(...) {
 		}
