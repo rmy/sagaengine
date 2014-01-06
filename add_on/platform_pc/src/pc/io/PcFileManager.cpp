@@ -35,6 +35,9 @@ rune@skalden.com
  #include <windows.h>
 #endif
 #ifdef linux
+ #include <unistd.h>
+ #include <pwd.h>
+ #include <sys/stat.h>
 #endif
 
 
@@ -68,22 +71,33 @@ namespace se_pc {
 		sprintf(subDir, "%s\\%s", saveDirectory_, "save");
 		CreateDirectory(subDir, NULL);
 	}
-#endif
-
-#ifdef linux
-	void PcFileManager
-	::initSavePath() {
-	  // TODO:
-	  sprintf(saveDirectory_, "%s/%s", "/tmp", "Tootinis");
-	}
-#endif
-
 
 	const char* PcFileManager
 	::savePath(char* dest, const char* filename) {
 		sprintf(dest, "%s\\%s", saveDirectory_, filename);
 		return dest;
 	}
+
+
+#endif
+
+#ifdef linux
+	void PcFileManager
+	::initSavePath() {
+		struct passwd *pw = getpwuid(getuid());
+		const char *homeDir = pw->pw_dir;
+		sprintf(saveDirectory_, "%s/%s", homeDir, ".tootinis");
+		mkdir(saveDirectory_, 0777);
+	}
+
+	const char* PcFileManager
+	::savePath(char* dest, const char* filename) {
+		sprintf(dest, "%s/%s", saveDirectory_, filename);
+		return dest;
+	}
+
+
+#endif
 
 
 	void PcFileManager
