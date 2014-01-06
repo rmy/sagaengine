@@ -39,6 +39,7 @@ namespace se_client {
 		const char *getPhrase(PhraseType type, const char* name);
 		void setLanguage(unsigned short language);
 		void clampToSupportedLanguage();
+		bool isSupportedLanguage();
 		static unsigned short languageId(const char* language);
 		static short typeIdOfName(const char* name);
 

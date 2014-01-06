@@ -28,7 +28,7 @@ rune@skalden.com
 namespace se_core {
 
 	MessageCentral
-	::MessageCentral() : listenerCount(0) {
+	::MessageCentral() : isMonologueActive_(false), listenerCount(0) {
 	}
 
 	MessageCentral
@@ -71,6 +71,7 @@ namespace se_core {
 
 	void MessageCentral
 	::startMonologue(Actor& speaker) {
+		isMonologueActive_ = true;
 		for(int i = 0; i < listenerCount; ++i) {
 			listeners[ i ]->startMonologueEvent(speaker);
 		}
@@ -79,6 +80,7 @@ namespace se_core {
 
 	void MessageCentral
 	::stopMonologue(Actor& speaker) {
+		isMonologueActive_ = false;
 		for(int i = 0; i < listenerCount; ++i) {
 			listeners[ i ]->stopMonologueEvent(speaker);
 		}

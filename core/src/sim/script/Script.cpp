@@ -35,6 +35,7 @@ namespace se_core {
 	ScriptData
 	::ScriptData() {
 		DebugExec(++refCount);
+		initCheck_ = INIT_CHECK_VALUE;
 	}
 
 	ScriptData

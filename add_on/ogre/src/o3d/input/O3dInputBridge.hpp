@@ -67,7 +67,9 @@ namespace se_ogre {
 		//
 		OIS::Mouse* mouse_;
 		OIS::Keyboard* keyboard_;
+#ifdef SUPPORT_JOY
 		OIS::JoyStick* joy_;
+#endif
 
 		int oldJoyButtons_;
 

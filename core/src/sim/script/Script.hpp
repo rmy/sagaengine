@@ -35,9 +35,15 @@ namespace se_core {
 	public:
 		ScriptData();
 		virtual ~ScriptData();
+		bool isInitialized() {
+		  return initCheck_ == INIT_CHECK_VALUE;
+		}
 
 	public:
 		DebugExec(static int refCount);
+	private:
+		static const unsigned int INIT_CHECK_VALUE = 0xacba;
+		unsigned int initCheck_;
 	};
 
 

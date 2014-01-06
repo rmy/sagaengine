@@ -68,6 +68,8 @@ namespace se_err {
 		}
 
 		void copy(const char* msg) {
+			if(msg == 0)
+				msg = "(null)";
 			while(msgPos_ < MAX_MSG_SIZE - 1 && *msg != 0) {
 				msg_[ msgPos_++ ] = *(msg++);
 			}

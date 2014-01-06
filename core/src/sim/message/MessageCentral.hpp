@@ -42,11 +42,15 @@ namespace se_core {
 		void stopMonologue(Actor& speaker);
 		void speech(Actor& speaker, const char* message);
 		void info(char* message);
+		bool isMonolgueAcive() const {
+			return isMonologueActive_;
+		}
 
 	private:
 		static const int MAX_LISTENERS = 10;
 		MessageListener* listeners[ MAX_LISTENERS ];
 		short listenerCount;
+		bool isMonologueActive_;
 	};
 
 }

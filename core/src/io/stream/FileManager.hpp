@@ -42,6 +42,10 @@ namespace se_core {
 		virtual void init(const char** files) {}
 		virtual void cleanup() {}
 
+		// Some platforms will not give write access to the application folder.
+		virtual const char* savePath(char* dest, const char* filename) = 0;
+
+
 		virtual bool addFileIfExists(const char* filename) = 0;
 
 		virtual InputStream* open(const char* filename) = 0;
@@ -53,6 +57,7 @@ namespace se_core {
 		void load(const char* filename);
 		void save(const char* filename);
 		virtual bool exists(const char* filename) const = 0;
+		virtual void removeFile(const char* filename) = 0;
 
 		/**
 		 * Load and parse all the files in this

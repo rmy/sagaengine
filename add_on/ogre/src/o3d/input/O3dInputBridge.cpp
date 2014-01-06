@@ -66,6 +66,7 @@ namespace se_ogre {
 		keyboard_->setEventCallback(this);
 		mouse_ = static_cast<OIS::Mouse*>(inputManager_->createInputObject( OIS::OISMouse, bufferedMouse ));
 		mouse_->setEventCallback(this);
+#ifdef SUPPORT_JOY
 		try
 		{
 			joy_ = static_cast<OIS::JoyStick*>(inputManager_->createInputObject( OIS::OISJoyStick, bufferedJoy ));
@@ -77,18 +78,22 @@ namespace se_ogre {
 			LogWarning(e.eText);
 			joy_ = 0;
 		}
+#endif
 	}
 
 
 	O3dInputBridge
 	::~O3dInputBridge() {
+#ifdef SUPPORT_JOY
 		inputManager_->destroyInputObject( joy_ );
+#endif
 		//delete eventProcessor_;
 	}
 
 
 	void O3dInputBridge
 	::step() {
+#ifdef SUPPORT_JOY
 		if(joy_) {
 			joy_->capture();
 
@@ -122,6 +127,7 @@ namespace se_ogre {
 			}
 
 		}
+#endif
 		if(keyboard_) {
 			keyboard_->capture();
 		}
@@ -136,6 +142,10 @@ namespace se_ogre {
 		// Tab flips focus on console
 		LogDetail("Key: " << e.key);
 		switch(e.key) {
+#ifdef SE_INTERNAL
+		case OIS::KC_SCROLL:
+			O3dSchema::worldManager->flipDebugOverlay();
+			break;
 		case OIS::KC_HOME:
 			if(O3dSchema::console) {
 				O3dSchema::console->flipFocus();
@@ -145,9 +155,6 @@ namespace se_ogre {
 			//LogWarning("Escaped");
 			//SimSchema::simEngine.setGameOver(true);
 			//SimSchema::simEngine.setGamePaused(true);
-			break;
-		case OIS::KC_SCROLL:
-			O3dSchema::worldManager->flipDebugOverlay();
 			break;
 		case OIS::KC_PAUSE:
 			{
@@ -163,6 +170,7 @@ namespace se_ogre {
 				O3dSchema::playerCamera->setPolygonMode(mode);
 			}
 			break;
+#endif
 
 		case OIS::KC_LSHIFT:
 			O3dSchema::inputManager().setModifier(InputManager::LSHIFT, true);
@@ -233,8 +241,11 @@ namespace se_ogre {
 			break;
 		case OIS::KC_ESCAPE:
 			LogWarning("Escaped");
-			//SimSchema::simEngine.setGameOver(true);
+#			ifdef SE_INTERNAL
+			SimSchema::simEngine.setGameOver(true);
+#			else
 			SimSchema::simEngine.setGamePaused(true);
+#			endif
 			break;
 		}
 

@@ -32,7 +32,7 @@ namespace se_ogre {
 
 	ThingParticle
 	::ThingParticle(se_core::PosComponent& thing, const ThingMOInfo& info, const ThingMOFactory& factory)
-		: ThingMO(thing, info, factory), movableObject_(0), init_(2) {
+		: ThingMO(thing, info, factory), movableObject_(0), particle_(0), init_(2) {
 
 		// Create a unique entity name
 		hasAnimation_ = true;

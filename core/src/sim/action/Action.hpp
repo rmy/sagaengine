@@ -113,6 +113,9 @@ namespace se_core {
 		 */
 		virtual void perform(long when, ActionComponent &performer, Parameter& parameter) const = 0;
 
+	protected:
+		void sound(ActionComponent &performer) const;
+
 	};
 
 }

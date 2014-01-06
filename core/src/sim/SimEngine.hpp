@@ -159,8 +159,9 @@ namespace se_core {
 		 *
 		 * @return true, game is over, false, game is not over.
 		 */
-		bool isGameOver() { return isGameOver_; }
-		bool isGamePaused() { return isGamePaused_; }
+		bool isGameOver() const { return isGameOver_; }
+		bool isGamePaused() const { return isGamePaused_; }
+		bool didWin() const { return didWin_; }
 
 		/**
 		 * Set the game over flag
@@ -169,6 +170,7 @@ namespace se_core {
 		 */
 		void setGameOver(bool state);
 		void setGamePaused(bool state);
+		void setDidWin(bool state);
 
 	protected:
 		/**
@@ -206,6 +208,7 @@ namespace se_core {
 		bool isGameOver_;
 
 		bool isGamePaused_;
+		bool didWin_;
 
 		/**
 		 * If true, the step() method will never perform

@@ -71,6 +71,17 @@ namespace se_client {
 		currentLanguage_ = language;
 	}
 
+	bool Phrase
+	::isSupportedLanguage() {
+		for(int i = 0; i < supportedLanguageCount_; ++i) {
+			if(supportedLanguages_[i].id_ == currentLanguage_)
+				return true;
+		}
+		Assert(supportedLanguageCount_ > 0);
+		return false;
+	}
+
+
 	void Phrase
 	::clampToSupportedLanguage() {
 		for(int i = 0; i < supportedLanguageCount_; ++i) {

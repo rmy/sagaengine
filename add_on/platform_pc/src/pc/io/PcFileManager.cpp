@@ -30,6 +30,14 @@ rune@skalden.com
 #include <cstring>
 #include <cctype>
 
+#ifdef _WIN32
+ #include <shlobj.h>
+ #include <windows.h>
+#endif
+#ifdef linux
+#endif
+
+
 using namespace se_core;
 
 
@@ -37,7 +45,8 @@ namespace se_pc {
 	PcFileManager
 	::PcFileManager(const char* dataPathFile)
 			: fileCount_(0) {
-		loadDatapath(dataPathFile);
+		initSavePath();
+		loadDataPath(dataPathFile);
 	}
 
 
@@ -46,9 +55,39 @@ namespace se_pc {
 		clear();
 	}
 
+  
+#ifdef _WIN32
+	void PcFileManager
+	::initSavePath() {
+		// Windows 7 doesn't allow applications to save in program folder.
+		char appDir[ MAX_PATH_LENGTH];
+		SHGetFolderPath(NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, appDir);
+		sprintf(saveDirectory_, "%s\\%s", appDir, "Tootinis");
+		CreateDirectory(saveDirectory_, NULL);
+		char subDir[ MAX_PATH_LENGTH];
+		sprintf(subDir, "%s\\%s", saveDirectory_, "save");
+		CreateDirectory(subDir, NULL);
+	}
+#endif
+
+#ifdef linux
+	void PcFileManager
+	::initSavePath() {
+	  // TODO:
+	  sprintf(saveDirectory_, "%s/%s", "/tmp", "Tootinis");
+	}
+#endif
+
+
+	const char* PcFileManager
+	::savePath(char* dest, const char* filename) {
+		sprintf(dest, "%s\\%s", saveDirectory_, filename);
+		return dest;
+	}
+
 
 	void PcFileManager
-	::loadDatapath(const char* dataPathFile) {
+	::loadDataPath(const char* dataPathFile) {
 		FILE* in = fopen(dataPathFile, "r");
 		if(!in) {
 			LogFatal("Couldn't open: " << dataPathFile);
@@ -60,7 +99,7 @@ namespace se_pc {
 			--len;
 			buffer[ len ] = 0;
 		}
-		directory_ = buffer;
+		dataDirectory_ = buffer;
 		IoSchema::dataPath = buffer;
 		fclose(in);
 	}
@@ -146,20 +185,20 @@ namespace se_pc {
 	se_core::InputStream* PcFileManager
 	::open(const char* filename) {
 		if(isBinaryFile(filename)) {
-			return new PcBinaryInputStream(directory_, filename);
+			return new PcBinaryInputStream(directory(filename), filename);
 		}
 		else if(isTextFile(filename)) {
-			return new PcTextInputStream(directory_, filename);
+			return new PcTextInputStream(directory(filename), filename);
 		}
 		else {
 			char f[256];
 			sprintf(f, "%s.bin", filename);
 			if(exists(f)) {
-				return new PcBinaryInputStream(directory_, f);
+				return new PcBinaryInputStream(directory(f), f);
 			}
 			sprintf(f, "%s.txt", filename);
 			if(exists(f)) {
-				return new PcTextInputStream(directory_, f);
+				return new PcTextInputStream(directory(f), f);
 			}
 		}
 		return 0;
@@ -175,7 +214,7 @@ namespace se_pc {
 
 	se_core::OutputStream* PcFileManager
 	::openOutput(const char* filename) {
-		return new PcTextOutputStream(directory_, filename);
+		return new PcTextOutputStream(directory(filename), filename);
 	}
 
 
@@ -196,6 +235,15 @@ namespace se_pc {
 
 
 	int PcFileManager
+	::findFile(const char* filename) const {
+		for(int i = 0; i < fileCount_; ++i) {
+			if(strcmp(filename, files_[i]->get()) == 0) return i;
+		}
+		return -1;
+	}
+
+
+	int PcFileManager
 	::fileCount() const {
 		return fileCount_;
 	}
@@ -210,8 +258,8 @@ namespace se_pc {
 
 	bool PcFileManager
 	::addFileIfExists(const char* filename) {
-		char buffer[512];
-		sprintf(buffer, "%s/%s", directory_, filename);
+		char buffer[MAX_PATH_LENGTH];
+		sprintf(buffer, "%s/%s", directory(filename), filename);
 		FILE* in = fopen(buffer, "r");
 		if(in) {
 			String* s = new String();
@@ -230,4 +278,31 @@ namespace se_pc {
 		files_[ fileCount_++ ] = filename;
 	}
 
+
+	void PcFileManager
+	::removeFile(const char* filename) {
+		Assert(fileCount_ > 0);
+		int id = findFile(filename);
+		if(id < 0)
+			return;
+
+		char src[MAX_PATH_LENGTH];
+		sprintf(src, "%s/%s", directory(filename), filename);
+		char dest[MAX_PATH_LENGTH];
+		sprintf(dest, "%s/%s.bak", directory(filename), filename);
+		remove(dest);
+		rename(src, dest);
+
+		files_[ id ] = files_[ --fileCount_ ];		
+	}
+
+
+
+	const char* PcFileManager
+	::directory(const char* filename) const {
+		if(strncmp("save/", filename, strlen("save/")) == 0) {
+			return saveDirectory_;
+		}
+		return dataDirectory_;
+	}
 }

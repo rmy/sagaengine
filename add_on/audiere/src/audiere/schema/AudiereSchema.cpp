@@ -31,6 +31,7 @@ rune@skalden.com
 #include "sim/pos/PosComponent.hpp"
 #include "io/schema/IoSchema.hpp"
 #include "util/system/util_system.hpp"
+#include "sim/message/SoundCentral.hpp"
 
 using namespace se_core;
 
@@ -79,6 +80,7 @@ namespace se_audiere {
 
 			bool initLevelEvent() {
 				soundPlayer->init();
+				SimSchema::soundCentral.ambience(0);
 				return true;
 			}
 

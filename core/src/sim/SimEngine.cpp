@@ -49,6 +49,7 @@ namespace se_core {
 	::SimEngine()
 			: previousPerform_(0)
 			, isGamePaused_(false)
+			, didWin_(false)
 			, multiplePerformsPerStepEnabled_(false)
 			, multiplePerformsDisabledOnce_(false)
 			, lostPerformAdjustment_(0) {
@@ -237,6 +238,7 @@ namespace se_core {
 		SimSchema::realClock->reset();
 		// Begin game with game over flag not set
 		setGameOver(false);
+		didWin_ = false;
 		SimSchema::initListeners().castInitGameEvent();
 		CompSchema::activeRoot().init(false);
 		CollisionManager::singleton().resetGodMode();
@@ -250,13 +252,16 @@ namespace se_core {
 		isGameOver_ = state;
 	}
 
+	void SimEngine
+	::setDidWin(bool state) {
+		didWin_ = state;
+	}
 
 	void SimEngine
 	::setGamePaused(bool state) {
-		LogDetail(__FUNCTION__ << ": " << state);
 		LogWarning(__FUNCTION__ << ": " << state << " - " << isGamePaused_);
 		if(!previousPerform_ || state == isGamePaused_) {
-			LogWarning("Hmm");
+			LogWarning("Game not started or already paused.");
 			return;
 		}
 		isGamePaused_ = state;
@@ -289,6 +294,7 @@ namespace se_core {
 		lostPerformAdjustment_ = 0;
 		previousPerform_ = 0;
 		isGameOver_ = false;
+		didWin_ = false;
 		LogWarning("Capacity: " << CompSchema::voidList.capacity() << " (cleanupGame)");
 	}
 

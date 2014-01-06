@@ -82,6 +82,9 @@ namespace se_ogre {
 		const char* levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
 		int skip_;
 
+		char configPath_[1024];
+		char logPath_[1024];
+
 	private:
 #ifdef _DEBUG
 		const static int fastExit = 1;
