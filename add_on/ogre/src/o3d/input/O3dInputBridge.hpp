@@ -23,14 +23,24 @@ rune@skalden.com
 #define O3dInputBridge_hpp
 
 #include "O3dPre.hpp"
-#include <OIS.h>
+#include <OIS/OIS.h>
+
+#define SUPPORT_KEYBOARD
+#define SUPPORT_MOUSE
 
 namespace se_ogre {
 	// Event handler to add ability to alter curvature
 	class _SeOgreExport O3dInputBridge 
+#ifdef SUPPORT_KEYBOARD
 		: public OIS::KeyListener
+#endif
+#ifdef SUPPORT_MOUSE
 		, public OIS::MouseListener
-		, public OIS::JoyStickListener {
+#endif
+#ifdef SUPPORT_JOY
+		, public OIS::JoyStickListener 
+#endif
+	{
 
 	public:
 		O3dInputBridge(Ogre::RenderWindow* win);
@@ -65,8 +75,12 @@ namespace se_ogre {
 	private: // Attributes
 		OIS::InputManager* inputManager_;
 		//
+#ifdef SUPPORT_MOUSE
 		OIS::Mouse* mouse_;
+#endif
+#ifdef SUPPORT_KEYBOARD
 		OIS::Keyboard* keyboard_;
+#endif
 #ifdef SUPPORT_JOY
 		OIS::JoyStick* joy_;
 #endif

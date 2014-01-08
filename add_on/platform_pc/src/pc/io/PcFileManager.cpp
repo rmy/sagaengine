@@ -78,7 +78,6 @@ namespace se_pc {
 		return dest;
 	}
 
-
 #endif
 
 #ifdef linux
@@ -88,7 +87,12 @@ namespace se_pc {
 		const char *homeDir = pw->pw_dir;
 		sprintf(saveDirectory_, "%s/%s", homeDir, ".tootinis");
 		mkdir(saveDirectory_, 0777);
+
+		char subDir[ MAX_PATH_LENGTH];
+		sprintf(subDir, "%s/%s", saveDirectory_, "save");
+		mkdir(subDir, 0777);
 	}
+
 
 	const char* PcFileManager
 	::savePath(char* dest, const char* filename) {

@@ -38,34 +38,49 @@ namespace se_ogre {
 
 	O3dInputBridge
 	::O3dInputBridge(Ogre::RenderWindow* win)
-			: oldJoyButtons_(0), keyState_(0), isLeftShiftDown_(false), isRightShiftDown_(false) {
+	  : inputManager_(0), oldJoyButtons_(0), keyState_(0), isLeftShiftDown_(false), isRightShiftDown_(false) {
 
 		// BEGIN INPUT INITIALIZATION
 		bool bufferedKeys = true;
 		bool bufferedMouse = true;
 		bool bufferedJoy = true;
 
-		size_t windowHnd = 0;
+
+
+
 		/*
+		size_t windowHnd = 0;
 #if defined OIS_WIN32_PLATFORM
 		win->getCustomAttribute("HWND", &windowHnd);
 #elif defined OIS_LINUX_PLATFORM
 		win->getCustomAttribute("GLXWINDOW", &windowHnd);
 #endif
-		*/
+
 		win->getCustomAttribute("WINDOW", &windowHnd);
 		//Both x11 and Win32 use handle of some sort..
 		std::ostringstream windowHndStr;
 		windowHndStr << windowHnd;
-
 		OIS::ParamList pl;
 		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
 		inputManager_ = OIS::InputManager::createInputSystem( pl );
+
+		*/
+#if defined(SUPPORT_KEYBOARD) || defined(SUPPORT_JOY) || defined(SUPPORT_MOUSE)
+		size_t windowHnd = 0;
+		win->getCustomAttribute("WINDOW", &windowHnd);
+		inputManager_ = OIS::InputManager::createInputSystem(windowHnd);
+#endif
+#ifdef SUPPORT_KEYBOARD
+
 		keyboard_ = static_cast<OIS::Keyboard*>(inputManager_->createInputObject( OIS::OISKeyboard, bufferedKeys ));
 		keyboard_->setEventCallback(this);
+#endif
+#ifdef SUPPORT_MOUSE
+
 		mouse_ = static_cast<OIS::Mouse*>(inputManager_->createInputObject( OIS::OISMouse, bufferedMouse ));
 		mouse_->setEventCallback(this);
+#endif
 #ifdef SUPPORT_JOY
 		try
 		{
@@ -128,12 +143,16 @@ namespace se_ogre {
 
 		}
 #endif
+#ifdef SUPPORT_KEYBOARD
 		if(keyboard_) {
 			keyboard_->capture();
 		}
+#endif
+#ifdef SUPPORT_MOUSE
 		if(mouse_) {
 			mouse_->capture();
 		}
+#endif
 	}
 
 

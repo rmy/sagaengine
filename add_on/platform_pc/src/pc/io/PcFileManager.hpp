@@ -50,6 +50,7 @@ namespace se_pc {
 		const char* filename(int index) const;
 		static bool isBinaryFile(const char* filename);
 		static bool isTextFile(const char* filename);
+
 		bool exists(const char* filename) const;
 		void removeFile(const char* filename);
 

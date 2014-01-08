@@ -42,6 +42,7 @@ namespace se_ogre {
 	ThingParticle
 	::~ThingParticle() {
 		if(movableObject_) {
+			particle_->setBoundsAutoUpdated(false);
 			O3dSchema::sceneManager->destroyMovableObject(movableObject_);
 			movableObject_ = 0;
 		}
@@ -60,6 +61,9 @@ namespace se_ogre {
 			movableObject_->setCastShadows(false);
 			node_->attachObject(movableObject_);
 			particle_ = static_cast<Ogre::ParticleSystem*>(movableObject_);
+			Ogre::AxisAlignedBox box(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5);
+			particle_->setBounds(box);
+			particle_->setBoundsAutoUpdated(false);
 		}
 	}
 

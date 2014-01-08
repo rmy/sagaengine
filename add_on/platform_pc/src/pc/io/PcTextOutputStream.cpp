@@ -22,6 +22,7 @@ rune@skalden.com
 #include "PcPre.hpp"
 #include "PcTextOutputStream.hpp"
 #include "PcFile.hpp"
+#include "util/error/Log.hpp"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -106,6 +107,7 @@ namespace se_pc {
 	::open(const char* directory, const char* filename) {
 		Assert(strlen(directory) + strlen(filename) + 2 < sizeof(sourceFilename_));
 		sprintf(sourceFilename_, "%s/%s", directory, filename);
+		LogDetail("Open output stream: " << sourceFilename_);
 		out_ = fopen(sourceFilename_, "wt");
 
 		return out_ != 0;
