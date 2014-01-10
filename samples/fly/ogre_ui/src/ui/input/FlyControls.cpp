@@ -130,12 +130,14 @@ namespace ui {
 
 		static Parameter p;
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
-		ClientSchema::playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
+		ActionComponent::Ptr playerX(ClientSchema::playerX);
+
+		playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
 
 		actionRotateCamera.param(dirRoll(), 0, 0, p);
-		ActionComponent::get(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
+		ActionComponent::Ptr(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
 
-		if(doDropStone) ClientSchema::playerX->planAction(CHANNEL_EXTRA, actionDropStone, &p);
+		if(doDropStone) playerX->planAction(CHANNEL_EXTRA, actionDropStone, &p);
 	}
 
 
@@ -186,10 +188,11 @@ namespace ui {
 
 		static Parameter p;
 		actionPlayerFly.param(dirLR(), 2 * dirUD(), dirLR() * 0.5, speed(), p);
-		ClientSchema::playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
+		ActionComponent::Ptr playerX(ClientSchema::playerX);
+		playerX->planAction(CHANNEL_MOVEMENT, actionPlayerFly, &p);
 
 		actionRotateCamera.param(dirRoll(), 0, 0, p);
-		ActionComponent::get(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
+		ActionComponent::Ptr(*ClientSchema::floatingCamera)->planAction(CHANNEL_MOVEMENT, actionRotateCamera, &p);
 	}
 
 

@@ -38,6 +38,9 @@ namespace ui {
 		void keyPressed(const OIS::KeyEvent* e);
 		void keyReleased(const OIS::KeyEvent* e);
 
+		void grabbedFocusEvent() {}
+		void lostFocusEvent() {}
+
 	private:
 		inline float dirLR() { return dirRight_ - dirLeft_; }
 		inline float dirRoll() { return dirRollRight_ - dirRollLeft_; }

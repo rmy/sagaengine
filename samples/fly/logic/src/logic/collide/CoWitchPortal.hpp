@@ -22,14 +22,15 @@ rune@skalden.com
 #ifndef logic_CoWitchPortal_hpp
 #define logic_CoWitchPortal_hpp
 
+#include "sim/react/ContactInfo.hpp"
 #include "sim/react/ThingCollide.hpp"
 
 namespace logic {
 	class _FlyLogicExport CoWitchPortal  : public se_core::ThingCollide {
 	public:
 		CoWitchPortal();
-		bool collide(se_core::CollisionComponent& pusher
-					 , const se_core::CollisionComponent& target) const;
+		bool collide(se_core::ContactInfo& pusher
+					 , const se_core::ContactInfo& target) const;
 
 	private:
 	};

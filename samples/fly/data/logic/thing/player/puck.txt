@@ -2,7 +2,7 @@ XO02
 A player.puck
 R 0.6
 C WitchPortal
-O
+O static
 P Fly
 # Camera
 E 0 T 0 .2 1 R 0 15 0 /

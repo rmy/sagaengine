@@ -3,5 +3,5 @@ A enemy.circle
 B -4 -4 -4 4 4 4
 P Simple
 C none
-O
+O static
 Q

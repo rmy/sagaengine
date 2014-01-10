@@ -1,3 +1,4 @@
+logic/dict/substance.txt
 logic/thing/player/puck.txt
 logic/thing/enemy/circle.txt
 logic/thing/control/camera.txt

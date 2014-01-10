@@ -36,11 +36,9 @@ namespace logic {
 	::CoWitchPortal() : ThingCollide("WitchPortal") {
 	}
 
-
 	bool CoWitchPortal
-	::collide(se_core::CollisionComponent& pusher
-			  , const se_core::CollisionComponent& target) const {
-		ActionComponent::Ptr pAction(pusher);
+	::collide(ContactInfo& pusher, const ContactInfo& target) const {
+		ActionComponent::Ptr pAction(pusher.cc_);
 		pAction->planAction(CHANNEL_EXTRA, actionSprint);
 		return false;
 	}

@@ -54,6 +54,9 @@ namespace logic {
 		const char* files[] = { "logic/files.txt", "ogre/files.txt", 0 };
 		IoSchema::fileManager->init(files);
 
+		// Load dictionary files
+		IoSchema::fileManager->loadDirectory("logic/dict");
+
 		// Load language files
 		IoSchema::fileManager->loadDirectory("logic/lang");
 
