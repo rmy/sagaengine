@@ -38,7 +38,7 @@ namespace se_core {
 		PhysicsComponentFactory();
 		Component* create(Composite* owner) const;
 		void setPhysics(const char* name);
-		void setMass(float m);
+		void setMass(scale_t m);
 		void setFriction(float linear, float angular, float bounceDecay);
 
 	protected:

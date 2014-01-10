@@ -190,7 +190,7 @@ namespace se_core {
 	}
 
 
-	float CollisionComponent
+	coor_t CollisionComponent
 	::penetration(const CollisionComponent& other) const {
 		Point3 p, t;
 		coor_t radSum = bouncePoints(SCALE_RES, other, p, t);

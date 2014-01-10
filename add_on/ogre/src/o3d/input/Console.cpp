@@ -24,7 +24,7 @@ rune@skalden.com
 #include "ConsoleHandler.hpp"
 #include "util/error/Log.hpp"
 #include "../schema/O3dSchema.hpp"
-#include <OIS.h>
+#include <OIS/OIS.h>
 #include <cstring>
 #include <OgreUTFString.h>
 #ifndef NO_CEGUI

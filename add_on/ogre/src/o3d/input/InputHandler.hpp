@@ -23,7 +23,7 @@ rune@skalden.com
 #define o3d_input_InputHandler_hpp
 
 #include "O3dPre.hpp"
-#include "OIS.h"
+#include <OIS/OIS.h>
 
 
 namespace se_ogre {

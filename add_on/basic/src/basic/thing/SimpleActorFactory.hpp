@@ -26,7 +26,7 @@ namespace se_basic {
 		void setPickable(bool isPickable);
 		void setCollideable(bool isCollideable);
 		void setDefaultAction(const char* name);
-		void setMass(float m);
+		void setMass(scale_t m);
 		void setFriction(float linear, float angular, float bounceDecay);
 		void setAnim(int id, int movementMode, float pos, float speed);
 		void setSubstance(int s);

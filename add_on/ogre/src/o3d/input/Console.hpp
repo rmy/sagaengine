@@ -25,7 +25,7 @@ rune@skalden.com
 #include "O3dPre.hpp"
 #include "OgreCEGUI.hpp"
 #include "o3d_input.hpp"
-#include <OIS.h>
+#include <OIS/OIS.h>
 
 
 namespace se_ogre {

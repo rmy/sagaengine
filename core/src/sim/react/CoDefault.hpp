@@ -42,7 +42,7 @@ namespace se_core {
 		void bounce(ContactInfo& pusher, const ContactInfo& target) const;
 		void rebound(ContactInfo& pusher, const ContactInfo& target) const;
 		bool slide(ContactInfo& pusher, const ContactInfo& target) const;
-		void _away(ContactInfo& pusher, const ContactInfo& target, float speed) const;
+		void _away(ContactInfo& pusher, const ContactInfo& target, coor_t speed) const;
 
 		void slideOrRebound(ContactInfo& pusher, const ContactInfo& target) const {
 			if(!slide(pusher, target))

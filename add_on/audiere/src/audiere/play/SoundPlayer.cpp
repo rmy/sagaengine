@@ -41,13 +41,10 @@ namespace se_audiere {
 
 	SoundPlayer
 	::SoundPlayer() : system_(0), ambience_(0) {
-		//enum { MEM_SIZE = 1024 * 1024 * 256 };
-		//result = FMOD_Memory_Initialize(new unsigned char[ MEM_SIZE ], MEM_SIZE, 0, 0, 0);
-		//if (result != FMOD_OK) LogWarning("FMOD error! (" << result << ") " << FMOD_ErrorString(result));
-
 		system_ = audiere::OpenDevice();
-		AssertFatal(system_, "Couldn't create Audiere system)");
-		LogWarning(__FUNCTION__);
+		AssertWarning(system_, "Couldn't create Audiere system)");
+		if(!system_)
+		  return;
 
 		// Avoid destruction from Audiere
 		ref();
@@ -172,7 +169,8 @@ namespace se_audiere {
 		const char* dirname = IoSchema::dataPath;
 		sprintf(buffer, "%s/snd/media/%s", dirname, filename);
 
-		audiere::OutputStreamPtr snd(OpenSound(system_, buffer, shouldLoad));
+		//audiere::OutputStreamPtr snd(OpenSound(system_, buffer, shouldLoad));
+		audiere::OutputStreamPtr snd(OpenSound(system_, buffer, shouldLoad, FF_OGG));
 		AssertWarning(snd, "Couldn't load sound: " << buffer);
 
 		return snd;
