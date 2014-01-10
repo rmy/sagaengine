@@ -18,13 +18,13 @@ message( "basic add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/basic/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/basic/src
 
-message( "angelscript add-on included" )
-INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/include
-INCLUDEPATH += $${SAGAENGINE}/add_on/angelscript/src
-
 message( "ogre add-on included" )
 INCLUDEPATH += $${SAGAENGINE}/add_on/ogre/include
 INCLUDEPATH += $${SAGAENGINE}/add_on/ogre/src
+
+message( "audiere add-on included" )
+INCLUDEPATH += $${SAGAENGINE}/add_on/audiere/include
+INCLUDEPATH += $${SAGAENGINE}/add_on/audiere/src
 
 message( "game ogre_ui included" )
 INCLUDEPATH += $${SAGAENGINE}/samples/fly/ogre_ui/include
@@ -41,6 +41,8 @@ message( "CEGUI included" )
 INCLUDEPATH += $${CEGUI}
 message( "OGRE included" )
 INCLUDEPATH += $${OGRE}
+message( "OGRE included" )
+INCLUDEPATH += $${OIS}
 
 DESTDIR = $${SAGAENGINE}/samples/fly/projects/qmake
 
@@ -50,5 +52,6 @@ DEFINES *= _SeOgreExport= _SeBasicExport= _SeClientExport= _SePcExport= _SeCoreE
 DEFINES *= _SimpleUiExport= _SimpleLogicExport=
 DEFINES *= _FlyUiExport= _FlyLogicExport=
 DEFINES *= _GameUiExport= _GameLogicExport=
+DEFINES *= SE_STATIC NO_CEGUI
 
 message( Destdir: $$DESTDIR )

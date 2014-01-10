@@ -5,6 +5,7 @@ sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/platform_pc pc
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/client client
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/basic basic
 sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/ogre ogre
+sh ../../../../tools/qmake/strap_app.sh ../../../../add_on/audiere audiere
 sh ../../../../tools/qmake/strap_app.sh ../../ogre_ui ogre_ui
 sh ../../../../tools/qmake/strap_app.sh ../../logic logic
 sh ../../../../tools/qmake/strap_app.sh ../../start start

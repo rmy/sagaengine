@@ -4,10 +4,14 @@
 message( "[ Application ogre_ui settings ]")
 
 CONFIG += app
-TARGET = fly
 
 DESTDIR = .
 OBJECTS_DIR = .obj
+
+# LIBS = -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
+LIBS = -lOgreMain -lOIS -L/usr/X11R6/lib -lX11 -lXaw
+LIBS += -L/usr/local/src/audiere/src/.libs -laudiere
+LIBS += -L/usr/local/lib -laudiere -lvorbisfile -lvorbis -logg -lasound -lpthread
 
 include( core.pro )
 include( pc.pro )
@@ -18,12 +22,12 @@ include( ogre_ui.pro )
 include( logic.pro )
 include( start.pro )
 
-LIBS = -L$${DESTDIR} -lOgreMain -lCEGUIOgreRenderer -lCEGUIBase
 INCLUDEPATH = 
 !include( proj.pro ) {
     error( "You must link proj.pro to proj_debug.pro or proj_release.pro" )
 }
 DEFINES *= SE_STATIC
+TARGET = fly
 
 message( Config: $$CONFIG )
 message( DestDir: $$DESTDIR )
