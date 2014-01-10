@@ -1,0 +1,9 @@
+ED01 
+D SUBSTANCE
+V 1
+E mobile
+E static
+E gas
+E missile
+E pick
+Q
