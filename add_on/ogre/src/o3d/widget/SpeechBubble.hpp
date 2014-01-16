@@ -80,6 +80,8 @@ namespace se_ogre {
 		Ogre::Overlay* speechOverlay_,* infoOverlay_;
 		Ogre::OverlayElement* speechCaption_,* infoCaption_;
 		static const int MAX_LINE_LENGTH = 50;
+		Ogre::Overlay* dummyOverlay_;
+		Ogre::OverlayElement* dummyCaption_;
 	};
 }
 

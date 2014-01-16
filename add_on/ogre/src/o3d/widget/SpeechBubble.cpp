@@ -35,7 +35,7 @@ using namespace se_core;
 
 namespace se_ogre {
 	SpeechBubble
-	::SpeechBubble() : InputHandler("SpeechBubble"), isMonologue_(false), shouldTrack_(false), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0) {
+	::SpeechBubble() : InputHandler("SpeechBubble"), isMonologue_(false), shouldTrack_(false), speaker_(0), speakerCamera_(0), speechOverlay_(0), infoOverlay_(0), speechCaption_(0), infoCaption_(0), dummyOverlay_(0), dummyCaption_(0) {
 	}
 
 
@@ -60,6 +60,18 @@ namespace se_ogre {
 		}
 		catch(...) {
 			LogWarning("Failed setting upp info bubble overlays.");
+		}
+
+
+		try {
+			/** Dirty fix to make sure ogre shows text on speech and info overlays */
+			dummyOverlay_ = Ogre::OverlayManager::getSingleton().getByName("Bubbins/DummyForInit");
+			dummyCaption_ = Ogre::OverlayManager::getSingleton().getOverlayElement("Bubbins/DummyForInitText");
+			dummyCaption_->setCaption("");
+			dummyOverlay_->show();
+		}
+		catch(...) {
+			LogWarning("Failed setting upp info dummy overlay.");
 		}
 
 		speakerCamera_ = Physics::lookup("SpeakerCamera");
