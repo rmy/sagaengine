@@ -158,7 +158,7 @@ namespace se_pc {
 	void PcTextInputStream
 	::readLine(char* dest, short maxLen) {
 		int i=0;
-		while(bufferIndex_ < contentsLength_ && fileContents_[bufferIndex_] != '\n' && fileContents_[bufferIndex_] !=' \r') {
+		while(bufferIndex_ < contentsLength_ && fileContents_[bufferIndex_] != '\n' && fileContents_[bufferIndex_] !='\r') {
 			dest[i++]=fileContents_[bufferIndex_++];
 		}
 		dest[i] = 0;
@@ -266,4 +266,3 @@ namespace se_pc {
 	}
 
 }
-
