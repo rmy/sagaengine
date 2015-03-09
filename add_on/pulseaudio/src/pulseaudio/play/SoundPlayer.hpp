@@ -23,16 +23,18 @@ rune@skalden.com
 #define SoundPlayer_hpp
 
 #include "sim/message/SoundListener.hpp"
+#include "sim/SimListener.hpp"
 #include "PaStreamListener.hpp"
 
 namespace se_pulseaudio {
-	class SoundPlayer : public se_core::SoundListener, public PaStreamListener {
+	class SoundPlayer : public se_core::SoundListener, public PaStreamListener, public se_core::SimListener {
 	public:
 		SoundPlayer();
 		~SoundPlayer();
 
 		void ambienceEvent(const char* snd);
 		void soundEvent(se_core::Actor& speaker, const char* snd);
+		void render();
 
 		// Callback when stream stopped
 		void streamEnded(class PaStream* stream);
@@ -42,6 +44,9 @@ namespace se_pulseaudio {
 		void init();
 		void cleanup();
 
+		virtual void renderEvent(long when) { render(); }
+		virtual void preSimTickEvent(long when) { render(); }
+		virtual void postSimTickEvent(long when) { render(); }
 
 	private:
 		static const int MAX_CHANNELS = 32;

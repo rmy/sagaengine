@@ -30,6 +30,7 @@ rune@skalden.com
 #include "util/error/Log.hpp"
 #include "sim/thing/Actor.hpp"
 #include "sim/message/SoundCentral.hpp"
+#include "sim/SimListeners.hpp"
 #include "sim/schema/SimSchema.hpp"
 #include "sim/area/Area.hpp"
 #include "io/schema/IoSchema.hpp"
@@ -54,6 +55,7 @@ namespace se_pulseaudio {
 
 		system_->ambience()->setStreamListener(this);
 		SimSchema::soundCentral.addListener(*this);
+		SimSchema::engineListeners().addListener(*this);
 	}
 
 
@@ -67,6 +69,13 @@ namespace se_pulseaudio {
 	::init() {
 	}
 
+
+	void SoundPlayer
+	::render() {
+		for(int i = 0; system_ && i < 10; ++i) {
+			system_->tick();
+		}
+	}
 
 	void SoundPlayer
 	::cleanup() {
@@ -109,7 +118,7 @@ namespace se_pulseaudio {
 		volume *= (SimSchema::soundCentral.musicVolume() / 100.0f);
 
 		LogWarning("Playing ambience at volume: " << volume);
-		ambience_ = system_->ambience()->play(*s, (int)volume * 256,  shouldLoop);
+		ambience_ = system_->ambience()->play(*s, (int)(volume * 256),  shouldLoop);
 		SimSchema::soundCentral.setAmbiencePlaying(true);
 	}
 
@@ -160,7 +169,7 @@ namespace se_pulseaudio {
 		volume *= (SimSchema::soundCentral.soundVolume() / 100.0f);
 		LogDetail("Sound volume: " << SimSchema::soundCentral.soundVolume() << " - " << d);
 
-		system_->fx()->play(*s, (int)volume * d / 100.0f * 256,  shouldLoop);
+		system_->fx()->play(*s, (int)(volume * d / 100.0f * 256),  shouldLoop);
 	}
 
 

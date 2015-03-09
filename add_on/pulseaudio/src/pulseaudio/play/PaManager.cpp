@@ -31,7 +31,7 @@ namespace se_pulseaudio {
 
 
   void PaManager::tick() {
-    pa_mainloop_iterate(mainLoop_, 0, NULL);
+	  pa_mainloop_iterate(mainLoop_, 0, NULL);
   }
 
 

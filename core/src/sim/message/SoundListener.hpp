@@ -30,6 +30,7 @@ namespace se_core {
 		virtual ~SoundListener() {} // Gets rid of warning
 		virtual void ambienceEvent(const char* snd) = 0;
 		virtual void soundEvent(Actor& speaker, const char* snd) = 0;
+		virtual void render() {}
 	};
 }
 

@@ -54,6 +54,7 @@ namespace se_pulseaudio {
 	}
 
 	void PaStream::stop() {
+		LogDetail("Corking stream");
 		pa_stream_cork(stream_, 1, stream_corked_callback, this);
 	}
 

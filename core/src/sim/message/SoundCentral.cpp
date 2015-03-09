@@ -62,6 +62,13 @@ namespace se_core {
 		}
 	}
 
+	void SoundCentral
+	::render() {
+		for(int i = 0; i < listenerCount_; ++i) {
+			listeners[ i ]->render();
+		}
+	}
+
 
 	void SoundCentral
 	::setAmbienceHandler(const char* name) {

@@ -40,6 +40,7 @@ namespace se_core {
 
 		void sound(Actor& speaker, const char* snd);
 		void ambience(const char* snd);
+		void render();
 
 		void castMusicStopped();
 		void castMusicEnded();
