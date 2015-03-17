@@ -70,6 +70,7 @@ namespace se_ogre {
 		Ogre::Root* ogreRoot = 0;
 		Ogre::Camera* playerCamera = 0;
 		Ogre::RenderWindow* window = 0;
+		Ogre::OverlaySystem *overlaySystem = 0;
 
 		SpeechBubble* speechBubble = 0;
 		RenderEngine* renderEngine = 0;
@@ -109,6 +110,7 @@ namespace se_ogre {
 
 				// Create RenderEngine object
 				O3dSchema::renderEngine = new RenderEngine();
+				O3dSchema::overlaySystem = new OverlaySystem();
 
 				// Setup scene
 				if(!O3dSchema::renderEngine->setup()) {

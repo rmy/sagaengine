@@ -194,6 +194,11 @@ namespace se_ogre {
 		O3dSchema::sceneManager = sm = O3dSchema::root->createSceneManager(sceneManager);
 		//LogDetail("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
 
+
+		if(O3dSchema::overlaySystem) {
+			sm->addRenderQueueListener(O3dSchema::overlaySystem);
+		}
+
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));

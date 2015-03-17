@@ -39,7 +39,10 @@ rune@skalden.com
 #include <OgreRenderWindow.h>
 #include <OgreAnimation.h>
 #include <OgreConfigFile.h>
-
+#ifdef SE_STATIC_PLUGINS
+# include <OgreGLPlugin.h>
+# include <OgreParticleFXPlugin.h>
+#endif
 using namespace Ogre;
 using namespace se_core;
 
@@ -67,10 +70,25 @@ namespace se_ogre {
 			Ogre::LogManager::getSingleton().setLogDetail(Ogre::LL_LOW);
 #endif
 		}
-#ifndef _DEBUG
-		O3dSchema::root = new Root("plugins.cfg", configPath_);
+#if defined SE_STATIC_PLUGINS || defined SE_NO_PLUGINS
+		O3dSchema::root = new Root();
+
+#  ifdef SE_STATIC_PLUGINS
+		ParticleFXPlugin* pfx = new ParticleFXPlugin();
+		O3dSchema::root->installPlugin(pfx);
+
+		GLPlugin* pgl = new GLPlugin();
+		O3dSchema::root->installPlugin(pgl);
+#  endif
+
 #else
+
+#  ifndef _DEBUG
+		O3dSchema::root = new Root("plugins.cfg", configPath_);
+#  else
 		O3dSchema::root = new Root("plugins_d.cfg", configPath_);
+#  endif
+
 #endif
 		LogDetail("Created Ogre root");
 

@@ -31,6 +31,7 @@ rune@skalden.com
 #include "../widget/o3d_widget.hpp"
 #include "util/task/util_task.hpp"
 #include "O3dPre.hpp"
+#include <OgreOverlaySystem.h>
 #include "sim/setting/Setting.hpp"
 
 /**
@@ -117,6 +118,7 @@ namespace se_ogre {
 		extern _SeOgreExport RenderEventListeners& renderEventListeners();
 
 		extern _SeOgreExport RenderEngine* renderEngine;
+		extern _SeOgreExport Ogre::OverlaySystem *overlaySystem;
 
 		extern _SeOgreExport float gameClock;
 
