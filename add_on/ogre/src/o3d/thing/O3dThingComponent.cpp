@@ -67,6 +67,7 @@ namespace se_ogre {
 			Assert(!c.isNull());
 			Assert(c->node());
 			setParentNode(c->node());
+			a->worldViewPoint(0, last_);
 		}
 
 		O3dSchema::thingMOManager.create(this);
