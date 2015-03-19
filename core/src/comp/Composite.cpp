@@ -3,6 +3,7 @@
 #include "CompositeFactory.hpp"
 #include "comp/list/ComponentList.hpp"
 #include "comp/list/CompositeList.hpp"
+#include "util/error/Log.hpp"
 
 
 namespace se_core {
@@ -89,13 +90,16 @@ namespace se_core {
 	Component*  Composite
 	::component(int type) {
 		if(type < FAST_COMPONENT_COUNT) {
-			return fastComponents_[ type ];
+			Component* c = fastComponents_[ type ];
+			return c;
 		}
-		ComponentList::Iterator it(components_);
-		while(it.hasNext()) {
-			Component& c = it.next();
-			if(c.type() == type) {
-				return &c;
+		else {
+			ComponentList::Iterator it(components_);
+			while(it.hasNext()) {
+				Component& c = it.next();
+				if(c.type() == type) {
+					return &c;
+				}
 			}
 		}
 		//return composites_.lookup(type);
@@ -105,11 +109,17 @@ namespace se_core {
 
 	const Component*  Composite
 	::component(int type) const {
-		ComponentList::Iterator it(components_);
-		while(it.hasNext()) {
-			const Component& c = it.next();
-			if(c.type() == type) {
-				return &c;
+		if(type < FAST_COMPONENT_COUNT) {
+			const Component* c = fastComponents_[ type ];
+			return c;
+		}
+		else {
+			ComponentList::Iterator it(components_);
+			while(it.hasNext()) {
+				const Component& c = it.next();
+				if(c.type() == type) {
+					return &c;
+				}
 			}
 		}
 		//return composites_.lookup(type);
