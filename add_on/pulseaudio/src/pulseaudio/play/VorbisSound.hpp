@@ -16,9 +16,14 @@ namespace se_pulseaudio {
 		int read(char *pcmout, int length, OggVorbis_File* vf, int &current_section);
 		int close(OggVorbis_File* vf, int &current_section);
 
+		long sampleRate() { return sampleRate_; }
+		int channels() { return channels_; }
+
 	private:
 		int oggSize_;
 		char* ogg_;
+		long sampleRate_;
+		int channels_;
 	};
 }
 

@@ -6,7 +6,7 @@
 
 
 namespace se_pulseaudio {
-	PaContext::PaContext(const char* name, pa_mainloop* paMainLoop) : streamCount_(0), name_(name), listener_(0), isReady_(false) {
+	PaContext::PaContext(const char* name, pa_mainloop* paMainLoop) : name_(name), listener_(0), isReady_(false), streamCount_(0) {
 		context_ = pa_context_new(pa_mainloop_get_api(paMainLoop), name_);
 		if(!context_) {
 			throw "Cannot create context.";
@@ -21,6 +21,7 @@ namespace se_pulseaudio {
 			pa_context_disconnect(context_);
 			pa_context_unref(context_);
 		}
+		AssertWarning(streamCount_ == 0, "There are still " << streamCount_ << " active streams.");
 	}
 
 

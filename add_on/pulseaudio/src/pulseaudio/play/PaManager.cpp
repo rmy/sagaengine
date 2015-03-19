@@ -18,7 +18,7 @@ namespace se_pulseaudio {
     fx_ = new PaContext("fx", mainLoop_);
     // Wait for streams to become ready
     for(int i = 0; !(fx_->isReady() && ambience_->isReady() && i < 1024); ++i) {
-      tick();
+		tick();
     }
   }
 
@@ -41,7 +41,7 @@ namespace se_pulseaudio {
 
 
   bool PaManager::isPlaying() {
-    return fx()->streamCount_ > 0;
+	  return fx()->streamsPlaying() > 0;
   }
 
 

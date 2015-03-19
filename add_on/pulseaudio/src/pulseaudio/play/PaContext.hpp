@@ -19,11 +19,19 @@ namespace se_pulseaudio {
 			return isReady_;
 		}
 
+		int incStreamRef(PaStream* s) {
+			return ++streamCount_;
+		}
+
+		int decStreamRef(PaStream* s) {
+			return --streamCount_;
+		}
+
+
 		int streamsPlaying() {
 			return streamCount_;
 		}
 
-		int streamCount_;
   
 
 	private:
@@ -33,6 +41,7 @@ namespace se_pulseaudio {
 		pa_context *context_;
 		class PaStreamListener* listener_;
 		bool isReady_;
+		int streamCount_;
 	};
 
 }

@@ -12,8 +12,8 @@ namespace se_pulseaudio {
 		static int streamId = 0;
 
 		pa_sample_format_t format = PA_SAMPLE_S16LE;
-		int channels = 2; //ovInfo()->channels;
-		int samplerate = 44100; // ovInfo()->rate;
+		int channels = sound.channels();
+		int samplerate = sound.sampleRate();
 		const pa_sample_spec ss = {
 			format,
 			samplerate,
@@ -29,19 +29,19 @@ namespace se_pulseaudio {
 		pa_stream_set_write_callback(stream_, PaStream::stream_write_callback, this);
 		pa_stream_set_state_callback(stream_, PaStream::stream_state_callback, this);
 
-		pa_volume_t v = PA_VOLUME_NORM * volume / 256;
+		pa_volume_t v = PA_VOLUME_NORM* volume / 256;
 		pa_cvolume cv;
 		pa_stream_connect_playback(stream_, NULL, NULL, (pa_stream_flags_t)0, pa_cvolume_set(&cv, ss.channels, v), NULL);
 
 		sound_ = &sound;
-		++context_.streamCount_;
+		context_.incStreamRef(this);
 	}
 
 
 	PaStream::~PaStream() {
 		LogDetail("Destroy stream " << name_);
 		pa_stream_unref(stream_);
-		--context_.streamCount_;
+		context_.decStreamRef(this);
 	}
 
 

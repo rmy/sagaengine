@@ -62,6 +62,7 @@ namespace se_pulseaudio {
 	SoundPlayer
 	::~SoundPlayer() {
 		system_->ambience()->setStreamListener(0);
+		delete system_;
 	}
 
 
@@ -105,8 +106,8 @@ namespace se_pulseaudio {
 			return;
 		}
 
-		float volume;
-		bool shouldLoop;
+		float volume = 0.0f;
+		bool shouldLoop = false;
 		VorbisSound* s = PulseaudioSchema::sounds.get(Sounds::MUSIC, snd, volume, shouldLoop);
 		if(!s) {
 			LogWarning("Couldn't play ambience: " << snd);
@@ -159,17 +160,19 @@ namespace se_pulseaudio {
 		}
 
 		LogDetail(sp.owner()->name() << " says " << snd << ": " << sp.nextPos().worldCoor());
-		float volume;
+		float soundVolume;
 		bool shouldLoop;
-		VorbisSound* s = PulseaudioSchema::sounds.get(Sounds::SOUND, snd, volume, shouldLoop);
+		VorbisSound* s = PulseaudioSchema::sounds.get(Sounds::SOUND, snd, soundVolume, shouldLoop);
 		if(!s) {
 			LogWarning("Couldn't play sound: " << snd);
 			return;
 		}
-		volume *= (SimSchema::soundCentral.soundVolume() / 100.0f);
-		LogDetail("Sound volume: " << SimSchema::soundCentral.soundVolume() << " - " << d);
+		float centralVolume = ((SimSchema::soundCentral.soundVolume()) / 100.0f);
+		float playVolume = (soundVolume * centralVolume * d) * 0.84 + 0.16 * centralVolume ;
+		LogDetail("Sound volume: " << centralVolume << " - V: " << soundVolume << " - PlayV: " << playVolume << " - Dist:  " << d);
 
-		system_->fx()->play(*s, (int)(volume * d / 100.0f * 256),  shouldLoop);
+
+		system_->fx()->play(*s, (int)(playVolume * 256),  shouldLoop);
 	}
 
 
