@@ -4,6 +4,7 @@
 #include "sim/area/AreaManager.hpp"
 #include "sim/area/Area.hpp"
 #include "sim/pos/PosComponent.hpp"
+#include "sim/spawn/SpawnAreaComponent.hpp"
 #include "sim/spawn/SpawnComponent.hpp"
 #include "sim/zone/ZoneAreaComponent.hpp"
 #include "sim/custom/StatComponent.hpp"
@@ -36,7 +37,7 @@ namespace se_basic {
 			out.writeInfoCode('N');
 			out.writeString(a->owner()->name());
 
-			const SpawnComponent* pSpawn = SpawnComponent::get(*a);
+			const SpawnAreaComponent* pSpawn = SpawnAreaComponent::get(*a);
 			for(int j = 0; j < pSpawn->spawnPointCount(); ++j) {
 				if(pSpawn->hasSpawnPoint(j)) {
 					const ViewPoint* sp = pSpawn->spawnPoint(j);

@@ -35,7 +35,7 @@ namespace se_core {
 
 	SpawnAreaComponent
 	::SpawnAreaComponent(Composite* owner, const ComponentFactory* factory) 
-			: RootChildComponent(sct_SPAWN, owner, factory), spawnPointCount_(0), spawnPoints_(0) {
+			: RootChildComponent(sct_SPAWN_AREA, owner, factory), spawnPointCount_(0), spawnPoints_(0) {
 	}
 
 

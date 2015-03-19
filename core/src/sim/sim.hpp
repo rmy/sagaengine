@@ -50,6 +50,7 @@ namespace se_core {
 		sct_ACTION, 
 		sct_SCRIPT, 
 		sct_SPAWN, 
+		sct_SPAWN_AREA,
 		sct_STAT, 
 		sct_SIGNAL,
 		sct_RENDER, 

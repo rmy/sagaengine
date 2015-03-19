@@ -34,12 +34,35 @@ rune@skalden.com
 namespace se_core {
 	class _SeCoreExport SpawnAreaComponent : public RootChildComponent {
 	public:
-		typedef ComponentPtr<SpawnAreaComponent, sct_SPAWN> Ptr;
+		typedef ComponentPtr<SpawnAreaComponent, sct_SPAWN_AREA> Ptr;
 		
 		/** Constructor.
 		 */
 		SpawnAreaComponent(Composite* owner, const ComponentFactory* factory = 0);
 		~SpawnAreaComponent();
+
+		static SpawnAreaComponent* get(Composite& composite) {
+			SpawnAreaComponent* c = static_cast<SpawnAreaComponent*>(composite.component(se_core::sct_SPAWN_AREA));
+			return c;
+		}
+
+		static const SpawnAreaComponent* get(const Composite& composite) {
+			const SpawnAreaComponent* c = static_cast<const SpawnAreaComponent*>(composite.component(se_core::sct_SPAWN_AREA));
+			return c;
+		}
+
+		static SpawnAreaComponent* get(Component& component) {
+			SpawnAreaComponent* c = static_cast<SpawnAreaComponent*>(component.owner()->component(se_core::sct_SPAWN_AREA));
+			return c;
+		}
+
+		static const SpawnAreaComponent* get(const Component& component) {
+			const SpawnAreaComponent* c = static_cast<const SpawnAreaComponent*>(component.owner()->component(se_core::sct_SPAWN_AREA));
+			return c;
+		}
+
+
+
 		void setActive(bool state);
 		void flipSpawns(void);
 		Composite* spawn(const char* thingName, const ViewPoint& vp, PosComponent* parent = 0);
@@ -60,6 +83,9 @@ namespace se_core {
 			return spawnPointCount_;
 		}
 
+		bool hasSpawnPoint(short id) const {
+			return id >= 0 && id < spawnPointCount_ && spawnPoint(id) != 0;
+		}
 
 		const char* name() const { return "SpawnArea"; }
 
