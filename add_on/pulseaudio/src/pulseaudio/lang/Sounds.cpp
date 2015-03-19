@@ -94,6 +94,8 @@ namespace se_pulseaudio {
 
 	bool Sounds
 	::isFound(short index, SoundType type, const char* name, unsigned short lang) {
+		if(index < 0 && index >= soundCount_)
+			return false;
 		return (sounds_[ index ].language_ == lang && sounds_[ index ].type_ == type && strcmp(sounds_[index].name_, name) == 0);
 	}
 

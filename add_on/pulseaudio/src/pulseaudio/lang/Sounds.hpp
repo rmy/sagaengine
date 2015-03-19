@@ -47,7 +47,7 @@ namespace se_pulseaudio {
 		unsigned short currentLanguage_;
 		static const int MAX_SOUNDS = 300;
 		struct Sound {
-			Sound() : nameC_(0), soundC_(0), name_(0) {}
+			Sound() : language_(ALL), type_(UNDEFINED), nameC_(0), soundC_(0), name_(0), filename_(0), sound_(0), volume_(0.0f), shouldLoop_(false) {}
 			unsigned short language_;
 			SoundType type_;
 			se_core::String* nameC_;
