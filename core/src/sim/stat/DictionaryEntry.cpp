@@ -88,7 +88,7 @@ namespace se_core {
 	DictionaryEntry
 	::~DictionaryEntry() {
 		SimSchema::dictionary().remove(this);
-		if(doDelete_) delete name_;
+		if(doDelete_) delete[] name_;
 	}
 
 
