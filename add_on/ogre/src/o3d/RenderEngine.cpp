@@ -389,7 +389,7 @@ namespace se_ogre {
 	::loadLevelResources(const char** sections) {
 		bool isSame = true;
 		for(int i = 0; i < levelResourceCount_ && sections[i] != 0; ++i) {
-			if(strcmp(sections[i], levelResources_[i]) != 0) {
+			if(strcmp(sections[i], levelResources_[i].c_str()) != 0) {
 				isSame = false;
 				break;
 			}
@@ -427,8 +427,8 @@ namespace se_ogre {
 	::resetLevelResources() {
 		LogWarning(levelResourceCount_);
 		while(levelResourceCount_ > 0) {
-			const char* sec = levelResources_ [ --levelResourceCount_ ];
-			Ogre::String s(sec);
+			Ogre::String s = levelResources_ [ --levelResourceCount_ ];
+			//LogDetail("Reset leve resource: " << s.get() << " - " << levelResourceCount_);
 			try {
 				ResourceGroupManager::getSingleton().unloadResourceGroup(s + ".all");
 				ResourceGroupManager::getSingleton().clearResourceGroup(s + ".all");

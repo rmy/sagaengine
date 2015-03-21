@@ -440,7 +440,7 @@ namespace se_ogre {
 			sections[ sectionCount++ ] = 0;
 			RenderEngine::singleton()->loadLevelResources(sections);
 			for(int i = 0; sections[i] != 0; ++i) {
-				delete sections[i];
+				delete[] sections[i];
 			}
 		}
 	}

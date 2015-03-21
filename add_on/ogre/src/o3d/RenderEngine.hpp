@@ -79,7 +79,8 @@ namespace se_ogre {
 		O3dInputBridge* inputBridge_;
 		static const int MAX_LEVEL_RESOURCE_SECTIONS = 8;
 		int levelResourceCount_;
-		const char* levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
+		//const char* levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
+		Ogre::String levelResources_[ MAX_LEVEL_RESOURCE_SECTIONS ];
 		int skip_;
 
 		char configPath_[1024];
