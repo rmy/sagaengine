@@ -14,7 +14,6 @@ namespace se_pulseaudio {
 
 
 	VorbisSound::VorbisSound(FILE* infile) : ogg_(0), oggSize_(0), sampleRate_(44100), channels_(0) {
-		delete[] ogg_;
 		oggSize_ = 0;
 		init(infile);
 	}

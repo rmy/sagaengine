@@ -46,10 +46,7 @@ namespace se_pulseaudio {
 		//FMOD_RESULT result;
 		while(soundCount_ > 0) {
 			--soundCount_;
-			//TODO:
-			//result = FMOD::Sound::Release(sounds_[ soundCount_ ].sound_);
-			//FMOD_RESULT result = sounds_[ soundCount_ ].sound_->release();
-			//AssertWarning(result == FMOD_OK, "FMOD error! (" << result << ") " << FMOD_ErrorString(result));
+			delete sounds_[ soundCount_ ].sound_;
 			delete sounds_[ soundCount_ ].nameC_;
 			delete sounds_[ soundCount_ ].soundC_;
 		}
