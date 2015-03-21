@@ -40,6 +40,9 @@ namespace se_core {
 	Composite
 	::~Composite() {
 		releaseComponents();
+		if(factory_ && name_ != factory_->name()) {
+			delete[] name_;
+		}
 	}
 
 
@@ -132,9 +135,7 @@ namespace se_core {
 		ComponentList::Iterator it(components_);
 		while(it.hasNext()) {
 			Component& c = it.next();
-			if(c.factory()) {
-				c.factory()->release(&c);
-			}
+			c.release();
 		}
 	}
 

@@ -35,7 +35,12 @@ namespace se_core {
 
 	Dictionary
 	::~Dictionary() {
+		LogDetail("Destroying dictionary");
+		while(entryCount_ > 0) {
+			delete entries_[ --entryCount_ ];
+		}
 		delete[] entries_;
+		entries_ = 0;
 	}
 
 
@@ -51,18 +56,21 @@ namespace se_core {
 	}
 
 
-	void Dictionary
+	bool Dictionary
 	::add(const DictionaryEntry* entry) {
+		LogDetail("Trying to add dictionary entry " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
 		if(checkName(entry->type_, entry->name_, entry->id_)) {
+			LogDetail("Didn't register dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
 			// Duplicate
-			return;
+			return false;
 		}
 		Assert(entryCount_ < MAX_ENTRIES);
 		if(entry->type_ == DE_DICTIONARY_TYPE) {
 			LogDetail("Registered dictionary with name " << entry->name_ << ", type " << entry->type_ << " and id " << entry->id_);
 		}
 		entries_[ entryCount_++ ] = entry;
-		LogWarning(entryCount_ << " " << entry->name_);
+		LogWarning("Added dictionary entry at " << entryCount_ << " - " << entry->name_);
+		return true;
 	}
 
 
@@ -130,6 +138,18 @@ namespace se_core {
 		}
 
 		return false;
+	}
+
+
+	const DictionaryEntry* Dictionary
+	::find(short type, const char* name) {
+		short id = hash(name);
+		for(int i = 0; i < entryCount_; ++i) {
+			if(entries_[i]->type_ == type && entries_[i]->id_ == id) {
+				return entries_[i];
+			}
+		}
+		return 0;
 	}
 
 

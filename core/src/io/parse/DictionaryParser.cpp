@@ -73,7 +73,13 @@ namespace se_core {
 					LogFatal("You must fist specify a dictionary in file " << in.name());
 				}
 				in.readString(name);
-				new DictionaryEntry(dict, value, name.get(), true);
+				if(!SimSchema::dictionary().hasEntry(dict, name.get(), value)) {
+					LogDetail("Creating dictionary entry " << name);
+					new DictionaryEntry(dict, value, name.get(), true);
+				}
+				else {
+					LogDetail("Couldn't register " << name << " to dictionary");
+				}
 				++value;
 				break;
 

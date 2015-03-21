@@ -68,7 +68,7 @@ namespace se_core {
 
 	const char* CompositeFactory
 	::name() const {
-		return name_->get();
+		return !name_ ? 0 : name_->get();
 	}
 
 

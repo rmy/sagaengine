@@ -1,4 +1,5 @@
 #include "Component.hpp"
+#include "ComponentFactory.hpp"
 #include "Composite.hpp"
 
 namespace se_core {
@@ -16,6 +17,13 @@ namespace se_core {
 		owner_ = 0;
 	}
 
+
+	void Component
+	::release() {
+		if(factory()) {
+			factory()->release(this);
+		}
+	}
 
 	const char* Component
 	::name() const {

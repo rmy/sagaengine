@@ -32,6 +32,10 @@ namespace se_client {
 
 		CameraComponent(se_core::Composite* owner);
 		virtual ~CameraComponent();
+		virtual void release() {
+			// Has no factory.
+			delete this;
+		}
 
 		void setActive(bool state);
 		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);

@@ -156,7 +156,7 @@ namespace se_core {
 
 		exits_ = new Exit[ count ];
 		for(int i = 0; i < count; ++i) {
-			exits_[i] = exits[i];
+			exits_[i].set(exits[i]);
 		}
 		exitCount_ = count;
 	}

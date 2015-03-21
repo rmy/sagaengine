@@ -81,6 +81,9 @@ namespace se_core {
 		if(type_ == PT_STRING) {
 			delete v.string_;
 		}
+		if(type_ == PT_STRING_LIST) {
+			delete[] v.string_;
+		}
 	}
 
 	unsigned int Property

@@ -41,6 +41,7 @@ namespace se_core {
 
 	PhysicsManager
 	::~PhysicsManager() {
+		delete[] activeSolvers_;
 		delete[] movers_;
 	}
 

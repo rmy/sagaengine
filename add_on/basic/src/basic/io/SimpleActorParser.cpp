@@ -29,19 +29,27 @@ namespace se_basic {
 
 		bool shouldAdd = true;
 		int code = in.readInfoCode();
-		String* name = new String();
-		in.readString(*name);
+		String tmpName;
+		String* name = 0;
 
 		switch(code) {
 		case 'A':
+			name = new String();
+			in.readString(*name);
 			factory = new SimpleActorFactory(name);
 			break;
-		case 'E':
-			factory = reinterpret_cast<SimpleActorFactory*>(SpawnManager::singleton().factory(name->get()));
-			shouldAdd = false;
+		case 'E': 
+			{
+				in.readString(tmpName);
+				factory = reinterpret_cast<SimpleActorFactory*>(SpawnManager::singleton().factory(tmpName.get()));
+				shouldAdd = false;
+			}
 			break;
 		default:
-			LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
+			{
+				LogFatal("Unknown thing type '" << (char)(code) << "' in file " << in.name());
+				in.readString(tmpName);
+			}
 		}
 		AssertFatal(factory, "Forgot to create factory");
 		String collide("none"); // Default collide

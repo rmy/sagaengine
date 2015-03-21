@@ -105,6 +105,17 @@ namespace se_core {
 
 
 	void Area
+	::release() {
+		if(factory()) {
+			factory()->release(this);
+		}
+		else {
+			delete this;
+		}
+	}
+	
+
+	void Area
 	::saveThings(/* stream */) {
 		// Header
 		Dump("EB01");

@@ -92,7 +92,7 @@ namespace se_core {
 	}
 
 
-	void DictionaryEntry
+	bool DictionaryEntry
 	::addToDictionary() {
 		SimSchema::dictionary().add(this);
 	}

@@ -36,8 +36,11 @@ namespace se_core {
 		const char* name_;
 		bool doDelete_;
 
+		bool didAdd() {
+		}
+
 	private:
-		void addToDictionary();
+		bool addToDictionary();
 	};
 }
 

@@ -59,10 +59,10 @@ namespace se_core {
 		while((code = in.readInfoCode()) != '}') {
 			switch(code) {
 			case 'X': {
-					String* area = new String();
-					in.readString(*area);
+					String area;
+					in.readString(area);
 					short entrance = in.readShort();
-					exits[ exitCount ].area_ = area;
+					exits[ exitCount ].area_.copy(area.get());
 					exits[ exitCount ].entrance_ = entrance;
 					++exitCount;
 				}

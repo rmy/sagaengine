@@ -83,7 +83,6 @@ namespace se_core {
 		}
 
 		factory->setSpawnPoints(spawnPointCount, spawnPoints);
-
 		return factory;
 	}
 

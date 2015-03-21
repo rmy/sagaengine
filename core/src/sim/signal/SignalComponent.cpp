@@ -32,7 +32,7 @@ rune@skalden.com
 namespace se_core {
 	SignalComponent
 	::SignalComponent(Composite* owner, const ComponentFactory* factory)
-		: AreaChildComponent(sct_SIGNAL, owner), sendState_(false), sendId_(-1), sentWhen_(0), recieveMask_(0)
+		: AreaChildComponent(sct_SIGNAL, owner, factory), sendState_(false), sendId_(-1), sentWhen_(0), recieveMask_(0)
 		, signal_(0) {
 	}
 

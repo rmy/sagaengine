@@ -58,6 +58,7 @@ namespace se_core {
 		 * Destructor.
 		 */
 		virtual ~Area();
+		virtual void release();
 
 		/**
 		 * Height of ground (y-coordinate) at given (coor.x_, coor.z_).

@@ -60,7 +60,7 @@ namespace se_basic {
 			for(int j = 0; j < pZone->exitCount(); ++j) {
 				const Exit& exit = pZone->exit(j);
 				out.writeInfoCode('X');
-				out.writeString(exit.area_->get());
+				out.writeString(exit.area_.get());
 				out.writeShort(exit.entrance_);
 			}
 

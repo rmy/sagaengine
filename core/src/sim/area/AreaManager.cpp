@@ -308,12 +308,14 @@ namespace se_core {
 
 	Area* AreaManager
 	::createArea(const char* areaName, const char* factoryName, int pageX, int pageY, int pageZ, int gridId) {
-		char* name = new char[strlen(areaName) + 1];
-		strcpy(name, areaName);
+		//char* name = new char[strlen(areaName) + 1];
+		//strcpy(name, areaName);
 		//LogDetail("Created area: " << name);
 
 		const AreaFactory* f = factory(factoryName);
-		Composite* a = f->create(new String(name), pageX, pageY, pageZ, gridId);
+
+		String name(areaName);
+		Composite* a = f->create(&name, pageX, pageY, pageZ, gridId);
 		// Needed for proper destruction
 		a->setFactory(f);
 
@@ -371,7 +373,7 @@ namespace se_core {
 	::dump() {
 		puts("Dumping repository...");
 		for(int i = 0; i < areaCount_; ++i) {
-			printf("%d - %s\n", (size_t)areas_[i]->owner()->id(), areas_[i]->owner()->name());
+			printf("%lu - %s\n", (size_t)areas_[i]->owner()->id(), areas_[i]->owner()->name());
 		}
 	}
 

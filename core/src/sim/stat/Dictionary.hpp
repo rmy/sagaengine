@@ -28,19 +28,23 @@ namespace se_core {
 	class _SeCoreExport Dictionary {
 	public:
 		Dictionary();
-		~Dictionary();
+		virtual ~Dictionary();
 		short id(short type, const char* name);
 		const char* name(short type, short id);
 		short highestId(short type) const;
 		bool hasId(short type, short id) const;
 
+		const DictionaryEntry* find(short type, const char* name);
 		static short hash(const char* name);
+		bool hasEntry(short type, const char* name, short id) {
+			return checkName(type, name, id);
+		}
 
 	private:
 		bool checkName(short type, const char* name, short id);
 
 		friend class DictionaryEntry;
-		void add(const DictionaryEntry* entry);
+		bool add(const DictionaryEntry* entry);
 		void remove(const DictionaryEntry* entry);
 
 		short entryCount_;

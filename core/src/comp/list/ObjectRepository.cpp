@@ -36,6 +36,7 @@ namespace se_core {
 
 	ObjectRepository
 	::~ObjectRepository() {
+		delete[] objects_;
 	}
 
 

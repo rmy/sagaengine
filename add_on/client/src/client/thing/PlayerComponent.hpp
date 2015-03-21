@@ -39,6 +39,10 @@ namespace se_client {
 
 		PlayerComponent(se_core::Composite* owner);
 		virtual ~PlayerComponent();
+		virtual void release() {
+			// Has no factory.
+			delete this;
+		}
 
 		void setActive(bool state);
 		void zoneChanged(int zoneType, se_core::Composite* newArea, se_core::Composite* oldArea);

@@ -24,14 +24,17 @@ rune@skalden.com
 
 #include "sim/sim.hpp"
 #include "util/type/util_type.hpp"
+#include "util/type/String.hpp"
 
 namespace se_core {
 	class _SeCoreExport Exit {
 	public:
 		Exit();
 		virtual ~Exit();
-		String* area_;
+		String area_;
 		int entrance_;
+
+		void set(const Exit& exit);
 
 	protected:
 	};

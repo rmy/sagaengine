@@ -55,6 +55,11 @@ namespace se_client {
 			delete namesC_[ phraseCount_ ];
 			delete phrasesC_[ phraseCount_ ];
 		}
+		while(supportedLanguageCount_ > 0) {
+			--supportedLanguageCount_;
+			delete[] supportedLanguages_[ supportedLanguageCount_ ].name_;
+		}
+
 		delete[] languages_;
 		delete[] types_;
 		delete[] namesC_;

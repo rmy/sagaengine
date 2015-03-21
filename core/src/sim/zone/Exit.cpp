@@ -27,7 +27,7 @@ rune@skalden.com
 
 namespace se_core {
 	Exit
-	::Exit() : area_(0), entrance_(0) {
+	::Exit() : entrance_(0) {
 	}
 
 
@@ -35,5 +35,11 @@ namespace se_core {
 	::~Exit() {
 	}
 
+
+	void Exit 
+	::set(const Exit& exit) {
+		entrance_ = exit.entrance_;
+		area_.copy(exit.area_.get());
+	}
 
 }

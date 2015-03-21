@@ -36,6 +36,14 @@ namespace se_core {
 	}
 
 
+	SpawnComponentFactory
+	::~SpawnComponentFactory() {
+		for(int i = 0; i < spawnPointCount_; ++i) {
+			delete spawnPoints_[i];
+		}
+		delete[] spawnPoints_;
+	}
+
 	Component* SpawnComponentFactory
 	::create(Composite* owner) const {
 		// Try to get existing component 

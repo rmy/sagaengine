@@ -102,20 +102,22 @@ namespace se_basic {
 				break;
 			case 'X':
 				{
-					String* area = new String();
-					in.readString(*area);
+					String area;
+					in.readString(area);
 					short entrance = in.readShort();
-					exits[ exitCount ].area_ = area;
+					exits[ exitCount ].area_.copy(area.get());
 					exits[ exitCount ].entrance_ = entrance;
 					++exitCount;
 				}
 				break;
 			}
 		}
+		bool isSpawnPointsUsed = false;
 		for(int i = 0; i < areaCount; ++i) {
 			if(spawnPointCount) {
 				//LogDetail("Set spawn points for: " << areas[i]->name() << " - " << in.name());
 				SpawnAreaComponent::Ptr aSpawn(*areas[i]);
+				isSpawnPointsUsed = true;
 				aSpawn->setSpawnPoints(spawnPointCount, spawnPoints);
 			}
 			if(exitCount) {
@@ -124,6 +126,9 @@ namespace se_basic {
 			}
 			//LogDetail("Flip children for: " << areas[i]->name());
 			areas[i]->flipSpawns();
+		}
+		if(!isSpawnPointsUsed) {
+			delete[] spawnPoints;
 		}
 		//LogDetail("Parsed things for: " << area->name());
 	}

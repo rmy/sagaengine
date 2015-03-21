@@ -30,6 +30,7 @@ namespace se_client {
 	class _SeClientExport ClientListeners {
 	public:
 		ClientListeners() : listenerCount(0), listeners(new ClientListener*[ MAX_LISTENERS ]) {}
+		virtual ~ClientListeners() { delete[] listeners; }
 		void addListener(ClientListener& l);
 		void removeListener(ClientListener& l);
 		void castCameraEnteredAreaEvent(se_core::Area& area);

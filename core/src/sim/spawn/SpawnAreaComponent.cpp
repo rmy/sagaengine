@@ -41,6 +41,12 @@ namespace se_core {
 
 	SpawnAreaComponent
 	::~SpawnAreaComponent() {
+		for(int i = 0; i < spawnPointCount_; ++i) {
+			delete spawnPoints_[i];
+		}
+		delete[] spawnPoints_;
+		spawnPoints_ = 0;
+		spawnPointCount_ = 0;
 	}
 
 

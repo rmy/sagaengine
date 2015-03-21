@@ -64,7 +64,7 @@ namespace se_basic {
 		}* areas_;
 		short xSize_, zSize_;
 		short id_;
-		se_core::DictionaryEntry* dict_;
+		const se_core::DictionaryEntry* dict_;
 
 		unsigned char defaultBorder_;
 	};

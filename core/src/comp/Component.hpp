@@ -49,7 +49,7 @@ namespace se_core {
 		 * Destructor.
 		 */
 		virtual ~Component();
-
+		virtual void release();
 
 		inline Composite* owner() {
 			return owner_;
@@ -84,6 +84,7 @@ namespace se_core {
 
 		bool isActive();
 		bool isDead() const;
+
 
 	protected:
 		friend class Composite;

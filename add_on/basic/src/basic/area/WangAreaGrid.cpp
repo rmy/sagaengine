@@ -1,5 +1,6 @@
 #include "WangAreaGrid.hpp"
 #include "sim/stat/DictionaryEntry.hpp"
+#include "sim/stat/Dictionary.hpp"
 #include "sim/area/AreaManager.hpp"
 #include <cstdio>
 
@@ -18,7 +19,10 @@ namespace se_basic {
 			areas_[ i ].definitionIndex_ = -2;
 		}
 		wangDefinitions_ = new WangDefinition[MAX_DEFINITIONS];
-		dict_ = new DictionaryEntry(DE_ZONE, name, true);
+		dict_ = SimSchema::dictionary().find(DE_ZONE, name);
+		if(!dict_) {
+			dict_ = new DictionaryEntry(DE_ZONE, name, true);
+		}
 	}
 
 

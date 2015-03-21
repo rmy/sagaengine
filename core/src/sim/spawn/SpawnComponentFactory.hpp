@@ -34,6 +34,7 @@ namespace se_core {
 	class SpawnComponentFactory : public ComponentFactory {
 	public:
 		SpawnComponentFactory();
+		~SpawnComponentFactory();
 		void setAbilities(short speed, short attack, short defence, short level);
 
 		Component* create(Composite* owner) const;
