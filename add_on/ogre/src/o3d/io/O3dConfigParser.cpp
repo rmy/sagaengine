@@ -439,11 +439,9 @@ namespace se_ogre {
 		if(sectionCount > 0) {
 			sections[ sectionCount++ ] = 0;
 			RenderEngine::singleton()->loadLevelResources(sections);
-			/*
-			for(int i = 0; i < sectionCount; ++i)
+			for(int i = 0; sections[i] != 0; ++i) {
 				delete sections[i];
 			}
-			*/
 		}
 	}
 

@@ -39,10 +39,7 @@ rune@skalden.com
 #include <OgreRenderWindow.h>
 #include <OgreAnimation.h>
 #include <OgreConfigFile.h>
-#ifdef SE_STATIC_PLUGINS
-# include <OgreGLPlugin.h>
-# include <OgreParticleFXPlugin.h>
-#endif
+
 using namespace Ogre;
 using namespace se_core;
 
@@ -70,26 +67,11 @@ namespace se_ogre {
 			Ogre::LogManager::getSingleton().setLogDetail(Ogre::LL_LOW);
 #endif
 		}
-#if defined SE_STATIC_PLUGINS || defined SE_NO_PLUGINS
-		O3dSchema::root = new Root();
 
-#  ifndef SE_STATIC_PLUGINS
-		ParticleFXPlugin* pfx = new ParticleFXPlugin();
-		O3dSchema::root->installPlugin(pfx);
-
-		GLPlugin* pgl = new GLPlugin();
-		O3dSchema::root->installPlugin(pgl);
-#  endif
-
-#else
-
-#  ifndef _DEBUG
 		O3dSchema::root = new Root("plugins.cfg", configPath_);
-#  else
-		O3dSchema::root = new Root("plugins_d.cfg", configPath_);
-#  endif
-
-#endif
+		//O3dSchema::root = new Root();
+		//O3dSchema::root->loadPlugin("RenderSystem_GL");
+		//O3dSchema::root->loadPlugin("Plugin_ParticleFX");
 		LogDetail("Created Ogre root");
 
 		// Create speech listener object
@@ -119,6 +101,10 @@ namespace se_ogre {
 		delete O3dSchema::root;
 		O3dSchema::root = 0;
 		LogDetail("Destroyed ogre root");
+
+		if(LogManager::getSingleton().getDefaultLog()) {
+			LogManager::getSingleton().destroyLog(LogManager::getSingleton().getDefaultLog());
+		}
 	}
 
 

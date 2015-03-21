@@ -43,6 +43,11 @@ namespace se_ogre {
 
 	void ThingMOInfo
 	::setAnimationChannels(int count) {
+		if(animationChannels_) {
+			// Seems to set twice at least once. Avoid memory leak.
+			delete[] animationChannels_;
+			animationChannels_ = 0;
+		}
 		animationChannels_ = new O3dAnimationSet[ count ];
 		channelCount_ = count;
 	}

@@ -36,6 +36,7 @@ namespace se_ogre {
 
 	ThingMOInfoList
 	::~ThingMOInfoList() {
+		while(infoCount_ > 0) delete infos_[--infoCount_];
 		delete[] infos_;
 	}
 

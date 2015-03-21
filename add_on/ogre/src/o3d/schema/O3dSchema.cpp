@@ -56,6 +56,7 @@ using namespace se_core;
 namespace se_ogre {
 	namespace O3dSchema {
 		ThingMOManager thingMOManager;
+		O3dThingComponentFactory otcf;
 
 		RaySceneQuery* raySceneQuery = 0;
 		se_core::TaskList taskList;
@@ -151,6 +152,9 @@ namespace se_ogre {
 
 				delete O3dSchema::worldManager;
 				O3dSchema::worldManager = 0;
+
+				delete O3dSchema::overlaySystem;
+				O3dSchema::overlaySystem = 0;
 
 				delete O3dSchema::renderEngine;
 				O3dSchema::renderEngine = 0;

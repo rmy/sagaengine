@@ -28,6 +28,7 @@ rune@skalden.com
 #include "../input/o3d_input.hpp"
 #include "../thing/o3d_thing.hpp"
 #include "../thing/ThingMOManager.hpp"
+#include "../thing/O3dThingComponentFactory.hpp"
 #include "../widget/o3d_widget.hpp"
 #include "util/task/util_task.hpp"
 #include "O3dPre.hpp"
@@ -47,9 +48,13 @@ namespace se_ogre {
 		 */
 		extern _SeOgreExport se_ogre::ThingMOManager thingMOManager;
 
+		extern _SeOgreExport O3dThingComponentFactory otcf;
+
+
 		extern _SeOgreExport se_core::TaskList taskList;
 
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
+
 
 		class TextureSetting : public se_core::Setting {
 		public:

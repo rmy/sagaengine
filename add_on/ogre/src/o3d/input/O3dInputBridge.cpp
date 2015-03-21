@@ -102,7 +102,15 @@ namespace se_ogre {
 #ifdef SUPPORT_JOY
 		inputManager_->destroyInputObject( joy_ );
 #endif
-		//delete eventProcessor_;
+#ifdef SUPPORT_MOUSE
+		inputManager_->destroyInputObject( mouse_ );
+#endif
+#ifdef SUPPORT_KEYBOARD
+		inputManager_->destroyInputObject( keyboard_ );
+#endif
+#if defined(SUPPORT_KEYBOARD) || defined(SUPPORT_JOY) || defined(SUPPORT_MOUSE)
+		OIS::InputManager::destroyInputSystem(inputManager_);
+#endif
 	}
 
 

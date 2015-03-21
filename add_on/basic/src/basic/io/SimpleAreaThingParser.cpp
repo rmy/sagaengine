@@ -128,6 +128,7 @@ namespace se_basic {
 			areas[i]->flipSpawns();
 		}
 		if(!isSpawnPointsUsed) {
+			while(spawnPointCount > 0) delete spawnPoints[--spawnPointCount];
 			delete[] spawnPoints;
 		}
 		//LogDetail("Parsed things for: " << area->name());
