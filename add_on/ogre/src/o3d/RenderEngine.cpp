@@ -73,7 +73,7 @@ namespace se_ogre {
 #if defined SE_STATIC_PLUGINS || defined SE_NO_PLUGINS
 		O3dSchema::root = new Root();
 
-#  ifdef SE_STATIC_PLUGINS
+#  ifndef SE_STATIC_PLUGINS
 		ParticleFXPlugin* pfx = new ParticleFXPlugin();
 		O3dSchema::root->installPlugin(pfx);
 

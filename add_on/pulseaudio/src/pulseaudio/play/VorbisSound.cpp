@@ -10,6 +10,7 @@ namespace se_pulseaudio {
 		FILE* infile = fopen(filename, "rb");
 		LogDetail("Loading: " << filename);
 		init(infile);
+		fclose(infile);
 	}
 
 
@@ -33,6 +34,7 @@ namespace se_pulseaudio {
 		OggVorbis_File* f = open();
 		sampleRate_ = ov_info(f, 0)->rate;
 		channels_ = ov_info(f, 0)->channels;
+		close(f);
 		
 	}
 
@@ -92,10 +94,11 @@ namespace se_pulseaudio {
 	}
 
 
-	int VorbisSound::close(OggVorbis_File* vf, int &currentSection) {
+	void VorbisSound::close(OggVorbis_File* vf) {
 		ov_clear(vf);
-		currentSection = 0;
-		return 0;
+		if(vf) {
+			delete vf;
+		}
 	}
 
 }

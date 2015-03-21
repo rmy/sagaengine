@@ -40,6 +40,10 @@ namespace se_pulseaudio {
 
 	PaStream::~PaStream() {
 		LogDetail("Destroy stream " << name_);
+		if(sound_ && vorbisFile_) {
+			sound_->close(vorbisFile_);
+			currentSection_ = 0;
+		}
 		pa_stream_unref(stream_);
 		context_.decStreamRef(this);
 	}
@@ -88,8 +92,6 @@ namespace se_pulseaudio {
 
 		if(bytesRead_ == 0) {
 			// End of sound
-			sound_->close(vorbisFile_, currentSection_);
-			sound_ = 0;
 			isDraining_ = true;
 			pa_stream_drain(stream_, stream_drained_callback, this);
 			return 0;
@@ -130,7 +132,7 @@ namespace se_pulseaudio {
 			s->context().streamListener()->streamEnded(s);
 		}
 
-		// TODO: Should loop
+		// TODO: Should support loop
 	}
 
 
@@ -156,6 +158,7 @@ namespace se_pulseaudio {
 		case PA_STREAM_CREATING:
 			LogDetail("PA_STREAM_CREATING");
 			break;
+
 		case PA_STREAM_TERMINATED:
 			LogDetail("PA_STREAM_TERMINATED");
 			delete s;

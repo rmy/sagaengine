@@ -14,7 +14,7 @@ namespace se_pulseaudio {
 
 		OggVorbis_File* open();
 		int read(char *pcmout, int length, OggVorbis_File* vf, int &current_section);
-		int close(OggVorbis_File* vf, int &current_section);
+		void close(OggVorbis_File* vf);
 
 		long sampleRate() { return sampleRate_; }
 		int channels() { return channels_; }

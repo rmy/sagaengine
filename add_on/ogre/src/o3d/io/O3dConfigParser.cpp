@@ -196,7 +196,7 @@ namespace se_ogre {
 
 
 		if(O3dSchema::overlaySystem) {
-			sm->addRenderQueueListener(O3dSchema::overlaySystem);
+			O3dSchema::sceneManager->addRenderQueueListener(O3dSchema::overlaySystem);
 		}
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light

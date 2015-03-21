@@ -91,11 +91,6 @@ namespace se_ogre {
 #else
 		const static int fastExit = 0;
 #endif
-    virtual void chooseSceneManager(void)
-    {
-        // Create the SceneManager, in this case a generic one
-		O3dSchema::sceneManager = O3dSchema::root->createSceneManager(Ogre::ST_GENERIC, "ExampleSMInstance");
-    }
     virtual void createCamera(void)
     {
         // Create the camera

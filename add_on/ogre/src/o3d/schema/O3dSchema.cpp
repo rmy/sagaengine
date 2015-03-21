@@ -327,6 +327,9 @@ namespace se_ogre {
 					LogDetail("Destroyed camera");
 				}
 
+				if(O3dSchema::overlaySystem) {
+					O3dSchema::sceneManager->removeRenderQueueListener(O3dSchema::overlaySystem);
+				}
 				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
 				O3dSchema::sceneManager = 0;
 

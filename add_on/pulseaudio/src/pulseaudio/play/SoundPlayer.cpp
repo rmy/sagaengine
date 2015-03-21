@@ -49,9 +49,15 @@ namespace se_pulseaudio {
 	::SoundPlayer() : system_(0), ambience_(0) {
 		system_ = new PaManager();
 	 
-		AssertWarning(system_, "Couldn't create Pulseaudio system)");
+		AssertWarning(system_ && system_->isOk(), "Couldn't create Pulseaudio system)");
 		if(!system_)
 		  return;
+
+		if(!system_->isOk()) {
+			delete system_;
+			system_ = 0;
+			return;
+		}
 
 		system_->ambience()->setStreamListener(this);
 		SimSchema::soundCentral.addListener(*this);
@@ -61,8 +67,12 @@ namespace se_pulseaudio {
 
 	SoundPlayer
 	::~SoundPlayer() {
-		system_->ambience()->setStreamListener(0);
-		delete system_;
+		if(system_) {
+			SimSchema::soundCentral.removeListener(*this);
+			SimSchema::engineListeners().removeListener(*this);
+			system_->ambience()->setStreamListener(0);
+			delete system_;
+		}
 	}
 
 
@@ -72,29 +82,22 @@ namespace se_pulseaudio {
 
 
 	void SoundPlayer
+	::cleanup() {
+		if(ambience_) {
+			ambience_->stop();
+			ambience_ = 0;
+		}
+	}
+
+		
+	void SoundPlayer
 	::render() {
 		for(int i = 0; system_ && i < 10; ++i) {
 			system_->tick();
 		}
 	}
 
-	void SoundPlayer
-	::cleanup() {
-		if(ambience_) {
-			ambience_->stop();
-			ambience_ = 0;
-		}
-		/*
-		for(int i = 0; i < MAX_CHANNELS; ++i) {
-			system_->getChannel(i, &channel_);
-			if(channel_) {
-				channel_->stop();
-			}
-		}
-		*/
-	}
 
-		
 	void SoundPlayer
 	::ambienceEvent(const char* snd) {
 		if(!snd) {
