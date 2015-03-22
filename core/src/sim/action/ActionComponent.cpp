@@ -45,7 +45,9 @@ namespace se_core {
 		for(int i = 0; i < CHANNEL_COUNT; ++i) {
 			clearPlannedAction(i);
 		}
-		disrupt();
+		for(int i = 0; i < CHANNEL_COUNT; ++i) {
+			cleanupPresentAction(i);
+		}
 	}
 
 
@@ -164,6 +166,23 @@ namespace se_core {
 			const Action* a = presentAction_[channel].action();
 			Parameter& p = presentAction_[channel].parameter();
 			a->disrupt(*this, p);
+			presentAction_[channel].resetAction();
+		}
+		presentAction_[ channel ].setDisrupted(true);
+		return didDisrupt;
+	}
+
+	bool ActionComponent
+	::cleanupPresentAction(short channel) {
+		if(!presentAction_[ channel ].hasAction()) return true;
+		// Actions are only removed from ActionQueue if it is in a future
+		// initiative. If it is in the initiative presently performed, it
+		// will not be touched...
+		bool didDisrupt = SimSchema::actionQueue[ channel ].disrupt(*this);
+		if(didDisrupt) {
+			const Action* a = presentAction_[channel].action();
+			Parameter& p = presentAction_[channel].parameter();
+			a->cleanup(*this, p);
 			presentAction_[channel].resetAction();
 		}
 		presentAction_[ channel ].setDisrupted(true);

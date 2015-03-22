@@ -42,7 +42,7 @@ namespace se_core {
 		void resetActionStage() { actionStage_ = 0; }
 
 	private:
-		static const short MAX_DATA_SIZE = (sizeof(coor_t) * 4 + sizeof(void*));
+		static const short MAX_DATA_SIZE = (sizeof(coor_t) * 4 + 2 * sizeof(void*));
 		unsigned short actionStage_, channel_;
 		unsigned char data_[MAX_DATA_SIZE];
 	};

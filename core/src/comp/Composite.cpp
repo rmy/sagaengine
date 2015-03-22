@@ -16,7 +16,7 @@ namespace se_core {
 
 	Composite
 	::Composite(const CompositeFactory* factory)
-		: id_(Composite::idPool()), factory_(factory), tag_(0), isActive_(false), isDead_(false), debugLevel_(0), parent_(0), ptr_(this) {
+		: id_(Composite::idPool()), name_(0), factory_(factory), tag_(0), isActive_(false), isDead_(false), debugLevel_(0), parent_(0), ptr_(this) {
 		name_ = factory_->name();
 		for(int i = 0; i < FAST_COMPONENT_COUNT; ++i) {
 			fastComponents_[i] = 0;
@@ -28,7 +28,7 @@ namespace se_core {
 
 	Composite
 	::Composite(const CompositeFactory* factory, const char* name)
-			: id_(Composite::idPool()), name_(name), factory_(factory), tag_(0), isActive_(false), isDead_(false), parent_(0), ptr_(this) {
+			: id_(Composite::idPool()), name_(name), factory_(factory), tag_(0), isActive_(false), isDead_(false), debugLevel_(0), parent_(0), ptr_(this) {
 		for(int i = 0; i < FAST_COMPONENT_COUNT; ++i) {
 			fastComponents_[i] = 0;
 		}

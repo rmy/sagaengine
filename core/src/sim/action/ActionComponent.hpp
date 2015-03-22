@@ -84,18 +84,11 @@ namespace se_core {
 		 * disrupted.
 		 */
 		bool disrupt(short channel);
+		bool cleanupPresentAction(short channel);
 
 		/** Insert paused action into action queue.
 		 */
 		void unpause(short channel);
-
-		/**
-		 * Schedule this ActionComponent for destruction.
-		 * It will be destroyed when the on-going initative is performed,
-		 * allowing the actor to complete any action it is performing this
-		 * initiative.
-		 */
-		void scheduleForDestruction();
 
 		void resetActionFeed() {
 			feed_ = 0;
