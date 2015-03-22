@@ -21,6 +21,9 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "Jump.hpp"
+#include "util/vecmath/all.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/action/ActionComponent.hpp"
 
 using namespace se_core;
 
@@ -41,8 +44,8 @@ namespace logic {
 
 	void Jump
 	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
-		PhysicsComponent::Ptr pPhysics(performer);
-		PosComponent::Ptr pPos(performer);
+		PhysicsComponent::Ptr pPhysics(performer.owner());
+		PosComponent::Ptr pPos(performer.owner());
 
 		// Can only jump if not in free air.
 		if(!pPos->pos().isGrounded()) {

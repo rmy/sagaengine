@@ -21,13 +21,13 @@ rune@skalden.com
 
 #include "../include/game_ui.hpp"
 #include "ui/schema/UiSchema.hpp"
+#include "ui/input/SimpleControls.hpp"
 
 
 namespace ui {
 
 	bool initGameModule_PlatformUI() {
 		//return UiSchema::init();
-		LogMsg("Var her");
 		return true;
 	}
 

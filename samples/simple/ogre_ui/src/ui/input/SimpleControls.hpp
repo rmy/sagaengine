@@ -23,17 +23,23 @@ rune@skalden.com
 #define ui_SimpleControls_hpp
 
 #include "OgreUiPre.hpp"
+#include "o3d/input/InputHandler.hpp"
+#include "sim/script/Script.hpp"
 
 
 namespace ui {
 	// Event handler to add ability to alter curvature
-	class _SimpleUiExport SimpleControls : public se_ogre::InputHandler {
+	class _SimpleUiExport SimpleControls : public se_ogre::InputHandler, public se_core::Script {
 	public:
 		SimpleControls();
 		virtual ~SimpleControls();
 
-		void keyPressed(Ogre::KeyEvent* e);
-		void keyReleased(Ogre::KeyEvent* e);
+		void keyPressed(OIS::KeyEvent* e);
+		void keyReleased(OIS::KeyEvent* e);
+		void nextAction(const se_core::ScriptComponent& performer, int channel, se_core::ScriptData* sd, se_core::ActionAndParameter& out) const;
+
+		void grabbedFocusEvent() {}
+		void lostFocusEvent() {}
 
 	private:
 		float dirUp_, dirDown_, dirLeft_, dirRight_, dirRollLeft_, dirRollRight_;

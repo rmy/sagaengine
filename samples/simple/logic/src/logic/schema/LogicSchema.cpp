@@ -21,6 +21,11 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "LogicSchema.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/SimEngine.hpp"
+#include "sim/InitListeners.hpp"
+#include "sim/InitListener.hpp"
+#include "util/error/Log.hpp"
 #include "../physics/all.hpp"
 
 using namespace se_core;
@@ -33,18 +38,16 @@ namespace logic {
 	const struct _SimpleLogicExport AutoInit : public se_core::InitListener {
 		AutoInit() {
 			SimSchema::initListeners().addListener(*this);
-			LogMsg("Registered Game Logic");
+			LogDetail("Registered Game Logic");
 		}
 
 
 		~AutoInit() {
-			LogMsg("Cleaned up Game Logic");
+			LogDetail("Cleaned up Game Logic");
 		}
 
 
 		bool initEngineEvent() {
-			// Create and register physics objects
-			static const PhSimple phSimple;
 			return true;
 		}
 

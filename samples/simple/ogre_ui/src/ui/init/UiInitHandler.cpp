@@ -23,6 +23,8 @@ rune@skalden.com
 #include "UiInitHandler.hpp"
 #include "../schema/UiSchema.hpp"
 #include "../input/SimpleControls.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "sim/InitListeners.hpp"
 
 
 using namespace se_core;

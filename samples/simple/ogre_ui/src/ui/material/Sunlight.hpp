@@ -23,6 +23,7 @@ rune@skalden.com
 #define ui_material_Sunlight_hpp
 
 #include "OgreUiPre.hpp"
+#include "o3d/event/RenderEventListener.hpp"
 
 namespace ui {
 	class _SimpleUiExport Sunlight : public se_ogre::RenderEventListener {

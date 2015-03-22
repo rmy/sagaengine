@@ -21,6 +21,9 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "Rotate.hpp"
+#include "util/vecmath/all.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/action/ActionComponent.hpp"
 
 using namespace se_core;
 
@@ -30,8 +33,8 @@ namespace logic {
 	void Rotate
 	::perform(long when, ActionComponent& performer, se_core::Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		PhysicsComponent::Ptr pPhysics(performer);
-		PosComponent::Ptr pPos(performer);
+		PhysicsComponent::Ptr pPhysics(&performer);
+		PosComponent::Ptr pPos(&performer);
 		pPhysics->nextMove().torque_.set(p->torque_);
 		/*
 		Force f(0, 0, -0.15);

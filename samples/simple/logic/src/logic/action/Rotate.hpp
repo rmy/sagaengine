@@ -24,6 +24,7 @@ rune@skalden.com
 
 #include "sim/action/Action.hpp"
 #include "util/vecmath/util_vecmath.hpp"
+#include "util/vecmath/Euler3.hpp"
 
 namespace logic {
 	class _SimpleLogicExport Rotate : public se_core::Action {

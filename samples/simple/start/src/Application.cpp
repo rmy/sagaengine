@@ -22,6 +22,12 @@ rune@skalden.com
 #include "LogicPre.hpp"
 #include "Application.hpp"
 #include "logic/schema/LogicSchema.hpp"
+#include "sim/physics/Physics.hpp"
+#include "logic/physics/PhSimple.hpp"
+#include "sim/SimEngine.hpp"
+#include "sim/schema/SimSchema.hpp"
+#include "io/stream/FileManager.hpp"
+#include "io/encode/EncodeManager.hpp"
 #include <game_ui.hpp>
 
 using namespace se_core;
@@ -47,6 +53,7 @@ namespace logic {
 		if(!initSagaEngine(appName)) {
 			return false;
 		}
+		const PhSimple &p = physicsSimple;
 #ifndef SE_STATIC
 		IoSchema::fileManager->load("logic/plugins.txt");
 #endif

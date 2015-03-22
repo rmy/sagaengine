@@ -21,6 +21,9 @@ rune@skalden.com
 
 #include "Sunlight.hpp"
 #include "OgreUiPre.hpp"
+#include "o3d/schema/O3dSchema.hpp"
+#include "o3d/RenderEngine.hpp"
+#include <OgreSceneManager.h>
 
 using namespace se_core;
 using namespace se_ogre;

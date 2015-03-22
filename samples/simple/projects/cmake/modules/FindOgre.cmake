@@ -1,0 +1,16 @@
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src SE_OGRE__ADD_ON_OGRE_SRC )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d SE_OGRE__ADD_ON_OGRE_SRC_O3D )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/event SE_OGRE__ADD_ON_OGRE_SRC_O3D_EVENT )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/schema SE_OGRE__ADD_ON_OGRE_SRC_O3D_SCHEMA )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/system SE_OGRE__ADD_ON_OGRE_SRC_O3D_SYSTEM )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/thing SE_OGRE__ADD_ON_OGRE_SRC_O3D_THING )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/error SE_OGRE__ADD_ON_OGRE_SRC_O3D_ERROR )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/area SE_OGRE__ADD_ON_OGRE_SRC_O3D_AREA )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/config SE_OGRE__ADD_ON_OGRE_SRC_O3D_CONFIG )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/io SE_OGRE__ADD_ON_OGRE_SRC_O3D_IO )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/input SE_OGRE__ADD_ON_OGRE_SRC_O3D_INPUT )
+aux_source_directory( ${SAGAENGINE}/add_on/ogre/src/o3d/widget SE_OGRE__ADD_ON_OGRE_SRC_O3D_WIDGET )
+
+set (SE_OGRE ${SE_OGRE__ADD_ON_OGRE_SRC} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_EVENT} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_SCHEMA} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_SYSTEM} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_THING} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_ERROR} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_AREA} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_CONFIG} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_IO} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_INPUT} ${SE_OGRE__ADD_ON_OGRE_SRC_O3D_WIDGET})
+
+include_directories( ${INCLUDE_DIRECTORIES} ${SAGAENGINE}/add_on/ogre/src ${SAGAENGINE}/add_on/ogre/include )

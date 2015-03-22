@@ -22,6 +22,8 @@ rune@skalden.com
 #include "SimpleControls.hpp"
 #include "OgreUiPre.hpp"
 #include "logic/action/all.hpp"
+#include "sim/SimEngine.hpp"
+#include "sim/schema/SimSchema.hpp"
 
 
 using namespace logic;
@@ -34,7 +36,7 @@ namespace ui {
 
 	SimpleControls
 	::SimpleControls()
-		:  InputHandler("SimpleControls")
+		:  InputHandler("SimpleControls"), Script("SimpleControls")
 		, dirUp_(0), dirDown_(0), dirLeft_(0), dirRight_(0), dirRollLeft_(0), dirRollRight_(0)
 		, dirForward_(0), dirBackward_(0) {
 	}
@@ -44,42 +46,44 @@ namespace ui {
 	::~SimpleControls() {
 	}
 
+	void SimpleControls
+	::nextAction(const ScriptComponent& performer, int channel, ScriptData* sd, ActionAndParameter& out) const {
+	}
+
 
 	void SimpleControls
-	::keyPressed(Ogre::KeyEvent* e) {
-		switch(e->getKey()) {
-		case Ogre::KC_SPACE:
-			if(O3dSchema::speechBubble)
-				O3dSchema::speechBubble->trackUserFeedback();
+	::keyPressed(OIS::KeyEvent* e) {
+		switch(e->key) {
+		case OIS::KC_SPACE:
 			break;
 
-		case Ogre::KC_Z:
+		case OIS::KC_Z:
 			break;
 
-		case Ogre::KC_X:
+		case OIS::KC_X:
 			break;
 
-		case Ogre::KC_UP:
-		case Ogre::KC_W:
+		case OIS::KC_UP:
+		case OIS::KC_W:
 			dirForward_ = 1;
 			break;
 
-		case Ogre::KC_DOWN:
-		case Ogre::KC_S:
+		case OIS::KC_DOWN:
+		case OIS::KC_S:
 			dirBackward_ = 0.5;
 			break;
 
-		case Ogre::KC_LEFT:
-		case Ogre::KC_A:
+		case OIS::KC_LEFT:
+		case OIS::KC_A:
 			dirLeft_ = 1;
 			break;
 
-		case Ogre::KC_RIGHT:
-		case Ogre::KC_D:
+		case OIS::KC_RIGHT:
+		case OIS::KC_D:
 			dirRight_ = 1;
 			break;
 
-		case Ogre::KC_Q:
+		case OIS::KC_Q:
 			SimSchema::simEngine.setGameOver(true);
 			break;
 		}
@@ -100,25 +104,25 @@ namespace ui {
 
 
 	void SimpleControls
-	::keyReleased(Ogre::KeyEvent* e) {
-		switch(e->getKey()) {
-		case Ogre::KC_UP:
-		case Ogre::KC_W:
+	::keyReleased(OIS::KeyEvent* e) {
+		switch(e->key) {
+		case OIS::KC_UP:
+		case OIS::KC_W:
 			dirForward_ = 0;
 			break;
 
-		case Ogre::KC_LEFT:
-		case Ogre::KC_A:
+		case OIS::KC_LEFT:
+		case OIS::KC_A:
 			dirLeft_ = 0;
 			break;
 
-		case Ogre::KC_RIGHT:
-		case Ogre::KC_D:
+		case OIS::KC_RIGHT:
+		case OIS::KC_D:
 			dirRight_ = 0;
 			break;
 
-		case Ogre::KC_DOWN:
-		case Ogre::KC_S:
+		case OIS::KC_DOWN:
+		case OIS::KC_S:
 			dirBackward_ = 0;
 			break;
 		}

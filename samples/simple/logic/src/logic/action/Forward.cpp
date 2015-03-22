@@ -21,6 +21,9 @@ rune@skalden.com
 
 #include "LogicPre.hpp"
 #include "Forward.hpp"
+#include "util/vecmath/all.hpp"
+#include "sim/physics/PhysicsComponent.hpp"
+#include "sim/action/ActionComponent.hpp"
 
 using namespace se_core;
 
@@ -30,8 +33,8 @@ namespace logic {
 	void Forward
 	::perform(long when, ActionComponent& performer, Parameter& parameter) const {
 		Param* p = static_cast<Param*>(parameter.data(sizeof(Param)));
-		PhysicsComponent::Ptr pPhysics(performer);
-		PosComponent::Ptr pPos(performer);
+		PhysicsComponent::Ptr pPhysics(performer.owner());
+		PosComponent::Ptr pPos(performer.owner());
 
 		Vector3 force(0, 0, 0.05f * p->speed_);
 		force.rotate(pPos->pos().localFace());

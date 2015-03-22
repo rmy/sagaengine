@@ -23,6 +23,7 @@ rune@skalden.com
 #define UiInitHandler_hpp
 
 #include "OgreUiPre.hpp"
+#include "sim/InitListener.hpp"
 
 namespace ui {
 	class _SimpleUiExport UiInitHandler : public se_core::InitListener {
