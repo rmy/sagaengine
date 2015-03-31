@@ -96,7 +96,7 @@ namespace se_ogre {
 					float vfar = in.readFloat();
 					float vfovy = in.readFloat();
 					createCamera(vnear, vfar, vfovy);
-					createViewports();
+					//createViewports();
 					break;
 				}
 
@@ -190,34 +190,38 @@ namespace se_ogre {
 	void O3dConfigParser
 	::chooseSceneManager(const char* sceneManager) {
 		// Create the SceneManager, in this case a generic one
-		Ogre::SceneManager* sm;
-		O3dSchema::sceneManager = sm = O3dSchema::root->createSceneManager(sceneManager);
-		//LogDetail("Created scene manager: " << O3dSchema::sceneManager->getTypeName().c_str());
-
-
-		if(O3dSchema::overlaySystem) {
-			O3dSchema::sceneManager->addRenderQueueListener(O3dSchema::overlaySystem);
+		if(O3dSchema::sceneManager) {
+			O3dSchema::sceneManager->clearScene();
+		}
+		else {
+			O3dSchema::sceneManager = O3dSchema::root->createSceneManager(sceneManager, "game");
+			if(O3dSchema::overlaySystem) {
+				O3dSchema::sceneManager->addRenderQueueListener(O3dSchema::overlaySystem);
+			}
 		}
 
 		// My laptop ATI Mobility Radeon 9200 needs this initial ambient light
 		// even if it is changed later (or else everything goes dark)
 		O3dSchema::sceneManager->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
-
-		//O3dSchema::sceneManager->createStaticGeometry("Scenery");
 	}
 
 
 	void O3dConfigParser
 	::createCamera(float vnear, float vfar, float vfovy) {
 		// Create the camera
+		/*
 		if(O3dSchema::playerCamera) {
 			O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
 			O3dSchema::playerCamera = 0;
 			O3dSchema::window->removeAllViewports();
 			LogDetail("Destroyed camera");
 		}
+		*/
 
-		O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
+		if(!O3dSchema::playerCamera) {
+			O3dSchema::playerCamera = O3dSchema::sceneManager->createCamera("PlayerCam");
+			createViewports();
+		}
 		O3dSchema::playerCamera->setNearClipDistance(vnear);
 		O3dSchema::playerCamera->setFarClipDistance(vfar);
 		O3dSchema::playerCamera->setFOVy(Ogre::Radian(Ogre::Degree(vfovy)));
@@ -235,7 +239,6 @@ namespace se_ogre {
 		O3dSchema::playerCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
 		LogDetail("Created Ogre viewport");
-
 	}
 
 

@@ -68,7 +68,6 @@ namespace se_ogre {
 		Ogre::LogManager* logManager = 0;
 		Ogre::SceneManager* sceneManager = 0;
 		O3dManager* worldManager = 0;
-		Ogre::Root* ogreRoot = 0;
 		Ogre::Camera* playerCamera = 0;
 		Ogre::RenderWindow* window = 0;
 		Ogre::OverlaySystem *overlaySystem = 0;
@@ -106,6 +105,7 @@ namespace se_ogre {
 			}
 
 			bool initEngineEvent() {
+				WasHere();
 				//
 				SimSchema::realClock = new O3dClock();
 
@@ -130,22 +130,38 @@ namespace se_ogre {
 
 				// Make WorldManager listen to sagaengine core events
 				//ClientSchema::clientListeners.addListener(*O3dSchema::worldManager);
-				LogDetail("Added world manager as SagaEngine client listener");
+				//LogDetail("Added world manager as SagaEngine client listener");
 
 				LogDetail("Cast init event to render event listeners");
 				O3dSchema::renderEventListeners().castInitEngine();
+
+
+				// Init viewport
+				const char* global = "logic/config/global.ogre.txt";
+				if(!IoSchema::fileManager->exists(global)) {
+					IoSchema::fileManager->addFileIfExists(global);
+				}
+				if(IoSchema::fileManager->exists(global)) {
+	 				IoSchema::fileManager->load(global);
+				}
+
+
 
 				return true;
 			}
 
 			void cleanupEngineEvent() {
+				WasHere();
 
 				LogDetail("Cast init cleanup to render event listeners");
 				O3dSchema::renderEventListeners().castCleanupEngine();
 
-				// Make WorldManager listen to sagaengine core events
-				//ClientSchema::clientListeners.removeListener(*O3dSchema::worldManager);
-				LogDetail("Removed SagaEngine client listener");
+				if(O3dSchema::playerCamera) {
+					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
+					O3dSchema::playerCamera = 0;
+					O3dSchema::window->removeAllViewports();
+					LogDetail("Destroyed camera");
+				}
 
 				// Cleanup render engine
 				O3dSchema::renderEngine->cleanup();
@@ -164,6 +180,7 @@ namespace se_ogre {
 			}
 
 			bool initGameEvent() {
+				WasHere();
 				Ogre::Overlay* overlay = 0;
 				try {
 					overlay = Ogre::OverlayManager::getSingleton().getByName("Core/Loading");
@@ -173,17 +190,27 @@ namespace se_ogre {
 							Ogre::OverlayElement* txt = Ogre::OverlayManager::getSingleton().getOverlayElement("Core/LoadingText");
 							txt->setCaption(buffer);
 						}
+						// Make the loading overlay active
 						overlay->show();
+						O3dSchema::window->removeAllViewports();
+						// This extra render without viewports solves some problems when a game save refuses to load
+						// several times. Not sure why. Maybe gives OGRE some chance to clean up internal states after
+						// resetting a scene.
 						Ogre::Root::getSingleton().renderOneFrame();
+						Ogre::Viewport* vp = O3dSchema::window->addViewport(O3dSchema::playerCamera);
+						// Will render to loading screen
+						Ogre::Root::getSingleton().renderOneFrame();
+						// Make the loading overlay inactive. Next time render is called the game scene is ready to render.
 						overlay->hide();
-
-						char resFile[128];
-						sprintf(resFile, "ogre/resources%s.cfg", textureSetting.ext());
-						renderEngine->setupResources(resFile);
 					}
 					else {
 						LogWarning("No loading overlay");
 					}
+
+
+					char resFile[128];
+					sprintf(resFile, "ogre/resources%s.cfg", textureSetting.ext());
+					renderEngine->setupResources(resFile);
 				}
 				catch(...) {
 				}
@@ -205,7 +232,19 @@ namespace se_ogre {
 			}
 
 			void cleanupGameEvent() {
-				//
+				WasHere();
+
+				// Clear scene graph
+				O3dSchema::sceneManager->clearScene();
+				LogDetail("Cleared scene");
+
+				// Cleared world
+				O3dSchema::worldManager->clear();
+				LogDetail("Cleared world");
+		
+				O3dSchema::thingMOManager.reset();
+				
+				// Reset scene manager
 				O3dSchema::renderEngine->resetSkip();
 				O3dSchema::renderEngine->resetLevelResources();
 
@@ -224,40 +263,13 @@ namespace se_ogre {
 				LogDetail("Remove ogre add-on as sim engine listener");
 				SimSchema::engineListeners().removeListener(*O3dSchema::renderEngine);
 
-				O3dSchema::thingMOManager.reset();
-
-				// Cleared world
-				O3dSchema::worldManager->clear();
-				LogDetail("Cleared world");
-		
-				/*
-				// Clear scene graph
-				O3dSchema::sceneManager->clearScene();
-				LogDetail("Cleared scene");
-
-
-				if(O3dSchema::playerCamera) {
-					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
-					O3dSchema::playerCamera = 0;
-					O3dSchema::window->removeAllViewports();
-					LogDetail("Destroyed camera");
-				}
-
-				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
-				O3dSchema::sceneManager = 0;
-				*/
 			}
 
 			bool initLevelEvent() {
+				WasHere();
 				// Load ogre configuration
 				O3dSchema::renderEngine->skipNext();
-				const char* global = "logic/config/global.ogre.txt";
-				if(!IoSchema::fileManager->exists(global)) {
-					IoSchema::fileManager->addFileIfExists(global);
-				}
-				if(IoSchema::fileManager->exists(global)) {
-	 				IoSchema::fileManager->load(global);
-				}
+
 				char buffer[256];
 				sprintf(buffer, "logic/config/%s.ogre.txt", SimSchema::simEngine.nextLevel());
 				if(!IoSchema::fileManager->exists(buffer)) {
@@ -266,7 +278,6 @@ namespace se_ogre {
 				if(IoSchema::fileManager->exists(buffer)) {
 	 				IoSchema::fileManager->load(buffer);
 				}
-
 
 				ZoneAreaComponent::Ptr cZone(*ClientSchema::camera->nextPos().area());
 				int c = SimSchema::areaManager.areaCount();
@@ -290,6 +301,7 @@ namespace se_ogre {
 
 
 			void cleanupLevelEvent() {
+				WasHere();
 				O3dSchema::renderEventListeners().castCleanupLevel();
 
 				Ogre::Overlay* overlay = 0;
@@ -323,33 +335,13 @@ namespace se_ogre {
 				// Clear scene graph
 				O3dSchema::sceneManager->clearScene();
 				LogDetail("Cleared scene");
-
-				if(O3dSchema::playerCamera) {
-					O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
-					O3dSchema::playerCamera = 0;
-					O3dSchema::window->removeAllViewports();
-					LogDetail("Destroyed camera");
-				}
-
-				if(O3dSchema::overlaySystem) {
-					O3dSchema::sceneManager->removeRenderQueueListener(O3dSchema::overlaySystem);
-				}
-				O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
-				O3dSchema::sceneManager = 0;
-
 			}
 
 		} autoInit;
 
 
 		void reinit() {
-			if(O3dSchema::playerCamera) {
-				O3dSchema::sceneManager->destroyCamera(O3dSchema::playerCamera);
-				O3dSchema::playerCamera = 0;
-				O3dSchema::window->removeAllViewports();
-				LogDetail("Destroyed camera");
-			}
-
+			WasHere();
 			autoInit.cleanupEngineEvent();
 			autoInit.initEngineEvent();
 		}

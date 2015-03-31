@@ -123,7 +123,7 @@ namespace se_ogre {
 			return;
 		}
 		// WorldManager::frameStarted is called before rendering
-		if(O3dSchema::window && O3dSchema::window->isActive())
+		if(O3dSchema::window && O3dSchema::window->isActive() && O3dSchema::root)
 			O3dSchema::root->renderOneFrame();
 		// WorldManager::frameEnded is called after rendering
 		if(inputBridge_) {
@@ -223,6 +223,7 @@ namespace se_ogre {
 		inputBridge_ = 0;
 		LogDetail("Destroyed input bridge");
 
+		O3dSchema::root->destroySceneManager(O3dSchema::sceneManager);
 		O3dSchema::sceneManager = 0;
 		LogDetail("Destroyed world manager and scene manager");
 	}

@@ -46,13 +46,9 @@ namespace se_ogre {
 		/**
 		 * Manager that maintins bindings between SagaEngine things and their representation in Ogre.
 		 */
-		extern _SeOgreExport se_ogre::ThingMOManager thingMOManager;
-
+		extern _SeOgreExport ThingMOManager thingMOManager;
 		extern _SeOgreExport O3dThingComponentFactory otcf;
-
-
 		extern _SeOgreExport se_core::TaskList taskList;
-
 		extern _SeOgreExport Ogre::RaySceneQuery* raySceneQuery;
 
 
