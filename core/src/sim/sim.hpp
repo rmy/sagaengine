@@ -47,6 +47,7 @@ namespace se_core {
 		sct_ZONE,
 		sct_PHYSICS, 
 		sct_COLLISION, 
+		sct_COLLISION_AREA, 
 		sct_ACTION, 
 		sct_SCRIPT, 
 		sct_SPAWN, 

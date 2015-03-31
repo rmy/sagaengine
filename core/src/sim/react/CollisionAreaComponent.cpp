@@ -35,7 +35,7 @@ namespace se_core {
 
 	CollisionAreaComponent
 	::CollisionAreaComponent(Composite* owner) 
-		: NodeComponent(sct_COLLISION, owner)
+		: NodeComponent(sct_COLLISION_AREA, owner)
 		, collisionGrid_(0), areaEdge_(new AreaEdge()) {
 	}
 

@@ -45,7 +45,7 @@ namespace se_core {
 
 	class _SeCoreExport CollisionAreaComponent : public NodeComponent {
 	public:
-		typedef ComponentPtr<CollisionAreaComponent, sct_COLLISION> Ptr;
+		typedef ComponentPtr<CollisionAreaComponent, sct_COLLISION_AREA> Ptr;
 
 		/** Constructor.
 		 */
@@ -86,7 +86,6 @@ namespace se_core {
 		 */
 		void setCollisionGrid(CollisionGrid* grid);
 		void resetCollisionGrid();
-
 
 		CollisionGrid* collisionGrid_;
 		AreaEdge* areaEdge_;

@@ -46,7 +46,7 @@ namespace se_core {
 	::CollisionComponent(Composite* owner, const ComponentFactory* factory)
 			: AreaChildComponent(sct_COLLISION, owner, factory)
 			, substance_(0)
-			, isCollideable_(false), doObstructView_(false)
+			, isCollideable_(false), doObstructView_(false), collide_(0)
 			, ignore_(0), p1_(0, 0, 0), p2_(0, 0, 0), radius_(0) {
 		posComponent_ = static_cast<PosComponent*>(owner_->component(sct_POS));
 		Assert(posComponent_);
@@ -91,12 +91,12 @@ namespace se_core {
 		if(oldArea) {
 			resetParent();
 			if(isCollideable_) {
-				CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(oldArea->component(type()));
+				CollisionAreaComponent::Ptr cac = oldArea;
 				cac->removeCollideable(*this);
 			}
 		}
 		if(newArea) {
-			CollisionAreaComponent* cac = static_cast<CollisionAreaComponent*>(newArea->component(type()));
+			CollisionAreaComponent::Ptr cac = newArea;
 			setParent(*cac);
 			if(isCollideable_) {
 				updateAreaCovered();
