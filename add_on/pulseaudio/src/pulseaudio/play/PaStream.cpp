@@ -122,7 +122,7 @@ namespace se_pulseaudio {
 
 
 	void PaStream::stream_drained_callback(pa_stream *stream, int success, void *userdata) {
-		Assert(success);
+		AssertWarning(success, "Stream drain failed");
 		PaStream* s = (PaStream*)userdata;
 		s->isDraining_ = false;
 		LogDetail("Stream drained");
@@ -137,7 +137,7 @@ namespace se_pulseaudio {
 
 
 	void PaStream::stream_corked_callback(pa_stream *stream, int success, void *userdata) {
-		Assert(success);
+		AssertWarning(success, "Corking sound returned failure");
 		PaStream* s = (PaStream*)userdata;
 		s->isDraining_ = false;
 
